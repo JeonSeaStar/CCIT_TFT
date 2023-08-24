@@ -34,7 +34,8 @@ public class BackendManager : MonoBehaviour
         {
             //BackendLogin.Instance.CustomSignUp("user1", "1234"); // [추가] 뒤끝 회원가입 함수
             BackendLogin.Instance.CustomLogin("user1", "1234");// [추가] 뒤끝 로그인
-
+            #region 데이터 삽입, 불러오기, 업데이트 관련
+            /*
             //BackendGameData.Instance.GameDataInsert();//데이터 삽입 함수
 
             //BackendGameData.Instance.GameDataGet(); //데이터 불러오기 함수
@@ -50,6 +51,10 @@ public class BackendManager : MonoBehaviour
             BackendGameData.Instance.LevelUp(); //로컬에 저장된 데이터를 변경
 
             BackendGameData.Instance.GameDataUpdate(); //서버에 저장된 데이터를 덮어쓰기(변경된 부분만)
+            */
+            #endregion
+
+            BackendRank.Instance.RankInsert(100); //랭킹 등록하기 함수
 
             Debug.Log("테스트를 종료합니다.");
         });
