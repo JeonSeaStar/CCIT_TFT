@@ -8,8 +8,7 @@ public class Synerge
     public enum Synerges
     {
         none,
-        TestSynerge0,
-        TestSynerge1
+        TestSynerge0
     }
     public Synerges synerge = 0;
 }

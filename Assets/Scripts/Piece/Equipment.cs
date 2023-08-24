@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Equipment : MonoBehaviour
 {
+    public string pieceName;
+    public Sprite piecePortrait;
+
     public float health;
     public float mana;
     public float attackDamage;
@@ -15,5 +18,10 @@ public class Equipment : MonoBehaviour
     public float criticalDamage;
     public float attackRange;
 
+    [TextArea] public string Explanation;
 
+    public virtual void EquipmentEffect()
+    {
+
+    }
 }
