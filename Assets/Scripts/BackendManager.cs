@@ -55,9 +55,23 @@ public class BackendManager : MonoBehaviour
             #endregion
 
             #region 랭킹 등록, 불러오기 관련
+            /*
             //BackendRank.Instance.RankInsert(100); //랭킹 등록하기 함수
 
             BackendRank.Instance.RankGet(); //랭킹 불러오기 함수
+            */
+            #endregion
+
+            #region 게임로그 저장 관련
+            /*
+            BackendGameLog.Instance.GameLogInsert(); //게임로그 저장 기능
+            */
+            #endregion
+
+            #region 친구 요청, 불러오기 및 수락, 친구 리스트 불러오기
+
+
+
             #endregion
             Debug.Log("테스트를 종료합니다.");
         });
