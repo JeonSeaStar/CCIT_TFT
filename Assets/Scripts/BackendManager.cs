@@ -69,8 +69,15 @@ public class BackendManager : MonoBehaviour
             #endregion
 
             #region 친구 요청, 불러오기 및 수락, 친구 리스트 불러오기
+            //User1에게 보낼 것이므로 user2로 회원가입
+            string user2Id = "user2";
 
+            //user2Id로 회원가입
+            BackendLogin.Instance.CustomSignUp(user2Id, "1234");
+            BackendLogin.Instance.UpdateNickname(user2Id); //아이디와 동일하게 닉네임 변경
 
+            string user1Nickname = "안마기기"; //유저1의 닉네임
+            BackendFriend.Instance.SendFriendRequest(user1Nickname); //친구 요청 보내기 함수
 
             #endregion
             Debug.Log("테스트를 종료합니다.");
