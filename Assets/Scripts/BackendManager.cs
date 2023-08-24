@@ -54,8 +54,11 @@ public class BackendManager : MonoBehaviour
             */
             #endregion
 
-            BackendRank.Instance.RankInsert(100); //랭킹 등록하기 함수
+            #region 랭킹 등록, 불러오기 관련
+            //BackendRank.Instance.RankInsert(100); //랭킹 등록하기 함수
 
+            BackendRank.Instance.RankGet(); //랭킹 불러오기 함수
+            #endregion
             Debug.Log("테스트를 종료합니다.");
         });
     }

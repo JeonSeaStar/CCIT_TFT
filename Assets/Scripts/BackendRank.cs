@@ -84,6 +84,29 @@ public class BackendRank
 
     public void RankGet()
     {
-        // Step 3. 랭킹 불러오기 내용 추가
+        string rankUUID = "c440b190-4213-11ee-8302-6fce818a121b";
+        var bro = Backend.URank.User.GetRankList(rankUUID);
+
+        if(bro.IsSuccess() == false)
+        {
+            Debug.LogError("랭킹 조회중 오류가 발생했습니다. : " + bro);
+            return;
+        }
+        Debug.Log("랭킹 조회에 성공했습니다. : " + bro);
+
+        Debug.Log("총 랭킹 등록 유저 수 : " + bro.GetFlattenJSON()["totalCount"].ToString());
+
+        foreach(LitJson.JsonData jsonData in bro.FlattenRows())
+        {
+            StringBuilder info = new StringBuilder();
+
+            info.AppendLine("순위 : " + jsonData["rank"].ToString());
+            info.AppendLine("닉네임 : " + jsonData["nickname"].ToString());
+            info.AppendLine("점수 : " + jsonData["score"].ToString());
+            info.AppendLine("gamerInDate : " + jsonData["gamerInDate"].ToString());
+            info.AppendLine("정렬번호 : " + jsonData["index"].ToString());
+            info.AppendLine();
+            Debug.Log(info);
+        }
     }
 }
