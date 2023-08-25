@@ -81,8 +81,10 @@ public class BackendManager : MonoBehaviour
             BackendFriend.Instance.SendFriendRequest(user1Nickname); //친구 요청 보내기 함수
             */
 
-            BackendFriend.Instance.GetRecivedRequestFriend();
-            BackendFriend.Instance.ApplyFriend(0);
+            //BackendFriend.Instance.GetRecivedRequestFriend(); //친구 요청 리스트 불러오기
+            //BackendFriend.Instance.ApplyFriend(0); //친구 요청 리스트 중 최신 요청 수락하기
+
+            BackendFriend.Instance.GetFriendList(); //친구 리스트 불러오기
             #endregion
             Debug.Log("테스트를 종료합니다.");
         });
