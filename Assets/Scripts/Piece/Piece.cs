@@ -11,6 +11,7 @@ public class Piece : MonoBehaviour
 
     public List<Synerge> synerges;
     public List<Equipment> Equipments;
+    public int pieceGrade = 1;
 
     public float health;
     public float mana;
@@ -23,9 +24,18 @@ public class Piece : MonoBehaviour
     public float criticalDamage;
     public float attackRange;
 
+    public string owner;
+    public bool isOwned;
+
     void Awake()
     {
         pieceData.InitialzePiece(this);
+    }
+
+    public void Owned()
+    {
+        isOwned = true;
+        FieldManager.instance.privatePieceCount[FieldManager.instance.FindPieceList(this)].PieceCountUp(this);
     }
 
     protected virtual void Attack()
@@ -41,5 +51,12 @@ public class Piece : MonoBehaviour
     void Dead()
     {
         print("체력이 0 이하가 되어 사망.");
+        DestroyPiece();
+    }
+
+    public void DestroyPiece()
+    {
+        FieldManager.instance.privatePieceCount[FieldManager.instance.FindPieceList(this)].PieceCountDown(this);
+        Destroy(gameObject);
     }
 }
