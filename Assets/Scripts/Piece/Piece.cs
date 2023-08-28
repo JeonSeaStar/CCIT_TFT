@@ -27,6 +27,8 @@ public class Piece : MonoBehaviour
 
     public string owner;
     public bool isOwned;
+    // 여기다가 전투존에 배치 되었는지 확인하는거 추가해줭
+
 
     void Awake()
     {

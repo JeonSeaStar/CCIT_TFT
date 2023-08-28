@@ -10,10 +10,28 @@ public class FieldManager : MonoBehaviour
     public GameObject testPiece;
     public List<PrivatePieceCount> privatePieceCount;
 
+    [Space(10)]
+    //Jun
+    public bool isBattle = false;
+    public enum RoundType 
+    {
+        NONE = 0,
+        WAITING,
+        BATTLE ,
+        EVENT , 
+        DEAD
+    };
+    public RoundType roundType = RoundType.NONE;
+
+    public GameObject[] waitingZoneHexaIndicators;
+    public GameObject[] battleFieldHexaIndicators;
+
+    public int getPieceCount = 0; // 구매해서 가지고 있는 기물 갯수
+    public int setPieceCount = 0; // 구매해서 배치한 기물 갯수
+
     void Awake()
     {
         instance = this;
-
     }
 
     void Update()
@@ -45,6 +63,22 @@ public class FieldManager : MonoBehaviour
         }
 
         return listIndex;
+    }
+
+    // Jun
+    public void ActiveHexa(bool isbattle)
+    {
+        if (isbattle == true) // 전투 진행중
+        {
+            for (int i = 0; i < waitingZoneHexaIndicators.Length; i++)
+            {
+                waitingZoneHexaIndicators[i].SetActive(isbattle);
+            }
+        }
+        else if(isbattle == false)
+        {
+             
+        }
     }
 }
 

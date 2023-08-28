@@ -29,4 +29,17 @@ public class BoardManager : MonoBehaviour
     #endregion
 
     public MyTileInfo mytileinfo = new MyTileInfo();
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            FieldManager.instance.getPieceCount++;
+        }
+
+        if(Input.GetKeyUp(KeyCode.L))
+        {
+            FieldManager.instance.setPieceCount++;
+        }
+    }
 }
