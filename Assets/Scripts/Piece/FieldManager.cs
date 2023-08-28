@@ -6,27 +6,32 @@ using UnityEngine;
 public class FieldManager : MonoBehaviour
 {
     public static FieldManager instance;
-    void Awake() => instance = this;
 
     public GameObject testPiece;
     public List<PrivatePieceCount> privatePieceCount;
+
+    void Awake()
+    {
+        instance = this;
+
+    }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            Piece piece = SpawnPiece(testPiece);
+            Piece piece = SpawnPiece(testPiece, 0);
             piece.Owned();
         }
     }
     int d = 0;
-    public Piece SpawnPiece(GameObject p)
+    public Piece SpawnPiece(GameObject p, int star)
     {
         GameObject pieceGameObject = Instantiate(p, new Vector3(0, 0, 0), Quaternion.identity);
         pieceGameObject.name = "testPiece[" + d + "]";
         pieceGameObject.TryGetComponent(out Piece piece);
+        piece.star = star;
         d++;
-        //privatePieceCount[FindPieceList(piece)].PieceCountUp(piece);
         return piece;
     }
 
@@ -47,22 +52,15 @@ public class FieldManager : MonoBehaviour
 public class PrivatePieceCount
 {
     public string pieceName;
-    public List<Piece> PiecesList = new List<Piece>();
-    public int PieceCount
-    {
-        set
-        {
-            pieceCount = value;
-        }
-    }
-    public int pieceCount;
+    public List<Piece> piecesList;
+    public int[] star = new int[3];
 
     public void PieceCountUp(Piece piece)
     {
         if (FieldManager.instance.privatePieceCount[FieldManager.instance.FindPieceList(piece)].pieceName == pieceName)
         {
-            pieceCount += piece.pieceGrade;
-            PiecesList.Add(piece);
+            star[piece.star]++;
+            piecesList.Add(piece);
             FusionPiece(piece);
         }
     }
@@ -71,50 +69,50 @@ public class PrivatePieceCount
     {
         if (FieldManager.instance.privatePieceCount[FieldManager.instance.FindPieceList(piece)].pieceName == pieceName)
         {
-            pieceCount -= piece.pieceGrade;
-            PiecesList.Remove(piece);
+            star[piece.star]--;
+            piecesList.Remove(piece);
         }
     }
 
     void FusionPiece(Piece piece)
     {
-        int listIndex = FieldManager.instance.FindPieceList(piece);
         int fusionCondition = 1;
         Piece firstFusionTarget = null;
         Piece secondFusionTarget = null;
         bool canFusion = false;
-        for(int i = 0; i < FieldManager.instance.privatePieceCount[listIndex].PiecesList.Count; i++)
+
+        for (int i = 0; i < piecesList.Count; i++)
         {
-            if(piece != FieldManager.instance.privatePieceCount[listIndex].PiecesList[i] && piece.pieceGrade == FieldManager.instance.privatePieceCount[listIndex].PiecesList[i].pieceGrade)
+            if (piecesList[i] != piece && piecesList[i].star == piece.star)
             {
-                if (fusionCondition == 1)
+                firstFusionTarget = piecesList[i];
+
+                if (fusionCondition == 0)
                 {
-                    firstFusionTarget = FieldManager.instance.privatePieceCount[listIndex].PiecesList[i];
-                    fusionCondition--;
-                }
-                else if (fusionCondition == 0)
-                {
-                    secondFusionTarget = FieldManager.instance.privatePieceCount[listIndex].PiecesList[i];
+                    secondFusionTarget = piecesList[i];
                     canFusion = true;
                     break;
+                }
+                else if (fusionCondition == 1)
+                {
+                    firstFusionTarget = piecesList[i];
+                    fusionCondition--;
                 }
             }
         }
 
-        if(canFusion)
+        if (canFusion)
         {
+            piece.DestroyPiece();
             firstFusionTarget.DestroyPiece();
             secondFusionTarget.DestroyPiece();
-            piece.DestroyPiece();
             Fusion(piece);
         }
     }
 
     void Fusion(Piece piece)
     {
-        Piece p = FieldManager.instance.SpawnPiece(FieldManager.instance.testPiece);
-        p.pieceGrade *= 3;
+        Piece p = FieldManager.instance.SpawnPiece(FieldManager.instance.testPiece, piece.star++);
         p.Owned();
-        //PieceCountUp(p);
     }
 }

@@ -11,7 +11,8 @@ public class Piece : MonoBehaviour
 
     public List<Synerge> synerges;
     public List<Equipment> Equipments;
-    public int pieceGrade = 1;
+    //public int pieceGrade = 1;
+    public int star = 0;
 
     public float health;
     public float mana;
