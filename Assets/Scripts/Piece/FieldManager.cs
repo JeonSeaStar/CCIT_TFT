@@ -119,8 +119,6 @@ public class PrivatePieceCount
         {
             if (piecesList[i] != piece && piecesList[i].star == piece.star)
             {
-                firstFusionTarget = piecesList[i];
-
                 if (fusionCondition == 0)
                 {
                     secondFusionTarget = piecesList[i];
@@ -146,7 +144,7 @@ public class PrivatePieceCount
 
     void Fusion(Piece piece)
     {
-        Piece p = FieldManager.instance.SpawnPiece(FieldManager.instance.testPiece, piece.star++);
+        Piece p = FieldManager.instance.SpawnPiece(FieldManager.instance.testPiece, ++piece.star);
         p.Owned();
     }
 }
