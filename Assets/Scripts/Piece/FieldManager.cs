@@ -11,6 +11,10 @@ public class FieldManager : MonoBehaviour
     public GameObject testPiece;
     public List<PrivatePieceCount> privatePieceCount;
 
+    public GameObject[] hexaIndicators;
+    public int getPieceCount; // 구매해서 가지고 있는 기물 갯수
+    public int setPieceCount; // 배치한 기물 갯수
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.A))

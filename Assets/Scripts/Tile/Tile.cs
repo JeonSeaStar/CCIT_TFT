@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    public TileData tiledata;
-
     [SerializeField]
     private Vector2 index; // row , column
     [SerializeField]

@@ -5,8 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class MyTileInfo
 {
-    public GameObject[] mytiles = new GameObject[38];
-    //public GameObject[] enemytiles = new GameObject[38];
+
 }
 
 public class BoardManager : MonoBehaviour
