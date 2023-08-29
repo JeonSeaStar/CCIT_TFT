@@ -15,7 +15,7 @@ public class Control : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        if (FieldManager.instance.roundType == FieldManager.RoundType.WAITING
+        if (FieldManager.instance.roundType == FieldManager.RoundType.READY
             || FieldManager.instance.roundType == FieldManager.RoundType.BATTLE)
         {
             float distance = Camera.main.WorldToScreenPoint(transform.position).z;
@@ -26,7 +26,7 @@ public class Control : MonoBehaviour
             //objPos.z = 0;
             //objPos.x = 0;
             if(FieldManager.instance.roundType == FieldManager.RoundType.BATTLE
-                && currentTile.isWaitingZone == true)
+                && currentTile.isReadyTile == true)
             transform.position = objPos;
 
             if (pieceRigidbody != null)

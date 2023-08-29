@@ -16,15 +16,17 @@ public class FieldManager : MonoBehaviour
     public enum RoundType 
     {
         NONE = 0,
-        WAITING,
+        READY,
         BATTLE ,
         EVENT , 
         DEAD
     };
     public RoundType roundType = RoundType.NONE;
 
-    public GameObject[] waitingZoneHexaIndicators;
+    public GameObject[] readyZoneHexaIndicators;
     public GameObject[] battleFieldHexaIndicators;
+
+    public GameObject[] allPieces;// Tile 타입으로 재선언 할지도?
 
     public int getPieceCount = 0; // 구매해서 가지고 있는 기물 갯수
     public int setPieceCount = 0; // 구매해서 배치한 기물 갯수
@@ -65,19 +67,29 @@ public class FieldManager : MonoBehaviour
         return listIndex;
     }
 
-    // Jun
-    public void ActiveHexa(bool isbattle)
+    /// <summary>
+    /// Hexa Icon ON / OFF
+    /// </summary>
+    /// <param name="isactive"></param>
+    public void ActiveHexaIndicators(bool isactive)
     {
-        if (isbattle == true) // 전투 진행중
+        if(roundType == RoundType.READY)
         {
-            for (int i = 0; i < waitingZoneHexaIndicators.Length; i++)
+            for(int i = 0; i < readyZoneHexaIndicators.Length; i++)
             {
-                waitingZoneHexaIndicators[i].SetActive(isbattle);
+                readyZoneHexaIndicators[i].SetActive(isactive);
+            }
+            for (int i = 0; i < battleFieldHexaIndicators.Length; i++)
+            {
+                battleFieldHexaIndicators[i].SetActive(isactive);
             }
         }
-        else if(isbattle == false)
+        if(roundType == RoundType.BATTLE)
         {
-             
+            for(int i = 0; i < readyZoneHexaIndicators.Length; i++)
+            {
+                readyZoneHexaIndicators[i].SetActive(isactive);
+            }
         }
     }
 }

@@ -785,21 +785,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1592054045}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &64340416
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 64340412}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c513a4f4656e15946a384048de8344cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pieceRigidbody: {fileID: 1374075970}
-  currentTile: {fileID: 0}
-  targetTile: {fileID: 0}
 --- !u!54 &64340417
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -829,6 +814,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.4098605, y: 0.31023628, z: 0.80939144}
   m_Center: {x: 0, y: -0.006647836, z: 0.039771806}
+--- !u!114 &64340419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64340412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff0c306d0ecb4524cb0d2056b28234ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pieceRigidbody: {fileID: 64340417}
+  currentTile: {fileID: 0}
+  targetTile: {fileID: 0}
 --- !u!1 &67718865
 GameObject:
   m_ObjectHideFlags: 0
@@ -1680,7 +1680,7 @@ GameObject:
   - component: {fileID: 156506031}
   - component: {fileID: 156506030}
   m_Layer: 7
-  m_Name: Waiting Zone
+  m_Name: Waiting Zone 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1701,7 +1701,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 1
+  isReadyTile: 1
   piece: {fileID: 0}
 --- !u!65 &156506031
 BoxCollider:
@@ -2107,7 +2107,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 0
+  isReadyTile: 0
   piece: {fileID: 0}
 --- !u!1001 &203613941
 PrefabInstance:
@@ -2193,21 +2193,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 697970995}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &206740862
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 206740858}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c513a4f4656e15946a384048de8344cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pieceRigidbody: {fileID: 1374075970}
-  currentTile: {fileID: 0}
-  targetTile: {fileID: 0}
 --- !u!54 &206740863
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2267,6 +2252,21 @@ MonoBehaviour:
   attackRange: 0
   owner: 
   isOwned: 0
+--- !u!114 &206740866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206740858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff0c306d0ecb4524cb0d2056b28234ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pieceRigidbody: {fileID: 206740863}
+  currentTile: {fileID: 0}
+  targetTile: {fileID: 0}
 --- !u!1001 &239406276
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2553,7 +2553,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 0
+  isReadyTile: 0
   piece: {fileID: 0}
 --- !u!1 &253321680
 GameObject:
@@ -2645,21 +2645,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1615201600}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &260882774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 260882770}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c513a4f4656e15946a384048de8344cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pieceRigidbody: {fileID: 1374075970}
-  currentTile: {fileID: 0}
-  targetTile: {fileID: 0}
 --- !u!54 &260882775
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2689,6 +2674,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.4098605, y: 0.31023628, z: 0.80939144}
   m_Center: {x: 0, y: -0.006647836, z: 0.039771806}
+--- !u!114 &260882777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260882770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff0c306d0ecb4524cb0d2056b28234ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pieceRigidbody: {fileID: 260882775}
+  currentTile: {fileID: 0}
+  targetTile: {fileID: 0}
 --- !u!1 &274621754
 GameObject:
   m_ObjectHideFlags: 0
@@ -2703,7 +2703,7 @@ GameObject:
   - component: {fileID: 274621756}
   - component: {fileID: 274621755}
   m_Layer: 7
-  m_Name: Waiting Zone
+  m_Name: Waiting Zone 8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2724,7 +2724,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 1
+  isReadyTile: 1
   piece: {fileID: 0}
 --- !u!65 &274621756
 BoxCollider:
@@ -2900,7 +2900,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 0
+  isReadyTile: 0
   piece: {fileID: 0}
 --- !u!1 &310370209
 GameObject:
@@ -3190,21 +3190,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1833847411}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &348417582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 348417578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c513a4f4656e15946a384048de8344cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pieceRigidbody: {fileID: 1374075970}
-  currentTile: {fileID: 0}
-  targetTile: {fileID: 0}
 --- !u!54 &348417583
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3234,6 +3219,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.4098605, y: 0.31023628, z: 0.80939144}
   m_Center: {x: 0, y: -0.006647836, z: 0.039771806}
+--- !u!114 &348417585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 348417578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff0c306d0ecb4524cb0d2056b28234ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pieceRigidbody: {fileID: 348417583}
+  currentTile: {fileID: 0}
+  targetTile: {fileID: 0}
 --- !u!1001 &348891444
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3637,7 +3637,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 0
+  isReadyTile: 0
   piece: {fileID: 0}
 --- !u!1 &420292441
 GameObject:
@@ -3898,7 +3898,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 0
+  isReadyTile: 0
   piece: {fileID: 0}
 --- !u!1 &485611238
 GameObject:
@@ -4506,7 +4506,7 @@ GameObject:
   - component: {fileID: 524286347}
   - component: {fileID: 524286346}
   m_Layer: 7
-  m_Name: Waiting Zone
+  m_Name: Waiting Zone 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4527,7 +4527,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 1
+  isReadyTile: 1
   piece: {fileID: 0}
 --- !u!65 &524286347
 BoxCollider:
@@ -4635,7 +4635,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 0
+  isReadyTile: 0
   piece: {fileID: 0}
 --- !u!1001 &542552604
 PrefabInstance:
@@ -4843,21 +4843,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1692671631}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &574048059
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 574048055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c513a4f4656e15946a384048de8344cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pieceRigidbody: {fileID: 1374075970}
-  currentTile: {fileID: 0}
-  targetTile: {fileID: 0}
 --- !u!54 &574048060
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4887,6 +4872,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.4098605, y: 0.31023628, z: 0.80939144}
   m_Center: {x: 0, y: -0.006647836, z: 0.039771806}
+--- !u!114 &574048062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574048055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff0c306d0ecb4524cb0d2056b28234ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pieceRigidbody: {fileID: 574048060}
+  currentTile: {fileID: 0}
+  targetTile: {fileID: 0}
 --- !u!1 &592434106 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
@@ -4914,7 +4914,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 0
+  isReadyTile: 0
   piece: {fileID: 0}
 --- !u!1 &595675694
 GameObject:
@@ -4930,7 +4930,7 @@ GameObject:
   - component: {fileID: 595675696}
   - component: {fileID: 595675695}
   m_Layer: 7
-  m_Name: Waiting Zone
+  m_Name: Waiting Zone 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4951,7 +4951,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 1
-  isWaitingZone: 1
+  isReadyTile: 1
   piece: {fileID: 206740858}
 --- !u!65 &595675696
 BoxCollider:
@@ -5794,7 +5794,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7497b64e8bca5c24291a89bbe1e73c11,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7497b64e8bca5c24291a89bbe1e73c11, type: 3}
@@ -6095,7 +6095,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 0
+  isReadyTile: 0
   piece: {fileID: 0}
 --- !u!1 &716129417
 GameObject:
@@ -6786,7 +6786,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 0
+  isReadyTile: 0
   piece: {fileID: 0}
 --- !u!1 &786460203
 GameObject:
@@ -6954,7 +6954,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7497b64e8bca5c24291a89bbe1e73c11,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7497b64e8bca5c24291a89bbe1e73c11, type: 3}
@@ -7069,7 +7069,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 0
+  isReadyTile: 0
   piece: {fileID: 0}
 --- !u!1 &832820117
 GameObject:
@@ -7967,21 +7967,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1073696117}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &948527365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 948527361}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c513a4f4656e15946a384048de8344cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pieceRigidbody: {fileID: 1374075970}
-  currentTile: {fileID: 0}
-  targetTile: {fileID: 0}
 --- !u!54 &948527366
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -8011,6 +7996,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.4098605, y: 0.31023628, z: 0.80939144}
   m_Center: {x: 0, y: -0.006647836, z: 0.039771806}
+--- !u!114 &948527368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 948527361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff0c306d0ecb4524cb0d2056b28234ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pieceRigidbody: {fileID: 948527366}
+  currentTile: {fileID: 0}
+  targetTile: {fileID: 0}
 --- !u!1 &950620636
 GameObject:
   m_ObjectHideFlags: 0
@@ -8426,7 +8426,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 0
+  isReadyTile: 0
   piece: {fileID: 0}
 --- !u!1001 &992479312
 PrefabInstance:
@@ -8659,7 +8659,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 0
+  isReadyTile: 0
   piece: {fileID: 0}
 --- !u!1 &1010427667
 GameObject:
@@ -8841,7 +8841,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 0
+  isReadyTile: 0
   piece: {fileID: 0}
 --- !u!1001 &1023051481
 PrefabInstance:
@@ -9512,7 +9512,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7497b64e8bca5c24291a89bbe1e73c11,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7497b64e8bca5c24291a89bbe1e73c11, type: 3}
@@ -9709,8 +9709,47 @@ MonoBehaviour:
   privatePieceCount: []
   isBattle: 0
   roundType: 1
-  waitingZoneHexaIndicators: []
-  battleFieldHexaIndicators: []
+  readyZoneHexaIndicators:
+  - {fileID: 1472660296}
+  - {fileID: 1829079587}
+  - {fileID: 495790073}
+  - {fileID: 1833941144}
+  - {fileID: 922708356}
+  - {fileID: 1300754614}
+  - {fileID: 756740135}
+  - {fileID: 253321680}
+  - {fileID: 895385875}
+  - {fileID: 1010427667}
+  battleFieldHexaIndicators:
+  - {fileID: 1958634347}
+  - {fileID: 1272775556}
+  - {fileID: 1772004841}
+  - {fileID: 344370743}
+  - {fileID: 1989177241}
+  - {fileID: 819813128}
+  - {fileID: 639830176}
+  - {fileID: 1687291678}
+  - {fileID: 748284065}
+  - {fileID: 67718865}
+  - {fileID: 437782265}
+  - {fileID: 642565556}
+  - {fileID: 1370671385}
+  - {fileID: 310370209}
+  - {fileID: 505173278}
+  - {fileID: 1972079410}
+  - {fileID: 1535621800}
+  - {fileID: 1348148838}
+  - {fileID: 1034889670}
+  - {fileID: 1557299408}
+  - {fileID: 147964628}
+  - {fileID: 1093207441}
+  - {fileID: 1253246718}
+  - {fileID: 1102341636}
+  - {fileID: 1797229154}
+  - {fileID: 967392962}
+  - {fileID: 1115534559}
+  - {fileID: 1242554658}
+  allPieces: []
   getPieceCount: 0
   setPieceCount: 0
 --- !u!4 &1097303228
@@ -10277,7 +10316,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 0
+  isReadyTile: 0
   piece: {fileID: 0}
 --- !u!1001 &1148504036
 PrefabInstance:
@@ -10406,7 +10445,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 0
+  isReadyTile: 0
   piece: {fileID: 0}
 --- !u!1001 &1165259085
 PrefabInstance:
@@ -11037,7 +11076,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 0
+  isReadyTile: 0
   piece: {fileID: 0}
 --- !u!1 &1222817647
 GameObject:
@@ -11226,7 +11265,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 0
+  isReadyTile: 0
   piece: {fileID: 0}
 --- !u!1 &1248111938
 GameObject:
@@ -12058,7 +12097,7 @@ GameObject:
   - component: {fileID: 1285432314}
   - component: {fileID: 1285432313}
   m_Layer: 7
-  m_Name: Waiting Zone
+  m_Name: Waiting Zone 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12079,7 +12118,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 1
+  isReadyTile: 1
   piece: {fileID: 0}
 --- !u!65 &1285432314
 BoxCollider:
@@ -12347,7 +12386,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 0
+  isReadyTile: 0
   piece: {fileID: 0}
 --- !u!1001 &1323277981
 PrefabInstance:
@@ -12703,7 +12742,7 @@ GameObject:
   - component: {fileID: 1358157612}
   - component: {fileID: 1358157611}
   m_Layer: 7
-  m_Name: Waiting Zone
+  m_Name: Waiting Zone 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12724,7 +12763,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 1
+  isReadyTile: 1
   piece: {fileID: 0}
 --- !u!65 &1358157612
 BoxCollider:
@@ -13111,21 +13150,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &1374075971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1374075966}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c513a4f4656e15946a384048de8344cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pieceRigidbody: {fileID: 1374075970}
-  currentTile: {fileID: 0}
-  targetTile: {fileID: 0}
 --- !u!65 &1374075972
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13139,6 +13163,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.4098605, y: 0.31023628, z: 0.80939144}
   m_Center: {x: 0, y: -0.006647836, z: 0.039771806}
+--- !u!114 &1374075973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374075966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff0c306d0ecb4524cb0d2056b28234ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pieceRigidbody: {fileID: 1374075970}
+  currentTile: {fileID: 0}
+  targetTile: {fileID: 0}
 --- !u!1 &1379802976
 GameObject:
   m_ObjectHideFlags: 0
@@ -13318,7 +13357,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 0
+  isReadyTile: 0
   piece: {fileID: 0}
 --- !u!1001 &1412109469
 PrefabInstance:
@@ -13525,7 +13564,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 0
+  isReadyTile: 0
   piece: {fileID: 0}
 --- !u!1 &1462521026
 GameObject:
@@ -14136,7 +14175,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 0
+  isReadyTile: 0
   piece: {fileID: 0}
 --- !u!1001 &1528826881
 PrefabInstance:
@@ -14228,7 +14267,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7497b64e8bca5c24291a89bbe1e73c11,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7497b64e8bca5c24291a89bbe1e73c11, type: 3}
@@ -14809,7 +14848,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 0
+  isReadyTile: 0
   piece: {fileID: 0}
 --- !u!1 &1571157589 stripped
 GameObject:
@@ -14838,7 +14877,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 0
+  isReadyTile: 0
   piece: {fileID: 0}
 --- !u!1 &1579154402
 GameObject:
@@ -15146,7 +15185,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7497b64e8bca5c24291a89bbe1e73c11,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7497b64e8bca5c24291a89bbe1e73c11, type: 3}
@@ -15316,7 +15355,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7497b64e8bca5c24291a89bbe1e73c11,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7497b64e8bca5c24291a89bbe1e73c11, type: 3}
@@ -16202,7 +16241,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7497b64e8bca5c24291a89bbe1e73c11,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7497b64e8bca5c24291a89bbe1e73c11, type: 3}
@@ -16333,7 +16372,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 0
+  isReadyTile: 0
   piece: {fileID: 0}
 --- !u!1001 &1734265728
 PrefabInstance:
@@ -16441,21 +16480,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 681524976}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1740020408
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1740020404}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c513a4f4656e15946a384048de8344cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pieceRigidbody: {fileID: 1374075970}
-  currentTile: {fileID: 0}
-  targetTile: {fileID: 0}
 --- !u!54 &1740020409
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -16485,6 +16509,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.4098605, y: 0.31023628, z: 0.80939144}
   m_Center: {x: 0, y: -0.006647836, z: 0.039771806}
+--- !u!114 &1740020411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740020404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff0c306d0ecb4524cb0d2056b28234ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pieceRigidbody: {fileID: 1740020409}
+  currentTile: {fileID: 0}
+  targetTile: {fileID: 0}
 --- !u!1 &1746084461 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
@@ -16512,7 +16551,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 0
+  isReadyTile: 0
   piece: {fileID: 0}
 --- !u!1 &1750575222
 GameObject:
@@ -16777,7 +16816,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 0
+  isReadyTile: 0
   piece: {fileID: 0}
 --- !u!1001 &1792544877
 PrefabInstance:
@@ -16977,7 +17016,7 @@ GameObject:
   - component: {fileID: 1821221566}
   - component: {fileID: 1821221565}
   m_Layer: 7
-  m_Name: Waiting Zone
+  m_Name: Waiting Zone 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16998,7 +17037,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 1
+  isReadyTile: 1
   piece: {fileID: 0}
 --- !u!65 &1821221566
 BoxCollider:
@@ -17253,7 +17292,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7497b64e8bca5c24291a89bbe1e73c11,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7497b64e8bca5c24291a89bbe1e73c11, type: 3}
@@ -17585,7 +17624,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7497b64e8bca5c24291a89bbe1e73c11,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7497b64e8bca5c24291a89bbe1e73c11, type: 3}
@@ -18048,7 +18087,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 0
+  isReadyTile: 0
   piece: {fileID: 0}
 --- !u!1001 &1932952452
 PrefabInstance:
@@ -18530,21 +18569,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1528826881}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1980597558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1980597554}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c513a4f4656e15946a384048de8344cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pieceRigidbody: {fileID: 1374075970}
-  currentTile: {fileID: 0}
-  targetTile: {fileID: 0}
 --- !u!54 &1980597559
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -18574,6 +18598,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.4098605, y: 0.31023628, z: 0.80939144}
   m_Center: {x: 0, y: -0.006647836, z: 0.039771806}
+--- !u!114 &1980597561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1980597554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff0c306d0ecb4524cb0d2056b28234ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pieceRigidbody: {fileID: 1980597559}
+  currentTile: {fileID: 0}
+  targetTile: {fileID: 0}
 --- !u!1 &1982327650
 GameObject:
   m_ObjectHideFlags: 0
@@ -18588,7 +18627,7 @@ GameObject:
   - component: {fileID: 1982327652}
   - component: {fileID: 1982327651}
   m_Layer: 7
-  m_Name: Waiting Zone
+  m_Name: Waiting Zone 9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18609,7 +18648,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 1
+  isReadyTile: 1
   piece: {fileID: 0}
 --- !u!65 &1982327652
 BoxCollider:
@@ -18717,7 +18756,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 0
+  isReadyTile: 0
   piece: {fileID: 0}
 --- !u!1 &1989177241
 GameObject:
@@ -19136,7 +19175,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 0
+  isReadyTile: 0
   piece: {fileID: 0}
 --- !u!1001 &2023436703
 PrefabInstance:
@@ -19829,21 +19868,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 808538471}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2085331216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2085331212}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c513a4f4656e15946a384048de8344cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pieceRigidbody: {fileID: 1374075970}
-  currentTile: {fileID: 0}
-  targetTile: {fileID: 0}
 --- !u!54 &2085331217
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -19873,6 +19897,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.4098605, y: 0.31023628, z: 0.80939144}
   m_Center: {x: 0, y: -0.006647836, z: 0.039771806}
+--- !u!114 &2085331219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2085331212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff0c306d0ecb4524cb0d2056b28234ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pieceRigidbody: {fileID: 2085331217}
+  currentTile: {fileID: 0}
+  targetTile: {fileID: 0}
 --- !u!1 &2095775777
 GameObject:
   m_ObjectHideFlags: 0
@@ -19887,7 +19926,7 @@ GameObject:
   - component: {fileID: 2095775779}
   - component: {fileID: 2095775778}
   m_Layer: 7
-  m_Name: Waiting Zone
+  m_Name: Waiting Zone 7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19908,7 +19947,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 1
+  isReadyTile: 1
   piece: {fileID: 0}
 --- !u!65 &2095775779
 BoxCollider:
@@ -20016,7 +20055,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 0
-  isWaitingZone: 0
+  isReadyTile: 0
   piece: {fileID: 0}
 --- !u!1 &2107537008
 GameObject:
@@ -20032,7 +20071,7 @@ GameObject:
   - component: {fileID: 2107537010}
   - component: {fileID: 2107537009}
   m_Layer: 7
-  m_Name: Waiting Zone
+  m_Name: Waiting Zone 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20053,7 +20092,7 @@ MonoBehaviour:
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
   isFull: 1
-  isWaitingZone: 1
+  isReadyTile: 1
   piece: {fileID: 348417578}
 --- !u!65 &2107537010
 BoxCollider:
