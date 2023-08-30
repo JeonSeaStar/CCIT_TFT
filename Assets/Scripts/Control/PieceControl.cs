@@ -78,7 +78,8 @@ public class PieceControl : MonoBehaviour
                 currentTile.piece = null; targetTile.piece = this.gameObject;
 
                 transform.position = new Vector3(targetTile.transform.position.x, 0, targetTile.transform.position.z);
-                Debug.Log("index");
+                currentTile = targetTile;
+                Debug.Log(currentTile.name);
             }
             
             //transform.position = new Vector3(targetTile.transform.position.x, 0 , targetTile.transform.position.z); 
