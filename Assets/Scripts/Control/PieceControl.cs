@@ -9,7 +9,17 @@ public class PieceControl : MonoBehaviour
     [SerializeField]
     private Rigidbody pieceRigidbody;
     public Tile currentTile, targetTile;
-
+    Piece ControlPiece
+    {
+        set { controlPiece = value; }
+        get
+        {
+            if (controlPiece == null)
+                controlPiece = GetComponent<Piece>();
+            return controlPiece;
+        }
+    }
+    Piece controlPiece;
 
     private void OnMouseDown()
     {
@@ -71,6 +81,9 @@ public class PieceControl : MonoBehaviour
                 currentTile = targetTile;
 
                 currentTile.piece = this.gameObject;
+
+                ControlPiece.currentNode = targetTile.GetComponent<Tile>();
+                targetTile.piece.GetComponent<Piece>().currentNode = currentTile.GetComponent<Tile>();
             }
             else if(targetTile.isFull == false) // 해당 타일에 기물이 없는 경우 
             {
@@ -80,6 +93,8 @@ public class PieceControl : MonoBehaviour
                 transform.position = new Vector3(targetTile.transform.position.x, 0, targetTile.transform.position.z);
                 currentTile = targetTile;
                 Debug.Log(currentTile.name);
+
+                ControlPiece.currentNode = targetTile.GetComponent<Tile>();
             }
             
             //transform.position = new Vector3(targetTile.transform.position.x, 0 , targetTile.transform.position.z); 

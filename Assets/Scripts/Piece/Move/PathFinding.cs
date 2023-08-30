@@ -11,8 +11,17 @@ public class PathFinding : MonoBehaviour
     public int X;
     public int Y;
 
-    public List<Tile> tileList = new List<Tile>();
-    public List<List<Node>> grid;
+    [Serializable] public class NodeList
+    {
+        public List<Tile> tile = new List<Tile>();
+    }
+    public List<NodeList> grid;
+    //public List<NodeList> tileList;
+    //public List<List<Node>> grid;
+
+    //테스트용
+    public Piece startPiece;
+    public Piece targetPiece;
 
     void Start()
     {
@@ -23,23 +32,29 @@ public class PathFinding : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
-            List<Node> neighbor = GetNeighbor(grid[Y][X]);
+            List<Tile> neighbor = GetNeighbor(grid[Y].tile[X]);
             int i = 0;
             for (int j = 0; j < neighbor.Count; j++)
             {
                 i++;
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            startPiece.target = targetPiece;
+            FindPath(startPiece.currentNode, targetPiece.currentNode);
+        }
     }
 
     void CreateGrid()
     {
-        grid = new List<List<Node>>();
+        //grid = new List<NodeList>();
         int gridStartX = 0;
         int gridStartZ = 0;
         for (int y = 0; y < gridSizeY; y++)
         {
-            grid.Add(new List<Node>());
+            //grid.Add(new NodeList());
 
             if (y != 0)
             {
@@ -64,60 +79,61 @@ public class PathFinding : MonoBehaviour
                 node.gridX = gridX;
                 node.gridY = gridY;
                 node.gridZ = gridZ;
-                grid[y].Add(node);
+                //grid[y].node.Add(node);
+                grid[y].tile[x].node = node;
             }
         }
     }
 
-    List<Node> GetNeighbor(Node node)
+    List<Tile> GetNeighbor(Tile tile)
     {
-        List<Node> neighbor = new List<Node>();
+        List<Tile> neighbor = new List<Tile>();
 
-        int x = node.listX;
-        int y = node.listY;
+        int x = tile.node.listX;
+        int y = tile.node.listY;
 
         if (y % 2 == 0)
         {
             if (indexCheck(y + 1, x + 1))
-                if (grid[y + 1][x + 1] != null)
-                    neighbor.Add(grid[y + 1][x + 1]);
+                if (grid[y + 1].tile[x + 1] != null)
+                    neighbor.Add(grid[y + 1].tile[x + 1]);
             if (indexCheck(y, x + 1))
-                if (grid[y][x + 1] != null)
-                    neighbor.Add(grid[y][x + 1]);
+                if (grid[y].tile[x + 1] != null)
+                    neighbor.Add(grid[y].tile[x + 1]);
             if (indexCheck(y - 1, x))
-                if (grid[y - 1][x] != null)
-                    neighbor.Add(grid[y - 1][x + 1]);
+                if (grid[y - 1].tile[x] != null)
+                    neighbor.Add(grid[y - 1].tile[x + 1]);
             if (indexCheck(y - 1, x - 1))
-                if (grid[y - 1][x - 1] != null)
-                    neighbor.Add(grid[y - 1][x]);
+                if (grid[y - 1].tile[x - 1] != null)
+                    neighbor.Add(grid[y - 1].tile[x]);
             if (indexCheck(y, x - 1))
-                if (grid[y][x - 1] != null)
-                    neighbor.Add(grid[y][x - 1]);
+                if (grid[y].tile[x - 1] != null)
+                    neighbor.Add(grid[y].tile[x - 1]);
             if (indexCheck(y + 1, x))
-                if (grid[y + 1][x] != null)
-                    neighbor.Add(grid[y + 1][x]);
+                if (grid[y + 1].tile[x] != null)
+                    neighbor.Add(grid[y + 1].tile[x]);
         }
 
         if (y % 2 != 0)
         {
             if (indexCheck(y + 1, x))
-                if (grid[y + 1][x] != null)
-                    neighbor.Add(grid[y + 1][x]);
+                if (grid[y + 1].tile[x] != null)
+                    neighbor.Add(grid[y + 1].tile[x]);
             if (indexCheck(y, x + 1))
-                if (grid[y][x + 1] != null)
-                    neighbor.Add(grid[y][x + 1]);
+                if (grid[y].tile[x + 1] != null)
+                    neighbor.Add(grid[y].tile[x + 1]);
             if (indexCheck(y - 1, x))
-                if (grid[y - 1][x] != null)
-                    neighbor.Add(grid[y - 1][x]);
+                if (grid[y - 1].tile[x] != null)
+                    neighbor.Add(grid[y - 1].tile[x]);
             if (indexCheck(y - 1, x - 1))
-                if (grid[y - 1][x - 1] != null)
-                    neighbor.Add(grid[y - 1][x - 1]);
+                if (grid[y - 1].tile[x - 1] != null)
+                    neighbor.Add(grid[y - 1].tile[x - 1]);
             if (indexCheck(y, x - 1))
-                if (grid[y][x - 1] != null)
-                    neighbor.Add(grid[y][x - 1]);
+                if (grid[y].tile[x - 1] != null)
+                    neighbor.Add(grid[y].tile[x - 1]);
             if (indexCheck(y + 1, x - 1))
-                if (grid[y + 1][x - 1] != null)
-                    neighbor.Add(grid[y + 1][x - 1]);
+                if (grid[y + 1].tile[x - 1] != null)
+                    neighbor.Add(grid[y + 1].tile[x - 1]);
         }
 
         return neighbor;
@@ -150,64 +166,76 @@ public class PathFinding : MonoBehaviour
         return distance;
     }
 
-    void FindPath(Node startNode, Node targetNode)
+    void FindPath(Tile startNode, Tile targetNode)
     {
-        List<Node> openNode = new List<Node>();
-        HashSet<Node> closedNode = new HashSet<Node>();
+        List<Tile> openNode = new List<Tile>();
+        HashSet<Tile> closedNode = new HashSet<Tile>();
         openNode.Add(startNode);
 
-        while(openNode.Count > 0)
+        while (openNode.Count > 0)
         {
-            Node currentNode = openNode[0];
-            for(int i = 1; i < openNode.Count; i++)
+            print("길 찾는중[0]");
+            Tile currentNode = openNode[0];
+            for (int i = 1; i < openNode.Count; i++)
             {
-                if(openNode[i].fCost < currentNode.fCost || openNode[i].fCost == currentNode.fCost && openNode[i].hCost < currentNode.hCost)
+                if (openNode[i].node.fCost < currentNode.node.fCost || openNode[i].node.fCost == currentNode.node.fCost && openNode[i].node.hCost < currentNode.node.hCost)
                     currentNode = openNode[i];
+                print("길 찾는중[1]");
             }
 
             openNode.Remove(currentNode);
             closedNode.Add(currentNode);
-
+            print("길 찾는중[2]");
             if (currentNode == targetNode)
             {
+                print("길 찾는중[3]");
                 RetracePath(startNode, targetNode);
                 return;
             }
 
-            foreach(Node neighbor in GetNeighbor(currentNode))
+            foreach (Tile neighbor in GetNeighbor(currentNode))
             {
-                if (!neighbor.walkable || closedNode.Contains(neighbor))
+                print("길 찾는중[4]");
+                print("[0]" + (!neighbor.node.walkable).ToString());
+                print("[1]" + (closedNode.Contains(neighbor)).ToString());
+                if (!neighbor.node.walkable || closedNode.Contains(neighbor))
                     continue;
 
-                int newMovementCostToNeighbor = currentNode.gCost + GetDistance(currentNode, neighbor);
-                if(newMovementCostToNeighbor < neighbor.gCost || !openNode.Contains(neighbor))
+                int newMovementCostToNeighbor = currentNode.node.gCost + GetDistance(currentNode.node, neighbor.node);
+                print("[2]" + (!openNode.Contains(neighbor)).ToString());
+                print("[3]" + (newMovementCostToNeighbor < neighbor.node.gCost).ToString());
+                if (newMovementCostToNeighbor < neighbor.node.gCost || !openNode.Contains(neighbor))
                 {
-                    neighbor.gCost = newMovementCostToNeighbor;
-                    neighbor.hCost = GetDistance(neighbor, targetNode);
-                    neighbor.parent = currentNode;
+                    print("길 찾는중[5]");
+                    neighbor.node.gCost = newMovementCostToNeighbor;
+                    neighbor.node.hCost = GetDistance(neighbor.node, targetNode.node);
+                    neighbor.node.parent = currentNode.node;
 
                     if (!openNode.Contains(neighbor))
+                    {
                         openNode.Add(neighbor);
+                        print("길 찾는중[6]");
+                    }
                 }
             }
         }
     }
 
-    void RetracePath(Node startNode, Node endNode)
+    void RetracePath(Tile startNode, Tile endNode)
     {
-        List<Node> path = new List<Node>();
-        Node currentNode = endNode;
+        List<Tile> path = new List<Tile>();
+        Tile currentNode = endNode;
 
-        while(currentNode != startNode)
+        while (currentNode != startNode)
         {
             path.Add(currentNode);
-            currentNode = currentNode.parent;
+            currentNode.node = currentNode.node.parent;
         }
         path.Reverse();
     }
 }
 
-[System.Serializable]
+[Serializable]
 public class Node
 {
     public int listX;
@@ -219,7 +247,7 @@ public class Node
     public Node parent;
     public int gCost, hCost;
     public int fCost { get { return hCost + gCost; } }
-    public bool walkable;
+    public bool walkable = true;
 
     public Node(int gridX, int gridY, int gridZ)
     {

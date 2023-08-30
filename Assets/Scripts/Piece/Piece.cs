@@ -29,8 +29,8 @@ public class Piece : MonoBehaviour
     public bool isOwned;
     // 여기다가 전투존에 배치 되었는지 확인하는거 추가해줭
 
-    public List<Node> path;
-    public Node currentNode;
+    public List<Tile> path;
+    public Tile currentNode;
     public Piece target;
 
     void Awake()
@@ -64,5 +64,31 @@ public class Piece : MonoBehaviour
     {
         FieldManager.instance.privatePieceCount[FieldManager.instance.FindPieceList(this)].PieceCountDown(this);
         Destroy(gameObject);
+    }
+    
+    public void SetCurrentNode(Tile tile)
+    {
+        currentNode.node.walkable = true;
+        tile.node.walkable = false;
+        currentNode = tile;
+    }
+
+    public Tile GetTargetNode()
+    {
+        Tile targetNode = target.currentNode;
+
+        return targetNode;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.white;
+        if(path.Count > 0)
+        {
+            foreach (var tile in path)
+            {
+                Gizmos.DrawCube(new Vector3(tile.transform.position.x, tile.transform.position.y + 0.3f, tile.transform.position.z), new Vector3(0.3f, 0.3f, 0.3f));
+            }
+        }
     }
 }
