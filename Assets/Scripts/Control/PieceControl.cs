@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -58,6 +59,17 @@ public class PieceControl : MonoBehaviour
         }
         else if(currentTile != targetTile)
         {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if(Physics.Raycast(ray, out hit , Mathf.Infinity, (-1) - (1 << 6)))
+            {
+                if (hit.transform.gameObject.layer == 8)
+                {
+                    transform.position = new Vector3(currentTile.transform.position.x, 0, currentTile.transform.position.z);
+                    targetTile = null;
+                    return;
+                }
+            }
             if (targetTile.isFull == true) // 이미 해당 타일에 기물이 존재하는 경우
             {
                 var targetTileControl = targetTile.piece.GetComponent<PieceControl>();
@@ -72,7 +84,7 @@ public class PieceControl : MonoBehaviour
 
                 currentTile.piece = this.gameObject;
             }
-            else if(targetTile.isFull == false) // 해당 타일에 기물이 없는 경우 
+            else if (targetTile.isFull == false) // 해당 타일에 기물이 없는 경우 
             {
                 currentTile.isFull = false; targetTile.isFull = true;
                 currentTile.piece = null; targetTile.piece = this.gameObject;
@@ -81,9 +93,6 @@ public class PieceControl : MonoBehaviour
                 currentTile = targetTile;
                 Debug.Log(currentTile.name);
             }
-            
-            //transform.position = new Vector3(targetTile.transform.position.x, 0 , targetTile.transform.position.z); 
-            
         }
 
         if (pieceRigidbody != null) pieceRigidbody.constraints = RigidbodyConstraints.None;
