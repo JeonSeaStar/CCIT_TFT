@@ -2,13 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 public class PathFinding : MonoBehaviour
 {
-    public GameObject tileGameObject;
-    public float tileXDistance = 0;
-    public float tileYDistance = 0;
     public int gridSizeX = 7;
     public int gridSizeY = 8;
 
@@ -27,12 +23,10 @@ public class PathFinding : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
-            List<Node> neighbor = NeighborNode(grid[Y][X]);
-            Debug.Log("Node[" + Y + "][" + X + "]: (" + grid[Y][X].gridX + ", " + grid[Y][X].gridY + ", " + grid[Y][X].gridZ + ")");
+            List<Node> neighbor = GetNeighbor(grid[Y][X]);
             int i = 0;
             for (int j = 0; j < neighbor.Count; j++)
             {
-                Debug.Log(i + ") Node[" + neighbor[i].listY + "][" + neighbor[i].listX + "]: (" + neighbor[i].gridX + ", " + neighbor[i].gridY + ", " + neighbor[i].gridZ + ")");
                 i++;
             }
         }
@@ -43,7 +37,6 @@ public class PathFinding : MonoBehaviour
         grid = new List<List<Node>>();
         int gridStartX = 0;
         int gridStartZ = 0;
-        float positionX = 0;
         for (int y = 0; y < gridSizeY; y++)
         {
             grid.Add(new List<Node>());
@@ -53,12 +46,10 @@ public class PathFinding : MonoBehaviour
                 if (y % 2 == 0)
                 {
                     gridStartZ--;
-                    positionX = 0;
                 }
                 if (y % 2 != 0)
                 {
                     gridStartX--;
-                    positionX = tileXDistance / 2f;
                 }
             }
 
@@ -67,83 +58,66 @@ public class PathFinding : MonoBehaviour
                 int gridX = gridStartX + x;
                 int gridY = y;
                 int gridZ = gridStartZ - x;
-                //Node node = new Node(gridX, gridY, gridZ);
-                GameObject tile = Instantiate(tileGameObject, new Vector3(tileXDistance * x - positionX, 0, tileYDistance * y), Quaternion.identity);
-                Node node = tile.AddComponent<Node>();
-                node.gridX = gridX;
-                node.gridY = gridY;
-                node.gridZ = gridZ;
+                Node node = new Node(gridX, gridY, gridZ);
                 node.listX = x;
                 node.listY = y;
                 node.gridX = gridX;
                 node.gridY = gridY;
                 node.gridZ = gridZ;
-                Debug.Log(gridX + ", " + gridY + ", " + gridZ);
                 grid[y].Add(node);
-
-                //GameObject tile = Instantiate(tileGameObject, new Vector3(tileXDistance * x - positionX, 0, tileYDistance * y), Quaternion.identity);
-                //Node nodeComponent = tile.AddComponent<Node>();
-                //nodeComponent = node;
             }
         }
     }
 
-    List<Node> NeighborNode(Node node)
+    List<Node> GetNeighbor(Node node)
     {
         List<Node> neighbor = new List<Node>();
 
         int x = node.listX;
         int y = node.listY;
 
-        try
+        if (y % 2 == 0)
         {
-            if (y % 2 == 0)
-            {
-                if (indexCheck(y + 1, x + 1))
-                    if (grid[y + 1][x + 1] != null)
-                        neighbor.Add(grid[y + 1][x + 1]);
-                if (indexCheck(y, x + 1))
-                    if (grid[y][x + 1] != null)
-                        neighbor.Add(grid[y][x + 1]);
-                if (indexCheck(y - 1, x))
-                    if (grid[y - 1][x] != null)
-                        neighbor.Add(grid[y - 1][x + 1]);
-                if (indexCheck(y - 1, x - 1))
-                    if (grid[y - 1][x - 1] != null)
-                        neighbor.Add(grid[y - 1][x]);
-                if (indexCheck(y, x - 1))
-                    if (grid[y][x - 1] != null)
-                        neighbor.Add(grid[y][x - 1]);
-                if (indexCheck(y + 1, x))
-                    if (grid[y + 1][x] != null)
-                        neighbor.Add(grid[y + 1][x]);
-            }
-
-            if (y % 2 != 0)
-            {
-                if (indexCheck(y + 1, x))
-                    if (grid[y + 1][x] != null)
-                        neighbor.Add(grid[y + 1][x]);
-                if (indexCheck(y, x + 1))
-                    if (grid[y][x + 1] != null)
-                        neighbor.Add(grid[y][x + 1]);
-                if (indexCheck(y - 1, x))
-                    if (grid[y - 1][x] != null)
-                        neighbor.Add(grid[y - 1][x]);
-                if (indexCheck(y - 1, x - 1))
-                    if (grid[y - 1][x - 1] != null)
-                        neighbor.Add(grid[y - 1][x - 1]);
-                if (indexCheck(y, x - 1))
-                    if (grid[y][x - 1] != null)
-                        neighbor.Add(grid[y][x - 1]);
-                if (indexCheck(y + 1, x - 1))
-                    if (grid[y + 1][x - 1] != null)
-                        neighbor.Add(grid[y + 1][x - 1]);
-            }
+            if (indexCheck(y + 1, x + 1))
+                if (grid[y + 1][x + 1] != null)
+                    neighbor.Add(grid[y + 1][x + 1]);
+            if (indexCheck(y, x + 1))
+                if (grid[y][x + 1] != null)
+                    neighbor.Add(grid[y][x + 1]);
+            if (indexCheck(y - 1, x))
+                if (grid[y - 1][x] != null)
+                    neighbor.Add(grid[y - 1][x + 1]);
+            if (indexCheck(y - 1, x - 1))
+                if (grid[y - 1][x - 1] != null)
+                    neighbor.Add(grid[y - 1][x]);
+            if (indexCheck(y, x - 1))
+                if (grid[y][x - 1] != null)
+                    neighbor.Add(grid[y][x - 1]);
+            if (indexCheck(y + 1, x))
+                if (grid[y + 1][x] != null)
+                    neighbor.Add(grid[y + 1][x]);
         }
-        catch (IndexOutOfRangeException e)
+
+        if (y % 2 != 0)
         {
-            Debug.Log(e + ": 배열 범위를 벗어남");
+            if (indexCheck(y + 1, x))
+                if (grid[y + 1][x] != null)
+                    neighbor.Add(grid[y + 1][x]);
+            if (indexCheck(y, x + 1))
+                if (grid[y][x + 1] != null)
+                    neighbor.Add(grid[y][x + 1]);
+            if (indexCheck(y - 1, x))
+                if (grid[y - 1][x] != null)
+                    neighbor.Add(grid[y - 1][x]);
+            if (indexCheck(y - 1, x - 1))
+                if (grid[y - 1][x - 1] != null)
+                    neighbor.Add(grid[y - 1][x - 1]);
+            if (indexCheck(y, x - 1))
+                if (grid[y][x - 1] != null)
+                    neighbor.Add(grid[y][x - 1]);
+            if (indexCheck(y + 1, x - 1))
+                if (grid[y + 1][x - 1] != null)
+                    neighbor.Add(grid[y + 1][x - 1]);
         }
 
         return neighbor;
@@ -165,17 +139,76 @@ public class PathFinding : MonoBehaviour
         return index;
     }
 
-    int ManhattanDistance(Node currentNode, Node targetNode)
+    int GetDistance(Node currentNode, Node targetNode)
     {
         int x = Mathf.Abs(currentNode.gridX - targetNode.gridX);
         int y = Mathf.Abs(currentNode.gridY - targetNode.gridY);
         int z = Mathf.Abs(currentNode.gridZ - targetNode.gridZ);
 
-        return x + y + z;
+        int distance = Mathf.Max(x, y, z);
+
+        return distance;
+    }
+
+    void FindPath(Node startNode, Node targetNode)
+    {
+        List<Node> openNode = new List<Node>();
+        HashSet<Node> closedNode = new HashSet<Node>();
+        openNode.Add(startNode);
+
+        while(openNode.Count > 0)
+        {
+            Node currentNode = openNode[0];
+            for(int i = 1; i < openNode.Count; i++)
+            {
+                if(openNode[i].fCost < currentNode.fCost || openNode[i].fCost == currentNode.fCost && openNode[i].hCost < currentNode.hCost)
+                    currentNode = openNode[i];
+            }
+
+            openNode.Remove(currentNode);
+            closedNode.Add(currentNode);
+
+            if (currentNode == targetNode)
+            {
+                RetracePath(startNode, targetNode);
+                return;
+            }
+
+            foreach(Node neighbor in GetNeighbor(currentNode))
+            {
+                if (!neighbor.walkable || closedNode.Contains(neighbor))
+                    continue;
+
+                int newMovementCostToNeighbor = currentNode.gCost + GetDistance(currentNode, neighbor);
+                if(newMovementCostToNeighbor < neighbor.gCost || !openNode.Contains(neighbor))
+                {
+                    neighbor.gCost = newMovementCostToNeighbor;
+                    neighbor.hCost = GetDistance(neighbor, targetNode);
+                    neighbor.parent = currentNode;
+
+                    if (!openNode.Contains(neighbor))
+                        openNode.Add(neighbor);
+                }
+            }
+        }
+    }
+
+    void RetracePath(Node startNode, Node endNode)
+    {
+        List<Node> path = new List<Node>();
+        Node currentNode = endNode;
+
+        while(currentNode != startNode)
+        {
+            path.Add(currentNode);
+            currentNode = currentNode.parent;
+        }
+        path.Reverse();
     }
 }
 
-public class Node : MonoBehaviour
+[System.Serializable]
+public class Node
 {
     public int listX;
     public int listY;
@@ -183,10 +216,10 @@ public class Node : MonoBehaviour
     public int gridX;
     public int gridY;
     public int gridZ;
-    public Node parentNode;
+    public Node parent;
     public int gCost, hCost;
     public int fCost { get { return hCost + gCost; } }
-    public bool canMove;
+    public bool walkable;
 
     public Node(int gridX, int gridY, int gridZ)
     {
