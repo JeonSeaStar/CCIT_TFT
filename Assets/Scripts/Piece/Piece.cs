@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Piece : MonoBehaviour
@@ -8,6 +9,12 @@ public class Piece : MonoBehaviour
 
     public string pieceName;
     public Sprite piecePortrait;
+
+    public enum Mythology { NONE = -1, A, B, C, D, E }
+    public Mythology mythology = Mythology.NONE;
+    public enum Species { NONE = -1, HAMSTER, CAT, DOG, FROG, RABBIT }
+    public Species speceies = Species.NONE;
+    //
 
     public List<Synerge> synerges;
     public List<Equipment> Equipments;
@@ -32,9 +39,10 @@ public class Piece : MonoBehaviour
     public List<Tile> path;
     public Tile currentNode;
     public Piece target;
-
+     
     void Awake()
     {
+        Debug.Log(synerges[0].a_synerge);
         pieceData.InitialzePiece(this);
     }
 
@@ -80,15 +88,17 @@ public class Piece : MonoBehaviour
         return targetNode;
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.white;
-        if(path.Count > 0)
-        {
-            foreach (var tile in path)
-            {
-                Gizmos.DrawCube(new Vector3(tile.transform.position.x, tile.transform.position.y + 0.3f, tile.transform.position.z), new Vector3(0.3f, 0.3f, 0.3f));
-            }
-        }
-    }
+
+
+    //private void OnDrawGizmosSelected()
+    //{
+    //    Gizmos.color = Color.white;
+    //    if(path.Count > 0)
+    //    {
+    //        foreach (var tile in path)
+    //        {
+    //            Gizmos.DrawCube(new Vector3(tile.transform.position.x, tile.transform.position.y + 0.3f, tile.transform.position.z), new Vector3(0.3f, 0.3f, 0.3f));
+    //        }
+    //    }
+    //}
 }

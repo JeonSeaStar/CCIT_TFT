@@ -15,7 +15,7 @@ public class FieldManager : MonoBehaviour
     public bool isBattle = false;
     public enum RoundType 
     {
-        NONE = 0,
+        NONE = -1,
         READY,
         BATTLE ,
         EVENT , 
@@ -27,9 +27,11 @@ public class FieldManager : MonoBehaviour
     public GameObject[] battleFieldHexaIndicators;
 
     public GameObject[] allPieces;// Tile 타입으로 재선언 할지도?
+    // 여기다가 구매한 기물 전부 넣어주세용~
 
     public int getPieceCount = 0; // 구매해서 가지고 있는 기물 갯수
     public int setPieceCount = 0; // 구매해서 배치한 기물 갯수
+
 
     void Awake()
     {

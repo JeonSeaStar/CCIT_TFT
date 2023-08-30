@@ -39,9 +39,7 @@ public class PieceControl : MonoBehaviour
                 Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
                 Vector3 objPos = Camera.main.ScreenToWorldPoint(mousePos);
 
-                objPos.y = 0;
-                //objPos.z = 0;
-                //objPos.x = 0;
+                objPos.y = 0; //objPos.z = 0; //objPos.x = 0;
                 transform.position = objPos;
             }
         }
@@ -51,9 +49,7 @@ public class PieceControl : MonoBehaviour
             Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
             Vector3 objPos = Camera.main.ScreenToWorldPoint(mousePos);
 
-            objPos.y = 0;
-            //objPos.z = 0;
-            //objPos.x = 0;
+            objPos.y = 0; //objPos.z = 0; //objPos.x = 0;
             transform.position = objPos;
         }
 
@@ -84,7 +80,8 @@ public class PieceControl : MonoBehaviour
             {
                 var targetTileControl = targetTile.piece.GetComponent<PieceControl>();
                 currentTile.piece = targetTile.piece;
-                targetTileControl.currentTile = null; targetTileControl.targetTile = null;
+                targetTileControl.currentTile = null; 
+                targetTileControl.targetTile = null;
 
                 var targetPosition = targetTile.piece.transform.position;
                 targetTile.piece.transform.position = new Vector3(currentTile.transform.position.x, 0, currentTile.transform.position.z);
@@ -99,12 +96,12 @@ public class PieceControl : MonoBehaviour
             }
             else if (targetTile.isFull == false) // 해당 타일에 기물이 없는 경우 
             {
-                currentTile.isFull = false; targetTile.isFull = true;
-                currentTile.piece = null; targetTile.piece = this.gameObject;
-
+                currentTile.isFull = false;
+                targetTile.isFull = true;
+                currentTile.piece = null;
+                targetTile.piece = this.gameObject;
                 transform.position = new Vector3(targetTile.transform.position.x, 0, targetTile.transform.position.z);
                 currentTile = targetTile;
-                Debug.Log(currentTile.name);
 
                 ControlPiece.currentNode = targetTile.GetComponent<Tile>();
             }
@@ -129,11 +126,7 @@ public class PieceControl : MonoBehaviour
             if (other.gameObject.layer == 7)
             {
                 var tileComponent = other.gameObject.GetComponent<Tile>().isReadyTile;
-                if(tileComponent == true)
-                {
-                    targetTile  = other.gameObject.GetComponent<Tile>();
-                }
-
+                if(tileComponent == true) targetTile = other.gameObject.GetComponent<Tile>();
             }
         }
     }
