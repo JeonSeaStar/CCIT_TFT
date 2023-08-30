@@ -29,6 +29,9 @@ public class Piece : MonoBehaviour
     public bool isOwned;
     // 여기다가 전투존에 배치 되었는지 확인하는거 추가해줭
 
+    public List<Node> path;
+    public Node currentNode;
+    public Piece target;
 
     void Awake()
     {
