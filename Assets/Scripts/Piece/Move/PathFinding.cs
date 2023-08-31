@@ -43,7 +43,9 @@ public class PathFinding : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             startPiece.target = targetPiece;
-            FindPath(startPiece.currentNode, targetPiece.currentNode);
+            startPiece.currentNode.node.walkable = true;
+            targetPiece.currentNode.node.walkable = true;
+            FindPath(startPiece, startPiece.currentNode, targetPiece.currentNode);
         }
     }
 
@@ -102,10 +104,10 @@ public class PathFinding : MonoBehaviour
                     neighbor.Add(grid[y].tile[x + 1]);
             if (indexCheck(y - 1, x))
                 if (grid[y - 1].tile[x] != null)
-                    neighbor.Add(grid[y - 1].tile[x + 1]);
+                    neighbor.Add(grid[y - 1].tile[x]);
             if (indexCheck(y - 1, x - 1))
                 if (grid[y - 1].tile[x - 1] != null)
-                    neighbor.Add(grid[y - 1].tile[x]);
+                    neighbor.Add(grid[y - 1].tile[x - 1]);
             if (indexCheck(y, x - 1))
                 if (grid[y].tile[x - 1] != null)
                     neighbor.Add(grid[y].tile[x - 1]);
@@ -166,7 +168,7 @@ public class PathFinding : MonoBehaviour
         return distance;
     }
 
-    void FindPath(Tile startNode, Tile targetNode)
+    void FindPath(Piece piece, Tile startNode, Tile targetNode)
     {
         List<Tile> openNode = new List<Tile>();
         HashSet<Tile> closedNode = new HashSet<Tile>();
@@ -174,39 +176,31 @@ public class PathFinding : MonoBehaviour
 
         while (openNode.Count > 0)
         {
-            print("길 찾는중[0]");
             Tile currentNode = openNode[0];
+
             for (int i = 1; i < openNode.Count; i++)
             {
                 if (openNode[i].node.fCost < currentNode.node.fCost || openNode[i].node.fCost == currentNode.node.fCost && openNode[i].node.hCost < currentNode.node.hCost)
                     currentNode = openNode[i];
-                print("길 찾는중[1]");
             }
 
             openNode.Remove(currentNode);
             closedNode.Add(currentNode);
-            print("길 찾는중[2]");
+
             if (currentNode == targetNode)
             {
-                print("길 찾는중[3]");
-                RetracePath(startNode, targetNode);
+                RetracePath(piece, startNode, targetNode);
                 return;
             }
 
             foreach (Tile neighbor in GetNeighbor(currentNode))
             {
-                print("길 찾는중[4]");
-                print("[0]" + (!neighbor.node.walkable).ToString());
-                print("[1]" + (closedNode.Contains(neighbor)).ToString());
                 if (!neighbor.node.walkable || closedNode.Contains(neighbor))
                     continue;
 
                 int newMovementCostToNeighbor = currentNode.node.gCost + GetDistance(currentNode.node, neighbor.node);
-                print("[2]" + (!openNode.Contains(neighbor)).ToString());
-                print("[3]" + (newMovementCostToNeighbor < neighbor.node.gCost).ToString());
                 if (newMovementCostToNeighbor < neighbor.node.gCost || !openNode.Contains(neighbor))
                 {
-                    print("길 찾는중[5]");
                     neighbor.node.gCost = newMovementCostToNeighbor;
                     neighbor.node.hCost = GetDistance(neighbor.node, targetNode.node);
                     neighbor.node.parent = currentNode.node;
@@ -214,14 +208,13 @@ public class PathFinding : MonoBehaviour
                     if (!openNode.Contains(neighbor))
                     {
                         openNode.Add(neighbor);
-                        print("길 찾는중[6]");
                     }
                 }
             }
         }
     }
 
-    void RetracePath(Tile startNode, Tile endNode)
+    void RetracePath(Piece piece, Tile startNode, Tile endNode)
     {
         List<Tile> path = new List<Tile>();
         Tile currentNode = endNode;
@@ -229,9 +222,16 @@ public class PathFinding : MonoBehaviour
         while (currentNode != startNode)
         {
             path.Add(currentNode);
-            currentNode.node = currentNode.node.parent;
+            currentNode = grid[currentNode.node.parent.listY].tile[currentNode.node.parent.listX];
         }
         path.Reverse();
+
+        SetPath(piece, path);
+    }
+
+    public void SetPath(Piece piece, List<Tile> path)
+    {
+        piece.path = path;
     }
 }
 
