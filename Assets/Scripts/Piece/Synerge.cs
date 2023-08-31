@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class Synerge
 {
-    public enum Synerges
+    public enum A_Synerge
     {
         NONE,
         SYNERGES0,
@@ -13,5 +13,7 @@ public class Synerge
         SYNERGES2,
         SYNERGES3
     }
-    public Synerges synerge = 0;
+    public A_Synerge a_synerge = A_Synerge.NONE;
+
+     
 }
