@@ -15,5 +15,5 @@ public class Synerge
     }
     public A_Synerge a_synerge = A_Synerge.NONE;
 
-     
+    public int a;
 }

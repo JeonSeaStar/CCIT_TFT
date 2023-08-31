@@ -18,8 +18,11 @@ public class FieldManager : MonoBehaviour
         NONE = -1,
         READY,
         BATTLE ,
-        EVENT , 
-        DEAD
+        EVENT ,
+        OVERTIME,
+        DUEL,
+        DEAD ,
+        MAX
     };
     public RoundType roundType = RoundType.NONE;
 
