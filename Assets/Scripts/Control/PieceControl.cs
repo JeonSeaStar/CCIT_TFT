@@ -67,6 +67,7 @@ public class PieceControl : MonoBehaviour
             targetTile = hit.transform.gameObject.GetComponent<Tile>();
         }
         else return;
+        // 기물 제외하고 레이 검출
 
 
         if (currentTile == targetTile)
@@ -87,10 +88,8 @@ public class PieceControl : MonoBehaviour
                     return;
                 }
             }
-
+            // 기물 제외하고 레이 검출
             
-
-
             if (targetTile.isFull == true) // 이미 해당 타일에 기물이 존재하는 경우
             {
                 var targetTileControl = targetTile.piece.GetComponent<PieceControl>();
@@ -133,7 +132,11 @@ public class PieceControl : MonoBehaviour
         {
             if (other.gameObject.layer == 7)
             {
-                if (currentTile == null) currentTile = other.gameObject.GetComponent<Tile>();
+                if (currentTile == null)
+                {
+                    currentTile = other.gameObject.GetComponent<Tile>();
+                    targetTile = currentTile;
+                }
                 //targetTile = other.gameObject.GetComponent<Tile>();
             }
         }
