@@ -11,7 +11,8 @@ public class PathFinding : MonoBehaviour
     public int X;
     public int Y;
 
-    [Serializable] public class NodeList
+    [Serializable]
+    public class NodeList
     {
         public List<Tile> tile = new List<Tile>();
     }
@@ -46,6 +47,12 @@ public class PathFinding : MonoBehaviour
             startPiece.currentNode.node.walkable = true;
             targetPiece.currentNode.node.walkable = true;
             FindPath(startPiece, startPiece.currentNode, targetPiece.currentNode);
+            //GetNeighbor(startPiece.currentNode);
+        }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            startPiece.SetMoveTile();
+            startPiece.Move();
         }
     }
 
@@ -102,12 +109,12 @@ public class PathFinding : MonoBehaviour
             if (indexCheck(y, x + 1))
                 if (grid[y].tile[x + 1] != null)
                     neighbor.Add(grid[y].tile[x + 1]);
+            if (indexCheck(y - 1, x + 1))
+                if (grid[y - 1].tile[x + 1] != null)
+                    neighbor.Add(grid[y - 1].tile[x + 1]);
             if (indexCheck(y - 1, x))
                 if (grid[y - 1].tile[x] != null)
                     neighbor.Add(grid[y - 1].tile[x]);
-            if (indexCheck(y - 1, x - 1))
-                if (grid[y - 1].tile[x - 1] != null)
-                    neighbor.Add(grid[y - 1].tile[x - 1]);
             if (indexCheck(y, x - 1))
                 if (grid[y].tile[x - 1] != null)
                     neighbor.Add(grid[y].tile[x - 1]);
@@ -137,6 +144,12 @@ public class PathFinding : MonoBehaviour
                 if (grid[y + 1].tile[x - 1] != null)
                     neighbor.Add(grid[y + 1].tile[x - 1]);
         }
+
+        //print(y + ", " + x);
+        //foreach (var item in neighbor)
+        //{
+        //    print("Neighbour" + item.node.listY + ", " + item.node.listX);
+        //}
 
         return neighbor;
     }

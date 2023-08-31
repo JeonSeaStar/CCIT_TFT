@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using DG.Tweening;
 
 public class Piece : MonoBehaviour
 {
@@ -9,12 +9,6 @@ public class Piece : MonoBehaviour
 
     public string pieceName;
     public Sprite piecePortrait;
-
-    public enum Mythology { NONE = -1, A, B, C, D, E }
-    public Mythology mythology = Mythology.NONE;
-    public enum Species { NONE = -1, HAMSTER, CAT, DOG, FROG, RABBIT }
-    public Species speceies = Species.NONE;
-    //
 
     public List<Synerge> synerges;
     public List<Equipment> Equipments;
@@ -38,12 +32,19 @@ public class Piece : MonoBehaviour
 
     public List<Tile> path;
     public Tile currentNode;
+    public Tile targetNode;
     public Piece target;
-     
+    public float moveSpeed;
+
     void Awake()
     {
-        Debug.Log(synerges[0].a_synerge);
         pieceData.InitialzePiece(this);
+    }
+
+    private void Update()
+    {
+        if(path.Count > 0 && canMove) { SetMoveTile(); }
+        if(targetNode != null) { Move(); }
     }
 
     public void Owned()
@@ -88,17 +89,42 @@ public class Piece : MonoBehaviour
         return targetNode;
     }
 
+    bool canMove = true;
 
+    public void SetMoveTile()
+    {
+        canMove = false;
+        //Vector3 targetTilePos = new Vector3(path[0].transform.position.x, transform.position.y, path[0].transform.position.z);
+        currentNode = path[0];
+        PieceControl pc = GetComponent<PieceControl>();
+        pc.currentTile = path[0];
+        path.RemoveAt(0);
+        canMove = true;
+    }
 
-    //private void OnDrawGizmosSelected()
-    //{
-    //    Gizmos.color = Color.white;
-    //    if(path.Count > 0)
-    //    {
-    //        foreach (var tile in path)
-    //        {
-    //            Gizmos.DrawCube(new Vector3(tile.transform.position.x, tile.transform.position.y + 0.3f, tile.transform.position.z), new Vector3(0.3f, 0.3f, 0.3f));
-    //        }
-    //    }
-    //}
+    public void Move()
+    {
+        Tile target = targetNode;
+        Vector3 StartTilePos = new Vector3(currentNode.transform.position.x, transform.position.y, currentNode.transform.position.z);
+        Vector3 targetTilePos = new Vector3(path[0].transform.position.x, transform.position.y, path[0].transform.position.z);
+        Vector3.MoveTowards(targetTilePos, targetTilePos, moveSpeed * Time.deltaTime);
+    }
+
+    void WalkMove(Tile currentTile, Tile targetTile)
+    {
+        Vector3 targetTilePos = targetTile.transform.position;
+        transform.DOMove(new Vector3(targetTilePos.x, transform.position.y, targetTilePos.z), moveSpeed);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        if(path.Count > 0)
+        {
+            foreach (var tile in path)
+            {
+                Gizmos.DrawCube(new Vector3(tile.transform.position.x, tile.transform.position.y + 0.3f, tile.transform.position.z), new Vector3(0.3f, 0.3f, 0.3f));
+            }
+        }
+    }
 }
