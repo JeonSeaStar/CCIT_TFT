@@ -15,7 +15,7 @@ public class Piece : MonoBehaviour
     public enum Species { NONE = -1, HAMSTER, CAT, DOG, FROG, RABBIT, MAX }
     public Species speceies = Species.NONE;
     public enum PlusSynerge { NONE, A, B, C, D, E , MAX }
-    public PlusSynerge plussynerge = PlusSynerge.NONE;
+    public PlusSynerge plusSynerge = PlusSynerge.NONE;
     //
 
     public List<Synerge> synerges;
