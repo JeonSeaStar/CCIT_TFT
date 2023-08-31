@@ -10,6 +10,17 @@ public class Piece : MonoBehaviour
     public string pieceName;
     public Sprite piecePortrait;
 
+<<<<<<< HEAD
+=======
+    public enum Mythology { NONE = -1, A, B, C, D, E , MAX }
+    public Mythology mythology = Mythology.NONE;
+    public enum Species { NONE = -1, HAMSTER, CAT, DOG, FROG, RABBIT, MAX }
+    public Species speceies = Species.NONE;
+    public enum PlusSynerge { NONE, A, B, C, D, E , MAX }
+    public PlusSynerge plusSynerge = PlusSynerge.NONE;
+    //
+
+>>>>>>> a691fbe4e6bd7652df1eb440913a6810e84f38b7
     public List<Synerge> synerges;
     public List<Equipment> Equipments;
     //public int pieceGrade = 1;

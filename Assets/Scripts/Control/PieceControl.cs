@@ -53,46 +53,57 @@ public class PieceControl : MonoBehaviour
             objPos.y = 0; //objPos.z = 0; //objPos.x = 0;
             transform.position = objPos;
         }
-
     }
 
     private void OnMouseUp()
     {
         FieldManager.instance.ActiveHexaIndicators(false);
 
-        if(currentTile == targetTile)
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, (-1) - (1 << 6)))
+        {
+            Debug.Log(hit.transform.gameObject.name);
+            targetTile = hit.transform.gameObject.GetComponent<Tile>();
+        }
+        else return;
+        // 기물 제외하고 레이 검출
+
+
+        if (currentTile == targetTile)
         {
             transform.position = new Vector3(currentTile.transform.position.x, 0, currentTile.transform.position.z);
             targetTile.node.walkable = false;
         }
         else if(currentTile != targetTile)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if(Physics.Raycast(ray, out hit , Mathf.Infinity, (-1) - (1 << 6)))
+            Ray ray2 = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit2;
+            if(Physics.Raycast(ray2, out hit2 , Mathf.Infinity, (-1) - (1 << 6)))
             {
-                if (hit.transform.gameObject.layer == 8)
+                if (hit2.transform.gameObject.layer == 8)
                 {
                     transform.position = new Vector3(currentTile.transform.position.x, 0, currentTile.transform.position.z);
                     targetTile = null;
                     return;
                 }
             }
+            // 기물 제외하고 레이 검출
+            
             if (targetTile.isFull == true) // 이미 해당 타일에 기물이 존재하는 경우
             {
                 var targetTileControl = targetTile.piece.GetComponent<PieceControl>();
+
+                // Piece 정보 교환
                 currentTile.piece = targetTile.piece;
-                targetTileControl.currentTile = null; 
-                targetTileControl.targetTile = null;
-
-                var targetPosition = targetTile.piece.transform.position;
-                targetTile.piece.transform.position = new Vector3(currentTile.transform.position.x, 0, currentTile.transform.position.z);
-                transform.position = targetPosition;
-
-                currentTile = targetTile;
-
-                currentTile.piece = this.gameObject;
-
+                targetTile.piece = this.gameObject;
+                // Piece 위치 교환
+                targetTileControl.transform.position = new Vector3(currentTile.transform.position.x, 0, currentTile.transform.position.z);
+                transform.position = new Vector3(targetTile.transform.position.x, 0, targetTile.transform.position.z);
+                // 현재, 이동 타일 교환
+                this.currentTile = targetTile;
+                targetTileControl.currentTile = targetTileControl.targetTile;
+                // 
                 ControlPiece.currentNode = targetTile.GetComponent<Tile>();
                 targetTile.piece.GetComponent<Piece>().currentNode = currentTile.GetComponent<Tile>();
                 targetTile.node.walkable = false;
@@ -103,6 +114,7 @@ public class PieceControl : MonoBehaviour
                 targetTile.isFull = true;
                 currentTile.piece = null;
                 targetTile.piece = this.gameObject;
+
                 transform.position = new Vector3(targetTile.transform.position.x, 0, targetTile.transform.position.z);
                 currentTile = targetTile;
 
@@ -120,9 +132,12 @@ public class PieceControl : MonoBehaviour
         {
             if (other.gameObject.layer == 7)
             {
-                if (currentTile == null) currentTile = other.gameObject.GetComponent<Tile>();
-                targetTile = other.gameObject.GetComponent<Tile>();
-                
+                if (currentTile == null)
+                {
+                    currentTile = other.gameObject.GetComponent<Tile>();
+                    targetTile = currentTile;
+                }
+                //targetTile = other.gameObject.GetComponent<Tile>();
             }
         }
         if(FieldManager.instance.roundType == FieldManager.RoundType.BATTLE)
@@ -130,7 +145,10 @@ public class PieceControl : MonoBehaviour
             if (other.gameObject.layer == 7)
             {
                 var tileComponent = other.gameObject.GetComponent<Tile>().isReadyTile;
-                if(tileComponent == true) targetTile = other.gameObject.GetComponent<Tile>();
+                if (tileComponent == true)
+                {
+                    targetTile = other.gameObject.GetComponent<Tile>();
+                }
             }
         }
     }
