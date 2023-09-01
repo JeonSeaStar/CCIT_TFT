@@ -56,30 +56,35 @@ public class FieldManager : MonoBehaviour
 
     public Dictionary<Piece.Mythology, int> SynergeMythology = new Dictionary<Piece.Mythology, int>()
     {
-        {Piece.Mythology.A,0},
-        {Piece.Mythology.B,0},
-        {Piece.Mythology.C,0},
-        {Piece.Mythology.D,0},
-        {Piece.Mythology.E,0}
+        { Piece.Mythology.NONE      ,0 },
+        { Piece.Mythology.A         ,0 },
+        { Piece.Mythology.B         ,0 },
+        { Piece.Mythology.C         ,0 },
+        { Piece.Mythology.D         ,0 },
+        { Piece.Mythology.E         ,0 }
     };
     public Dictionary<Piece.Species, int> SynergeSpecies = new Dictionary<Piece.Species, int>()
     {
-        {Piece.Species.HAMSTER,0},
-        {Piece.Species.CAT,0},
-        {Piece.Species.DOG,0},
-        {Piece.Species.FROG,0},
-        {Piece.Species.RABBIT,0},
+        { Piece.Species.NONE        ,0 },
+        { Piece.Species.HAMSTER     ,0 },
+        { Piece.Species.CAT         ,0 },
+        { Piece.Species.DOG         ,0 },
+        { Piece.Species.FROG        ,0 },
+        { Piece.Species.RABBIT      ,0 },
     };
-    public Dictionary<string, int> SynergePlusSynerge = new Dictionary<string, int>()
+    public Dictionary<Piece.PlusSynerge, int> SynergePlusSynerge = new Dictionary<Piece.PlusSynerge, int>()
     {
-
+        { Piece.PlusSynerge.NONE    ,0 },
+        { Piece.PlusSynerge.A       ,0 },
+        { Piece.PlusSynerge.B       ,0 },
+        { Piece.PlusSynerge.C       ,0 },
+        { Piece.PlusSynerge.D       ,0 },
+        { Piece.PlusSynerge.E       ,0 }
     };
 
     void Awake()
     {
         instance = this;
-        SynergeMythology[Piece.Mythology.A] = 10;
-        Debug.Log(SynergeMythology[Piece.Mythology.A]);
     }
 
     void Update()
