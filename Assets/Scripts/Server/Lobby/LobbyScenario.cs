@@ -7,6 +7,8 @@ public class LobbyScenario : MonoBehaviour
 {
     [SerializeField] private UserInfo user;
 
+    [SerializeField] private SceneNames nextScene;
+
     private void Awake()
     {
         user.GetUserInfoFromBackend();
@@ -15,5 +17,10 @@ public class LobbyScenario : MonoBehaviour
     private void Start()
     {
         BackendGameData.Instance.GameDataLoad();
+    }
+
+    public void OnAfterProgress()
+    {
+        Utils.LoadScene(SceneNames.Tile);
     }
 }
