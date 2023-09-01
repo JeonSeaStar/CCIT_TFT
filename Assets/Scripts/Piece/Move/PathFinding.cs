@@ -51,7 +51,6 @@ public class PathFinding : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.G))
         {
-            startPiece.SetMoveTile();
             startPiece.Move();
         }
     }
