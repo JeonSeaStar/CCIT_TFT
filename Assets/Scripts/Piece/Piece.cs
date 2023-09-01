@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using static Piece;
 
 public class Piece : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class Piece : MonoBehaviour
     public enum Mythology { NONE = -1, A, B, C, D, E , MAX }
     public Mythology mythology = Mythology.NONE;
     public enum Species { NONE = -1, HAMSTER, CAT, DOG, FROG, RABBIT, MAX }
-    public Species speceies = Species.NONE;
+    public Species species = Species.NONE;
     public enum PlusSynerge { NONE, A, B, C, D, E , MAX }
     public PlusSynerge plusSynerge = PlusSynerge.NONE;
     //
@@ -45,7 +46,12 @@ public class Piece : MonoBehaviour
 
     void Awake()
     {
-        pieceData.InitialzePiece(this);
+        //pieceData.InitialzePiece(this);
+    }
+
+    private void Start()
+    {
+        
     }
 
     public void Owned()
@@ -116,6 +122,20 @@ public class Piece : MonoBehaviour
     {
         Vector3 targetTilePos = targetTile.transform.position;
         transform.DOMove(new Vector3(targetTilePos.x, transform.position.y, targetTilePos.z), moveSpeed);
+    }
+
+    public void SetPiece(Mythology mythology, Species species, PlusSynerge plussynerge)
+    {
+        FieldManager.instance.SynergeMythology[mythology]++;
+        FieldManager.instance.SynergeSpecies[species]++;
+        FieldManager.instance.SynergePlusSynerge[plussynerge]++;
+    }
+
+    public void RemovePiece(Mythology mythology, Species species, PlusSynerge plussynerge)
+    {
+        FieldManager.instance.SynergeMythology[mythology]--;
+        FieldManager.instance.SynergeSpecies[species]--;
+        FieldManager.instance.SynergePlusSynerge[plussynerge]--;
     }
 
     private void OnDrawGizmosSelected()
