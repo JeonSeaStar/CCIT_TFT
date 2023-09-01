@@ -132,6 +132,7 @@ public class Piece : MonoBehaviour
 
     public void SetPiece(Mythology mythology, Species species, PlusSynerge plussynerge)
     {
+        // 전투 타일 배치할 경우
         FieldManager.instance.SynergeMythology[mythology]++;
         FieldManager.instance.SynergeSpecies[species]++;
         FieldManager.instance.SynergePlusSynerge[plussynerge]++;
@@ -139,6 +140,7 @@ public class Piece : MonoBehaviour
 
     public void RemovePiece(Mythology mythology, Species species, PlusSynerge plussynerge)
     {
+        // 전투 타일에서 준비 타일로 배치하는 경우 혹은 전투 타일에서 판매하는 경우
         FieldManager.instance.SynergeMythology[mythology]--;
         FieldManager.instance.SynergeSpecies[species]--;
         FieldManager.instance.SynergePlusSynerge[plussynerge]--;
