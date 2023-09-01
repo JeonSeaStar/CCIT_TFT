@@ -5,10 +5,15 @@ using UnityEngine;
 [System.Serializable]
 public class Synerge
 {
-    public enum Synerges
+    public enum A_Synerge
     {
-        none,
-        TestSynerge0
+        NONE,
+        SYNERGES0,
+        SYNERGES1,
+        SYNERGES2,
+        SYNERGES3
     }
-    public Synerges synerge = 0;
+    public A_Synerge a_synerge = A_Synerge.NONE;
+
+    public int a;
 }
