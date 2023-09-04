@@ -1,6 +1,6 @@
 using UnityEngine.SceneManagement;
 
-public enum SceneNames { Logo = 0, Login, Lobby, Tile}
+public enum SceneNames { Logo = 0, Login, Lobby, Tile, Game}
 
 /// <summary>
 /// 씬 전환과 같은 유틸 메소드를 정의하는 스크립트

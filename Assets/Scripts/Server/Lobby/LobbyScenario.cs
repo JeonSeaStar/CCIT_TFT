@@ -21,6 +21,6 @@ public class LobbyScenario : MonoBehaviour
 
     public void OnAfterProgress()
     {
-        Utils.LoadScene(SceneNames.Tile);
+        Utils.LoadScene(SceneNames.Game);
     }
 }
