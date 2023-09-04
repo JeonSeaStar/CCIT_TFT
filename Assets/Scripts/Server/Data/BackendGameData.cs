@@ -1,5 +1,6 @@
 using UnityEngine;
 using BackEnd;
+using UnityEngine.Events;
 
 /// <summary>
 /// 서버와 연동해 유저 정보를 제어하는 스크립트
@@ -7,7 +8,7 @@ using BackEnd;
 public class BackendGameData
 {
 	[System.Serializable]
-	public class GameDataLoadEvent : UnityEngine.Events.UnityEvent { }
+	public class GameDataLoadEvent : UnityEvent { }
 	public GameDataLoadEvent onGameDataLoadEvent = new GameDataLoadEvent();
 
 	private static BackendGameData instance = null;
@@ -115,5 +116,51 @@ public class BackendGameData
 				Debug.LogError($"게임 정보 데이터 불러오기에 실패했습니다. : {callback}");
 			}
 		});
+	}
+
+	/// <summary>
+	/// 게임오버 되엇을 떄 유저 경험치, 레벨 정보 갱신 --- 예시 나중에 게임이 정보 내용이 업데이트 되는 순으로 변경 예정
+	/// </summary>
+	/// <param name="action"></param>
+	public void GameDataUpdate(UnityAction action = null)
+	{
+		if (userGameData == null)
+		{
+			Debug.LogError("서버에서 다운받거나 새로 삽입한 데이터가 존재하지 않습니다." + "Insert 혹은 Load를 통해 데이터를 생성해주세요");
+			return;
+		}
+
+		Param param = new Param()
+		{
+			{ "level", userGameData.level },
+			{ "experience", userGameData.experience },
+			{ "gold", userGameData.gold },
+			{ "jewel", userGameData.jewel }
+		};
+
+		//게임 정보의 고유값(gameDataRowInDate)이 없으면 에러 메세지 출력
+		if(string.IsNullOrEmpty(gameDataRowInDate))
+        {
+			Debug.LogError($"유저의 inDate 정보가 없어 게임 정보 데이터 수정에 실패했습니다.");
+        }
+		//게임 정보의 고유값이 있으면 테이블에 저장되어 있는 값 중 InDate 컬럼의 값과 소유하는 유저의 owner_inDate가 일치하는 row를 검색하여 수정하는 UpdateV2() 호출
+		else
+        {
+			Debug.Log($"{gameDataRowInDate}의 게임 정보 데이터 수정을 요청합니다.");
+
+			Backend.GameData.UpdateV2("USER_DATA", gameDataRowInDate, Backend.UserInDate, param, callback =>
+            {
+				if (callback.IsSuccess())
+				{
+					Debug.Log($"게임 정보 데이터 수정에 성공했습니다. : {callback}");
+
+					action?.Invoke();
+				}
+				else
+				{
+					Debug.LogError($"게임 정보 데이터 수정에 실패했습니다. : {callback}");
+				}
+            });
+        }
 	}
 }
