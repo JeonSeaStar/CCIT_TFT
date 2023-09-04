@@ -60,31 +60,20 @@ public class PieceControl : MonoBehaviour
     {
         FieldManager.instance.ActiveHexaIndicators(false);
 
-        
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, (-1) - (1 << 6)))
         {
-            Debug.Log(hit.transform.gameObject.name);
-            targetTile = hit.transform.gameObject.GetComponent<Tile>();
-        }
-        else return;
-        // 기물 제외하고 레이 검출
-
-        Ray rayPlane = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hitPlaneInfo;
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-        {
-            if(hit.transform.gameObject.layer == 8)
+            if(hit.transform.gameObject.layer == 8) 
             {
                 targetTile = null;
                 transform.position = new Vector3(currentTile.transform.position.x, 0, currentTile.transform.position.z);
                 return;
             }
+            targetTile = hit.transform.gameObject.GetComponent<Tile>();
         }
-        // 바닥으로 드래그 한 경우
-
-
+        else return;
+        // 기물 제외하고 레이 검출
 
         if (currentTile == targetTile)
         {
@@ -93,19 +82,6 @@ public class PieceControl : MonoBehaviour
         }
         else if(currentTile != targetTile)
         {
-            Ray ray2 = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit2;
-            if(Physics.Raycast(ray2, out hit2 , Mathf.Infinity, (-1) - (1 << 6)))
-            {
-                if (hit2.transform.gameObject.layer == 8)
-                {
-                    transform.position = new Vector3(currentTile.transform.position.x, 0, currentTile.transform.position.z);
-                    targetTile = null;
-                    return;
-                }
-            }
-            // 기물 제외하고 레이 검출
-            
             if (targetTile.isFull == true) // 이미 해당 타일에 기물이 존재하는 경우
             {
                 var targetTileControl = targetTile.piece.GetComponent<PieceControl>();
