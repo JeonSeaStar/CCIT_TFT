@@ -40,9 +40,9 @@ public class PieceData : ScriptableObject
         piece.criticalChance = criticalChance;
         piece.criticalDamage = criticalDamage;
         piece.attackRange = attackRange;
-        piece.mythology = mythology;
-        piece.species = species;
-        piece.plusSynerge = plusSynerge;
+        //piece.mythology = mythology;
+        //piece.species = species;
+        //piece.plusSynerge = plusSynerge;
     }
 
     void CalculateEquipments(Piece piece)

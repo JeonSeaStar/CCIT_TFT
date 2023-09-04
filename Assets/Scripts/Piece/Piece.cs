@@ -11,11 +11,6 @@ public class Piece : MonoBehaviour
     public string pieceName;
     public Sprite piecePortrait;
 
-    public PieceData.Mythology mythology = PieceData.Mythology.NONE;
-    public PieceData.Species species = PieceData.Species.NONE;
-    public PieceData.PlusSynerge plusSynerge = PieceData.PlusSynerge.NONE;
-    //
-
     public List<Synerge> synerges;
     public List<Equipment> Equipments;
     //public int pieceGrade = 1;
@@ -45,6 +40,7 @@ public class Piece : MonoBehaviour
     void Awake()
     {
         //pieceData.InitialzePiece(this);
+        
     }
 
     private void Start()

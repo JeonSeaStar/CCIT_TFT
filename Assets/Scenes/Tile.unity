@@ -2267,12 +2267,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1392386ccdaa12c46a1bd3b5b5371ddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pieceData: {fileID: 0}
+  pieceData: {fileID: 11400000, guid: 6891acecd0078c24c910eb77e64059db, type: 2}
   pieceName: 
   piecePortrait: {fileID: 0}
-  mythology: 0
-  species: 0
-  plusSynerge: 0
   synerges:
   - a_synerge: 1
     a: 0
@@ -2294,11 +2291,12 @@ MonoBehaviour:
   attackRange: 0
   owner: 
   isOwned: 0
+  candidatePath: []
   path: []
   currentNode: {fileID: 0}
-  targetNode: {fileID: 0}
   target: {fileID: 0}
   moveSpeed: 0
+  ease: 0
 --- !u!1001 &239406276
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3308,9 +3306,6 @@ MonoBehaviour:
   pieceData: {fileID: 0}
   pieceName: 
   piecePortrait: {fileID: 0}
-  mythology: 0
-  species: -1
-  plusSynerge: 0
   synerges: []
   Equipments: []
   star: 0
@@ -3326,11 +3321,12 @@ MonoBehaviour:
   attackRange: 0
   owner: 
   isOwned: 0
+  candidatePath: []
   path: []
   currentNode: {fileID: 0}
-  targetNode: {fileID: 0}
   target: {fileID: 0}
   moveSpeed: 0
+  ease: 0
 --- !u!1001 &348891444
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9914,6 +9910,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testPiece: {fileID: 0}
   privatePieceCount: []
+  myFilePieceList: []
+  enemyFilePieceList: []
   isBattle: 0
   roundType: 0
   readyZoneHexaIndicators:
@@ -17663,7 +17661,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7497b64e8bca5c24291a89bbe1e73c11,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7497b64e8bca5c24291a89bbe1e73c11, type: 3}

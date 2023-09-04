@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
@@ -59,6 +60,7 @@ public class PieceControl : MonoBehaviour
     {
         FieldManager.instance.ActiveHexaIndicators(false);
 
+        
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, (-1) - (1 << 6)))
@@ -68,6 +70,20 @@ public class PieceControl : MonoBehaviour
         }
         else return;
         // 기물 제외하고 레이 검출
+
+        Ray rayPlane = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hitPlaneInfo;
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        {
+            if(hit.transform.gameObject.layer == 8)
+            {
+                targetTile = null;
+                transform.position = new Vector3(currentTile.transform.position.x, 0, currentTile.transform.position.z);
+                return;
+            }
+        }
+        // 바닥으로 드래그 한 경우
+
 
 
         if (currentTile == targetTile)
