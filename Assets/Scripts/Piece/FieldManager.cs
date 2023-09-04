@@ -10,6 +10,9 @@ public class FieldManager : MonoBehaviour
     public GameObject testPiece;
     public List<PrivatePieceCount> privatePieceCount;
 
+    public List<Piece> myFilePieceList;
+    public List<Piece> enemyFilePieceList;
+
     [Space(10)]
     //Jun
     public bool isBattle = false;
@@ -54,32 +57,32 @@ public class FieldManager : MonoBehaviour
     public int dPlusSynerge = 0;
     public int ePlusSynerge = 0;
 
-    public Dictionary<Piece.Mythology, int> SynergeMythology = new Dictionary<Piece.Mythology, int>()
+    public Dictionary<PieceData.Mythology, int> SynergeMythology = new Dictionary<PieceData.Mythology, int>()
     {
-        { Piece.Mythology.NONE      ,0 },
-        { Piece.Mythology.A         ,0 },
-        { Piece.Mythology.B         ,0 },
-        { Piece.Mythology.C         ,0 },
-        { Piece.Mythology.D         ,0 },
-        { Piece.Mythology.E         ,0 }
+        { PieceData.Mythology.NONE      ,0 },
+        { PieceData.Mythology.A         ,0 },
+        { PieceData.Mythology.B         ,0 },
+        { PieceData.Mythology.C         ,0 },
+        { PieceData.Mythology.D         ,0 },
+        { PieceData.Mythology.E         ,0 }
     };
-    public Dictionary<Piece.Species, int> SynergeSpecies = new Dictionary<Piece.Species, int>()
+    public Dictionary<PieceData.Species, int> SynergeSpecies = new Dictionary<PieceData.Species, int>()
     {
-        { Piece.Species.NONE        ,0 },
-        { Piece.Species.HAMSTER     ,0 },
-        { Piece.Species.CAT         ,0 },
-        { Piece.Species.DOG         ,0 },
-        { Piece.Species.FROG        ,0 },
-        { Piece.Species.RABBIT      ,0 },
+        { PieceData.Species.NONE        ,0 },
+        { PieceData.Species.HAMSTER     ,0 },
+        { PieceData.Species.CAT         ,0 },
+        { PieceData.Species.DOG         ,0 },
+        { PieceData.Species.FROG        ,0 },
+        { PieceData.Species.RABBIT      ,0 },
     };
-    public Dictionary<Piece.PlusSynerge, int> SynergePlusSynerge = new Dictionary<Piece.PlusSynerge, int>()
+    public Dictionary<PieceData.PlusSynerge, int> SynergePlusSynerge = new Dictionary<PieceData.PlusSynerge, int>()
     {
-        { Piece.PlusSynerge.NONE    ,0 },
-        { Piece.PlusSynerge.A       ,0 },
-        { Piece.PlusSynerge.B       ,0 },
-        { Piece.PlusSynerge.C       ,0 },
-        { Piece.PlusSynerge.D       ,0 },
-        { Piece.PlusSynerge.E       ,0 }
+        { PieceData.PlusSynerge.NONE    ,0 },
+        { PieceData.PlusSynerge.A       ,0 },
+        { PieceData.PlusSynerge.B       ,0 },
+        { PieceData.PlusSynerge.C       ,0 },
+        { PieceData.PlusSynerge.D       ,0 },
+        { PieceData.PlusSynerge.E       ,0 }
     };
 
     void Awake()

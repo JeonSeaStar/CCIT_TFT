@@ -43,11 +43,15 @@ public class PathFinding : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            startPiece.target = targetPiece;
-            startPiece.currentNode.node.walkable = true;
-            targetPiece.currentNode.node.walkable = true;
-            FindPath(startPiece, startPiece.currentNode, targetPiece.currentNode);
+            //startPiece.target = targetPiece;
+            //startPiece.currentNode.node.walkable = true;
+            //targetPiece.currentNode.node.walkable = true;
+            //FindPath(startPiece, startPiece.currentNode, targetPiece.currentNode);
             //GetNeighbor(startPiece.currentNode);
+            startPiece.currentNode.node.walkable = true;
+            foreach(var enemy in FieldManager.instance.enemyFilePieceList)
+                enemy.currentNode.node.walkable = true;
+            SetCandidatePath(startPiece, FieldManager.instance.enemyFilePieceList);
         }
         if (Input.GetKeyDown(KeyCode.G))
         {
@@ -228,22 +232,47 @@ public class PathFinding : MonoBehaviour
 
     void RetracePath(Piece piece, Tile startNode, Tile endNode)
     {
+        CandidatePath candidatePath = new CandidatePath();
+        candidatePath.path = new List<Tile>();
+
         List<Tile> path = new List<Tile>();
         Tile currentNode = endNode;
 
         while (currentNode != startNode)
         {
+            candidatePath.path.Add(currentNode);
             path.Add(currentNode);
             currentNode = grid[currentNode.node.parent.listY].tile[currentNode.node.parent.listX];
         }
         path.Reverse();
+        candidatePath.path.Reverse();
 
-        SetPath(piece, path);
+        piece.candidatePath.Add(candidatePath);
+        //SetPath(piece, path);
+        //piece.candidatePath.Add(new CandidatePath(path));
     }
 
     public void SetPath(Piece piece, List<Tile> path)
     {
         piece.path = path;
+    }
+
+    public void SetCandidatePath(Piece piece, List<Piece> Enemies)
+    {
+        int minCostArray = 0;
+
+        foreach (Piece enemy in Enemies)
+        {
+            FindPath(piece, piece.currentNode, enemy.currentNode);
+        }
+
+        for(int i = 0; i < piece.candidatePath.Count; i++)
+        {
+            if (piece.candidatePath[i].cost < piece.candidatePath[minCostArray].cost)
+                minCostArray = i;
+        }
+
+        SetPath(piece, piece.candidatePath[minCostArray].path);
     }
 }
 
@@ -266,5 +295,24 @@ public class Node
         this.gridX = gridX;
         this.gridY = gridY;
         this.gridZ = gridZ;
+    }
+}
+
+[Serializable]
+public class CandidatePath
+{
+    public List<Tile> path;
+    public int cost
+    {
+        get
+        {
+            int pathCost = 0;
+            foreach (var tile in path)
+            {
+                pathCost += tile.node.gCost;
+            }
+
+            return pathCost;
+        }
     }
 }

@@ -11,12 +11,9 @@ public class Piece : MonoBehaviour
     public string pieceName;
     public Sprite piecePortrait;
 
-    public enum Mythology { NONE = -1, A, B, C, D, E , MAX }
-    public Mythology mythology = Mythology.NONE;
-    public enum Species { NONE = -1, HAMSTER, CAT, DOG, FROG, RABBIT, MAX }
-    public Species species = Species.NONE;
-    public enum PlusSynerge { NONE, A, B, C, D, E , MAX }
-    public PlusSynerge plusSynerge = PlusSynerge.NONE;
+    public PieceData.Mythology mythology = PieceData.Mythology.NONE;
+    public PieceData.Species species = PieceData.Species.NONE;
+    public PieceData.PlusSynerge plusSynerge = PieceData.PlusSynerge.NONE;
     //
 
     public List<Synerge> synerges;
@@ -39,6 +36,7 @@ public class Piece : MonoBehaviour
     public bool isOwned;
     // 여기다가 전투존에 배치 되었는지 확인하는거 추가해줭
 
+    public List<CandidatePath> candidatePath;
     public List<Tile> path;
     public Tile currentNode;
     public Piece target;
@@ -99,7 +97,7 @@ public class Piece : MonoBehaviour
     bool canMove = true;
     public Ease ease;
 
-
+    //이동
     public void Move()
     {
         if (path.Count > 0 && canMove)
@@ -118,20 +116,20 @@ public class Piece : MonoBehaviour
         }
     }
 
-    void WalkMove(Tile currentTile, Tile targetTile)
+    //공격
+    public void SetTargetPiece()
     {
-        Vector3 targetTilePos = targetTile.transform.position;
-        transform.DOMove(new Vector3(targetTilePos.x, transform.position.y, targetTilePos.z), moveSpeed);
+
     }
 
-    public void SetPiece(Mythology mythology, Species species, PlusSynerge plussynerge)
+    public void SetPiece(PieceData.Mythology mythology, PieceData.Species species, PieceData.PlusSynerge plussynerge)
     {
         FieldManager.instance.SynergeMythology[mythology]++;
         FieldManager.instance.SynergeSpecies[species]++;
         FieldManager.instance.SynergePlusSynerge[plussynerge]++;
     }
 
-    public void RemovePiece(Mythology mythology, Species species, PlusSynerge plussynerge)
+    public void RemovePiece(PieceData.Mythology mythology, PieceData.Species species, PieceData.PlusSynerge plussynerge)
     {
         FieldManager.instance.SynergeMythology[mythology]--;
         FieldManager.instance.SynergeSpecies[species]--;

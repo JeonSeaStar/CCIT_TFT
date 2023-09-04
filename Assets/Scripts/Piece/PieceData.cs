@@ -19,6 +19,13 @@ public class PieceData : ScriptableObject
     [SerializeField] float criticalDamage;
     [SerializeField] float attackRange;
 
+    public enum Mythology { NONE = -1, A, B, C, D, E, MAX }
+    public enum Species { NONE = -1, HAMSTER, CAT, DOG, FROG, RABBIT, MAX }
+    public enum PlusSynerge { NONE, A, B, C, D, E, MAX }
+    public Mythology mythology = Mythology.NONE;
+    public Species species = Species.NONE;
+    public PlusSynerge plusSynerge = PlusSynerge.NONE;
+
     public void InitialzePiece(Piece piece)
     {
         piece.pieceName = pieceName;
@@ -33,6 +40,9 @@ public class PieceData : ScriptableObject
         piece.criticalChance = criticalChance;
         piece.criticalDamage = criticalDamage;
         piece.attackRange = attackRange;
+        piece.mythology = mythology;
+        piece.species = species;
+        piece.plusSynerge = plusSynerge;
     }
 
     void CalculateEquipments(Piece piece)
