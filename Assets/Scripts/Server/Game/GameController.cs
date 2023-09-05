@@ -4,6 +4,13 @@ public class GameController : MonoBehaviour
 {
     public bool IsGameOver { set; get; } = false;
 
+    public int score;
+
+    [SerializeField]
+    private DailyRankRegister dailyRank;
+
+    
+
     public void GameOver()
     {
         //중복 처리 되지 않도록 bool 변수로 제어
@@ -11,6 +18,8 @@ public class GameController : MonoBehaviour
             return;
 
         IsGameOver = true;
+
+        dailyRank.Process(score);
 
         //경험치 증가 및 레벨업 여부 검사
         //(현재 레벨 시스템에 대한 설정이 없기 때문에 경험치의 최대치를 100으로 가정)
@@ -29,5 +38,10 @@ public class GameController : MonoBehaviour
     public void AfterGameOver()
     {
         Utils.LoadScene(SceneNames.Lobby);
+    }
+
+    public void ScoreUp()
+    {
+        score++;
     }
 }
