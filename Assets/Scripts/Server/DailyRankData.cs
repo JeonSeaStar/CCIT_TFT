@@ -33,7 +33,7 @@ public class DailyRankData : MonoBehaviour
         set
         {
             nickname = value;
-            textNickName.text = score.ToString();
+            textNickName.text = nickname.ToString();
         }
         get => nickname;
     }
