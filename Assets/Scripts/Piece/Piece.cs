@@ -17,6 +17,7 @@ public class Piece : MonoBehaviour
 
     public float health;
     public float mana;
+    public float manaRecovery;
     public float attackDamage;
     public float abilityPower;
     public float armor;
@@ -53,15 +54,17 @@ public class Piece : MonoBehaviour
 
     protected virtual void Attack()
     {
-        print(target.name + "에게 일반 공격을 합니다.");
+        print(name + "(이)가" + target.name + "에게 일반 공격을 합니다.");
         Damage();
-
+        mana += manaRecovery;
         Invoke("NextBehavior", attackSpeed);
     }
 
     protected virtual void Skill()
     {
-        print("스킬을 사용합니다.");
+        print(name + "(이)가" + target.name + "에게 스킬을 사용합니다.");
+
+        Invoke("NextBehavior", attackSpeed);
     }
 
     protected bool RangeCheck()
@@ -85,7 +88,7 @@ public class Piece : MonoBehaviour
 
     void Dead()
     {
-        print(gameObject.name + "가 체력이 0 이하가 되어 사망.");
+        print(name + "(이)가 체력이 0 이하가 되어 사망.");
         dead = true;
         gameObject.SetActive(false);
     }
@@ -96,10 +99,17 @@ public class Piece : MonoBehaviour
         if (path.Count > 0 && canMove)
         {
             canMove = false;
+            if (path[0].isFull)
+            {
+                Invoke("NextBehavior", moveSpeed);
+                return;
+            }
+
             Vector3 targetTilePos = new Vector3(path[0].transform.position.x, transform.position.y, path[0].transform.position.z);
             transform.DOMove(targetTilePos, moveSpeed).SetEase(ease);
-
+            currentNode.isFull = false;
             currentNode = path[0];
+            currentNode.isFull = true;
             PieceControl pc = GetComponent<PieceControl>();
             pc.currentTile = path[0];
             path.RemoveAt(0);
@@ -111,26 +121,35 @@ public class Piece : MonoBehaviour
 
     public void NextBehavior()
     {
-        currentNode.walkable = true;
-        foreach (var enemy in FieldManager.instance.enemyFilePieceList)
-            enemy.currentNode.walkable = true;
-        FieldManager.instance.pathFinding.SetCandidatePath(this, FieldManager.instance.enemyFilePieceList);
-
-        if (target != null)
+        if (CheckSurvival(FieldManager.instance.enemyFilePieceList))
         {
-            if (RangeCheck())
+            foreach (var enemy in FieldManager.instance.enemyFilePieceList)
+                enemy.currentNode.walkable = true;
+            FieldManager.instance.pathFinding.SetCandidatePath(this, FieldManager.instance.enemyFilePieceList);
+
+            if (target != null)
             {
-                Attack();
+                if (RangeCheck())
+                    Attack();
+                else
+                    Move();
             }
             else
-            {
-                Move();
-            }
+                NextBehavior();
         }
         else
+            print(name + "(이)가 승리의 춤 추는 중.");
+    }
+
+    bool CheckSurvival(List<Piece> enemies)
+    {
+        foreach (Piece enemy in enemies)
         {
-            NextBehavior();
+            if (!enemy.dead)
+                return true;
         }
+
+        return false;
     }
 
     public void SetPiece(PieceData.Mythology mythology, PieceData.Species species, PieceData.PlusSynerge plussynerge)

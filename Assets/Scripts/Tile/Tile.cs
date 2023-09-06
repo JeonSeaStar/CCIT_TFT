@@ -9,7 +9,17 @@ public class Tile : MonoBehaviour
     [SerializeField]
     private Vector2 targetIndex; // 원정할때 가게 될 타일 배열
 
-    public bool isFull = false;
+    public bool isFull
+    {
+        set
+        {
+            IsFull = value;
+            if (IsFull) { walkable = false; }
+            else { walkable = true; }
+        }
+        get { return IsFull; }
+    }
+    public bool IsFull = false;
     public bool isReadyTile = false;
     public GameObject piece;
 

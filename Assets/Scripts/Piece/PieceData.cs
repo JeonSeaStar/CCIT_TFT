@@ -10,6 +10,7 @@ public class PieceData : ScriptableObject
 
     [SerializeField] float health;
     [SerializeField] float mana;
+    [SerializeField] float manaRecovery;
     [SerializeField] float attackDamage;
     [SerializeField] float abilityPower;
     [SerializeField] float armor;
@@ -32,6 +33,7 @@ public class PieceData : ScriptableObject
         piece.piecePortrait = piecePortrait;
         piece.health = health;
         piece.mana = mana;
+        piece.manaRecovery = manaRecovery;
         piece.attackDamage = attackDamage;
         piece.abilityPower = abilityPower;
         piece.armor = armor;
