@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class TestPiece : Piece
 {
-    protected override void Attack()
+    protected override void Attack(Piece target)
     {
-        base.Attack();
+        base.Attack(target);
     }
 
     protected override void Skill()

@@ -13,6 +13,8 @@ public class FieldManager : MonoBehaviour
     public List<Piece> myFilePieceList;
     public List<Piece> enemyFilePieceList;
 
+    public PathFinding pathFinding;
+
     [Space(10)]
     //Jun
     public bool isBattle = false;

@@ -43,11 +43,6 @@ public class PathFinding : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            //startPiece.target = targetPiece;
-            //startPiece.currentNode.node.walkable = true;
-            //targetPiece.currentNode.node.walkable = true;
-            //FindPath(startPiece, startPiece.currentNode, targetPiece.currentNode);
-            //GetNeighbor(startPiece.currentNode);
             startPiece.currentNode.node.walkable = true;
             foreach(var enemy in FieldManager.instance.enemyFilePieceList)
                 enemy.currentNode.node.walkable = true;
@@ -61,13 +56,10 @@ public class PathFinding : MonoBehaviour
 
     void CreateGrid()
     {
-        //grid = new List<NodeList>();
         int gridStartX = 0;
         int gridStartZ = 0;
         for (int y = 0; y < gridSizeY; y++)
         {
-            //grid.Add(new NodeList());
-
             if (y != 0)
             {
                 if (y % 2 == 0)
@@ -91,7 +83,7 @@ public class PathFinding : MonoBehaviour
                 node.gridX = gridX;
                 node.gridY = gridY;
                 node.gridZ = gridZ;
-                //grid[y].node.Add(node);
+
                 grid[y].tile[x].node = node;
             }
         }
@@ -148,12 +140,6 @@ public class PathFinding : MonoBehaviour
                     neighbor.Add(grid[y + 1].tile[x - 1]);
         }
 
-        //print(y + ", " + x);
-        //foreach (var item in neighbor)
-        //{
-        //    print("Neighbour" + item.node.listY + ", " + item.node.listX);
-        //}
-
         return neighbor;
     }
 
@@ -173,7 +159,7 @@ public class PathFinding : MonoBehaviour
         return index;
     }
 
-    int GetDistance(Node currentNode, Node targetNode)
+    public int GetDistance(Node currentNode, Node targetNode)
     {
         int x = Mathf.Abs(currentNode.gridX - targetNode.gridX);
         int y = Mathf.Abs(currentNode.gridY - targetNode.gridY);
@@ -248,8 +234,6 @@ public class PathFinding : MonoBehaviour
         candidatePath.path.Reverse();
 
         piece.candidatePath.Add(candidatePath);
-        //SetPath(piece, path);
-        //piece.candidatePath.Add(new CandidatePath(path));
     }
 
     public void SetPath(Piece piece, List<Tile> path)
@@ -269,10 +253,34 @@ public class PathFinding : MonoBehaviour
         for(int i = 0; i < piece.candidatePath.Count; i++)
         {
             if (piece.candidatePath[i].cost < piece.candidatePath[minCostArray].cost)
+            {
                 minCostArray = i;
+                piece.target = Enemies[i];
+            }
         }
 
         SetPath(piece, piece.candidatePath[minCostArray].path);
+    }
+
+    public int GetClosePiece(Piece piece)
+    {
+        Tile currentTile = piece.currentNode;
+        List<Piece> enemyList = FieldManager.instance.enemyFilePieceList;
+
+        int closeDistance = 99;
+        int closePieceIndex = -1;
+
+        for(int i = 0; i < enemyList.Count; i++)
+        {
+            int distance = GetDistance(currentTile.node, enemyList[i].currentNode.node);
+            if (closeDistance > distance)
+            {
+                closeDistance = distance;
+                closePieceIndex = i;
+            }
+        }
+
+        return closePieceIndex;
     }
 }
 

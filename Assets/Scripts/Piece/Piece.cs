@@ -25,7 +25,7 @@ public class Piece : MonoBehaviour
     public float attackSpeed;
     public float criticalChance;
     public float criticalDamage;
-    public float attackRange;
+    public int attackRange;
 
     public string owner;
     public bool isOwned;
@@ -39,13 +39,13 @@ public class Piece : MonoBehaviour
 
     void Awake()
     {
-        //pieceData.InitialzePiece(this);
-        
+        pieceData.InitialzePiece(this);
+
     }
 
     private void Start()
     {
-        
+
     }
 
     public void Owned()
@@ -54,14 +54,45 @@ public class Piece : MonoBehaviour
         FieldManager.instance.privatePieceCount[FieldManager.instance.FindPieceList(this)].PieceCountUp(this);
     }
 
-    protected virtual void Attack()
+    protected virtual void Attack(Piece piece)
     {
-        print("일반 공격을 합니다.");
+        int closePiece = FieldManager.instance.pathFinding.GetClosePiece(this);
+        if (target != null)
+        {
+            if (attackRange >= FieldManager.instance.pathFinding.GetDistance(currentNode.node, FieldManager.instance.enemyFilePieceList[closePiece].currentNode.node))
+            {
+                print(piece.pieceName + "에게 일반 공격을 합니다.");
+                //Attack(target);
+            }
+            else
+            {
+                Move();
+            }
+        }
+        else
+        {
+
+        }
     }
 
     protected virtual void Skill()
     {
         print("스킬을 사용합니다.");
+    }
+
+    protected bool RangeCheck()
+    {
+        int closePiece = FieldManager.instance.pathFinding.GetClosePiece(this);
+        print("사거리: " + attackRange + "거리: " + FieldManager.instance.pathFinding.GetDistance(currentNode.node, FieldManager.instance.enemyFilePieceList[closePiece].currentNode.node));
+        if (attackRange >= FieldManager.instance.pathFinding.GetDistance(currentNode.node, FieldManager.instance.enemyFilePieceList[closePiece].currentNode.node))
+            return true;
+        else
+            return false;
+    }
+
+    protected void Damage(Piece target)
+    {
+        target.health -= attackDamage;
     }
 
     void Dead()
@@ -73,9 +104,10 @@ public class Piece : MonoBehaviour
     public void DestroyPiece()
     {
         FieldManager.instance.privatePieceCount[FieldManager.instance.FindPieceList(this)].PieceCountDown(this);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+        //Destroy(gameObject);
     }
-    
+
     public void SetCurrentNode(Tile tile)
     {
         currentNode.node.walkable = true;
@@ -107,8 +139,11 @@ public class Piece : MonoBehaviour
             pc.currentTile = path[0];
             path.RemoveAt(0);
             canMove = true;
-
-            Invoke("Move", moveSpeed);
+            print(RangeCheck());
+            if (RangeCheck())
+                Attack(target);
+            else
+                Invoke("Move", moveSpeed);
         }
     }
 
@@ -135,7 +170,7 @@ public class Piece : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;
-        if(path.Count > 0)
+        if (path.Count > 0)
         {
             foreach (var tile in path)
             {

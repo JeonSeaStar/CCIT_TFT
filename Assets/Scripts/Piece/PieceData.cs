@@ -17,7 +17,7 @@ public class PieceData : ScriptableObject
     [SerializeField] float attackSpeed;
     [SerializeField] float criticalChance;
     [SerializeField] float criticalDamage;
-    [SerializeField] float attackRange;
+    [SerializeField] int attackRange;
 
     public enum Mythology { NONE = -1, A, B, C, D, E, MAX }
     public enum Species { NONE = -1, HAMSTER, CAT, DOG, FROG, RABBIT, MAX }
