@@ -1,0 +1,105 @@
+using System.Collections.Generic;
+using UnityEngine;
+using BackEnd;
+
+
+/// <summary>
+/// 수령 가능한 우편 리스트를 불러오는 스크립트
+/// </summary>
+public class BackendPostSystem : MonoBehaviour
+{
+    private List<PostData> postList = new List<PostData>();
+
+    private void Update()
+    {
+        if(Input.GetKeyDown("1"))
+        {
+            PostListGet(PostType.Admin);
+        }
+    }
+
+    public void PostListGet(PostType postType)
+    {
+        Backend.UPost.GetPostList(postType, callback =>
+         {
+             if(!callback.IsSuccess())
+             {
+                 Debug.LogError($"우편 불러오기 중 에러가 발생했습니다. : {callback}");
+                 return;
+             }
+
+             Debug.Log($"우편 리스트 불러오기 요청에 성공했습니다. : {callback}");
+
+             //  JSON 데이터 파싱 성공
+             try
+             {
+                 LitJson.JsonData jsonData = callback.GetFlattenJSON()["postList"];
+
+                 //받아온 데이터의 개수가 0이면 데이터가 없는 것
+                 if(jsonData.Count <= 0)
+                 {
+                     Debug.LogWarning("우편함이 비어있습니다.");
+                     return;
+                 }
+
+                 //매번 우편 리스트를 불러올 때 postList 초기화
+                 postList.Clear();
+
+                 //현재 저장 가능한 모든 우편 정보 불러오기
+                 for(int i = 0; i < jsonData.Count; ++i)
+                 {
+                     PostData post = new PostData();
+
+                     post.title = jsonData[i]["title"].ToString();
+                     post.content = jsonData[i]["content"].ToString();
+                     post.inDate = jsonData[i]["inDate"].ToString();
+                     post.expirationDate = jsonData[i]["expirationDate"].ToString();
+
+                     // 우편애 함께 발송된 모든 아이템 정보 불러오기
+                     foreach(LitJson.JsonData itemJson in jsonData[i]["items"])
+                     {
+                         //우편에 함께 발송된 아이템의 차트 이름이 "재화차트" 일 때 아마 난 테스트 재화차트일듯?
+                         if(itemJson["chartName"].ToString() == Constants.GOODS_CHART_NAME)
+                         {
+                             string itmeName = itemJson["item"]["itemName"].ToString();
+                             int itemCount = int.Parse(itemJson["itemCount"].ToString());
+
+                             //우편에 포함된 아이템이 여러 개 일때
+                             //이미 postReward에 해당 아이템 정보가 있으면 개수 추가
+                             if(post.postReward.ContainsKey(itmeName))
+                             {
+                                 post.postReward[itmeName] += itemCount;
+                             }
+                             //postReward에 없는 아이템 정보이면 요소 추가
+                             else
+                             {
+                                 post.postReward.Add(itmeName, itemCount);
+                             }
+
+                             post.isCanReceive = true;
+                         }
+                         else
+                         {
+                             Debug.LogWarning($"아직 지원되지 않는 차트 정보입니다. : {itemJson["charName"].ToString()}");
+
+                             post.isCanReceive = false;
+                         }
+                     }
+
+                     postList.Add(post);
+                 }
+
+                 //저장이 가능한 모든 우편(postList) 정보 출력
+                 for( int i = 0; i < postList.Count; ++i)
+                 {
+                     Debug.Log($"{i}번째 우편\n{postList[i].ToString()}");
+                 }
+             }
+             //JSON 데이터 파싱 실패
+             catch (System.Exception e)
+             {
+                 Debug.LogError(e);
+             }
+         });
+    }
+}
