@@ -11,11 +11,7 @@ public class Tile : MonoBehaviour
 
     public bool isFull = false;
     public bool isReadyTile = false;
+    public bool isBattleTile = false;
     public GameObject piece;
     public Node node;
-
-    public void Awake()
-    {
-
-    }
 }

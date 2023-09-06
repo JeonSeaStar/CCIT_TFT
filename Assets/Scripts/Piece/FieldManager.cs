@@ -1,7 +1,9 @@
 //using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using static ArenaManager;
 
 public class FieldManager : MonoBehaviour
 {
@@ -13,49 +15,11 @@ public class FieldManager : MonoBehaviour
     public List<Piece> myFilePieceList;
     public List<Piece> enemyFilePieceList;
 
-    [Space(10)]
-    //Jun
-    public bool isBattle = false;
-    public enum RoundType 
-    {
-        NONE = -1,
-        READY,
-        BATTLE ,
-        EVENT ,
-        OVERTIME,
-        DUEL,
-        DEAD ,
-        MAX
-    };
-    public RoundType roundType = RoundType.NONE;
-
     public GameObject[] readyZoneHexaIndicators;
     public GameObject[] battleFieldHexaIndicators;
 
-    public GameObject[] allPieces;// Tile 타입으로 재선언 할지도?
-    // 여기다가 구매한 기물 전부 넣어주세용~
-
-    public int getPieceCount = 0; // 구매해서 가지고 있는 기물 갯수
-    public int setPieceCount = 0; // 구매해서 배치한 기물 갯수
-
-    // 신화 시너지 인덱스
-    public int aMythology = 0;
-    public int bMythology = 0;
-    public int cMythology = 0;
-    public int dMythology = 0;
-    public int eMythology = 0;
-    // 종족 시너지 인덱스
-    public int hamsterSpecies = 0;
-    public int catSpecies = 0;
-    public int dogSpecies = 0;
-    public int frogSpecies = 0;
-    public int rabbitSpecies = 0;
-    // 추가 시너지 인덱스
-    public int aPlusSynerge = 0;
-    public int bPlusSynerge = 0;
-    public int cPlusSynerge = 0;
-    public int dPlusSynerge = 0;
-    public int ePlusSynerge = 0;
+    //public int getPieceCount = 0; // 구매해서 가지고 있는 기물 갯수
+    //public int setPieceCount = 0; // 구매해서 배치한 기물 갯수
 
     public Dictionary<PieceData.Mythology, int> SynergeMythology = new Dictionary<PieceData.Mythology, int>()
     {
@@ -85,9 +49,16 @@ public class FieldManager : MonoBehaviour
         { PieceData.PlusSynerge.E       ,0 }
     };
 
+    public TMP_Text testTimer;
+
     void Awake()
     {
         instance = this;
+    }
+
+    private void Start()
+    {
+        //testTimer.text = ArenaManager.instance.roundTime.ToString();
     }
 
     void Update()
@@ -97,7 +68,26 @@ public class FieldManager : MonoBehaviour
             Piece piece = SpawnPiece(testPiece, 0);
             piece.Owned();
         }
+
+        if(Input.GetKeyDown(KeyCode.S))
+        {
+            Debug.Log("SynergeMythology  A 의 활성화 수 = " + SynergeMythology[PieceData.Mythology.A] +
+                      System.Environment.NewLine + 
+                      "SynergeMythology  B 의 활성화 수 = " + SynergeMythology[PieceData.Mythology.B] +
+                      System.Environment.NewLine +
+                      "SynergeMythology  C 의 활성화 수 = " + SynergeMythology[PieceData.Mythology.C] +
+                      System.Environment.NewLine +
+                      "SynergeMythology  D 의 활성화 수 = " + SynergeMythology[PieceData.Mythology.D] +
+                      System.Environment.NewLine +
+                      "SynergeMythology  E 의 활성화 수 = " + SynergeMythology[PieceData.Mythology.E]);
+        }
+
+        if(Input.GetKeyDown(KeyCode.B))
+        {
+            ArenaManager.instance.roundType = RoundType.BATTLE;
+        }
     }
+
     int d = 0;
     public Piece SpawnPiece(GameObject p, int star)
     {
@@ -127,7 +117,7 @@ public class FieldManager : MonoBehaviour
     /// <param name="isactive"></param>
     public void ActiveHexaIndicators(bool isactive)
     {
-        if(roundType == RoundType.READY)
+        if(ArenaManager.instance.roundType == ArenaManager.RoundType.READY)
         {
             for(int i = 0; i < readyZoneHexaIndicators.Length; i++)
             {
@@ -138,7 +128,7 @@ public class FieldManager : MonoBehaviour
                 battleFieldHexaIndicators[i].SetActive(isactive);
             }
         }
-        if(roundType == RoundType.BATTLE)
+        if(ArenaManager.instance.roundType == ArenaManager.RoundType.BATTLE)
         {
             for(int i = 0; i < readyZoneHexaIndicators.Length; i++)
             {
@@ -146,6 +136,45 @@ public class FieldManager : MonoBehaviour
             }
         }
     }
+
+    public void ChangeRoundType(RoundType roundType)
+    {
+        if(roundType == RoundType.READY)
+        {
+
+        }
+        else if(roundType == RoundType.BATTLE)
+        {
+
+        }
+        else if(roundType == RoundType.EVENT)
+        {
+
+        }
+        else if(roundType == RoundType.OVERTIME)
+        {
+
+        }
+        else if(roundType == RoundType.DUEL)
+        {
+
+        }
+        else if(roundType == RoundType.DEAD)
+        {
+
+        }
+    }
+
+    //IEnumerator RoundTimer(RoundType type)
+    //{
+    //    yield return new WaitForSeconds(1f);
+    //    if(time > 0) time = time - 1;
+    //    else if(time < 0)
+    //    {
+    //        time = 0;
+    //        Debug.Log("Round Change");
+    //    }
+    //}
 }
 
 [System.Serializable]

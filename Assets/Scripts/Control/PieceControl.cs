@@ -8,10 +8,11 @@ using UnityEngine;
 
 public class PieceControl : MonoBehaviour
 {
-    [SerializeField]
-    private Rigidbody pieceRigidbody;
+    [SerializeField] private FieldManager fm;
+    [SerializeField] private Rigidbody pieceRigidbody;
+    //
     public Tile currentTile, targetTile;
-    Piece ControlPiece
+    public Piece ControlPiece
     {
         set { controlPiece = value; }
         get
@@ -25,7 +26,7 @@ public class PieceControl : MonoBehaviour
 
     private void OnMouseDown()
     {
-        FieldManager.instance.ActiveHexaIndicators(true);
+        fm.ActiveHexaIndicators(true);
 
         if (pieceRigidbody != null) pieceRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
         currentTile.node.walkable = false;
@@ -33,7 +34,7 @@ public class PieceControl : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        if(FieldManager.instance.roundType == FieldManager.RoundType.BATTLE)
+        if(ArenaManager.instance.roundType == ArenaManager.RoundType.BATTLE)
         {
             if(currentTile.isReadyTile == true)
             {
@@ -45,7 +46,7 @@ public class PieceControl : MonoBehaviour
                 transform.position = objPos;
             }
         }
-        else if(FieldManager.instance.roundType == FieldManager.RoundType.READY)
+        else if(ArenaManager.instance.roundType == ArenaManager.RoundType.READY)
         {
             float distance = Camera.main.WorldToScreenPoint(transform.position).z;
             Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
@@ -58,7 +59,7 @@ public class PieceControl : MonoBehaviour
 
     private void OnMouseUp()
     {
-        FieldManager.instance.ActiveHexaIndicators(false);
+        fm.ActiveHexaIndicators(false);
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -70,6 +71,7 @@ public class PieceControl : MonoBehaviour
                 transform.position = new Vector3(currentTile.transform.position.x, 0, currentTile.transform.position.z);
                 return;
             }
+            if(ArenaManager.instance.roundType == ArenaManager.RoundType.READY)
             targetTile = hit.transform.gameObject.GetComponent<Tile>();
         }
         else return;
@@ -84,17 +86,18 @@ public class PieceControl : MonoBehaviour
         {
             if (targetTile.isFull == true) // 이미 해당 타일에 기물이 존재하는 경우
             {
-                var targetTileControl = targetTile.piece.GetComponent<PieceControl>();
+                ControlPiece.SetPiece(this.controlPiece, targetTile.piece.GetComponent<Piece>());
 
+                // Piece 위치 교환
+                targetTile.piece.transform.position = new Vector3(currentTile.transform.position.x, 0, currentTile.transform.position.z);
+                transform.position = new Vector3(targetTile.transform.position.x, 0, targetTile.transform.position.z);
                 // Piece 정보 교환
                 currentTile.piece = targetTile.piece;
+                var targetPieceControl = targetTile.piece.GetComponent<PieceControl>();
+                targetPieceControl.currentTile = currentTile; targetPieceControl.targetTile = currentTile;
                 targetTile.piece = this.gameObject;
-                // Piece 위치 교환
-                targetTileControl.transform.position = new Vector3(currentTile.transform.position.x, 0, currentTile.transform.position.z);
-                transform.position = new Vector3(targetTile.transform.position.x, 0, targetTile.transform.position.z);
                 // 현재, 이동 타일 교환
                 this.currentTile = targetTile;
-                targetTileControl.currentTile = targetTileControl.targetTile;
                 // 
                 ControlPiece.currentNode = targetTile.GetComponent<Tile>();
                 targetTile.piece.GetComponent<Piece>().currentNode = currentTile.GetComponent<Tile>();
@@ -102,10 +105,10 @@ public class PieceControl : MonoBehaviour
             }
             else if (targetTile.isFull == false) // 해당 타일에 기물이 없는 경우 
             {
-                currentTile.isFull = false;
-                targetTile.isFull = true;
-                currentTile.piece = null;
-                targetTile.piece = this.gameObject;
+                ControlPiece.SetPiece(this.ControlPiece);
+
+                currentTile.isFull = false; targetTile.isFull = true; 
+                currentTile.piece = null; targetTile.piece = this.gameObject;
 
                 transform.position = new Vector3(targetTile.transform.position.x, 0, targetTile.transform.position.z);
                 currentTile = targetTile;
@@ -120,7 +123,7 @@ public class PieceControl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (FieldManager.instance.roundType == FieldManager.RoundType.READY)
+        if (ArenaManager.instance.roundType == ArenaManager.RoundType.READY)
         {
             if (other.gameObject.layer == 7)
             {
@@ -132,7 +135,7 @@ public class PieceControl : MonoBehaviour
                 //targetTile = other.gameObject.GetComponent<Tile>();
             }
         }
-        if(FieldManager.instance.roundType == FieldManager.RoundType.BATTLE)
+        if(ArenaManager.instance.roundType == ArenaManager.RoundType.BATTLE)
         {
             if (other.gameObject.layer == 7)
             {
