@@ -31,26 +31,13 @@ public class PathFinding : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            List<Tile> neighbor = GetNeighbor(grid[Y].tile[X]);
-            int i = 0;
-            for (int j = 0; j < neighbor.Count; j++)
-            {
-                i++;
-            }
-        }
-
         if (Input.GetKeyDown(KeyCode.F))
         {
-            startPiece.currentNode.node.walkable = true;
-            foreach(var enemy in FieldManager.instance.enemyFilePieceList)
-                enemy.currentNode.node.walkable = true;
-            SetCandidatePath(startPiece, FieldManager.instance.enemyFilePieceList);
-        }
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            startPiece.Move();
+            //내 기물 움직임 시작, 다음에 적 움직임까지 추가해서 테스트
+            foreach (var piece in FieldManager.instance.myFilePieceList)
+            {
+                piece.NextBehavior();
+            }
         }
     }
 
@@ -77,14 +64,12 @@ public class PathFinding : MonoBehaviour
                 int gridX = gridStartX + x;
                 int gridY = y;
                 int gridZ = gridStartZ - x;
-                Node node = new Node(gridX, gridY, gridZ);
-                node.listX = x;
-                node.listY = y;
-                node.gridX = gridX;
-                node.gridY = gridY;
-                node.gridZ = gridZ;
-
-                grid[y].tile[x].node = node;
+                grid[y].tile[x].listX = x;
+                grid[y].tile[x].listY = y;
+                grid[y].tile[x].gridX = gridX;
+                grid[y].tile[x].gridY = gridY;
+                grid[y].tile[x].gridZ = gridZ;
+                grid[y].tile[x].walkable = true;
             }
         }
     }
@@ -93,8 +78,8 @@ public class PathFinding : MonoBehaviour
     {
         List<Tile> neighbor = new List<Tile>();
 
-        int x = tile.node.listX;
-        int y = tile.node.listY;
+        int x = tile.listX;
+        int y = tile.listY;
 
         if (y % 2 == 0)
         {
@@ -159,7 +144,7 @@ public class PathFinding : MonoBehaviour
         return index;
     }
 
-    public int GetDistance(Node currentNode, Node targetNode)
+    public int GetDistance(Tile currentNode, Tile targetNode)
     {
         int x = Mathf.Abs(currentNode.gridX - targetNode.gridX);
         int y = Mathf.Abs(currentNode.gridY - targetNode.gridY);
@@ -182,7 +167,7 @@ public class PathFinding : MonoBehaviour
 
             for (int i = 1; i < openNode.Count; i++)
             {
-                if (openNode[i].node.fCost < currentNode.node.fCost || openNode[i].node.fCost == currentNode.node.fCost && openNode[i].node.hCost < currentNode.node.hCost)
+                if (openNode[i].fCost < currentNode.fCost || openNode[i].fCost == currentNode.fCost && openNode[i].hCost < currentNode.hCost)
                     currentNode = openNode[i];
             }
 
@@ -197,15 +182,16 @@ public class PathFinding : MonoBehaviour
 
             foreach (Tile neighbor in GetNeighbor(currentNode))
             {
-                if (!neighbor.node.walkable || closedNode.Contains(neighbor))
+                //여기 if문에 현재 기물이 서 있는 타일 !walkable여도 이동할 수 있게
+                if (!neighbor.walkable || closedNode.Contains(neighbor))
                     continue;
 
-                int newMovementCostToNeighbor = currentNode.node.gCost + GetDistance(currentNode.node, neighbor.node);
-                if (newMovementCostToNeighbor < neighbor.node.gCost || !openNode.Contains(neighbor))
+                int newMovementCostToNeighbor = currentNode.gCost + GetDistance(currentNode, neighbor);
+                if (newMovementCostToNeighbor < neighbor.gCost || !openNode.Contains(neighbor))
                 {
-                    neighbor.node.gCost = newMovementCostToNeighbor;
-                    neighbor.node.hCost = GetDistance(neighbor.node, targetNode.node);
-                    neighbor.node.parent = currentNode.node;
+                    neighbor.gCost = newMovementCostToNeighbor;
+                    neighbor.hCost = GetDistance(neighbor, targetNode);
+                    neighbor.parent = currentNode;
 
                     if (!openNode.Contains(neighbor))
                     {
@@ -228,10 +214,11 @@ public class PathFinding : MonoBehaviour
         {
             candidatePath.path.Add(currentNode);
             path.Add(currentNode);
-            currentNode = grid[currentNode.node.parent.listY].tile[currentNode.node.parent.listX];
+            currentNode = grid[currentNode.parent.listY].tile[currentNode.parent.listX];
         }
         path.Reverse();
         candidatePath.path.Reverse();
+        candidatePath.target = endNode.piece.GetComponent<Piece>();
 
         piece.candidatePath.Add(candidatePath);
     }
@@ -241,24 +228,24 @@ public class PathFinding : MonoBehaviour
         piece.path = path;
     }
 
-    public void SetCandidatePath(Piece piece, List<Piece> Enemies)
+    public void SetCandidatePath(Piece piece, List<Piece> enemies)
     {
+        piece.candidatePath = new List<CandidatePath>();
         int minCostArray = 0;
 
-        foreach (Piece enemy in Enemies)
+        foreach (Piece enemy in enemies)
         {
-            FindPath(piece, piece.currentNode, enemy.currentNode);
+            if(!enemy.dead)
+                FindPath(piece, piece.currentNode, enemy.currentNode);
         }
 
-        for(int i = 0; i < piece.candidatePath.Count; i++)
+        for (int i = 0; i < piece.candidatePath.Count; i++)
         {
             if (piece.candidatePath[i].cost < piece.candidatePath[minCostArray].cost)
-            {
                 minCostArray = i;
-                piece.target = Enemies[i];
-            }
         }
 
+        piece.target = piece.candidatePath[minCostArray].target;
         SetPath(piece, piece.candidatePath[minCostArray].path);
     }
 
@@ -270,45 +257,24 @@ public class PathFinding : MonoBehaviour
         int closeDistance = 99;
         int closePieceIndex = -1;
 
-        for(int i = 0; i < enemyList.Count; i++)
+        for (int i = 0; i < enemyList.Count; i++)
         {
-            int distance = GetDistance(currentTile.node, enemyList[i].currentNode.node);
+            int distance = GetDistance(currentTile, enemyList[i].currentNode);
             if (closeDistance > distance)
             {
                 closeDistance = distance;
                 closePieceIndex = i;
             }
         }
-
+        
         return closePieceIndex;
-    }
-}
-
-[Serializable]
-public class Node
-{
-    public int listX;
-    public int listY;
-
-    public int gridX;
-    public int gridY;
-    public int gridZ;
-    public Node parent;
-    public int gCost, hCost;
-    public int fCost { get { return hCost + gCost; } }
-    public bool walkable = true;
-
-    public Node(int gridX, int gridY, int gridZ)
-    {
-        this.gridX = gridX;
-        this.gridY = gridY;
-        this.gridZ = gridZ;
     }
 }
 
 [Serializable]
 public class CandidatePath
 {
+    public Piece target;
     public List<Tile> path;
     public int cost
     {
@@ -317,7 +283,7 @@ public class CandidatePath
             int pathCost = 0;
             foreach (var tile in path)
             {
-                pathCost += tile.node.gCost;
+                pathCost += tile.gCost;
             }
 
             return pathCost;

@@ -13,7 +13,6 @@ public class Piece : MonoBehaviour
 
     public List<Synerge> synerges;
     public List<Equipment> Equipments;
-    //public int pieceGrade = 1;
     public int star = 0;
 
     public float health;
@@ -27,6 +26,8 @@ public class Piece : MonoBehaviour
     public float criticalDamage;
     public int attackRange;
 
+    public bool dead;
+
     public string owner;
     public bool isOwned;
     // 여기다가 전투존에 배치 되었는지 확인하는거 추가해줭
@@ -37,42 +38,25 @@ public class Piece : MonoBehaviour
     public Piece target;
     public float moveSpeed;
 
+    bool canMove = true;
+    public Ease ease;
+
     void Awake()
     {
         pieceData.InitialzePiece(this);
-
-    }
-
-    private void Start()
-    {
-
     }
 
     public void Owned()
     {
         isOwned = true;
-        FieldManager.instance.privatePieceCount[FieldManager.instance.FindPieceList(this)].PieceCountUp(this);
     }
 
-    protected virtual void Attack(Piece piece)
+    protected virtual void Attack()
     {
-        int closePiece = FieldManager.instance.pathFinding.GetClosePiece(this);
-        if (target != null)
-        {
-            if (attackRange >= FieldManager.instance.pathFinding.GetDistance(currentNode.node, FieldManager.instance.enemyFilePieceList[closePiece].currentNode.node))
-            {
-                print(piece.pieceName + "에게 일반 공격을 합니다.");
-                //Attack(target);
-            }
-            else
-            {
-                Move();
-            }
-        }
-        else
-        {
+        print(target.name + "에게 일반 공격을 합니다.");
+        Damage();
 
-        }
+        Invoke("NextBehavior", attackSpeed);
     }
 
     protected virtual void Skill()
@@ -82,48 +66,29 @@ public class Piece : MonoBehaviour
 
     protected bool RangeCheck()
     {
-        int closePiece = FieldManager.instance.pathFinding.GetClosePiece(this);
-        print("사거리: " + attackRange + "거리: " + FieldManager.instance.pathFinding.GetDistance(currentNode.node, FieldManager.instance.enemyFilePieceList[closePiece].currentNode.node));
-        if (attackRange >= FieldManager.instance.pathFinding.GetDistance(currentNode.node, FieldManager.instance.enemyFilePieceList[closePiece].currentNode.node))
+        if (attackRange >= FieldManager.instance.pathFinding.GetDistance(currentNode, target.currentNode))
             return true;
         else
             return false;
     }
 
-    protected void Damage(Piece target)
+    protected void Damage()
     {
         target.health -= attackDamage;
+
+        if (target.health <= 0)
+        {
+            target.Dead();
+            target = null;
+        }
     }
 
     void Dead()
     {
-        print("체력이 0 이하가 되어 사망.");
-        DestroyPiece();
-    }
-
-    public void DestroyPiece()
-    {
-        FieldManager.instance.privatePieceCount[FieldManager.instance.FindPieceList(this)].PieceCountDown(this);
+        print(gameObject.name + "가 체력이 0 이하가 되어 사망.");
+        dead = true;
         gameObject.SetActive(false);
-        //Destroy(gameObject);
     }
-
-    public void SetCurrentNode(Tile tile)
-    {
-        currentNode.node.walkable = true;
-        tile.node.walkable = false;
-        currentNode = tile;
-    }
-
-    public Tile GetTargetNode()
-    {
-        Tile targetNode = target.currentNode;
-
-        return targetNode;
-    }
-
-    bool canMove = true;
-    public Ease ease;
 
     //이동
     public void Move()
@@ -139,18 +104,33 @@ public class Piece : MonoBehaviour
             pc.currentTile = path[0];
             path.RemoveAt(0);
             canMove = true;
-            print(RangeCheck());
-            if (RangeCheck())
-                Attack(target);
-            else
-                Invoke("Move", moveSpeed);
+
+            Invoke("NextBehavior", moveSpeed);
         }
     }
 
-    //공격
-    public void SetTargetPiece()
+    public void NextBehavior()
     {
+        currentNode.walkable = true;
+        foreach (var enemy in FieldManager.instance.enemyFilePieceList)
+            enemy.currentNode.walkable = true;
+        FieldManager.instance.pathFinding.SetCandidatePath(this, FieldManager.instance.enemyFilePieceList);
 
+        if (target != null)
+        {
+            if (RangeCheck())
+            {
+                Attack();
+            }
+            else
+            {
+                Move();
+            }
+        }
+        else
+        {
+            NextBehavior();
+        }
     }
 
     public void SetPiece(PieceData.Mythology mythology, PieceData.Species species, PieceData.PlusSynerge plussynerge)
@@ -165,17 +145,5 @@ public class Piece : MonoBehaviour
         FieldManager.instance.SynergeMythology[mythology]--;
         FieldManager.instance.SynergeSpecies[species]--;
         FieldManager.instance.SynergePlusSynerge[plussynerge]--;
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.blue;
-        if (path.Count > 0)
-        {
-            foreach (var tile in path)
-            {
-                Gizmos.DrawCube(new Vector3(tile.transform.position.x, tile.transform.position.y + 0.3f, tile.transform.position.z), new Vector3(0.3f, 0.3f, 0.3f));
-            }
-        }
     }
 }
