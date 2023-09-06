@@ -50,6 +50,9 @@ public class Login : LoginBase
             {
                 SetMessage($"{inputFieldID.text}님 환영합니다.");
 
+                //모든 차트 데이터 불러오기     %%차트 불러오기는 클라이언트 로그인 이휴에 사용할 수 있고 게임 실행 도중에 데이터가 바뀔 일이 없기에 1회만 불러온다
+                BackendChartData.LoadAllChart();
+
                 //로비 씬으로 이동
                 Utils.LoadScene(SceneNames.Lobby);
             }

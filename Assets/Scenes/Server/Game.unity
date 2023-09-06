@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 397355611}
   - component: {fileID: 397355610}
   - component: {fileID: 397355612}
+  - component: {fileID: 397355613}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -180,6 +181,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c009f0b9e12cc1742a18b530a5d03d38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &397355613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397355609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6259c02ae7c35c64a99ca28078931757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &409702516
@@ -942,6 +955,18 @@ MonoBehaviour:
       - m_Target: {fileID: 397355610}
         m_TargetAssemblyTypeName: GameController, Assembly-CSharp
         m_MethodName: GameOver
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 397355613}
+        m_TargetAssemblyTypeName: LevelSystem, Assembly-CSharp
+        m_MethodName: Process
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
