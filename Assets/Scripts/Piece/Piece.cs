@@ -11,8 +11,6 @@ public class Piece : MonoBehaviour
 
     public string pieceName;
     public Sprite piecePortrait;
-
-    public List<Synerge> synerges;
     public List<Equipment> Equipments;
     public int star = 0;
 

@@ -9,10 +9,11 @@ using static ArenaManager;
 
 public class PieceControl : MonoBehaviour
 {
-    [SerializeField]
-    private Rigidbody pieceRigidbody;
+    [SerializeField] public FieldManager fieldManager;
+    [SerializeField] private Rigidbody pieceRigidbody;
+
     public Tile currentTile, targetTile;
-    Piece ControlPiece
+    public Piece ControlPiece
     {
         set { controlPiece = value; }
         get
@@ -24,9 +25,16 @@ public class PieceControl : MonoBehaviour
     }
     Piece controlPiece;
 
+    private void Awake()
+    {
+        if(fieldManager == null) fieldManager = GameObject.Find("FieldManagaer").GetComponent<FieldManager>();
+    }
+
+
+
     private void OnMouseDown()
     {
-        FieldManager.instance.ActiveHexaIndicators(true);
+        fieldManager.ActiveHexaIndicators(true);
 
         if (pieceRigidbody != null) pieceRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
     }
@@ -58,7 +66,7 @@ public class PieceControl : MonoBehaviour
 
     private void OnMouseUp()
     {
-        FieldManager.instance.ActiveHexaIndicators(false);
+        fieldManager.ActiveHexaIndicators(false);
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
