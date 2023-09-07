@@ -40,9 +40,4 @@ public class Tile : MonoBehaviour
         this.gridY = gridY;
         this.gridZ = gridZ;
     }
-
-    public void Awake()
-    {
-
-    }
 }

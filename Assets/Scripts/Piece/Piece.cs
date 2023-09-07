@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using static Piece;
+using static PieceData;
 
 public class Piece : MonoBehaviour
 {
@@ -151,18 +152,63 @@ public class Piece : MonoBehaviour
 
         return false;
     }
-
-    public void SetPiece(PieceData.Mythology mythology, PieceData.Species species, PieceData.PlusSynerge plussynerge)
+    public void SetPiece(Piece currentPiece)
     {
-        FieldManager.instance.SynergeMythology[mythology]++;
-        FieldManager.instance.SynergeSpecies[species]++;
-        FieldManager.instance.SynergePlusSynerge[plussynerge]++;
+        var a = currentPiece.GetComponent<PieceControl>();
+        if (a.currentTile.isReadyTile == true && a.targetTile.isReadyTile == false)
+        {
+            // Plus
+            FieldManager.instance.SynergeMythology[currentPiece.pieceData.mythology]++;
+            FieldManager.instance.SynergeSpecies[currentPiece.pieceData.species]++;
+            FieldManager.instance.SynergePlusSynerge[currentPiece.pieceData.plusSynerge]++;
+            return;
+        }
+        if (a.currentTile.isReadyTile == false && a.targetTile.isReadyTile == true)
+        {
+            // Minus
+            FieldManager.instance.SynergeMythology[currentPiece.pieceData.mythology]--;
+            FieldManager.instance.SynergeSpecies[currentPiece.pieceData.species]--;
+            FieldManager.instance.SynergePlusSynerge[currentPiece.pieceData.plusSynerge]--;
+        }
     }
 
-    public void RemovePiece(PieceData.Mythology mythology, PieceData.Species species, PieceData.PlusSynerge plussynerge)
+    public void SetPiece(Piece currentPiece, Piece targetPiece)
     {
-        FieldManager.instance.SynergeMythology[mythology]--;
-        FieldManager.instance.SynergeSpecies[species]--;
-        FieldManager.instance.SynergePlusSynerge[plussynerge]--;
+        var a = currentPiece.GetComponent<PieceControl>();
+        var b = targetPiece.GetComponent<PieceControl>();
+
+        if (a.currentTile.isReadyTile == true && b.currentTile.isReadyTile == true) return;
+        if (a.currentTile.isReadyTile == false && b.currentTile.isReadyTile == false) return;
+        if (a.currentTile.isReadyTile == true && b.currentTile.isReadyTile == false)
+        {
+            FieldManager.instance.SynergeMythology[currentPiece.pieceData.mythology]++;
+            FieldManager.instance.SynergeSpecies[currentPiece.pieceData.species]++;
+            FieldManager.instance.SynergePlusSynerge[currentPiece.pieceData.plusSynerge]++;
+
+            FieldManager.instance.SynergeMythology[targetPiece.pieceData.mythology]--;
+            FieldManager.instance.SynergeSpecies[targetPiece.pieceData.species]--;
+            FieldManager.instance.SynergePlusSynerge[targetPiece.pieceData.plusSynerge]--;
+        }
+        if (a.currentTile.isReadyTile == false && b.currentTile.isReadyTile == true)
+        {
+            FieldManager.instance.SynergeMythology[currentPiece.pieceData.mythology]--;
+            FieldManager.instance.SynergeSpecies[currentPiece.pieceData.species]--;
+            FieldManager.instance.SynergePlusSynerge[currentPiece.pieceData.plusSynerge]--;
+
+            FieldManager.instance.SynergeMythology[targetPiece.pieceData.mythology]++;
+            FieldManager.instance.SynergeSpecies[targetPiece.pieceData.species]++;
+            FieldManager.instance.SynergePlusSynerge[targetPiece.pieceData.plusSynerge]++;
+        }
+
+        // Minus -- 
+        //FieldManager.instance.SynergeMythology[targetPiece.pieceData.mythology]--;
+        //FieldManager.instance.SynergeSpecies[targetPiece.pieceData.species]--;
+        //FieldManager.instance.SynergePlusSynerge[targetPiece.pieceData.plusSynerge]--;
+
+        // Plus
+        //FieldManager.instance.SynergeMythology[currentPiece.pieceData.mythology]++;
+        //FieldManager.instance.SynergeSpecies[currentPiece.pieceData.species]++;
+        //FieldManager.instance.SynergePlusSynerge[currentPiece.pieceData.plusSynerge]++;
     }
+
 }

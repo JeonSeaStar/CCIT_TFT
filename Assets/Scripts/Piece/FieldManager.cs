@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static ArenaManager;
 
 public class FieldManager : MonoBehaviour
 {
@@ -13,22 +14,6 @@ public class FieldManager : MonoBehaviour
     public List<Piece> enemyFilePieceList;
 
     public PathFinding pathFinding;
-
-    [Space(10)]
-    //Jun
-    public bool isBattle = false;
-    public enum RoundType 
-    {
-        NONE = -1,
-        READY,
-        BATTLE ,
-        EVENT ,
-        OVERTIME,
-        DUEL,
-        DEAD ,
-        MAX
-    };
-    public RoundType roundType = RoundType.NONE;
 
     public GameObject[] readyZoneHexaIndicators;
     public GameObject[] battleFieldHexaIndicators;
@@ -98,6 +83,25 @@ public class FieldManager : MonoBehaviour
             Piece piece = SpawnPiece(testPiece, 0);
             piece.Owned();
         }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            Debug.Log("SynergeMythology  A    시너지    = " + SynergeMythology[PieceData.Mythology.A] +
+                      System.Environment.NewLine +
+                      "SynergeMythology  B    시너지    = " + SynergeMythology[PieceData.Mythology.B] +
+                      System.Environment.NewLine +
+                      "SynergeMythology  C    시너지    = " + SynergeMythology[PieceData.Mythology.C] +
+                      System.Environment.NewLine +
+                      "SynergeMythology  D    시너지    = " + SynergeMythology[PieceData.Mythology.D] +
+                      System.Environment.NewLine +
+                      "SynergeMythology  E    시너지    = " + SynergeMythology[PieceData.Mythology.E]);
+        }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            ArenaManager.instance.roundType = RoundType.BATTLE;
+        }
+
     }
     int d = 0;
     public Piece SpawnPiece(GameObject p, int star)
@@ -116,9 +120,9 @@ public class FieldManager : MonoBehaviour
     /// <param name="isactive"></param>
     public void ActiveHexaIndicators(bool isactive)
     {
-        if(roundType == RoundType.READY)
+        if (ArenaManager.instance.roundType == RoundType.READY)
         {
-            for(int i = 0; i < readyZoneHexaIndicators.Length; i++)
+            for (int i = 0; i < readyZoneHexaIndicators.Length; i++)
             {
                 readyZoneHexaIndicators[i].SetActive(isactive);
             }
@@ -127,12 +131,40 @@ public class FieldManager : MonoBehaviour
                 battleFieldHexaIndicators[i].SetActive(isactive);
             }
         }
-        if(roundType == RoundType.BATTLE)
+        if (ArenaManager.instance.roundType == RoundType.BATTLE)
         {
-            for(int i = 0; i < readyZoneHexaIndicators.Length; i++)
+            for (int i = 0; i < readyZoneHexaIndicators.Length; i++)
             {
                 readyZoneHexaIndicators[i].SetActive(isactive);
             }
+        }
+    }
+
+    public void ChangeRoundType(RoundType roundType)
+    {
+        if (roundType == RoundType.READY)
+        {
+
+        }
+        else if (roundType == RoundType.BATTLE)
+        {
+
+        }
+        else if (roundType == RoundType.EVENT)
+        {
+
+        }
+        else if (roundType == RoundType.OVERTIME)
+        {
+
+        }
+        else if (roundType == RoundType.DUEL)
+        {
+
+        }
+        else if (roundType == RoundType.DEAD)
+        {
+
         }
     }
 }

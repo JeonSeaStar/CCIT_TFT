@@ -162,7 +162,7 @@ Transform:
   - {fileID: 274621759}
   - {fileID: 1982327655}
   m_Father: {fileID: 0}
-  m_RootOrder: 34
+  m_RootOrder: 33
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3652955
 PrefabInstance:
@@ -1700,18 +1700,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 1
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!65 &156506031
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2115,18 +2115,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!1001 &203613941
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2281,6 +2281,7 @@ MonoBehaviour:
   star: 0
   health: 0
   mana: 0
+  manaRecovery: 0
   attackDamage: 0
   abilityPower: 0
   armor: 0
@@ -2289,6 +2290,7 @@ MonoBehaviour:
   criticalChance: 0
   criticalDamage: 0
   attackRange: 0
+  dead: 0
   owner: 
   isOwned: 0
   candidatePath: []
@@ -2582,18 +2584,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!1 &253321680
 GameObject:
   m_ObjectHideFlags: 0
@@ -2762,18 +2764,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 1
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!65 &274621756
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2947,18 +2949,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!1 &310370209
 GameObject:
   m_ObjectHideFlags: 0
@@ -3303,7 +3305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1392386ccdaa12c46a1bd3b5b5371ddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pieceData: {fileID: 0}
+  pieceData: {fileID: 11400000, guid: 6891acecd0078c24c910eb77e64059db, type: 2}
   pieceName: 
   piecePortrait: {fileID: 0}
   synerges: []
@@ -3311,6 +3313,7 @@ MonoBehaviour:
   star: 0
   health: 0
   mana: 0
+  manaRecovery: 0
   attackDamage: 0
   abilityPower: 0
   armor: 0
@@ -3319,6 +3322,7 @@ MonoBehaviour:
   criticalChance: 0
   criticalDamage: 0
   attackRange: 0
+  dead: 0
   owner: 
   isOwned: 0
   candidatePath: []
@@ -3551,6 +3555,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 371096436}
   m_CullTransparentMesh: 1
+--- !u!1 &380538928
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 380538930}
+  - component: {fileID: 380538929}
+  m_Layer: 0
+  m_Name: ArenaManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &380538929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380538928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbb2325519f3dc64a9e51222792e5587, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fm: []
+  roundType: 0
+--- !u!4 &380538930
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380538928}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1174.4978, y: 709.29175, z: -4.196411}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 35
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &385679230
 GameObject:
   m_ObjectHideFlags: 0
@@ -3729,18 +3779,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!1 &420292441
 GameObject:
   m_ObjectHideFlags: 0
@@ -3999,18 +4049,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!1 &485611238
 GameObject:
   m_ObjectHideFlags: 0
@@ -4637,18 +4687,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 1
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!65 &524286347
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4754,18 +4804,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!1001 &542552604
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5042,18 +5092,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!1 &595675694
 GameObject:
   m_ObjectHideFlags: 0
@@ -5088,18 +5138,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 1
+  IsFull: 0
   isReadyTile: 1
   piece: {fileID: 206740858}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!65 &595675696
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6246,18 +6296,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!1 &716129417
 GameObject:
   m_ObjectHideFlags: 0
@@ -6946,18 +6996,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!1 &786460203
 GameObject:
   m_ObjectHideFlags: 0
@@ -7238,18 +7288,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!1 &832820117
 GameObject:
   m_ObjectHideFlags: 0
@@ -7738,7 +7788,7 @@ Transform:
   - {fileID: 1730364300}
   - {fileID: 1929885139}
   m_Father: {fileID: 0}
-  m_RootOrder: 35
+  m_RootOrder: 34
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &917258989
 GameObject:
@@ -8604,18 +8654,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!1001 &992479312
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8843,18 +8893,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!1 &1010427667
 GameObject:
   m_ObjectHideFlags: 0
@@ -9034,18 +9084,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!1001 &1023051481
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9909,11 +9959,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testPiece: {fileID: 0}
-  privatePieceCount: []
   myFilePieceList: []
   enemyFilePieceList: []
-  isBattle: 0
-  roundType: 0
+  pathFinding: {fileID: 0}
   readyZoneHexaIndicators:
   - {fileID: 1472660296}
   - {fileID: 1829079587}
@@ -10535,18 +10583,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!1001 &1148504036
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10673,18 +10721,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!1001 &1165259085
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11313,18 +11361,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!1 &1222817647
 GameObject:
   m_ObjectHideFlags: 0
@@ -11511,18 +11559,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!1 &1248111938
 GameObject:
   m_ObjectHideFlags: 0
@@ -12373,18 +12421,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 1
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!65 &1285432314
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12650,18 +12698,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!1001 &1323277981
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13036,18 +13084,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 1
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!65 &1358157612
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13639,18 +13687,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!1001 &1412109469
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13855,18 +13903,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!1 &1462521026
 GameObject:
   m_ObjectHideFlags: 0
@@ -14475,18 +14523,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!1001 &1528826881
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15157,18 +15205,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!1 &1571157589 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
@@ -15195,18 +15243,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!1 &1579154402
 GameObject:
   m_ObjectHideFlags: 0
@@ -16699,18 +16747,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!1001 &1734265728
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16887,18 +16935,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!1 &1750575222
 GameObject:
   m_ObjectHideFlags: 0
@@ -17161,18 +17209,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!1001 &1792544877
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17391,18 +17439,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 1
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!65 &1821221566
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18140,6 +18188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42664689820f45944a20848c9c006b69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mytileinfo: {}
 --- !u!4 &1898037960
 Transform:
   m_ObjectHideFlags: 0
@@ -18385,50 +18434,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
---- !u!1 &1926365720
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1926365721}
-  - component: {fileID: 1926365722}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1926365721
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1926365720}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.6293226, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 33
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1926365722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1926365720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42664689820f45944a20848c9c006b69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1929885135 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
@@ -18455,18 +18460,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!1001 &1932952452
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19025,18 +19030,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 1
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!65 &1982327652
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19142,18 +19147,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!1 &1989177241
 GameObject:
   m_ObjectHideFlags: 0
@@ -19570,18 +19575,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!1001 &2023436703
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20351,18 +20356,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 1
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!65 &2095775779
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20468,18 +20473,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 0
+  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!1 &2107537008
 GameObject:
   m_ObjectHideFlags: 0
@@ -20514,18 +20519,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  isFull: 1
+  IsFull: 0
   isReadyTile: 1
   piece: {fileID: 348417578}
-  node:
-    listX: 0
-    listY: 0
-    gridX: 0
-    gridY: 0
-    gridZ: 0
-    gCost: 0
-    hCost: 0
-    walkable: 0
+  listX: 0
+  listY: 0
+  gridX: 0
+  gridY: 0
+  gridZ: 0
+  parent: {fileID: 0}
+  gCost: 0
+  hCost: 0
+  walkable: 0
 --- !u!65 &2107537010
 BoxCollider:
   m_ObjectHideFlags: 0
