@@ -171,7 +171,7 @@ public class BackendPostSystem : MonoBehaviour
                 //GoodsChart.xlsx에 등록한 첫번째 행 이름
                 int itemId = int.Parse(itemJson["item"]["itemId"].ToString());
                 string itemName = itemJson["item"]["itemName"].ToString();
-                string itemInfo = itemJson["item"]["ItemInfo"].ToString();
+                string itemInfo = itemJson["item"]["itemInfo"].ToString();
 
                 //우편을 발송할 때 작성하는 아이템 수량
                 int itemCount = int.Parse(itemJson["itemCount"].ToString());
