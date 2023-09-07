@@ -29,7 +29,6 @@ public class PieceControl : MonoBehaviour
         fm.ActiveHexaIndicators(true);
 
         if (pieceRigidbody != null) pieceRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
-        currentTile.node.walkable = false;
     }
 
     private void OnMouseDrag()
@@ -80,7 +79,6 @@ public class PieceControl : MonoBehaviour
         if (currentTile == targetTile)
         {
             transform.position = new Vector3(currentTile.transform.position.x, 0, currentTile.transform.position.z);
-            targetTile.node.walkable = false;
         }
         else if(currentTile != targetTile)
         {
@@ -101,7 +99,6 @@ public class PieceControl : MonoBehaviour
                 // 
                 ControlPiece.currentNode = targetTile.GetComponent<Tile>();
                 targetTile.piece.GetComponent<Piece>().currentNode = currentTile.GetComponent<Tile>();
-                targetTile.node.walkable = false;
             }
             else if (targetTile.isFull == false) // 해당 타일에 기물이 없는 경우 
             {
@@ -114,7 +111,6 @@ public class PieceControl : MonoBehaviour
                 currentTile = targetTile;
 
                 ControlPiece.currentNode = targetTile.GetComponent<Tile>();
-                targetTile.node.walkable = false;
             }
         }
 

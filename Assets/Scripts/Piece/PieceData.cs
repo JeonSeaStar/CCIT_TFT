@@ -10,6 +10,7 @@ public class PieceData : ScriptableObject
 
     [SerializeField] float health;
     [SerializeField] float mana;
+    [SerializeField] float manaRecovery;
     [SerializeField] float attackDamage;
     [SerializeField] float abilityPower;
     [SerializeField] float armor;
@@ -17,7 +18,7 @@ public class PieceData : ScriptableObject
     [SerializeField] float attackSpeed;
     [SerializeField] float criticalChance;
     [SerializeField] float criticalDamage;
-    [SerializeField] float attackRange;
+    [SerializeField] int attackRange;
 
     public enum Mythology { NONE = -1, A, B, C, D, E, MAX }
     public enum Species { NONE = -1, HAMSTER, CAT, DOG, FROG, RABBIT, MAX }
@@ -32,6 +33,7 @@ public class PieceData : ScriptableObject
         piece.piecePortrait = piecePortrait;
         piece.health = health;
         piece.mana = mana;
+        piece.manaRecovery = manaRecovery;
         piece.attackDamage = attackDamage;
         piece.abilityPower = abilityPower;
         piece.armor = armor;
