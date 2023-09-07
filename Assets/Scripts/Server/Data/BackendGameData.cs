@@ -158,6 +158,8 @@ public class BackendGameData
 					Debug.Log($"게임 정보 데이터 수정에 성공했습니다. : {callback}");
 
 					action?.Invoke();
+					//우편에 포함된 아이템을 수령해서 메소드가 호출되었을 떄 Lobby 씬의 상단에 있는 재화 정보가 변경되도록 설정
+					onGameDataLoadEvent?.Invoke();
 				}
 				else
 				{

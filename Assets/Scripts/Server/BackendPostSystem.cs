@@ -12,9 +12,19 @@ public class BackendPostSystem : MonoBehaviour
 
     private void Update()
     {
+        //받을 수 있는 혹은 발송이 완료된 우편이 있는지 리스트 업
         if(Input.GetKeyDown("1"))
         {
             PostListGet(PostType.Admin);
+        }
+        //받을 수 있는 index번째 우편 수령
+        else if(Input.GetKeyDown("2"))
+        {
+            PostReceive(PostType.Admin, 0);
+        }
+        else if(Input.GetKeyDown("3"))
+        {
+            PostRecevieAll(PostType.Admin);
         }
     }
 
@@ -80,7 +90,7 @@ public class BackendPostSystem : MonoBehaviour
                          }
                          else
                          {
-                             Debug.LogWarning($"아직 지원되지 않는 차트 정보입니다. : {itemJson["charName"].ToString()}");
+                             Debug.LogWarning($"아직 지원되지 않는 차트 정보입니다. : {itemJson["chartName"].ToString()}");
 
                              post.isCanReceive = false;
                          }
@@ -101,5 +111,129 @@ public class BackendPostSystem : MonoBehaviour
                  Debug.LogError(e);
              }
          });
+    }
+
+    //단일 우편 수령
+    public void PostReceive(PostType postType, int index)
+    {
+        if(postList.Count <= 0)
+        {
+            Debug.LogWarning("받을 수 있는 우편이 존재하지 않습니다. 혹은 우편 리스트 불러오기를 먼저 호출해주세요.");
+            return;
+        }
+
+        if(index >= postList.Count)
+        {
+            Debug.LogError($"해당 우편은 존재하지 않습니다. : 요청 index{index} / 우편 최대 갯수 : {postList.Count}");
+            return;
+        }
+
+        Debug.Log($"{postType.ToString()}의 {postList[index].inDate} 우편수령을 요구합니다.");
+
+        Backend.UPost.ReceivePostItem(postType, postList[index].inDate, callback =>
+        {
+            if (!callback.IsSuccess())
+            {
+                Debug.LogError($"{postType.ToString()}의 {postList[index].inDate} 우편수령 중 에러가 발생했습니다. : {callback}");
+                return;
+            }
+
+            Debug.Log($"{postType.ToString()}의 {postList[index].inDate} 우편수령에 성공했습니다. : {callback}");
+
+            postList.RemoveAt(index);
+
+            //저장 가능한 아이템이 있을 때
+            if(callback.GetFlattenJSON()["postItems"].Count > 0)
+            {
+                //아이쳄 저장
+                SavePostToLocal(callback.GetFlattenJSON()["postItems"]); //우편을 수령할 때 아이템의 키 값은 Items가 아닌["postItems"] 이다
+                //플레이어의 재화 정보를 서버에 업데이트
+                BackendGameData.Instance.GameDataUpdate();
+            }
+
+            //우편을 수령할 때 JsonData는 "postItems"가 가장 위에 존재 한다 %%%%중요%%%%
+        });
+    }
+
+    //엑셀 차트의 데이터 형식을 동일하게 따라가야함 JSON 데이터에 저장하는 메서드
+    public void SavePostToLocal(LitJson.JsonData item)
+    {
+        //JSON 데이터 파싱 성공
+        try
+        {
+            //%%JSON 데이터를 다룰때 주의할 점%% 차트의 이름과 동일한 이름을 사용해야 한다. 대소문자, string의 이름까지 동일해야 함
+            foreach (LitJson.JsonData itemJson in item)
+            {
+                //차트 파일 이름(*.xlsx)과 Backend Console에 등록한 차트 이름
+                string chartFileName = itemJson["item"]["chartFileName"].ToString();
+                string chartName = itemJson["chartName"].ToString();
+
+                //GoodsChart.xlsx에 등록한 첫번째 행 이름
+                int itemId = int.Parse(itemJson["item"]["itemId"].ToString());
+                string itemName = itemJson["item"]["itemName"].ToString();
+                string itemInfo = itemJson["item"]["ItemInfo"].ToString();
+
+                //우편을 발송할 때 작성하는 아이템 수량
+                int itemCount = int.Parse(itemJson["itemCount"].ToString());
+
+                //우편으로 받은 재화를 게임 내 데이터에 적용
+                if(chartName.Equals(Constants.GOODS_CHART_NAME))
+                {
+                    if(itemName.Equals("gold"))
+                    {
+                        BackendGameData.Instance.UserGameData.gold += itemCount;
+                    }
+                    else if(itemName.Equals("jewel"))
+                    {
+                        BackendGameData.Instance.UserGameData.jewel += itemCount;
+                    }
+                }
+
+                Debug.Log($"{chartName} - {chartFileName}");
+                Debug.Log($"[{itemId}] {itemName} : {itemInfo}, 획득 수량 : {itemCount}");
+                Debug.Log($"아이템을 수령했습니다. : {itemName} - {itemCount}개");
+            }
+        }
+        //JSON 데이터 파싱 실패
+        catch(System.Exception e)
+        {
+            //try-catch 에러 출력
+            Debug.LogError(e);
+        }
+    }
+
+    //모든 우편을 수령
+    public void PostRecevieAll(PostType postType)
+    {
+        if(postList.Count <= 0)
+        {
+            Debug.LogWarning("받을 수 있는 우편이 존재하지 않습니다. 혹은 우편 리스트 불러오기를 먼저 호출해주세요.");
+            return;
+        }
+
+        Debug.Log($"{postType.ToString()} 우편 전체 수령을 요청합니다.");
+
+        Backend.UPost.ReceivePostItemAll(postType, callback =>
+        {
+            if(!callback.IsSuccess())
+            {
+                Debug.LogError($"{postType.ToString()} 우편 전체 수령 중 에러가 발생했습니다. : {callback}");
+                return;
+            }
+
+            Debug.Log($"우편 전체 수령에 성공했습니다. : {callback}");
+
+            postList.Clear(); // 모든 우편을 수령했기 때문에 postList는 초기화한다.
+
+            //모든 우편의 아이템 저장
+            foreach(LitJson.JsonData postItemsJson in callback.GetFlattenJSON()["postItems"]) //0번 우편의 아이템 = callback.GetFlattenJSON()["postItems"][0] 이다
+            {
+                SavePostToLocal(postItemsJson);
+            }
+
+            //플레이어의 재화 정보를 서버에 업데이트
+            BackendGameData.Instance.GameDataUpdate();
+        });
+
     }
 }
