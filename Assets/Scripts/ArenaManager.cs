@@ -7,7 +7,6 @@ public class ArenaManager : MonoBehaviour
     public static ArenaManager instance;
 
     public List<FieldManager> fm;
-
     public enum RoundType
     {
         NONE = -1,
@@ -30,8 +29,33 @@ public class ArenaManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-
-        //fm[0] = FieldManager.instance;
     }
 
+    public void ChangeRoundType(RoundType roundType)
+    {
+        if (roundType == RoundType.READY)
+        {
+
+        }
+        else if (roundType == RoundType.BATTLE)
+        {
+
+        }
+        else if (roundType == RoundType.EVENT)
+        {
+
+        }
+        else if (roundType == RoundType.OVERTIME)
+        {
+
+        }
+        else if (roundType == RoundType.DUEL)
+        {
+
+        }
+        else if (roundType == RoundType.DEAD)
+        {
+
+        }
+    }
 }

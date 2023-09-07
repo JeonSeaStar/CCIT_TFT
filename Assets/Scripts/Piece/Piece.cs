@@ -7,6 +7,7 @@ using static PieceData;
 
 public class Piece : MonoBehaviour
 {
+    public FieldManager fieldManager;
     public PieceData pieceData;
 
     public string pieceName;
@@ -30,7 +31,6 @@ public class Piece : MonoBehaviour
 
     public string owner;
     public bool isOwned;
-    // 여기다가 전투존에 배치 되었는지 확인하는거 추가해줭
 
     public List<CandidatePath> candidatePath;
     public List<Tile> path;
@@ -44,6 +44,12 @@ public class Piece : MonoBehaviour
     void Awake()
     {
         pieceData.InitialzePiece(this);
+    }
+
+    private void Start()
+    {
+        // 초기화 순서 상 Start 에서 넣어주세요.
+        fieldManager = ArenaManager.instance.fm[0]; 
     }
 
     public void Owned()
@@ -152,50 +158,62 @@ public class Piece : MonoBehaviour
     }
     public void SetPiece(Piece currentPiece)
     {
-        var a = currentPiece.GetComponent<PieceControl>();
-        if (a.currentTile.isReadyTile == true && a.targetTile.isReadyTile == false)
+        for(int i = 0; i < fieldManager.myFilePieceList.Count;i++)
+        {
+            if (fieldManager.myFilePieceList[i].name == currentPiece.name) return;
+        }
+
+        var _currentPiece = currentPiece.GetComponent<PieceControl>();
+
+        if (_currentPiece.currentTile.isReadyTile == true && _currentPiece.targetTile.isReadyTile == false)
         {
             // Plus
-            FieldManager.instance.SynergeMythology[currentPiece.pieceData.mythology]++;
-            FieldManager.instance.SynergeSpecies[currentPiece.pieceData.species]++;
-            FieldManager.instance.SynergePlusSynerge[currentPiece.pieceData.plusSynerge]++;
+            fieldManager.SynergeMythology[currentPiece.pieceData.mythology]++;
+            fieldManager.SynergeSpecies[currentPiece.pieceData.species]++;
+            fieldManager.SynergePlusSynerge[currentPiece.pieceData.plusSynerge]++;
+
+            fieldManager.myFilePieceList.Add(currentPiece);
             return;
         }
-        if (a.currentTile.isReadyTile == false && a.targetTile.isReadyTile == true)
+        if (_currentPiece.currentTile.isReadyTile == false && _currentPiece.targetTile.isReadyTile == true)
         {
             // Minus
-            FieldManager.instance.SynergeMythology[currentPiece.pieceData.mythology]--;
-            FieldManager.instance.SynergeSpecies[currentPiece.pieceData.species]--;
-            FieldManager.instance.SynergePlusSynerge[currentPiece.pieceData.plusSynerge]--;
+            fieldManager.SynergeMythology[currentPiece.pieceData.mythology]--;
+            fieldManager.SynergeSpecies[currentPiece.pieceData.species]--;
+            fieldManager.SynergePlusSynerge[currentPiece.pieceData.plusSynerge]--;
+            
+            fieldManager.myFilePieceList.Remove(currentPiece);
         }
     }
 
     public void SetPiece(Piece currentPiece, Piece targetPiece)
     {
-        var a = currentPiece.GetComponent<PieceControl>();
-        var b = targetPiece.GetComponent<PieceControl>();
+        var _currentPiece = currentPiece.GetComponent<PieceControl>();
+        var _targetPiece = targetPiece.GetComponent<PieceControl>();
 
-        if (a.currentTile.isReadyTile == true && b.currentTile.isReadyTile == true) return;
-        if (a.currentTile.isReadyTile == false && b.currentTile.isReadyTile == false) return;
-        if (a.currentTile.isReadyTile == true && b.currentTile.isReadyTile == false)
+        if (_currentPiece.currentTile.isReadyTile == true && _targetPiece.currentTile.isReadyTile == true) return;
+        if (_currentPiece.currentTile.isReadyTile == false && _targetPiece.currentTile.isReadyTile == false) return;
+        if (_currentPiece.currentTile.isReadyTile == true && _targetPiece.currentTile.isReadyTile == false)
         {
-            FieldManager.instance.SynergeMythology[currentPiece.pieceData.mythology]++;
-            FieldManager.instance.SynergeSpecies[currentPiece.pieceData.species]++;
-            FieldManager.instance.SynergePlusSynerge[currentPiece.pieceData.plusSynerge]++;
+            //for(int i =0; i < fieldManager.)
 
-            FieldManager.instance.SynergeMythology[targetPiece.pieceData.mythology]--;
-            FieldManager.instance.SynergeSpecies[targetPiece.pieceData.species]--;
-            FieldManager.instance.SynergePlusSynerge[targetPiece.pieceData.plusSynerge]--;
+            fieldManager.SynergeMythology[currentPiece.pieceData.mythology]++;
+            fieldManager.SynergeSpecies[currentPiece.pieceData.species]++;
+            fieldManager.SynergePlusSynerge[currentPiece.pieceData.plusSynerge]++;
+
+            fieldManager.SynergeMythology[targetPiece.pieceData.mythology]--;
+            fieldManager.SynergeSpecies[targetPiece.pieceData.species]--;
+            fieldManager.SynergePlusSynerge[targetPiece.pieceData.plusSynerge]--;
         }
-        if (a.currentTile.isReadyTile == false && b.currentTile.isReadyTile == true)
+        if (_currentPiece.currentTile.isReadyTile == false && _targetPiece.currentTile.isReadyTile == true)
         {
-            FieldManager.instance.SynergeMythology[currentPiece.pieceData.mythology]--;
-            FieldManager.instance.SynergeSpecies[currentPiece.pieceData.species]--;
-            FieldManager.instance.SynergePlusSynerge[currentPiece.pieceData.plusSynerge]--;
+            fieldManager.SynergeMythology[currentPiece.pieceData.mythology]--;
+            fieldManager.SynergeSpecies[currentPiece.pieceData.species]--;
+            fieldManager.SynergePlusSynerge[currentPiece.pieceData.plusSynerge]--;
 
-            FieldManager.instance.SynergeMythology[targetPiece.pieceData.mythology]++;
-            FieldManager.instance.SynergeSpecies[targetPiece.pieceData.species]++;
-            FieldManager.instance.SynergePlusSynerge[targetPiece.pieceData.plusSynerge]++;
+            fieldManager.SynergeMythology[targetPiece.pieceData.mythology]++;
+            fieldManager.SynergeSpecies[targetPiece.pieceData.species]++;
+            fieldManager.SynergePlusSynerge[targetPiece.pieceData.plusSynerge]++;
         }
 
         // Minus -- 
@@ -208,5 +226,11 @@ public class Piece : MonoBehaviour
         //FieldManager.instance.SynergeSpecies[currentPiece.pieceData.species]++;
         //FieldManager.instance.SynergePlusSynerge[currentPiece.pieceData.plusSynerge]++;
     }
+
+    void CalculateSynerge()
+    {
+
+    }
+
 
 }

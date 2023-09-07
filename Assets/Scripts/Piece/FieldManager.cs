@@ -18,31 +18,6 @@ public class FieldManager : MonoBehaviour
     public GameObject[] readyZoneHexaIndicators;
     public GameObject[] battleFieldHexaIndicators;
 
-    public GameObject[] allPieces;// Tile 타입으로 재선언 할지도?
-    // 여기다가 구매한 기물 전부 넣어주세용~
-
-    public int getPieceCount = 0; // 구매해서 가지고 있는 기물 갯수
-    public int setPieceCount = 0; // 구매해서 배치한 기물 갯수
-
-    // 신화 시너지 인덱스
-    public int aMythology = 0;
-    public int bMythology = 0;
-    public int cMythology = 0;
-    public int dMythology = 0;
-    public int eMythology = 0;
-    // 종족 시너지 인덱스
-    public int hamsterSpecies = 0;
-    public int catSpecies = 0;
-    public int dogSpecies = 0;
-    public int frogSpecies = 0;
-    public int rabbitSpecies = 0;
-    // 추가 시너지 인덱스
-    public int aPlusSynerge = 0;
-    public int bPlusSynerge = 0;
-    public int cPlusSynerge = 0;
-    public int dPlusSynerge = 0;
-    public int ePlusSynerge = 0;
-
     public Dictionary<PieceData.Mythology, int> SynergeMythology = new Dictionary<PieceData.Mythology, int>()
     {
         { PieceData.Mythology.NONE      ,0 },
@@ -74,6 +49,7 @@ public class FieldManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+        ArenaManager.instance.fm[0] = this;
     }
 
     void Update()
@@ -137,34 +113,6 @@ public class FieldManager : MonoBehaviour
             {
                 readyZoneHexaIndicators[i].SetActive(isactive);
             }
-        }
-    }
-
-    public void ChangeRoundType(RoundType roundType)
-    {
-        if (roundType == RoundType.READY)
-        {
-
-        }
-        else if (roundType == RoundType.BATTLE)
-        {
-
-        }
-        else if (roundType == RoundType.EVENT)
-        {
-
-        }
-        else if (roundType == RoundType.OVERTIME)
-        {
-
-        }
-        else if (roundType == RoundType.DUEL)
-        {
-
-        }
-        else if (roundType == RoundType.DEAD)
-        {
-
         }
     }
 }

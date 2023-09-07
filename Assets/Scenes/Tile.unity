@@ -842,6 +842,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1392386ccdaa12c46a1bd3b5b5371ddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fieldManager: {fileID: 0}
   pieceData: {fileID: 11400000, guid: 6891acecd0078c24c910eb77e64059db, type: 2}
   pieceName: 
   piecePortrait: {fileID: 0}
@@ -2306,6 +2307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1392386ccdaa12c46a1bd3b5b5371ddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fieldManager: {fileID: 0}
   pieceData: {fileID: 11400000, guid: 6891acecd0078c24c910eb77e64059db, type: 2}
   pieceName: 
   piecePortrait: {fileID: 0}
@@ -3339,6 +3341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1392386ccdaa12c46a1bd3b5b5371ddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fieldManager: {fileID: 0}
   pieceData: {fileID: 11400000, guid: 6891acecd0078c24c910eb77e64059db, type: 2}
   pieceName: 
   piecePortrait: {fileID: 0}
@@ -5112,6 +5115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1392386ccdaa12c46a1bd3b5b5371ddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fieldManager: {fileID: 0}
   pieceData: {fileID: 11400000, guid: 6891acecd0078c24c910eb77e64059db, type: 2}
   pieceName: 
   piecePortrait: {fileID: 0}
@@ -5209,7 +5213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  IsFull: 0
+  IsFull: 1
   isReadyTile: 1
   piece: {fileID: 206740858}
   listX: 0
@@ -6058,6 +6062,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ch(2) (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7497b64e8bca5c24291a89bbe1e73c11,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7497b64e8bca5c24291a89bbe1e73c11,
         type: 3}
@@ -8324,6 +8333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1392386ccdaa12c46a1bd3b5b5371ddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fieldManager: {fileID: 0}
   pieceData: {fileID: 11400000, guid: 6891acecd0078c24c910eb77e64059db, type: 2}
   pieceName: 
   piecePortrait: {fileID: 0}
@@ -9873,6 +9883,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7497b64e8bca5c24291a89bbe1e73c11,
         type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7497b64e8bca5c24291a89bbe1e73c11,
+        type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -10111,24 +10126,6 @@ MonoBehaviour:
   - {fileID: 967392962}
   - {fileID: 1115534559}
   - {fileID: 1242554658}
-  allPieces: []
-  getPieceCount: 0
-  setPieceCount: 0
-  aMythology: 0
-  bMythology: 0
-  cMythology: 0
-  dMythology: 0
-  eMythology: 0
-  hamsterSpecies: 0
-  catSpecies: 0
-  dogSpecies: 0
-  frogSpecies: 0
-  rabbitSpecies: 0
-  aPlusSynerge: 0
-  bPlusSynerge: 0
-  cPlusSynerge: 0
-  dPlusSynerge: 0
-  ePlusSynerge: 0
 --- !u!4 &1097303228
 Transform:
   m_ObjectHideFlags: 0
@@ -14935,7 +14932,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1539242783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15667,6 +15664,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ch(2) (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7497b64e8bca5c24291a89bbe1e73c11,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7497b64e8bca5c24291a89bbe1e73c11,
         type: 3}
@@ -16726,6 +16728,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7497b64e8bca5c24291a89bbe1e73c11,
         type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7497b64e8bca5c24291a89bbe1e73c11,
+        type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -17032,6 +17039,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1392386ccdaa12c46a1bd3b5b5371ddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fieldManager: {fileID: 0}
   pieceData: {fileID: 11400000, guid: 6891acecd0078c24c910eb77e64059db, type: 2}
   pieceName: 
   piecePortrait: {fileID: 0}
@@ -20669,7 +20677,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  IsFull: 0
+  IsFull: 1
   isReadyTile: 1
   piece: {fileID: 348417578}
   listX: 0
