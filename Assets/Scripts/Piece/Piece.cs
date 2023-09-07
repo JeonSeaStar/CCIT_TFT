@@ -11,14 +11,12 @@ public class Piece : MonoBehaviour
 
     public string pieceName;
     public Sprite piecePortrait;
-
-    //public List<Synerge> synerges;
     public List<Equipment> Equipments;
-    //public int pieceGrade = 1;
     public int star = 0;
 
     public float health;
     public float mana;
+    public float manaRecovery;
     public float attackDamage;
     public float abilityPower;
     public float armor;
@@ -26,7 +24,9 @@ public class Piece : MonoBehaviour
     public float attackSpeed;
     public float criticalChance;
     public float criticalDamage;
-    public float attackRange;
+    public int attackRange;
+
+    public bool dead;
 
     public string owner;
     public bool isOwned;
@@ -35,64 +35,62 @@ public class Piece : MonoBehaviour
     public List<CandidatePath> candidatePath;
     public List<Tile> path;
     public Tile currentNode;
-    public Tile awayNode; // 원정 시 이동하게 될 타일 away --> 원정
     public Piece target;
     public float moveSpeed;
 
+    bool canMove = true;
+    public Ease ease;
+
     void Awake()
     {
-        //pieceData.InitialzePiece(this);
-    }
-
-    private void Start()
-    {
-        
+        pieceData.InitialzePiece(this);
     }
 
     public void Owned()
     {
         isOwned = true;
-        FieldManager.instance.privatePieceCount[FieldManager.instance.FindPieceList(this)].PieceCountUp(this);
     }
 
     protected virtual void Attack()
     {
-        print("일반 공격을 합니다.");
+        print(name + "(이)가" + target.name + "에게 일반 공격을 합니다.");
+        Damage();
+        mana += manaRecovery;
+        Invoke("NextBehavior", attackSpeed);
     }
 
     protected virtual void Skill()
     {
-        print("스킬을 사용합니다.");
+        print(name + "(이)가" + target.name + "에게 스킬을 사용합니다.");
+
+        Invoke("NextBehavior", attackSpeed);
+    }
+
+    protected bool RangeCheck()
+    {
+        if (attackRange >= FieldManager.instance.pathFinding.GetDistance(currentNode, target.currentNode))
+            return true;
+        else
+            return false;
+    }
+
+    protected void Damage()
+    {
+        target.health -= attackDamage;
+
+        if (target.health <= 0)
+        {
+            target.Dead();
+            target = null;
+        }
     }
 
     void Dead()
     {
-        print("체력이 0 이하가 되어 사망.");
-        DestroyPiece();
+        print(name + "(이)가 체력이 0 이하가 되어 사망.");
+        dead = true;
+        gameObject.SetActive(false);
     }
-
-    public void DestroyPiece()
-    {
-        FieldManager.instance.privatePieceCount[FieldManager.instance.FindPieceList(this)].PieceCountDown(this);
-        Destroy(gameObject);
-    }
-    
-    public void SetCurrentNode(Tile tile)
-    {
-        currentNode.node.walkable = true;
-        tile.node.walkable = false;
-        currentNode = tile;
-    }
-
-    public Tile GetTargetNode()
-    {
-        Tile targetNode = target.currentNode;
-
-        return targetNode;
-    }
-
-    bool canMove = true;
-    public Ease ease;
 
     //이동
     public void Move()
@@ -100,39 +98,62 @@ public class Piece : MonoBehaviour
         if (path.Count > 0 && canMove)
         {
             canMove = false;
+            if (path[0].isFull)
+            {
+                Invoke("NextBehavior", moveSpeed);
+                return;
+            }
+
             Vector3 targetTilePos = new Vector3(path[0].transform.position.x, transform.position.y, path[0].transform.position.z);
             transform.DOMove(targetTilePos, moveSpeed).SetEase(ease);
-
+            currentNode.isFull = false;
             currentNode = path[0];
+            currentNode.isFull = true;
             PieceControl pc = GetComponent<PieceControl>();
             pc.currentTile = path[0];
             path.RemoveAt(0);
             canMove = true;
 
-            Invoke("Move", moveSpeed);
+            Invoke("NextBehavior", moveSpeed);
         }
     }
 
-    //공격
-    public void SetTargetPiece()
+    public void NextBehavior()
     {
+        if (CheckSurvival(FieldManager.instance.enemyFilePieceList))
+        {
+            foreach (var enemy in FieldManager.instance.enemyFilePieceList)
+                enemy.currentNode.walkable = true;
+            FieldManager.instance.pathFinding.SetCandidatePath(this, FieldManager.instance.enemyFilePieceList);
 
+            if (target != null)
+            {
+                if (RangeCheck())
+                    Attack();
+                else
+                    Move();
+            }
+            else
+                NextBehavior();
+        }
+        else
+            print(name + "(이)가 승리의 춤 추는 중.");
     }
 
-    //1. 준비 타일에서 전투 타일로 배치하는 경우 --> PLUS 
+    bool CheckSurvival(List<Piece> enemies)
+    {
+        foreach (Piece enemy in enemies)
+        {
+            if (!enemy.dead)
+                return true;
+        }
 
-    //2. 전투 타일에서 전투 타일로 배치하는 경우 --> NONE
-    //4. 준비 타일에서 준비 타일로 배치하는 경우 --> NONE
-
-    //3. 전투 타일에서 준비 타일로 배치하는 경우 --> MINUS
-    //5. 준비 타일에서 판매하는 경우 --> MINUS
-    //6. 전투 타일에서 판매하는 경우 --> MINUS
-
-
+        return false;
+    }
     public void SetPiece(Piece currentPiece)
     {
         var a = currentPiece.GetComponent<PieceControl>();
-        if(a.currentTile.isReadyTile == true && a.targetTile.isReadyTile == false)
+        if (a.currentTile.isReadyTile == true && a.targetTile.isReadyTile == false)
         {
             // Plus
             FieldManager.instance.SynergeMythology[currentPiece.pieceData.mythology]++;
@@ -140,7 +161,7 @@ public class Piece : MonoBehaviour
             FieldManager.instance.SynergePlusSynerge[currentPiece.pieceData.plusSynerge]++;
             return;
         }
-        if(a.currentTile.isReadyTile == false && a.targetTile.isReadyTile == true)
+        if (a.currentTile.isReadyTile == false && a.targetTile.isReadyTile == true)
         {
             // Minus
             FieldManager.instance.SynergeMythology[currentPiece.pieceData.mythology]--;
@@ -188,15 +209,4 @@ public class Piece : MonoBehaviour
         //FieldManager.instance.SynergePlusSynerge[currentPiece.pieceData.plusSynerge]++;
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.blue;
-        if(path.Count > 0)
-        {
-            foreach (var tile in path)
-            {
-                Gizmos.DrawCube(new Vector3(tile.transform.position.x, tile.transform.position.y + 0.3f, tile.transform.position.z), new Vector3(0.3f, 0.3f, 0.3f));
-            }
-        }
-    }
 }

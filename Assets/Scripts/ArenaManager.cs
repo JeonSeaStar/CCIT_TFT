@@ -1,4 +1,4 @@
-using System.Collections;
+癤퓎sing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,14 +21,11 @@ public class ArenaManager : MonoBehaviour
     };
     public RoundType roundType = RoundType.NONE;
 
-    public const float readyTime = 30f;               // 준비 시간
-    public const float battleTime = 60f;              // 전투 시간
-    public const float battleOverTime = 60f;          // 연장전 시간
-    public const float groundEventTime = 10000f;      // 성지 시간
+    public const float readyTime = 30f;               
+    public const float battleTime = 60f;              
+    public const float battleOverTime = 60f;          
+    public const float groundEventTime = 10000f;      
     public const float duelTime = 60f;
-    
-                                    
-    
 
     private void Awake()
     {

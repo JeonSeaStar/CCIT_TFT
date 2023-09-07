@@ -9,9 +9,35 @@ public class Tile : MonoBehaviour
     [SerializeField]
     private Vector2 targetIndex; // 원정할때 가게 될 타일 배열
 
-    public bool isFull = false;
+    public bool isFull
+    {
+        set
+        {
+            IsFull = value;
+            if (IsFull) { walkable = false; }
+            else { walkable = true; }
+        }
+        get { return IsFull; }
+    }
+    public bool IsFull = false;
     public bool isReadyTile = false;
-    public bool isBattleTile = false;
     public GameObject piece;
-    public Node node;
+
+    public int listX;
+    public int listY;
+
+    public int gridX;
+    public int gridY;
+    public int gridZ;
+    public Tile parent;
+    public int gCost, hCost;
+    public int fCost { get { return hCost + gCost; } }
+    public bool walkable = true;
+
+    public Tile(int gridX, int gridY, int gridZ)
+    {
+        this.gridX = gridX;
+        this.gridY = gridY;
+        this.gridZ = gridZ;
+    }
 }

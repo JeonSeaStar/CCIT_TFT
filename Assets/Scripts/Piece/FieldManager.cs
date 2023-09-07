@@ -1,7 +1,6 @@
 //using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using static ArenaManager;
 
@@ -10,16 +9,39 @@ public class FieldManager : MonoBehaviour
     public static FieldManager instance;
 
     public GameObject testPiece;
-    public List<PrivatePieceCount> privatePieceCount;
 
     public List<Piece> myFilePieceList;
     public List<Piece> enemyFilePieceList;
 
+    public PathFinding pathFinding;
+
     public GameObject[] readyZoneHexaIndicators;
     public GameObject[] battleFieldHexaIndicators;
 
-    //public int getPieceCount = 0; // 구매해서 가지고 있는 기물 갯수
-    //public int setPieceCount = 0; // 구매해서 배치한 기물 갯수
+    public GameObject[] allPieces;// Tile 타입으로 재선언 할지도?
+    // 여기다가 구매한 기물 전부 넣어주세용~
+
+    public int getPieceCount = 0; // 구매해서 가지고 있는 기물 갯수
+    public int setPieceCount = 0; // 구매해서 배치한 기물 갯수
+
+    // 신화 시너지 인덱스
+    public int aMythology = 0;
+    public int bMythology = 0;
+    public int cMythology = 0;
+    public int dMythology = 0;
+    public int eMythology = 0;
+    // 종족 시너지 인덱스
+    public int hamsterSpecies = 0;
+    public int catSpecies = 0;
+    public int dogSpecies = 0;
+    public int frogSpecies = 0;
+    public int rabbitSpecies = 0;
+    // 추가 시너지 인덱스
+    public int aPlusSynerge = 0;
+    public int bPlusSynerge = 0;
+    public int cPlusSynerge = 0;
+    public int dPlusSynerge = 0;
+    public int ePlusSynerge = 0;
 
     public Dictionary<PieceData.Mythology, int> SynergeMythology = new Dictionary<PieceData.Mythology, int>()
     {
@@ -49,16 +71,9 @@ public class FieldManager : MonoBehaviour
         { PieceData.PlusSynerge.E       ,0 }
     };
 
-    public TMP_Text testTimer;
-
     void Awake()
     {
         instance = this;
-    }
-
-    private void Start()
-    {
-        //testTimer.text = ArenaManager.instance.roundTime.ToString();
     }
 
     void Update()
@@ -69,25 +84,25 @@ public class FieldManager : MonoBehaviour
             piece.Owned();
         }
 
-        if(Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S))
         {
-            Debug.Log("SynergeMythology  A 의 활성화 수 = " + SynergeMythology[PieceData.Mythology.A] +
-                      System.Environment.NewLine + 
-                      "SynergeMythology  B 의 활성화 수 = " + SynergeMythology[PieceData.Mythology.B] +
+            Debug.Log("SynergeMythology  A    시너지    = " + SynergeMythology[PieceData.Mythology.A] +
                       System.Environment.NewLine +
-                      "SynergeMythology  C 의 활성화 수 = " + SynergeMythology[PieceData.Mythology.C] +
+                      "SynergeMythology  B    시너지    = " + SynergeMythology[PieceData.Mythology.B] +
                       System.Environment.NewLine +
-                      "SynergeMythology  D 의 활성화 수 = " + SynergeMythology[PieceData.Mythology.D] +
+                      "SynergeMythology  C    시너지    = " + SynergeMythology[PieceData.Mythology.C] +
                       System.Environment.NewLine +
-                      "SynergeMythology  E 의 활성화 수 = " + SynergeMythology[PieceData.Mythology.E]);
+                      "SynergeMythology  D    시너지    = " + SynergeMythology[PieceData.Mythology.D] +
+                      System.Environment.NewLine +
+                      "SynergeMythology  E    시너지    = " + SynergeMythology[PieceData.Mythology.E]);
         }
 
-        if(Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.B))
         {
             ArenaManager.instance.roundType = RoundType.BATTLE;
         }
-    }
 
+    }
     int d = 0;
     public Piece SpawnPiece(GameObject p, int star)
     {
@@ -99,27 +114,15 @@ public class FieldManager : MonoBehaviour
         return piece;
     }
 
-    public int FindPieceList(Piece piece)
-    {
-        int listIndex = -1;
-        for (int i = 0; i < privatePieceCount.Count; i++)
-        {
-            if (privatePieceCount[i].pieceName == piece.pieceName)
-                listIndex = i;
-        }
-
-        return listIndex;
-    }
-
     /// <summary>
     /// Hexa Icon ON / OFF
     /// </summary>
     /// <param name="isactive"></param>
     public void ActiveHexaIndicators(bool isactive)
     {
-        if(ArenaManager.instance.roundType == ArenaManager.RoundType.READY)
+        if (ArenaManager.instance.roundType == RoundType.READY)
         {
-            for(int i = 0; i < readyZoneHexaIndicators.Length; i++)
+            for (int i = 0; i < readyZoneHexaIndicators.Length; i++)
             {
                 readyZoneHexaIndicators[i].SetActive(isactive);
             }
@@ -128,9 +131,9 @@ public class FieldManager : MonoBehaviour
                 battleFieldHexaIndicators[i].SetActive(isactive);
             }
         }
-        if(ArenaManager.instance.roundType == ArenaManager.RoundType.BATTLE)
+        if (ArenaManager.instance.roundType == RoundType.BATTLE)
         {
-            for(int i = 0; i < readyZoneHexaIndicators.Length; i++)
+            for (int i = 0; i < readyZoneHexaIndicators.Length; i++)
             {
                 readyZoneHexaIndicators[i].SetActive(isactive);
             }
@@ -139,107 +142,29 @@ public class FieldManager : MonoBehaviour
 
     public void ChangeRoundType(RoundType roundType)
     {
-        if(roundType == RoundType.READY)
+        if (roundType == RoundType.READY)
         {
 
         }
-        else if(roundType == RoundType.BATTLE)
+        else if (roundType == RoundType.BATTLE)
         {
 
         }
-        else if(roundType == RoundType.EVENT)
+        else if (roundType == RoundType.EVENT)
         {
 
         }
-        else if(roundType == RoundType.OVERTIME)
+        else if (roundType == RoundType.OVERTIME)
         {
 
         }
-        else if(roundType == RoundType.DUEL)
+        else if (roundType == RoundType.DUEL)
         {
 
         }
-        else if(roundType == RoundType.DEAD)
+        else if (roundType == RoundType.DEAD)
         {
 
         }
-    }
-
-    //IEnumerator RoundTimer(RoundType type)
-    //{
-    //    yield return new WaitForSeconds(1f);
-    //    if(time > 0) time = time - 1;
-    //    else if(time < 0)
-    //    {
-    //        time = 0;
-    //        Debug.Log("Round Change");
-    //    }
-    //}
-}
-
-[System.Serializable]
-public class PrivatePieceCount
-{
-    public string pieceName;
-    public List<Piece> piecesList;
-    public int[] star = new int[3];
-
-    public void PieceCountUp(Piece piece)
-    {
-        if (FieldManager.instance.privatePieceCount[FieldManager.instance.FindPieceList(piece)].pieceName == pieceName)
-        {
-            star[piece.star]++;
-            piecesList.Add(piece);
-            FusionPiece(piece);
-        }
-    }
-
-    public void PieceCountDown(Piece piece)
-    {
-        if (FieldManager.instance.privatePieceCount[FieldManager.instance.FindPieceList(piece)].pieceName == pieceName)
-        {
-            star[piece.star]--;
-            piecesList.Remove(piece);
-        }
-    }
-
-    void FusionPiece(Piece piece)
-    {
-        int fusionCondition = 1;
-        Piece firstFusionTarget = null;
-        Piece secondFusionTarget = null;
-        bool canFusion = false;
-
-        for (int i = 0; i < piecesList.Count; i++)
-        {
-            if (piecesList[i] != piece && piecesList[i].star == piece.star)
-            {
-                if (fusionCondition == 0)
-                {
-                    secondFusionTarget = piecesList[i];
-                    canFusion = true;
-                    break;
-                }
-                else if (fusionCondition == 1)
-                {
-                    firstFusionTarget = piecesList[i];
-                    fusionCondition--;
-                }
-            }
-        }
-
-        if (canFusion)
-        {
-            piece.DestroyPiece();
-            firstFusionTarget.DestroyPiece();
-            secondFusionTarget.DestroyPiece();
-            Fusion(piece);
-        }
-    }
-
-    void Fusion(Piece piece)
-    {
-        Piece p = FieldManager.instance.SpawnPiece(FieldManager.instance.testPiece, ++piece.star);
-        p.Owned();
     }
 }
