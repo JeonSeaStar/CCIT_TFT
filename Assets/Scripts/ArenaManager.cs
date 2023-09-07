@@ -9,16 +9,16 @@ public class ArenaManager : MonoBehaviour
     public List<FieldManager> fm;
     public enum RoundType
     {
-        NONE = -1,
-        READY,
-        BATTLE,
-        EVENT,
-        OVERTIME,
-        DUEL,
-        DEAD,
-        MAX
+        None = -1,
+        Ready,
+        Battle,
+        Event,
+        Overtime,
+        Duel,
+        Dead,
+        Max
     };
-    public RoundType roundType = RoundType.NONE;
+    public RoundType roundType = RoundType.None;
 
     public const float readyTime = 30f;               
     public const float battleTime = 60f;              
@@ -33,27 +33,27 @@ public class ArenaManager : MonoBehaviour
 
     public void ChangeRoundType(RoundType roundType)
     {
-        if (roundType == RoundType.READY)
+        if (roundType == RoundType.Ready)
         {
 
         }
-        else if (roundType == RoundType.BATTLE)
+        else if (roundType == RoundType.Battle)
         {
 
         }
-        else if (roundType == RoundType.EVENT)
+        else if (roundType == RoundType.Event)
         {
 
         }
-        else if (roundType == RoundType.OVERTIME)
+        else if (roundType == RoundType.Overtime)
         {
 
         }
-        else if (roundType == RoundType.DUEL)
+        else if (roundType == RoundType.Duel)
         {
 
         }
-        else if (roundType == RoundType.DEAD)
+        else if (roundType == RoundType.Dead)
         {
 
         }

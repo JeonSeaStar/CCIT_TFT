@@ -168,9 +168,9 @@ public class Piece : MonoBehaviour
         if (_currentPiece.currentTile.isReadyTile == true && _currentPiece.targetTile.isReadyTile == false)
         {
             // Plus
-            fieldManager.SynergeMythology[currentPiece.pieceData.mythology]++;
-            fieldManager.SynergeSpecies[currentPiece.pieceData.species]++;
-            fieldManager.SynergePlusSynerge[currentPiece.pieceData.plusSynerge]++;
+            fieldManager.SynergeMythology[currentPiece.pieceData.myth]++;
+            fieldManager.SynergeSpecies[currentPiece.pieceData.animal]++;
+            fieldManager.SynergePlusSynerge[currentPiece.pieceData.united]++;
 
             fieldManager.myFilePieceList.Add(currentPiece);
             return;
@@ -178,9 +178,9 @@ public class Piece : MonoBehaviour
         if (_currentPiece.currentTile.isReadyTile == false && _currentPiece.targetTile.isReadyTile == true)
         {
             // Minus
-            fieldManager.SynergeMythology[currentPiece.pieceData.mythology]--;
-            fieldManager.SynergeSpecies[currentPiece.pieceData.species]--;
-            fieldManager.SynergePlusSynerge[currentPiece.pieceData.plusSynerge]--;
+            fieldManager.SynergeMythology[currentPiece.pieceData.myth]--;
+            fieldManager.SynergeSpecies[currentPiece.pieceData.animal]--;
+            fieldManager.SynergePlusSynerge[currentPiece.pieceData.united]--;
             
             fieldManager.myFilePieceList.Remove(currentPiece);
         }
@@ -197,23 +197,23 @@ public class Piece : MonoBehaviour
         {
             //for(int i =0; i < fieldManager.)
 
-            fieldManager.SynergeMythology[currentPiece.pieceData.mythology]++;
-            fieldManager.SynergeSpecies[currentPiece.pieceData.species]++;
-            fieldManager.SynergePlusSynerge[currentPiece.pieceData.plusSynerge]++;
+            fieldManager.SynergeMythology[currentPiece.pieceData.myth]++;
+            fieldManager.SynergeSpecies[currentPiece.pieceData.animal]++;
+            fieldManager.SynergePlusSynerge[currentPiece.pieceData.united]++;
 
-            fieldManager.SynergeMythology[targetPiece.pieceData.mythology]--;
-            fieldManager.SynergeSpecies[targetPiece.pieceData.species]--;
-            fieldManager.SynergePlusSynerge[targetPiece.pieceData.plusSynerge]--;
+            fieldManager.SynergeMythology[targetPiece.pieceData.myth]--;
+            fieldManager.SynergeSpecies[targetPiece.pieceData.animal]--;
+            fieldManager.SynergePlusSynerge[targetPiece.pieceData.united]--;
         }
         if (_currentPiece.currentTile.isReadyTile == false && _targetPiece.currentTile.isReadyTile == true)
         {
-            fieldManager.SynergeMythology[currentPiece.pieceData.mythology]--;
-            fieldManager.SynergeSpecies[currentPiece.pieceData.species]--;
-            fieldManager.SynergePlusSynerge[currentPiece.pieceData.plusSynerge]--;
+            fieldManager.SynergeMythology[currentPiece.pieceData.myth]--;
+            fieldManager.SynergeSpecies[currentPiece.pieceData.animal]--;
+            fieldManager.SynergePlusSynerge[currentPiece.pieceData.united]--;
 
-            fieldManager.SynergeMythology[targetPiece.pieceData.mythology]++;
-            fieldManager.SynergeSpecies[targetPiece.pieceData.species]++;
-            fieldManager.SynergePlusSynerge[targetPiece.pieceData.plusSynerge]++;
+            fieldManager.SynergeMythology[targetPiece.pieceData.myth]++;
+            fieldManager.SynergeSpecies[targetPiece.pieceData.animal]++;
+            fieldManager.SynergePlusSynerge[targetPiece.pieceData.united]++;
         }
 
         // Minus -- 
