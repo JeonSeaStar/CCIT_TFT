@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using BackEnd;
 
 
@@ -8,9 +9,13 @@ using BackEnd;
 /// </summary>
 public class BackendPostSystem : MonoBehaviour
 {
+    [System.Serializable]
+    public class PostEvent : UnityEvent<List<PostData>> { }
+    public PostEvent onGetPostListEvent = new PostEvent();
+
     private List<PostData> postList = new List<PostData>();
 
-    private void Update()
+    /*private void Update()
     {
         //받을 수 있는 혹은 발송이 완료된 우편이 있는지 리스트 업
         if(Input.GetKeyDown("1"))
@@ -26,6 +31,24 @@ public class BackendPostSystem : MonoBehaviour
         {
             PostRecevieAll(PostType.Admin);
         }
+    }
+    */
+
+    public void PostListGet()
+    {
+        PostListGet(PostType.Admin);
+    }
+
+    //inDate 정보를 매개변수로 받아 우편을 수령하는 PostReceive() 메소드 호출
+    public void PostReceive(PostType postType, string inDate)
+    {
+        PostReceive(postType, postList.FindIndex(item => item.inDate.Equals(inDate)));
+    }
+
+    //모든 우편을 수령하는 PostReceiveAll() 메소드 호출
+    public void PostReceiveAll()
+    {
+        PostReceiveAll(PostType.Admin);
     }
 
     public void PostListGet(PostType postType)
@@ -98,6 +121,9 @@ public class BackendPostSystem : MonoBehaviour
 
                      postList.Add(post);
                  }
+
+                 //우편 리스트 불러오기가 완료되었을 때 이벤트 메소드 호출
+                 onGetPostListEvent?.Invoke(postList);
 
                  //저장이 가능한 모든 우편(postList) 정보 출력
                  for( int i = 0; i < postList.Count; ++i)
@@ -203,7 +229,7 @@ public class BackendPostSystem : MonoBehaviour
     }
 
     //모든 우편을 수령
-    public void PostRecevieAll(PostType postType)
+    public void PostReceiveAll(PostType postType)
     {
         if(postList.Count <= 0)
         {
