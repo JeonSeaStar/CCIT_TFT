@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using static Piece;
+using static PieceData;
 
 public class Piece : MonoBehaviour
 {
@@ -11,13 +12,13 @@ public class Piece : MonoBehaviour
     public string pieceName;
     public Sprite piecePortrait;
 
-    public List<Synerge> synerges;
+    //public List<Synerge> synerges;
     public List<Equipment> Equipments;
+    //public int pieceGrade = 1;
     public int star = 0;
 
     public float health;
     public float mana;
-    public float manaRecovery;
     public float attackDamage;
     public float abilityPower;
     public float armor;
@@ -25,9 +26,7 @@ public class Piece : MonoBehaviour
     public float attackSpeed;
     public float criticalChance;
     public float criticalDamage;
-    public int attackRange;
-
-    public bool dead;
+    public float attackRange;
 
     public string owner;
     public bool isOwned;
@@ -36,62 +35,64 @@ public class Piece : MonoBehaviour
     public List<CandidatePath> candidatePath;
     public List<Tile> path;
     public Tile currentNode;
+    public Tile awayNode; // 원정 시 이동하게 될 타일 away --> 원정
     public Piece target;
     public float moveSpeed;
 
-    bool canMove = true;
-    public Ease ease;
-
     void Awake()
     {
-        pieceData.InitialzePiece(this);
+        //pieceData.InitialzePiece(this);
+    }
+
+    private void Start()
+    {
+        
     }
 
     public void Owned()
     {
         isOwned = true;
+        FieldManager.instance.privatePieceCount[FieldManager.instance.FindPieceList(this)].PieceCountUp(this);
     }
 
     protected virtual void Attack()
     {
-        print(name + "(이)가" + target.name + "에게 일반 공격을 합니다.");
-        Damage();
-        mana += manaRecovery;
-        Invoke("NextBehavior", attackSpeed);
+        print("일반 공격을 합니다.");
     }
 
     protected virtual void Skill()
     {
-        print(name + "(이)가" + target.name + "에게 스킬을 사용합니다.");
-
-        Invoke("NextBehavior", attackSpeed);
-    }
-
-    protected bool RangeCheck()
-    {
-        if (attackRange >= FieldManager.instance.pathFinding.GetDistance(currentNode, target.currentNode))
-            return true;
-        else
-            return false;
-    }
-
-    protected void Damage()
-    {
-        target.health -= attackDamage;
-
-        if (target.health <= 0)
-        {
-            target.Dead();
-            target = null;
-        }
+        print("스킬을 사용합니다.");
     }
 
     void Dead()
     {
-        print(name + "(이)가 체력이 0 이하가 되어 사망.");
-        dead = true;
-        gameObject.SetActive(false);
+        print("체력이 0 이하가 되어 사망.");
+        DestroyPiece();
     }
+
+    public void DestroyPiece()
+    {
+        FieldManager.instance.privatePieceCount[FieldManager.instance.FindPieceList(this)].PieceCountDown(this);
+        Destroy(gameObject);
+    }
+    
+    public void SetCurrentNode(Tile tile)
+    {
+        currentNode.node.walkable = true;
+        tile.node.walkable = false;
+        currentNode = tile;
+    }
+
+    public Tile GetTargetNode()
+    {
+        Tile targetNode = target.currentNode;
+
+        return targetNode;
+    }
+
+    bool canMove = true;
+    public Ease ease;
 
     //이동
     public void Move()
@@ -99,70 +100,103 @@ public class Piece : MonoBehaviour
         if (path.Count > 0 && canMove)
         {
             canMove = false;
-            if (path[0].isFull)
-            {
-                Invoke("NextBehavior", moveSpeed);
-                return;
-            }
-
             Vector3 targetTilePos = new Vector3(path[0].transform.position.x, transform.position.y, path[0].transform.position.z);
             transform.DOMove(targetTilePos, moveSpeed).SetEase(ease);
-            currentNode.isFull = false;
+
             currentNode = path[0];
-            currentNode.isFull = true;
             PieceControl pc = GetComponent<PieceControl>();
             pc.currentTile = path[0];
             path.RemoveAt(0);
             canMove = true;
 
-            Invoke("NextBehavior", moveSpeed);
+            Invoke("Move", moveSpeed);
         }
     }
 
-    public void NextBehavior()
+    //공격
+    public void SetTargetPiece()
     {
-        if (CheckSurvival(FieldManager.instance.enemyFilePieceList))
-        {
-            foreach (var enemy in FieldManager.instance.enemyFilePieceList)
-                enemy.currentNode.walkable = true;
-            FieldManager.instance.pathFinding.SetCandidatePath(this, FieldManager.instance.enemyFilePieceList);
 
-            if (target != null)
+    }
+
+    //1. 준비 타일에서 전투 타일로 배치하는 경우 --> PLUS 
+
+    //2. 전투 타일에서 전투 타일로 배치하는 경우 --> NONE
+    //4. 준비 타일에서 준비 타일로 배치하는 경우 --> NONE
+
+    //3. 전투 타일에서 준비 타일로 배치하는 경우 --> MINUS
+    //5. 준비 타일에서 판매하는 경우 --> MINUS
+    //6. 전투 타일에서 판매하는 경우 --> MINUS
+
+
+    public void SetPiece(Piece currentPiece)
+    {
+        var a = currentPiece.GetComponent<PieceControl>();
+        if(a.currentTile.isReadyTile == true && a.targetTile.isReadyTile == false)
+        {
+            // Plus
+            FieldManager.instance.SynergeMythology[currentPiece.pieceData.mythology]++;
+            FieldManager.instance.SynergeSpecies[currentPiece.pieceData.species]++;
+            FieldManager.instance.SynergePlusSynerge[currentPiece.pieceData.plusSynerge]++;
+            return;
+        }
+        if(a.currentTile.isReadyTile == false && a.targetTile.isReadyTile == true)
+        {
+            // Minus
+            FieldManager.instance.SynergeMythology[currentPiece.pieceData.mythology]--;
+            FieldManager.instance.SynergeSpecies[currentPiece.pieceData.species]--;
+            FieldManager.instance.SynergePlusSynerge[currentPiece.pieceData.plusSynerge]--;
+        }
+    }
+
+    public void SetPiece(Piece currentPiece, Piece targetPiece)
+    {
+        var a = currentPiece.GetComponent<PieceControl>();
+        var b = targetPiece.GetComponent<PieceControl>();
+
+        if (a.currentTile.isReadyTile == true && b.currentTile.isReadyTile == true) return;
+        if (a.currentTile.isReadyTile == false && b.currentTile.isReadyTile == false) return;
+        if (a.currentTile.isReadyTile == true && b.currentTile.isReadyTile == false)
+        {
+            FieldManager.instance.SynergeMythology[currentPiece.pieceData.mythology]++;
+            FieldManager.instance.SynergeSpecies[currentPiece.pieceData.species]++;
+            FieldManager.instance.SynergePlusSynerge[currentPiece.pieceData.plusSynerge]++;
+
+            FieldManager.instance.SynergeMythology[targetPiece.pieceData.mythology]--;
+            FieldManager.instance.SynergeSpecies[targetPiece.pieceData.species]--;
+            FieldManager.instance.SynergePlusSynerge[targetPiece.pieceData.plusSynerge]--;
+        }
+        if (a.currentTile.isReadyTile == false && b.currentTile.isReadyTile == true)
+        {
+            FieldManager.instance.SynergeMythology[currentPiece.pieceData.mythology]--;
+            FieldManager.instance.SynergeSpecies[currentPiece.pieceData.species]--;
+            FieldManager.instance.SynergePlusSynerge[currentPiece.pieceData.plusSynerge]--;
+
+            FieldManager.instance.SynergeMythology[targetPiece.pieceData.mythology]++;
+            FieldManager.instance.SynergeSpecies[targetPiece.pieceData.species]++;
+            FieldManager.instance.SynergePlusSynerge[targetPiece.pieceData.plusSynerge]++;
+        }
+
+        // Minus -- 
+        //FieldManager.instance.SynergeMythology[targetPiece.pieceData.mythology]--;
+        //FieldManager.instance.SynergeSpecies[targetPiece.pieceData.species]--;
+        //FieldManager.instance.SynergePlusSynerge[targetPiece.pieceData.plusSynerge]--;
+
+        // Plus
+        //FieldManager.instance.SynergeMythology[currentPiece.pieceData.mythology]++;
+        //FieldManager.instance.SynergeSpecies[currentPiece.pieceData.species]++;
+        //FieldManager.instance.SynergePlusSynerge[currentPiece.pieceData.plusSynerge]++;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        if(path.Count > 0)
+        {
+            foreach (var tile in path)
             {
-                if (RangeCheck())
-                    Attack();
-                else
-                    Move();
+                Gizmos.DrawCube(new Vector3(tile.transform.position.x, tile.transform.position.y + 0.3f, tile.transform.position.z), new Vector3(0.3f, 0.3f, 0.3f));
             }
-            else
-                NextBehavior();
         }
-        else
-            print(name + "(이)가 승리의 춤 추는 중.");
-    }
-
-    bool CheckSurvival(List<Piece> enemies)
-    {
-        foreach (Piece enemy in enemies)
-        {
-            if (!enemy.dead)
-                return true;
-        }
-
-        return false;
-    }
-
-    public void SetPiece(PieceData.Mythology mythology, PieceData.Species species, PieceData.PlusSynerge plussynerge)
-    {
-        FieldManager.instance.SynergeMythology[mythology]++;
-        FieldManager.instance.SynergeSpecies[species]++;
-        FieldManager.instance.SynergePlusSynerge[plussynerge]++;
-    }
-
-    public void RemovePiece(PieceData.Mythology mythology, PieceData.Species species, PieceData.PlusSynerge plussynerge)
-    {
-        FieldManager.instance.SynergeMythology[mythology]--;
-        FieldManager.instance.SynergeSpecies[species]--;
-        FieldManager.instance.SynergePlusSynerge[plussynerge]--;
     }
 }
