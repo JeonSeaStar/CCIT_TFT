@@ -20,12 +20,12 @@ public class PieceData : ScriptableObject
     [SerializeField] float criticalDamage;
     [SerializeField] int attackRange;
 
-    public enum Mythology { NONE = -1, A, B, C, D, E, MAX }
-    public enum Species { NONE = -1, HAMSTER, CAT, DOG, FROG, RABBIT, MAX }
-    public enum PlusSynerge { NONE, A, B, C, D, E, MAX }
-    public Mythology mythology = Mythology.NONE;
-    public Species species = Species.NONE;
-    public PlusSynerge plusSynerge = PlusSynerge.NONE;
+    public enum Myth { None = -1, GreatMountain, FrostyWind, SandKingdom, HeavenGround, BurningGround, Max }
+    public enum Animal { None = -1, Hamster, Cat, Dog, Frog, Rabbit, Max }
+    public enum United { None, UnderWorld, Faddist, WarMachine, Creature, MAX }
+    public Myth myth = Myth.None;
+    public Animal animal = Animal.None;
+    public United united = United.None;
 
     public void InitialzePiece(Piece piece)
     {

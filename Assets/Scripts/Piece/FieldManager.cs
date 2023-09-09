@@ -20,60 +20,63 @@ public class FieldManager : MonoBehaviour
     public GameObject[] readyZoneHexaIndicators;
     public GameObject[] battleFieldHexaIndicators;
 
+<<<<<<< HEAD
     public bool grab;
 
     public Dictionary<PieceData.Mythology, int> SynergeMythology = new Dictionary<PieceData.Mythology, int>()
+=======
+    public Dictionary<PieceData.Myth, int> SynergeMythology = new Dictionary<PieceData.Myth, int>()
+>>>>>>> c2678a28aff9b002bd45a879d25ab06f09590d5d
     {
-        { PieceData.Mythology.NONE      ,0 },
-        { PieceData.Mythology.A         ,0 },
-        { PieceData.Mythology.B         ,0 },
-        { PieceData.Mythology.C         ,0 },
-        { PieceData.Mythology.D         ,0 },
-        { PieceData.Mythology.E         ,0 }
+        { PieceData.Myth.None                   ,0 },
+        { PieceData.Myth.GreatMountain          ,0 },
+        { PieceData.Myth.FrostyWind             ,0 },
+        { PieceData.Myth.SandKingdom            ,0 },
+        { PieceData.Myth.HeavenGround           ,0 },
+        { PieceData.Myth.BurningGround          ,0 }
     };
-    public Dictionary<PieceData.Species, int> SynergeSpecies = new Dictionary<PieceData.Species, int>()
+    public Dictionary<PieceData.Animal, int> SynergeSpecies = new Dictionary<PieceData.Animal, int>()
     {
-        { PieceData.Species.NONE        ,0 },
-        { PieceData.Species.HAMSTER     ,0 },
-        { PieceData.Species.CAT         ,0 },
-        { PieceData.Species.DOG         ,0 },
-        { PieceData.Species.FROG        ,0 },
-        { PieceData.Species.RABBIT      ,0 },
+        { PieceData.Animal.None        ,0 },
+        { PieceData.Animal.Hamster     ,0 },
+        { PieceData.Animal.Cat         ,0 },
+        { PieceData.Animal.Dog         ,0 },
+        { PieceData.Animal.Frog        ,0 },
+        { PieceData.Animal.Rabbit      ,0 },
     };
-    public Dictionary<PieceData.PlusSynerge, int> SynergePlusSynerge = new Dictionary<PieceData.PlusSynerge, int>()
+    public Dictionary<PieceData.United, int> SynergePlusSynerge = new Dictionary<PieceData.United, int>()
     {
-        { PieceData.PlusSynerge.NONE    ,0 },
-        { PieceData.PlusSynerge.A       ,0 },
-        { PieceData.PlusSynerge.B       ,0 },
-        { PieceData.PlusSynerge.C       ,0 },
-        { PieceData.PlusSynerge.D       ,0 },
-        { PieceData.PlusSynerge.E       ,0 }
+        { PieceData.United.None              ,0 },
+        { PieceData.United.UnderWorld        ,0 },
+        { PieceData.United.Faddist           ,0 },
+        { PieceData.United.WarMachine        ,0 },
+        { PieceData.United.Creature          ,0 }
     };
 
     void Awake()
     {
         instance = this;
-        ArenaManager.instance.fm[0] = this;
+        ArenaManager.instance.fm.Add(this);
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.S))
         {
-            Debug.Log("SynergeMythology  A    시너지    = " + SynergeMythology[PieceData.Mythology.A] +
+            Debug.Log("SynergeMythology  A    시너지    = " + SynergeMythology[PieceData.Myth.GreatMountain] +
                       System.Environment.NewLine +
-                      "SynergeMythology  B    시너지    = " + SynergeMythology[PieceData.Mythology.B] +
+                      "SynergeMythology  B    시너지    = " + SynergeMythology[PieceData.Myth.FrostyWind] +
                       System.Environment.NewLine +
-                      "SynergeMythology  C    시너지    = " + SynergeMythology[PieceData.Mythology.C] +
+                      "SynergeMythology  C    시너지    = " + SynergeMythology[PieceData.Myth.SandKingdom] +
                       System.Environment.NewLine +
-                      "SynergeMythology  D    시너지    = " + SynergeMythology[PieceData.Mythology.D] +
+                      "SynergeMythology  D    시너지    = " + SynergeMythology[PieceData.Myth.HeavenGround] +
                       System.Environment.NewLine +
-                      "SynergeMythology  E    시너지    = " + SynergeMythology[PieceData.Mythology.E]);
+                      "SynergeMythology  E    시너지    = " + SynergeMythology[PieceData.Myth.BurningGround]);
         }
 
         if (Input.GetKeyDown(KeyCode.B))
         {
-            ArenaManager.instance.roundType = RoundType.BATTLE;
+            ArenaManager.instance.roundType = RoundType.Battle;
         }
 
     }
@@ -94,7 +97,7 @@ public class FieldManager : MonoBehaviour
     /// <param name="isactive"></param>
     public void ActiveHexaIndicators(bool isactive)
     {
-        if (ArenaManager.instance.roundType == RoundType.READY)
+        if (ArenaManager.instance.roundType == RoundType.Ready)
         {
             for (int i = 0; i < readyZoneHexaIndicators.Length; i++)
             {
@@ -105,7 +108,7 @@ public class FieldManager : MonoBehaviour
                 battleFieldHexaIndicators[i].SetActive(isactive);
             }
         }
-        if (ArenaManager.instance.roundType == RoundType.BATTLE)
+        if (ArenaManager.instance.roundType == RoundType.Battle)
         {
             for (int i = 0; i < readyZoneHexaIndicators.Length; i++)
             {

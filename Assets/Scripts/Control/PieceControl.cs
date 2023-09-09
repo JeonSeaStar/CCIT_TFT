@@ -45,7 +45,7 @@ public class PieceControl : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        if(ArenaManager.instance.roundType == RoundType.BATTLE)
+        if(ArenaManager.instance.roundType == RoundType.Battle)
         {
             if(currentTile.isReadyTile == true)
             {
@@ -57,7 +57,7 @@ public class PieceControl : MonoBehaviour
                 transform.position = objPos;
             }
         }
-        else if(ArenaManager.instance.roundType == RoundType.READY)
+        else if(ArenaManager.instance.roundType == RoundType.Ready)
         {
             float distance = Camera.main.WorldToScreenPoint(transform.position).z;
             Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
@@ -72,7 +72,7 @@ public class PieceControl : MonoBehaviour
     {
         fieldManager.ActiveHexaIndicators(false);
 
-        #region Plane 위로 드래그 한 경우
+        // Plane 위로 드래그 한 경우
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, (-1) - (1 << 6)))
@@ -86,70 +86,47 @@ public class PieceControl : MonoBehaviour
             targetTile = hit.transform.gameObject.GetComponent<Tile>();
         }
         else return;
-        #endregion
 
-        #region 제자리 이동 
         if (currentTile == targetTile)
         {
             transform.position = new Vector3(currentTile.transform.position.x, 0, currentTile.transform.position.z);
         }
-        #endregion
-        #region 기물 위치 이동
         else if (currentTile != targetTile)
         {
-            #region 이미 해당 타일에 기물이 존재하는 경우
-            if (targetTile.isFull == true)
+            // 이미 해당 타일에 기물이 존재하는 경우
+            if (targetTile.isFull == true) 
             {
-                #region 시너지 계산
+                // 시너지 계산
                 ControlPiece.SetPiece(this.controlPiece, targetTile.piece.GetComponent<Piece>());
-                #endregion
-
-                #region 기물 위치 이동
-                targetTile.piece.transform.position = new Vector3(currentTile.transform.position.x, 0, currentTile.transform.position.z);
-                transform.position = new Vector3(targetTile.transform.position.x, 0, targetTile.transform.position.z);
-                #endregion
-
-                #region Piece Tile 정보 교환
-                currentTile.piece = targetTile.piece;
-                var targetPieceControl = targetTile.piece.GetComponent<PieceControl>();
-                targetPieceControl.currentTile = currentTile; targetPieceControl.targetTile = currentTile;
-                targetTile.piece = this.gameObject;
-                #endregion
-
-                #region 현재, 이동 타일 교환
-                this.currentTile = targetTile;
-                #endregion
-
-                // JeonSeaStar
+                
+                // 기물 위치 이동
+                ChangeTileTransform(currentTile, targetTile);
+                
+                // Piece Tile 정보 교환
+                ChangeTileInfo(currentTile, targetTile, targetTile.isFull);
+              
                 ControlPiece.currentNode = targetTile.GetComponent<Tile>();
                 targetTile.piece.GetComponent<Piece>().currentNode = currentTile.GetComponent<Tile>();
             }
-            #endregion
-            # region 해당 타일에 기물이 없는 경우
-            else if (targetTile.isFull == false) // 해당 타일에 기물이 없는 경우
+
+            // 해당 타일에 기물이 없는 경우
+            else if (targetTile.isFull == false) 
             {
-                #region 시너지 계산
+                // 시너지 계산
                 ControlPiece.SetPiece(this.ControlPiece);
-                #endregion
 
-                #region Piece Tile 정보 교환
-                currentTile.isFull = false; targetTile.isFull = true;
-                currentTile.piece = null; targetTile.piece = this.gameObject;
-                #endregion
+                // Piece Tile 정보 교환
+                ChangeTileInfo(currentTile, targetTile, targetTile.isFull);
 
-                #region 기물 위치 이동
-                transform.position = new Vector3(targetTile.transform.position.x, 0, targetTile.transform.position.z);
-                #endregion
-
-                #region 현재, 이동 타일 교환
+                // 기물 위치 이동
+                ChangeTileTransform(targetTile);
+                
+                // 현재, 이동 타일 교환
                 currentTile = targetTile;
-                #endregion
-
+                
                 ControlPiece.currentNode = targetTile.GetComponent<Tile>();
             }
-            #endregion
         }
-        #endregion
 
         if (pieceRigidbody != null) pieceRigidbody.constraints = RigidbodyConstraints.None;
 
@@ -158,7 +135,7 @@ public class PieceControl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (ArenaManager.instance.roundType == RoundType.READY)
+        if (ArenaManager.instance.roundType == RoundType.Ready)
         {
             if (other.gameObject.layer == 7)
             {
@@ -170,7 +147,7 @@ public class PieceControl : MonoBehaviour
                 //targetTile = other.gameObject.GetComponent<Tile>();
             }
         }
-        if(ArenaManager.instance.roundType == RoundType.BATTLE)
+        if(ArenaManager.instance.roundType == RoundType.Battle)
         {
             if (other.gameObject.layer == 7)
             {
@@ -180,6 +157,53 @@ public class PieceControl : MonoBehaviour
                     targetTile = other.gameObject.GetComponent<Tile>();
                 }
             }
+        }
+    }
+
+    /// <summary>
+    /// 기물 위치 이동
+    /// </summary>
+    /// <param name="target"></param>
+    void ChangeTileTransform(Tile target) => transform.position = new Vector3(target.transform.position.x, 0, target.transform.position.z);
+
+    /// <summary>
+    /// 기물 위치 변경
+    /// </summary>
+    /// <param name="current"></param>
+    /// <param name="target"></param>
+    void ChangeTileTransform(Tile current, Tile target)
+    {
+        target.piece.transform.position = new Vector3(current.transform.position.x, 0, current.transform.position.z);
+        current.transform.position = new Vector3(target.transform.position.x, 0, target.transform.position.z);
+    }
+
+    /// <summary>
+    /// 타일 정보 변경
+    /// </summary>
+    /// <param name="current"></param>
+    /// <param name="target"></param>
+    void ChangeTileInfo(Tile current, Tile target, bool isfull)
+    {
+        if (isfull)
+        {
+            // 현재 타일의 기물 바꿔주기
+            current.piece = target.piece;
+
+            // 목표 타일의 (현재, 목표) 타일 정보 바꿔주기
+            var targetPieceControl = target.piece.GetComponent<PieceControl>();
+            targetPieceControl.currentTile = current;
+            targetPieceControl.targetTile = current;
+            target.piece = this.gameObject;
+
+            // 현재 기물의 현재 타일 정보 변경
+            this.currentTile = targetTile;
+        }
+        else if(!isfull)
+        {
+            current.isFull = false; 
+            target.isFull = true;
+            currentTile.piece = null; 
+            targetTile.piece = this.gameObject;
         }
     }
 }
