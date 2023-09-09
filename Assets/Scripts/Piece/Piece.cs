@@ -41,6 +41,8 @@ public class Piece : MonoBehaviour
     bool canMove = true;
     public Ease ease;
 
+    [SerializeField] GameObject randomBoxObject;
+
     void Awake()
     {
         pieceData.InitialzePiece(this);
@@ -95,7 +97,15 @@ public class Piece : MonoBehaviour
     {
         print(name + "(이)가 체력이 0 이하가 되어 사망.");
         dead = true;
+        SpawnRandomBox();
         gameObject.SetActive(false);
+    }
+
+    void SpawnRandomBox()
+    {
+        GameObject box = Instantiate(randomBoxObject, transform.position, Quaternion.identity);
+        RandomBox randomBox = box.GetComponent<RandomBox>();
+        randomBox.CurveMove(fieldManager.targetPositions);
     }
 
     //이동
@@ -231,6 +241,4 @@ public class Piece : MonoBehaviour
     {
 
     }
-
-
 }

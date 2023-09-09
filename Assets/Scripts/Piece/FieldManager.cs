@@ -8,7 +8,9 @@ public class FieldManager : MonoBehaviour
 {
     public static FieldManager instance;
 
-    public GameObject testPiece;
+    public Messenger[] DualPlayers = new Messenger[2];
+
+    public List<Transform> targetPositions = new List<Transform>();
 
     public List<Piece> myFilePieceList;
     public List<Piece> enemyFilePieceList;
@@ -17,6 +19,8 @@ public class FieldManager : MonoBehaviour
 
     public GameObject[] readyZoneHexaIndicators;
     public GameObject[] battleFieldHexaIndicators;
+
+    public bool grab;
 
     public Dictionary<PieceData.Mythology, int> SynergeMythology = new Dictionary<PieceData.Mythology, int>()
     {
@@ -54,12 +58,6 @@ public class FieldManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            Piece piece = SpawnPiece(testPiece, 0);
-            piece.Owned();
-        }
-
         if (Input.GetKeyDown(KeyCode.S))
         {
             Debug.Log("SynergeMythology  A    ½Ã³ÊÁö    = " + SynergeMythology[PieceData.Mythology.A] +
@@ -114,5 +112,10 @@ public class FieldManager : MonoBehaviour
                 readyZoneHexaIndicators[i].SetActive(isactive);
             }
         }
+    }
+
+    void LifeAttack(Messenger defeatedPlayer)
+    {
+
     }
 }
