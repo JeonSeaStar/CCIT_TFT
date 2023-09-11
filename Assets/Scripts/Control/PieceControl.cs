@@ -36,11 +36,7 @@ public class PieceControl : MonoBehaviour
     {
         fieldManager.ActiveHexaIndicators(true);
 
-        if (pieceRigidbody != null)
-        {
-            pieceRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
-            fieldManager.grab = true;
-        }
+        if (pieceRigidbody != null) pieceRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
     private void OnMouseDrag()
@@ -129,8 +125,6 @@ public class PieceControl : MonoBehaviour
         }
 
         if (pieceRigidbody != null) pieceRigidbody.constraints = RigidbodyConstraints.None;
-
-        fieldManager.grab = false;
     }
 
     private void OnTriggerEnter(Collider other)
