@@ -1,0 +1,10 @@
+diff a/Assets/Scripts/Piece/FieldManager.cs b/Assets/Scripts/Piece/FieldManager.cs	(rejected hunks)
+@@ -36,7 +36,7 @@
+         { PieceData.Animal.Frog        ,0 },
+         { PieceData.Animal.Rabbit      ,0 },
+     };
+-    public Dictionary<PieceData.United, int> SynergePlusSynerge = new Dictionary<PieceData.United, int>()
++    public Dictionary<PieceData.United, int> unitedActiveCount = new Dictionary<PieceData.United, int>()
+     {
+         { PieceData.United.None              ,0 },
+         { PieceData.United.UnderWorld        ,0 },

@@ -43,6 +43,8 @@ public class Piece : MonoBehaviour
     bool canMove = true;
     public Ease ease;
 
+    [SerializeField] GameObject randomBoxObject;
+
     void Awake()
     {
         pieceData.InitialzePiece(this);
@@ -168,8 +170,8 @@ public class Piece : MonoBehaviour
     }
 
     /// <summary>
-    /// �⹰ ��ġ�� �ó��� ���,
-    /// �ó��� ��� ��� On/Off�� ���� Boolean �߰�
+    /// �⹰ ��ġ�� �ó��� ���?
+    /// �ó��� ���?���?On/Off�� ���� Boolean �߰�
     /// </summary>
     /// <param name="currentPiece"></param>
     /// <param name="isControlPiece"></param>

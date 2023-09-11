@@ -22,7 +22,7 @@ public class FieldManager : MonoBehaviour
 
     public bool grab;
 
-    public Dictionary<PieceData.Myth, int> SynergeMythology = new Dictionary<PieceData.Myth, int>()
+    public Dictionary<PieceData.Myth, int> mythActiveCount = new Dictionary<PieceData.Myth, int>()
     {
         { PieceData.Myth.None                   ,0 },
         { PieceData.Myth.GreatMountain          ,0 },
@@ -31,7 +31,7 @@ public class FieldManager : MonoBehaviour
         { PieceData.Myth.HeavenGround           ,0 },
         { PieceData.Myth.BurningGround          ,0 }
     };
-    public Dictionary<PieceData.Animal, int> SynergeSpecies = new Dictionary<PieceData.Animal, int>()
+    public Dictionary<PieceData.Animal, int> animalActiveCount = new Dictionary<PieceData.Animal, int>()
     {
         { PieceData.Animal.None        ,0 },
         { PieceData.Animal.Hamster     ,0 },
@@ -40,7 +40,7 @@ public class FieldManager : MonoBehaviour
         { PieceData.Animal.Frog        ,0 },
         { PieceData.Animal.Rabbit      ,0 },
     };
-    public Dictionary<PieceData.United, int> SynergePlusSynerge = new Dictionary<PieceData.United, int>()
+    public Dictionary<PieceData.United, int> unitedActiveCount = new Dictionary<PieceData.United, int>()
     {
         { PieceData.United.None              ,0 },
         { PieceData.United.UnderWorld        ,0 },
@@ -59,15 +59,15 @@ public class FieldManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.S))
         {
-            Debug.Log("SynergeMythology  A    시너지    = " + SynergeMythology[PieceData.Myth.GreatMountain] +
+            Debug.Log("GreatMountain    시너지    = " + mythActiveCount[PieceData.Myth.GreatMountain] +
                       System.Environment.NewLine +
-                      "SynergeMythology  B    시너지    = " + SynergeMythology[PieceData.Myth.FrostyWind] +
+                      "FrostyWind       시너지    = " + mythActiveCount[PieceData.Myth.FrostyWind] +
                       System.Environment.NewLine +
-                      "SynergeMythology  C    시너지    = " + SynergeMythology[PieceData.Myth.SandKingdom] +
+                      "SandKingdom      시너지    = " + mythActiveCount[PieceData.Myth.SandKingdom] +
                       System.Environment.NewLine +
-                      "SynergeMythology  D    시너지    = " + SynergeMythology[PieceData.Myth.HeavenGround] +
+                      "HeavenGround     시너지    = " + mythActiveCount[PieceData.Myth.HeavenGround] +
                       System.Environment.NewLine +
-                      "SynergeMythology  E    시너지    = " + SynergeMythology[PieceData.Myth.BurningGround]);
+                      "BurningGround    시너지    = " + mythActiveCount[PieceData.Myth.BurningGround]);
         }
 
         if (Input.GetKeyDown(KeyCode.B))
