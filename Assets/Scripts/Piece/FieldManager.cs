@@ -8,7 +8,9 @@ public class FieldManager : MonoBehaviour
 {
     public static FieldManager instance;
 
-    public GameObject testPiece;
+    public Messenger[] DualPlayers = new Messenger[2];
+
+    public List<Transform> targetPositions = new List<Transform>();
 
     public List<Piece> myFilePieceList;
     public List<Piece> enemyFilePieceList;
@@ -18,7 +20,13 @@ public class FieldManager : MonoBehaviour
     public GameObject[] readyZoneHexaIndicators;
     public GameObject[] battleFieldHexaIndicators;
 
-    public Dictionary<PieceData.Myth, int> mythActiveCount = new Dictionary<PieceData.Myth, int>()
+<<<<<<< HEAD
+    public bool grab;
+
+    public Dictionary<PieceData.Mythology, int> SynergeMythology = new Dictionary<PieceData.Mythology, int>()
+=======
+    public Dictionary<PieceData.Myth, int> SynergeMythology = new Dictionary<PieceData.Myth, int>()
+>>>>>>> c2678a28aff9b002bd45a879d25ab06f09590d5d
     {
         { PieceData.Myth.None                   ,0 },
         { PieceData.Myth.GreatMountain          ,0 },
@@ -27,7 +35,7 @@ public class FieldManager : MonoBehaviour
         { PieceData.Myth.HeavenGround           ,0 },
         { PieceData.Myth.BurningGround          ,0 }
     };
-    public Dictionary<PieceData.Animal, int> animalActiveCount = new Dictionary<PieceData.Animal, int>()
+    public Dictionary<PieceData.Animal, int> SynergeSpecies = new Dictionary<PieceData.Animal, int>()
     {
         { PieceData.Animal.None        ,0 },
         { PieceData.Animal.Hamster     ,0 },
@@ -36,7 +44,7 @@ public class FieldManager : MonoBehaviour
         { PieceData.Animal.Frog        ,0 },
         { PieceData.Animal.Rabbit      ,0 },
     };
-    public Dictionary<PieceData.United, int> unitedActiveCount = new Dictionary<PieceData.United, int>()
+    public Dictionary<PieceData.United, int> SynergePlusSynerge = new Dictionary<PieceData.United, int>()
     {
         { PieceData.United.None              ,0 },
         { PieceData.United.UnderWorld        ,0 },
@@ -53,26 +61,19 @@ public class FieldManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            Piece piece = SpawnPiece(testPiece, 0);
-            piece.Owned();
-        }
-
         if (Input.GetKeyDown(KeyCode.S))
         {
-            Debug.Log("GreatMountain    시너지    = " + mythActiveCount[PieceData.Myth.GreatMountain] +
+            Debug.Log("SynergeMythology  A    시너지    = " + SynergeMythology[PieceData.Myth.GreatMountain] +
                       System.Environment.NewLine +
-                      "FrostyWind       시너지    = " + mythActiveCount[PieceData.Myth.FrostyWind] +
+                      "SynergeMythology  B    시너지    = " + SynergeMythology[PieceData.Myth.FrostyWind] +
                       System.Environment.NewLine +
-                      "SandKingdom      시너지    = " + mythActiveCount[PieceData.Myth.SandKingdom] +
+                      "SynergeMythology  C    시너지    = " + SynergeMythology[PieceData.Myth.SandKingdom] +
                       System.Environment.NewLine +
-                      "HeavenGround     시너지    = " + mythActiveCount[PieceData.Myth.HeavenGround] +
+                      "SynergeMythology  D    시너지    = " + SynergeMythology[PieceData.Myth.HeavenGround] +
                       System.Environment.NewLine +
-                      "BurningGround    시너지    = " + mythActiveCount[PieceData.Myth.BurningGround]);
+                      "SynergeMythology  E    시너지    = " + SynergeMythology[PieceData.Myth.BurningGround]);
         }
 
-        // for testv
         if (Input.GetKeyDown(KeyCode.B))
         {
             ArenaManager.instance.roundType = RoundType.Battle;
@@ -114,5 +115,10 @@ public class FieldManager : MonoBehaviour
                 readyZoneHexaIndicators[i].SetActive(isactive);
             }
         }
+    }
+
+    void LifeAttack(Messenger defeatedPlayer)
+    {
+
     }
 }
