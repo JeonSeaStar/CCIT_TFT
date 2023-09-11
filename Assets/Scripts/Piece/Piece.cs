@@ -4,6 +4,8 @@ using UnityEngine;
 using DG.Tweening;
 using static Piece;
 using static PieceData;
+using System.Linq;
+using Newtonsoft.Json.Bson;
 
 public class Piece : MonoBehaviour
 {
@@ -49,7 +51,7 @@ public class Piece : MonoBehaviour
     private void Start()
     {
         // 초기화 순서 상 Start 에서 넣어주세요.
-        fieldManager = ArenaManager.instance.fm[0]; 
+        fieldManager = ArenaManager.instance.fm[0];
     }
 
     public void Owned()
@@ -156,37 +158,35 @@ public class Piece : MonoBehaviour
 
         return false;
     }
-    public void SetPiece(Piece currentPiece)
+
+    /// <summary>
+    /// 기물 배치시 시너지 계산,
+    /// 시너지 계산 기능 On/Off를 위한 Boolean 추가
+    /// </summary>
+    /// <param name="currentPiece"></param>
+    /// <param name="isControlPiece"></param>
+    public void SetPiece(Piece currentPiece, bool isControlPiece = false)
     {
         for(int i = 0; i < fieldManager.myFilePieceList.Count;i++)
         {
-            if (fieldManager.myFilePieceList[i].name == currentPiece.name) return;
+            if (fieldManager.myFilePieceList[i].pieceName == currentPiece.pieceName) return;
         }
 
         var _currentPiece = currentPiece.GetComponent<PieceControl>();
 
         if (_currentPiece.currentTile.isReadyTile == true && _currentPiece.targetTile.isReadyTile == false)
         {
-            // Plus
-            fieldManager.SynergeMythology[currentPiece.pieceData.myth]++;
-            fieldManager.SynergeSpecies[currentPiece.pieceData.animal]++;
-            fieldManager.SynergePlusSynerge[currentPiece.pieceData.united]++;
-
+            SynergeIncrease(currentPiece); // Plus
             fieldManager.myFilePieceList.Add(currentPiece);
             return;
         }
         if (_currentPiece.currentTile.isReadyTile == false && _currentPiece.targetTile.isReadyTile == true)
         {
-            // Minus
-            fieldManager.SynergeMythology[currentPiece.pieceData.myth]--;
-            fieldManager.SynergeSpecies[currentPiece.pieceData.animal]--;
-            fieldManager.SynergePlusSynerge[currentPiece.pieceData.united]--;
-            
+            SynergeDecrease(currentPiece); // Minus
             fieldManager.myFilePieceList.Remove(currentPiece);
         }
     }
-
-    public void SetPiece(Piece currentPiece, Piece targetPiece)
+    public void SetPiece(Piece currentPiece, Piece targetPiece , bool isControlPiece = false)
     {
         var _currentPiece = currentPiece.GetComponent<PieceControl>();
         var _targetPiece = targetPiece.GetComponent<PieceControl>();
@@ -195,42 +195,91 @@ public class Piece : MonoBehaviour
         if (_currentPiece.currentTile.isReadyTile == false && _targetPiece.currentTile.isReadyTile == false) return;
         if (_currentPiece.currentTile.isReadyTile == true && _targetPiece.currentTile.isReadyTile == false)
         {
-            //for(int i =0; i < fieldManager.)
+            fieldManager.myFilePieceList.Remove(targetPiece);
 
-            fieldManager.SynergeMythology[currentPiece.pieceData.myth]++;
-            fieldManager.SynergeSpecies[currentPiece.pieceData.animal]++;
-            fieldManager.SynergePlusSynerge[currentPiece.pieceData.united]++;
+            //중복 확인
+            foreach(Piece targetPieceCheck in fieldManager.myFilePieceList)
+            {
+                if (targetPieceCheck.pieceName == targetPiece.pieceName) break;
+                if (targetPieceCheck == fieldManager.myFilePieceList.Last() && targetPieceCheck.pieceName != targetPiece.pieceName)
+                {
+                    SynergeDecrease(targetPiece); //Minus
+                }
+            }
+            foreach(Piece currentPieceCheck in fieldManager.myFilePieceList)
+            {
+                if (currentPieceCheck.pieceName == currentPiece.pieceName) break;
+                if (currentPieceCheck == fieldManager.myFilePieceList.Last() && currentPieceCheck.pieceName != currentPiece.pieceName)
+                {
+                    SynergeIncrease(currentPiece); //Plus
+                }
+            }
 
-            fieldManager.SynergeMythology[targetPiece.pieceData.myth]--;
-            fieldManager.SynergeSpecies[targetPiece.pieceData.animal]--;
-            fieldManager.SynergePlusSynerge[targetPiece.pieceData.united]--;
+            fieldManager.myFilePieceList.Add(currentPiece);
         }
         if (_currentPiece.currentTile.isReadyTile == false && _targetPiece.currentTile.isReadyTile == true)
         {
-            fieldManager.SynergeMythology[currentPiece.pieceData.myth]--;
-            fieldManager.SynergeSpecies[currentPiece.pieceData.animal]--;
-            fieldManager.SynergePlusSynerge[currentPiece.pieceData.united]--;
+            fieldManager.myFilePieceList.Remove(currentPiece);
+            foreach(Piece currentPieceCheck in fieldManager.myFilePieceList)
+            {
+                if (currentPieceCheck.pieceName == currentPiece.pieceName) break;
+                if (currentPieceCheck == fieldManager.myFilePieceList.Last() && currentPieceCheck.pieceName != currentPiece.pieceName)
+                {
+                    SynergeDecrease(currentPiece);//Miuns
+                }
+            }
+            foreach(Piece targetPieceCheck in fieldManager.myFilePieceList)
+            {
+                if (targetPieceCheck.pieceName == targetPiece.pieceName) break;
+                if (targetPieceCheck == fieldManager.myFilePieceList.Last() && targetPieceCheck.pieceName != targetPiece.pieceName)
+                {
+                    SynergeIncrease(targetPiece);//Plus
+                }
+            }
 
-            fieldManager.SynergeMythology[targetPiece.pieceData.myth]++;
-            fieldManager.SynergeSpecies[targetPiece.pieceData.animal]++;
-            fieldManager.SynergePlusSynerge[targetPiece.pieceData.united]++;
         }
-
-        // Minus -- 
-        //FieldManager.instance.SynergeMythology[targetPiece.pieceData.mythology]--;
-        //FieldManager.instance.SynergeSpecies[targetPiece.pieceData.species]--;
-        //FieldManager.instance.SynergePlusSynerge[targetPiece.pieceData.plusSynerge]--;
-
-        // Plus
-        //FieldManager.instance.SynergeMythology[currentPiece.pieceData.mythology]++;
-        //FieldManager.instance.SynergeSpecies[currentPiece.pieceData.species]++;
-        //FieldManager.instance.SynergePlusSynerge[currentPiece.pieceData.plusSynerge]++;
     }
 
-    void CalculateSynerge()
+    /// <summary>
+    /// 해당 기물의 시너지 값을 증가시킵니다.
+    /// </summary>
+    /// <param name="piece"></param>
+    void SynergeIncrease(Piece piece)
+    {
+        fieldManager.mythActiveCount[piece.pieceData.myth]++;
+        fieldManager.animalActiveCount[piece.pieceData.animal]++;
+        fieldManager.unitedActiveCount[piece.pieceData.united]++;
+    }
+
+    /// <summary>
+    /// 해당 기물의 시너지 값을 감소시킵니다.
+    /// </summary>
+    /// <param name="piece"></param>
+    void SynergeDecrease(Piece piece)
+    {
+        fieldManager.mythActiveCount[piece.pieceData.myth]--;
+        fieldManager.animalActiveCount[piece.pieceData.animal]--;
+        fieldManager.unitedActiveCount[piece.pieceData.united]--;
+
+        SynergeCalculateDelegate test = MythSynergeCalculate;
+    }
+
+    delegate void SynergeCalculateDelegate();
+    delegate void SynergeAnimalDelegate(ref FieldManager fieldManager);
+    delegate void SynergeUnitedDelegate(ref FieldManager fieldManager);
+
+    void MythSynergeCalculate()
     {
 
     }
 
+    void AnimalSynergeCalculate()
+    {
 
+    }
+
+    void UnitedSynergeCalculate()
+    {
+
+    }
 }
