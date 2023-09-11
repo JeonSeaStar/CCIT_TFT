@@ -20,13 +20,9 @@ public class FieldManager : MonoBehaviour
     public GameObject[] readyZoneHexaIndicators;
     public GameObject[] battleFieldHexaIndicators;
 
-<<<<<<< HEAD
     public bool grab;
 
-    public Dictionary<PieceData.Mythology, int> SynergeMythology = new Dictionary<PieceData.Mythology, int>()
-=======
     public Dictionary<PieceData.Myth, int> SynergeMythology = new Dictionary<PieceData.Myth, int>()
->>>>>>> c2678a28aff9b002bd45a879d25ab06f09590d5d
     {
         { PieceData.Myth.None                   ,0 },
         { PieceData.Myth.GreatMountain          ,0 },
