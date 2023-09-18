@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using static Piece;
-using static PieceData;
 using System.Linq;
 using Newtonsoft.Json.Bson;
+using System;
 
 public class Piece : MonoBehaviour
 {
@@ -53,7 +52,7 @@ public class Piece : MonoBehaviour
     private void Start()
     {
         // ÃÊ±âÈ­ ¼ø¼­ »ó Start ¿¡¼­ ³Ö¾îÁÖ¼¼¿ä.
-        fieldManager = ArenaManager.instance.fm[0]; 
+        fieldManager = ArenaManager.instance.fm[0];
     }
 
     public void Owned()
@@ -169,127 +168,52 @@ public class Piece : MonoBehaviour
         return false;
     }
 
-    /// <summary>
-    /// ï¿½â¹° ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ã³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿?
-    /// ï¿½Ã³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿?ï¿½ï¿½ï¿?On/Offï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Boolean ï¿½ß°ï¿½
-    /// </summary>
-    /// <param name="currentPiece"></param>
-    /// <param name="isControlPiece"></param>
     public void SetPiece(Piece currentPiece, bool isControlPiece = false)
     {
-        for(int i = 0; i < fieldManager.myFilePieceList.Count;i++)
-        {
-            if (fieldManager.myFilePieceList[i].pieceName == currentPiece.pieceName) return;
-        }
-
         var _currentPiece = currentPiece.GetComponent<PieceControl>();
 
         if (_currentPiece.currentTile.isReadyTile == true && _currentPiece.targetTile.isReadyTile == false)
         {
-            SynergeIncrease(currentPiece); // Plus
+            var _duplicationCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
+            if (_duplicationCheck == null) fieldManager.SynergeIncrease(currentPiece);
             fieldManager.myFilePieceList.Add(currentPiece);
-            return;
-        }
-        if (_currentPiece.currentTile.isReadyTile == false && _currentPiece.targetTile.isReadyTile == true)
+        } // Set Ready -> Battle
+        else if (_currentPiece.currentTile.isReadyTile == false && _currentPiece.targetTile.isReadyTile == true)
         {
-            SynergeDecrease(currentPiece); // Minus
             fieldManager.myFilePieceList.Remove(currentPiece);
-        }
+            var _duplicationCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
+            if (_duplicationCheck == null) fieldManager.SynergeDecrease(currentPiece);
+        } // Set Battle -> Ready
     }
-    public void SetPiece(Piece currentPiece, Piece targetPiece , bool isControlPiece = false)
+    public void SetPiece(Piece currentPiece, Piece targetPiece, bool isControlPiece = false)
     {
         var _currentPiece = currentPiece.GetComponent<PieceControl>();
         var _targetPiece = targetPiece.GetComponent<PieceControl>();
 
         if (_currentPiece.currentTile.isReadyTile == true && _targetPiece.currentTile.isReadyTile == true) return;
-        if (_currentPiece.currentTile.isReadyTile == false && _targetPiece.currentTile.isReadyTile == false) return;
-        if (_currentPiece.currentTile.isReadyTile == true && _targetPiece.currentTile.isReadyTile == false)
+        else if (_currentPiece.currentTile.isReadyTile == false && _targetPiece.currentTile.isReadyTile == false) return;
+        else if (_currentPiece.currentTile.isReadyTile == true && _targetPiece.currentTile.isReadyTile == false)
         {
             fieldManager.myFilePieceList.Remove(targetPiece);
+            var _duplicationTargetCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == targetPiece.pieceName);
+            if(_duplicationTargetCheck == null) fieldManager.SynergeDecrease(targetPiece); //Minus
 
-            //ï¿½ßºï¿½ È®ï¿½ï¿½
-            foreach(Piece targetPieceCheck in fieldManager.myFilePieceList)
-            {
-                if (targetPieceCheck.pieceName == targetPiece.pieceName) break;
-                if (targetPieceCheck == fieldManager.myFilePieceList.Last() && targetPieceCheck.pieceName != targetPiece.pieceName)
-                {
-                    SynergeDecrease(targetPiece); //Minus
-                }
-            }
-            foreach(Piece currentPieceCheck in fieldManager.myFilePieceList)
-            {
-                if (currentPieceCheck.pieceName == currentPiece.pieceName) break;
-                if (currentPieceCheck == fieldManager.myFilePieceList.Last() && currentPieceCheck.pieceName != currentPiece.pieceName)
-                {
-                    SynergeIncrease(currentPiece); //Plus
-                }
-            }
-
+            var _duplicationCurrentCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
+            if (_duplicationCurrentCheck == null) fieldManager.SynergeIncrease(currentPiece); //Plus
             fieldManager.myFilePieceList.Add(currentPiece);
-        }
-        if (_currentPiece.currentTile.isReadyTile == false && _targetPiece.currentTile.isReadyTile == true)
+        }  // Change Ready -> Battle
+        else if (_currentPiece.currentTile.isReadyTile == false && _targetPiece.currentTile.isReadyTile == true)
         {
             fieldManager.myFilePieceList.Remove(currentPiece);
-            foreach(Piece currentPieceCheck in fieldManager.myFilePieceList)
-            {
-                if (currentPieceCheck.pieceName == currentPiece.pieceName) break;
-                if (currentPieceCheck == fieldManager.myFilePieceList.Last() && currentPieceCheck.pieceName != currentPiece.pieceName)
-                {
-                    SynergeDecrease(currentPiece);//Miuns
-                }
-            }
-            foreach(Piece targetPieceCheck in fieldManager.myFilePieceList)
-            {
-                if (targetPieceCheck.pieceName == targetPiece.pieceName) break;
-                if (targetPieceCheck == fieldManager.myFilePieceList.Last() && targetPieceCheck.pieceName != targetPiece.pieceName)
-                {
-                    SynergeIncrease(targetPiece);//Plus
-                }
-            }
+            var _duplicationCurrentCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
+            if (_duplicationCurrentCheck == null) fieldManager.SynergeDecrease(currentPiece); //Minus
 
-        }
+            var _duplicationTargetCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == targetPiece.pieceName);
+            if(_duplicationTargetCheck == null) fieldManager.SynergeIncrease(targetPiece); //Plus
+            fieldManager.myFilePieceList.Add(targetPiece);
+        }  // Change Battle -> Ready
     }
 
-    /// <summary>
-    /// ï¿½Ø´ï¿½ ï¿½â¹°ï¿½ï¿½ ï¿½Ã³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åµï¿½Ï´ï¿½.
-    /// </summary>
-    /// <param name="piece"></param>
-    void SynergeIncrease(Piece piece)
-    {
-        fieldManager.mythActiveCount[piece.pieceData.myth]++;
-        fieldManager.animalActiveCount[piece.pieceData.animal]++;
-        fieldManager.unitedActiveCount[piece.pieceData.united]++;
-    }
-
-    /// <summary>
-    /// ï¿½Ø´ï¿½ ï¿½â¹°ï¿½ï¿½ ï¿½Ã³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò½ï¿½Åµï¿½Ï´ï¿½.
-    /// </summary>
-    /// <param name="piece"></param>
-    void SynergeDecrease(Piece piece)
-    {
-        fieldManager.mythActiveCount[piece.pieceData.myth]--;
-        fieldManager.animalActiveCount[piece.pieceData.animal]--;
-        fieldManager.unitedActiveCount[piece.pieceData.united]--;
-
-        SynergeCalculateDelegate test = MythSynergeCalculate;
-    }
-
-    delegate void SynergeCalculateDelegate();
-    delegate void SynergeAnimalDelegate(ref FieldManager fieldManager);
-    delegate void SynergeUnitedDelegate(ref FieldManager fieldManager);
-
-    void MythSynergeCalculate()
-    {
-
-    }
-
-    void AnimalSynergeCalculate()
-    {
-
-    }
-
-    void UnitedSynergeCalculate()
-    {
-
-    }
+    public delegate void SynergeEffect(ref Piece piece,FieldManager fm);
+    public SynergeEffect synergeEffect;
 }

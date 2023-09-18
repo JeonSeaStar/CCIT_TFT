@@ -6,6 +6,7 @@ using DG.Tweening;
 public class Messenger : MonoBehaviour
 {
     public int lifePoint = 100;
+    public int gold = 0;
     [SerializeField] LayerMask groundMask;
     [SerializeField] FieldManager fieldManager;
     [SerializeField] Ease ease;

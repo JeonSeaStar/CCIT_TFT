@@ -168,7 +168,7 @@ public class PieceControl : MonoBehaviour
     void ChangeTileTransform(Tile current, Tile target)
     {
         target.piece.transform.position = new Vector3(current.transform.position.x, 0, current.transform.position.z);
-        current.transform.position = new Vector3(target.transform.position.x, 0, target.transform.position.z);
+        current.piece.transform.position = new Vector3(target.transform.position.x, 0, target.transform.position.z);
     }
 
     /// <summary>

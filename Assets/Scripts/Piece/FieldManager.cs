@@ -49,11 +49,34 @@ public class FieldManager : MonoBehaviour
         { PieceData.United.Creature          ,0 }
     };
 
+    //fot test
+    public GameObject aa, bb;
+    public Tile aaa, bbb,ccc;
+    //
+
     void Awake()
     {
         instance = this;
         ArenaManager.instance.fm.Add(this);
+
+
+        //for test
+        var testa = GameObject.Instantiate(aa);
+        var testb = GameObject.Instantiate(bb);
+        var testc = GameObject.Instantiate(aa);
+        testa.transform.position = new Vector3(0, 0, -1.7f);
+        testb.transform.position = new Vector3(1, 0, -1.7f);
+        testc.transform.position = new Vector3(2, 0, -1.7f);
+        aaa.piece = testa;
+        bbb.piece = testb;
+        ccc.piece = testc;
+        //
     }
+
+        
+
+
+
 
     void Update()
     {
@@ -117,4 +140,48 @@ public class FieldManager : MonoBehaviour
     {
 
     }
+
+
+    public void SynergeIncrease(Piece piece)
+    {
+        mythActiveCount[piece.pieceData.myth]++;
+        animalActiveCount[piece.pieceData.animal]++;
+        unitedActiveCount[piece.pieceData.united]++;
+    }
+
+    public void SynergeDecrease(Piece piece)
+    {
+        mythActiveCount[piece.pieceData.myth]--;
+        animalActiveCount[piece.pieceData.animal]--;
+        unitedActiveCount[piece.pieceData.united]--;
+    }
+
+
+    void CalSynerge(Piece plus, Piece minus = null)
+    {
+        var _plusMyth = plus.pieceData.myth;
+        var _minusMyth = (minus != null) ? minus.pieceData.myth : PieceData.Myth.None;
+        var _plusAnimal = plus.pieceData.animal;
+        var _minusAnimal = (minus != null) ? minus.pieceData.animal : PieceData.Animal.None;
+        var _plusUnited = plus.pieceData.united;
+        var _minusUnited = (minus != null) ? minus.pieceData.united : PieceData.United.None;
+
+        if(minus == null)
+        {
+            if(plus.GetComponent<Tile>().isReadyTile) //Plus
+            {
+                //
+            }
+            else //Minus
+            {
+                //
+            }
+        }
+        else
+        {
+            
+        }
+    }
+
+
 }
