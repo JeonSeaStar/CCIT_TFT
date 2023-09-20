@@ -8,17 +8,25 @@ public class PieceData : ScriptableObject
     [SerializeField] string pieceName;
     [SerializeField] Sprite piecePortrait;
 
-    [SerializeField] float health;
-    [SerializeField] float mana;
-    [SerializeField] float manaRecovery;
-    [SerializeField] float attackDamage;
-    [SerializeField] float abilityPower;
-    [SerializeField] float armor;
-    [SerializeField] float magicResist;
-    [SerializeField] float attackSpeed;
-    [SerializeField] float criticalChance;
-    [SerializeField] float criticalDamage;
-    [SerializeField] int attackRange;
+    [SerializeField] float health;          //체력
+    [SerializeField] float mana;            //마나
+    [SerializeField] float manaRecovery;    //마나 회복력
+
+    [SerializeField] float attackPower;     //기본 공격력
+    [SerializeField] float damageRise;      //공격력 상승분
+    [SerializeField] float attackDamage;    //최종 공격력
+    [SerializeField] float abilityPower;    //최종 스킬 공격력
+
+    [SerializeField] float armor;           //방어력att
+    [SerializeField] float magicResist;     //마법 저항력
+
+    [SerializeField] float attackSpeed;     //공격속도
+    [SerializeField] float criticalChance;  //크리티컬 확률
+    [SerializeField] float criticalDamage;  //크리티컬 배율
+    [SerializeField] int attackRange;       //공격범위
+
+    
+
 
     //즉사 구현을 위한 생존 시간 파라미터 추가 필요
     //토끼 전용 고정 데미지 수치 파라티터 추가 필요 Ex) JumpDemage

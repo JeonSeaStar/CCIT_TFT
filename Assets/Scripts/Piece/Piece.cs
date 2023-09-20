@@ -16,17 +16,38 @@ public class Piece : MonoBehaviour
     public List<Equipment> Equipments;
     public int star = 0;
 
-    public float health;
-    public float mana;
-    public float manaRecovery;
-    public float attackDamage;
-    public float abilityPower;
-    public float armor;
-    public float magicResist;
-    public float attackSpeed;
-    public float criticalChance;
-    public float criticalDamage;
-    public int attackRange;
+    [Header("Player Stats")]
+    public float health;            //체력
+    public float mana;              //마나
+    public float manaRecovery;      //마나 회복력
+
+    [Space(10f)]
+    public float attackPower;       //기본 공격력
+    public float damageRise;        //공격력 상승분
+    public float DamageRise
+    {
+        get { return damageRise; }
+        set
+        {
+            if (damageRise != value)
+            {
+                damageRise = value;
+                //Event Detect Change Rise
+            }
+        }
+    }
+    public float attackDamage;      //최종 공격력
+    public float abilityPower;      //스킬 공격력
+
+    [Space(10f)]
+    public float armor;             //방어력
+    public float magicResist;       //마법 저항력
+
+    [Space(10f)]
+    public float attackSpeed;       //공격속도
+    public float criticalChance;    //크리티컬 확률
+    public float criticalDamage;    //크리티컬 배율
+    public int attackRange;         //공격범위
 
     public bool dead;
 
@@ -177,6 +198,7 @@ public class Piece : MonoBehaviour
             var _duplicationCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
             if (_duplicationCheck == null) fieldManager.SynergeIncrease(currentPiece);
             fieldManager.myFilePieceList.Add(currentPiece);
+            
         } // Set Ready -> Battle
         else if (_currentPiece.currentTile.isReadyTile == false && _currentPiece.targetTile.isReadyTile == true)
         {
@@ -214,6 +236,6 @@ public class Piece : MonoBehaviour
         }  // Change Battle -> Ready
     }
 
-    public delegate void SynergeEffect(ref Piece piece,FieldManager fm);
-    public SynergeEffect synergeEffect;
+    public delegate void Buff(Piece piece, int count, bool isReadyTile);
+    public Buff sBuff;
 }

@@ -71,9 +71,7 @@ public class FieldManager : MonoBehaviour
         bbb.piece = testb;
         ccc.piece = testc;
         //
-    }
-
-        
+    }  
 
 
 
@@ -82,15 +80,15 @@ public class FieldManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.S))
         {
-            Debug.Log("GreatMountain    시너지    = " + mythActiveCount[PieceData.Myth.GreatMountain] +
+            Debug.Log("GreatMountain시너지 = " + mythActiveCount[PieceData.Myth.GreatMountain] +
                       System.Environment.NewLine +
-                      "FrostyWind       시너지    = " + mythActiveCount[PieceData.Myth.FrostyWind] +
+                      "FrostyWind시너지 = " + mythActiveCount[PieceData.Myth.FrostyWind] +
                       System.Environment.NewLine +
-                      "SandKingdom      시너지    = " + mythActiveCount[PieceData.Myth.SandKingdom] +
+                      "SandKingdom 시너지 = " + mythActiveCount[PieceData.Myth.SandKingdom] +
                       System.Environment.NewLine +
-                      "HeavenGround     시너지    = " + mythActiveCount[PieceData.Myth.HeavenGround] +
+                      "HeavenGround 시너지 = " + mythActiveCount[PieceData.Myth.HeavenGround] +
                       System.Environment.NewLine +
-                      "BurningGround    시너지    = " + mythActiveCount[PieceData.Myth.BurningGround]);
+                      "BurningGround 시너지 = " + mythActiveCount[PieceData.Myth.BurningGround]);
         }
 
         if (Input.GetKeyDown(KeyCode.B))
@@ -157,31 +155,82 @@ public class FieldManager : MonoBehaviour
     }
 
 
-    void CalSynerge(Piece plus, Piece minus = null)
-    {
-        var _plusMyth = plus.pieceData.myth;
-        var _minusMyth = (minus != null) ? minus.pieceData.myth : PieceData.Myth.None;
-        var _plusAnimal = plus.pieceData.animal;
-        var _minusAnimal = (minus != null) ? minus.pieceData.animal : PieceData.Animal.None;
-        var _plusUnited = plus.pieceData.united;
-        var _minusUnited = (minus != null) ? minus.pieceData.united : PieceData.United.None;
 
-        if(minus == null)
+    List<int> _mythCountCheck   = new List<int>() { 2, 3, 4, 6, 9 };
+    List<int> _animalCountCheck = new List<int>() { 2, 3, 4, 5, 6, 7, 8, 9 };
+    List<int> _unitedCountCheck = new List<int>() { 2, 3, 4, 5 ,7, 9 };
+    public List<GameObject> greatMoutainPiece;
+
+    public void CalSynerge(Piece plus, Piece minus = null)
+    {
+        // 현재 사용하지 않음 후에 지울 예정
+        PieceData.Myth   _plusMyth = plus.pieceData.myth;
+        PieceData.Animal _plusAnimal = plus.pieceData.animal;
+        PieceData.United _plusUnited = plus.pieceData.united;
+
+        int _mythCount = mythActiveCount[plus.pieceData.myth];
+        int _animalCount = animalActiveCount[plus.pieceData.animal];
+        int _unitedCount = unitedActiveCount[plus.pieceData.united];
+
+        bool check = plus.GetComponent<PieceControl>().currentTile.isReadyTile;
+
+        if (minus == null) //Set Piece
         {
-            if(plus.GetComponent<Tile>().isReadyTile) //Plus
+            if(check) //Plus
             {
-                //
+                if(_mythCountCheck.Contains(_mythCount))
+                {
+                    switch(_plusMyth)
+                    {
+                        case PieceData.Myth.GreatMountain:
+                            // 여기는 델리게이트로 할 필요가 없을거 같음
+                            break;
+                        case PieceData.Myth.FrostyWind:
+                            break;
+                        case PieceData.Myth.SandKingdom:
+                            break;
+                        case PieceData.Myth.HeavenGround:
+                            break;
+                        case PieceData.Myth.BurningGround:
+                            break;
+                    }
+                }
             }
             else //Minus
             {
                 //
             }
         }
-        else
+        else //Change Piece
         {
-            
+            PieceData.Myth   _minusMyth   = (minus != null) ? minus.pieceData.myth   : PieceData.Myth.None;
+            PieceData.Animal _minusAnimal = (minus != null) ? minus.pieceData.animal : PieceData.Animal.None;
+            PieceData.United _minusUnited = (minus != null) ? minus.pieceData.united : PieceData.United.None;
         }
     }
 
+    ////Methods Needs to apply to enemies
+    //public delegate void SynergeDebuff(List<Piece> pieceList);
+    //SynergeDebuff synergeDebuff;
 
+    ////Methods Needs to be run once at the middle of ready round
+    //public delegate void ReadyBuff(bool isPlus);
+    //ReadyBuff sReadyBuff;
+
+    //Methods Needs to be run once at the start of the battle round
+    public delegate void BattleBuff(List<Piece> pieceList);
+    BattleBuff sOnceBuff;
+
+    //Methods Needs to be run multiple times during the battle round
+    public delegate IEnumerator CoroutineBuff(List<Piece> myPieceList, List<Piece> enemiesPieceList);
+    CoroutineBuff sCoroutineBuff;
 }
+
+//foreach(var test in myFilePieceList)
+//{
+//    if(test.pieceData.animal == PieceData.Animal.Frog)
+//    {
+//        test.synergeEffect = Synerge.AnimalFrog;
+//        test.synergeEffect(test, animalActiveCount[plus.pieceData.animal], check);
+//    }
+//}
