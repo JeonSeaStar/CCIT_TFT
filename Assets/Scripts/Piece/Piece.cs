@@ -198,7 +198,7 @@ public class Piece : MonoBehaviour
             var _duplicationCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
             if (_duplicationCheck == null) fieldManager.SynergeIncrease(currentPiece);
             fieldManager.myFilePieceList.Add(currentPiece);
-            
+            fieldManager.CalSynerge(currentPiece);
         } // Set Ready -> Battle
         else if (_currentPiece.currentTile.isReadyTile == false && _currentPiece.targetTile.isReadyTile == true)
         {

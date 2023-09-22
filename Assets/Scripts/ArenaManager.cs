@@ -33,29 +33,21 @@ public class ArenaManager : MonoBehaviour
 
     public void ChangeRoundType(RoundType roundType)
     {
-        if (roundType == RoundType.Ready)
+        switch(roundType)
         {
-
-        }
-        else if (roundType == RoundType.Battle)
-        {
-
-        }
-        else if (roundType == RoundType.Event)
-        {
-
-        }
-        else if (roundType == RoundType.Overtime)
-        {
-
-        }
-        else if (roundType == RoundType.Duel)
-        {
-
-        }
-        else if (roundType == RoundType.Dead)
-        {
-
+            case RoundType.Ready:
+                //Please Add Here
+                break;
+            case RoundType.Battle:
+                break;
+            case RoundType.Event:
+                break;
+            case RoundType.Overtime:
+                break;
+            case RoundType.Duel:
+                break;
+            case RoundType.Dead:
+                break;
         }
     }
 }

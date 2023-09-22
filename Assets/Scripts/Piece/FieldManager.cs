@@ -159,7 +159,8 @@ public class FieldManager : MonoBehaviour
     List<int> _mythCountCheck   = new List<int>() { 2, 3, 4, 6, 9 };
     List<int> _animalCountCheck = new List<int>() { 2, 3, 4, 5, 6, 7, 8, 9 };
     List<int> _unitedCountCheck = new List<int>() { 2, 3, 4, 5 ,7, 9 };
-    public List<GameObject> greatMoutainPiece;
+    public List<GameObject> greatMoutainOneCostPiece;
+    public List<GameObject> greatMoutainTwoCostPiece;
 
     public void CalSynerge(Piece plus, Piece minus = null)
     {
@@ -183,7 +184,8 @@ public class FieldManager : MonoBehaviour
                     switch(_plusMyth)
                     {
                         case PieceData.Myth.GreatMountain:
-                            // 여기는 델리게이트로 할 필요가 없을거 같음
+                            Debug.Log("GreatMountain시너지 = " + mythActiveCount[PieceData.Myth.GreatMountain]);
+                            Debug.Log("GreatMountain 시너지가 '2'개 모여 시너지 효과가 발동합니다.");
                             break;
                         case PieceData.Myth.FrostyWind:
                             break;
@@ -208,14 +210,6 @@ public class FieldManager : MonoBehaviour
             PieceData.United _minusUnited = (minus != null) ? minus.pieceData.united : PieceData.United.None;
         }
     }
-
-    ////Methods Needs to apply to enemies
-    //public delegate void SynergeDebuff(List<Piece> pieceList);
-    //SynergeDebuff synergeDebuff;
-
-    ////Methods Needs to be run once at the middle of ready round
-    //public delegate void ReadyBuff(bool isPlus);
-    //ReadyBuff sReadyBuff;
 
     //Methods Needs to be run once at the start of the battle round
     public delegate void BattleBuff(List<Piece> pieceList);
