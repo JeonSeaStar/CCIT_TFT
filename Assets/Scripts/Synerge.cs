@@ -4,12 +4,39 @@ using UnityEngine;
 
 public static class Synerge
 {
+    public static GameObject setOneGreatMoutainPiece = null; //1 Star GreatMoutain
+    public static GameObject setTwoGreatMoutainPiece = null; //2 Star GreatMoutain
     public static void MythGreatMoutain(bool isPlus)
     {
         FieldManager _fm = ArenaManager.instance.fm[0];
 
         int _count = _fm.mythActiveCount[PieceData.Myth.GreatMountain];
-        
+        if (isPlus)
+        {
+            switch(_count)
+            {
+                case 2:
+                    GameObject _num0 = _fm.greatMoutainOneCostPiece[Random.Range(0, 4)];
+                    _fm.greatMoutainOneCostPiece.Remove(_num0);
+                    setOneGreatMoutainPiece = _num0;
+                    
+
+                    break;
+                case 4:
+                    GameObject _num1 = _fm.greatMoutainTwoCostPiece[Random.Range(0, 3)];
+                    _fm.greatMoutainTwoCostPiece.Remove(_num1);
+                    setTwoGreatMoutainPiece = _num1;
+                    break;
+                case 6:
+                    break;
+                case 8:
+                    break;
+            }
+        }
+        else
+        {
+
+        }
     }
 
     public static void MythFrostyWind(int count,List<Piece> enemyFilePieceList)
