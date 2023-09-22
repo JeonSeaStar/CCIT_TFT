@@ -47,6 +47,7 @@ public class Messenger : MonoBehaviour
             {
                 DOTween.Kill(transform);
                 transform.DOMove(position, moveSpeed * Vector3.Distance(transform.position, position)).SetEase(ease);
+                transform.Rotate(90, transform.rotation.y, transform.rotation.z);
             }
         }
     }

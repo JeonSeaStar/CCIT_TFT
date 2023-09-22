@@ -61,15 +61,15 @@ public class FieldManager : MonoBehaviour
 
 
         //for test
-        var testa = GameObject.Instantiate(aa);
-        var testb = GameObject.Instantiate(bb);
-        var testc = GameObject.Instantiate(aa);
-        testa.transform.position = new Vector3(0, 0, -1.7f);
-        testb.transform.position = new Vector3(1, 0, -1.7f);
-        testc.transform.position = new Vector3(2, 0, -1.7f);
-        aaa.piece = testa;
-        bbb.piece = testb;
-        ccc.piece = testc;
+        //var testa = GameObject.Instantiate(aa);
+        //var testb = GameObject.Instantiate(bb);
+        //var testc = GameObject.Instantiate(aa);
+        //testa.transform.position = new Vector3(0, 0, -1.7f);
+        //testb.transform.position = new Vector3(1, 0, -1.7f);
+        //testc.transform.position = new Vector3(2, 0, -1.7f);
+        //aaa.piece = testa;
+        //bbb.piece = testb;
+        //ccc.piece = testc;
         //
     }  
 
