@@ -18,6 +18,7 @@ public class Piece : MonoBehaviour
 
     [Header("Player Stats")]
     public float health;            //체력
+    public float currentHealth;     //현재 체력
     public float mana;              //마나
     public float manaRecovery;      //마나 회복력
 

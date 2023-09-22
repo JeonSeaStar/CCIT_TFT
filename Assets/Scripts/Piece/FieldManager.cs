@@ -57,7 +57,8 @@ public class FieldManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-        //ArenaManager.instance.fm.Add(this);
+        Synerge._fm = this;
+        ArenaManager.instance.fm.Add(this);
 
 
         //for test
@@ -71,11 +72,7 @@ public class FieldManager : MonoBehaviour
         //bbb.piece = testb;
         //ccc.piece = testc;
         //
-    }
-    private void Start()
-    {
-        ArenaManager.instance.fm.Add(this);
-    }
+    }  
 
 
 
@@ -168,7 +165,6 @@ public class FieldManager : MonoBehaviour
 
     public void CalSynerge(Piece plus, Piece minus = null)
     {
-        // 현재 사용하지 않음 후에 지울 예정
         PieceData.Myth   _plusMyth = plus.pieceData.myth;
         PieceData.Animal _plusAnimal = plus.pieceData.animal;
         PieceData.United _plusUnited = plus.pieceData.united;
@@ -188,23 +184,115 @@ public class FieldManager : MonoBehaviour
                     switch(_plusMyth)
                     {
                         case PieceData.Myth.GreatMountain:
-                            Debug.Log("GreatMountain시너지 = " + mythActiveCount[PieceData.Myth.GreatMountain]);
-                            Debug.Log("GreatMountain 시너지가 '2'개 모여 시너지 효과가 발동합니다.");
+                            Synerge.MythGreatMoutain(check);
                             break;
                         case PieceData.Myth.FrostyWind:
+                            Synerge.MythFrostyWind(check);
                             break;
                         case PieceData.Myth.SandKingdom:
+                            Synerge.MythSandKingdom(check);
                             break;
                         case PieceData.Myth.HeavenGround:
+                            Synerge.MythHeavenGround(check);
                             break;
                         case PieceData.Myth.BurningGround:
+                            Synerge.MythBurningGround(check);
+                            break;
+                    }
+                }
+                if(_animalCountCheck.Contains(_animalCount))
+                {
+                    switch (_plusAnimal)
+                    {
+                        case PieceData.Animal.Hamster:
+                            Synerge.AnimalHamster(check);
+                            break;
+                        case PieceData.Animal.Cat:
+                            Synerge.AnimalCat(check);
+                            break;
+                        case PieceData.Animal.Dog:
+                            Synerge.AnimalDog(check);
+                            break;
+                        case PieceData.Animal.Frog:
+                            Synerge.AnimalFrog(check);
+                            break;
+                        case PieceData.Animal.Rabbit:
+                            Synerge.AnimalRabbit(check);
+                            break;
+                    }
+                }
+                if(_unitedCountCheck.Contains(_unitedCount))
+                {
+                    switch (_plusUnited)
+                    {
+                        case PieceData.United.UnderWorld:
+                            Synerge.UnitedUnderWorld(check);
+                            break;
+                        case PieceData.United.Faddist:
+                            Synerge.UnitedFaddist(check);
+                            break;
+                        case PieceData.United.WarMachine:
+                            Synerge.UnitedWarMachine(check);
+                            break;
+                        case PieceData.United.Creature:
+                            Synerge.UnitedCreature(check);
                             break;
                     }
                 }
             }
             else //Minus
             {
-                //
+                switch (_plusMyth)
+                {
+                    case PieceData.Myth.GreatMountain:
+                        Synerge.MythGreatMoutain(check);
+                        break;
+                    case PieceData.Myth.FrostyWind:
+                        Synerge.MythFrostyWind(check);
+                        break;
+                    case PieceData.Myth.SandKingdom:
+                        Synerge.MythSandKingdom(check);
+                        break;
+                    case PieceData.Myth.HeavenGround:
+                        Synerge.MythHeavenGround(check);
+                        break;
+                    case PieceData.Myth.BurningGround:
+                        Synerge.MythBurningGround(check);
+                        break;
+                }
+                switch (_plusAnimal)
+                {
+                    case PieceData.Animal.Hamster:
+                        Synerge.AnimalHamster(check);
+                        break;
+                    case PieceData.Animal.Cat:
+                        Synerge.AnimalCat(check);
+                        break;
+                    case PieceData.Animal.Dog:
+                        Synerge.AnimalDog(check);
+                        break;
+                    case PieceData.Animal.Frog:
+                        Synerge.AnimalFrog(check);
+                        break;
+                    case PieceData.Animal.Rabbit:
+                        Synerge.AnimalRabbit(check);
+                        break;
+                }
+                switch (_plusUnited)
+                {
+                    case PieceData.United.UnderWorld:
+                        Synerge.UnitedUnderWorld(check);
+                        break;
+                    case PieceData.United.Faddist:
+                        Synerge.UnitedFaddist(check);
+                        break;
+                    case PieceData.United.WarMachine:
+                        Synerge.UnitedWarMachine(check);
+                        break;
+                    case PieceData.United.Creature:
+                        Synerge.UnitedCreature(check);
+                        break;
+                }
             }
         }
         else //Change Piece
@@ -212,23 +300,233 @@ public class FieldManager : MonoBehaviour
             PieceData.Myth   _minusMyth   = (minus != null) ? minus.pieceData.myth   : PieceData.Myth.None;
             PieceData.Animal _minusAnimal = (minus != null) ? minus.pieceData.animal : PieceData.Animal.None;
             PieceData.United _minusUnited = (minus != null) ? minus.pieceData.united : PieceData.United.None;
+
+            if (check) //Plus
+            {
+                switch (_plusMyth)
+                {
+                    case PieceData.Myth.GreatMountain:
+                        Synerge.MythGreatMoutain(check);
+                        break;
+                    case PieceData.Myth.FrostyWind:
+                        Synerge.MythFrostyWind(check);
+                        break;
+                    case PieceData.Myth.SandKingdom:
+                        Synerge.MythSandKingdom(check);
+                        break;
+                    case PieceData.Myth.HeavenGround:
+                        Synerge.MythHeavenGround(check);
+                        break;
+                    case PieceData.Myth.BurningGround:
+                        Synerge.MythBurningGround(check);
+                        break;
+                }
+                switch (_minusMyth)
+                {
+                    case PieceData.Myth.GreatMountain:
+                        Synerge.MythGreatMoutain(!check);
+                        break;
+                    case PieceData.Myth.FrostyWind:
+                        Synerge.MythFrostyWind(!check);
+                        break;
+                    case PieceData.Myth.SandKingdom:
+                        Synerge.MythSandKingdom(!check);
+                        break;
+                    case PieceData.Myth.HeavenGround:
+                        Synerge.MythHeavenGround(!check);
+                        break;
+                    case PieceData.Myth.BurningGround:
+                        Synerge.MythBurningGround(!check);
+                        break;
+                }
+
+
+                switch (_plusAnimal)
+                {
+                    case PieceData.Animal.Hamster:
+                        Synerge.AnimalHamster(check);
+                        break;
+                    case PieceData.Animal.Cat:
+                        Synerge.AnimalCat(check);
+                        break;
+                    case PieceData.Animal.Dog:
+                        Synerge.AnimalDog(check);
+                        break;
+                    case PieceData.Animal.Frog:
+                        Synerge.AnimalFrog(check);
+                        break;
+                    case PieceData.Animal.Rabbit:
+                        Synerge.AnimalRabbit(check);
+                        break;
+                }
+                switch (_minusAnimal)
+                {
+                    case PieceData.Animal.Hamster:
+                        Synerge.AnimalHamster(!check);
+                        break;
+                    case PieceData.Animal.Cat:
+                        Synerge.AnimalCat(!check);
+                        break;
+                    case PieceData.Animal.Dog:
+                        Synerge.AnimalDog(!check);
+                        break;
+                    case PieceData.Animal.Frog:
+                        Synerge.AnimalFrog(!check);
+                        break;
+                    case PieceData.Animal.Rabbit:
+                        Synerge.AnimalRabbit(!check);
+                        break;
+                }
+
+
+                switch(_plusUnited)
+                {
+                    case PieceData.United.UnderWorld:
+                        Synerge.UnitedUnderWorld(check);
+                        break;
+                    case PieceData.United.Faddist:
+                        Synerge.UnitedFaddist(check);
+                        break;
+                    case PieceData.United.WarMachine:
+                        Synerge.UnitedWarMachine(check);
+                        break;
+                    case PieceData.United.Creature:
+                        Synerge.UnitedCreature(check);
+                        break;
+                }
+                switch(_minusUnited)
+                {
+                    case PieceData.United.UnderWorld:
+                        Synerge.UnitedUnderWorld(!check);
+                        break;
+                    case PieceData.United.Faddist:
+                        Synerge.UnitedFaddist(!check);
+                        break;
+                    case PieceData.United.WarMachine:
+                        Synerge.UnitedWarMachine(!check);
+                        break;
+                    case PieceData.United.Creature:
+                        Synerge.UnitedCreature(!check);
+                        break;
+                }
+            }
+            else
+            {
+                switch (_plusMyth)
+                {
+                    case PieceData.Myth.GreatMountain:
+                        Synerge.MythGreatMoutain(!check);
+                        break;
+                    case PieceData.Myth.FrostyWind:
+                        Synerge.MythFrostyWind(!check);
+                        break;
+                    case PieceData.Myth.SandKingdom:
+                        Synerge.MythSandKingdom(!check);
+                        break;
+                    case PieceData.Myth.HeavenGround:
+                        Synerge.MythHeavenGround(!check);
+                        break;
+                    case PieceData.Myth.BurningGround:
+                        Synerge.MythBurningGround(!check);
+                        break;
+                }
+                switch (_minusMyth)
+                {
+                    case PieceData.Myth.GreatMountain:
+                        Synerge.MythGreatMoutain(check);
+                        break;
+                    case PieceData.Myth.FrostyWind:
+                        Synerge.MythFrostyWind(check);
+                        break;
+                    case PieceData.Myth.SandKingdom:
+                        Synerge.MythSandKingdom(check);
+                        break;
+                    case PieceData.Myth.HeavenGround:
+                        Synerge.MythHeavenGround(check);
+                        break;
+                    case PieceData.Myth.BurningGround:
+                        Synerge.MythBurningGround(check);
+                        break;
+                }
+
+
+                switch (_plusAnimal)
+                {
+                    case PieceData.Animal.Hamster:
+                        Synerge.AnimalHamster(!check);
+                        break;
+                    case PieceData.Animal.Cat:
+                        Synerge.AnimalCat(!check);
+                        break;
+                    case PieceData.Animal.Dog:
+                        Synerge.AnimalDog(!check);
+                        break;
+                    case PieceData.Animal.Frog:
+                        Synerge.AnimalFrog(!check);
+                        break;
+                    case PieceData.Animal.Rabbit:
+                        Synerge.AnimalRabbit(!check);
+                        break;
+                }
+                switch (_minusAnimal)
+                {
+                    case PieceData.Animal.Hamster:
+                        Synerge.AnimalHamster(check);
+                        break;
+                    case PieceData.Animal.Cat:
+                        Synerge.AnimalCat(check);
+                        break;
+                    case PieceData.Animal.Dog:
+                        Synerge.AnimalDog(check);
+                        break;
+                    case PieceData.Animal.Frog:
+                        Synerge.AnimalFrog(check);
+                        break;
+                    case PieceData.Animal.Rabbit:
+                        Synerge.AnimalRabbit(check);
+                        break;
+                }
+
+
+                switch (_plusUnited)
+                {
+                    case PieceData.United.UnderWorld:
+                        Synerge.UnitedUnderWorld(!check);
+                        break;
+                    case PieceData.United.Faddist:
+                        Synerge.UnitedFaddist(!check);
+                        break;
+                    case PieceData.United.WarMachine:
+                        Synerge.UnitedWarMachine(!check);
+                        break;
+                    case PieceData.United.Creature:
+                        Synerge.UnitedCreature(!check);
+                        break;
+                }
+                switch (_minusUnited)
+                {
+                    case PieceData.United.UnderWorld:
+                        Synerge.UnitedUnderWorld(check);
+                        break;
+                    case PieceData.United.Faddist:
+                        Synerge.UnitedFaddist(check);
+                        break;
+                    case PieceData.United.WarMachine:
+                        Synerge.UnitedWarMachine(check);
+                        break;
+                    case PieceData.United.Creature:
+                        Synerge.UnitedCreature(check);
+                        break;
+                }
+            }
         }
     }
 
     //Methods Needs to be run once at the start of the battle round
-    public delegate void BattleBuff(List<Piece> pieceList);
+    public delegate void BattleBuff();
     BattleBuff sOnceBuff;
 
     //Methods Needs to be run multiple times during the battle round
-    public delegate IEnumerator CoroutineBuff(List<Piece> myPieceList, List<Piece> enemiesPieceList);
+    public delegate IEnumerator CoroutineBuff();
     CoroutineBuff sCoroutineBuff;
 }
-
-//foreach(var test in myFilePieceList)
-//{
-//    if(test.pieceData.animal == PieceData.Animal.Frog)
-//    {
-//        test.synergeEffect = Synerge.AnimalFrog;
-//        test.synergeEffect(test, animalActiveCount[plus.pieceData.animal], check);
-//    }
-//}

@@ -4,28 +4,25 @@ using UnityEngine;
 
 public static class Synerge
 {
+    public static FieldManager _fm;
+
+    /// <summary>
+    /// Myth Synerge Effect
+    /// </summary>
+    /// <param name="isPlus"></param>
+    
     public static GameObject setOneGreatMoutainPiece = null; //1 Star GreatMoutain
     public static GameObject setTwoGreatMoutainPiece = null; //2 Star GreatMoutain
     public static void MythGreatMoutain(bool isPlus)
     {
-        FieldManager _fm = ArenaManager.instance.fm[0];
-
         int _count = _fm.mythActiveCount[PieceData.Myth.GreatMountain];
         if (isPlus)
         {
             switch(_count)
             {
                 case 2:
-                    GameObject _num0 = _fm.greatMoutainOneCostPiece[Random.Range(0, 4)];
-                    _fm.greatMoutainOneCostPiece.Remove(_num0);
-                    setOneGreatMoutainPiece = _num0;
-                    
-
                     break;
                 case 4:
-                    GameObject _num1 = _fm.greatMoutainTwoCostPiece[Random.Range(0, 3)];
-                    _fm.greatMoutainTwoCostPiece.Remove(_num1);
-                    setTwoGreatMoutainPiece = _num1;
                     break;
                 case 6:
                     break;
@@ -39,65 +36,96 @@ public static class Synerge
         }
     }
 
-    public static void MythFrostyWind(int count,List<Piece> enemyFilePieceList)
+    public static void MythFrostyWind(bool isPlus)
     {
 
     }
 
-    public static IEnumerator MythSandKingdom()
+    public static void MythSandKingdom(bool isPlus)
     {
-        yield return new WaitForSeconds(2f); //Temporary Value 2f
+        
     }
 
-    public static void MythHeavenGround(Piece piece, int frogCount, bool isPlus)
+    public static void MythHeavenGround(bool isPlus)
     {
         //Heaven Piece Abnormal Condition
     }
-    public static IEnumerator MythHeavenGround()
-    {
-        yield return new WaitForSeconds(2f); //Temporary Value 2f
-    }
 
-    public static void MythBurningGround()
+    public static void MythBurningGround(bool isPlus)
     {
 
     }
 
-
-    public static void AnimalFrog(Piece piece, int frogCount,bool isPlus)
+    /// <summary>
+    /// Animal Synerge Effect
+    /// </summary>
+    /// <param name="isPlus"></param>
+    public static void AnimalHamster(bool isPlus)
     {
-        var fm = ArenaManager.instance.fm[0];
 
+    }
+    public static void AnimalCat(bool isPlus)
+    {
+
+    }
+    public static void AnimalDog(bool isPlus)
+    {
+
+    }
+    public static void AnimalFrog(bool isPlus)
+    {
         if(isPlus)
         {
-            switch(frogCount)
+            switch(_fm.animalActiveCount[PieceData.Animal.Frog])
             {
                 case 2:
-                    piece.damageRise = piece.attackDamage * 0.1f;
-                    Debug.Log("개구리(종족) 시너지가 증가하여 - 2 -가 발생합니다.");
+                    foreach(var frog in _fm.myFilePieceList)
+                    {
+                        if(frog.pieceData.animal == PieceData.Animal.Frog)
+                        {
+                            frog.damageRise += frog.attackPower * 0.1f;
+                            frog.armor += frog.armor * 0.1f;
+                        }
+                    }
                     break;
                 case 4:
-                    Debug.Log("개구리(종족) 시너지가 증가하여 - 4 -가 발생합니다.");
+                    foreach (var frog in _fm.myFilePieceList)
+                    {
+                        if (frog.pieceData.animal == PieceData.Animal.Frog)
+                        {
+                            frog.damageRise += frog.attackPower * 0.1f;
+                            frog.armor += frog.armor * 0.1f;
+                        }
+                    }
                     break;
                 case 6:
-                    Debug.Log("개구리(종족) 시너지가 증가하여 - 6 -가 발생합니다.");
                     break;
             }
         }
-        else
-        {
-            switch (frogCount)
-            {
-                case 2:
-                    Debug.Log("개구리(종족) 시너지가 감소하여 - 2 -가 발생합니다.");
-                    break;
-                case 4:
-                    Debug.Log("개구리(종족) 시너지가 감소하여 - 4 -가 발생합니다.");
-                    break;
-                case 6:
-                    Debug.Log("개구리(종족) 시너지가 감소하여 - 6 -가 발생합니다.");
-                    break;
-            }
-        }
+    }
+    public static void AnimalRabbit(bool isPlus)
+    {
+
+    }
+
+    /// <summary>
+    /// United Synerge Effect
+    /// </summary>
+    /// <param name="isPlus"></param>
+    public static void UnitedUnderWorld(bool isPlus)
+    {
+
+    }
+    public static void UnitedFaddist(bool isPlus)
+    {
+
+    }
+    public static void UnitedWarMachine(bool isPlus)
+    {
+
+    }
+    public static void UnitedCreature(bool isPlus)
+    {
+
     }
 }
