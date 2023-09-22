@@ -5,6 +5,8 @@ using DG.Tweening;
 
 public class Messenger : MonoBehaviour
 {
+    public int level;
+    public int experience;
     public int lifePoint = 100;
     public int gold = 0;
     [SerializeField] LayerMask groundMask;

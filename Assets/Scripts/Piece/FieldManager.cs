@@ -57,7 +57,7 @@ public class FieldManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-        ArenaManager.instance.fm.Add(this);
+        //ArenaManager.instance.fm.Add(this);
 
 
         //for test
@@ -71,7 +71,11 @@ public class FieldManager : MonoBehaviour
         //bbb.piece = testb;
         //ccc.piece = testc;
         //
-    }  
+    }
+    private void Start()
+    {
+        ArenaManager.instance.fm.Add(this);
+    }
 
 
 

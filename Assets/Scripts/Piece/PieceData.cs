@@ -5,25 +5,25 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PieceData", menuName = "Scriptable Object/Piece Data", order = int.MaxValue)]
 public class PieceData : ScriptableObject
 {
-    [SerializeField] string pieceName;
-    [SerializeField] Sprite piecePortrait;
+    public string pieceName;
+    public Sprite piecePortrait;
 
-    [SerializeField] float health;          //체력
-    [SerializeField] float mana;            //마나
-    [SerializeField] float manaRecovery;    //마나 회복력
+    public float health;          //체력
+    public float mana;            //마나
+    public float manaRecovery;    //마나 회복력
 
-    [SerializeField] float attackPower;     //기본 공격력
-    [SerializeField] float damageRise;      //공격력 상승분
-    [SerializeField] float attackDamage;    //최종 공격력
-    [SerializeField] float abilityPower;    //최종 스킬 공격력
+    public float attackPower;     //기본 공격력
+    public float damageRise;      //공격력 상승분
+    public float attackDamage;    //최종 공격력
+    public float abilityPower;    //최종 스킬 공격력
 
-    [SerializeField] float armor;           //방어력att
-    [SerializeField] float magicResist;     //마법 저항력
+    public float armor;           //방어력att
+    public float magicResist;     //마법 저항력
 
-    [SerializeField] float attackSpeed;     //공격속도
-    [SerializeField] float criticalChance;  //크리티컬 확률
-    [SerializeField] float criticalDamage;  //크리티컬 배율
-    [SerializeField] int attackRange;       //공격범위
+    public float attackSpeed;     //공격속도
+    public float criticalChance;  //크리티컬 확률
+    public float criticalDamage;  //크리티컬 배율
+    public int attackRange;       //공격범위
 
     
 
