@@ -55,9 +55,8 @@ public class PieceShop : MonoBehaviour
         {
             if (currentPercent < chooseTier && currentPercent + percentageByLevel[level].tier[i] >= chooseTier)
             {
-                print(0);
                 SetSlot(slot, testList[i].testCountList[GetRandomIndex(i)].piecedata);
-                break;
+                return;
             }
 
             currentPercent += percentageByLevel[level].tier[i];
