@@ -7,6 +7,7 @@ public class PieceData : ScriptableObject
 {
     public string pieceName;
     public Sprite piecePortrait;
+    public GameObject piecePrefab;
 
     public float health;          //체력
     public float mana;            //마나

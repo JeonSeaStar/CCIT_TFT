@@ -443,6 +443,7 @@ MonoBehaviour:
   Equipments: []
   star: 0
   health: 0
+  currentHealth: 0
   mana: 0
   manaRecovery: 0
   attackPower: 0
@@ -567,7 +568,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  IsFull: 0
+  IsFull: 1
   isReadyTile: 1
   piece: {fileID: 1234782745}
   listX: 0
@@ -998,7 +999,7 @@ GameObject:
   - component: {fileID: 83093050}
   - component: {fileID: 83093051}
   m_Layer: 5
-  m_Name: piece[1]
+  m_Name: slot[1]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1021,7 +1022,7 @@ RectTransform:
   - {fileID: 1292330342}
   - {fileID: 106655125}
   m_Father: {fileID: 487481405}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1040,6 +1041,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c2b95d22142d642940165748979610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fieldManager: {fileID: 1886702829}
   pieceData: {fileID: 0}
   slotColour:
   - {r: 0, g: 0, b: 0, a: 0}
@@ -1964,6 +1966,7 @@ MonoBehaviour:
   Equipments: []
   star: 0
   health: 0
+  currentHealth: 0
   mana: 0
   manaRecovery: 0
   attackPower: 0
@@ -3340,7 +3343,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  IsFull: 0
+  IsFull: 1
   isReadyTile: 1
   piece: {fileID: 587955022}
   listX: 0
@@ -5959,7 +5962,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &487481405
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5972,6 +5975,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1360632518}
   - {fileID: 1006729016}
   - {fileID: 83093050}
   - {fileID: 1204962247}
@@ -6777,7 +6781,7 @@ GameObject:
   - component: {fileID: 586279970}
   - component: {fileID: 586279971}
   m_Layer: 5
-  m_Name: piece[3]
+  m_Name: slot[3]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6800,7 +6804,7 @@ RectTransform:
   - {fileID: 1089197556}
   - {fileID: 534581765}
   m_Father: {fileID: 487481405}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6819,6 +6823,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c2b95d22142d642940165748979610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fieldManager: {fileID: 1886702829}
   pieceData: {fileID: 0}
   slotColour:
   - {r: 0, g: 0, b: 0, a: 0}
@@ -6904,6 +6909,7 @@ MonoBehaviour:
   Equipments: []
   star: 0
   health: 0
+  currentHealth: 0
   mana: 0
   manaRecovery: 0
   attackPower: 0
@@ -7183,7 +7189,6 @@ RectTransform:
   m_Children:
   - {fileID: 1298523154}
   - {fileID: 487481405}
-  - {fileID: 1360632518}
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7326,7 +7331,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  IsFull: 0
+  IsFull: 1
   isReadyTile: 1
   piece: {fileID: 1458093532}
   listX: 0
@@ -8286,6 +8291,7 @@ MonoBehaviour:
   Equipments: []
   star: 0
   health: 0
+  currentHealth: 0
   mana: 0
   manaRecovery: 0
   attackPower: 0
@@ -9554,6 +9560,7 @@ MonoBehaviour:
   Equipments: []
   star: 0
   health: 0
+  currentHealth: 0
   mana: 0
   manaRecovery: 0
   attackPower: 0
@@ -11381,6 +11388,7 @@ MonoBehaviour:
   Equipments: []
   star: 0
   health: 0
+  currentHealth: 0
   mana: 0
   manaRecovery: 0
   attackPower: 0
@@ -11583,7 +11591,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7497b64e8bca5c24291a89bbe1e73c11,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7497b64e8bca5c24291a89bbe1e73c11, type: 3}
@@ -11714,7 +11722,7 @@ GameObject:
   - component: {fileID: 1006729016}
   - component: {fileID: 1006729017}
   m_Layer: 5
-  m_Name: piece[0]
+  m_Name: slot[0]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11737,7 +11745,7 @@ RectTransform:
   - {fileID: 1884555907}
   - {fileID: 1318769293}
   m_Father: {fileID: 487481405}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -11756,6 +11764,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c2b95d22142d642940165748979610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fieldManager: {fileID: 1886702829}
   pieceData: {fileID: 0}
   slotColour:
   - {r: 0, g: 0, b: 0, a: 0}
@@ -12300,6 +12309,7 @@ MonoBehaviour:
   Equipments: []
   star: 0
   health: 0
+  currentHealth: 0
   mana: 0
   manaRecovery: 0
   attackPower: 0
@@ -13607,7 +13617,7 @@ GameObject:
   - component: {fileID: 1204962247}
   - component: {fileID: 1204962248}
   m_Layer: 5
-  m_Name: piece[2]
+  m_Name: slot[2]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13630,7 +13640,7 @@ RectTransform:
   - {fileID: 691095818}
   - {fileID: 357870020}
   m_Father: {fileID: 487481405}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -13649,6 +13659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c2b95d22142d642940165748979610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fieldManager: {fileID: 1886702829}
   pieceData: {fileID: 0}
   slotColour:
   - {r: 0, g: 0, b: 0, a: 0}
@@ -13798,6 +13809,7 @@ MonoBehaviour:
   Equipments: []
   star: 0
   health: 0
+  currentHealth: 0
   mana: 0
   manaRecovery: 0
   attackPower: 0
@@ -14947,7 +14959,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7497b64e8bca5c24291a89bbe1e73c11,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7497b64e8bca5c24291a89bbe1e73c11, type: 3}
@@ -15067,8 +15079,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 125058102}
-  m_Father: {fileID: 605217635}
-  m_RootOrder: 2
+  m_Father: {fileID: 487481405}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -16202,6 +16214,7 @@ MonoBehaviour:
   Equipments: []
   star: 0
   health: 0
+  currentHealth: 0
   mana: 0
   manaRecovery: 0
   attackPower: 0
@@ -17806,7 +17819,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7497b64e8bca5c24291a89bbe1e73c11,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7497b64e8bca5c24291a89bbe1e73c11, type: 3}
@@ -18358,6 +18371,7 @@ MonoBehaviour:
   Equipments: []
   star: 0
   health: 0
+  currentHealth: 0
   mana: 0
   manaRecovery: 0
   attackPower: 0
@@ -18898,6 +18912,7 @@ MonoBehaviour:
   Equipments: []
   star: 0
   health: 0
+  currentHealth: 0
   mana: 0
   manaRecovery: 0
   attackPower: 0
@@ -19405,7 +19420,7 @@ GameObject:
   - component: {fileID: 1834190860}
   - component: {fileID: 1834190861}
   m_Layer: 5
-  m_Name: piece[4]
+  m_Name: slot[4]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19428,7 +19443,7 @@ RectTransform:
   - {fileID: 1316063509}
   - {fileID: 1419328009}
   m_Father: {fileID: 487481405}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -19447,6 +19462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c2b95d22142d642940165748979610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fieldManager: {fileID: 1886702829}
   pieceData: {fileID: 0}
   slotColour:
   - {r: 0, g: 0, b: 0, a: 0}
@@ -19751,7 +19767,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7497b64e8bca5c24291a89bbe1e73c11,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7497b64e8bca5c24291a89bbe1e73c11, type: 3}
@@ -20406,6 +20422,7 @@ MonoBehaviour:
   Equipments: []
   star: 0
   health: 0
+  currentHealth: 0
   mana: 0
   manaRecovery: 0
   attackPower: 0
@@ -20752,6 +20769,7 @@ MonoBehaviour:
   Equipments: []
   star: 0
   health: 0
+  currentHealth: 0
   mana: 0
   manaRecovery: 0
   attackPower: 0
@@ -21037,7 +21055,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7497b64e8bca5c24291a89bbe1e73c11,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7497b64e8bca5c24291a89bbe1e73c11, type: 3}
@@ -21805,7 +21823,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  IsFull: 0
+  IsFull: 1
   isReadyTile: 1
   piece: {fileID: 935242541}
   listX: 0
@@ -22240,7 +22258,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: {x: 0, y: 0}
   targetIndex: {x: 0, y: 0}
-  IsFull: 0
+  IsFull: 1
   isReadyTile: 1
   piece: {fileID: 810062465}
   listX: 0
