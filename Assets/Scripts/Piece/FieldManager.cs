@@ -59,7 +59,6 @@ public class FieldManager : MonoBehaviour
     {
         instance = this;
         Synerge._fm = this;
-        ArenaManager.instance.fm.Add(this);
 
 
         //for test
