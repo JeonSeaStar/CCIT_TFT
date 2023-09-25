@@ -20,11 +20,11 @@ public class ArenaManager : MonoBehaviour
     };
     public RoundType roundType = RoundType.None;
 
-    public const float readyTime = 30f;               
-    public const float battleTime = 60f;              
-    public const float battleOverTime = 60f;          
-    public const float groundEventTime = 10000f;      
-    public const float duelTime = 60f;
+    public float readyTime = 30f;               
+    public float battleTime = 60f;              
+    public float battleOverTime = 60f;          
+    public float groundEventTime = 10000f;      
+    public float duelTime = 60f;
 
     private void Awake()
     {

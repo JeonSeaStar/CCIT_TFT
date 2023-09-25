@@ -6,7 +6,7 @@ using static ArenaManager;
 
 public class FieldManager : MonoBehaviour
 {
-    public static FieldManager instance;
+    //public static FieldManager instance;
 
     public Messenger[] DualPlayers = new Messenger[2];
 
@@ -57,7 +57,6 @@ public class FieldManager : MonoBehaviour
 
     void Awake()
     {
-        instance = this;
         Synerge._fm = this;
 
 
@@ -603,7 +602,7 @@ public class FieldManager : MonoBehaviour
 
     public void FusionPiece(Piece piece)
     {
-        //여기부터하면됨 전해성
+        
     }
 
     public void DestroyPiece(Piece piece)
