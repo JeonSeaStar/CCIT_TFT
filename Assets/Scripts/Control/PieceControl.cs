@@ -9,7 +9,7 @@ using static ArenaManager;
 
 public class PieceControl : MonoBehaviour
 {
-    [SerializeField] public FieldManager fieldManager;
+    [SerializeField] private FieldManager fm;
     [SerializeField] private Rigidbody pieceRigidbody;
 
     public Tile currentTile, targetTile;
@@ -27,14 +27,17 @@ public class PieceControl : MonoBehaviour
 
     private void Start()
     {
-        if (fieldManager == null) fieldManager = ArenaManager.instance.fm[0];
+        if (fm == null) fm = ArenaManager.instance.fm[0];
     }
 
 
 
     private void OnMouseDown()
     {
-        fieldManager.ActiveHexaIndicators(true);
+        fm.ActiveHexaIndicators(true);
+
+        fm.grab = true;
+        fm.controlPiece = this.ControlPiece;
 
         if (pieceRigidbody != null) pieceRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
     }
@@ -43,7 +46,7 @@ public class PieceControl : MonoBehaviour
     {
         if(ArenaManager.instance.roundType == RoundType.Battle)
         {
-            if(currentTile.isReadyTile == true)
+            if(currentTile.isReadyTile == true && fm.isDragging)
             {
                 float distance = Camera.main.WorldToScreenPoint(transform.position).z;
                 Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
@@ -66,16 +69,30 @@ public class PieceControl : MonoBehaviour
 
     private void OnMouseUp()
     {
-        fieldManager.ActiveHexaIndicators(false);
+        fm.ActiveHexaIndicators(false);
+
+        if (!fm.isDragging) //라운드 변경시 드래그 중이던 기물이 있었는지 확인
+        {
+            fm.isDragging = true;
+            fm.grab = false;
+            fm.controlPiece = null;
+            return;
+        }
+        if (ArenaManager.instance.roundType == RoundType.Battle && !currentTile.isReadyTile) return; //전투 라운드에 전투 기물 이동 금지
 
         // Plane 위로 드래그 한 경우
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, (-1) - (1 << 6)))
         {
-            if(hit.transform.gameObject.layer == 8) 
+            if(hit.transform.gameObject.layer == 8) //타일 외 이동 금지 ex)Plane
             {
                 targetTile = null;
+                transform.position = new Vector3(currentTile.transform.position.x, 0, currentTile.transform.position.z);
+                return;
+            }
+            if (ArenaManager.instance.roundType == RoundType.Battle && hit.transform.gameObject.GetComponent<Tile>().isReadyTile == false) //전투 라운드에 기물 배치 금지
+            {
                 transform.position = new Vector3(currentTile.transform.position.x, 0, currentTile.transform.position.z);
                 return;
             }
@@ -123,7 +140,6 @@ public class PieceControl : MonoBehaviour
                 ControlPiece.currentNode = targetTile.GetComponent<Tile>();
             }
         }
-
         if (pieceRigidbody != null) pieceRigidbody.constraints = RigidbodyConstraints.None;
     }
 
