@@ -89,8 +89,9 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
         if(targetTile != null)
         {
-            GameObject pieceObject = Instantiate(piece.piecePrefab, targetTile.transform.position, Quaternion.Euler(-90, 180, 0));
-            targetTile.isFull = true;
+            fieldManager.SpawnPiece(piece, 0);
+            //GameObject pieceObject = Instantiate(piece.piecePrefab, targetTile.transform.position, Quaternion.Euler(-90, 180, 0));
+            //targetTile.isFull = true;
 
             Bought = true;
         }

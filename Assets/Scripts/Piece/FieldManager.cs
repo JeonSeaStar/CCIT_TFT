@@ -74,9 +74,6 @@ public class FieldManager : MonoBehaviour
         //
     }  
 
-
-
-
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.S))
@@ -529,4 +526,99 @@ public class FieldManager : MonoBehaviour
     //Methods Needs to be run multiple times during the battle round
     public delegate IEnumerator CoroutineBuff();
     CoroutineBuff sCoroutineBuff;
+
+    [System.Serializable]
+    public class PieceList
+    {
+        public PieceData pieceData;
+        public List<int> count;
+    }
+    public List<PieceList> currentPieceList;
+
+    public void PieceListCountUp(Piece piece)
+    {
+        int kind = CheckPieceKind(piece.pieceData);
+        int grade = piece.grade;
+        currentPieceList[kind].count[grade]++;
+
+        if(currentPieceList[kind].count[grade] == 3)
+        {
+            FusionPiece(piece);
+        }
+    }
+
+    public void PieceListCountDown(Piece piece)
+    {
+        int kind = CheckPieceKind(piece.pieceData);
+        int grade = piece.grade;
+
+        currentPieceList[kind].count[grade]--;
+    }
+
+    public int CheckPieceKind(PieceData pieceData)
+    {
+        int kind = -1;
+
+        for (int i = 0; i < currentPieceList.Count; i++)
+        {
+            if (currentPieceList[i].pieceData == pieceData)
+            {
+                kind = i;
+                break;
+            }
+        }
+
+        return kind;
+    }
+
+    public void SpawnPiece(PieceData pieceData, int grade, Tile targetTile)
+    {
+        GameObject pieceObject = Instantiate(pieceData.piecePrefab, targetTile.transform.position, Quaternion.Euler(-90, 180, 0));
+        Piece piece = pieceObject.GetComponent<Piece>();
+        piece.grade = grade;
+
+        targetTile.isFull = true;
+
+        //나중에 지울 거
+        piece.pieceData = pieceData;
+        //
+
+        PieceListCountUp(piece);
+    }
+
+    public void FusionPiece(Piece piece)
+    {
+        //여기부터하면됨 전해성
+    }
+
+    public void DestroyPiece(Piece piece)
+    {
+
+    }
+
+    public Tile GetTile()
+    {
+        Tile targetTile = null;
+
+        targetTile = TileCheck(targetTile, readyZoneHexaIndicators);
+        if (targetTile != null) { return targetTile; }
+
+        targetTile = TileCheck(targetTile, battleFieldHexaIndicators);
+        if (targetTile != null) { return targetTile; }
+        else return null;
+    }
+
+    Tile TileCheck(Tile tile, GameObject[] tileArray)
+    {
+        foreach (GameObject tileObject in tileArray)
+        {
+            if (!tileObject.GetComponentInParent<Tile>().isFull)
+            {
+                tile = tileObject.GetComponentInParent<Tile>();
+                break;
+            }
+        }
+
+        return tile;
+    }
 }
