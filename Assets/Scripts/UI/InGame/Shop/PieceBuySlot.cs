@@ -85,11 +85,11 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     void BuyPiece(PieceData piece)
     {
-        Tile targetTile = GetTile();
+        Tile targetTile = fieldManager.GetTile();
 
         if(targetTile != null)
         {
-            fieldManager.SpawnPiece(piece, 0);
+            fieldManager.SpawnPiece(piece, 0, targetTile);
             //GameObject pieceObject = Instantiate(piece.piecePrefab, targetTile.transform.position, Quaternion.Euler(-90, 180, 0));
             //targetTile.isFull = true;
 

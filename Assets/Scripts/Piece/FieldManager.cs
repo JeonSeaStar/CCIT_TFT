@@ -73,12 +73,7 @@ public class FieldManager : MonoBehaviour
         //bbb.piece = testb;
         //ccc.piece = testc;
         //
-<<<<<<< HEAD
     }  
-=======
-    }
-
->>>>>>> 1087bf341e7c570b0b14f80a6e79bdcb3d51f4a9
 
     void Update()
     {
