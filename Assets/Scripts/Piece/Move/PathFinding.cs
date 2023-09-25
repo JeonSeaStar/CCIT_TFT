@@ -34,7 +34,7 @@ public class PathFinding : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             //내 기물 움직임 시작, 다음에 적 움직임까지 추가해서 테스트
-            foreach (var piece in FieldManager.instance.myFilePieceList)
+            foreach (var piece in ArenaManager.instance.fm[0].myFilePieceList)
             {
                 piece.NextBehavior();
             }
@@ -252,7 +252,7 @@ public class PathFinding : MonoBehaviour
     public int GetClosePiece(Piece piece)
     {
         Tile currentTile = piece.currentNode;
-        List<Piece> enemyList = FieldManager.instance.enemyFilePieceList;
+        List<Piece> enemyList = ArenaManager.instance.fm[0].enemyFilePieceList;
 
         int closeDistance = 99;
         int closePieceIndex = -1;

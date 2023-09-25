@@ -101,7 +101,7 @@ public class Piece : MonoBehaviour
 
     protected bool RangeCheck()
     {
-        if (attackRange >= FieldManager.instance.pathFinding.GetDistance(currentNode, target.currentNode))
+        if (attackRange >= ArenaManager.instance.fm[0].pathFinding.GetDistance(currentNode, target.currentNode))
             return true;
         else
             return false;
@@ -161,11 +161,11 @@ public class Piece : MonoBehaviour
 
     public void NextBehavior()
     {
-        if (CheckSurvival(FieldManager.instance.enemyFilePieceList))
+        if (CheckSurvival(ArenaManager.instance.fm[0].enemyFilePieceList))
         {
-            foreach (var enemy in FieldManager.instance.enemyFilePieceList)
+            foreach (var enemy in ArenaManager.instance.fm[0].enemyFilePieceList)
                 enemy.currentNode.walkable = true;
-            FieldManager.instance.pathFinding.SetCandidatePath(this, FieldManager.instance.enemyFilePieceList);
+            ArenaManager.instance.fm[0].pathFinding.SetCandidatePath(this, ArenaManager.instance.fm[0].enemyFilePieceList);
 
             if (target != null)
             {
