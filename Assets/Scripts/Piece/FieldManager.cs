@@ -20,7 +20,8 @@ public class FieldManager : MonoBehaviour
     public GameObject[] readyZoneHexaIndicators;
     public GameObject[] battleFieldHexaIndicators;
 
-    public bool grab;
+    public bool grab, isDragging = true;
+    public Piece controlPiece;
 
     public Dictionary<PieceData.Myth, int> mythActiveCount = new Dictionary<PieceData.Myth, int>()
     {
@@ -72,7 +73,12 @@ public class FieldManager : MonoBehaviour
         //bbb.piece = testb;
         //ccc.piece = testc;
         //
+<<<<<<< HEAD
     }  
+=======
+    }
+
+>>>>>>> 1087bf341e7c570b0b14f80a6e79bdcb3d51f4a9
 
     void Update()
     {
@@ -92,6 +98,21 @@ public class FieldManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.B))
         {
             ArenaManager.instance.roundType = RoundType.Battle;
+            if(grab)
+            {
+                isDragging = false;
+                var _transform = controlPiece.GetComponent<PieceControl>().currentTile.transform;
+                controlPiece.transform.position = new Vector3(_transform.position.x, 0, _transform.position.z);
+                
+                for (int i = 0; i < battleFieldHexaIndicators.Length; i++)
+                {
+                    battleFieldHexaIndicators[i].SetActive(false);
+                }
+            }
+        }
+        if(Input.GetKeyDown(KeyCode.R) && ArenaManager.instance.roundType == RoundType.Battle)
+        {
+            ArenaManager.instance.roundType = RoundType.Ready;
         }
 
     }
