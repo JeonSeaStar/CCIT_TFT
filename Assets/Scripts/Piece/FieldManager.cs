@@ -20,7 +20,7 @@ public class FieldManager : MonoBehaviour
     public GameObject[] readyZoneHexaIndicators;
     public GameObject[] battleFieldHexaIndicators;
 
-    public bool grab, isDragging = true;
+    public bool grab, isDrag = false;
     public Piece controlPiece;
 
     public Dictionary<PieceData.Myth, int> mythActiveCount = new Dictionary<PieceData.Myth, int>()
@@ -61,15 +61,15 @@ public class FieldManager : MonoBehaviour
 
 
         //for test
-        //var testa = GameObject.Instantiate(aa);
-        //var testb = GameObject.Instantiate(bb);
-        //var testc = GameObject.Instantiate(aa);
-        //testa.transform.position = new Vector3(0, 0, -1.7f);
-        //testb.transform.position = new Vector3(1, 0, -1.7f);
-        //testc.transform.position = new Vector3(2, 0, -1.7f);
-        //aaa.piece = testa;
-        //bbb.piece = testb;
-        //ccc.piece = testc;
+        var testa = GameObject.Instantiate(aa);
+        var testb = GameObject.Instantiate(bb);
+        var testc = GameObject.Instantiate(aa);
+        testa.transform.position = new Vector3(0, 0, -1.7f);
+        testb.transform.position = new Vector3(1, 0, -1.7f);
+        testc.transform.position = new Vector3(2, 0, -1.7f);
+        aaa.piece = testa;
+        bbb.piece = testb;
+        ccc.piece = testc;
         //
     }  
 
@@ -93,7 +93,7 @@ public class FieldManager : MonoBehaviour
             ArenaManager.instance.roundType = RoundType.Battle;
             if(grab)
             {
-                isDragging = false;
+                isDrag = true;
                 var _transform = controlPiece.GetComponent<PieceControl>().currentTile.transform;
                 controlPiece.transform.position = new Vector3(_transform.position.x, 0, _transform.position.z);
                 
@@ -540,6 +540,24 @@ public class FieldManager : MonoBehaviour
     //Methods Needs to be run multiple times during the battle round
     public delegate IEnumerator CoroutineBuff();
     CoroutineBuff sCoroutineBuff;
+
+    public void InitializingRound()
+    {
+        if (grab)
+        {
+            isDrag = false;
+            var _transform = controlPiece.GetComponent<PieceControl>().currentTile.transform;
+            controlPiece.transform.position = new Vector3(_transform.position.x, 0, _transform.position.z);
+
+            for (int i = 0; i < battleFieldHexaIndicators.Length; i++)
+            {
+                battleFieldHexaIndicators[i].SetActive(false);
+            }
+        }
+    }    
+
+
+
 
     [System.Serializable]
     public class PieceList

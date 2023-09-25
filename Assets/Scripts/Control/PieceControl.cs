@@ -46,7 +46,7 @@ public class PieceControl : MonoBehaviour
     {
         if(ArenaManager.instance.roundType == RoundType.Battle)
         {
-            if(currentTile.isReadyTile == true && fm.isDragging)
+            if(currentTile.isReadyTile == true && !fm.isDrag)
             {
                 float distance = Camera.main.WorldToScreenPoint(transform.position).z;
                 Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
@@ -71,9 +71,9 @@ public class PieceControl : MonoBehaviour
     {
         fm.ActiveHexaIndicators(false);
 
-        if (!fm.isDragging) //라운드 변경시 드래그 중이던 기물이 있었는지 확인
+        if (fm.isDrag) //라운드 변경시 드래그 중이던 기물이 있었는지 확인
         {
-            fm.isDragging = true;
+            fm.isDrag = false;
             fm.grab = false;
             fm.controlPiece = null;
             return;
@@ -145,7 +145,7 @@ public class PieceControl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (ArenaManager.instance.roundType == RoundType.Ready)
+        if (ArenaManager.instance.roundType == RoundType.Deployment)
         {
             if (other.gameObject.layer == 7)
             {
