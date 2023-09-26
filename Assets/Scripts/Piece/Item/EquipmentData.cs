@@ -3,25 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "EquipmentData", menuName = "Scriptable Object/EquipmentData", order = int.MaxValue)]
-[SerializeField] class EquipmentData : ScriptableObject
+public class EquipmentData : ScriptableObject
 {
-    [SerializeField] FieldManager fieldManager;
+    public FieldManager fieldManager;
 
-    [SerializeField] string pieceName;
-    [SerializeField] Sprite piecePortrait;
+    public string pieceName;
+    public Sprite piecePortrait;
 
-    [SerializeField] float health;
-    [SerializeField] float mana;
-    [SerializeField] float attackDamage;
-    [SerializeField] float abilityPower;
-    [SerializeField] float armor;
-    [SerializeField] float magicResist;
-    [SerializeField] float attackSpeed;
-    [SerializeField] float criticalChance;
-    [SerializeField] float criticalDamage;
-    [SerializeField] float attackRange;
+    public float health;
+    public float mana;
+    public float attackDamage;
+    public float abilityPower;
+    public float armor;
+    public float magicResist;
+    public float attackSpeed;
+    public float criticalChance;
+    public float criticalDamage;
+    public float attackRange;
 
-    [TextArea] [SerializeField] string Explanation;
+    [TextArea] public string Explanation;
 
     public GameObject equipmentPrefab;
 

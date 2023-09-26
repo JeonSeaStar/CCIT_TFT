@@ -5,6 +5,8 @@ using DG.Tweening;
 
 public class Equipment : MonoBehaviour
 {
+    public EquipmentData equipmentData;
+
     public string pieceName;
     public Sprite piecePortrait;
 
@@ -19,7 +21,7 @@ public class Equipment : MonoBehaviour
     public float criticalDamage;
     public float attackRange;
 
-    [TextArea] public string Explanation;
+    [TextArea] public string explanation;
 
     public virtual void EquipmentEffect()
     {

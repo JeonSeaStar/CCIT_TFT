@@ -11,5 +11,5 @@ public class Chest : MonoBehaviour
         public bool full;
     }
 
-    public EquipmentSpace chest;
+    public List<EquipmentSpace> itemChest;
 }

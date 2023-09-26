@@ -7,11 +7,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 092d055785152964dad5ec3c455c2b50, type: 3}
   m_Name: TestEquipmentData
   m_EditorClassIdentifier: 
+  fieldManager: {fileID: 0}
   pieceName: "\uD14C\uC2A4\uD2B8 \uC544\uC774\uD15C"
   piecePortrait: {fileID: 0}
   health: 0
@@ -25,3 +26,5 @@ MonoBehaviour:
   criticalDamage: 0
   attackRange: 0
   Explanation: 
+  equipmentPrefab: {fileID: 2701560059947826740, guid: 7fd814f281a4e074d84aae79c81e5b9e,
+    type: 3}

@@ -129,7 +129,7 @@ public class Piece : MonoBehaviour
 
     [SerializeField] GameObject randomBoxObject;
 
-    void Awake()
+    void Start()
     {
         pieceData.InitialzePiece(this);
         fieldManager = ArenaManager.instance.fm[0];

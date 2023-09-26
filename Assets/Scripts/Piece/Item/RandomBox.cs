@@ -12,7 +12,7 @@ public class RandomBox : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
             OpenBox();
         }
@@ -30,22 +30,30 @@ public class RandomBox : MonoBehaviour
 
     void OpenBox()
     {
-        GameObject equipmentGameObject = Instantiate(equipmentData.equipmentPrefab, transform.position, Quaternion.identity);
-        Equipment equipment = equipmentGameObject.GetComponent<Equipment>();
+        GameObject equipmentGameObject;
+        Equipment equipment;
 
-        Transform spaceTransform;
+        Transform spaceTransform = null;
 
-        //foreach (var space in fieldManager.chest.chest)
-        //{
-        //    if (!space.full)
-        //    {
-        //        space.full = true;
-        //        spaceTransform = space.chest;
-        //    }
-        //}
+        foreach (var space in ArenaManager.instance.fm[0].chest.itemChest)
+        {
+            if (!space.full)
+            {
+                equipmentGameObject = Instantiate(equipmentData.equipmentPrefab, transform.position, Quaternion.identity);
+                equipment = equipmentGameObject.GetComponent<Equipment>();
 
-        //equipment.InputChest(spaceTransform);
+                space.full = true;
+                spaceTransform = space.equipmentSpace;
 
-        //Destroy(gameObject);
+                equipment.equipmentData.InputChest(spaceTransform);
+
+                Destroy(gameObject);
+                break;
+            }
+            else
+            {
+                print("Ã¢°í °¡µæÂü");
+            }
+        }
     }
 }
