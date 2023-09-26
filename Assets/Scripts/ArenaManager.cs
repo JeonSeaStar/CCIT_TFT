@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ArenaManager : MonoBehaviour
 {
-    private static ArenaManager instance = null;
+    private static ArenaManager instance;
     public static ArenaManager Instance
     {
         get
@@ -53,8 +53,6 @@ public class ArenaManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
-        else
-            Destroy(gameObject);
         //StartCoroutine(CalRoundTime(3));
     }
 
@@ -98,25 +96,5 @@ public class ArenaManager : MonoBehaviour
             }
         }
         StartCoroutine(CalRoundTime(_restTime));
-    }
-
-    public void ChangeRoundType(RoundType roundType)
-    {
-        switch (roundType)
-        {
-            case RoundType.Ready:
-                //Please Add Here
-                break;
-            case RoundType.Battle:
-                break;
-            case RoundType.Event:
-                break;
-            case RoundType.Overtime:
-                break;
-            case RoundType.Duel:
-                break;
-            case RoundType.Dead:
-                break;
-        }
     }
 }
