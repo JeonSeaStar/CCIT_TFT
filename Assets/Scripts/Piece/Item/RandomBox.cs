@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 public class RandomBox : MonoBehaviour
 {
-    public enum Grade { NONE }
-    public Grade equipmentGrade;
-    [SerializeField] EquipmentData equipmentData;
-    public float height = 1;
+    public Chest.Grade grade;
+    public Chest.BoxType boxType = Chest.BoxType.NONE;
+
+    public EquipmentData equipmentData;
+    public int money;
 
     void OnTriggerEnter(Collider other)
     {
@@ -16,16 +16,6 @@ public class RandomBox : MonoBehaviour
         {
             OpenBox();
         }
-    }
-
-    public void CurveMove(List<Transform> targetPositions)
-    {
-        Vector3 startPosition = transform.localPosition;
-        int randomPosition = Random.Range(0, targetPositions.Count);
-        Vector3 targetPosition = targetPositions[randomPosition].position;
-        Vector3 highPointPosition = new Vector3(startPosition.x + (targetPosition.x - startPosition.x) / 2, startPosition.y + height, startPosition.z + (targetPosition.z - startPosition.z) / 2);
-
-        transform.DOPath(new[] { highPointPosition, startPosition, highPointPosition, targetPosition, highPointPosition, targetPosition }, 1, PathType.CubicBezier).SetEase(Ease.Linear);
     }
 
     void OpenBox()

@@ -189,7 +189,7 @@ public class Piece : MonoBehaviour
     {
         GameObject box = Instantiate(randomBoxObject, transform.position, Quaternion.identity);
         RandomBox randomBox = box.GetComponent<RandomBox>();
-        randomBox.CurveMove(fieldManager.targetPositions);
+        ArenaManager.instance.fm[0].chest.CurveMove(randomBox.transform, fieldManager.targetPositions);
     }
 
     //¿Ãµø
