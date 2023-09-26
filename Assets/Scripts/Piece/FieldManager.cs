@@ -95,6 +95,11 @@ public class FieldManager : MonoBehaviour
         {
             ArenaManager.instance.roundType = RoundType.Battle;
             InitializingRound();
+
+            foreach(var test in myFilePieceList)
+            {
+                test.ExpeditionTileCheck();
+            }
         }
         if (Input.GetKeyDown(KeyCode.R) && ArenaManager.instance.roundType == RoundType.Battle)
         {
@@ -120,7 +125,7 @@ public class FieldManager : MonoBehaviour
     /// <param name="isactive"></param>
     public void ActiveHexaIndicators(bool isactive)
     {
-        if (ArenaManager.instance.roundType == RoundType.Ready)
+        if (ArenaManager.instance.roundType == RoundType.Deployment)
         {
             for (int i = 0; i < readyZoneHexaIndicators.Length; i++)
             {
@@ -165,9 +170,6 @@ public class FieldManager : MonoBehaviour
     List<int> _mythCountCheck = new List<int>() { 2, 3, 4, 6, 9 };
     List<int> _animalCountCheck = new List<int>() { 2, 3, 4, 5, 6, 7, 8, 9 };
     List<int> _unitedCountCheck = new List<int>() { 2, 3, 4, 5, 7, 9 };
-    public List<GameObject> greatMoutainOneCostPiece;
-    public List<GameObject> greatMoutainTwoCostPiece;
-
     public void CalSynerge(Piece plus, Piece minus = null)
     {
         PieceData.Myth _plusMyth = plus.pieceData.myth;
@@ -539,7 +541,7 @@ public class FieldManager : MonoBehaviour
     {
         if (grab)
         {
-            isDrag = false;
+            isDrag = true;
             var _transform = controlPiece.GetComponent<PieceControl>().currentTile.transform;
             controlPiece.transform.position = new Vector3(_transform.position.x, 0, _transform.position.z);
 

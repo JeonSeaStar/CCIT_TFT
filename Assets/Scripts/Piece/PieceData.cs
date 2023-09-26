@@ -9,22 +9,21 @@ public class PieceData : ScriptableObject
     public Sprite piecePortrait;
     public GameObject piecePrefab;
 
-    public float health;          //체력
-    public float mana;            //마나
-    public float manaRecovery;    //마나 회복력
+    public float defaultHealth;          //체력
+    public float defaultMana;            //마나
+    public float defaultManaRecovery;    //마나 회복력
 
-    public float attackPower;     //기본 공격력
-    public float damageRise;      //공격력 상승분
-    public float attackDamage;    //최종 공격력
-    public float abilityPower;    //최종 스킬 공격력
+    public float defaultAttackPower;     //기본 공격력
+    public float defaultAttackDamage;    //최종 공격력
+    public float defaultAbilityPower;    //최종 스킬 공격력
 
-    public float armor;           //방어력att
-    public float magicResist;     //마법 저항력
+    public float defaultArmor;           //방어력att
+    public float defaultMagicResist;     //마법 저항력
 
-    public float attackSpeed;     //공격속도
-    public float criticalChance;  //크리티컬 확률
-    public float criticalDamage;  //크리티컬 배율
-    public int attackRange;       //공격범위
+    public float defaultAttackSpeed;     //공격속도
+    public float defaultCriticalChance;  //크리티컬 확률
+    public float defaultCriticalDamage;  //크리티컬 배율
+    public int defaultAttackRange;       //공격범위
 
     //토끼 전용 고정 데미지 수치 파라티터 추가 필요 Ex) JumpDemage
     //스킬 지속 시간 파라미터 추가 필요
@@ -66,17 +65,17 @@ public class PieceData : ScriptableObject
     {
         piece.pieceName = pieceName;
         piece.piecePortrait = piecePortrait;
-        piece.health = health;
-        piece.mana = mana;
-        piece.manaRecovery = manaRecovery;
-        piece.attackDamage = attackDamage;
-        piece.abilityPower = abilityPower;
-        piece.armor = armor;
-        piece.magicResist = magicResist;
-        piece.attackSpeed = attackSpeed;
-        piece.criticalChance = criticalChance;
-        piece.criticalDamage = criticalDamage;
-        piece.attackRange = attackRange;
+        piece.defaultHealth = defaultHealth;
+        piece.defaultMana = defaultMana;
+        piece.manaRecovery = defaultManaRecovery;
+        piece.defaultAttackPower = defaultAttackDamage;
+        piece.defaultAbilityPower = defaultAbilityPower;
+        piece.defaultArmor = defaultArmor;
+        piece.defaultMagicResist = defaultMagicResist;
+        piece.defaultAttackSpeed = defaultAttackSpeed;
+        piece.defaultCriticalChance = defaultCriticalChance;
+        piece.defaultCriticalDamage = defaultCriticalDamage;
+        piece.defaultAttackRange = defaultAttackRange;
         //piece.mythology = mythology;
         //piece.species = species;
         //piece.plusSynerge = plusSynerge;

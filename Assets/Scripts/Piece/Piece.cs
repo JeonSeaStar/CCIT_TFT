@@ -19,14 +19,15 @@ public class Piece : MonoBehaviour
     public int star = 0;
 
     [Header("Player Stats")]
-    public float health;            //체력
-    public float currentHealth;     //현재 체력
-    public float mana;              //마나
-    public float manaRecovery;      //마나 회복력
+    public float defaultHealth;     
+    public float currentHealth;     
+    public float defaultMana;       
+    public float currentMana;       
+    public float manaRecovery;      
 
     [Space(10f)]
-    public float attackPower;       //기본 공격력
-    public float damageRise;        //공격력 상승분
+    public float defaultAttackPower;
+    public float damageRise;        
     public float DamageRise
     {
         get { return damageRise; }
@@ -39,11 +40,11 @@ public class Piece : MonoBehaviour
             }
         }
     }
-    public float attackDamage;      //최종 공격력
+    public float attackPower;      
 
     [Space(10f)]
-    public float abilityPower;      //스킬 공격력
-    public float abilityRise;       //스킬 공격력 상승분
+    public float defaultAbilityPower;
+    public float abilityRise;       
     public float AbilityRise
     {
         get { return abilityRise; }
@@ -56,11 +57,11 @@ public class Piece : MonoBehaviour
             }
         }
     }
-    public float abilityDamage;     //최종 스킬 공격력
+    public float abilityDamage;     
 
     [Space(10f)]
-    public float armor;             //방어력
-    public float armorRise;         //방어력 상승분
+    public float defaultArmor;      
+    public float armorRise;         
     public float ArmorRise
     {
         get { return armorRise; }
@@ -73,11 +74,11 @@ public class Piece : MonoBehaviour
             }
         }
     }
-    public float armorSum;          //최종 방어력
+    public float armor;             
 
     [Space(10f)]
-    public float magicResist;       //마법 저항력
-    public float magicResistRise;   //마법 저항력 상승분
+    public float defaultMagicResist;
+    public float magicResistRise;   
     public float MagicResistRise
     {
         get { return magicResistRise; }
@@ -90,11 +91,11 @@ public class Piece : MonoBehaviour
             }
         }
     }
-    public float magicResistSum;     //최종 마법 저항력
+    public float magicResist;       
 
     [Space(10f)]
-    public float attackSpeed;       //공격속도
-    public float attackSpeedRise;   //공격속도 상승분
+    public float defaultAttackSpeed;
+    public float attackSpeedRise;   
     public float AttackSpeedRise
     {
         get { return attackSpeedRise; }
@@ -106,12 +107,12 @@ public class Piece : MonoBehaviour
             }
         }
     }
-    public float attackSpeedSum;    //최종 공격속도
+    public float attackSpeed;       
 
 
-    public float criticalChance;    //크리티컬 확률
-    public float criticalDamage;    //크리티컬 배율
-    public int attackRange;         //공격범위
+    public float defaultCriticalChance;    
+    public float defaultCriticalDamage;    
+    public int defaultAttackRange;         
 
     public bool dead;
 
@@ -128,8 +129,10 @@ public class Piece : MonoBehaviour
     public Ease ease;
 
     [SerializeField] GameObject randomBoxObject;
+    [Header("ExpeditionTile Info")]
+    public Tile expeditionTile;
 
-    void Awake()
+    void Start()
     {
         pieceData.InitialzePiece(this);
         fieldManager = ArenaManager.instance.fm[0];
@@ -144,7 +147,7 @@ public class Piece : MonoBehaviour
     {
         print(name + "(이)가" + target.name + "에게 일반 공격을 합니다.");
         Damage();
-        mana += manaRecovery;
+        currentMana += manaRecovery;
         Invoke("NextBehavior", attackSpeed);
     }
 
@@ -157,7 +160,7 @@ public class Piece : MonoBehaviour
 
     protected bool RangeCheck()
     {
-        if (attackRange >= ArenaManager.instance.fm[0].pathFinding.GetDistance(currentTile, target.currentTile))
+        if (defaultAttackRange >= ArenaManager.instance.fm[0].pathFinding.GetDistance(currentTile, target.currentTile))
             return true;
         else
             return false;
@@ -165,9 +168,9 @@ public class Piece : MonoBehaviour
 
     protected void Damage()
     {
-        target.health -= attackDamage;
+        target.defaultHealth -= attackPower;
 
-        if (target.health <= 0)
+        if (target.defaultHealth <= 0)
         {
             target.Dead();
             target = null;
@@ -217,7 +220,7 @@ public class Piece : MonoBehaviour
 
     public void NextBehavior()
     {
-        if (CheckSurvival(ArenaManager.instance.fm[0].enemyFilePieceList))
+        if (CheckEnemySurvival(ArenaManager.instance.fm[0].enemyFilePieceList))
         {
             foreach (var enemy in ArenaManager.instance.fm[0].enemyFilePieceList)
                 enemy.currentTile.walkable = true;
@@ -237,7 +240,18 @@ public class Piece : MonoBehaviour
             print(name + "(이)가 승리의 춤 추는 중.");
     }
 
-    bool CheckSurvival(List<Piece> enemies)
+    public bool CheckMyFileSurvival(List<Piece> myFile)
+    {
+        foreach (Piece my in myFile)
+        {
+            if (!my.dead)
+                return true;
+        }
+
+        return false;
+    }
+
+    public bool CheckEnemySurvival(List<Piece> enemies)
     {
         foreach (Piece enemy in enemies)
         {
@@ -299,8 +313,11 @@ public class Piece : MonoBehaviour
     public delegate void Buff(Piece piece, int count, bool isReadyTile);
     public Buff sBuff;
 
-    void ExpeditionTileCheck()
+    public void ExpeditionTileCheck()
     {
+        var _x = 6 - currentTile.listX;
+        var _y = 7 - currentTile.listY;
 
+        expeditionTile = fieldManager.pathFinding.grid[_y].tile[_x];
     }
 }
