@@ -29,11 +29,11 @@ public class BackendServerManager : MonoBehaviour
     {
         if(instance != null)
         {
-            Debug.LogError("BackendServerManager 인스턴스가 존재하지 않습니다.");
-            instance = this;
-            //모든씬에서 유지
-            DontDestroyOnLoad(gameObject); 
+            Destroy(instance);
         }
+        instance = this;
+        //모든씬에서 유지
+        DontDestroyOnLoad(gameObject);
     }
 
     public static BackendServerManager GetInstance()

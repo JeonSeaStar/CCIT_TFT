@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Battlehub.Dispatcher;
-
+using TMPro;
 public class LoginUI : MonoBehaviour
 {
     private static LoginUI instance;    // 인스턴스
@@ -16,10 +16,10 @@ public class LoginUI : MonoBehaviour
     public GameObject nicknameObject;
     public GameObject updateObject;
 
-    private InputField[] loginField;
-    private InputField[] signUpField;
-    private InputField nicknameField;
-    private Text errorText;
+    private TMP_InputField[] loginField;
+    private TMP_InputField[] signUpField;
+    private TMP_InputField nicknameField;
+    private TMP_Text errorText;
     private GameObject loadingObject;
     private FadeAnimation fadeObject;
 
@@ -57,10 +57,10 @@ public class LoginUI : MonoBehaviour
         nicknameObject.SetActive(false);
         updateObject.SetActive(false);
 
-        loginField = customLoginObject.GetComponentsInChildren<InputField>();
-        signUpField = signUpObject.GetComponentsInChildren<InputField>();
-        nicknameField = nicknameObject.GetComponentInChildren<InputField>();
-        errorText = errorObject.GetComponentInChildren<Text>();
+        loginField = customLoginObject.GetComponentsInChildren<TMP_InputField>();
+        signUpField = signUpObject.GetComponentsInChildren<TMP_InputField>();
+        nicknameField = nicknameObject.GetComponentInChildren<TMP_InputField>();
+        errorText = errorObject.GetComponentInChildren<TMP_Text>();
 
         loadingObject = GameObject.FindGameObjectWithTag("Loading");
         loadingObject.SetActive(false);
@@ -71,16 +71,11 @@ public class LoginUI : MonoBehaviour
             fadeObject = fade.GetComponent<FadeAnimation>();
         }
 
-        mainTitle.GetComponentInChildren<Text>().text = string.Format(VERSION_STR, Application.version);
+        mainTitle.GetComponentInChildren<TMP_Text>().text = string.Format(VERSION_STR, Application.version); //버전 설정
 
-        var google = loginObject.transform.GetChild(0).gameObject;
-        var apple = loginObject.transform.GetChild(1).gameObject;
+        var google = loginObject.transform.GetChild(2).gameObject;
 #if UNITY_ANDROID
         google.SetActive(true);
-        apple.SetActive(false);
-#elif UNITY_IOS
-        google.SetActive(false);
-        apple.SetActive(true);
 #endif
     }
 
