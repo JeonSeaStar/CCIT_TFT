@@ -91,21 +91,12 @@ public class FieldManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.B))
         {
             ArenaManager.instance.roundType = RoundType.Battle;
-            if(grab)
-            {
-                isDrag = true;
-                var _transform = controlPiece.GetComponent<PieceControl>().currentTile.transform;
-                controlPiece.transform.position = new Vector3(_transform.position.x, 0, _transform.position.z);
-                
-                for (int i = 0; i < battleFieldHexaIndicators.Length; i++)
-                {
-                    battleFieldHexaIndicators[i].SetActive(false);
-                }
-            }
+            InitializingRound();
         }
         if(Input.GetKeyDown(KeyCode.R) && ArenaManager.instance.roundType == RoundType.Battle)
         {
             ArenaManager.instance.roundType = RoundType.Ready;
+            InitializingRound();
         }
 
     }
@@ -126,7 +117,7 @@ public class FieldManager : MonoBehaviour
     /// <param name="isactive"></param>
     public void ActiveHexaIndicators(bool isactive)
     {
-        if (ArenaManager.instance.roundType == RoundType.Ready)
+        if (ArenaManager.instance.roundType == RoundType.Deployment)
         {
             for (int i = 0; i < readyZoneHexaIndicators.Length; i++)
             {
