@@ -42,7 +42,7 @@ public class EquipmentData : ScriptableObject
     }
 
 
-    void Awake() => fieldManager = ArenaManager.instance.fm[0];
+    void Awake() => fieldManager = ArenaManager.Instance.fm[0];
 
     public void InputChest(Transform spaceTransform)
     {

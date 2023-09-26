@@ -4,7 +4,25 @@ using UnityEngine;
 
 public class ArenaManager : MonoBehaviour
 {
-    public static ArenaManager instance;
+    private static ArenaManager instance;
+    public static ArenaManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<ArenaManager>();
+                if (instance == null)
+                {
+                    GameObject _arena = new GameObject();
+                    _arena.name = "ArenaManager";
+                    instance = _arena.AddComponent<ArenaManager>();
+                    DontDestroyOnLoad(_arena);
+                }
+            }
+            return instance;
+        }
+    }
 
     public List<FieldManager> fm;
     public enum RoundType
@@ -30,7 +48,11 @@ public class ArenaManager : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
         //StartCoroutine(CalRoundTime(3));
     }
 
@@ -74,25 +96,5 @@ public class ArenaManager : MonoBehaviour
             }
         }
         StartCoroutine(CalRoundTime(_restTime));
-    }
-
-    public void ChangeRoundType(RoundType roundType)
-    {
-        switch (roundType)
-        {
-            case RoundType.Ready:
-                //Please Add Here
-                break;
-            case RoundType.Battle:
-                break;
-            case RoundType.Event:
-                break;
-            case RoundType.Overtime:
-                break;
-            case RoundType.Duel:
-                break;
-            case RoundType.Dead:
-                break;
-        }
     }
 }
