@@ -118,8 +118,8 @@ public class PieceControl : MonoBehaviour
                 // Piece Tile 정보 교환
                 ChangeTileInfo(currentTile, targetTile, targetTile.isFull);
               
-                ControlPiece.currentNode = targetTile.GetComponent<Tile>();
-                targetTile.piece.GetComponent<Piece>().currentNode = currentTile.GetComponent<Tile>();
+                ControlPiece.currentTile = targetTile.GetComponent<Tile>();
+                targetTile.piece.GetComponent<Piece>().currentTile = currentTile.GetComponent<Tile>();
             }
 
             // 해당 타일에 기물이 없는 경우
@@ -137,7 +137,7 @@ public class PieceControl : MonoBehaviour
                 // 현재, 이동 타일 교환
                 currentTile = targetTile;
                 
-                ControlPiece.currentNode = targetTile.GetComponent<Tile>();
+                ControlPiece.currentTile = targetTile.GetComponent<Tile>();
             }
         }
         if (pieceRigidbody != null) pieceRigidbody.constraints = RigidbodyConstraints.None;

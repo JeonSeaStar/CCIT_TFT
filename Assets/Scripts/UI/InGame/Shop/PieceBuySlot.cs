@@ -105,21 +105,21 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         Tile targetTile = null;
 
-        targetTile = TileCheck(targetTile, fieldManager.readyZoneHexaIndicators);
+        targetTile = TileCheck(targetTile, fieldManager.readyTileList);
         if(targetTile != null) { return targetTile; }
 
-        targetTile = TileCheck(targetTile, fieldManager.battleFieldHexaIndicators);
+        targetTile = TileCheck(targetTile, fieldManager.battleTileList);
         if (targetTile != null) { return targetTile; }
         else return null;
     }
 
-    Tile TileCheck(Tile tile, GameObject[] tileArray)
+    Tile TileCheck(Tile tile, List<Tile> tileArray)
     {
-        foreach (GameObject tileObject in tileArray)
+        foreach (Tile tileObject in tileArray)
         {
-            if (!tileObject.GetComponentInParent<Tile>().isFull)
+            if (!tileObject.isFull)
             {
-                tile = tileObject.GetComponentInParent<Tile>();
+                tile = tileObject;
                 break;
             }
         }

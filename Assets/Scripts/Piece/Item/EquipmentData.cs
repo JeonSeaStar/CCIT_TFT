@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EquipmentData", menuName = "Scriptable Object/EquipmentData", order = int.MaxValue)]
 [SerializeField] class EquipmentData : ScriptableObject
 {
+    [SerializeField] FieldManager fieldManager;
+
     [SerializeField] string pieceName;
     [SerializeField] Sprite piecePortrait;
 
@@ -21,6 +23,8 @@ using UnityEngine;
 
     [TextArea] [SerializeField] string Explanation;
 
+    public GameObject equipmentPrefab;
+
     public void InitialzePiece(Equipment equipment)
     {
         equipment.pieceName = pieceName;
@@ -35,5 +39,13 @@ using UnityEngine;
         equipment.criticalChance = criticalChance;
         equipment.criticalDamage = criticalDamage;
         equipment.attackRange = attackRange;
+    }
+
+
+    void Awake() => fieldManager = ArenaManager.instance.fm[0];
+
+    public void InputChest(Transform spaceTransform)
+    {
+        //transform.DoMove(spaceTransform, 2f);
     }
 }

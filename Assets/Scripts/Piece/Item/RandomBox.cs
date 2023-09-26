@@ -30,7 +30,22 @@ public class RandomBox : MonoBehaviour
 
     void OpenBox()
     {
-        print("아이템 박스를 엶");
-        Destroy(gameObject);
+        GameObject equipmentGameObject = Instantiate(equipmentData.equipmentPrefab, transform.position, Quaternion.identity);
+        Equipment equipment = equipmentGameObject.GetComponent<Equipment>();
+
+        Transform spaceTransform;
+
+        //foreach (var space in fieldManager.chest.chest)
+        //{
+        //    if (!space.full)
+        //    {
+        //        space.full = true;
+        //        spaceTransform = space.chest;
+        //    }
+        //}
+
+        //equipment.InputChest(spaceTransform);
+
+        //Destroy(gameObject);
     }
 }

@@ -1,4 +1,5 @@
 //using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,9 @@ public class FieldManager : MonoBehaviour
     public List<Piece> enemyFilePieceList;
 
     public PathFinding pathFinding;
+
+    public List<Tile> readyTileList;
+    public List<Tile> battleTileList;
 
     public GameObject[] readyZoneHexaIndicators;
     public GameObject[] battleFieldHexaIndicators;
@@ -52,13 +56,12 @@ public class FieldManager : MonoBehaviour
 
     //fot test
     public GameObject aa, bb;
-    public Tile aaa, bbb,ccc;
+    public Tile aaa, bbb, ccc;
     //
 
     void Awake()
     {
         Synerge._fm = this;
-
 
         //for test
         //var testa = GameObject.Instantiate(aa);
@@ -71,7 +74,7 @@ public class FieldManager : MonoBehaviour
         //bbb.piece = testb;
         //ccc.piece = testc;
         //
-    }  
+    }
 
     void Update()
     {
@@ -91,19 +94,19 @@ public class FieldManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.B))
         {
             ArenaManager.instance.roundType = RoundType.Battle;
-            if(grab)
+            if (grab)
             {
                 isDragging = false;
                 var _transform = controlPiece.GetComponent<PieceControl>().currentTile.transform;
                 controlPiece.transform.position = new Vector3(_transform.position.x, 0, _transform.position.z);
-                
+
                 for (int i = 0; i < battleFieldHexaIndicators.Length; i++)
                 {
                     battleFieldHexaIndicators[i].SetActive(false);
                 }
             }
         }
-        if(Input.GetKeyDown(KeyCode.R) && ArenaManager.instance.roundType == RoundType.Battle)
+        if (Input.GetKeyDown(KeyCode.R) && ArenaManager.instance.roundType == RoundType.Battle)
         {
             ArenaManager.instance.roundType = RoundType.Ready;
         }
@@ -168,15 +171,15 @@ public class FieldManager : MonoBehaviour
 
 
 
-    List<int> _mythCountCheck   = new List<int>() { 2, 3, 4, 6, 9 };
+    List<int> _mythCountCheck = new List<int>() { 2, 3, 4, 6, 9 };
     List<int> _animalCountCheck = new List<int>() { 2, 3, 4, 5, 6, 7, 8, 9 };
-    List<int> _unitedCountCheck = new List<int>() { 2, 3, 4, 5 ,7, 9 };
+    List<int> _unitedCountCheck = new List<int>() { 2, 3, 4, 5, 7, 9 };
     public List<GameObject> greatMoutainOneCostPiece;
     public List<GameObject> greatMoutainTwoCostPiece;
 
     public void CalSynerge(Piece plus, Piece minus = null)
     {
-        PieceData.Myth   _plusMyth = plus.pieceData.myth;
+        PieceData.Myth _plusMyth = plus.pieceData.myth;
         PieceData.Animal _plusAnimal = plus.pieceData.animal;
         PieceData.United _plusUnited = plus.pieceData.united;
 
@@ -188,11 +191,11 @@ public class FieldManager : MonoBehaviour
 
         if (minus == null) //Set Piece
         {
-            if(check) //Plus
+            if (check) //Plus
             {
-                if(_mythCountCheck.Contains(_mythCount))
+                if (_mythCountCheck.Contains(_mythCount))
                 {
-                    switch(_plusMyth)
+                    switch (_plusMyth)
                     {
                         case PieceData.Myth.GreatMountain:
                             Synerge.MythGreatMoutain(check);
@@ -211,7 +214,7 @@ public class FieldManager : MonoBehaviour
                             break;
                     }
                 }
-                if(_animalCountCheck.Contains(_animalCount))
+                if (_animalCountCheck.Contains(_animalCount))
                 {
                     switch (_plusAnimal)
                     {
@@ -232,7 +235,7 @@ public class FieldManager : MonoBehaviour
                             break;
                     }
                 }
-                if(_unitedCountCheck.Contains(_unitedCount))
+                if (_unitedCountCheck.Contains(_unitedCount))
                 {
                     switch (_plusUnited)
                     {
@@ -308,7 +311,7 @@ public class FieldManager : MonoBehaviour
         }
         else //Change Piece
         {
-            PieceData.Myth   _minusMyth   = (minus != null) ? minus.pieceData.myth   : PieceData.Myth.None;
+            PieceData.Myth _minusMyth = (minus != null) ? minus.pieceData.myth : PieceData.Myth.None;
             PieceData.Animal _minusAnimal = (minus != null) ? minus.pieceData.animal : PieceData.Animal.None;
             PieceData.United _minusUnited = (minus != null) ? minus.pieceData.united : PieceData.United.None;
 
@@ -390,7 +393,7 @@ public class FieldManager : MonoBehaviour
                 }
 
 
-                switch(_plusUnited)
+                switch (_plusUnited)
                 {
                     case PieceData.United.UnderWorld:
                         Synerge.UnitedUnderWorld(check);
@@ -405,7 +408,7 @@ public class FieldManager : MonoBehaviour
                         Synerge.UnitedCreature(check);
                         break;
                 }
-                switch(_minusUnited)
+                switch (_minusUnited)
                 {
                     case PieceData.United.UnderWorld:
                         Synerge.UnitedUnderWorld(!check);
@@ -542,10 +545,16 @@ public class FieldManager : MonoBehaviour
     CoroutineBuff sCoroutineBuff;
 
     [System.Serializable]
+    public class PieceCount
+    {
+        public List<Piece> count = new List<Piece>();
+    }
+
+    [System.Serializable]
     public class PieceList
     {
         public PieceData pieceData;
-        public List<int> count;
+        public List<PieceCount> count = new List<PieceCount>();
     }
     public List<PieceList> currentPieceList;
 
@@ -553,9 +562,10 @@ public class FieldManager : MonoBehaviour
     {
         int kind = CheckPieceKind(piece.pieceData);
         int grade = piece.grade;
-        currentPieceList[kind].count[grade]++;
 
-        if(currentPieceList[kind].count[grade] == 3)
+        currentPieceList[kind].count[grade].count.Add(piece);
+
+        if (currentPieceList[kind].count[grade].count.Count >= 3)
         {
             FusionPiece(piece);
         }
@@ -566,7 +576,7 @@ public class FieldManager : MonoBehaviour
         int kind = CheckPieceKind(piece.pieceData);
         int grade = piece.grade;
 
-        currentPieceList[kind].count[grade]--;
+        currentPieceList[kind].count[grade].count.Remove(piece);
     }
 
     public int CheckPieceKind(PieceData pieceData)
@@ -589,6 +599,7 @@ public class FieldManager : MonoBehaviour
     {
         GameObject pieceObject = Instantiate(pieceData.piecePrefab, targetTile.transform.position, Quaternion.Euler(-90, 180, 0));
         Piece piece = pieceObject.GetComponent<Piece>();
+        piece.currentTile = targetTile;
         piece.grade = grade;
 
         targetTile.isFull = true;
@@ -600,39 +611,144 @@ public class FieldManager : MonoBehaviour
         PieceListCountUp(piece);
     }
 
-    public void FusionPiece(Piece piece)
+    void FusionPiece(Piece piece)
     {
-        
+        int kind = CheckPieceKind(piece.pieceData);
+        int grade = piece.grade;
+
+        Piece parentPiece = piece;
+        Piece firstChild = null;
+        Piece secondChild = null;
+
+        Tile parentTile = parentPiece.currentTile;
+
+        //set parentPiece
+        for (int i = 0; i < currentPieceList[kind].count[grade].count.Count; i++)
+        {
+            Tile compareTile = currentPieceList[kind].count[grade].count[i].currentTile;
+
+            if(parentTile.isReadyTile)
+            {
+                if (!compareTile.isReadyTile)
+                {
+                    parentPiece = currentPieceList[kind].count[grade].count[i];
+                    parentTile = parentPiece.currentTile;
+                }
+                else if (compareTile.isReadyTile)
+                {
+                    if (readyTileList.IndexOf(parentTile) > readyTileList.IndexOf(compareTile))
+                    {
+                        parentPiece = currentPieceList[kind].count[grade].count[i];
+                        parentTile = parentPiece.currentTile;
+                    }
+                }
+            }
+
+            if (parentPiece == currentPieceList[kind].count[grade].count[i]) continue;
+
+            if(!parentTile.isReadyTile && !compareTile.isReadyTile)
+            {
+                if (parentTile.gridX > compareTile.gridX)
+                {
+                    parentPiece = currentPieceList[kind].count[grade].count[i];
+                    parentTile = parentPiece.currentTile;
+                }
+                else if (parentTile.gridX == compareTile.gridX)
+                {
+                    if (parentTile.gridY > compareTile.gridY)
+                    {
+                        parentPiece = currentPieceList[kind].count[grade].count[i];
+                        parentTile = parentPiece.currentTile;
+                    }
+                }
+            }
+        }
+        currentPieceList[kind].count[grade].count.Remove(parentPiece);
+
+
+        //set firstChild
+        firstChild = GetChildPiece(kind, grade);
+
+        //set secondChild
+        secondChild = GetChildPiece(kind, grade);
+
+        Tile targetTile = parentPiece.currentTile;
+
+        //fusion
+        print("parentPiece: " + targetTile.gameObject.name);
+        print("firstChild: " + firstChild.currentTile.gameObject.name);
+        print("secondChild: " + secondChild.currentTile.gameObject.name);
+
+        DestroyPiece(parentPiece, targetTile);
+        DestroyPiece(firstChild, firstChild.currentTile);
+        DestroyPiece(secondChild, secondChild.currentTile);
+        SpawnPiece(piece.pieceData, grade + 1, targetTile);
     }
 
-    public void DestroyPiece(Piece piece)
+    Piece GetChildPiece(int kind, int grade)
     {
+        Piece childPiece = currentPieceList[kind].count[grade].count[0];
 
+        for (int i = 0; i < currentPieceList[kind].count[grade].count.Count; i++)
+        {
+            Tile parentTile = childPiece.currentTile;
+            Tile compareTile = currentPieceList[kind].count[grade].count[i].currentTile;
+
+            if (!parentTile.isReadyTile && compareTile.isReadyTile)
+                childPiece = currentPieceList[kind].count[grade].count[i];
+            else if (parentTile.isReadyTile && compareTile.isReadyTile)
+            {
+                if (readyTileList.IndexOf(parentTile) < readyTileList.IndexOf(compareTile))
+                    childPiece = currentPieceList[kind].count[grade].count[i];
+            }
+
+            if (!parentTile.isReadyTile && !compareTile.isReadyTile)
+            {
+                if (parentTile.gridX < compareTile.gridX)
+                    childPiece = currentPieceList[kind].count[grade].count[i];
+                else if (parentTile.gridX == compareTile.gridX)
+                {
+                    if (parentTile.gridY > compareTile.gridY)
+                        childPiece = currentPieceList[kind].count[grade].count[i];
+                }
+            }
+        }
+        currentPieceList[kind].count[grade].count.Remove(childPiece);
+        return childPiece;
+    }
+
+    public void DestroyPiece(Piece piece, Tile targetTile)
+    {
+        targetTile.isFull = false;
+        CheckPieceKind(piece.pieceData);
+        Destroy(piece.gameObject);
     }
 
     public Tile GetTile()
     {
         Tile targetTile = null;
 
-        targetTile = TileCheck(targetTile, readyZoneHexaIndicators);
+        targetTile = TileCheck(targetTile, readyTileList);
         if (targetTile != null) { return targetTile; }
 
-        targetTile = TileCheck(targetTile, battleFieldHexaIndicators);
+        targetTile = TileCheck(targetTile, battleTileList);
         if (targetTile != null) { return targetTile; }
         else return null;
     }
 
-    Tile TileCheck(Tile tile, GameObject[] tileArray)
+    Tile TileCheck(Tile tile, List<Tile> tileArray)
     {
-        foreach (GameObject tileObject in tileArray)
+        foreach (Tile tileObject in tileArray)
         {
-            if (!tileObject.GetComponentInParent<Tile>().isFull)
+            if (!tileObject.isFull)
             {
-                tile = tileObject.GetComponentInParent<Tile>();
+                tile = tileObject;
                 break;
             }
         }
 
         return tile;
     }
+
+    public Chest chest;
 }

@@ -12,13 +12,13 @@ public class PathFinding : MonoBehaviour
     public int Y;
 
     [Serializable]
-    public class NodeList
+    public class TileList
     {
         public List<Tile> tile = new List<Tile>();
     }
-    public List<NodeList> grid;
-    //public List<NodeList> tileList;
-    //public List<List<Node>> grid;
+    public List<TileList> grid;
+    //public List<TileList> tileList;
+    //public List<List<Tile>> grid;
 
     //테스트용
     public Piece startPiece;
@@ -144,81 +144,81 @@ public class PathFinding : MonoBehaviour
         return index;
     }
 
-    public int GetDistance(Tile currentNode, Tile targetNode)
+    public int GetDistance(Tile currentTile, Tile targetTile)
     {
-        int x = Mathf.Abs(currentNode.gridX - targetNode.gridX);
-        int y = Mathf.Abs(currentNode.gridY - targetNode.gridY);
-        int z = Mathf.Abs(currentNode.gridZ - targetNode.gridZ);
+        int x = Mathf.Abs(currentTile.gridX - targetTile.gridX);
+        int y = Mathf.Abs(currentTile.gridY - targetTile.gridY);
+        int z = Mathf.Abs(currentTile.gridZ - targetTile.gridZ);
 
         int distance = Mathf.Max(x, y, z);
 
         return distance;
     }
 
-    void FindPath(Piece piece, Tile startNode, Tile targetNode)
+    void FindPath(Piece piece, Tile startTile, Tile targetTile)
     {
-        List<Tile> openNode = new List<Tile>();
-        HashSet<Tile> closedNode = new HashSet<Tile>();
-        openNode.Add(startNode);
+        List<Tile> openTile = new List<Tile>();
+        HashSet<Tile> closedTile = new HashSet<Tile>();
+        openTile.Add(startTile);
 
-        while (openNode.Count > 0)
+        while (openTile.Count > 0)
         {
-            Tile currentNode = openNode[0];
+            Tile currentTile = openTile[0];
 
-            for (int i = 1; i < openNode.Count; i++)
+            for (int i = 1; i < openTile.Count; i++)
             {
-                if (openNode[i].fCost < currentNode.fCost || openNode[i].fCost == currentNode.fCost && openNode[i].hCost < currentNode.hCost)
-                    currentNode = openNode[i];
+                if (openTile[i].fCost < currentTile.fCost || openTile[i].fCost == currentTile.fCost && openTile[i].hCost < currentTile.hCost)
+                    currentTile = openTile[i];
             }
 
-            openNode.Remove(currentNode);
-            closedNode.Add(currentNode);
+            openTile.Remove(currentTile);
+            closedTile.Add(currentTile);
 
-            if (currentNode == targetNode)
+            if (currentTile == targetTile)
             {
-                RetracePath(piece, startNode, targetNode);
+                RetracePath(piece, startTile, targetTile);
                 return;
             }
 
-            foreach (Tile neighbor in GetNeighbor(currentNode))
+            foreach (Tile neighbor in GetNeighbor(currentTile))
             {
                 //여기 if문에 현재 기물이 서 있는 타일 !walkable여도 이동할 수 있게
-                if (!neighbor.walkable || closedNode.Contains(neighbor))
+                if (!neighbor.walkable || closedTile.Contains(neighbor))
                     continue;
 
-                int newMovementCostToNeighbor = currentNode.gCost + GetDistance(currentNode, neighbor);
-                if (newMovementCostToNeighbor < neighbor.gCost || !openNode.Contains(neighbor))
+                int newMovementCostToNeighbor = currentTile.gCost + GetDistance(currentTile, neighbor);
+                if (newMovementCostToNeighbor < neighbor.gCost || !openTile.Contains(neighbor))
                 {
                     neighbor.gCost = newMovementCostToNeighbor;
-                    neighbor.hCost = GetDistance(neighbor, targetNode);
-                    neighbor.parent = currentNode;
+                    neighbor.hCost = GetDistance(neighbor, targetTile);
+                    neighbor.parent = currentTile;
 
-                    if (!openNode.Contains(neighbor))
+                    if (!openTile.Contains(neighbor))
                     {
-                        openNode.Add(neighbor);
+                        openTile.Add(neighbor);
                     }
                 }
             }
         }
     }
 
-    void RetracePath(Piece piece, Tile startNode, Tile endNode)
+    void RetracePath(Piece piece, Tile startTile, Tile endTile)
     {
         CandidatePath candidatePath = new CandidatePath();
         candidatePath.path = new List<Tile>();
 
         List<Tile> path = new List<Tile>();
-        Tile currentNode = endNode;
+        Tile currentTile = endTile;
 
-        while (currentNode != startNode)
+        while (currentTile != startTile)
         {
-            candidatePath.path.Add(currentNode);
-            path.Add(currentNode);
-            currentNode = grid[currentNode.parent.listY].tile[currentNode.parent.listX];
+            candidatePath.path.Add(currentTile);
+            path.Add(currentTile);
+            currentTile = grid[currentTile.parent.listY].tile[currentTile.parent.listX];
         }
         path.Reverse();
         candidatePath.path.Reverse();
-        candidatePath.target = endNode.piece.GetComponent<Piece>();
+        candidatePath.target = endTile.piece.GetComponent<Piece>();
 
         piece.candidatePath.Add(candidatePath);
     }
@@ -236,7 +236,7 @@ public class PathFinding : MonoBehaviour
         foreach (Piece enemy in enemies)
         {
             if(!enemy.dead)
-                FindPath(piece, piece.currentNode, enemy.currentNode);
+                FindPath(piece, piece.currentTile, enemy.currentTile);
         }
 
         for (int i = 0; i < piece.candidatePath.Count; i++)
@@ -251,7 +251,7 @@ public class PathFinding : MonoBehaviour
 
     public int GetClosePiece(Piece piece)
     {
-        Tile currentTile = piece.currentNode;
+        Tile currentTile = piece.currentTile;
         List<Piece> enemyList = ArenaManager.instance.fm[0].enemyFilePieceList;
 
         int closeDistance = 99;
@@ -259,7 +259,7 @@ public class PathFinding : MonoBehaviour
 
         for (int i = 0; i < enemyList.Count; i++)
         {
-            int distance = GetDistance(currentTile, enemyList[i].currentNode);
+            int distance = GetDistance(currentTile, enemyList[i].currentTile);
             if (closeDistance > distance)
             {
                 closeDistance = distance;

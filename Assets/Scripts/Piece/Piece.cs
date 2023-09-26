@@ -59,7 +59,7 @@ public class Piece : MonoBehaviour
 
     public List<CandidatePath> candidatePath;
     public List<Tile> path;
-    public Tile currentNode;
+    public Tile currentTile;
     public Piece target;
     public float moveSpeed;
 
@@ -101,7 +101,7 @@ public class Piece : MonoBehaviour
 
     protected bool RangeCheck()
     {
-        if (attackRange >= ArenaManager.instance.fm[0].pathFinding.GetDistance(currentNode, target.currentNode))
+        if (attackRange >= ArenaManager.instance.fm[0].pathFinding.GetDistance(currentTile, target.currentTile))
             return true;
         else
             return false;
@@ -147,9 +147,9 @@ public class Piece : MonoBehaviour
 
             Vector3 targetTilePos = new Vector3(path[0].transform.position.x, transform.position.y, path[0].transform.position.z);
             transform.DOMove(targetTilePos, moveSpeed).SetEase(ease);
-            currentNode.isFull = false;
-            currentNode = path[0];
-            currentNode.isFull = true;
+            currentTile.isFull = false;
+            currentTile = path[0];
+            currentTile.isFull = true;
             PieceControl pc = GetComponent<PieceControl>();
             pc.currentTile = path[0];
             path.RemoveAt(0);
@@ -164,7 +164,7 @@ public class Piece : MonoBehaviour
         if (CheckSurvival(ArenaManager.instance.fm[0].enemyFilePieceList))
         {
             foreach (var enemy in ArenaManager.instance.fm[0].enemyFilePieceList)
-                enemy.currentNode.walkable = true;
+                enemy.currentTile.walkable = true;
             ArenaManager.instance.fm[0].pathFinding.SetCandidatePath(this, ArenaManager.instance.fm[0].enemyFilePieceList);
 
             if (target != null)

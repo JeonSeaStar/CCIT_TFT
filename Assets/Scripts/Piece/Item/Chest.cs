@@ -4,5 +4,12 @@ using UnityEngine;
 
 public class Chest : MonoBehaviour
 {
-    public List<Transform> equipmentSpace;
+    [System.Serializable]
+    public class EquipmentSpace
+    {
+        public Transform equipmentSpace;
+        public bool full;
+    }
+
+    public EquipmentSpace chest;
 }
