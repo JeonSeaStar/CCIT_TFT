@@ -135,7 +135,7 @@ public class Piece : MonoBehaviour
     void Start()
     {
         pieceData.InitialzePiece(this);
-        fieldManager = ArenaManager.instance.fm[0];
+        fieldManager = ArenaManager.Instance.fm[0];
     }
 
     public void Owned()
@@ -160,7 +160,7 @@ public class Piece : MonoBehaviour
 
     protected bool RangeCheck()
     {
-        if (defaultAttackRange >= ArenaManager.instance.fm[0].pathFinding.GetDistance(currentTile, target.currentTile))
+        if (defaultAttackRange >= ArenaManager.Instance.fm[0].pathFinding.GetDistance(currentTile, target.currentTile))
             return true;
         else
             return false;
@@ -220,11 +220,11 @@ public class Piece : MonoBehaviour
 
     public void NextBehavior()
     {
-        if (CheckEnemySurvival(ArenaManager.instance.fm[0].enemyFilePieceList))
+        if (CheckEnemySurvival(ArenaManager.Instance.fm[0].enemyFilePieceList))
         {
-            foreach (var enemy in ArenaManager.instance.fm[0].enemyFilePieceList)
+            foreach (var enemy in ArenaManager.Instance.fm[0].enemyFilePieceList)
                 enemy.currentTile.walkable = true;
-            ArenaManager.instance.fm[0].pathFinding.SetCandidatePath(this, ArenaManager.instance.fm[0].enemyFilePieceList);
+            ArenaManager.Instance.fm[0].pathFinding.SetCandidatePath(this, ArenaManager.Instance.fm[0].enemyFilePieceList);
 
             if (target != null)
             {

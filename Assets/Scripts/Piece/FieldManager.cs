@@ -93,7 +93,7 @@ public class FieldManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.B))
         {
-            ArenaManager.instance.roundType = RoundType.Battle;
+            ArenaManager.Instance.roundType = RoundType.Battle;
             InitializingRound();
 
             foreach(var test in myFilePieceList)
@@ -101,9 +101,9 @@ public class FieldManager : MonoBehaviour
                 test.ExpeditionTileCheck();
             }
         }
-        if (Input.GetKeyDown(KeyCode.R) && ArenaManager.instance.roundType == RoundType.Battle)
+        if (Input.GetKeyDown(KeyCode.R) && ArenaManager.Instance.roundType == RoundType.Battle)
         {
-            ArenaManager.instance.roundType = RoundType.Ready;
+            ArenaManager.Instance.roundType = RoundType.Ready;
             InitializingRound();
         }
 
@@ -125,7 +125,7 @@ public class FieldManager : MonoBehaviour
     /// <param name="isactive"></param>
     public void ActiveHexaIndicators(bool isactive)
     {
-        if (ArenaManager.instance.roundType == RoundType.Deployment)
+        if (ArenaManager.Instance.roundType == RoundType.Deployment)
         {
             for (int i = 0; i < readyZoneHexaIndicators.Length; i++)
             {
@@ -136,7 +136,7 @@ public class FieldManager : MonoBehaviour
                 battleFieldHexaIndicators[i].SetActive(isactive);
             }
         }
-        if (ArenaManager.instance.roundType == RoundType.Battle)
+        if (ArenaManager.Instance.roundType == RoundType.Battle)
         {
             for (int i = 0; i < readyZoneHexaIndicators.Length; i++)
             {

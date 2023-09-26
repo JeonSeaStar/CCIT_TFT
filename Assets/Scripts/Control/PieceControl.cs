@@ -27,7 +27,7 @@ public class PieceControl : MonoBehaviour
 
     private void Start()
     {
-        if (fm == null) fm = ArenaManager.instance.fm[0];
+        if (fm == null) fm = ArenaManager.Instance.fm[0];
     }
 
 
@@ -35,7 +35,7 @@ public class PieceControl : MonoBehaviour
     private void OnMouseDown()
     {
         fm.ActiveHexaIndicators(true);
-        if (ArenaManager.instance.roundType == RoundType.Ready) return;
+        if (ArenaManager.Instance.roundType == RoundType.Ready) return;
         fm.grab = true;
         fm.controlPiece = this.ControlPiece;
 
@@ -44,7 +44,7 @@ public class PieceControl : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        if(ArenaManager.instance.roundType == RoundType.Battle)
+        if(ArenaManager.Instance.roundType == RoundType.Battle)
         {
             if(currentTile.isReadyTile == true && !fm.isDrag)
             {
@@ -56,7 +56,7 @@ public class PieceControl : MonoBehaviour
                 transform.position = objPos;
             }
         }
-        else if(ArenaManager.instance.roundType == RoundType.Deployment)
+        else if(ArenaManager.Instance.roundType == RoundType.Deployment)
         {
             float distance = Camera.main.WorldToScreenPoint(transform.position).z;
             Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
@@ -65,7 +65,7 @@ public class PieceControl : MonoBehaviour
             objPos.y = 0; //objPos.z = 0; //objPos.x = 0;
             transform.position = objPos;
         }
-        else if(ArenaManager.instance.roundType == RoundType.Ready)
+        else if(ArenaManager.Instance.roundType == RoundType.Ready)
         {
             return;
         }
@@ -82,7 +82,7 @@ public class PieceControl : MonoBehaviour
             fm.controlPiece = null;
             return;
         }
-        var currentRound = ArenaManager.instance.roundType;
+        var currentRound = ArenaManager.Instance.roundType;
         if(currentRound != RoundType.Deployment && currentRound != RoundType.Battle) return;
 
         //if (ArenaManager.instance.roundType == RoundType.Battle && !currentTile.isReadyTile) return; //전투 라운드에 전투 기물 이동 금지
@@ -152,7 +152,7 @@ public class PieceControl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (ArenaManager.instance.roundType == RoundType.Deployment)
+        if (ArenaManager.Instance.roundType == RoundType.Deployment)
         {
             if (other.gameObject.layer == 7)
             {
@@ -164,7 +164,7 @@ public class PieceControl : MonoBehaviour
                 //targetTile = other.gameObject.GetComponent<Tile>();
             }
         }
-        if(ArenaManager.instance.roundType == RoundType.Battle)
+        if(ArenaManager.Instance.roundType == RoundType.Battle)
         {
             if (other.gameObject.layer == 7)
             {
