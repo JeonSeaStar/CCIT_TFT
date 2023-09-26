@@ -35,7 +35,7 @@ public class PieceControl : MonoBehaviour
     private void OnMouseDown()
     {
         fm.ActiveHexaIndicators(true);
-
+        if (ArenaManager.instance.roundType == RoundType.Ready) return;
         fm.grab = true;
         fm.controlPiece = this.ControlPiece;
 
@@ -46,7 +46,7 @@ public class PieceControl : MonoBehaviour
     {
         if(ArenaManager.instance.roundType == RoundType.Battle)
         {
-            if(currentTile.isReadyTile == true && fm.isDragging)
+            if(currentTile.isReadyTile == true && !fm.isDrag)
             {
                 float distance = Camera.main.WorldToScreenPoint(transform.position).z;
                 Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
@@ -56,7 +56,7 @@ public class PieceControl : MonoBehaviour
                 transform.position = objPos;
             }
         }
-        else if(ArenaManager.instance.roundType == RoundType.Ready)
+        else if(ArenaManager.instance.roundType == RoundType.Deployment)
         {
             float distance = Camera.main.WorldToScreenPoint(transform.position).z;
             Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
@@ -65,20 +65,27 @@ public class PieceControl : MonoBehaviour
             objPos.y = 0; //objPos.z = 0; //objPos.x = 0;
             transform.position = objPos;
         }
+        else if(ArenaManager.instance.roundType == RoundType.Ready)
+        {
+            return;
+        }
     }
 
     private void OnMouseUp()
     {
         fm.ActiveHexaIndicators(false);
 
-        if (!fm.isDragging) //라운드 변경시 드래그 중이던 기물이 있었는지 확인
+        if (fm.isDrag) //라운드 변경시 드래그 중이던 기물이 있었는지 확인
         {
-            fm.isDragging = true;
+            fm.isDrag = false;
             fm.grab = false;
             fm.controlPiece = null;
             return;
         }
-        if (ArenaManager.instance.roundType == RoundType.Battle && !currentTile.isReadyTile) return; //전투 라운드에 전투 기물 이동 금지
+        var currentRound = ArenaManager.instance.roundType;
+        if(currentRound != RoundType.Deployment && currentRound != RoundType.Battle) return;
+
+        //if (ArenaManager.instance.roundType == RoundType.Battle && !currentTile.isReadyTile) return; //전투 라운드에 전투 기물 이동 금지
 
         // Plane 위로 드래그 한 경우
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -91,7 +98,7 @@ public class PieceControl : MonoBehaviour
                 transform.position = new Vector3(currentTile.transform.position.x, 0, currentTile.transform.position.z);
                 return;
             }
-            if (ArenaManager.instance.roundType == RoundType.Battle && hit.transform.gameObject.GetComponent<Tile>().isReadyTile == false) //전투 라운드에 기물 배치 금지
+            if (currentRound == RoundType.Battle && hit.transform.gameObject.GetComponent<Tile>().isReadyTile == false) //전투 라운드에 기물 배치 금지
             {
                 transform.position = new Vector3(currentTile.transform.position.x, 0, currentTile.transform.position.z);
                 return;
@@ -145,7 +152,7 @@ public class PieceControl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (ArenaManager.instance.roundType == RoundType.Ready)
+        if (ArenaManager.instance.roundType == RoundType.Deployment)
         {
             if (other.gameObject.layer == 7)
             {

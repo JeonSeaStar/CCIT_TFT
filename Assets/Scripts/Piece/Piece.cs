@@ -40,14 +40,75 @@ public class Piece : MonoBehaviour
         }
     }
     public float attackDamage;      //최종 공격력
+
+    [Space(10f)]
     public float abilityPower;      //스킬 공격력
+    public float abilityRise;       //스킬 공격력 상승분
+    public float AbilityRise
+    {
+        get { return abilityRise; }
+        set
+        {
+            if (abilityRise != value)
+            {
+                abilityRise = value;
+                //Event Detect Change Rise
+            }
+        }
+    }
+    public float abilityDamage;     //최종 스킬 공격력
 
     [Space(10f)]
     public float armor;             //방어력
+    public float armorRise;         //방어력 상승분
+    public float ArmorRise
+    {
+        get { return armorRise; }
+        set
+        {
+            if (armorRise != value)
+            {
+                armorRise = value;
+                //Event Detect Change Rise
+            }
+        }
+    }
+    public float armorSum;          //최종 방어력
+
+    [Space(10f)]
     public float magicResist;       //마법 저항력
+    public float magicResistRise;   //마법 저항력 상승분
+    public float MagicResistRise
+    {
+        get { return magicResistRise; }
+        set
+        {
+            if (magicResistRise != value)
+            {
+                magicResistRise = value;
+                //Event Detect Change Rise
+            }
+        }
+    }
+    public float magicResistSum;     //최종 마법 저항력
 
     [Space(10f)]
     public float attackSpeed;       //공격속도
+    public float attackSpeedRise;   //공격속도 상승분
+    public float AttackSpeedRise
+    {
+        get { return attackSpeedRise; }
+        set
+        {
+            if(attackSpeedRise != value)
+            {
+                attackSpeedRise = value;
+            }
+        }
+    }
+    public float attackSpeedSum;    //최종 공격속도
+
+
     public float criticalChance;    //크리티컬 확률
     public float criticalDamage;    //크리티컬 배율
     public int attackRange;         //공격범위
@@ -71,11 +132,6 @@ public class Piece : MonoBehaviour
     void Awake()
     {
         pieceData.InitialzePiece(this);
-    }
-
-    private void Start()
-    {
-        // 초기화 순서 상 Start 에서 넣어주세요.
         fieldManager = ArenaManager.instance.fm[0];
     }
 
@@ -242,4 +298,9 @@ public class Piece : MonoBehaviour
 
     public delegate void Buff(Piece piece, int count, bool isReadyTile);
     public Buff sBuff;
+
+    void ExpeditionTileCheck()
+    {
+
+    }
 }

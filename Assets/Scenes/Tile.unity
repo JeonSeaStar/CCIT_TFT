@@ -460,11 +460,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fieldManager: {fileID: 0}
   pieceData: {fileID: 11400000, guid: 6891acecd0078c24c910eb77e64059db, type: 2}
+  grade: 0
   pieceName: 
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
   health: 0
+  currentHealth: 0
   mana: 0
   manaRecovery: 0
   attackPower: 0
@@ -499,7 +501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff0c306d0ecb4524cb0d2056b28234ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fieldManager: {fileID: 1097303227}
+  fm: {fileID: 0}
   pieceRigidbody: {fileID: 10755793}
   currentTile: {fileID: 0}
   targetTile: {fileID: 0}
@@ -918,7 +920,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff0c306d0ecb4524cb0d2056b28234ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fieldManager: {fileID: 1097303227}
+  fm: {fileID: 0}
   pieceRigidbody: {fileID: 64340417}
   currentTile: {fileID: 0}
   targetTile: {fileID: 0}
@@ -936,11 +938,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fieldManager: {fileID: 0}
   pieceData: {fileID: 11400000, guid: 6891acecd0078c24c910eb77e64059db, type: 2}
+  grade: 0
   pieceName: 
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
   health: 0
+  currentHealth: 0
   mana: 0
   manaRecovery: 0
   attackPower: 0
@@ -2767,7 +2771,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff0c306d0ecb4524cb0d2056b28234ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fieldManager: {fileID: 0}
+  fm: {fileID: 0}
   pieceRigidbody: {fileID: 260882775}
   currentTile: {fileID: 0}
   targetTile: {fileID: 0}
@@ -3537,8 +3541,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb2325519f3dc64a9e51222792e5587, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fm: []
+  fm:
+  - {fileID: 1097303227}
   roundType: 0
+  deploymentTime: 30
+  readyTime: 6
+  battleTime: 60
+  battleOverTime: 60
+  groundEventTime: 10000
+  duelTime: 60
 --- !u!4 &380538930
 Transform:
   m_ObjectHideFlags: 0
@@ -5016,7 +5027,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff0c306d0ecb4524cb0d2056b28234ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fieldManager: {fileID: 1097303227}
+  fm: {fileID: 0}
   pieceRigidbody: {fileID: 574048060}
   currentTile: {fileID: 0}
   targetTile: {fileID: 0}
@@ -5034,11 +5045,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fieldManager: {fileID: 0}
   pieceData: {fileID: 11400000, guid: 6891acecd0078c24c910eb77e64059db, type: 2}
+  grade: 0
   pieceName: 
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
   health: 0
+  currentHealth: 0
   mana: 0
   manaRecovery: 0
   attackPower: 0
@@ -8039,7 +8052,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff0c306d0ecb4524cb0d2056b28234ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fieldManager: {fileID: 1097303227}
+  fm: {fileID: 0}
   pieceRigidbody: {fileID: 948527366}
   currentTile: {fileID: 0}
   targetTile: {fileID: 0}
@@ -8057,11 +8070,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fieldManager: {fileID: 0}
   pieceData: {fileID: 11400000, guid: 6891acecd0078c24c910eb77e64059db, type: 2}
+  grade: 0
   pieceName: 
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
   health: 0
+  currentHealth: 0
   mana: 0
   manaRecovery: 0
   attackPower: 0
@@ -9855,12 +9870,16 @@ MonoBehaviour:
   - {fileID: 1115534559}
   - {fileID: 1242554658}
   grab: 0
+  isDragging: 1
+  controlPiece: {fileID: 0}
   aa: {fileID: 7741907443964315201, guid: d0ec62ab445ca72439d03b5e9932eedf, type: 3}
   bb: {fileID: 2474212400057344703, guid: 484d7016587fed547a2268f8d762d7a1, type: 3}
   aaa: {fileID: 595675695}
   bbb: {fileID: 2107537009}
   ccc: {fileID: 1358157611}
-  greatMoutainPiece: []
+  greatMoutainOneCostPiece: []
+  greatMoutainTwoCostPiece: []
+  currentPieceList: []
 --- !u!4 &1097303228
 Transform:
   m_ObjectHideFlags: 0
@@ -11646,7 +11665,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1251039873}
   m_LocalRotation: {x: 0.3819386, y: -0, z: -0, w: 0.9241877}
-  m_LocalPosition: {x: 4.5, y: 11.17, z: -7.82}
+  m_LocalPosition: {x: 4.5, y: 11.17, z: -8.34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13347,7 +13366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff0c306d0ecb4524cb0d2056b28234ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fieldManager: {fileID: 0}
+  fm: {fileID: 0}
   pieceRigidbody: {fileID: 1374075970}
   currentTile: {fileID: 0}
   targetTile: {fileID: 0}
@@ -18750,7 +18769,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff0c306d0ecb4524cb0d2056b28234ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fieldManager: {fileID: 0}
+  fm: {fileID: 0}
   pieceRigidbody: {fileID: 1980597559}
   currentTile: {fileID: 0}
   targetTile: {fileID: 0}
@@ -20077,7 +20096,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff0c306d0ecb4524cb0d2056b28234ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fieldManager: {fileID: 0}
+  fm: {fileID: 0}
   pieceRigidbody: {fileID: 2085331217}
   currentTile: {fileID: 0}
   targetTile: {fileID: 0}
