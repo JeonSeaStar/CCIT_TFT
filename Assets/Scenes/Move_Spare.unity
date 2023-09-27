@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1733871, g: 0.21673916, b: 0.29880822, a: 1}
+  m_IndirectSpecularColor: {r: 0.17338678, g: 0.21673864, b: 0.29880753, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -646,39 +646,42 @@ MonoBehaviour:
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
-  health: 0
+  defaultHealth: 0
   currentHealth: 0
-  mana: 0
+  defaultMana: 0
+  currentMana: 0
   manaRecovery: 0
-  attackPower: 0
+  defaultAttackPower: 0
   damageRise: 0
-  attackDamage: 0
-  abilityPower: 0
+  attackPower: 0
+  defaultAbilityPower: 0
   abilityRise: 0
   abilityDamage: 0
-  armor: 0
+  defaultArmor: 0
   armorRise: 0
-  armorSum: 0
-  magicResist: 0
+  armor: 0
+  defaultMagicResist: 0
   magicResistRise: 0
-  magicResistSum: 0
-  attackSpeed: 0
+  magicResist: 0
+  defaultAttackSpeed: 0
   attackSpeedRise: 0
-  attackSpeedSum: 0
-  criticalChance: 0
-  criticalDamage: 0
-  attackRange: 0
+  attackSpeed: 0
+  defaultCriticalChance: 0
+  defaultCriticalDamage: 0
+  defaultAttackRange: 0
   dead: 0
   owner: 
   isOwned: 0
   candidatePath: []
   path: []
   currentTile: {fileID: 1961288157}
+  targetTile: {fileID: 0}
   target: {fileID: 0}
   moveSpeed: 1
   ease: 1
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
+  expeditionTile: {fileID: 0}
 --- !u!114 &43912632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -847,7 +850,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 1
   isReadyTile: 1
   piece: {fileID: 1234782745}
   listX: 0
@@ -1123,7 +1125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 1
   piece: {fileID: 0}
   listX: 0
@@ -1915,7 +1916,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -1951,7 +1951,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -2404,7 +2403,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -2440,7 +2438,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -2476,7 +2473,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -3055,7 +3051,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 1
   piece: {fileID: 0}
   listX: 0
@@ -3232,7 +3227,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -4317,7 +4311,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 1
   isReadyTile: 1
   piece: {fileID: 587955022}
   listX: 0
@@ -4494,7 +4487,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -4620,7 +4612,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -4842,7 +4833,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 1
   piece: {fileID: 0}
   listX: 0
@@ -5019,7 +5009,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -5125,7 +5114,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -5161,7 +5149,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -5543,7 +5530,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -5657,7 +5643,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -5849,7 +5834,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -5963,7 +5947,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -6128,7 +6111,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -6248,7 +6230,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -6842,7 +6823,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -7926,7 +7906,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -8047,7 +8026,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -8414,7 +8392,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -8799,22 +8776,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 779898279}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &587955023
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 587955022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff0c306d0ecb4524cb0d2056b28234ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fm: {fileID: 0}
-  pieceRigidbody: {fileID: 587955025}
-  currentTile: {fileID: 315740715}
-  targetTile: {fileID: 0}
 --- !u!65 &587955024
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8850,58 +8811,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 779898279}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &587955029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 587955022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1392386ccdaa12c46a1bd3b5b5371ddf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fieldManager: {fileID: 0}
-  pieceData: {fileID: 11400000, guid: 6891acecd0078c24c910eb77e64059db, type: 2}
-  grade: 0
-  pieceName: 
-  piecePortrait: {fileID: 0}
-  Equipments: []
-  star: 0
-  health: 0
-  currentHealth: 0
-  mana: 0
-  manaRecovery: 0
-  attackPower: 0
-  damageRise: 0
-  attackDamage: 0
-  abilityPower: 0
-  abilityRise: 0
-  abilityDamage: 0
-  armor: 0
-  armorRise: 0
-  armorSum: 0
-  magicResist: 0
-  magicResistRise: 0
-  magicResistSum: 0
-  attackSpeed: 0
-  attackSpeedRise: 0
-  attackSpeedSum: 0
-  criticalChance: 0
-  criticalDamage: 0
-  attackRange: 0
-  dead: 0
-  owner: 
-  isOwned: 1
-  candidatePath: []
-  path: []
-  currentTile: {fileID: 315740715}
-  target: {fileID: 0}
-  moveSpeed: 1
-  ease: 1
-  randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
-    type: 3}
 --- !u!1 &592307816
 GameObject:
   m_ObjectHideFlags: 0
@@ -9482,7 +9391,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 1
   isReadyTile: 1
   piece: {fileID: 1458093532}
   listX: 0
@@ -11087,7 +10995,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 1
   piece: {fileID: 0}
   listX: 0
@@ -11627,7 +11534,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -11885,22 +11791,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1220241473}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &810062466
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 810062465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff0c306d0ecb4524cb0d2056b28234ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fm: {fileID: 0}
-  pieceRigidbody: {fileID: 810062468}
-  currentTile: {fileID: 2086493046}
-  targetTile: {fileID: 0}
 --- !u!65 &810062467
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11936,58 +11826,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1220241473}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &810062472
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 810062465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1392386ccdaa12c46a1bd3b5b5371ddf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fieldManager: {fileID: 0}
-  pieceData: {fileID: 11400000, guid: 6891acecd0078c24c910eb77e64059db, type: 2}
-  grade: 0
-  pieceName: 
-  piecePortrait: {fileID: 0}
-  Equipments: []
-  star: 0
-  health: 0
-  currentHealth: 0
-  mana: 0
-  manaRecovery: 0
-  attackPower: 0
-  damageRise: 0
-  attackDamage: 0
-  abilityPower: 0
-  abilityRise: 0
-  abilityDamage: 0
-  armor: 0
-  armorRise: 0
-  armorSum: 0
-  magicResist: 0
-  magicResistRise: 0
-  magicResistSum: 0
-  attackSpeed: 0
-  attackSpeedRise: 0
-  attackSpeedSum: 0
-  criticalChance: 0
-  criticalDamage: 0
-  attackRange: 0
-  dead: 0
-  owner: 
-  isOwned: 1
-  candidatePath: []
-  path: []
-  currentTile: {fileID: 2086493046}
-  target: {fileID: 0}
-  moveSpeed: 1
-  ease: 1
-  randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
-    type: 3}
 --- !u!1001 &812478602
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12090,7 +11928,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 1746667498}
   listX: 0
@@ -12394,7 +12231,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -12499,7 +12335,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 1
   piece: {fileID: 0}
   listX: 0
@@ -12760,7 +12595,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -12874,7 +12708,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -13810,8 +13643,8 @@ MonoBehaviour:
     - {fileID: 427009107}
     - {fileID: 1553733209}
     - {fileID: 382470588}
-  startPiece: {fileID: 935242548}
-  targetPiece: {fileID: 1458093539}
+  startPiece: {fileID: 0}
+  targetPiece: {fileID: 0}
 --- !u!4 &902181547
 Transform:
   m_ObjectHideFlags: 0
@@ -14112,58 +13945,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 748397629}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &935242548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 935242541}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1392386ccdaa12c46a1bd3b5b5371ddf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fieldManager: {fileID: 0}
-  pieceData: {fileID: 11400000, guid: 00691fc5be619b24cbd877a6317b2680, type: 2}
-  grade: 0
-  pieceName: 
-  piecePortrait: {fileID: 0}
-  Equipments: []
-  star: 0
-  health: 0
-  currentHealth: 0
-  mana: 0
-  manaRecovery: 0
-  attackPower: 0
-  damageRise: 0
-  attackDamage: 0
-  abilityPower: 0
-  abilityRise: 0
-  abilityDamage: 0
-  armor: 0
-  armorRise: 0
-  armorSum: 0
-  magicResist: 0
-  magicResistRise: 0
-  magicResistSum: 0
-  attackSpeed: 0
-  attackSpeedRise: 0
-  attackSpeedSum: 0
-  criticalChance: 0
-  criticalDamage: 0
-  attackRange: 0
-  dead: 0
-  owner: 
-  isOwned: 1
-  candidatePath: []
-  path: []
-  currentTile: {fileID: 2032397309}
-  target: {fileID: 0}
-  moveSpeed: 0.7
-  ease: 1
-  randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
-    type: 3}
 --- !u!4 &948282654 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9051238300485817969, guid: 2f6c4572e07a60b43b00e1c4f489a806,
@@ -14796,7 +14577,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -15505,6 +15285,9 @@ MonoBehaviour:
   experience: 0
   lifePoint: 0
   gold: 0
+  playerMaks:
+    serializedVersion: 2
+    m_Bits: 0
   groundMask:
     serializedVersion: 2
     m_Bits: 256
@@ -15512,6 +15295,10 @@ MonoBehaviour:
   ease: 1
   moveSpeed: 0.1
   owned: 0
+  isGrab: 0
+  isDrag: 0
+  controlPiece: {fileID: 0}
+  controlEquipment: {fileID: 0}
 --- !u!23 &1052439236
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -15820,7 +15607,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -16016,7 +15802,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -16389,7 +16174,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -16822,7 +16606,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -17469,22 +17252,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1130032995}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1234782746
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1234782745}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff0c306d0ecb4524cb0d2056b28234ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fm: {fileID: 0}
-  pieceRigidbody: {fileID: 1234782749}
-  currentTile: {fileID: 0}
-  targetTile: {fileID: 0}
 --- !u!114 &1234782747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17504,39 +17271,42 @@ MonoBehaviour:
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
-  health: 0
+  defaultHealth: 0
   currentHealth: 0
-  mana: 0
+  defaultMana: 0
+  currentMana: 0
   manaRecovery: 0
-  attackPower: 0
+  defaultAttackPower: 0
   damageRise: 0
-  attackDamage: 0
-  abilityPower: 0
+  attackPower: 0
+  defaultAbilityPower: 0
   abilityRise: 0
   abilityDamage: 0
-  armor: 0
+  defaultArmor: 0
   armorRise: 0
-  armorSum: 0
-  magicResist: 0
+  armor: 0
+  defaultMagicResist: 0
   magicResistRise: 0
-  magicResistSum: 0
-  attackSpeed: 0
+  magicResist: 0
+  defaultAttackSpeed: 0
   attackSpeedRise: 0
-  attackSpeedSum: 0
-  criticalChance: 0
-  criticalDamage: 0
-  attackRange: 0
+  attackSpeed: 0
+  defaultCriticalChance: 0
+  defaultCriticalDamage: 0
+  defaultAttackRange: 0
   dead: 0
   owner: 
   isOwned: 1
   candidatePath: []
   path: []
   currentTile: {fileID: 57161754}
+  targetTile: {fileID: 0}
   target: {fileID: 0}
   moveSpeed: 0.7
   ease: 1
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
+  expeditionTile: {fileID: 0}
 --- !u!65 &1234782748
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17912,7 +17682,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -18409,7 +18178,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -20076,7 +19844,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -20094,22 +19861,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2116977024}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1458093533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1458093532}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff0c306d0ecb4524cb0d2056b28234ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fm: {fileID: 0}
-  pieceRigidbody: {fileID: 1458093535}
-  currentTile: {fileID: 611610400}
-  targetTile: {fileID: 0}
 --- !u!65 &1458093534
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20145,58 +19896,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2116977024}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1458093539
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1458093532}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1392386ccdaa12c46a1bd3b5b5371ddf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fieldManager: {fileID: 0}
-  pieceData: {fileID: 11400000, guid: 6891acecd0078c24c910eb77e64059db, type: 2}
-  grade: 0
-  pieceName: 
-  piecePortrait: {fileID: 0}
-  Equipments: []
-  star: 0
-  health: 0
-  currentHealth: 0
-  mana: 0
-  manaRecovery: 0
-  attackPower: 0
-  damageRise: 0
-  attackDamage: 0
-  abilityPower: 0
-  abilityRise: 0
-  abilityDamage: 0
-  armor: 0
-  armorRise: 0
-  armorSum: 0
-  magicResist: 0
-  magicResistRise: 0
-  magicResistSum: 0
-  attackSpeed: 0
-  attackSpeedRise: 0
-  attackSpeedSum: 0
-  criticalChance: 0
-  criticalDamage: 0
-  attackRange: 0
-  dead: 0
-  owner: 
-  isOwned: 1
-  candidatePath: []
-  path: []
-  currentTile: {fileID: 611610400}
-  target: {fileID: 0}
-  moveSpeed: 1
-  ease: 1
-  randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
-    type: 3}
 --- !u!1 &1460477377
 GameObject:
   m_ObjectHideFlags: 0
@@ -20311,7 +20010,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -20509,7 +20207,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -20623,7 +20320,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -21072,7 +20768,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -21261,7 +20956,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -21959,7 +21653,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -22647,7 +22340,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -22683,7 +22375,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -23108,7 +22799,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -23381,7 +23071,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 1957474539}
   listX: 0
@@ -23517,39 +23206,42 @@ MonoBehaviour:
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
-  health: 0
+  defaultHealth: 0
   currentHealth: 0
-  mana: 0
+  defaultMana: 0
+  currentMana: 0
   manaRecovery: 0
-  attackPower: 0
+  defaultAttackPower: 0
   damageRise: 0
-  attackDamage: 0
-  abilityPower: 0
+  attackPower: 0
+  defaultAbilityPower: 0
   abilityRise: 0
   abilityDamage: 0
-  armor: 0
+  defaultArmor: 0
   armorRise: 0
-  armorSum: 0
-  magicResist: 0
+  armor: 0
+  defaultMagicResist: 0
   magicResistRise: 0
-  magicResistSum: 0
-  attackSpeed: 0
+  magicResist: 0
+  defaultAttackSpeed: 0
   attackSpeedRise: 0
-  attackSpeedSum: 0
-  criticalChance: 0
-  criticalDamage: 0
-  attackRange: 0
+  attackSpeed: 0
+  defaultCriticalChance: 0
+  defaultCriticalDamage: 0
+  defaultAttackRange: 0
   dead: 0
   owner: 
   isOwned: 0
   candidatePath: []
   path: []
   currentTile: {fileID: 812478605}
+  targetTile: {fileID: 0}
   target: {fileID: 0}
   moveSpeed: 1
   ease: 1
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
+  expeditionTile: {fileID: 0}
 --- !u!114 &1746667500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24079,7 +23771,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -24338,7 +24029,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -24374,7 +24064,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -24551,7 +24240,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -24749,7 +24437,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -24930,8 +24617,6 @@ MonoBehaviour:
   aaa: {fileID: 0}
   bbb: {fileID: 0}
   ccc: {fileID: 0}
-  greatMoutainOneCostPiece: []
-  greatMoutainTwoCostPiece: []
   currentPieceList:
   - pieceData: {fileID: 11400000, guid: 309f6986873b81042844f48195428c5d, type: 2}
     count:
@@ -25226,7 +24911,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -25466,6 +25150,85 @@ MonoBehaviour:
     full: 0
   - equipmentSpace: {fileID: 979478814}
     full: 0
+  equipmentList: []
+  boxGradeProbability: []
+  itemTypeProbability: []
+  moneyRange: []
+  height: 1
+--- !u!1001 &1943709777
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2701560059947826697, guid: 7fd814f281a4e074d84aae79c81e5b9e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 2701560059947826697, guid: 7fd814f281a4e074d84aae79c81e5b9e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 2701560059947826697, guid: 7fd814f281a4e074d84aae79c81e5b9e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2701560059947826697, guid: 7fd814f281a4e074d84aae79c81e5b9e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 2701560059947826697, guid: 7fd814f281a4e074d84aae79c81e5b9e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2701560059947826697, guid: 7fd814f281a4e074d84aae79c81e5b9e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2701560059947826697, guid: 7fd814f281a4e074d84aae79c81e5b9e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2701560059947826697, guid: 7fd814f281a4e074d84aae79c81e5b9e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2701560059947826697, guid: 7fd814f281a4e074d84aae79c81e5b9e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2701560059947826697, guid: 7fd814f281a4e074d84aae79c81e5b9e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2701560059947826697, guid: 7fd814f281a4e074d84aae79c81e5b9e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2701560059947826740, guid: 7fd814f281a4e074d84aae79c81e5b9e,
+        type: 3}
+      propertyPath: m_Name
+      value: Equipment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2701560059947826740, guid: 7fd814f281a4e074d84aae79c81e5b9e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7fd814f281a4e074d84aae79c81e5b9e, type: 3}
 --- !u!1 &1945746831
 GameObject:
   m_ObjectHideFlags: 0
@@ -25674,39 +25437,42 @@ MonoBehaviour:
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
-  health: 0
+  defaultHealth: 0
   currentHealth: 0
-  mana: 0
+  defaultMana: 0
+  currentMana: 0
   manaRecovery: 0
-  attackPower: 0
+  defaultAttackPower: 0
   damageRise: 0
-  attackDamage: 0
-  abilityPower: 0
+  attackPower: 0
+  defaultAbilityPower: 0
   abilityRise: 0
   abilityDamage: 0
-  armor: 0
+  defaultArmor: 0
   armorRise: 0
-  armorSum: 0
-  magicResist: 0
+  armor: 0
+  defaultMagicResist: 0
   magicResistRise: 0
-  magicResistSum: 0
-  attackSpeed: 0
+  magicResist: 0
+  defaultAttackSpeed: 0
   attackSpeedRise: 0
-  attackSpeedSum: 0
-  criticalChance: 0
-  criticalDamage: 0
-  attackRange: 0
+  attackSpeed: 0
+  defaultCriticalChance: 0
+  defaultCriticalDamage: 0
+  defaultAttackRange: 0
   dead: 0
   owner: 
   isOwned: 0
   candidatePath: []
   path: []
   currentTile: {fileID: 1746104239}
+  targetTile: {fileID: 0}
   target: {fileID: 0}
   moveSpeed: 1
   ease: 1
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
+  expeditionTile: {fileID: 0}
 --- !u!114 &1957474541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25860,7 +25626,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 43912630}
   listX: 0
@@ -25971,7 +25736,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -26464,7 +26228,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -26739,7 +26502,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -26961,7 +26723,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 1
   isReadyTile: 1
   piece: {fileID: 935242541}
   listX: 0
@@ -27060,7 +26821,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -27174,7 +26934,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 0
   isReadyTile: 0
   piece: {fileID: 0}
   listX: 0
@@ -27493,7 +27252,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFull: 1
   isReadyTile: 1
   piece: {fileID: 810062465}
   listX: 0
@@ -28116,7 +27874,7 @@ GameObject:
   - component: {fileID: 3469287837247737724}
   - component: {fileID: 3469287837247737726}
   - component: {fileID: 3469287837247737725}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sender
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -28189,6 +27947,9 @@ MonoBehaviour:
   experience: 0
   lifePoint: 0
   gold: 0
+  playerMaks:
+    serializedVersion: 2
+    m_Bits: 512
   groundMask:
     serializedVersion: 2
     m_Bits: 256
@@ -28196,6 +27957,10 @@ MonoBehaviour:
   ease: 1
   moveSpeed: 0.1
   owned: 1
+  isGrab: 0
+  isDrag: 0
+  controlPiece: {fileID: 0}
+  controlEquipment: {fileID: 0}
 --- !u!54 &3469287837247737725
 Rigidbody:
   m_ObjectHideFlags: 0

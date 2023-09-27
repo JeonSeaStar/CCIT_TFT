@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    public bool isFull
+    public bool IsFull
     {
         set
         {
-            IsFull = value;
-            if (IsFull) { walkable = false; }
+            isFull = value;
+            if (isFull) { walkable = false; }
             else { walkable = true; }
         }
-        get { return IsFull; }
+        get { return isFull; }
     }
-    public bool IsFull = false;
+    private bool isFull = false;
     public bool isReadyTile = false;
     public GameObject piece;
 

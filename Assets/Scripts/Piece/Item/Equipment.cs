@@ -7,8 +7,8 @@ public class Equipment : MonoBehaviour
 {
     public EquipmentData equipmentData;
 
-    public string pieceName;
-    public Sprite piecePortrait;
+    public string equipmentName;
+    public Sprite equipmentPortrait;
 
     public float health;
     public float mana;
@@ -20,6 +20,9 @@ public class Equipment : MonoBehaviour
     public float criticalChance;
     public float criticalDamage;
     public float attackRange;
+
+    //Test
+    public Vector3 originPos;
 
     [TextArea] public string explanation;
 

@@ -117,7 +117,7 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         foreach (Tile tileObject in tileArray)
         {
-            if (!tileObject.isFull)
+            if (!tileObject.IsFull)
             {
                 tile = tileObject;
                 break;
