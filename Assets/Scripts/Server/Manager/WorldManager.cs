@@ -4,6 +4,15 @@ using UnityEngine;
 using Protocol;
 using BackEnd;
 using BackEnd.Tcp;
+
+/// <summary>
+/// 서버와 통신하는 가장 중요한 코드라 생각됨
+/// 플레이어의 세션ID와 플레이어의 상태 이벤트를 받아옴
+/// 또한 게임매니저 + 인게임UI와도 연결되어 있음
+/// 여기도 비슷하게 서버와 슈퍼플레이어로 나누어서 처리가 진행됨
+/// 플레이어의 상태 메세지를 전달함 ex) 플레이어 움직임, 공격함, 죽음, 데미지 등
+/// 플레이어의 싱크도 관리하는 것으로 보임
+/// </summary>
 public class WorldManager : MonoBehaviour
 {
 
@@ -17,8 +26,7 @@ public class WorldManager : MonoBehaviour
     public GameObject playerPool;
     public GameObject playerPrefeb;
     public int numOfPlayer = 0;
-    public GameObject particle;
-    private const int MAXPLAYER = 4;
+    private const int MAXPLAYER = 8;
     public int alivePlayer { get; set; }
     private Dictionary<SessionId, Player> players;
     public GameObject startPointObject;
@@ -28,6 +36,7 @@ public class WorldManager : MonoBehaviour
     public delegate void PlayerDie(SessionId index);
     public PlayerDie dieEvent;
     #endregion
+
     void Awake()
     {
         instance = this;
@@ -35,15 +44,15 @@ public class WorldManager : MonoBehaviour
     void Start()
     {
         InitializeGame();
-        var matchInstance = BackendMatchManager.GetInstance();
+        var matchInstance = BackEndMatchManager.GetInstance();
         if (matchInstance == null)
         {
             return;
         }
         if (matchInstance.isReconnectProcess)
         {
-            //InGameUiManager.GetInstance().SetStartCount(0, false);
-            //InGameUiManager.GetInstance().SetReconnectBoard(BackendServerManager.GetInstance().myNickName);
+            InGameUiManager.GetInstance().SetStartCount(0, false);
+            InGameUiManager.GetInstance().SetReconnectBoard(BackEndServerManager.GetInstance().myNickName);
         }
     }
 
@@ -81,7 +90,6 @@ public class WorldManager : MonoBehaviour
             point.w = child.transform.rotation.eulerAngles.y;
             statringPoints.Add(point);
         }
-
         dieEvent += PlayerDieEvent;
     }
 
@@ -90,49 +98,17 @@ public class WorldManager : MonoBehaviour
         alivePlayer -= 1;
         players[index].gameObject.SetActive(false);
 
-        //파티클
-        var expObject = Instantiate(particle, players[index].GetPosition(), Quaternion.identity);
-        Destroy(expObject, 5);
-
-        //InGameUiManager.GetInstance().SetScoreBoard(alivePlayer);
+        InGameUiManager.GetInstance().SetScoreBoard(alivePlayer);
         gameRecord.Push(index);
 
         Debug.Log(string.Format("Player Die : " + players[index].GetNickName()));
 
         // 호스트가 아니면 바로 리턴
-        if (!BackendMatchManager.GetInstance().IsHost())
+        if (!BackEndMatchManager.GetInstance().IsHost())
         {
             return;
         }
 
-        if (BackendMatchManager.GetInstance().nowModeType == MatchModeType.TeamOnTeam)
-        {
-            if (alivePlayer == 2)
-            {
-                int remainTeamNumber = -1;
-                SessionId remainSession = SessionId.None;
-                foreach (var player in players)
-                {
-                    if (player.Value.GetIsLive() == false)
-                    {
-                        continue;
-                    }
-                    if (remainTeamNumber == -1)
-                    {
-                        remainTeamNumber = BackendMatchManager.GetInstance().GetTeamInfo(player.Key);
-                        remainSession = player.Key;
-                    }
-                    else if (remainTeamNumber == BackendMatchManager.GetInstance().GetTeamInfo(player.Key))
-                    {
-                        // 남은 플레이어들이 같은편이면 그대로 게임종료 메시지를 보냄
-                        gameRecord.Push(remainSession);
-                        gameRecord.Push(player.Key);
-                        SendGameEndOrder();
-                        return;
-                    }
-                }
-            }
-        }
         // 1명 이하로 플레이어가 남으면 바로 종료 체크
         if (alivePlayer <= 1)
         {
@@ -144,7 +120,7 @@ public class WorldManager : MonoBehaviour
     {
         // 게임 종료 전환 메시지는 호스트에서만 보냄
         Debug.Log("Make GameResult & Send Game End Order");
-        foreach (SessionId session in BackendMatchManager.GetInstance().sessionIdList)
+        foreach (SessionId session in BackEndMatchManager.GetInstance().sessionIdList)
         {
             if (players[session].GetIsLive() && !gameRecord.Contains(session))
             {
@@ -152,7 +128,7 @@ public class WorldManager : MonoBehaviour
             }
         }
         GameEndMessage message = new GameEndMessage(gameRecord);
-        BackendMatchManager.GetInstance().SendDataToInGame<GameEndMessage>(message);
+        BackEndMatchManager.GetInstance().SendDataToInGame<GameEndMessage>(message);
     }
 
     public SessionId GetMyPlayerIndex()
@@ -162,13 +138,13 @@ public class WorldManager : MonoBehaviour
 
     public void SetPlayerInfo()
     {
-        if (BackendMatchManager.GetInstance().sessionIdList == null)
+        if (BackEndMatchManager.GetInstance().sessionIdList == null)
         {
             // 현재 세션ID 리스트가 존재하지 않으면, 0.5초 후 다시 실행
             Invoke("SetPlayerInfo", 0.5f);
             return;
         }
-        var gamers = BackendMatchManager.GetInstance().sessionIdList;
+        var gamers = BackEndMatchManager.GetInstance().sessionIdList;
         int size = gamers.Count;
         if (size <= 0)
         {
@@ -182,7 +158,7 @@ public class WorldManager : MonoBehaviour
         }
 
         players = new Dictionary<SessionId, Player>();
-        BackendMatchManager.GetInstance().SetPlayerSessionList(gamers);
+        BackEndMatchManager.GetInstance().SetPlayerSessionList(gamers);
 
         int index = 0;
         foreach (var sessionId in gamers)
@@ -190,14 +166,14 @@ public class WorldManager : MonoBehaviour
             GameObject player = Instantiate(playerPrefeb, new Vector3(statringPoints[index].x, statringPoints[index].y, statringPoints[index].z), Quaternion.identity, playerPool.transform);
             players.Add(sessionId, player.GetComponent<Player>());
 
-            if (BackendMatchManager.GetInstance().IsMySessionId(sessionId))
+            if (BackEndMatchManager.GetInstance().IsMySessionId(sessionId))
             {
                 myPlayerIndex = sessionId;
-                players[sessionId].Initialize(true, myPlayerIndex, BackendMatchManager.GetInstance().GetNickNameBySessionId(sessionId), statringPoints[index].w);
+                players[sessionId].Initialize(true, myPlayerIndex, BackEndMatchManager.GetInstance().GetNickNameBySessionId(sessionId), statringPoints[index].w);
             }
             else
             {
-                players[sessionId].Initialize(false, sessionId, BackendMatchManager.GetInstance().GetNickNameBySessionId(sessionId), statringPoints[index].w);
+                players[sessionId].Initialize(false, sessionId, BackEndMatchManager.GetInstance().GetNickNameBySessionId(sessionId), statringPoints[index].w);
             }
             index += 1;
         }
@@ -205,9 +181,9 @@ public class WorldManager : MonoBehaviour
 
         // 스코어 보드 설정
         alivePlayer = size;
-        //InGameUiManager.GetInstance().SetScoreBoard(alivePlayer);
+        InGameUiManager.GetInstance().SetScoreBoard(alivePlayer);
 
-        if (BackendMatchManager.GetInstance().IsHost())
+        if (BackEndMatchManager.GetInstance().IsHost())
         {
             StartCoroutine("StartCount");
         }
@@ -215,27 +191,27 @@ public class WorldManager : MonoBehaviour
 
     public void OnGameStart()
     {
-        if (BackendMatchManager.GetInstance() == null)
+        if (BackEndMatchManager.GetInstance() == null)
         {
             // 카운트 다운 : 종료
-            //InGameUiManager.GetInstance().SetStartCount(0, false);
+            InGameUiManager.GetInstance().SetStartCount(0, false);
             return;
         }
-        if (BackendMatchManager.GetInstance().IsHost())
+        if (BackEndMatchManager.GetInstance().IsHost())
         {
             Debug.Log("플레이어 세션정보 확인");
 
-            if (BackendMatchManager.GetInstance().IsSessionListNull())
+            if (BackEndMatchManager.GetInstance().IsSessionListNull())
             {
                 Debug.Log("Player Index Not Exist!");
                 // 호스트 기준 세션데이터가 없으면 게임을 바로 종료한다.
-                foreach (var session in BackendMatchManager.GetInstance().sessionIdList)
+                foreach (var session in BackEndMatchManager.GetInstance().sessionIdList)
                 {
                     // 세션 순서대로 스택에 추가
                     gameRecord.Push(session);
                 }
                 GameEndMessage gameEndMessage = new GameEndMessage(gameRecord);
-                BackendMatchManager.GetInstance().SendDataToInGame<GameEndMessage>(gameEndMessage);
+                BackEndMatchManager.GetInstance().SendDataToInGame<GameEndMessage>(gameEndMessage);
                 return;
             }
         }
@@ -250,13 +226,13 @@ public class WorldManager : MonoBehaviour
         for (int i = 0; i < START_COUNT + 1; ++i)
         {
             msg.time = START_COUNT - i;
-            BackendMatchManager.GetInstance().SendDataToInGame<StartCountMessage>(msg);
+            BackEndMatchManager.GetInstance().SendDataToInGame<StartCountMessage>(msg);
             yield return new WaitForSeconds(1); //1초 단위
         }
 
         // 게임 시작 메시지를 전송
         GameStartMessage gameStartMessage = new GameStartMessage();
-        BackendMatchManager.GetInstance().SendDataToInGame<GameStartMessage>(gameStartMessage);
+        BackEndMatchManager.GetInstance().SendDataToInGame<GameStartMessage>(gameStartMessage);
     }
 
     public void PreInGame()
@@ -270,12 +246,12 @@ public class WorldManager : MonoBehaviour
     public void OnGameOver()
     {
         Debug.Log("Game End");
-        if (BackendMatchManager.GetInstance() == null)
+        if (BackEndMatchManager.GetInstance() == null)
         {
             Debug.LogError("매치매니저가 null 입니다.");
             return;
         }
-        BackendMatchManager.GetInstance().MatchGameOver(gameRecord);
+        BackEndMatchManager.GetInstance().MatchGameOver(gameRecord);
     }
 
     public void OnGameResult()
@@ -302,7 +278,7 @@ public class WorldManager : MonoBehaviour
         {
             return;
         }
-        if (BackendMatchManager.GetInstance().IsHost() != true && args.From.SessionId == myPlayerIndex)
+        if (BackEndMatchManager.GetInstance().IsHost() != true && args.From.SessionId == myPlayerIndex)
         {
             return;
         }
@@ -316,10 +292,10 @@ public class WorldManager : MonoBehaviour
             case Protocol.Type.StartCount:
                 StartCountMessage startCount = DataParser.ReadJsonData<StartCountMessage>(args.BinaryUserData);
                 Debug.Log("wait second : " + (startCount.time));
-                //InGameUiManager.GetInstance().SetStartCount(startCount.time);
+                InGameUiManager.GetInstance().SetStartCount(startCount.time);
                 break;
             case Protocol.Type.GameStart:
-                //InGameUiManager.GetInstance().SetStartCount(0, false);
+                InGameUiManager.GetInstance().SetStartCount(0, false);
                 GameManager.GetInstance().ChangeState(GameManager.GameState.InGame);
                 break;
             case Protocol.Type.GameEnd:
@@ -370,7 +346,7 @@ public class WorldManager : MonoBehaviour
 
     private void ProcessKeyEvent(SessionId index, KeyMessage keyMessage)
     {
-        if (BackendMatchManager.GetInstance().IsHost() == false)
+        if (BackEndMatchManager.GetInstance().IsHost() == false)
         {
             //호스트만 수행
             return;
@@ -406,17 +382,17 @@ public class WorldManager : MonoBehaviour
         {
             players[index].SetMoveVector(moveVecotr);
             PlayerMoveMessage msg = new PlayerMoveMessage(index, playerPos, moveVecotr);
-            BackendMatchManager.GetInstance().SendDataToInGame<PlayerMoveMessage>(msg);
+            BackEndMatchManager.GetInstance().SendDataToInGame<PlayerMoveMessage>(msg);
         }
         if (isNoMove)
         {
             PlayerNoMoveMessage msg = new PlayerNoMoveMessage(index, playerPos);
-            BackendMatchManager.GetInstance().SendDataToInGame<PlayerNoMoveMessage>(msg);
+            BackEndMatchManager.GetInstance().SendDataToInGame<PlayerNoMoveMessage>(msg);
         }
         if (isAttack)
         {
             PlayerAttackMessage msg = new PlayerAttackMessage(index, attackPos);
-            BackendMatchManager.GetInstance().SendDataToInGame<PlayerAttackMessage>(msg);
+            BackEndMatchManager.GetInstance().SendDataToInGame<PlayerAttackMessage>(msg);
         }
     }
 
@@ -424,12 +400,12 @@ public class WorldManager : MonoBehaviour
     {
         players[session].Attack(pos);
         PlayerAttackMessage msg = new PlayerAttackMessage(session, pos);
-        BackendMatchManager.GetInstance().SendDataToInGame<PlayerAttackMessage>(msg);
+        BackEndMatchManager.GetInstance().SendDataToInGame<PlayerAttackMessage>(msg);
     }
 
     private void ProcessPlayerData(PlayerMoveMessage data)
     {
-        if (BackendMatchManager.GetInstance().IsHost() == true)
+        if (BackEndMatchManager.GetInstance().IsHost() == true)
         {
             //호스트면 리턴
             return;
@@ -449,7 +425,7 @@ public class WorldManager : MonoBehaviour
     }
     private void ProcessPlayerData(PlayerAttackMessage data)
     {
-        if (BackendMatchManager.GetInstance().IsHost() == true)
+        if (BackEndMatchManager.GetInstance().IsHost() == true)
         {
             //호스트면 리턴
             return;
@@ -459,7 +435,7 @@ public class WorldManager : MonoBehaviour
     private void ProcessPlayerData(PlayerDamegedMessage data)
     {
         players[data.playerSession].Damaged();
-        //EffectManager.instance.EnableEffect(data.hit_x, data.hit_y, data.hit_z);
+//        EffectManager.instance.EnableEffect(data.hit_x, data.hit_y, data.hit_z);
     }
 
     private void ProcessSyncData(GameSyncMessage syncMessage)
@@ -478,7 +454,7 @@ public class WorldManager : MonoBehaviour
             player.Value.SetHP(syncMessage.hpValue[index]);
             index++;
         }
-        BackendMatchManager.GetInstance().SetHostSession(syncMessage.host);
+        BackEndMatchManager.GetInstance().SetHostSession(syncMessage.host);
     }
 
     public bool IsMyPlayerMove()

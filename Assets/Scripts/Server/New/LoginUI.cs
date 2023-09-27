@@ -105,7 +105,7 @@ public class LoginUI : MonoBehaviour
         }
 
         loadingObject.SetActive(true);
-        BackendServerManager.GetInstance().BackendTokenLogin((bool result, string error) =>
+        BackEndServerManager.GetInstance().BackendTokenLogin((bool result, string error) =>
         {
             Dispatcher.Current.BeginInvoke(() =>
             {
@@ -147,7 +147,7 @@ public class LoginUI : MonoBehaviour
         }
 
         loadingObject.SetActive(true);
-        BackendServerManager.GetInstance().CustomLogin(id, pw, (bool result, string error) =>
+        BackEndServerManager.GetInstance().CustomLogin(id, pw, (bool result, string error) =>
         {
             Dispatcher.Current.BeginInvoke(() =>
             {
@@ -180,7 +180,7 @@ public class LoginUI : MonoBehaviour
         }
 
         loadingObject.SetActive(true);
-        BackendServerManager.GetInstance().CustomSignIn(id, pw, (bool result, string error) =>
+        BackEndServerManager.GetInstance().CustomSignIn(id, pw, (bool result, string error) =>
         {
             Dispatcher.Current.BeginInvoke(() =>
             {
@@ -226,7 +226,7 @@ public class LoginUI : MonoBehaviour
             return;
         }
         loadingObject.SetActive(true);
-        BackendServerManager.GetInstance().UpdateNickname(nickname, (bool result, string error) =>
+        BackEndServerManager.GetInstance().UpdateNickname(nickname, (bool result, string error) =>
         {
             Dispatcher.Current.BeginInvoke(() =>
             {
@@ -250,7 +250,7 @@ public class LoginUI : MonoBehaviour
         }
 
         loadingObject.SetActive(true);
-        BackendServerManager.GetInstance().GuestLogin((bool result, string error) =>
+        BackEndServerManager.GetInstance().GuestLogin((bool result, string error) =>
         {
             Dispatcher.Current.BeginInvoke(() =>
             {

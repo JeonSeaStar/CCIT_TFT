@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using BackEnd.Tcp;
 using Battlehub.Dispatcher;
 using BackEnd;
+using TMPro;
 
 public partial class LobbyUI : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public partial class LobbyUI : MonoBehaviour
     public void OpenRoomUI()
     {
         // 매치 서버에 대기방 생성 요청
-        if (BackendMatchManager.GetInstance().CreateMatchRoom() == true)
+        if (BackEndMatchManager.GetInstance().CreateMatchRoom() == true)
         {
             SetLoadingObjectActive(true);
         }
@@ -35,7 +36,7 @@ public partial class LobbyUI : MonoBehaviour
             SetFriendList();
             if (userList == null)
             {
-                SetReadyUserList(BackendServerManager.GetInstance().myNickName);
+                SetReadyUserList(BackEndServerManager.GetInstance().myNickName);
             }
             else
             {
@@ -52,7 +53,7 @@ public partial class LobbyUI : MonoBehaviour
 
     public void LeaveReadyRoom()
     {
-        BackendMatchManager.GetInstance().LeaveMatchRoom();
+        BackEndMatchManager.GetInstance().LeaveMatchLoom();
         // readyRoomObject.SetActive(false);
     }
 
@@ -72,7 +73,7 @@ public partial class LobbyUI : MonoBehaviour
         {
             if (tab.IsOn() == true)
             {
-                BackendMatchManager.GetInstance().RequestMatchMaking(tab.index);
+                BackEndMatchManager.GetInstance().RequestMatchMaking(tab.index);
                 return;
             }
         }
@@ -84,7 +85,7 @@ public partial class LobbyUI : MonoBehaviour
     public void SetFriendList()
     {
         ClearFriendList();
-        BackendServerManager.GetInstance().GetFriendList((bool result, List<Friend> friendList) =>
+        BackEndServerManager.GetInstance().GetFriendList((bool result, List<Friend> friendList) =>
         {
             Dispatcher.Current.BeginInvoke(() =>
             {
@@ -131,7 +132,7 @@ public partial class LobbyUI : MonoBehaviour
     private void InsertFriendPrefab(string nickName)
     {
         GameObject friend = GameObject.Instantiate(friendPrefab, Vector3.zero, Quaternion.identity, friendListParent.transform);
-        friend.GetComponentInChildren<Text>().text = nickName;
+        friend.GetComponentInChildren<TMP_Text>().text = nickName;
         friend.GetComponent<Button>().onClick.AddListener(() =>
         {
             SetSelectObject(nickName + " 유저에게 초대를 보내겠습니까?", () =>
@@ -201,7 +202,7 @@ public partial class LobbyUI : MonoBehaviour
         }
 
         GameObject friend = GameObject.Instantiate(friendPrefab, Vector3.zero, Quaternion.identity, readyUserListParent.transform);
-        friend.GetComponentInChildren<Text>().text = nickName;
+        friend.GetComponentInChildren<TMP_Text>().text = nickName;
         friend.GetComponent<Button>().onClick.AddListener(() =>
         {
             SetSelectObject(nickName + " 유저를 강퇴하겠습니까?", () =>

@@ -14,10 +14,10 @@ using BackEnd.Tcp;
 /// 매칭 신청 취소하기
 /// </summary>
 
-public partial class BackendMatchManager : MonoBehaviour
+public partial class BackEndMatchManager : MonoBehaviour
 {
-    public MatchType nowMatchType { get; private set; } = MatchType.None;           //현재 선택된 매치 타입
-    public MatchModeType nowModeType { get; private set; } = MatchModeType.None;    //현재 선택된 매치 모드 타입
+    public MatchType nowMatchType { get; private set; } = MatchType.None;     // 현재 선택된 매치 타입
+    public MatchModeType nowModeType { get; private set; } = MatchModeType.None; // 현재 선택된 매치 모드 타입
 
     // 디버그 로그
     private string NOTCONNECT_MATCHSERVER = "매치 서버에 연결되어 있지 않습니다.";
@@ -33,11 +33,11 @@ public partial class BackendMatchManager : MonoBehaviour
     private string INVALID_OPERATION = "잘못된 요청입니다\n{0}";
     private string EXCEPTION_OCCUR = "예외 발생 : {0}\n다시 매칭을 시도합니다.";
 
-    // 매칭된 매치 타입, 모드 타입 설정
+    // 매칭된 매치 타입,모드 타입 설정
     public void SetNowMatchInfo(MatchType matchType, MatchModeType matchModeType)
     {
-        nowMatchType = matchType;
-        nowModeType = matchModeType;
+        this.nowMatchType = matchType;
+        this.nowModeType = matchModeType;
 
         Debug.Log(string.Format("매칭 타입/모드 : {0}/{1}", nowMatchType, nowModeType));
     }
@@ -45,13 +45,13 @@ public partial class BackendMatchManager : MonoBehaviour
     // 매칭 서버 접속
     public void JoinMatchServer()
     {
-        if(isConnectMatchServer)
+        if (isConnectMatchServer)
         {
             return;
         }
         ErrorInfo errorInfo;
         isConnectMatchServer = true;
-        if(!Backend.Match.JoinMatchMakingServer(out errorInfo))
+        if (!Backend.Match.JoinMatchMakingServer(out errorInfo))
         {
             var errorLog = string.Format(FAIL_CONNECT_MATCHSERVER, errorInfo.ToString());
             Debug.Log(errorLog);
@@ -66,7 +66,7 @@ public partial class BackendMatchManager : MonoBehaviour
     }
 
     // 매칭 대기 방 만들기
-    // 혼자 매칭을 진행하더라도 무조건 방을 생성한 뒤 매칭을 신청해야 함
+    // 혼자 매칭을 하더라도 무조건 방을 생성한 뒤 매칭을 신청해야 함
     public bool CreateMatchRoom()
     {
         // 매청 서버에 연결되어 있지 않으면 매칭 서버 접속
@@ -82,8 +82,8 @@ public partial class BackendMatchManager : MonoBehaviour
         return true;
     }
 
-    //매칭 대기 방 나가기
-    public void LeaveMatchRoom()
+    // 매칭 대기 방 나가기
+    public void LeaveMatchLoom()
     {
         Backend.Match.LeaveMatchRoom();
     }
@@ -93,22 +93,21 @@ public partial class BackendMatchManager : MonoBehaviour
     // MatchModeType (랜덤 / 포인트 / MMR)
     public void RequestMatchMaking(int index)
     {
-        //매칭 서버에 연결되어 있지 않으면 매칭 서버 접속
-        if(!isConnectMatchServer)
+        // 매청 서버에 연결되어 있지 않으면 매칭 서버 접속
+        if (!isConnectMatchServer)
         {
             Debug.Log(NOTCONNECT_MATCHSERVER);
             Debug.Log(RECONNECT_MATCHSERVER);
             JoinMatchServer();
             return;
         }
-
-        //변수 초기화
+        // 변수 초기화
         isConnectInGameServer = false;
 
         Backend.Match.RequestMatchMaking(matchInfos[index].matchType, matchInfos[index].matchModeType, matchInfos[index].inDate);
-        if(isConnectInGameServer)
+        if (isConnectInGameServer)
         {
-            Backend.Match.LeaveGameServer(); //인게임 서버 접속되어 있을 경우를 대비해 인게임 서버 떠나기 호출
+            Backend.Match.LeaveGameServer(); //인게임 서버 접속되어 있을 경우를 대비해 인게임 서버 리브 호출
         }
 
         //nowMatchType = matchInfos[index].matchType;
@@ -116,22 +115,22 @@ public partial class BackendMatchManager : MonoBehaviour
         //numOfClient = int.Parse(matchInfos[index].headCount);
     }
 
-    //매칭 신청 취소하기
+    // 매칭 신청 취소하기
     public void CancelRegistMatchMaking()
     {
         Backend.Match.CancelMatchMaking();
     }
 
-    //매칭 서버 접속에 대한 리턴값
+    // 매칭 서버 접속에 대한 리턴값
     private void ProcessAccessMatchMakingServer(ErrorInfo errInfo)
     {
-        if(errInfo != ErrorInfo.Success)
+        if (errInfo != ErrorInfo.Success)
         {
             // 접속 실패
             isConnectMatchServer = false;
         }
 
-        if(!isConnectMatchServer)
+        if (!isConnectMatchServer)
         {
             var errorLog = string.Format(FAIL_CONNECT_MATCHSERVER, errInfo.ToString());
             // 접속 실패
@@ -139,24 +138,22 @@ public partial class BackendMatchManager : MonoBehaviour
         }
         else
         {
-            // 접속 성공
+            //접속 성공
             Debug.Log(SUCCESS_CONNECT_MATCHSERVER);
         }
     }
 
     /*
-     * 매칭 신청에 대한 리턴값 (호출되는 종류)
-     * 매칭 신청 성공했을 때
-     * 매칭 성공했을때
-     * 매칭신청 실패했을 때
-     */
-
-    // 매칭 신청에 따른 리턴값(성공, 실패요인, 에러등등)
+	 * 매칭 신청에 대한 리턴값 (호출되는 종류)
+	 * 매칭 신청 성공했을 때
+	 * 매칭 성공했을 때
+	 * 매칭 신청 실패했을 때
+	*/
     private void ProcessMatchMakingResponse(MatchMakingResponseEventArgs args)
     {
         string debugLog = string.Empty;
         bool isError = false;
-        switch(args.ErrInfo)
+        switch (args.ErrInfo)
         {
             case ErrorCode.Success:
                 // 매칭 성공했을 때
@@ -217,10 +214,10 @@ public partial class BackendMatchManager : MonoBehaviour
                 break;
         }
 
-        if(!debugLog.Equals(string.Empty))
+        if (!debugLog.Equals(string.Empty))
         {
             Debug.Log(debugLog);
-            if(isError == true)
+            if (isError == true)
             {
                 LobbyUI.GetInstance().SetErrorObject(debugLog);
             }
@@ -228,7 +225,7 @@ public partial class BackendMatchManager : MonoBehaviour
     }
 
     // 매칭 성공했을 때
-    // 인게임 서버로 접속을 해야한다.
+    // 인게임 서버로 접속해야 한다.
     private void ProcessMatchSuccess(MatchMakingResponseEventArgs args)
     {
         ErrorInfo errorInfo;
@@ -237,12 +234,12 @@ public partial class BackendMatchManager : MonoBehaviour
             Debug.Log("이전 세션 저장 정보");
             sessionIdList.Clear();
         }
+
         if (!Backend.Match.JoinGameServer(args.RoomInfo.m_inGameServerEndPoint.m_address, args.RoomInfo.m_inGameServerEndPoint.m_port, false, out errorInfo))
         {
             var debugLog = string.Format(FAIL_ACCESS_INGAME, errorInfo.ToString(), string.Empty);
             Debug.Log(debugLog);
         }
-
         // 인자값에서 인게임 룸토큰을 저장해두어야 한다.
         // 인게임 서버에서 룸에 접속할 때 필요
         // 1분 내에 모든 유저가 룸에 접속하지 않으면 해당 룸은 파기된다.
@@ -257,12 +254,12 @@ public partial class BackendMatchManager : MonoBehaviour
             Debug.LogError("매치 정보를 불러오는 데 실패했습니다.");
             return;
         }
+
         nowMatchType = info.matchType;
         nowModeType = info.matchModeType;
         numOfClient = int.Parse(info.headCount);
     }
 
-    //재접속 프로세스
     public void ProcessReconnect()
     {
         Debug.Log("재접속 프로세스 진입");

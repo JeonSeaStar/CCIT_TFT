@@ -12,41 +12,41 @@ using static BackEnd.SendQueue;
 /// 커스텀 로그인
 /// 유저 정보 불러오기
 /// </summary>
-public class BackendServerManager : MonoBehaviour
+public class BackEndServerManager : MonoBehaviour
 {
-    private static BackendServerManager instance;
-    public bool isLogin { get; set; }                                    //로그인 여부
 
-    private string tempNickName;                                         // 설정할 닉네임(ID와 동일)
-    public string myNickName { get; private set; } = string.Empty;       // 로그인한 계정의 닉네임
-    public string myIndate { get; private set; } = string.Empty;         // 로그인한 계정의 inDate
+    private static BackEndServerManager instance;                   // 인스턴스
+    public bool isLogin { get; private set; }                       // 로그인 여부
+
+    private string tempNickName;                                    // 설정할 닉네임 (id와 동일)
+    public string myNickName { get; private set; } = string.Empty;  // 로그인한 계정의 닉네임
+    public string myIndate { get; private set; } = string.Empty;    // 로그인한 계정의 inDate
     private Action<bool, string> loginSuccessFunc = null;
 
     private const string BackendError = "statusCode : {0}\nErrorCode : {1}\nMessage : {2}";
 
     public string appleToken = ""; // SignInWithApple.cs에서 토큰값을 받을 문자열
-    private void Awake()
+    void Awake()
     {
-        if(instance != null)
+        if (instance != null)
         {
             Destroy(instance);
         }
         instance = this;
-        //모든씬에서 유지
-        DontDestroyOnLoad(gameObject);
+        // 모든 씬에서 유지
+        DontDestroyOnLoad(this.gameObject);
     }
 
-    public static BackendServerManager GetInstance()
+    public static BackEndServerManager GetInstance()
     {
-        if(instance == null)
+        if (instance == null)
         {
-            Debug.LogError("BackendServerManager 인스턴스가 존재하지 않습니다.");
+            Debug.LogError("BackEndServerManager 인스턴스가 존재하지 않습니다.");
             return null;
         }
 
         return instance;
     }
-
 
     /// <summary>
     /// 서버 초기화
@@ -56,7 +56,7 @@ public class BackendServerManager : MonoBehaviour
         isLogin = false;
         var bro = Backend.Initialize(true);
 
-        if(bro.IsSuccess())
+        if (bro.IsSuccess())
         {
             // 초기화 성공 시 statusCode 204 Success
             Debug.Log($"초기화 성공 : {bro}");
@@ -79,20 +79,17 @@ public class BackendServerManager : MonoBehaviour
     {
         // 서버의 비동기 메소드 호출(콜백 함수 풀링)을 위해 작성
         // 참고 : https://developer.thebackend.io/unity3d/guide/Async/AsyncFuncPoll/
-        if (Backend.IsInitialized)
-        {
-            Backend.AsyncPoll(); //비동기함수 풀링
-        }
+        Backend.AsyncPoll(); //비동기함수 풀링
     }
 
     //게임의 버전 정보를 가져오는 함수 모바일(안드로이드)에서만 작동
-    private void GetVersionInfo() 
+    private void GetVersionInfo()
     {
         Enqueue(Backend.Utils.GetLatestVersion, callback =>
         {
-            if(callback.IsSuccess() == false)
+            if (callback.IsSuccess() == false)
             {
-                Debug.LogError("버전정보를 불러오는 데 실패하였습니다. \n" + callback);
+                Debug.LogError("버전정보를 불러오는 데 실패하였습니다.\n" + callback);
                 return;
             }
 
@@ -125,17 +122,19 @@ public class BackendServerManager : MonoBehaviour
                 }
             }
 
-            //버전 업데이트 팝업
+            // 버전 업데이트 팝업
             LoginUI.GetInstance().OpenUpdatePopup();
         });
     }
+
+
 
     //뒤끝 토큰으로 로그인 (과정 먼저 안드로이드 구글로 로그인 이후 로그인이 완료되면 다음부터는 뒤끝 토큰으로 로그인 가능)
     public void BackendTokenLogin(Action<bool, string> func)
     {
         Enqueue(Backend.BMember.LoginWithTheBackendToken, callback =>
         {
-            if(callback.IsSuccess())
+            if (callback.IsSuccess())
             {
                 Debug.Log("토큰 로그인 성공");
                 loginSuccessFunc = func;
@@ -149,12 +148,12 @@ public class BackendServerManager : MonoBehaviour
         });
     }
 
-    //커스텀 로그인
-    public void CustomLogin(string id, string pw, Action<bool,string> func)
+    // 커스텀 로그인
+    public void CustomLogin(string id, string pw, Action<bool, string> func)
     {
         Enqueue(Backend.BMember.CustomLogin, id, pw, callback =>
         {
-            if(callback.IsSuccess())
+            if (callback.IsSuccess())
             {
                 Debug.Log("커스텀 로그인 성공");
                 loginSuccessFunc = func;
@@ -164,11 +163,12 @@ public class BackendServerManager : MonoBehaviour
             }
 
             Debug.Log("커스텀 로그인 실패\n" + callback);
-            func(false, string.Format(BackendError,callback.GetStatusCode(), callback.GetErrorCode(), callback.GetMessage()));
+            func(false, string.Format(BackendError,
+                callback.GetStatusCode(), callback.GetErrorCode(), callback.GetMessage()));
         });
     }
 
-    //커스텀 회원가입
+    // 커스텀 회원가입
     public void CustomSignIn(string id, string pw, Action<bool, string> func)
     {
         tempNickName = id;
@@ -184,11 +184,12 @@ public class BackendServerManager : MonoBehaviour
             }
 
             Debug.LogError("커스텀 회원가입 실패\n" + callback.ToString());
-            func(false, string.Format(BackendError, callback.GetStatusCode(), callback.GetErrorCode(), callback.GetMessage()));
+            func(false, string.Format(BackendError,
+                callback.GetStatusCode(), callback.GetErrorCode(), callback.GetMessage()));
         });
     }
 
-    //닉네임 업데이트는 자동으로 ID로 설정됨 -변경가능-
+    //닉네임 업데이트는 아이디 생성 이후 직접 설정해야됨 -변경가능-
     public void UpdateNickname(string nickname, Action<bool, string> func)
     {
         Enqueue(Backend.BMember.UpdateNickname, nickname, bro =>
@@ -197,7 +198,8 @@ public class BackendServerManager : MonoBehaviour
             if (!bro.IsSuccess())
             {
                 Debug.LogError("닉네임 생성 실패\n" + bro.ToString());
-                func(false, string.Format(BackendError, bro.GetStatusCode(), bro.GetErrorCode(), bro.GetMessage()));
+                func(false, string.Format(BackendError,
+                    bro.GetStatusCode(), bro.GetErrorCode(), bro.GetMessage()));
                 return;
             }
             loginSuccessFunc = func;
@@ -238,7 +240,7 @@ public class BackendServerManager : MonoBehaviour
 
             if (loginSuccessFunc != null)
             {
-                BackendMatchManager.GetInstance().GetMatchList(loginSuccessFunc);
+                BackEndMatchManager.GetInstance().GetMatchList(loginSuccessFunc);
             }
         });
     }
@@ -258,14 +260,12 @@ public class BackendServerManager : MonoBehaviour
             }
 
             Debug.Log("게스트 로그인 실패\n" + callback);
-            func(false, string.Format(BackendError, callback.GetStatusCode(), callback.GetErrorCode(), callback.GetMessage()));
+            func(false, string.Format(BackendError,
+                callback.GetStatusCode(), callback.GetErrorCode(), callback.GetMessage()));
         });
     }
 
-
-
-    #region 아래서 부터는 친구 관련 기능 (추후 구현)
-
+    // 아래 부터는 친구 관련 기능
     public void GetFriendList(Action<bool, List<Friend>> func)
     {
         Enqueue(Backend.Friend.GetFriendList, 15, callback =>
@@ -376,6 +376,4 @@ public class BackendServerManager : MonoBehaviour
             func(true, string.Empty);
         });
     }
-    #endregion
 }
-

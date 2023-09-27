@@ -7,7 +7,6 @@ using Protocol;
 using Battlehub.Dispatcher;
 using System.Linq;
 
-
 /// <summary>
 /// 매치매니저
 /// 여기서 정의 되는 기능들
@@ -16,23 +15,25 @@ using System.Linq;
 /// 매치메이킹 핸들러 등록
 /// 인게임 핸들러 등록
 /// 매칭 관련 기능은 BackEndMatch.cs 에 정의
-/// 인게임 관련 기능은 BackEndInGame.cs 에 정으,ㅣ
+/// 인게임 관련 기능은 BackEndInGame.cs 에 정의
 /// </summary>
-public partial class BackendMatchManager : MonoBehaviour
+public partial class BackEndMatchManager : MonoBehaviour
 {
-    //뒤끝 콘솔에서 생성한 매칭 카드 정보
+    // 콘솔에서 생성한 매칭 카드 정보
     public class MatchInfo
     {
         public string title;                // 매칭 명
-        public string inDate;               // 매칭 inDate(UUID)
+        public string inDate;               // 매칭 inDate (UUID)
         public MatchType matchType;         // 매치 타입
         public MatchModeType matchModeType; // 매치 모드 타입
         public string headCount;            // 매칭 인원
-        public bool isSandBoxEnable;        // 샌드박스 모드 (AI 매칭) - 인원 확인 및 테스트 용 -
+        public bool isSandBoxEnable;        // 샌드박스 모드 (AI매칭)
     }
 
-    private static BackendMatchManager instance = null;
-    public List<MatchInfo> matchInfos { get; private set; } = new List<MatchInfo>(); // 뒤끝 콘솔에서 생성한 매칭 카드 리스트
+    private static BackEndMatchManager instance = null; // 인스턴스
+
+    public List<MatchInfo> matchInfos { get; private set; } = new List<MatchInfo>();  // 콘솔에서 생성한 매칭 카드들의 리스트
+
     public List<SessionId> sessionIdList { get; private set; }  // 매치에 참가중인 유저들의 세션 목록
     // public Dictionary<SessionId, int> teamInfo { get; private set; }    // 매치에 참가중인 유저들의 팀 정보 (MatchModeType이 team인 경우에만 사용)
     public Dictionary<SessionId, MatchUserGameRecord> gameRecords { get; private set; } = null;  // 매치에 참가중인 유저들의 매칭 기록
@@ -47,52 +48,54 @@ public partial class BackendMatchManager : MonoBehaviour
     public bool isReconnectProcess { get; private set; } = false;
     public bool isSandBoxGame { get; private set; } = false;
 
-    private int numOfClient = 2;                    // 매치에 참가한 유저의 총 수 -- BackendMatch에서 뒤끝 콘솔에서 설정한 인원 수로 변경됨 --
+    private int numOfClient = 2;                    // 매치에 참가한 유저의 총 수
 
-    #region Host(SuperGamer)
+    #region Host
     private bool isHost = false;                    // 호스트 여부 (서버에서 설정한 SuperGamer 정보를 가져옴)
-    private Queue<KeyMessage> localQueue = null;    // 호스트에서 로컬로 처리하는 패킷을 쌓아두는 큐 (로컬처리하는 데이터는 서버로 발송 안함) 
+    private Queue<KeyMessage> localQueue = null;    // 호스트에서 로컬로 처리하는 패킷을 쌓아두는 큐 (로컬처리하는 데이터는 서버로 발송 안함)
     #endregion
 
-    private void Awake()
+    void Awake()
     {
-        if(instance != null)
+        if (instance != null)
         {
             Destroy(instance);
         }
         instance = this;
     }
 
-    public static BackendMatchManager GetInstance()
+    public static BackEndMatchManager GetInstance()
     {
-        if(!instance)
+        if (!instance)
         {
-            Debug.LogError("BackendMatchManager 인스턴스가 존재하지 않습니다.");
+            //Debug.LogError("BackEndMatchManager 인스턴스가 존재하지 않습니다.");
             return null;
         }
+
         return instance;
     }
 
-    private void OnApplicationQuit()
+    void OnApplicationQuit()
     {
-        if(isConnectMatchServer)
+        if (isConnectMatchServer)
         {
             LeaveMatchServer();
             Debug.Log("ApplicationQuit - LeaveMatchServer");
         }
     }
 
-    private void Start()
+    void Start()
     {
         // 이벤트 설정
-        // GameManager.OnRobby += IsMatchGameActivate;
-        // GameManager.OnGameReady += OnGameReady;
+        //GameManager.OnRobby += IsMatchGameActivate;
+        //GameManager.OnGameReady += OnGameReady;
         GameManager.OnGameReconnect += OnGameReconnect;
         // 핸들러 설정
         MatchMakingHandler();
         GameHandler();
         ExceptionHandler();
     }
+
 
     public bool IsHost()
     {
@@ -121,13 +124,13 @@ public partial class BackendMatchManager : MonoBehaviour
     private bool SetHostSession()
     {
         // 호스트 세션 정하기
-        // 각 클라이언트 모두 수행(호스트 세션 정하는 로직은 모두 같으므로 각각의 클라이언트가 모두 로직을 수행하지만 결과값은 같다)
+        // 각 클라이언트가 모두 수행 (호스트 세션 정하는 로직은 모두 같으므로 각각의 클라이언트가 모두 로직을 수행하지만 결과값은 같다.)
+
         Debug.Log("호스트 세션 설정 진입");
-        // 호스트 세션 정렬(각 클라이언트마다 입장 순서가 다를 수 있기 때문에 정렬)
+        // 호스트 세션 정렬 (각 클라이언트마다 입장 순서가 다를 수 있기 때문에 정렬)
         sessionIdList.Sort();
         isHost = false;
-
-        //자신이 호스트 세션인지 확인
+        // 내가 호스트 세션인지
         foreach (var record in gameRecords)
         {
             if (record.Value.m_isSuperGamer == true)
@@ -144,9 +147,9 @@ public partial class BackendMatchManager : MonoBehaviour
         Debug.Log("호스트 여부 : " + isHost);
 
         // 호스트 세션이면 로컬에서 처리하는 패킷이 있으므로 로컬 큐를 생성해준다
-        if(isHost)
+        if (isHost)
         {
-            localQueue = new Queue<KeyMessage>(); //--> 이걸로 알 수 있듯이 Protocol.cs는 슈퍼플레이어가 있을 경우 패킷을 처리하기 위해서 사용하는 걸 알 수 있다.
+            localQueue = new Queue<KeyMessage>();
         }
         else
         {
@@ -203,8 +206,6 @@ public partial class BackendMatchManager : MonoBehaviour
 
     ////////////////////////////////////////////////////////////////////////////////////
     //매칭 서버 관련 이벤트 핸들러
-    
-    //매치 매이킹 핸들러
     private void MatchMakingHandler()
     {
         Backend.Match.OnJoinMatchMakingServer += (args) =>
@@ -226,7 +227,8 @@ public partial class BackendMatchManager : MonoBehaviour
             Debug.Log("OnLeaveMatchMakingServer : " + args.ErrInfo);
             isConnectMatchServer = false;
 
-            if (args.ErrInfo.Category.Equals(ErrorCode.DisconnectFromRemote) || args.ErrInfo.Category.Equals(ErrorCode.Exception) || args.ErrInfo.Category.Equals(ErrorCode.NetworkTimeout))
+            if (args.ErrInfo.Category.Equals(ErrorCode.DisconnectFromRemote) || args.ErrInfo.Category.Equals(ErrorCode.Exception)
+                || args.ErrInfo.Category.Equals(ErrorCode.NetworkTimeout))
             {
                 // 서버에서 강제로 끊은 경우
                 if (LobbyUI.GetInstance())
@@ -277,7 +279,7 @@ public partial class BackendMatchManager : MonoBehaviour
             if (args.ErrInfo.Equals(ErrorCode.Success) || args.ErrInfo.Equals(ErrorCode.Match_Making_KickedByOwner))
             {
                 Debug.Log("user leave in loom : " + args.UserInfo.m_nickName);
-                if (args.UserInfo.m_nickName.Equals(BackendServerManager.GetInstance().myNickName))
+                if (args.UserInfo.m_nickName.Equals(BackEndServerManager.GetInstance().myNickName))
                 {
                     if (args.ErrInfo.Equals(ErrorCode.Match_Making_KickedByOwner))
                     {
@@ -287,7 +289,7 @@ public partial class BackendMatchManager : MonoBehaviour
                     LobbyUI.GetInstance().CloseRoomUIOnly();
                     return;
                 }
-                //LobbyUI.GetInstance().DeleteReadyUserPrefab(args.UserInfo.m_nickName);
+                LobbyUI.GetInstance().DeleteReadyUserPrefab(args.UserInfo.m_nickName);
             }
         };
 
@@ -323,7 +325,7 @@ public partial class BackendMatchManager : MonoBehaviour
         };
 
         // 누군가 나를 초대했을때 리턴됨
-        Backend.Match.OnMatchMakingRoomSomeoneInvited += (MatchMakingInvitedRoomEventArgs args) =>
+        Backend.Match.OnMatchMakingRoomSomeoneInvited += (args) =>
         {
             Debug.Log(string.Format("OnMatchMakingRoomSomeoneInvited : {0} : {1}", args.ErrInfo, args.Reason));
             var roomId = args.RoomId;
@@ -343,12 +345,10 @@ public partial class BackendMatchManager : MonoBehaviour
             });
         };
     }
-
-
     /// <summary>
     /// /////////////////////////////////////////////////////////////////////////////////
+    /// 인게임 서버 관련 이벤트 핸들러
     /// </summary>
-    // 인게임 서버 관련 이벤트 핸들러
     private void GameHandler()
     {
         Backend.Match.OnSessionJoinInServer += (args) =>
@@ -522,7 +522,7 @@ public partial class BackendMatchManager : MonoBehaviour
     {
         if (isConnectInGameServer || isConnectMatchServer)
         {
-            Backend.Match.Poll(); //--> Poll 함수가 있어야 이벤트 수신이 가능
+            Backend.Match.Poll();
 
             // 호스트의 경우 로컬 큐가 존재
             // 큐에 있는 패킷을 로컬에서 처리
@@ -540,7 +540,7 @@ public partial class BackendMatchManager : MonoBehaviour
     //내 전적 기록 가져오기
     public void GetMyMatchRecord(int index, Action<MatchRecord, bool> func)
     {
-        var inDate = BackendServerManager.GetInstance().myIndate;
+        var inDate = BackEndServerManager.GetInstance().myIndate;
 
         SendQueue.Enqueue(Backend.Match.GetMatchRecord, inDate, matchInfos[index].matchType, matchInfos[index].matchModeType, matchInfos[index].inDate, callback =>
         {
@@ -628,6 +628,7 @@ public partial class BackendMatchManager : MonoBehaviour
         //});
     }
 
+
     // 뒤끝 콘솔에서 설정한 매치방 정보 가져오기
     public void GetMatchList(Action<bool, string> func)
     {
@@ -678,7 +679,6 @@ public partial class BackendMatchManager : MonoBehaviour
         });
     }
 
-    //로컬큐에 메시지 추가
     public void AddMsgToLocalQueue(KeyMessage message)
     {
         // 로컬 큐에 메시지 추가

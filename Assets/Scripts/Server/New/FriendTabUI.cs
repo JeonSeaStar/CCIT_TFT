@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class TabUI : MonoBehaviour
+public class FriendTabUI : MonoBehaviour
 {
     public int index = 0;
     private Text matchText;
@@ -20,12 +20,17 @@ public class TabUI : MonoBehaviour
         image = this.GetComponentInChildren<Image>();
         matchText = this.GetComponentInChildren<Text>();
 
+        
+    }
+
+    private void Start()
+    {
         tab.onValueChanged.AddListener(isOn =>
         {
             if (isOn == true)
             {
                 image.color = onColor;
-                LobbyUI.GetInstance().ChangeTab();
+                //LobbyUI.GetInstance().ChangeTab();
             }
             else
             {
@@ -43,12 +48,9 @@ public class TabUI : MonoBehaviour
         }
     }
 
-
-    //없으니깐 당연히 안되지
     public void SetTabText(string matchTitle)
     {
-        print("5번");
-        matchText.text = matchTitle;    
+        matchText.text = matchTitle;
     }
 
     public bool IsOn()

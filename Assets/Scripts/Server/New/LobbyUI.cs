@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using BackEnd.Tcp;
 using Battlehub.Dispatcher;
+using TMPro;
 
 public partial class LobbyUI : MonoBehaviour
 {
@@ -21,15 +22,15 @@ public partial class LobbyUI : MonoBehaviour
 
     public GameObject recordObject;
     public Image[] recordChart = new Image[2];
-    public Text[] recordContent = new Text[7];
+    public TMP_Text[] recordContent = new TMP_Text[7];
 
     public ToggleGroup tabObject;
-    public Text matchInfoText;
+    public TMP_Text matchInfoText;
 
     public GameObject friendObject;
 
     private Toggle meleeToggle;
-    private Text errorText;
+    private TMP_Text errorText;
     private GameObject loadingObject;
     private FadeAnimation fadeObject;
     private TabUI[] matchInfotabList;
@@ -41,7 +42,7 @@ public partial class LobbyUI : MonoBehaviour
 
     private Button selectOkBtn = null;
     private Button selectCancelBtn = null;
-    private Text selectMsg = null;
+    private TMP_Text selectMsg = null;
 
     const string matchInfoStr = "매칭 인원 : {0} 명\n\n샌드박스 매칭 여부 : {1}\n\n매칭타입은 {2} 조건으로 유저를 매칭합니다.\n\n매칭모드는 {3} 대전을 실시합니다.";
 
@@ -54,7 +55,32 @@ public partial class LobbyUI : MonoBehaviour
         instance = this;
 
         // 재접속 로직 제외
-        BackendMatchManager.GetInstance().IsMatchGameActivate();
+        BackEndMatchManager.GetInstance().IsMatchGameActivate();
+
+        if (BackEndMatchManager.GetInstance() != null)
+        {
+            SetNickName();
+        }
+
+        errorText = errorObject.GetComponentInChildren<TMP_Text>();
+
+        loadingObject = GameObject.FindGameObjectWithTag("Loading");
+
+        selectMsg = selectObject.GetComponentInChildren<TMP_Text>();
+        selectOkBtn = selectObject.GetComponentInChildren<Button>();
+        selectCancelBtn = selectObject.GetComponentsInChildren<Button>()[1];
+
+        var fade = GameObject.FindGameObjectWithTag("Fade");
+        if (fade != null)
+        {
+            fadeObject = fade.GetComponent<FadeAnimation>();
+        }
+
+        recordObject.SetActive(true);
+
+        matchInfotabList = tabObject.GetComponentsInChildren<TabUI>();
+        matchRecordTabList = recordObject.GetComponentsInChildren<TabUI>();
+        
     }
 
     public static LobbyUI GetInstance()
@@ -70,31 +96,8 @@ public partial class LobbyUI : MonoBehaviour
 
     void Start()
     {
-        if (BackendMatchManager.GetInstance() != null)
-        {
-            SetNickName();
-        }
-
-        errorText = errorObject.GetComponentInChildren<Text>();
-
-        loadingObject = GameObject.FindGameObjectWithTag("Loading");
-
-        selectMsg = selectObject.GetComponentInChildren<Text>();
-        selectOkBtn = selectObject.GetComponentInChildren<Button>();
-        selectCancelBtn = selectObject.GetComponentsInChildren<Button>()[1];
-
-        var fade = GameObject.FindGameObjectWithTag("Fade");
-        if (fade != null)
-        {
-            fadeObject = fade.GetComponent<FadeAnimation>();
-        }
-
-        recordObject.SetActive(true);
-
-        matchInfotabList = tabObject.GetComponentsInChildren<TabUI>();
-        matchRecordTabList = recordObject.GetComponentsInChildren<TabUI>();
         int index = 0;
-        foreach (var info in BackendMatchManager.GetInstance().matchInfos)
+        foreach (var info in BackEndMatchManager.GetInstance().matchInfos)
         {
             matchInfotabList[index].SetTabText(info.title);
             matchInfotabList[index].index = index;
@@ -103,7 +106,7 @@ public partial class LobbyUI : MonoBehaviour
             index += 1;
         }
 
-        for (int i = BackendMatchManager.GetInstance().matchInfos.Count; i < matchInfotabList.Length; ++i)
+        for (int i = BackEndMatchManager.GetInstance().matchInfos.Count; i < matchInfotabList.Length; ++i)
         {
             matchInfotabList[i].gameObject.SetActive(false);
             matchRecordTabList[i].gameObject.SetActive(false);
@@ -124,13 +127,13 @@ public partial class LobbyUI : MonoBehaviour
 
     private void SetNickName()
     {
-        var name = BackendServerManager.GetInstance().myNickName;
+        var name = BackEndServerManager.GetInstance().myNickName;
         if (name.Equals(string.Empty))
         {
             Debug.LogError("닉네임 불러오기 실패");
             name = "test123";
         }
-        Text nickname = nickNameObject.GetComponent<Text>();
+        TMP_Text nickname = nickNameObject.GetComponent<TMP_Text>();
         RectTransform rect = nickNameObject.GetComponent<RectTransform>();
 
         nickname.text = name;
@@ -143,7 +146,7 @@ public partial class LobbyUI : MonoBehaviour
         {
             return;
         }
-        BackendMatchManager.GetInstance().CancelRegistMatchMaking();
+        BackEndMatchManager.GetInstance().CancelRegistMatchMaking();
     }
 
     public void MatchRequestCallback(bool result)
@@ -197,79 +200,82 @@ public partial class LobbyUI : MonoBehaviour
 
     public void GetGameRecord()
     {
-        loadingObject.SetActive(true);
-
-        int index = -1;
-        foreach (var tab in matchRecordTabList)
+        if(matchRecordTabList != null)
         {
-            if (tab.IsOn() == true)
+            loadingObject.SetActive(true);
+
+            int index = -1;
+            foreach (var tab in matchRecordTabList)
             {
-                index = tab.index;
-                break;
+                if (tab.IsOn() == true)
+                {
+                    index = tab.index;
+                    break;
+                }
             }
-        }
 
-        if (index < 0)
-        {
-            Debug.Log("활성화된 탭이 없습니다.");
-            return;
-        }
-
-        BackendMatchManager.GetInstance().GetMyMatchRecord(index, (MatchRecord record, bool isSuccess) =>
-        {
-            Dispatcher.Current.BeginInvoke(() =>
+            if (index < 0)
             {
-                loadingObject.SetActive(false);
-                recordObject.SetActive(true);
+                Debug.Log("활성화된 탭이 없습니다.");
+                return;
+            }
 
-                if (fillWinChart != null)
+            BackEndMatchManager.GetInstance().GetMyMatchRecord(index, (MatchRecord record, bool isSuccess) =>
+            {
+                Dispatcher.Current.BeginInvoke(() =>
                 {
-                    StopCoroutine(fillWinChart);
-                }
-                if (fillLoseChart != null)
-                {
-                    StopCoroutine(fillLoseChart);
-                }
-                if (countingWinRate != null)
-                {
-                    StopCoroutine(countingWinRate);
-                }
+                    loadingObject.SetActive(false);
+                    recordObject.SetActive(true);
 
-                recordContent[0].text = record.matchTitle;
-                recordContent[2].text = record.matchType.ToString();
-                recordContent[3].text = record.modeType.ToString();
+                    if (fillWinChart != null)
+                    {
+                        StopCoroutine(fillWinChart);
+                    }
+                    if (fillLoseChart != null)
+                    {
+                        StopCoroutine(fillLoseChart);
+                    }
+                    if (countingWinRate != null)
+                    {
+                        StopCoroutine(countingWinRate);
+                    }
 
-                recordContent[1].text = "0%";
-                recordContent[4].text = "-";
-                recordContent[5].text = "0";
-                recordContent[6].text = "0";
+                    recordContent[0].text = record.matchTitle;
+                    recordContent[2].text = record.matchType.ToString();
+                    recordContent[3].text = record.modeType.ToString();
 
-                recordChart[0].fillAmount = (float)0;
-                recordChart[1].fillAmount = 0;
+                    recordContent[1].text = "0%";
+                    recordContent[4].text = "-";
+                    recordContent[5].text = "0";
+                    recordContent[6].text = "0";
 
-                if (isSuccess == false)
-                {
-                    // 조회 실패
-                    SetErrorObject("매칭 기록 조회에 실패하였습니다.\n\n잠시 후 다시 시도해주세요.");
-                    return;
-                }
+                    recordChart[0].fillAmount = (float)0;
+                    recordChart[1].fillAmount = 0;
 
-                if (record.win == -1)
-                {
-                    // 매칭 기록이 없음
-                    SetErrorObject("매칭 기록이 존재하지 않습니다.\n\n해당 매칭을 먼저 시도해주세요.");
-                    return;
-                }
+                    if (isSuccess == false)
+                    {
+                        // 조회 실패
+                        SetErrorObject("매칭 기록 조회에 실패하였습니다.\n\n잠시 후 다시 시도해주세요.");
+                        return;
+                    }
 
-                recordContent[4].text = record.score;
-                recordContent[5].text = record.win.ToString();
-                recordContent[6].text = (record.numOfMatch - record.win).ToString();
-                float winRate = (float)record.win / record.numOfMatch;
-                fillWinChart = StartCoroutine(FillPieChart(recordChart[0], winRate));
-                fillLoseChart = StartCoroutine(FillPieChart(recordChart[1], 1 - winRate));
-                countingWinRate = StartCoroutine(FillWinRate((int)record.winRate));
+                    if (record.win == -1)
+                    {
+                        // 매칭 기록이 없음
+                        SetErrorObject("매칭 기록이 존재하지 않습니다.\n\n해당 매칭을 먼저 시도해주세요.");
+                        return;
+                    }
+
+                    recordContent[4].text = record.score;
+                    recordContent[5].text = record.win.ToString();
+                    recordContent[6].text = (record.numOfMatch - record.win).ToString();
+                    float winRate = (float)record.win / record.numOfMatch;
+                    fillWinChart = StartCoroutine(FillPieChart(recordChart[0], winRate));
+                    fillLoseChart = StartCoroutine(FillPieChart(recordChart[1], 1 - winRate));
+                    countingWinRate = StartCoroutine(FillWinRate((int)record.winRate));
+                });
             });
-        });
+        }
     }
 
     public void SetErrorObject(string error)
@@ -295,33 +301,38 @@ public partial class LobbyUI : MonoBehaviour
 
     public void ReconnectInGameProcess()
     {
-        var tmp = matchDoneObject.GetComponentInChildren<Text>();
+        var tmp = matchDoneObject.GetComponentInChildren<TMP_Text>();
         tmp.text = "재접속 중...";
         modelObject.SetActive(false);
         MatchDoneCallback();
 
-        BackendMatchManager.GetInstance().ProcessReconnect();
+        BackEndMatchManager.GetInstance().ProcessReconnect();
     }
 
     public void JoinMatchProcess()
     {
-        BackendMatchManager.GetInstance().JoinMatchServer();
+        BackEndMatchManager.GetInstance().JoinMatchServer();
     }
 
     public void ChangeTab()
     {
-        int index = 0;
-        foreach (var tab in matchInfotabList)
+        
+        if (matchInfotabList != null)
         {
-            if (tab.IsOn() == true)
+            int index = 0;
+            foreach (var tab in matchInfotabList) //matchInfotabList 이걸 못 받아 오는중
             {
-                break;
+                if (tab.IsOn() == true)
+                {
+                    break;
+                }
+                index += 1;
             }
-            index += 1;
+            var matchInfo = BackEndMatchManager.GetInstance().matchInfos[index]; 
+            matchInfoText.text = string.Format(matchInfoStr, matchInfo.headCount, matchInfo.isSandBoxEnable.Equals(true) ? "활성화" : "비활성화",
+                matchInfo.matchType, matchInfo.matchModeType);
         }
-        var matchInfo = BackendMatchManager.GetInstance().matchInfos[index];
-        matchInfoText.text = string.Format(matchInfoStr, matchInfo.headCount, matchInfo.isSandBoxEnable.Equals(true) ? "활성화" : "비활성화",
-            matchInfo.matchType, matchInfo.matchModeType);
+
     }
 
     public IEnumerator FillPieChart(Image chart, float value)
