@@ -35,7 +35,8 @@ public class RandomBox : MonoBehaviour
                 space.full = true;
                 spaceTransform = space.equipmentSpace;
 
-                equipment.equipmentData.InputChest(spaceTransform);
+                //equipment.equipmentData.InputChest(spaceTransform);
+                ArenaManager.Instance.fm[0].chest.CurveMove(equipmentGameObject.transform, spaceTransform);
 
                 Destroy(gameObject);
                 break;
