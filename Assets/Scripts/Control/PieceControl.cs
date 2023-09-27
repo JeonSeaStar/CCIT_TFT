@@ -35,7 +35,7 @@ public class PieceControl : MonoBehaviour
         fm.ActiveHexaIndicators(true);
         if (ArenaManager.Instance.roundType == RoundType.Ready) return;
         fm.grab = true;
-        fm.controlPiece = this.ControlPiece;
+        fm.controlPiece = ControlPiece;
 
         if (pieceRigidbody != null) pieceRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
     }
@@ -75,16 +75,12 @@ public class PieceControl : MonoBehaviour
 
         if (fm.isDrag) //라운드 변경시 드래그 중이던 기물이 있었는지 확인
         {
-            fm.isDrag = false;
-            fm.grab = false;
-            fm.controlPiece = null;
+            ResetDragState();
             return;
         }
 
         var currentRound = ArenaManager.Instance.roundType;
         if(currentRound != RoundType.Deployment && currentRound != RoundType.Battle) return;
-
-        //if (ArenaManager.instance.roundType == RoundType.Battle && !currentTile.isReadyTile) return; //전투 라운드에 전투 기물 이동 금지
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -93,21 +89,23 @@ public class PieceControl : MonoBehaviour
             if(hit.transform.gameObject.layer == 8) //Plane
             {
                 targetTile = null;
-                transform.position = new Vector3(currentTile.transform.position.x, 0, currentTile.transform.position.z);
+                ResetPositionToCurrentTile();
                 return;
             }
-            if (currentRound == RoundType.Battle && hit.transform.gameObject.GetComponent<Tile>().isReadyTile == false)
+
+            var _targetTileInfo = hit.transform.gameObject.GetComponent<Tile>();
+            if (currentRound == RoundType.Battle && _targetTileInfo.isReadyTile == false)
             {
-                transform.position = new Vector3(currentTile.transform.position.x, 0, currentTile.transform.position.z);
+                ResetPositionToCurrentTile();
                 return;
             }
-            targetTile = hit.transform.gameObject.GetComponent<Tile>();
+            targetTile = _targetTileInfo;
         }
         else return;
 
         if (currentTile == targetTile)
         {
-            transform.position = new Vector3(currentTile.transform.position.x, 0, currentTile.transform.position.z);
+            ResetPositionToCurrentTile();
         }
         else if (currentTile != targetTile)
         {
@@ -115,7 +113,7 @@ public class PieceControl : MonoBehaviour
             if (targetTile.isFull == true) 
             {
                 // 시너지 계산
-                ControlPiece.SetPiece(this.controlPiece, targetTile.piece.GetComponent<Piece>());
+                ControlPiece.SetPiece(ControlPiece, targetTile.piece.GetComponent<Piece>());
                 
                 // 기물 위치 이동
                 ChangeTileTransform(currentTile, targetTile);
@@ -130,7 +128,7 @@ public class PieceControl : MonoBehaviour
             else if (targetTile.isFull == false) 
             {
                 // 시너지 계산
-                ControlPiece.SetPiece(this.ControlPiece);
+                ControlPiece.SetPiece(ControlPiece);
 
                 // Piece Tile 정보 교환
                 ChangeTileInfo(currentTile, targetTile, targetTile.isFull);
@@ -147,29 +145,34 @@ public class PieceControl : MonoBehaviour
         if (pieceRigidbody != null) pieceRigidbody.constraints = RigidbodyConstraints.None;
     }
 
+    private void ResetDragState()
+    {
+        fm.isDrag = false;
+        fm.grab = false;
+        fm.controlPiece = null;
+    }
+
+    private void ResetPositionToCurrentTile()
+    {
+        transform.position = new Vector3(currentTile.transform.position.x, 0, currentTile.transform.position.z);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (ArenaManager.Instance.roundType == RoundType.Deployment)
+        if (ArenaManager.Instance.roundType == RoundType.Deployment && other.gameObject.layer == 7)
         {
-            if (other.gameObject.layer == 7)
+            if (currentTile == null)
             {
-                if (currentTile == null)
-                {
-                    currentTile = other.gameObject.GetComponent<Tile>();
-                    targetTile = currentTile;
-                }
-                //targetTile = other.gameObject.GetComponent<Tile>();
+                currentTile = other.gameObject.GetComponent<Tile>();
+                targetTile = currentTile;
             }
         }
-        if(ArenaManager.Instance.roundType == RoundType.Battle)
+        if(ArenaManager.Instance.roundType == RoundType.Battle && other.gameObject.layer == 7)
         {
-            if (other.gameObject.layer == 7)
+            var tileComponent = other.gameObject.GetComponent<Tile>();
+            if (tileComponent.isReadyTile == true)
             {
-                var tileComponent = other.gameObject.GetComponent<Tile>().isReadyTile;
-                if (tileComponent == true)
-                {
-                    targetTile = other.gameObject.GetComponent<Tile>();
-                }
+                targetTile = tileComponent;
             }
         }
     }
