@@ -25,7 +25,7 @@ public class RandomBox : MonoBehaviour
 
         Transform spaceTransform = null;
 
-        foreach (var space in ArenaManager.Instance.fm[0].chest.itemChest)
+        foreach (var space in ArenaManager.Instance.fieldManagers[0].chest.itemChest)
         {
             if (!space.full)
             {

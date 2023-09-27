@@ -61,7 +61,7 @@ public class FieldManager : MonoBehaviour
 
     void Awake()
     {
-        Synerge._fm = this;
+        Synerge.fieldManager = this;
 
         //for test
         //var testa = GameObject.Instantiate(aa);
@@ -94,30 +94,7 @@ public class FieldManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.B))
         {
             ArenaManager.Instance.roundType = RoundType.Battle;
-            if (DualPlayers[0].isGrab)
-            {
-                DualPlayers[0].isDrag = true;
-                object _controlObject = (DualPlayers[0].ControlPiece != null) ? DualPlayers[0].ControlPiece : DualPlayers[0].ControlEquipment;
-
-                Piece _pieceControl = _controlObject as Piece;
-                if (_pieceControl != null)
-                {
-                    var _transform = _pieceControl.currentTile.transform;
-                    _pieceControl.transform.position = new Vector3(_transform.position.x, 0, _transform.position.z);
-                    return;
-                }
-
-                Equipment _equipmentControl = _controlObject as Equipment;
-                if(_equipmentControl != null)
-                {
-                    _pieceControl.transform.position = new Vector3(_equipmentControl.originPos.x, 0, _equipmentControl.originPos.z);
-                    return;
-                }
-            }
-                foreach (var test in myFilePieceList)
-            {
-                test.ExpeditionTileCheck();
-            }
+            InitializingRound();
         }
         if (Input.GetKeyDown(KeyCode.R) && ArenaManager.Instance.roundType == RoundType.Battle)
         {
@@ -198,7 +175,7 @@ public class FieldManager : MonoBehaviour
         int _animalCount = animalActiveCount[plus.pieceData.animal];
         int _unitedCount = unitedActiveCount[plus.pieceData.united];
 
-        bool check = plus.GetComponent<PieceControl>().currentTile.isReadyTile;
+        bool check = plus.currentTile.isReadyTile;
 
         if (minus == null) //Set Piece
         {
@@ -560,13 +537,26 @@ public class FieldManager : MonoBehaviour
         if (DualPlayers[0].isGrab)
         {
             DualPlayers[0].isDrag = true;
-            var _transform = controlPiece.GetComponent<PieceControl>().currentTile.transform;
-            controlPiece.transform.position = new Vector3(_transform.position.x, 0, _transform.position.z);
+            object _controlObject = (DualPlayers[0].ControlPiece != null) ? DualPlayers[0].ControlPiece : DualPlayers[0].ControlEquipment;
 
-            for (int i = 0; i < battleFieldHexaIndicators.Length; i++)
+            Piece _pieceControl = _controlObject as Piece;
+            if (_pieceControl != null)
             {
-                battleFieldHexaIndicators[i].SetActive(false);
+                var _transform = _pieceControl.currentTile.transform;
+                _pieceControl.transform.position = new Vector3(_transform.position.x, 0, _transform.position.z);
+                return;
             }
+
+            Equipment _equipmentControl = _controlObject as Equipment;
+            if (_equipmentControl != null)
+            {
+                _equipmentControl.transform.position = new Vector3(_equipmentControl.originalPosition.x, 0, _equipmentControl.originalPosition.z);
+                return;
+            }
+        }
+        foreach (var test in myFilePieceList)
+        {
+            test.ExpeditionTileCheck();
         }
     }
 

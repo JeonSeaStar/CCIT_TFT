@@ -24,7 +24,7 @@ public class ArenaManager : MonoBehaviour
         }
     }
 
-    public List<FieldManager> fm;
+    public List<FieldManager> fieldManagers;
     public enum RoundType
     {
         None = -1,
@@ -64,7 +64,7 @@ public class ArenaManager : MonoBehaviour
 
         if(_restTime == 0)
         {
-            fm[0].InitializingRound();
+            fieldManagers[0].InitializingRound();
             switch (roundType)
             {
                 case RoundType.Deployment:
@@ -87,7 +87,7 @@ public class ArenaManager : MonoBehaviour
                     }
                     yield break;
                 case RoundType.Battle:
-                    if(fm[0].myFilePieceList.Count > 0 && fm[0].enemyFilePieceList.Count > 0)
+                    if(fieldManagers[0].myFilePieceList.Count > 0 && fieldManagers[0].enemyFilePieceList.Count > 0)
                         roundType = RoundType.Overtime;
                     yield break;
                 case RoundType.Overtime:
