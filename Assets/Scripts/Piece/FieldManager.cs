@@ -94,9 +94,27 @@ public class FieldManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.B))
         {
             ArenaManager.Instance.roundType = RoundType.Battle;
-            InitializingRound();
+            if (DualPlayers[0].isGrab)
+            {
+                DualPlayers[0].isDrag = true;
+                object _controlObject = (DualPlayers[0].ControlPiece != null) ? DualPlayers[0].ControlPiece : DualPlayers[0].ControlEquipment;
 
-            foreach(var test in myFilePieceList)
+                Piece _pieceControl = _controlObject as Piece;
+                if (_pieceControl != null)
+                {
+                    var _transform = _pieceControl.currentTile.transform;
+                    _pieceControl.transform.position = new Vector3(_transform.position.x, 0, _transform.position.z);
+                    return;
+                }
+
+                Equipment _equipmentControl = _controlObject as Equipment;
+                if(_equipmentControl != null)
+                {
+                    _pieceControl.transform.position = new Vector3(_equipmentControl.originPos.x, 0, _equipmentControl.originPos.z);
+                    return;
+                }
+            }
+                foreach (var test in myFilePieceList)
             {
                 test.ExpeditionTileCheck();
             }
@@ -104,7 +122,7 @@ public class FieldManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R) && ArenaManager.Instance.roundType == RoundType.Battle)
         {
             ArenaManager.Instance.roundType = RoundType.Ready;
-            InitializingRound();
+            //InitializingRound();
         }
 
     }
@@ -539,9 +557,9 @@ public class FieldManager : MonoBehaviour
 
     public void InitializingRound()
     {
-        if (grab)
+        if (DualPlayers[0].isGrab)
         {
-            isDrag = true;
+            DualPlayers[0].isDrag = true;
             var _transform = controlPiece.GetComponent<PieceControl>().currentTile.transform;
             controlPiece.transform.position = new Vector3(_transform.position.x, 0, _transform.position.z);
 
@@ -610,7 +628,7 @@ public class FieldManager : MonoBehaviour
         piece.currentTile = targetTile;
         piece.grade = grade;
 
-        targetTile.isFull = true;
+        targetTile.IsFull = true;
 
         //나중에 지울 거
         piece.pieceData = pieceData;
@@ -727,7 +745,7 @@ public class FieldManager : MonoBehaviour
 
     public void DestroyPiece(Piece piece, Tile targetTile)
     {
-        targetTile.isFull = false;
+        targetTile.IsFull = false;
         CheckPieceKind(piece.pieceData);
         Destroy(piece.gameObject);
     }
@@ -748,7 +766,7 @@ public class FieldManager : MonoBehaviour
     {
         foreach (Tile tileObject in tileArray)
         {
-            if (!tileObject.isFull)
+            if (!tileObject.IsFull)
             {
                 tile = tileObject;
                 break;

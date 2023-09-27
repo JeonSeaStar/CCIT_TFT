@@ -122,6 +122,7 @@ public class Piece : MonoBehaviour
     public List<CandidatePath> candidatePath;
     public List<Tile> path;
     public Tile currentTile;
+    public Tile targetTile;
     public Piece target;
     public float moveSpeed;
 
@@ -189,7 +190,7 @@ public class Piece : MonoBehaviour
     {
         GameObject box = Instantiate(randomBoxObject, transform.position, Quaternion.identity);
         RandomBox randomBox = box.GetComponent<RandomBox>();
-        ArenaManager.instance.fm[0].chest.CurveMove(randomBox.transform, fieldManager.targetPositions);
+        ArenaManager.Instance.fm[0].chest.CurveMove(randomBox.transform, fieldManager.targetPositions);
     }
 
     //ÀÌµ¿
@@ -198,7 +199,7 @@ public class Piece : MonoBehaviour
         if (path.Count > 0 && canMove)
         {
             canMove = false;
-            if (path[0].isFull)
+            if (path[0].IsFull)
             {
                 Invoke("NextBehavior", moveSpeed);
                 return;
@@ -206,9 +207,9 @@ public class Piece : MonoBehaviour
 
             Vector3 targetTilePos = new Vector3(path[0].transform.position.x, transform.position.y, path[0].transform.position.z);
             transform.DOMove(targetTilePos, moveSpeed).SetEase(ease);
-            currentTile.isFull = false;
+            currentTile.IsFull = false;
             currentTile = path[0];
-            currentTile.isFull = true;
+            currentTile.IsFull = true;
             PieceControl pc = GetComponent<PieceControl>();
             pc.currentTile = path[0];
             path.RemoveAt(0);

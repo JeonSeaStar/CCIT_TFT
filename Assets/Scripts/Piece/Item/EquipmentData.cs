@@ -27,8 +27,8 @@ public class EquipmentData : ScriptableObject
 
     public void InitialzePiece(Equipment equipment)
     {
-        equipment.pieceName = pieceName;
-        equipment.piecePortrait = piecePortrait;
+        equipment.equipmentName = pieceName;
+        equipment.equipmentPortrait = piecePortrait;
         equipment.health = health;
         equipment.mana = mana;
         equipment.attackDamage = attackDamage;

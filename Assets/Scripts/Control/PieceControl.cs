@@ -110,7 +110,7 @@ public class PieceControl : MonoBehaviour
         else if (currentTile != targetTile)
         {
             // 이미 해당 타일에 기물이 존재하는 경우
-            if (targetTile.isFull == true) 
+            if (targetTile.IsFull == true) 
             {
                 // 시너지 계산
                 ControlPiece.SetPiece(ControlPiece, targetTile.piece.GetComponent<Piece>());
@@ -119,19 +119,19 @@ public class PieceControl : MonoBehaviour
                 ChangeTileTransform(currentTile, targetTile);
                 
                 // Piece Tile 정보 교환
-                ChangeTileInfo(currentTile, targetTile, targetTile.isFull);
+                ChangeTileInfo(currentTile, targetTile, targetTile.IsFull);
               
                 ControlPiece.currentTile = targetTile.GetComponent<Tile>();
                 targetTile.piece.GetComponent<Piece>().currentTile = currentTile.GetComponent<Tile>();
             }
             // 해당 타일에 기물이 없는 경우
-            else if (targetTile.isFull == false) 
+            else if (targetTile.IsFull == false) 
             {
                 // 시너지 계산
                 ControlPiece.SetPiece(ControlPiece);
 
                 // Piece Tile 정보 교환
-                ChangeTileInfo(currentTile, targetTile, targetTile.isFull);
+                ChangeTileInfo(currentTile, targetTile, targetTile.IsFull);
 
                 // 기물 위치 이동
                 ChangeTileTransform(targetTile);
@@ -217,8 +217,8 @@ public class PieceControl : MonoBehaviour
         }
         else if(!isfull)
         {
-            current.isFull = false; 
-            target.isFull = true;
+            current.IsFull = false; 
+            target.IsFull = true;
             currentTile.piece = null; 
             targetTile.piece = this.gameObject;
         }
