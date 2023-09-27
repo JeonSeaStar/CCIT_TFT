@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EquipmentData", menuName = "Scriptable Object/EquipmentData", order = int.MaxValue)]
 public class EquipmentData : ScriptableObject
 {
-    public FieldManager fieldManager;
+    public Chest.EquipmentType equipmentType;
 
     public string pieceName;
     public Sprite piecePortrait;
@@ -39,13 +39,5 @@ public class EquipmentData : ScriptableObject
         equipment.criticalChance = criticalChance;
         equipment.criticalDamage = criticalDamage;
         equipment.attackRange = attackRange;
-    }
-
-
-    void Awake() => fieldManager = ArenaManager.Instance.fm[0];
-
-    public void InputChest(Transform spaceTransform)
-    {
-        //transform.DoMove(spaceTransform, 2f);
     }
 }

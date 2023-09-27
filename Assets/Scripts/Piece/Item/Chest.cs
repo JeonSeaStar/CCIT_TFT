@@ -16,6 +16,7 @@ public class Chest : MonoBehaviour
 
     public enum Grade { NONE, COMMON, UNCOMMON }
     public enum BoxType { NONE, MONEY, EQUIPMENT, BOTH }
+    public enum EquipmentType { NONE, SUB, HIGH, ENCHANT }
 
     [SerializeField] List<EquipmentData> equipmentList;
 
@@ -45,6 +46,23 @@ public class Chest : MonoBehaviour
     [SerializeField] List<MoneyRange> moneyRange;
     public float height = 1;
 
+    [System.Serializable]
+    public class EquipmentCombination
+    {
+        public EquipmentData subEquipmentData;
+        public EquipmentData resultEquipmentData;
+    }
+
+    [System.Serializable]
+    public class EquipmentCombinationTable
+    {
+        public EquipmentData mainEquipmentData;
+        public List<EquipmentCombination> combinationTable;
+    }
+
+    public List<EquipmentCombinationTable> equipmentCombinationTable;
+
+    #region 박스 확률
     bool Drawing(float x)
     {
         float drawing = Random.Range(0, 100);
@@ -84,7 +102,7 @@ public class Chest : MonoBehaviour
         return money;
     }
 
-    void SetBoxContents(RandomBox randomBox, int stage)
+    public void SetBoxContents(RandomBox randomBox, int stage)
     {
         //박스 등급
         if (Drawing(boxGradeProbability[stage].commonProbability))
@@ -103,7 +121,14 @@ public class Chest : MonoBehaviour
         else if (randomBox.boxType == BoxType.EQUIPMENT || randomBox.boxType == BoxType.BOTH)
             randomBox.equipmentData = GetEquipmentData();
     }
+    #endregion
+    
+    public void EquipmentCheck(List<EquipmentData> equipmentDataList)
+    {
 
+    }
+
+    #region 이동
     public void CurveMove(Transform boxTransform, List<Transform> targetPositions)
     {
         Vector3 startPosition = boxTransform.localPosition;
@@ -113,4 +138,14 @@ public class Chest : MonoBehaviour
 
         boxTransform.DOPath(new[] { highPointPosition, startPosition, highPointPosition, targetPosition, highPointPosition, targetPosition }, 1, PathType.CubicBezier).SetEase(Ease.Linear);
     }
+
+    public void CurveMove(Transform boxTransform, Transform targetTransform)
+    {
+        Vector3 startPosition = boxTransform.localPosition;
+        Vector3 targetPosition = targetTransform.position;
+        Vector3 highPointPosition = new Vector3(startPosition.x + (targetPosition.x - startPosition.x) / 2, startPosition.y + height, startPosition.z + (targetPosition.z - startPosition.z) / 2);
+
+        boxTransform.DOPath(new[] { highPointPosition, startPosition, highPointPosition, targetPosition, highPointPosition, targetPosition }, 1, PathType.CubicBezier).SetEase(Ease.Linear);
+    }
+    #endregion
 }

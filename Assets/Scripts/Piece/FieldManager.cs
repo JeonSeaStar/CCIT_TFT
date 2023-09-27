@@ -27,6 +27,8 @@ public class FieldManager : MonoBehaviour
     public bool grab, isDrag = false;
     public Piece controlPiece;
 
+    public float groundHeight;
+
     public Dictionary<PieceData.Myth, int> mythActiveCount = new Dictionary<PieceData.Myth, int>()
     {
         { PieceData.Myth.None                   ,0 },
@@ -605,7 +607,8 @@ public class FieldManager : MonoBehaviour
 
     public void SpawnPiece(PieceData pieceData, int grade, Tile targetTile)
     {
-        GameObject pieceObject = Instantiate(pieceData.piecePrefab, targetTile.transform.position, Quaternion.Euler(-90, 180, 0));
+        Vector3 targetPosition = new Vector3(targetTile.transform.position.x, groundHeight, targetTile.transform.position.z);
+        GameObject pieceObject = Instantiate(pieceData.piecePrefab, targetTile.transform.position, Quaternion.Euler(0, 0, 0));
         Piece piece = pieceObject.GetComponent<Piece>();
         piece.currentTile = targetTile;
         piece.grade = grade;
