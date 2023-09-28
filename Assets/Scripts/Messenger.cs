@@ -52,7 +52,7 @@ public class Messenger : MonoBehaviour
         if (ArenaManager.Instance.roundType == ArenaManager.RoundType.Deployment || ArenaManager.Instance.roundType == ArenaManager.RoundType.Battle)
         {
             if (Input.GetMouseButtonDown(0) && owned) Targeting();
-            if (Input.GetMouseButton(0) && isGrab && owned) Dragging();
+            if (Input.GetMouseButton(0) && isGrab && !isDrag &&owned) Dragging();
             if (Input.GetMouseButtonUp(0) && isGrab && owned) EndDrag();
         }
 
@@ -129,15 +129,43 @@ public class Messenger : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, (-1) - (1 << 6)) && hit.transform.gameObject.layer == 7)
             {
                 var _currentRound = ArenaManager.Instance.roundType;
-                Tile _currentTileInfo = controlPiece.currentTile; 
-                Tile _targetTileInfo = hit.transform.gameObject.GetComponent<Tile>();
+                Tile _currentTileInformation = controlPiece.currentTile; 
+                Tile _targetTileInformation = hit.transform.gameObject.GetComponent<Tile>();
+                controlPiece.targetTile = _targetTileInformation;
                 if (_currentRound == ArenaManager.RoundType.Battle && controlPiece.currentTile.isReadyTile == false) ResetPositionToCurrentTile(controlPiece);
                 else
                 {
-                    if (_currentTileInfo != _targetTileInfo)
+                    if (_currentTileInformation != _targetTileInformation)
                     {
-                        //if(_targetTileInfo.is)
+                        if (_targetTileInformation.IsFull == false)
+                        {
+                            controlPiece.SetPiece(controlPiece);
+                            ChangeTileTransform(controlPiece, controlPiece.targetTile);
+                            controlPiece.currentTile = controlPiece.targetTile;
+                            //Piece
+                            _currentTileInformation.piece = null;
+                            _currentTileInformation.IsFull = false;
+                            _targetTileInformation.piece = controlPiece.gameObject;
+                            _targetTileInformation.IsFull = true;
+                        }
+                        else
+                        {
+                            controlPiece.SetPiece(controlPiece, controlPiece.targetTile.piece);
+                            var _targetPieceInformation = _targetTileInformation.piece.GetComponent<Piece>();
+                            ChangeTileTransform(controlPiece, controlPiece.targetTile);
+                            ChangeTileTransform(_targetPieceInformation, controlPiece.currentTile);
+                            //Piece
+                            _currentTileInformation.piece = _targetTileInformation.piece;
+                            _targetTileInformation.piece = controlPiece.gameObject;
+                            //Tile
+                            _targetPieceInformation.currentTile = controlPiece.currentTile;
+                            _targetPieceInformation.targetTile = controlPiece.currentTile;
+                            controlPiece.currentTile = controlPiece.targetTile;
+                        }
                     }
+                    ResetDragState(false);
+                    fieldManager.ActiveHexaIndicators(false);
+                    return;
                 }
             }
             ResetPositionToCurrentTile(controlPiece);
@@ -147,12 +175,16 @@ public class Messenger : MonoBehaviour
         controlEquipment = _controlObject as Equipment;
         if (controlEquipment != null)
         {
-
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, (-1) - (1 << 10)))
+            {
+                if (hit.transform.gameObject.layer == 6)
+                {
+                    //
+                }
+            }
             return;
         }
-
-        ResetDragState(false);
-        fieldManager.ActiveHexaIndicators(false);
     }
 
     void ResetDragState(bool isDragState)
@@ -167,13 +199,18 @@ public class Messenger : MonoBehaviour
 
     void FreezeRigidbody(Piece piece,bool isFreeze)
     {
-        if (isFreeze) { Debug.Log(piece.transform.gameObject.name); piece.transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation; }
+        if (isFreeze) { piece.transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation; }
         else if (!isFreeze) piece.transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
     }
 
     private void ResetPositionToCurrentTile(Piece piece)
     {
-        transform.position = new Vector3(piece.currentTile.transform.position.x, 0, piece.currentTile.transform.position.z);
+        controlPiece.transform.position = new Vector3(piece.currentTile.transform.position.x, 0, piece.currentTile.transform.position.z);
+    }
+
+    void ChangeTileTransform(Piece piece, Tile target)
+    {
+        piece.transform.position = new Vector3(target.transform.position.x, 0, target.transform.position.z);
     }
 
     //ÀÌµ¿ ÁÂÇ¥

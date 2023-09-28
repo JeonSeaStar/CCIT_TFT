@@ -130,13 +130,13 @@ public class Piece : MonoBehaviour
     public Ease ease;
 
     [SerializeField] GameObject randomBoxObject;
-    [Header("ExpeditionTile Info")]
+    [Header("ExpeditionTile Information")]
     public Tile expeditionTile;
 
-    void Start()
+    void Awake()
     {
         pieceData.InitialzePiece(this);
-        fieldManager = ArenaManager.Instance.fm[0];
+        fieldManager = ArenaManager.Instance.fieldManagers[0];
     }
 
     public void Owned()
@@ -161,7 +161,7 @@ public class Piece : MonoBehaviour
 
     protected bool RangeCheck()
     {
-        if (defaultAttackRange >= ArenaManager.Instance.fm[0].pathFinding.GetDistance(currentTile, target.currentTile))
+        if (defaultAttackRange >= ArenaManager.Instance.fieldManagers[0].pathFinding.GetDistance(currentTile, target.currentTile))
             return true;
         else
             return false;
@@ -190,8 +190,7 @@ public class Piece : MonoBehaviour
     {
         GameObject box = Instantiate(randomBoxObject, transform.position, Quaternion.identity);
         RandomBox randomBox = box.GetComponent<RandomBox>();
-        ArenaManager.Instance.fm[0].chest.CurveMove(randomBox.transform, fieldManager.targetPositions);
-        ArenaManager.Instance.fm[0].chest.SetBoxContents(randomBox, 0);
+        ArenaManager.Instance.fieldManagers[0].chest.CurveMove(randomBox.transform, fieldManager.targetPositions);
     }
 
     //¿Ãµø
@@ -222,11 +221,11 @@ public class Piece : MonoBehaviour
 
     public void NextBehavior()
     {
-        if (CheckEnemySurvival(ArenaManager.Instance.fm[0].enemyFilePieceList))
+        if (CheckEnemySurvival(ArenaManager.Instance.fieldManagers[0].enemyFilePieceList))
         {
-            foreach (var enemy in ArenaManager.Instance.fm[0].enemyFilePieceList)
+            foreach (var enemy in ArenaManager.Instance.fieldManagers[0].enemyFilePieceList)
                 enemy.currentTile.walkable = true;
-            ArenaManager.Instance.fm[0].pathFinding.SetCandidatePath(this, ArenaManager.Instance.fm[0].enemyFilePieceList);
+            ArenaManager.Instance.fieldManagers[0].pathFinding.SetCandidatePath(this, ArenaManager.Instance.fieldManagers[0].enemyFilePieceList);
 
             if (target != null)
             {
@@ -266,16 +265,14 @@ public class Piece : MonoBehaviour
 
     public void SetPiece(Piece currentPiece, bool isControlPiece = false)
     {
-        var _currentPiece = currentPiece.GetComponent<PieceControl>();
-
-        if (_currentPiece.currentTile.isReadyTile == true && _currentPiece.targetTile.isReadyTile == false)
+        if (currentPiece.currentTile.isReadyTile == true && currentPiece.targetTile.isReadyTile == false)
         {
             var _duplicationCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
             if (_duplicationCheck == null) fieldManager.SynergeIncrease(currentPiece);
             fieldManager.myFilePieceList.Add(currentPiece);
             fieldManager.CalSynerge(currentPiece);
         } // Set Ready -> Battle
-        else if (_currentPiece.currentTile.isReadyTile == false && _currentPiece.targetTile.isReadyTile == true)
+        else if (currentPiece.currentTile.isReadyTile == false && currentPiece.targetTile.isReadyTile == true)
         {
             fieldManager.myFilePieceList.Remove(currentPiece);
             var _duplicationCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
@@ -285,12 +282,9 @@ public class Piece : MonoBehaviour
 
     public void SetPiece(Piece currentPiece, Piece targetPiece, bool isControlPiece = false)
     {
-        var _currentPiece = currentPiece.GetComponent<PieceControl>();
-        var _targetPiece = targetPiece.GetComponent<PieceControl>();
-
-        if (_currentPiece.currentTile.isReadyTile == true && _targetPiece.currentTile.isReadyTile == true) return;
-        else if (_currentPiece.currentTile.isReadyTile == false && _targetPiece.currentTile.isReadyTile == false) return;
-        else if (_currentPiece.currentTile.isReadyTile == true && _targetPiece.currentTile.isReadyTile == false)
+        if (currentPiece.currentTile.isReadyTile == true && targetPiece.currentTile.isReadyTile == true) return;
+        else if (currentPiece.currentTile.isReadyTile == false && targetPiece.currentTile.isReadyTile == false) return;
+        else if (currentPiece.currentTile.isReadyTile == true && targetPiece.currentTile.isReadyTile == false)
         {
             fieldManager.myFilePieceList.Remove(targetPiece);
             var _duplicationTargetCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == targetPiece.pieceName);
@@ -300,7 +294,7 @@ public class Piece : MonoBehaviour
             if (_duplicationCurrentCheck == null) fieldManager.SynergeIncrease(currentPiece); //Plus
             fieldManager.myFilePieceList.Add(currentPiece);
         }  // Change Ready -> Battle
-        else if (_currentPiece.currentTile.isReadyTile == false && _targetPiece.currentTile.isReadyTile == true)
+        else if (currentPiece.currentTile.isReadyTile == false && targetPiece.currentTile.isReadyTile == true)
         {
             fieldManager.myFilePieceList.Remove(currentPiece);
             var _duplicationCurrentCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);

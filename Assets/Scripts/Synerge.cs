@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class Synerge
 {
-    public static FieldManager _fm;
+    public static FieldManager fieldManager;
 
     /// <summary>
     /// Myth Synerge Effect
@@ -15,7 +15,7 @@ public static class Synerge
     public static GameObject setTwoGreatMoutainPiece = null; //2 Star GreatMoutain
     public static void MythGreatMoutain(bool isPlus)
     {
-        int _count = _fm.mythActiveCount[PieceData.Myth.GreatMountain];
+        int _count = fieldManager.mythActiveCount[PieceData.Myth.GreatMountain];
         if (isPlus)
         {
             switch(_count)
@@ -76,10 +76,10 @@ public static class Synerge
     {
         if(isPlus)
         {
-            switch(_fm.animalActiveCount[PieceData.Animal.Frog])
+            switch(fieldManager.animalActiveCount[PieceData.Animal.Frog])
             {
                 case 2:
-                    foreach(var frog in _fm.myFilePieceList)
+                    foreach(var frog in fieldManager.myFilePieceList)
                     {
                         if(frog.pieceData.animal == PieceData.Animal.Frog)
                         {
@@ -89,7 +89,7 @@ public static class Synerge
                     }
                     break;
                 case 4:
-                    foreach (var frog in _fm.myFilePieceList)
+                    foreach (var frog in fieldManager.myFilePieceList)
                     {
                         if (frog.pieceData.animal == PieceData.Animal.Frog)
                         {

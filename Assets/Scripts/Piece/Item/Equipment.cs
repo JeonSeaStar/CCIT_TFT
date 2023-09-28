@@ -22,7 +22,7 @@ public class Equipment : MonoBehaviour
     public float attackRange;
 
     //Test
-    public Vector3 originPos;
+    public Vector3 originalPosition = new Vector3(0,0,0);
 
     [TextArea] public string explanation;
 

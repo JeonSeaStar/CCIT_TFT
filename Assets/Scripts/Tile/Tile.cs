@@ -14,7 +14,7 @@ public class Tile : MonoBehaviour
         }
         get { return isFull; }
     }
-    private bool isFull = false;
+    [SerializeField] private bool isFull = false;
     public bool isReadyTile = false;
     public GameObject piece;
 
