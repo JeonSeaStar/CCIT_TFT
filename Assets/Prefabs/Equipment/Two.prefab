@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2701560059947826743}
   - component: {fileID: 2701560059947826742}
   - component: {fileID: 2701560059947826741}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Two
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,8 +111,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   equipmentData: {fileID: 11400000, guid: 1620926196d4c2a41806b26b0b3aaf17, type: 2}
-  pieceName: 
-  piecePortrait: {fileID: 0}
+  equipmentName: 
+  equipmentPortrait: {fileID: 0}
   health: 0
   mana: 0
   attackDamage: 0
@@ -123,4 +123,5 @@ MonoBehaviour:
   criticalChance: 0
   criticalDamage: 0
   attackRange: 0
+  originPos: {x: 0, y: 0, z: 0}
   explanation: 

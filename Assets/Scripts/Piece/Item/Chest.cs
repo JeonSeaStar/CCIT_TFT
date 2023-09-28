@@ -125,7 +125,9 @@ public class Chest : MonoBehaviour
     
     public void EquipmentCheck(List<EquipmentData> equipmentDataList)
     {
-
+        EquipmentData mainEquipmentData;
+        EquipmentData subEquipmentData;
+        //foreach()
     }
 
     #region ¿Ãµø

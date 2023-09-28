@@ -626,7 +626,7 @@ public class FieldManager : MonoBehaviour
     public void SpawnPiece(PieceData pieceData, int grade, Tile targetTile)
     {
         Vector3 targetPosition = new Vector3(targetTile.transform.position.x, groundHeight, targetTile.transform.position.z);
-        GameObject pieceObject = Instantiate(pieceData.piecePrefab, targetTile.transform.position, Quaternion.Euler(0, 0, 0));
+        GameObject pieceObject = Instantiate(pieceData.piecePrefab, targetPosition, Quaternion.Euler(0, 0, 0));
         Piece piece = pieceObject.GetComponent<Piece>();
         piece.currentTile = targetTile;
         piece.grade = grade;
