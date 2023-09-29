@@ -181,6 +181,11 @@ public class Messenger : MonoBehaviour
                 if (hit.transform.gameObject.layer == 6)
                 {
                     //
+                    if (controlEquipment.targetPiece != null)
+                    {
+                        ArenaManager.Instance.fieldManagers[0].chest.AddEquipment(controlEquipment.targetPiece, controlEquipment);
+                        print(111);
+                    }
                 }
             }
             return;

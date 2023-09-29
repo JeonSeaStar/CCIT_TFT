@@ -21,6 +21,8 @@ public class Equipment : MonoBehaviour
     public float criticalDamage;
     public float attackRange;
 
+    public Piece targetPiece;
+
     //Test
     public Vector3 originalPosition = new Vector3(0,0,0);
 
@@ -29,5 +31,21 @@ public class Equipment : MonoBehaviour
     public virtual void EquipmentEffect()
     {
 
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Piece"))
+        {
+            targetPiece = other.GetComponent<Piece>();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.CompareTag("Piece"))
+        {
+            targetPiece = null;
+        }
     }
 }

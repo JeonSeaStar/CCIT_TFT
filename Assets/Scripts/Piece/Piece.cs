@@ -129,6 +129,9 @@ public class Piece : MonoBehaviour
     bool canMove = true;
     public Ease ease;
 
+    [Header("¿Â∫Ò")]
+    public List<EquipmentData> equipmentDatas;
+
     [SerializeField] GameObject randomBoxObject;
     [Header("ExpeditionTile Information")]
     public Tile expeditionTile;

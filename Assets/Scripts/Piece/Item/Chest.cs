@@ -122,13 +122,88 @@ public class Chest : MonoBehaviour
             randomBox.equipmentData = GetEquipmentData();
     }
     #endregion
-    
-    public void EquipmentCheck(List<EquipmentData> equipmentDataList)
+
+    #region 장비 조합
+    public void AddEquipment(Piece target, Equipment equipment)
     {
-        EquipmentData mainEquipmentData;
-        EquipmentData subEquipmentData;
-        //foreach()
+        if(target.equipmentDatas.Count < 3)
+        {
+            target.equipmentDatas.Add(equipment.equipmentData);
+
+            Destroy(equipment.gameObject);
+
+            EquipmentCheck(target);
+        }
     }
+
+    public void RemoveEquipment(Piece target, Equipment equipment)
+    {
+        target.equipmentDatas.Remove(equipment.equipmentData);
+
+        Instantiate(equipment.equipmentData.equipmentPrefab);
+        //창고로 이동하는거 추가 해야함
+    }
+
+    public void EquipmentCheck(Piece targetPiece)
+    {
+        List<EquipmentData> equipmentDataList = targetPiece.equipmentDatas;
+
+        EquipmentData mainEquipmentData = null;
+        EquipmentData subEquipmentData = null;
+
+        foreach (EquipmentData equipmentData in equipmentDataList)
+        {
+            if(mainEquipmentData == null)
+            {
+                mainEquipmentData = equipmentData;
+                continue;
+            }
+
+            if (subEquipmentData == null)
+            {
+                subEquipmentData = equipmentData;
+                continue;
+            }
+        }
+
+        if (mainEquipmentData != null && subEquipmentData != null)
+        {
+            CombinationEquipment(targetPiece, mainEquipmentData, subEquipmentData);
+        }
+        else
+            return;
+    }
+
+    private void CombinationEquipment(Piece targetPiece, EquipmentData main, EquipmentData sub)
+    {
+        int mainIndex = -1;
+        int subIndex = -1;
+
+        for(int i = 0; i < equipmentCombinationTable.Count; i++)
+        {
+            if(equipmentCombinationTable[i].mainEquipmentData == main)
+            {
+                mainIndex = i;
+                break;
+            }
+            else if(i == equipmentCombinationTable.Count - 1 && mainIndex == -1) { return; }
+        }
+
+        for(int i = 0; i < equipmentCombinationTable[mainIndex].combinationTable.Count; i++)
+        {
+            if(equipmentCombinationTable[mainIndex].combinationTable[i].subEquipmentData == sub)
+            {
+                subIndex = i;
+                break;
+            }
+            else if(i == equipmentCombinationTable[mainIndex].combinationTable.Count - 1 && subIndex == -1) { return; }
+        }
+
+        targetPiece.equipmentDatas.Remove(main);
+        targetPiece.equipmentDatas.Remove(sub);
+        targetPiece.equipmentDatas.Add(equipmentCombinationTable[mainIndex].combinationTable[subIndex].resultEquipmentData);
+    }
+    #endregion
 
     #region 이동
     public void CurveMove(Transform boxTransform, List<Transform> targetPositions)
