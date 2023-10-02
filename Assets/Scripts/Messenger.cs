@@ -7,7 +7,7 @@ public class Messenger : MonoBehaviour
 {
     public int level;
     public int experience;
-    public int lifePoint = 100;
+    [Range(-30,200)] public int lifePoint = 100;
     public int gold = 0;
     [SerializeField] LayerMask playerMaks;
     [SerializeField] LayerMask groundMask;
@@ -122,6 +122,7 @@ public class Messenger : MonoBehaviour
 
         object _controlObject = (controlPiece != null) ? controlPiece : controlEquipment;
 
+        #region Case_Piece
         controlPiece = _controlObject as Piece;
         if (controlPiece != null)
         {
@@ -171,7 +172,9 @@ public class Messenger : MonoBehaviour
             ResetPositionToCurrentTile(controlPiece);
             return;
         }
+        #endregion
 
+        #region Case_Equipment
         controlEquipment = _controlObject as Equipment;
         if (controlEquipment != null)
         {
@@ -190,6 +193,7 @@ public class Messenger : MonoBehaviour
             }
             return;
         }
+        #endregion
     }
 
     void ResetDragState(bool isDragState)

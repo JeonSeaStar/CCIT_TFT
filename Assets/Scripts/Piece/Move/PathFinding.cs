@@ -24,6 +24,11 @@ public class PathFinding : MonoBehaviour
     public Piece startPiece;
     public Piece targetPiece;
 
+    private void Awake()
+    {
+        Synerge.pathFinding = this;
+    }
+
     void Start()
     {
         CreateGrid();

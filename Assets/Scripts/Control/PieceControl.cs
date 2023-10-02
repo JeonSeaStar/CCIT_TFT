@@ -147,9 +147,9 @@ public class PieceControl : MonoBehaviour
 
     private void ResetDragState()
     {
-        fm.isDrag = false;
-        fm.grab = false;
-        fm.controlPiece = null;
+        //fm.isDrag = false;
+        //fm.grab = false;
+        //fm.controlPiece = null;
     }
 
     private void ResetPositionToCurrentTile()

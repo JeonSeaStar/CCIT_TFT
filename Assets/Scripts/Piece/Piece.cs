@@ -27,7 +27,7 @@ public class Piece : MonoBehaviour
 
     [Space(10f)]
     public float defaultAttackPower;
-    public float damageRise;        
+    private float damageRise;        
     public float DamageRise
     {
         get { return damageRise; }
@@ -44,7 +44,7 @@ public class Piece : MonoBehaviour
 
     [Space(10f)]
     public float defaultAbilityPower;
-    public float abilityRise;       
+    private float abilityRise;       
     public float AbilityRise
     {
         get { return abilityRise; }
@@ -60,8 +60,8 @@ public class Piece : MonoBehaviour
     public float abilityDamage;     
 
     [Space(10f)]
-    public float defaultArmor;      
-    public float armorRise;         
+    public float defaultArmor;
+    private float armorRise;         
     public float ArmorRise
     {
         get { return armorRise; }
@@ -78,7 +78,7 @@ public class Piece : MonoBehaviour
 
     [Space(10f)]
     public float defaultMagicResist;
-    public float magicResistRise;   
+    private float magicResistRise;   
     public float MagicResistRise
     {
         get { return magicResistRise; }
@@ -95,7 +95,7 @@ public class Piece : MonoBehaviour
 
     [Space(10f)]
     public float defaultAttackSpeed;
-    public float attackSpeedRise;   
+    private float attackSpeedRise;   
     public float AttackSpeedRise
     {
         get { return attackSpeedRise; }
@@ -125,6 +125,7 @@ public class Piece : MonoBehaviour
     public Tile targetTile;
     public Piece target;
     public float moveSpeed;
+    
 
     bool canMove = true;
     public Ease ease;
@@ -133,8 +134,36 @@ public class Piece : MonoBehaviour
     public List<EquipmentData> equipmentDatas;
 
     [SerializeField] GameObject randomBoxObject;
+
     [Header("ExpeditionTile Information")]
     public Tile expeditionTile;
+
+    #region //Just For Check
+    enum Synergies
+    {
+        //MYTH
+        GreatMountain_1, GreatMountain_2, GreatMountain_3, GreatMountain_4,
+        FrostyWind_1, FrostyWind_2, FrostyWind_3,
+        SandKingdom_1, SandKingdom_2, SandKingdom_3,
+        HeavenGround_1, HeavenGround_2,
+        BurningGround_1, BurningGround_2,
+        //ANIMALS
+        Hamster_1, Hamster_2, Hamster_3,
+        Cat_1, Cat_2,
+        Frog_1, Frog_2, Frog_3,
+        Rabbit_1, Rabbit_2, Rabbit_3,
+        Dog_1, Dog_2, Dog_3,
+        //UNITED
+        UnderWorld_1, UnderWorld_2,
+        Faddist_1, Faddist_2,
+        WarMachine_1, WarMachine_2,
+        Creature_1, Creature_2, Creature_3, Creature_4,
+    }
+    #endregion
+    [Header("Synerge")]
+    public List<string> sReceivedBuff;
+    public List<Coroutine> sBattleEffectInStart;
+    public List<Coroutine> sBattleEffectInProgress;
 
     void Awake()
     {

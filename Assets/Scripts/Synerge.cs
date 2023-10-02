@@ -5,7 +5,7 @@ using UnityEngine;
 public static class Synerge
 {
     public static FieldManager fieldManager;
-
+    public static PathFinding pathFinding;
     /// <summary>
     /// Myth Synerge Effect
     /// </summary>
@@ -15,26 +15,34 @@ public static class Synerge
     public static GameObject setTwoGreatMoutainPiece = null; //2 Star GreatMoutain
     public static void MythGreatMoutain(bool isPlus)
     {
-        int _count = fieldManager.mythActiveCount[PieceData.Myth.GreatMountain];
-        if (isPlus)
+        int _greatMoutainCount = fieldManager.mythActiveCount[PieceData.Myth.GreatMountain];
+        //Tile _tile = null;
+        //for(int i = pathFinding.grid.Count; i > 0; i--)
+        //{
+        //    for(int j = 0; j < pathFinding.grid[i].tile.Count; j++)
+        //    {
+        //        if (pathFinding.grid[i].tile[j].IsFull == false)
+        //        {
+        //            _tile = pathFinding.grid[i].tile[j];
+        //            break;
+        //        }
+        //    }
+        //}
+        if(isPlus == true)
         {
-            switch(_count)
-            {
-                case 2:
-                    break;
-                case 4:
-                    break;
-                case 6:
-                    break;
-                case 8:
-                    break;
-            }
-        }
-        else
+            if (_greatMoutainCount == 2) Debug.Log(25);
+            if (_greatMoutainCount == 4) Debug.Log(25);
+            if (_greatMoutainCount == 8) Debug.Log(25);
+        }   
+        else if(isPlus == false)
         {
-
+            if (_greatMoutainCount < 8) Debug.Log(25);
+            if (_greatMoutainCount < 6) Debug.Log(25);
+            if (_greatMoutainCount < 4) Debug.Log(25);
+            if (_greatMoutainCount < 2) Debug.Log(25);
         }
     }
+
 
     public static void MythFrostyWind(bool isPlus)
     {
@@ -72,42 +80,108 @@ public static class Synerge
     {
 
     }
+
+    #region Frog
     public static void AnimalFrog(bool isPlus)
     {
-        if(isPlus)
+        int _frogCount = fieldManager.animalActiveCount[PieceData.Animal.Frog];
+        if (isPlus == true)
         {
-            switch(fieldManager.animalActiveCount[PieceData.Animal.Frog])
+            if (_frogCount >= 2) { AddFrogSynergeBuff("Frog_1"); }
+            if (_frogCount >= 4) { AddFrogSynergeBuff("Frog_2"); }
+            if (_frogCount >= 6) { AddFrogSynergeBuff("Frog_3"); }
+        }
+        else if(isPlus == false)
+        {
+            if (_frogCount < 2) { RemoveFrogSynergeBuff("Frog_1"); }
+            if (_frogCount < 4) { RemoveFrogSynergeBuff("Frog_2"); }
+            if (_frogCount < 6) { RemoveFrogSynergeBuff("Frog_3"); }
+        }
+    }
+    private static void AddFrogSynergeBuff(string synergeName)
+    {
+        foreach (var frog in fieldManager.myFilePieceList)
+        {
+            if (!frog.sReceivedBuff.Contains(synergeName))
             {
-                case 2:
-                    foreach(var frog in fieldManager.myFilePieceList)
-                    {
-                        if(frog.pieceData.animal == PieceData.Animal.Frog)
-                        {
-                            frog.damageRise += frog.attackPower * 0.1f;
-                            frog.armor += frog.armor * 0.1f;
-                        }
-                    }
-                    break;
-                case 4:
-                    foreach (var frog in fieldManager.myFilePieceList)
-                    {
-                        if (frog.pieceData.animal == PieceData.Animal.Frog)
-                        {
-                            frog.damageRise += frog.attackPower * 0.1f;
-                            frog.armor += frog.armor * 0.1f;
-                        }
-                    }
-                    break;
-                case 6:
-                    break;
+                frog.sReceivedBuff.Add(synergeName);
+                frog.DamageRise += frog.defaultAttackPower * 0.1f;
+                frog.armor += frog.defaultArmor * 0.1f;
+            }
+        }
+        
+    }
+    private static void RemoveFrogSynergeBuff(string synergeName)
+    {
+        foreach (var frog in fieldManager.myFilePieceList)
+        {
+            if (frog.sReceivedBuff.Contains(synergeName))
+            {
+                frog.sReceivedBuff.Remove(synergeName);
+                frog.DamageRise -= frog.defaultAttackPower * 0.1f;
+                frog.armor -= frog.defaultArmor * 0.1f;
             }
         }
     }
+    #endregion
+    #region Rabbit
     public static void AnimalRabbit(bool isPlus)
     {
-
+        int _rabbitCount = fieldManager.animalActiveCount[PieceData.Animal.Rabbit];
+        if (isPlus == true)
+        {
+            if (_rabbitCount >= 3) { AddRabbitSynergeBuff("Rabbit_1"); }
+            if (_rabbitCount >= 6) { AddRabbitSynergeBuff("Rabbit_2"); }
+            if (_rabbitCount >= 9) { AddRabbitSynergeBuff("Rabbit_3"); }
+        }
+        else if (isPlus == false)
+        {
+            if (_rabbitCount < 3) { RemoveRabbitSynergeBuff("Rabbit_1"); }
+            if (_rabbitCount < 6) { RemoveRabbitSynergeBuff("Rabbit_2"); }
+            if (_rabbitCount < 9) { RemoveRabbitSynergeBuff("Rabbit_3"); }
+        }
     }
-
+    private static void AddRabbitSynergeBuff(string synergeName)
+    {
+        foreach (var rabbit in fieldManager.myFilePieceList)
+        {
+            if (!rabbit.sReceivedBuff.Contains(synergeName))
+            {
+                rabbit.sReceivedBuff.Add(synergeName);
+                if (synergeName == "Rabbit_1")
+                {
+                    rabbit.AttackSpeedRise += rabbit.defaultAttackSpeed * 0.1f;
+                    rabbit.moveSpeed += 0.1f;
+                }
+                else
+                {
+                    rabbit.AttackSpeedRise += rabbit.defaultAttackSpeed * 0.2f;
+                    rabbit.moveSpeed += 0.2f;
+                }
+            }
+        }
+    }
+    private static void RemoveRabbitSynergeBuff(string synergeName)
+    {
+        foreach (var rabbit in fieldManager.myFilePieceList)
+        {
+            if (rabbit.sReceivedBuff.Contains(synergeName))
+            {
+                rabbit.sReceivedBuff.Remove(synergeName);
+                if (synergeName == "Rabbit_1")
+                {
+                    rabbit.AttackSpeedRise -= rabbit.defaultAttackSpeed * 0.1f;
+                    rabbit.moveSpeed -= 0.1f;
+                }
+                else
+                {
+                    rabbit.AttackSpeedRise -= rabbit.defaultAttackSpeed * 0.2f;
+                    rabbit.moveSpeed -= 0.2f;
+                }
+            }
+        }
+    }
+    #endregion
     /// <summary>
     /// United Synerge Effect
     /// </summary>
@@ -127,5 +201,10 @@ public static class Synerge
     public static void UnitedCreature(bool isPlus)
     {
 
+    }
+
+    private static void RainEffect()
+    {
+        //
     }
 }

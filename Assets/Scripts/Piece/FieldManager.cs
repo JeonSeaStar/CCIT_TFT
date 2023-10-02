@@ -24,8 +24,11 @@ public class FieldManager : MonoBehaviour
     public GameObject[] readyZoneHexaIndicators;
     public GameObject[] battleFieldHexaIndicators;
 
+    public bool isRainEffect = false; //Test Rain Effect
+
+
     public bool grab, isDrag = false;
-    public Piece controlPiece;
+    //public Piece controlPiece;
 
     public float groundHeight;
 
@@ -56,26 +59,10 @@ public class FieldManager : MonoBehaviour
         { PieceData.United.Creature          ,0 }
     };
 
-    //fot test
-    public GameObject aa, bb;
-    public Tile aaa, bbb, ccc;
-    //
 
     void Awake()
     {
         Synerge.fieldManager = this;
-
-        //for test
-        //var testa = GameObject.Instantiate(aa);
-        //var testb = GameObject.Instantiate(bb);
-        //var testc = GameObject.Instantiate(aa);
-        //testa.transform.position = new Vector3(0, 0, -1.7f);
-        //testb.transform.position = new Vector3(1, 0, -1.7f);
-        //testc.transform.position = new Vector3(2, 0, -1.7f);
-        //aaa.piece = testa;
-        //bbb.piece = testb;
-        //ccc.piece = testc;
-        //
     }
 
     void Update()
@@ -163,7 +150,7 @@ public class FieldManager : MonoBehaviour
     }
 
 
-
+    #region Calculate Synerge
     List<int> _mythCountCheck = new List<int>() { 2, 3, 4, 6, 9 };
     List<int> _animalCountCheck = new List<int>() { 2, 3, 4, 5, 6, 7, 8, 9 };
     List<int> _unitedCountCheck = new List<int>() { 2, 3, 4, 5, 7, 9 };
@@ -527,13 +514,15 @@ public class FieldManager : MonoBehaviour
     }
 
     //Methods Needs to be run once at the start of the battle round
-    public delegate void BattleBuff();
-    BattleBuff sOnceBuff;
+    //public delegate void BattleBuff();
+    //BattleBuff sOnceBuff;
+
+    public List<Coroutine> BattleBuff;
 
     //Methods Needs to be run multiple times during the battle round
     public delegate IEnumerator CoroutineBuff();
     CoroutineBuff sCoroutineBuff;
-
+ #endregion
     public void InitializingRound()
     {
         if (DualPlayers[0].isGrab)
