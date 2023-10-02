@@ -37,6 +37,9 @@ public class WorldManager : MonoBehaviour
     public PlayerDie dieEvent;
     #endregion
 
+    public List<float> playerTestFloatData = new List<float>();
+    private readonly string playerTestField = "PlayerTestField";
+
     void Awake()
     {
         instance = this;
@@ -54,6 +57,7 @@ public class WorldManager : MonoBehaviour
             InGameUiManager.GetInstance().SetStartCount(0, false);
             InGameUiManager.GetInstance().SetReconnectBoard(BackEndServerManager.GetInstance().myNickName);
         }
+        CheckTestPlayerManagerData();
     }
 
     /*
@@ -96,12 +100,15 @@ public class WorldManager : MonoBehaviour
     private void PlayerDieEvent(SessionId index)
     {
         alivePlayer -= 1;
-        players[index].gameObject.SetActive(false);
-
+        //players[index].gameObject.SetActive(false);
+        players[index].gameObject.transform.position = new Vector3(0, -10, 0);
         InGameUiManager.GetInstance().SetScoreBoard(alivePlayer);
         gameRecord.Push(index);
 
         Debug.Log(string.Format("Player Die : " + players[index].GetNickName()));
+        var PlayerTestManagers = players[index].gameObject.GetComponent<PlayerTestManager>();
+        PlayerTestManagers.PlayerDieTest();//죽은 자신의 매니저에게 값을 보냄
+        CheckTestPlayerManagerData();
 
         // 호스트가 아니면 바로 리턴
         if (!BackEndMatchManager.GetInstance().IsHost())
@@ -499,5 +506,14 @@ public class WorldManager : MonoBehaviour
     public Vector3 GetMyPlayerPos()
     {
         return players[myPlayerIndex].GetPosition();
+    }
+
+    public void CheckTestPlayerManagerData()
+    {
+        var PlayerTestFields = GameObject.FindGameObjectsWithTag(playerTestField);
+        for (int i = 0; i < PlayerTestFields.Length; i++)
+        {
+            playerTestFloatData.Add(PlayerTestFields[i].GetComponent<PlayerTestManager>().f); //순서대로 플레이어들이 들어와서 들어온 순서대로 게임오브젝트를 알고 있음
+        }
     }
 }

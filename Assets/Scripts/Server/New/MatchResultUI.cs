@@ -104,7 +104,7 @@ public class MatchResultUI : MonoBehaviour
         }
         else
         {
-            var data = meleeResultObject.GetComponentsInChildren<Text>();
+            var data = meleeResultObject.GetComponentsInChildren<TMP_Text>();
             if (data == null)
             {
                 Debug.LogError("Result_Melee UI 불러오기 실패");

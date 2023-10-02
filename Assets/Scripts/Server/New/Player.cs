@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using Protocol;
@@ -12,9 +13,9 @@ using TMPro;
 /// </summary>
 public class Player : MonoBehaviour
 {
-    private SessionId index = 0;
-    private string nickName = string.Empty;
-    private bool isMe = false;
+    [SerializeField] private SessionId index = 0;
+    [SerializeField] private string nickName = string.Empty;
+    [SerializeField] private bool isMe = false;
 
     // 스테이터스
     public int hp { get; private set; } = 0;
@@ -34,6 +35,11 @@ public class Player : MonoBehaviour
 
     private GameObject playerModelObject;
 
+    //테스트 값들
+    public List<GameObject> playerTestFieldGameObjectList = new List<GameObject>();
+    public List<PlayerTestManager> playerTestFieldList = new List<PlayerTestManager>();
+    private readonly string playerTestField = "PlayerTestField";
+
     void Start()
     {
         if (BackEndMatchManager.GetInstance() == null)
@@ -51,7 +57,6 @@ public class Player : MonoBehaviour
 
         var playerUICanvas = GameObject.FindGameObjectWithTag(playerCanvas);
         nameObject = Instantiate(nameObject, Vector3.zero, Quaternion.identity, playerUICanvas.transform);
-
         nameObject.GetComponent<TMP_Text>().text = nickName;
 
         if (this.isMe)
@@ -72,6 +77,19 @@ public class Player : MonoBehaviour
         playerModelObject.transform.rotation = Quaternion.Euler(0, rot, 0);
 
         nameObject.transform.position = GetNameUIPos();
+
+        StartCoroutine(CheckTestField());
+    }
+
+    IEnumerator CheckTestField()
+    {
+        yield return new WaitForSeconds(5f);
+        var PlayerTestFields = GameObject.FindGameObjectsWithTag(playerTestField);
+        for (int i = 0; i < PlayerTestFields.Length; i++)
+        {
+            playerTestFieldGameObjectList.Add(PlayerTestFields[i]); //순서대로 플레이어들이 들어와서 들어온 순서대로 게임오브젝트를 알고 있음
+            playerTestFieldList.Add(PlayerTestFields[i].GetComponent<PlayerTestManager>());
+        }
     }
 
     #region 이동관련 함수
