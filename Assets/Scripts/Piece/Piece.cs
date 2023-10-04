@@ -23,7 +23,10 @@ public class Piece : MonoBehaviour
     public float currentHealth;     
     public float defaultMana;       
     public float currentMana;       
-    public float manaRecovery;      
+    public float manaRecovery;
+    
+    public float shield; //임시값
+    public float currentShield; //임시값
 
     [Space(10f)]
     public float defaultAttackPower;
@@ -162,8 +165,18 @@ public class Piece : MonoBehaviour
     #endregion
     [Header("Synerge")]
     public List<string> sReceivedBuff;
-    public List<Coroutine> sBattleEffectInStart;
-    public List<Coroutine> sBattleEffectInProgress;
+
+    public enum MonsterStatus
+    {
+        StatusImmunity,
+        Freeze,
+        Fear,
+        Slow,
+        Destruction
+    }
+
+    //public List<Coroutine> sBattleEffectInStart;
+    //public List<Coroutine> sBattleEffectInProgress;
 
     void Awake()
     {

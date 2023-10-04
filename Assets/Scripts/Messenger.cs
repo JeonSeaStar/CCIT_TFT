@@ -9,8 +9,8 @@ public class Messenger : MonoBehaviour
     public int experience;
     [Range(-30,200)] public int lifePoint = 100;
     public int gold = 0;
-    [SerializeField] LayerMask playerMaks;
-    [SerializeField] LayerMask groundMask;
+    [SerializeField] LayerMask playerMask; //9 - Player
+    [SerializeField] LayerMask groundMask; //8 - Plane
     [SerializeField] FieldManager fieldManager;
     [SerializeField] Ease ease;
     [SerializeField] float moveSpeed;
@@ -59,22 +59,14 @@ public class Messenger : MonoBehaviour
         if (Input.GetMouseButton(0) && owned && !isGrab)
             Aim();
     }
-    
+
+    #region SelectPiece
     void Targeting()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, (-1) - (1 << playerMaks)))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, (-1) - (1 << playerMask)))
         {
-            # region Equipment
-            bool _isGrapEquipment = hit.transform.gameObject.layer == 10;
-            if (_isGrapEquipment)
-            {
-                controlEquipment = hit.transform.gameObject.GetComponent<Equipment>();
-                isGrab = _isGrapEquipment;
-                return;
-            }
-            #endregion
             #region Piece
             bool _isGrapPiece = hit.transform.gameObject.layer == 6;//Piece
             if (_isGrapPiece)
@@ -86,10 +78,18 @@ public class Messenger : MonoBehaviour
                 return;
             }
             #endregion
+            # region Equipment
+            bool _isGrapEquipment = hit.transform.gameObject.layer == 10;
+            if (_isGrapEquipment)
+            {
+                controlEquipment = hit.transform.gameObject.GetComponent<Equipment>();
+                isGrab = _isGrapEquipment;
+                return;
+            }
+            #endregion
         }
     }
 
-    
     void Dragging()
     {
         GameObject _controlObject = (controlPiece != null) ? controlPiece.gameObject : controlEquipment.gameObject;
@@ -98,8 +98,8 @@ public class Messenger : MonoBehaviour
         Vector3 _objPos = Camera.main.ScreenToWorldPoint(_mousePos);
         _objPos.y = 0;
 
-        
-        if(controlPiece == null) controlPiece = _controlObject.GetComponent< Piece >();
+        #region Piece
+        if (controlPiece == null) controlPiece = _controlObject.GetComponent< Piece >();
         else if (controlPiece != null)
         {
             if (ArenaManager.Instance.roundType == ArenaManager.RoundType.Battle && controlPiece.currentTile.isReadyTile)
@@ -108,21 +108,21 @@ public class Messenger : MonoBehaviour
             }
             else controlPiece.transform.position = _objPos; return;
         }
-
-        if(controlEquipment == null) controlEquipment = _controlObject.GetComponent< Equipment >();
+        #endregion
+        #region
+        if (controlEquipment == null) controlEquipment = _controlObject.GetComponent< Equipment >();
         else if (controlEquipment != null)
         {
             controlEquipment.transform.position = _objPos;
         }
+        #endregion
     }
-    
+
     void EndDrag()
     {
         if (isDrag) { ResetDragState(!isDrag); return; }
-
         object _controlObject = (controlPiece != null) ? controlPiece : controlEquipment;
-
-        #region Case_Piece
+        #region Piece
         controlPiece = _controlObject as Piece;
         if (controlPiece != null)
         {
@@ -173,8 +173,7 @@ public class Messenger : MonoBehaviour
             return;
         }
         #endregion
-
-        #region Case_Equipment
+        #region Equipment
         controlEquipment = _controlObject as Equipment;
         if (controlEquipment != null)
         {
@@ -221,6 +220,8 @@ public class Messenger : MonoBehaviour
     {
         piece.transform.position = new Vector3(target.transform.position.x, 0, target.transform.position.z);
     }
+    #endregion
+
 
     //ÀÌµ¿ ÁÂÇ¥
     (bool success, Vector3 position) GetMousePosition()

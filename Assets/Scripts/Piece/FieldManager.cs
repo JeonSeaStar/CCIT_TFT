@@ -24,8 +24,8 @@ public class FieldManager : MonoBehaviour
     public GameObject[] readyZoneHexaIndicators;
     public GameObject[] battleFieldHexaIndicators;
 
-    public bool isRainEffect = false; //Test Rain Effect
-
+    public Piece[] oneCostGreatMountainPieces;
+    public Piece[] twoCostGreatMountainPieces;
 
     public bool grab, isDrag = false;
     //public Piece controlPiece;
@@ -516,12 +516,13 @@ public class FieldManager : MonoBehaviour
     //Methods Needs to be run once at the start of the battle round
     //public delegate void BattleBuff();
     //BattleBuff sOnceBuff;
-
-    public List<Coroutine> BattleBuff;
+    public List<string> BattleEffect;
+    public List<Coroutine> BattleBuffInProgress;
 
     //Methods Needs to be run multiple times during the battle round
     public delegate IEnumerator CoroutineBuff();
     CoroutineBuff sCoroutineBuff;
+
  #endregion
     public void InitializingRound()
     {

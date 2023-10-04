@@ -651,20 +651,17 @@ MonoBehaviour:
   defaultMana: 0
   currentMana: 0
   manaRecovery: 0
+  shield: 0
+  currentShield: 0
   defaultAttackPower: 0
-  damageRise: 0
   attackPower: 0
   defaultAbilityPower: 0
-  abilityRise: 0
   abilityDamage: 0
   defaultArmor: 0
-  armorRise: 0
   armor: 0
   defaultMagicResist: 0
-  magicResistRise: 0
   magicResist: 0
   defaultAttackSpeed: 0
-  attackSpeedRise: 0
   attackSpeed: 0
   defaultCriticalChance: 0
   defaultCriticalDamage: 0
@@ -679,9 +676,11 @@ MonoBehaviour:
   target: {fileID: 0}
   moveSpeed: 1
   ease: 1
+  equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
   expeditionTile: {fileID: 0}
+  sReceivedBuff: []
 --- !u!114 &43912632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -925,6 +924,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 57161752}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &62110516 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4000010603562546, guid: d0c0b49979d372942ae5a964d9364111,
+    type: 3}
+  m_PrefabInstance: {fileID: 1396743796}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &72659384
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1816,6 +1821,105 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 106655124}
   m_CullTransparentMesh: 1
+--- !u!1001 &108387795
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 446081400}
+    m_Modifications:
+    - target: {fileID: 4532142441725249119, guid: 2b376c3c2c380ae4da88e5faa9942c8e,
+        type: 3}
+      propertyPath: m_Name
+      value: bigbang_hit
+      objectReference: {fileID: 0}
+    - target: {fileID: 4532142441725249119, guid: 2b376c3c2c380ae4da88e5faa9942c8e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4535052521316454751, guid: 2b376c3c2c380ae4da88e5faa9942c8e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 4535052521316454751, guid: 2b376c3c2c380ae4da88e5faa9942c8e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 10.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 4535576046955519973, guid: 2b376c3c2c380ae4da88e5faa9942c8e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4535576046955519973, guid: 2b376c3c2c380ae4da88e5faa9942c8e,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4535576046955519973, guid: 2b376c3c2c380ae4da88e5faa9942c8e,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4535576046955519973, guid: 2b376c3c2c380ae4da88e5faa9942c8e,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4535576046955519973, guid: 2b376c3c2c380ae4da88e5faa9942c8e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 4535576046955519973, guid: 2b376c3c2c380ae4da88e5faa9942c8e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4535576046955519973, guid: 2b376c3c2c380ae4da88e5faa9942c8e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 4535576046955519973, guid: 2b376c3c2c380ae4da88e5faa9942c8e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4535576046955519973, guid: 2b376c3c2c380ae4da88e5faa9942c8e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4535576046955519973, guid: 2b376c3c2c380ae4da88e5faa9942c8e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4535576046955519973, guid: 2b376c3c2c380ae4da88e5faa9942c8e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4535576046955519973, guid: 2b376c3c2c380ae4da88e5faa9942c8e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4535576046955519973, guid: 2b376c3c2c380ae4da88e5faa9942c8e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4535576046955519973, guid: 2b376c3c2c380ae4da88e5faa9942c8e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2b376c3c2c380ae4da88e5faa9942c8e, type: 3}
 --- !u!1001 &112677993
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6454,6 +6558,39 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &446081399
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 446081400}
+  m_Layer: 0
+  m_Name: Environment
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &446081400
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446081399}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 62110516}
+  - {fileID: 1215282299}
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &449815657 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1565784314003400054, guid: 9d96437b1954fd74c84a5e1999bb2cb1,
@@ -8861,20 +8998,17 @@ MonoBehaviour:
   defaultMana: 0
   currentMana: 0
   manaRecovery: 0
+  shield: 0
+  currentShield: 0
   defaultAttackPower: 0
-  damageRise: 0
   attackPower: 0
   defaultAbilityPower: 0
-  abilityRise: 0
   abilityDamage: 0
   defaultArmor: 0
-  armorRise: 0
   armor: 0
   defaultMagicResist: 0
-  magicResistRise: 0
   magicResist: 0
   defaultAttackSpeed: 0
-  attackSpeedRise: 0
   attackSpeed: 0
   defaultCriticalChance: 0
   defaultCriticalDamage: 0
@@ -8889,9 +9023,11 @@ MonoBehaviour:
   target: {fileID: 0}
   moveSpeed: 0.7
   ease: 1
+  equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
   expeditionTile: {fileID: 0}
+  sReceivedBuff: []
 --- !u!1 &592307816
 GameObject:
   m_ObjectHideFlags: 0
@@ -11934,20 +12070,17 @@ MonoBehaviour:
   defaultMana: 0
   currentMana: 0
   manaRecovery: 0
+  shield: 0
+  currentShield: 0
   defaultAttackPower: 0
-  damageRise: 0
   attackPower: 0
   defaultAbilityPower: 0
-  abilityRise: 0
   abilityDamage: 0
   defaultArmor: 0
-  armorRise: 0
   armor: 0
   defaultMagicResist: 0
-  magicResistRise: 0
   magicResist: 0
   defaultAttackSpeed: 0
-  attackSpeedRise: 0
   attackSpeed: 0
   defaultCriticalChance: 0
   defaultCriticalDamage: 0
@@ -11962,9 +12095,11 @@ MonoBehaviour:
   target: {fileID: 0}
   moveSpeed: 0.7
   ease: 1
+  equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
   expeditionTile: {fileID: 0}
+  sReceivedBuff: []
 --- !u!1001 &812478602
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14097,20 +14232,17 @@ MonoBehaviour:
   defaultMana: 0
   currentMana: 0
   manaRecovery: 0
+  shield: 0
+  currentShield: 0
   defaultAttackPower: 0
-  damageRise: 0
   attackPower: 0
   defaultAbilityPower: 0
-  abilityRise: 0
   abilityDamage: 0
   defaultArmor: 0
-  armorRise: 0
   armor: 0
   defaultMagicResist: 0
-  magicResistRise: 0
   magicResist: 0
   defaultAttackSpeed: 0
-  attackSpeedRise: 0
   attackSpeed: 0
   defaultCriticalChance: 0
   defaultCriticalDamage: 0
@@ -14125,9 +14257,11 @@ MonoBehaviour:
   target: {fileID: 0}
   moveSpeed: 0.7
   ease: 1
+  equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
   expeditionTile: {fileID: 0}
+  sReceivedBuff: []
 --- !u!4 &948282654 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9051238300485817969, guid: 2f6c4572e07a60b43b00e1c4f489a806,
@@ -15469,7 +15603,7 @@ MonoBehaviour:
   experience: 0
   lifePoint: 0
   gold: 0
-  playerMaks:
+  playerMask:
     serializedVersion: 2
     m_Bits: 0
   groundMask:
@@ -17335,6 +17469,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f6c4572e07a60b43b00e1c4f489a806, type: 3}
+--- !u!4 &1215282299 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4535576046955519973, guid: 2b376c3c2c380ae4da88e5faa9942c8e,
+    type: 3}
+  m_PrefabInstance: {fileID: 108387795}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1220241473
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17464,20 +17604,17 @@ MonoBehaviour:
   defaultMana: 0
   currentMana: 0
   manaRecovery: 0
+  shield: 0
+  currentShield: 0
   defaultAttackPower: 0
-  damageRise: 0
   attackPower: 0
   defaultAbilityPower: 0
-  abilityRise: 0
   abilityDamage: 0
   defaultArmor: 0
-  armorRise: 0
   armor: 0
   defaultMagicResist: 0
-  magicResistRise: 0
   magicResist: 0
   defaultAttackSpeed: 0
-  attackSpeedRise: 0
   attackSpeed: 0
   defaultCriticalChance: 0
   defaultCriticalDamage: 0
@@ -17492,9 +17629,11 @@ MonoBehaviour:
   target: {fileID: 0}
   moveSpeed: 0.7
   ease: 1
+  equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
   expeditionTile: {fileID: 0}
+  sReceivedBuff: []
 --- !u!65 &1234782748
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19375,6 +19514,124 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1396743796
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 446081400}
+    m_Modifications:
+    - target: {fileID: 1000010302070858, guid: d0c0b49979d372942ae5a964d9364111, type: 3}
+      propertyPath: m_Name
+      value: RainEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010302070858, guid: d0c0b49979d372942ae5a964d9364111, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000011503386248, guid: d0c0b49979d372942ae5a964d9364111, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010603562546, guid: d0c0b49979d372942ae5a964d9364111, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010603562546, guid: d0c0b49979d372942ae5a964d9364111, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010603562546, guid: d0c0b49979d372942ae5a964d9364111, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010603562546, guid: d0c0b49979d372942ae5a964d9364111, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010603562546, guid: d0c0b49979d372942ae5a964d9364111, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010603562546, guid: d0c0b49979d372942ae5a964d9364111, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010603562546, guid: d0c0b49979d372942ae5a964d9364111, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010603562546, guid: d0c0b49979d372942ae5a964d9364111, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010603562546, guid: d0c0b49979d372942ae5a964d9364111, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010603562546, guid: d0c0b49979d372942ae5a964d9364111, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010603562546, guid: d0c0b49979d372942ae5a964d9364111, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011330111956, guid: d0c0b49979d372942ae5a964d9364111, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011330111956, guid: d0c0b49979d372942ae5a964d9364111, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000013866684486, guid: d0c0b49979d372942ae5a964d9364111,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000013866684486, guid: d0c0b49979d372942ae5a964d9364111,
+        type: 3}
+      propertyPath: UVModule.flipU
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000013866684486, guid: d0c0b49979d372942ae5a964d9364111,
+        type: 3}
+      propertyPath: UVModule.flipV
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000013866684486, guid: d0c0b49979d372942ae5a964d9364111,
+        type: 3}
+      propertyPath: simulationSpeed
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000013866684486, guid: d0c0b49979d372942ae5a964d9364111,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000013866684486, guid: d0c0b49979d372942ae5a964d9364111,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.minScalar
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 199000010525955762, guid: d0c0b49979d372942ae5a964d9364111,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 199000010897247390, guid: d0c0b49979d372942ae5a964d9364111,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 199000011599141186, guid: d0c0b49979d372942ae5a964d9364111,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d0c0b49979d372942ae5a964d9364111, type: 3}
 --- !u!1001 &1398257911
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20111,20 +20368,17 @@ MonoBehaviour:
   defaultMana: 0
   currentMana: 0
   manaRecovery: 0
+  shield: 0
+  currentShield: 0
   defaultAttackPower: 0
-  damageRise: 0
   attackPower: 0
   defaultAbilityPower: 0
-  abilityRise: 0
   abilityDamage: 0
   defaultArmor: 0
-  armorRise: 0
   armor: 0
   defaultMagicResist: 0
-  magicResistRise: 0
   magicResist: 0
   defaultAttackSpeed: 0
-  attackSpeedRise: 0
   attackSpeed: 0
   defaultCriticalChance: 0
   defaultCriticalDamage: 0
@@ -20139,9 +20393,11 @@ MonoBehaviour:
   target: {fileID: 0}
   moveSpeed: 0.7
   ease: 1
+  equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
   expeditionTile: {fileID: 0}
+  sReceivedBuff: []
 --- !u!1 &1460477377
 GameObject:
   m_ObjectHideFlags: 0
@@ -23467,20 +23723,17 @@ MonoBehaviour:
   defaultMana: 0
   currentMana: 0
   manaRecovery: 0
+  shield: 0
+  currentShield: 0
   defaultAttackPower: 0
-  damageRise: 0
   attackPower: 0
   defaultAbilityPower: 0
-  abilityRise: 0
   abilityDamage: 0
   defaultArmor: 0
-  armorRise: 0
   armor: 0
   defaultMagicResist: 0
-  magicResistRise: 0
   magicResist: 0
   defaultAttackSpeed: 0
-  attackSpeedRise: 0
   attackSpeed: 0
   defaultCriticalChance: 0
   defaultCriticalDamage: 0
@@ -23495,9 +23748,11 @@ MonoBehaviour:
   target: {fileID: 0}
   moveSpeed: 1
   ease: 1
+  equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
   expeditionTile: {fileID: 0}
+  sReceivedBuff: []
 --- !u!114 &1746667500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24870,14 +25125,12 @@ MonoBehaviour:
   - {fileID: 197550257}
   - {fileID: 802205873}
   - {fileID: 668044194}
+  oneCostGreatMountainPieces: []
+  twoCostGreatMountainPieces: []
   grab: 0
   isDrag: 0
-  controlPiece: {fileID: 0}
-  aa: {fileID: 0}
-  bb: {fileID: 0}
-  aaa: {fileID: 0}
-  bbb: {fileID: 0}
-  ccc: {fileID: 0}
+  groundHeight: 0
+  BattleEffect: []
   currentPieceList:
   - pieceData: {fileID: 11400000, guid: 309f6986873b81042844f48195428c5d, type: 2}
     count:
@@ -25417,6 +25670,7 @@ MonoBehaviour:
   itemTypeProbability: []
   moneyRange: []
   height: 1
+  equipmentCombinationTable: []
 --- !u!1001 &1943709777
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25704,20 +25958,17 @@ MonoBehaviour:
   defaultMana: 0
   currentMana: 0
   manaRecovery: 0
+  shield: 0
+  currentShield: 0
   defaultAttackPower: 0
-  damageRise: 0
   attackPower: 0
   defaultAbilityPower: 0
-  abilityRise: 0
   abilityDamage: 0
   defaultArmor: 0
-  armorRise: 0
   armor: 0
   defaultMagicResist: 0
-  magicResistRise: 0
   magicResist: 0
   defaultAttackSpeed: 0
-  attackSpeedRise: 0
   attackSpeed: 0
   defaultCriticalChance: 0
   defaultCriticalDamage: 0
@@ -25732,9 +25983,11 @@ MonoBehaviour:
   target: {fileID: 0}
   moveSpeed: 1
   ease: 1
+  equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
   expeditionTile: {fileID: 0}
+  sReceivedBuff: []
 --- !u!114 &1957474541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28217,7 +28470,7 @@ MonoBehaviour:
   experience: 0
   lifePoint: 0
   gold: 0
-  playerMaks:
+  playerMask:
     serializedVersion: 2
     m_Bits: 512
   groundMask:
