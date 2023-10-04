@@ -19,8 +19,6 @@ public class FriendTabUI : MonoBehaviour
         tab = this.GetComponent<Toggle>();
         image = this.GetComponentInChildren<Image>();
         matchText = this.GetComponentInChildren<Text>();
-
-        
     }
 
     private void Start()

@@ -115,6 +115,7 @@ public partial class BackEndMatchManager : MonoBehaviour
         //numOfClient = int.Parse(matchInfos[index].headCount);
     }
 
+
     // 매칭 신청 취소하기
     public void CancelRegistMatchMaking()
     {

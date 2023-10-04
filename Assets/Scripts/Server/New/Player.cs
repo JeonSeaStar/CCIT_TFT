@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
     //테스트 값들
     public List<GameObject> playerTestFieldGameObjectList = new List<GameObject>();
     public List<PlayerTestManager> playerTestFieldList = new List<PlayerTestManager>();
-    private readonly string playerTestField = "PlayerTestField";
+    private readonly string playerTestField = "Player";
 
     void Start()
     {

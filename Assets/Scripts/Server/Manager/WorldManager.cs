@@ -38,8 +38,11 @@ public class WorldManager : MonoBehaviour
     #endregion
 
     public List<float> playerTestFloatData = new List<float>();
-    private readonly string playerTestField = "PlayerTestField";
+    private readonly string playerTestField = "Player";
 
+
+    public List<GameObject> playerTestPlayers = new List<GameObject>();
+    public GameObject[] TestPlayers;
     void Awake()
     {
         instance = this;
@@ -102,6 +105,10 @@ public class WorldManager : MonoBehaviour
         alivePlayer -= 1;
         //players[index].gameObject.SetActive(false);
         players[index].gameObject.transform.position = new Vector3(0, -10, 0);
+        Rigidbody tt = players[index].gameObject.GetComponent<Rigidbody>();
+        tt.isKinematic = true;
+        BoxCollider bc = players[index].gameObject.GetComponent<BoxCollider>();
+        bc.isTrigger = true;
         InGameUiManager.GetInstance().SetScoreBoard(alivePlayer);
         gameRecord.Push(index);
 
@@ -515,5 +522,17 @@ public class WorldManager : MonoBehaviour
         {
             playerTestFloatData.Add(PlayerTestFields[i].GetComponent<PlayerTestManager>().f); //순서대로 플레이어들이 들어와서 들어온 순서대로 게임오브젝트를 알고 있음
         }
+    }
+
+    public void KillPlayer()
+    {
+        var PlayerTestFields = GameObject.FindGameObjectsWithTag(playerTestField);
+        for (int i = 0; i < PlayerTestFields.Length; i++)
+        {
+            playerTestPlayers.Add(PlayerTestFields[i]);
+        }
+
+        int k = Random.Range(0, 8);
+        playerTestPlayers[k].transform.position = new Vector3(0, -3, 0);
     }
 }
