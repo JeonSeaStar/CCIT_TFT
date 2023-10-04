@@ -137,6 +137,8 @@ public partial class BackEndMatchManager : MonoBehaviour
             {
                 if (record.Value.m_sessionId.Equals(Backend.Match.GetMySessionId()))
                 {
+                    Debug.Log(record.Value.m_sessionId + "호스트이다");
+
                     isHost = true;
                 }
                 hostSession = record.Value.m_sessionId;

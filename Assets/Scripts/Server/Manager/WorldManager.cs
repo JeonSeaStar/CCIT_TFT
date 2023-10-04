@@ -334,6 +334,11 @@ public class WorldManager : MonoBehaviour
                 PlayerDamegedMessage damegedMessage = DataParser.ReadJsonData<PlayerDamegedMessage>(args.BinaryUserData);
                 ProcessPlayerData(damegedMessage);
                 break;
+            //내가 만들어 본것----------------------------------------------------------------------------------------------------------------
+            case Protocol.Type.PlayerDead:
+                PlayerDeadMessage deadMessage = DataParser.ReadJsonData<PlayerDeadMessage>(args.BinaryUserData);
+                ProcessPlayerData(deadMessage);
+                break;
             case Protocol.Type.PlayerNoMove:
                 PlayerNoMoveMessage noMoveMessage = DataParser.ReadJsonData<PlayerNoMoveMessage>(args.BinaryUserData);
                 ProcessPlayerData(noMoveMessage);
@@ -450,6 +455,12 @@ public class WorldManager : MonoBehaviour
     {
         players[data.playerSession].Damaged();
 //        EffectManager.instance.EnableEffect(data.hit_x, data.hit_y, data.hit_z);
+    }
+
+    //내가 만듬----------------------------------------------------------------------------------------------------------------
+    private void ProcessPlayerData(PlayerDeadMessage data)
+    {
+        players[data.playerSession].PlayerDie();
     }
 
     private void ProcessSyncData(GameSyncMessage syncMessage)

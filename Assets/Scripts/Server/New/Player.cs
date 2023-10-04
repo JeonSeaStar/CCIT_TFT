@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     [SerializeField] private SessionId index = 0;
     [SerializeField] private string nickName = string.Empty;
     [SerializeField] private bool isMe = false;
-
+    
     // 스테이터스
     public int hp { get; private set; } = 0;
     private const int MAX_HP = 5;
@@ -162,7 +162,7 @@ public class Player : MonoBehaviour
         this.hp = hp;
     }
 
-    private void PlayerDie()
+    public void PlayerDie()
     {
         isLive = false;
         nameObject.SetActive(false);

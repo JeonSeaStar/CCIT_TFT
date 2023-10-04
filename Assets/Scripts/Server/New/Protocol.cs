@@ -27,7 +27,8 @@ namespace Protocol
         GameStart,      // 게임 시작
         GameEnd,        // 게임 종료
         GameSync,       // 플레이어 재접속 시 게임 현재 상황 싱크
-        Max
+        Max,
+        PlayerDead
     }
 
     // 애니메이션 싱크는 사용하지 않습니다.
@@ -127,6 +128,22 @@ namespace Protocol
             this.hit_x = x;
             this.hit_y = y;
             this.hit_z = z;
+        }
+    }
+
+    //내가 만들어 본것
+    public class PlayerDeadMessage : Message
+    {
+        public SessionId playerSession;
+        public float pos_x;
+        public float pos_y;
+        public float pos_z;
+        public PlayerDeadMessage(SessionId session, float x, float y, float z) : base(Type.PlayerDead)
+        {
+            this.playerSession = session;
+            this.pos_x = x;
+            this.pos_y = y;
+            this.pos_z = z;
         }
     }
 
