@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BackEnd;
@@ -51,9 +52,10 @@ public partial class BackEndMatchManager : MonoBehaviour
     private int numOfClient = 2;                    // 매치에 참가한 유저의 총 수
 
     #region Host
-    private bool isHost = false;                    // 호스트 여부 (서버에서 설정한 SuperGamer 정보를 가져옴)
+    public bool isHost = false;                    // 호스트 여부 (서버에서 설정한 SuperGamer 정보를 가져옴)
     private Queue<KeyMessage> localQueue = null;    // 호스트에서 로컬로 처리하는 패킷을 쌓아두는 큐 (로컬처리하는 데이터는 서버로 발송 안함)
     #endregion
+
 
     void Awake()
     {
@@ -140,6 +142,8 @@ public partial class BackEndMatchManager : MonoBehaviour
                     Debug.Log(record.Value.m_sessionId + "호스트이다");
 
                     isHost = true;
+                    StartCoroutine(YouHosts());
+                    
                 }
                 hostSession = record.Value.m_sessionId;
                 break;
@@ -161,6 +165,12 @@ public partial class BackEndMatchManager : MonoBehaviour
         // 호스트 설정까지 끝나면 매치서버와 접속 끊음
         LeaveMatchServer();
         return true;
+    }
+
+    IEnumerator YouHosts()
+    {
+        yield return new WaitForSeconds(15f);
+        InGameUiManager.GetInstance().YouHost();
     }
 
     //서브 호스트 세션 설정
@@ -533,7 +543,7 @@ public partial class BackEndMatchManager : MonoBehaviour
                 while (localQueue.Count > 0)
                 {
                     var msg = localQueue.Dequeue();
-                    WorldManager.instance.OnRecieveForLocal(msg);
+                    WorldManager.instance.OnRecieveForLocal(msg); //게임의 로컬 데이터를 받아 로컬큐에 쌓는다
                 }
             }
         }

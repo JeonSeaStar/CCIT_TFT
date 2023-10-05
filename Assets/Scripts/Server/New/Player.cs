@@ -40,6 +40,8 @@ public class Player : MonoBehaviour
     public List<PlayerTestManager> playerTestFieldList = new List<PlayerTestManager>();
     private readonly string playerTestField = "Player";
 
+    public Material isHost;
+    
     void Start()
     {
         if (BackEndMatchManager.GetInstance() == null)
@@ -101,6 +103,13 @@ public class Player : MonoBehaviour
     {
 
     }
+
+    //플레이어 죽는 위치
+    public void SetMoveDeadPos(Vector3 vector)
+    {
+        moveVector = vector;
+    }
+
 
     public void SetPosition(Vector3 pos)
     {

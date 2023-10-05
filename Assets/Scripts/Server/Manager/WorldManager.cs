@@ -132,7 +132,7 @@ public class WorldManager : MonoBehaviour
 
     private void SendGameEndOrder()
     {
-        // 게임 종료 전환 메시지는 호스트에서만 보냄
+        // 게임 종료 전환 메시지는 호스트에서만 보냄----------------- 이것이 매우 중요 게임종료 메세지는 호스트에서만 보냄
         Debug.Log("Make GameResult & Send Game End Order");
         foreach (SessionId session in BackEndMatchManager.GetInstance().sessionIdList)
         {
@@ -150,6 +150,7 @@ public class WorldManager : MonoBehaviour
         return myPlayerIndex;
     }
 
+    //플레이어의 정보를 설정
     public void SetPlayerInfo()
     {
         if (BackEndMatchManager.GetInstance().sessionIdList == null)
@@ -268,6 +269,7 @@ public class WorldManager : MonoBehaviour
         BackEndMatchManager.GetInstance().MatchGameOver(gameRecord);
     }
 
+    //게임 결과
     public void OnGameResult()
     {
         Debug.Log("Game Result");
@@ -279,6 +281,7 @@ public class WorldManager : MonoBehaviour
         }
     }
 
+    //데이터를 받는다
     public void OnRecieve(MatchRelayEventArgs args)
     {
         if (args.BinaryUserData == null)
@@ -301,7 +304,7 @@ public class WorldManager : MonoBehaviour
             Debug.LogError("Players 정보가 존재하지 않습니다.");
             return;
         }
-        switch (msg.type)
+        switch (msg.type) //메시지 이벤트 별로 데이터 처리
         {
             case Protocol.Type.StartCount:
                 StartCountMessage startCount = DataParser.ReadJsonData<StartCountMessage>(args.BinaryUserData);
@@ -363,6 +366,7 @@ public class WorldManager : MonoBehaviour
         ProcessPlayerData(message);
     }
 
+    // 키 입력 이벤트 관리하여 서버로 전송
     private void ProcessKeyEvent(SessionId index, KeyMessage keyMessage)
     {
         if (BackEndMatchManager.GetInstance().IsHost() == false)
@@ -373,6 +377,7 @@ public class WorldManager : MonoBehaviour
         bool isMove = false;
         bool isAttack = false;
         bool isNoMove = false;
+        bool isDead = false;
 
         int keyData = keyMessage.keyData;
 
@@ -408,6 +413,12 @@ public class WorldManager : MonoBehaviour
             PlayerNoMoveMessage msg = new PlayerNoMoveMessage(index, playerPos);
             BackEndMatchManager.GetInstance().SendDataToInGame<PlayerNoMoveMessage>(msg);
         }
+        // 내가 만들어 봄
+        if(isDead)
+        {
+            PlayerDeadMessage msg = new PlayerDeadMessage(index, playerPos);
+            BackEndMatchManager.GetInstance().SendDataToInGame<PlayerDeadMessage>(msg);
+        }
         if (isAttack)
         {
             PlayerAttackMessage msg = new PlayerAttackMessage(index, attackPos);
@@ -422,6 +433,7 @@ public class WorldManager : MonoBehaviour
         BackEndMatchManager.GetInstance().SendDataToInGame<PlayerAttackMessage>(msg);
     }
 
+    //플레이어 움직임 메세지 전송
     private void ProcessPlayerData(PlayerMoveMessage data)
     {
         if (BackEndMatchManager.GetInstance().IsHost() == true)
@@ -437,11 +449,15 @@ public class WorldManager : MonoBehaviour
             players[data.playerSession].SetMoveVector(moveVecotr);
         }
     }
+
+    //플레이어 움직이지 않을때 전송 메세지
     private void ProcessPlayerData(PlayerNoMoveMessage data)
     {
         players[data.playerSession].SetPosition(data.xPos, data.yPos, data.zPos);
         players[data.playerSession].SetMoveVector(Vector3.zero);
     }
+
+    //플레이어 공격 전송 메세지
     private void ProcessPlayerData(PlayerAttackMessage data)
     {
         if (BackEndMatchManager.GetInstance().IsHost() == true)
@@ -451,6 +467,8 @@ public class WorldManager : MonoBehaviour
         }
         players[data.playerSession].Attack(new Vector3(data.dir_x, data.dir_y, data.dir_z));
     }
+
+    //플레이어 데미지 입었을때 전송 메세지
     private void ProcessPlayerData(PlayerDamegedMessage data)
     {
         players[data.playerSession].Damaged();
@@ -458,11 +476,14 @@ public class WorldManager : MonoBehaviour
     }
 
     //내가 만듬----------------------------------------------------------------------------------------------------------------
+    //플레이어 죽을때 메세지
     private void ProcessPlayerData(PlayerDeadMessage data)
     {
         players[data.playerSession].PlayerDie();
+        players[data.playerSession].SetMoveDeadPos(new Vector3(0, -3, 0));
     }
 
+    //플레이어의 데이터를 동기화하는 것
     private void ProcessSyncData(GameSyncMessage syncMessage)
     {
         // 플레이어 데이터 동기화
@@ -502,7 +523,7 @@ public class WorldManager : MonoBehaviour
         }
     }
 
-    public GameSyncMessage GetNowGameState(SessionId hostSession)
+    public GameSyncMessage GetNowGameState(SessionId hostSession) //게임 싱크 위치 체력
     {
         int numOfClient = players.Count;
 

@@ -138,12 +138,12 @@ namespace Protocol
         public float pos_x;
         public float pos_y;
         public float pos_z;
-        public PlayerDeadMessage(SessionId session, float x, float y, float z) : base(Type.PlayerDead)
+        public PlayerDeadMessage(SessionId session, Vector3 pos) : base(Type.PlayerDead)
         {
             this.playerSession = session;
-            this.pos_x = x;
-            this.pos_y = y;
-            this.pos_z = z;
+            this.pos_x = pos.x;
+            this.pos_y = pos.y;
+            this.pos_z = pos.z;
         }
     }
 
