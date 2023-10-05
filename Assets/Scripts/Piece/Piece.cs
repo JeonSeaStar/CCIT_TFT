@@ -19,18 +19,30 @@ public class Piece : MonoBehaviour
     public int star = 0;
 
     [Header("Player Stats")]
-    public float defaultHealth;     
-    public float currentHealth;     
-    public float defaultMana;       
-    public float currentMana;       
+    public float health;
+    public float mana;
+    public float attackDamage;
+    public float abilityPower;
+    public float armor;
+    public float magicResist;
+    public float attackSpeed;
+    public float criticalChance;
+    public float criticalDamage;
+    public float attackRange;
+
+
+    public float defaultHealth;
+    public float currentHealth;
+    public float defaultMana;
+    public float currentMana;
     public float manaRecovery;
-    
+
     public float shield; //임시값
     public float currentShield; //임시값
 
     [Space(10f)]
     public float defaultAttackPower;
-    private float damageRise;        
+    private float damageRise;
     public float DamageRise
     {
         get { return damageRise; }
@@ -43,11 +55,11 @@ public class Piece : MonoBehaviour
             }
         }
     }
-    public float attackPower;      
+    public float attackPower;
 
     [Space(10f)]
     public float defaultAbilityPower;
-    private float abilityRise;       
+    private float abilityRise;
     public float AbilityRise
     {
         get { return abilityRise; }
@@ -60,11 +72,11 @@ public class Piece : MonoBehaviour
             }
         }
     }
-    public float abilityDamage;     
+    public float abilityDamage;
 
     [Space(10f)]
     public float defaultArmor;
-    private float armorRise;         
+    private float armorRise;
     public float ArmorRise
     {
         get { return armorRise; }
@@ -77,11 +89,11 @@ public class Piece : MonoBehaviour
             }
         }
     }
-    public float armor;             
+    //public float armor;
 
     [Space(10f)]
     public float defaultMagicResist;
-    private float magicResistRise;   
+    private float magicResistRise;
     public float MagicResistRise
     {
         get { return magicResistRise; }
@@ -94,28 +106,28 @@ public class Piece : MonoBehaviour
             }
         }
     }
-    public float magicResist;       
+    //public float magicResist;
 
     [Space(10f)]
     public float defaultAttackSpeed;
-    private float attackSpeedRise;   
+    private float attackSpeedRise;
     public float AttackSpeedRise
     {
         get { return attackSpeedRise; }
         set
         {
-            if(attackSpeedRise != value)
+            if (attackSpeedRise != value)
             {
                 attackSpeedRise = value;
             }
         }
     }
-    public float attackSpeed;       
+    //public float attackSpeed;
 
 
-    public float defaultCriticalChance;    
-    public float defaultCriticalDamage;    
-    public int defaultAttackRange;         
+    public float defaultCriticalChance;
+    public float defaultCriticalDamage;
+    public int defaultAttackRange;
 
     public bool dead;
 
@@ -137,6 +149,9 @@ public class Piece : MonoBehaviour
     public List<EquipmentData> equipmentDatas;
 
     [SerializeField] GameObject randomBoxObject;
+
+    [Header("버프")]
+    public List<Buff> buffList;
 
     [Header("ExpeditionTile Information")]
     public Tile expeditionTile;
@@ -193,7 +208,7 @@ public class Piece : MonoBehaviour
     {
         print(name + "(이)가" + target.name + "에게 일반 공격을 합니다.");
         Damage();
-        currentMana += manaRecovery;
+        //currentMana += manaRecovery;
         Invoke("NextBehavior", attackSpeed);
     }
 
@@ -206,7 +221,8 @@ public class Piece : MonoBehaviour
 
     protected bool RangeCheck()
     {
-        if (defaultAttackRange >= ArenaManager.Instance.fieldManagers[0].pathFinding.GetDistance(currentTile, target.currentTile))
+        //if (defaultAttackRange >= ArenaManager.Instance.fieldManagers[0].pathFinding.GetDistance(currentTile, target.currentTile))
+        if (attackRange >= ArenaManager.Instance.fieldManagers[0].pathFinding.GetDistance(currentTile, target.currentTile))
             return true;
         else
             return false;
@@ -214,9 +230,11 @@ public class Piece : MonoBehaviour
 
     protected void Damage()
     {
-        target.defaultHealth -= attackPower;
+        //target.defaultHealth -= attackPower;
+        target.health -= attackDamage;
 
-        if (target.defaultHealth <= 0)
+        //if (target.defaultHealth <= 0)
+        if (target.health <= 0)
         {
             target.Dead();
             target = null;
@@ -352,8 +370,8 @@ public class Piece : MonoBehaviour
         }  // Change Battle -> Ready
     }
 
-    public delegate void Buff(Piece piece, int count, bool isReadyTile);
-    public Buff sBuff;
+    //public delegate void Buff(Piece piece, int count, bool isReadyTile);
+    //public Buff sBuff;
 
     public void ExpeditionTileCheck()
     {

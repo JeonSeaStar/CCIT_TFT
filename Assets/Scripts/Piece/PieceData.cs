@@ -30,7 +30,7 @@ public class PieceData : ScriptableObject
 
     public enum Myth //기믹과 환경 요소 변화
     {
-        None = -1, 
+        None = -1,
         GreatMountain,      //위대한 산 (그리스)
         FrostyWind,         //서리바람  (북유럽)
         SandKingdom,        //모래왕국  (이집트)
@@ -46,16 +46,16 @@ public class PieceData : ScriptableObject
         Dog,                //강아지 (서열정리)
         Frog,               //개구리 (매끈매끈)
         Rabbit,             //토끼   (깡총깡총)
-        Max 
+        Max
     }
     public enum United //특별한 능력 추가
     {
-        None,           
+        None,
         UnderWorld,         //아래 세계 => (하데스, 헬, 아누비스, 오시리스)
         Faddist,            //변덕쟁이  => (헤르메스, 제우스, 로키, 루시퍼)
         WarMachine,         //전쟁기계  => (아레스, 아테네, 발키리, 네이트)
         Creature,           //괴물      => (미노타우로스, 메두사, 켄타우로스, 그리핀, 드라우그, 수르트, 요르문간드, 펜리르, 미라, 스핑크스)
-        MAX 
+        MAX
     }
     public Myth myth = Myth.None;
     public Animal animal = Animal.None;
@@ -63,19 +63,21 @@ public class PieceData : ScriptableObject
 
     public void InitialzePiece(Piece piece)
     {
-        piece.pieceName = pieceName;
-        piece.piecePortrait = piecePortrait;
-        piece.defaultHealth = defaultHealth;
-        piece.defaultMana = defaultMana;
-        piece.manaRecovery = defaultManaRecovery;
-        piece.defaultAttackPower = defaultAttackDamage;
-        piece.defaultAbilityPower = defaultAbilityPower;
-        piece.defaultArmor = defaultArmor;
-        piece.defaultMagicResist = defaultMagicResist;
-        piece.defaultAttackSpeed = defaultAttackSpeed;
-        piece.defaultCriticalChance = defaultCriticalChance;
-        piece.defaultCriticalDamage = defaultCriticalDamage;
-        piece.defaultAttackRange = defaultAttackRange;
+        //piece.pieceName = pieceName;
+        //piece.piecePortrait = piecePortrait;
+        //piece.defaultHealth = defaultHealth;
+        //piece.defaultMana = defaultMana;
+        //piece.manaRecovery = defaultManaRecovery;
+        //piece.defaultAttackPower = defaultAttackDamage;
+        //piece.defaultAbilityPower = defaultAbilityPower;
+        //piece.defaultArmor = defaultArmor;
+        //piece.defaultMagicResist = defaultMagicResist;
+        //piece.defaultAttackSpeed = defaultAttackSpeed;
+        //piece.defaultCriticalChance = defaultCriticalChance;
+        //piece.defaultCriticalDamage = defaultCriticalDamage;
+        //piece.defaultAttackRange = defaultAttackRange;
+
+
         //piece.mythology = mythology;
         //piece.species = species;
         //piece.plusSynerge = plusSynerge;
@@ -83,9 +85,71 @@ public class PieceData : ScriptableObject
 
     void CalculateEquipments(Piece piece)
     {
-        foreach (var item in piece.Equipments)
-        {
+        float health = 0;
+        float mana = 0;
+        float attackDamage = 0;
+        float abilityPower = 0;
+        float armor = 0;
+        float magicResist = 0;
+        float attackSpeed = 0;
+        float criticalChance = 0;
+        float criticalDamage = 0;
+        float attackRange = 0;
 
+        foreach (var item in piece.equipmentDatas)
+        {
+            health += CalculateStatus(piece.health, item.health, item.percentHealth);
+            mana += CalculateStatus(piece.mana, item.mana, item.percentMana);
+            attackDamage += CalculateStatus(piece.attackDamage, item.attackDamage, item.percentAttackDamage);
+            abilityPower += CalculateStatus(piece.abilityPower, item.abilityPower, item.percentAbilityPower);
+            armor += CalculateStatus(piece.armor, item.armor, item.percentArmor);
+            magicResist += CalculateStatus(piece.magicResist, item.magicResist, item.percentMagicResist);
+            attackSpeed += CalculateStatus(piece.attackSpeed, item.attackSpeed, item.percentAttackSpeed);
+            criticalChance += CalculateStatus(piece.criticalChance, item.criticalChance, item.percentCriticalChance);
+            criticalDamage += CalculateStatus(piece.criticalDamage, item.criticalDamage, item.percentCriticalDamage);
+            attackRange += CalculateStatus(piece.attackRange, item.attackRange, item.percentAttackRange);
         }
+    }
+
+    void CalculateBuff(Piece piece)
+    {
+        float health = 0;
+        float mana = 0;
+        float attackDamage = 0;
+        float abilityPower = 0;
+        float armor = 0;
+        float magicResist = 0;
+        float attackSpeed = 0;
+        float criticalChance = 0;
+        float criticalDamage = 0;
+        float attackRange = 0;
+
+        foreach (var item in piece.buffList)
+        {
+            health += CalculateStatus(piece.health, item.health, item.percentHealth);
+            mana += CalculateStatus(piece.mana, item.mana, item.percentMana);
+            attackDamage += CalculateStatus(piece.attackDamage, item.attackDamage, item.percentAttackDamage);
+            abilityPower += CalculateStatus(piece.abilityPower, item.abilityPower, item.percentAbilityPower);
+            armor += CalculateStatus(piece.armor, item.armor, item.percentArmor);
+            magicResist += CalculateStatus(piece.magicResist, item.magicResist, item.percentMagicResist);
+            attackSpeed += CalculateStatus(piece.attackSpeed, item.attackSpeed, item.percentAttackSpeed);
+            criticalChance += CalculateStatus(piece.criticalChance, item.criticalChance, item.percentCriticalChance);
+            criticalDamage += CalculateStatus(piece.criticalDamage, item.criticalDamage, item.percentCriticalDamage);
+            attackRange += CalculateStatus(piece.attackRange, item.attackRange, item.percentAttackRange);
+        }
+    }
+
+    float CalculateStatus(float target, float value, bool percent)
+    {
+        float result = 0;
+
+        if (percent)
+        {
+            result = target / 100 * value;
+        }
+        else
+            result += value;
+
+        return result;
     }
 }

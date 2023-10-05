@@ -748,20 +748,17 @@ MonoBehaviour:
   defaultMana: 0
   currentMana: 0
   manaRecovery: 0
+  shield: 0
+  currentShield: 0
   defaultAttackPower: 0
-  damageRise: 0
   attackPower: 0
   defaultAbilityPower: 0
-  abilityRise: 0
   abilityDamage: 0
   defaultArmor: 0
-  armorRise: 0
   armor: 0
   defaultMagicResist: 0
-  magicResistRise: 0
   magicResist: 0
   defaultAttackSpeed: 0
-  attackSpeedRise: 0
   attackSpeed: 0
   defaultCriticalChance: 0
   defaultCriticalDamage: 0
@@ -780,6 +777,7 @@ MonoBehaviour:
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
   expeditionTile: {fileID: 0}
+  sReceivedBuff: []
 --- !u!65 &43912633
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15075,7 +15073,7 @@ MonoBehaviour:
   experience: 0
   lifePoint: 0
   gold: 0
-  playerMaks:
+  playerMask:
     serializedVersion: 2
     m_Bits: 0
   groundMask:
@@ -22775,20 +22773,17 @@ MonoBehaviour:
   defaultMana: 0
   currentMana: 0
   manaRecovery: 0
+  shield: 0
+  currentShield: 0
   defaultAttackPower: 0
-  damageRise: 0
   attackPower: 0
   defaultAbilityPower: 0
-  abilityRise: 0
   abilityDamage: 0
   defaultArmor: 0
-  armorRise: 0
   armor: 0
   defaultMagicResist: 0
-  magicResistRise: 0
   magicResist: 0
   defaultAttackSpeed: 0
-  attackSpeedRise: 0
   attackSpeed: 0
   defaultCriticalChance: 0
   defaultCriticalDamage: 0
@@ -22807,6 +22802,7 @@ MonoBehaviour:
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
   expeditionTile: {fileID: 0}
+  sReceivedBuff: []
 --- !u!65 &1746667501
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -24163,15 +24159,12 @@ MonoBehaviour:
   - {fileID: 197550257}
   - {fileID: 802205873}
   - {fileID: 668044194}
+  oneCostGreatMountainPieces: []
+  twoCostGreatMountainPieces: []
   grab: 0
   isDrag: 0
-  controlPiece: {fileID: 0}
   groundHeight: -0.7296928
-  aa: {fileID: 0}
-  bb: {fileID: 0}
-  aaa: {fileID: 0}
-  bbb: {fileID: 0}
-  ccc: {fileID: 0}
+  BattleEffect: []
   currentPieceList:
   - pieceData: {fileID: 11400000, guid: 309f6986873b81042844f48195428c5d, type: 2}
     count:
@@ -24957,20 +24950,17 @@ MonoBehaviour:
   defaultMana: 0
   currentMana: 0
   manaRecovery: 0
+  shield: 0
+  currentShield: 0
   defaultAttackPower: 0
-  damageRise: 0
   attackPower: 0
   defaultAbilityPower: 0
-  abilityRise: 0
   abilityDamage: 0
   defaultArmor: 0
-  armorRise: 0
   armor: 0
   defaultMagicResist: 0
-  magicResistRise: 0
   magicResist: 0
   defaultAttackSpeed: 0
-  attackSpeedRise: 0
   attackSpeed: 0
   defaultCriticalChance: 0
   defaultCriticalDamage: 0
@@ -24989,6 +24979,7 @@ MonoBehaviour:
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
   expeditionTile: {fileID: 0}
+  sReceivedBuff: []
 --- !u!65 &1957474542
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -27392,7 +27383,7 @@ MonoBehaviour:
   experience: 0
   lifePoint: 0
   gold: 0
-  playerMaks:
+  playerMask:
     serializedVersion: 2
     m_Bits: 0
   groundMask:
