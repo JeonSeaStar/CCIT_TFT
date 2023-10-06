@@ -26,4 +26,9 @@ public class Buff : MonoBehaviour
     public float criticalChance;
     public float criticalDamage;
     public float attackRange;
+
+    void Effect()
+    {
+        print("부가 효과는 이 곳에");
+    }
 }

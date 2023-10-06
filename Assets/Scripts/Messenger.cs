@@ -45,6 +45,9 @@ public class Messenger : MonoBehaviour
         }
     }
 
+    [SerializeField] GameObject chargingParticle;
+    [SerializeField] GameObject AttackParticle;
+
     private void Awake()
     {
         fieldManager.DualPlayers[0] = this;
@@ -270,5 +273,16 @@ public class Messenger : MonoBehaviour
         int damage = damagePerPiece[activePiece] + damagePerRound[ArenaManager.Instance.currentRound];
 
         return damage;
+    }
+
+    void spawnChargingParticle()
+    {
+        foreach (var piece in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
+        {
+            if (!piece.dead)
+            {
+
+            }
+        }
     }
 }
