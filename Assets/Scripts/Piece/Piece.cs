@@ -151,7 +151,7 @@ public class Piece : MonoBehaviour
     [SerializeField] GameObject randomBoxObject;
 
     [Header("버프")]
-    public List<Buff> buffList;
+    public List<BuffData> buffList;
 
     [Header("ExpeditionTile Information")]
     public Tile expeditionTile;
@@ -380,4 +380,8 @@ public class Piece : MonoBehaviour
 
         expeditionTile = fieldManager.pathFinding.grid[_y].tile[_x];
     }
+
+    #region 상태이상
+
+    #endregion
 }
