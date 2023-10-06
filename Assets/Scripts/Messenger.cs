@@ -18,6 +18,9 @@ public class Messenger : MonoBehaviour
     public bool isGrab = false;
     public bool isDrag = false;
 
+    [SerializeField] int[] damagePerPiece = new int[] { 2, 4, 6, 8, 10, 11, 12, 13, 14, 15};
+    [SerializeField] int[] damagePerRound = new int[] { 0, 1, 2, 3, 4, 6, 9, 15 };
+
     [SerializeField] Piece controlPiece;
     public Piece ControlPiece
     {
@@ -41,6 +44,9 @@ public class Messenger : MonoBehaviour
             return controlEquipment;
         }
     }
+
+    [SerializeField] GameObject chargingParticle;
+    [SerializeField] GameObject AttackParticle;
 
     private void Awake()
     {
@@ -222,7 +228,6 @@ public class Messenger : MonoBehaviour
     }
     #endregion
 
-
     //ÀÌµ¿ ÁÂÇ¥
     (bool success, Vector3 position) GetMousePosition()
     {
@@ -236,8 +241,6 @@ public class Messenger : MonoBehaviour
         else
             return (success: false, position: Vector3.zero);
     }
-
-
 
     //
     void Aim()
@@ -254,6 +257,31 @@ public class Messenger : MonoBehaviour
                 DOTween.Kill(transform);
                 transform.DOMove(position, moveSpeed * Vector3.Distance(transform.position, position)).SetEase(ease);
                 transform.Rotate(90, transform.rotation.y, transform.rotation.z);
+            }
+        }
+    }
+
+    int MessengerDamage()
+    {
+        int activePiece = 0;
+        foreach(var piece in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
+        {
+            if (!piece.dead)
+                activePiece++;
+        }
+
+        int damage = damagePerPiece[activePiece] + damagePerRound[ArenaManager.Instance.currentRound];
+
+        return damage;
+    }
+
+    void spawnChargingParticle()
+    {
+        foreach (var piece in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
+        {
+            if (!piece.dead)
+            {
+
             }
         }
     }

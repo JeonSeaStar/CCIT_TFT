@@ -743,26 +743,30 @@ MonoBehaviour:
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
+  health: 0
+  mana: 0
+  attackDamage: 0
+  abilityPower: 0
+  armor: 0
+  magicResist: 0
+  attackSpeed: 0
+  criticalChance: 0
+  criticalDamage: 0
+  attackRange: 0
   defaultHealth: 100
   currentHealth: 100
   defaultMana: 0
   currentMana: 0
   manaRecovery: 0
+  shield: 0
+  currentShield: 0
   defaultAttackPower: 0
-  damageRise: 0
   attackPower: 0
   defaultAbilityPower: 0
-  abilityRise: 0
   abilityDamage: 0
   defaultArmor: 0
-  armorRise: 0
-  armor: 0
   defaultMagicResist: 0
-  magicResistRise: 0
-  magicResist: 0
   defaultAttackSpeed: 0
-  attackSpeedRise: 0
-  attackSpeed: 0
   defaultCriticalChance: 0
   defaultCriticalDamage: 0
   defaultAttackRange: 0
@@ -779,7 +783,9 @@ MonoBehaviour:
   equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
+  buffList: []
   expeditionTile: {fileID: 0}
+  sReceivedBuff: []
 --- !u!65 &43912633
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15075,7 +15081,7 @@ MonoBehaviour:
   experience: 0
   lifePoint: 0
   gold: 0
-  playerMaks:
+  playerMask:
     serializedVersion: 2
     m_Bits: 0
   groundMask:
@@ -15087,8 +15093,14 @@ MonoBehaviour:
   owned: 0
   isGrab: 0
   isDrag: 0
+  damagePerPiece: 
+  damagePerRound: 
   controlPiece: {fileID: 0}
   controlEquipment: {fileID: 0}
+  chargingParticle: {fileID: 470603088001444108, guid: f200f316bfd87f34c933da616fd8c4d5,
+    type: 3}
+  AttackParticle: {fileID: 7407191224821281977, guid: fa8c8bf94965f9e498f6c29f0c971e1c,
+    type: 3}
 --- !u!23 &1052439236
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -22770,26 +22782,30 @@ MonoBehaviour:
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
+  health: 0
+  mana: 0
+  attackDamage: 0
+  abilityPower: 0
+  armor: 0
+  magicResist: 0
+  attackSpeed: 0
+  criticalChance: 0
+  criticalDamage: 0
+  attackRange: 0
   defaultHealth: 100
   currentHealth: 100
   defaultMana: 0
   currentMana: 0
   manaRecovery: 0
+  shield: 0
+  currentShield: 0
   defaultAttackPower: 0
-  damageRise: 0
   attackPower: 0
   defaultAbilityPower: 0
-  abilityRise: 0
   abilityDamage: 0
   defaultArmor: 0
-  armorRise: 0
-  armor: 0
   defaultMagicResist: 0
-  magicResistRise: 0
-  magicResist: 0
   defaultAttackSpeed: 0
-  attackSpeedRise: 0
-  attackSpeed: 0
   defaultCriticalChance: 0
   defaultCriticalDamage: 0
   defaultAttackRange: 0
@@ -22806,7 +22822,9 @@ MonoBehaviour:
   equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
+  buffList: []
   expeditionTile: {fileID: 0}
+  sReceivedBuff: []
 --- !u!65 &1746667501
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -24071,8 +24089,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DualPlayers:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 3469287837247737724}
+  - {fileID: 1052439235}
   targetPositions:
   - {fileID: 178479010}
   - {fileID: 2114872210}
@@ -24163,15 +24181,12 @@ MonoBehaviour:
   - {fileID: 197550257}
   - {fileID: 802205873}
   - {fileID: 668044194}
+  oneCostGreatMountainPieces: []
+  twoCostGreatMountainPieces: []
   grab: 0
   isDrag: 0
-  controlPiece: {fileID: 0}
   groundHeight: -0.7296928
-  aa: {fileID: 0}
-  bb: {fileID: 0}
-  aaa: {fileID: 0}
-  bbb: {fileID: 0}
-  ccc: {fileID: 0}
+  BattleEffect: []
   currentPieceList:
   - pieceData: {fileID: 11400000, guid: 309f6986873b81042844f48195428c5d, type: 2}
     count:
@@ -24952,26 +24967,30 @@ MonoBehaviour:
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
+  health: 0
+  mana: 0
+  attackDamage: 0
+  abilityPower: 0
+  armor: 0
+  magicResist: 0
+  attackSpeed: 0
+  criticalChance: 0
+  criticalDamage: 0
+  attackRange: 0
   defaultHealth: 100
   currentHealth: 100
   defaultMana: 0
   currentMana: 0
   manaRecovery: 0
+  shield: 0
+  currentShield: 0
   defaultAttackPower: 0
-  damageRise: 0
   attackPower: 0
   defaultAbilityPower: 0
-  abilityRise: 0
   abilityDamage: 0
   defaultArmor: 0
-  armorRise: 0
-  armor: 0
   defaultMagicResist: 0
-  magicResistRise: 0
-  magicResist: 0
   defaultAttackSpeed: 0
-  attackSpeedRise: 0
-  attackSpeed: 0
   defaultCriticalChance: 0
   defaultCriticalDamage: 0
   defaultAttackRange: 0
@@ -24988,7 +25007,9 @@ MonoBehaviour:
   equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
+  buffList: []
   expeditionTile: {fileID: 0}
+  sReceivedBuff: []
 --- !u!65 &1957474542
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -25431,6 +25452,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fieldManagers:
   - {fileID: 1886702829}
+  currentRound: 0
+  currentStage: 0
   roundType: 0
   deploymentTime: 30
   readyTime: 30
@@ -27392,7 +27415,7 @@ MonoBehaviour:
   experience: 0
   lifePoint: 0
   gold: 0
-  playerMaks:
+  playerMask:
     serializedVersion: 2
     m_Bits: 0
   groundMask:
@@ -27404,8 +27427,14 @@ MonoBehaviour:
   owned: 1
   isGrab: 0
   isDrag: 0
+  damagePerPiece: 
+  damagePerRound: 
   controlPiece: {fileID: 0}
   controlEquipment: {fileID: 0}
+  chargingParticle: {fileID: 470603088001444108, guid: f200f316bfd87f34c933da616fd8c4d5,
+    type: 3}
+  AttackParticle: {fileID: 7407191224821281977, guid: fa8c8bf94965f9e498f6c29f0c971e1c,
+    type: 3}
 --- !u!54 &3469287837247737725
 Rigidbody:
   m_ObjectHideFlags: 0

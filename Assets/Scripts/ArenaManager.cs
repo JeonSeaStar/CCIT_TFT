@@ -25,6 +25,10 @@ public class ArenaManager : MonoBehaviour
     }
 
     public List<FieldManager> fieldManagers;
+
+    public int currentRound = 0;
+    public int currentStage = 0;
+
     public enum RoundType
     {
         None = -1,
