@@ -165,7 +165,6 @@ public class FieldManager : MonoBehaviour
         int _unitedCount = unitedActiveCount[plus.pieceData.united];
 
         bool check = plus.currentTile.isReadyTile;
-
         if (minus == null) //Set Piece
         {
             if (check) //Plus
@@ -514,10 +513,8 @@ public class FieldManager : MonoBehaviour
     }
 
     //Methods Needs to be run once at the start of the battle round
-    //public delegate void BattleBuff();
-    //BattleBuff sOnceBuff;
-    public List<string> BattleEffect;
-    public List<Coroutine> BattleBuffInProgress;
+    public delegate void BattleBuff();
+    BattleBuff sOnceBuff;
 
     //Methods Needs to be run multiple times during the battle round
     public delegate IEnumerator CoroutineBuff();
