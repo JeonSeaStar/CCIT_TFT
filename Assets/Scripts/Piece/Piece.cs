@@ -156,32 +156,10 @@ public class Piece : MonoBehaviour
     [Header("ExpeditionTile Information")]
     public Tile expeditionTile;
 
-    #region //Just For Check
-    enum Synergies
-    {
-        //MYTH
-        GreatMountain_1, GreatMountain_2, GreatMountain_3, GreatMountain_4,
-        FrostyWind_1, FrostyWind_2, FrostyWind_3,
-        SandKingdom_1, SandKingdom_2, SandKingdom_3,
-        HeavenGround_1, HeavenGround_2,
-        BurningGround_1, BurningGround_2,
-        //ANIMALS
-        Hamster_1, Hamster_2, Hamster_3,
-        Cat_1, Cat_2,
-        Frog_1, Frog_2, Frog_3,
-        Rabbit_1, Rabbit_2, Rabbit_3,
-        Dog_1, Dog_2, Dog_3,
-        //UNITED
-        UnderWorld_1, UnderWorld_2,
-        Faddist_1, Faddist_2,
-        WarMachine_1, WarMachine_2,
-        Creature_1, Creature_2, Creature_3, Creature_4,
-    }
-    #endregion
-    [Header("Synerge")]
-    public List<string> sReceivedBuff;
+    //[Header("Synerge")]
+    //public List<string> sReceivedBuff;
 
-    public enum MonsterStatus
+    public enum PieceStatus //상태 이상
     {
         StatusImmunity,
         Freeze,
@@ -196,6 +174,7 @@ public class Piece : MonoBehaviour
     void Awake()
     {
         pieceData.InitialzePiece(this);
+        pieceName = pieceData.pieceName;
         fieldManager = ArenaManager.Instance.fieldManagers[0];
     }
 
@@ -218,6 +197,8 @@ public class Piece : MonoBehaviour
 
         Invoke("NextBehavior", attackSpeed);
     }
+
+    protected virtual void Effect() { }
 
     protected bool RangeCheck()
     {
@@ -341,6 +322,7 @@ public class Piece : MonoBehaviour
             fieldManager.myFilePieceList.Remove(currentPiece);
             var _duplicationCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
             if (_duplicationCheck == null) fieldManager.SynergeDecrease(currentPiece);
+            fieldManager.CalSynerge(currentPiece);
         } // Set Battle -> Ready
     }
 
@@ -353,10 +335,13 @@ public class Piece : MonoBehaviour
             fieldManager.myFilePieceList.Remove(targetPiece);
             var _duplicationTargetCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == targetPiece.pieceName);
             if(_duplicationTargetCheck == null) fieldManager.SynergeDecrease(targetPiece); //Minus
+            
 
             var _duplicationCurrentCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
             if (_duplicationCurrentCheck == null) fieldManager.SynergeIncrease(currentPiece); //Plus
             fieldManager.myFilePieceList.Add(currentPiece);
+
+            fieldManager.CalSynerge(currentPiece, targetPiece);
         }  // Change Ready -> Battle
         else if (currentPiece.currentTile.isReadyTile == false && targetPiece.currentTile.isReadyTile == true)
         {
@@ -367,11 +352,10 @@ public class Piece : MonoBehaviour
             var _duplicationTargetCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == targetPiece.pieceName);
             if(_duplicationTargetCheck == null) fieldManager.SynergeIncrease(targetPiece); //Plus
             fieldManager.myFilePieceList.Add(targetPiece);
+
+            fieldManager.CalSynerge(targetPiece, currentPiece);
         }  // Change Battle -> Ready
     }
-
-    //public delegate void Buff(Piece piece, int count, bool isReadyTile);
-    //public Buff sBuff;
 
     public void ExpeditionTileCheck()
     {
