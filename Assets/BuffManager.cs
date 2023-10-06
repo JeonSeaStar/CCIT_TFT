@@ -5,37 +5,35 @@ using UnityEngine;
 [System.Serializable]
 public class MythBuffs
 {
-    public List<Buff> greatMoutainBuff;
-    public List<Buff> frostyWindBuff;
-    public List<Buff> sandKingdomBuff;
-    public List<Buff> heavenGroundBuff;
-    public List<Buff> burningGroundBuff;
+    public List<BuffData> greatMoutainBuff;
+    public List<BuffData> frostyWindBuff;
+    public List<BuffData> sandKingdomBuff;
+    public List<BuffData> heavenGroundBuff;
+    public List<BuffData> burningGroundBuff;
 }
 
 [System.Serializable]
 public class AnimalBuffs
 {
-    public List<Buff> hamsterBuff;
-    public List<Buff> catBuff;
-    public List<Buff> dogBuff;
-    public List<Buff> frogBuff;
-    public List<Buff> rabbitBuff;
+    public List<BuffData> hamsterBuff;
+    public List<BuffData> catBuff;
+    public List<BuffData> dogBuff;
+    public List<BuffData> frogBuff;
+    public List<BuffData> rabbitBuff;
 }
 
 [System.Serializable]
 public class UnitedBuffs
 {
-    public List<Buff> underWorldBuff;
-    public List<Buff> FaddistBuff;
-    public List<Buff> warMachineBuff;
-    public List<Buff> creatureBuff;
+    public List<BuffData> underWorldBuff;
+    public List<BuffData> FaddistBuff;
+    public List<BuffData> warMachineBuff;
+    public List<BuffData> creatureBuff;
 }
 
 
 public class BuffManager : MonoBehaviour
 {
-    private void Awake() => Synerge.buffManager = this;
-
     public List<MythBuffs> mythBuff = new List<MythBuffs>();
     public List<AnimalBuffs> animalBuff = new List<AnimalBuffs>();
     public List<UnitedBuffs> unitedBuff = new List<UnitedBuffs>();

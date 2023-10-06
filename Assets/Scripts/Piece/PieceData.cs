@@ -17,7 +17,7 @@ public class PieceData : ScriptableObject
     public float defaultAttackDamage;    //최종 공격력
     public float defaultAbilityPower;    //최종 스킬 공격력
 
-    public float defaultArmor;           //방어력att
+    public float defaultArmor;           //방어력
     public float defaultMagicResist;     //마법 저항력
 
     public float defaultAttackSpeed;     //공격속도
