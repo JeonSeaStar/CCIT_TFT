@@ -329,19 +329,12 @@ public class WorldManager : MonoBehaviour
                 PlayerMoveMessage moveMessage = DataParser.ReadJsonData<PlayerMoveMessage>(args.BinaryUserData);
                 ProcessPlayerData(moveMessage);
                 break;
-            case Protocol.Type.PlayerAttack:
-                PlayerAttackMessage attackMessage = DataParser.ReadJsonData<PlayerAttackMessage>(args.BinaryUserData);
-                ProcessPlayerData(attackMessage);
-                break;
+
             case Protocol.Type.PlayerDamaged:
                 PlayerDamegedMessage damegedMessage = DataParser.ReadJsonData<PlayerDamegedMessage>(args.BinaryUserData);
                 ProcessPlayerData(damegedMessage);
                 break;
-            //내가 만들어 본것----------------------------------------------------------------------------------------------------------------
-            case Protocol.Type.PlayerDead:
-                PlayerDeadMessage deadMessage = DataParser.ReadJsonData<PlayerDeadMessage>(args.BinaryUserData);
-                ProcessPlayerData(deadMessage);
-                break;
+
             case Protocol.Type.PlayerNoMove:
                 PlayerNoMoveMessage noMoveMessage = DataParser.ReadJsonData<PlayerNoMoveMessage>(args.BinaryUserData);
                 ProcessPlayerData(noMoveMessage);
@@ -382,7 +375,7 @@ public class WorldManager : MonoBehaviour
         int keyData = keyMessage.keyData;
 
         Vector3 moveVecotr = Vector3.zero;
-        Vector3 attackPos = Vector3.zero;
+//        Vector3 attackPos = Vector3.zero;
         Vector3 playerPos = players[index].GetPosition();
         if ((keyData & KeyEventCode.MOVE) == KeyEventCode.MOVE)
         {
@@ -390,13 +383,6 @@ public class WorldManager : MonoBehaviour
             moveVecotr = Vector3.Normalize(moveVecotr);
             isMove = true;
         }
-        if ((keyData & KeyEventCode.ATTACK) == KeyEventCode.ATTACK)
-        {
-            attackPos = new Vector3(keyMessage.x, keyMessage.y, keyMessage.z);
-            players[index].Attack(attackPos);
-            isAttack = true;
-        }
-
         if ((keyData & KeyEventCode.NO_MOVE) == KeyEventCode.NO_MOVE)
         {
             isNoMove = true;
@@ -413,24 +399,6 @@ public class WorldManager : MonoBehaviour
             PlayerNoMoveMessage msg = new PlayerNoMoveMessage(index, playerPos);
             BackEndMatchManager.GetInstance().SendDataToInGame<PlayerNoMoveMessage>(msg);
         }
-        // 내가 만들어 봄
-        if(isDead)
-        {
-            PlayerDeadMessage msg = new PlayerDeadMessage(index, playerPos);
-            BackEndMatchManager.GetInstance().SendDataToInGame<PlayerDeadMessage>(msg);
-        }
-        if (isAttack)
-        {
-            PlayerAttackMessage msg = new PlayerAttackMessage(index, attackPos);
-            BackEndMatchManager.GetInstance().SendDataToInGame<PlayerAttackMessage>(msg);
-        }
-    }
-
-    private void ProcessAttackKeyData(SessionId session, Vector3 pos)
-    {
-        players[session].Attack(pos);
-        PlayerAttackMessage msg = new PlayerAttackMessage(session, pos);
-        BackEndMatchManager.GetInstance().SendDataToInGame<PlayerAttackMessage>(msg);
     }
 
     //플레이어 움직임 메세지 전송
@@ -448,6 +416,7 @@ public class WorldManager : MonoBehaviour
             players[data.playerSession].SetPosition(data.xPos, data.yPos, data.zPos);
             players[data.playerSession].SetMoveVector(moveVecotr);
         }
+
     }
 
     //플레이어 움직이지 않을때 전송 메세지
@@ -458,29 +427,13 @@ public class WorldManager : MonoBehaviour
     }
 
     //플레이어 공격 전송 메세지
-    private void ProcessPlayerData(PlayerAttackMessage data)
-    {
-        if (BackEndMatchManager.GetInstance().IsHost() == true)
-        {
-            //호스트면 리턴
-            return;
-        }
-        players[data.playerSession].Attack(new Vector3(data.dir_x, data.dir_y, data.dir_z));
-    }
+
 
     //플레이어 데미지 입었을때 전송 메세지
     private void ProcessPlayerData(PlayerDamegedMessage data)
     {
-        players[data.playerSession].Damaged();
-//        EffectManager.instance.EnableEffect(data.hit_x, data.hit_y, data.hit_z);
-    }
-
-    //내가 만듬----------------------------------------------------------------------------------------------------------------
-    //플레이어 죽을때 메세지
-    private void ProcessPlayerData(PlayerDeadMessage data)
-    {
-        players[data.playerSession].PlayerDie();
-        players[data.playerSession].SetMoveDeadPos(new Vector3(0, -3, 0));
+        //players[data.playerSession].Damaged();
+        //EffectManager.instance.EnableEffect(data.hit_x, data.hit_y, data.hit_z);
     }
 
     //플레이어의 데이터를 동기화하는 것
@@ -497,7 +450,7 @@ public class WorldManager : MonoBehaviour
         {
             var y = player.Value.GetPosition().y;
             player.Value.SetPosition(new Vector3(syncMessage.xPos[index], y, syncMessage.zPos[index]));
-            player.Value.SetHP(syncMessage.hpValue[index]);
+//            player.Value.SetHP(syncMessage.hpValue[index]);
             index++;
         }
         BackEndMatchManager.GetInstance().SetHostSession(syncMessage.host);
@@ -536,16 +489,15 @@ public class WorldManager : MonoBehaviour
         {
             xPos[index] = player.Value.GetPosition().x;
             zPos[index] = player.Value.GetPosition().z;
-            hp[index] = player.Value.hp;
             index++;
         }
         return new GameSyncMessage(hostSession, numOfClient, xPos, zPos, hp, online);
     }
 
-    public Vector3 GetMyPlayerPos()
-    {
-        return players[myPlayerIndex].GetPosition();
-    }
+    //public Vector3 GetMyPlayerPos()
+    //{
+    //    return players[myPlayerIndex].GetPosition();
+    //}
 
     public void CheckTestPlayerManagerData()
     {

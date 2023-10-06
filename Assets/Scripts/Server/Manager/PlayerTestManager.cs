@@ -10,5 +10,4 @@ public class PlayerTestManager : MonoBehaviour
     {
         f += 1;
     }
-
 }

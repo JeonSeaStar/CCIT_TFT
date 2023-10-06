@@ -18,6 +18,7 @@ namespace Protocol
         PlayerDamaged,  // 플레이어 데미지 받음
         PlayerNoMove,   // 플레이어 이동 멈춤
         PlayerNoRotate, // 플레이어 회전 멈춤
+        PlayerDead,
         bulletInfo,
 
         AIPlayerInfo,   // AI가 존재하는 경우 AI 정보
@@ -28,7 +29,6 @@ namespace Protocol
         GameEnd,        // 게임 종료
         GameSync,       // 플레이어 재접속 시 게임 현재 상황 싱크
         Max,
-        PlayerDead
     }
 
     // 애니메이션 싱크는 사용하지 않습니다.
@@ -101,21 +101,6 @@ namespace Protocol
         }
     }
 
-    public class PlayerAttackMessage : Message
-    {
-        public SessionId playerSession;
-        public float dir_x;
-        public float dir_y;
-        public float dir_z;
-        public PlayerAttackMessage(SessionId session, Vector3 pos) : base(Type.PlayerAttack)
-        {
-            this.playerSession = session;
-            dir_x = pos.x;
-            dir_y = pos.y;
-            dir_z = pos.z;
-        }
-    }
-
     public class PlayerDamegedMessage : Message
     {
         public SessionId playerSession;
@@ -128,22 +113,6 @@ namespace Protocol
             this.hit_x = x;
             this.hit_y = y;
             this.hit_z = z;
-        }
-    }
-
-    //내가 만들어 본것
-    public class PlayerDeadMessage : Message
-    {
-        public SessionId playerSession;
-        public float pos_x;
-        public float pos_y;
-        public float pos_z;
-        public PlayerDeadMessage(SessionId session, Vector3 pos) : base(Type.PlayerDead)
-        {
-            this.playerSession = session;
-            this.pos_x = pos.x;
-            this.pos_y = pos.y;
-            this.pos_z = pos.z;
         }
     }
 

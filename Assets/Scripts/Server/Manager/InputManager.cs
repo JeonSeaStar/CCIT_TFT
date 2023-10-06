@@ -6,6 +6,8 @@ using Protocol;
 /// </summary>
 public class InputManager : MonoBehaviour
 {
+    public VirtualStick virtualStick;
+
     private bool isMove = false;
     void Start()
     {
@@ -16,13 +18,28 @@ public class InputManager : MonoBehaviour
 
     void MobileInput()
     {
-        
+
+
+        if (!virtualStick)
+        {
+            return;
+        }
 
         int keyCode = 0;
         isMove = false;
 
+        if (!virtualStick.isInputEnable)
+        {
+#if !UNITY_EDITOR
+			isMove = false;
+#endif
+            return;
+        }
+
+        isMove = true;
+
         keyCode |= KeyEventCode.MOVE;
-        Vector3 moveVector = new Vector3(0, 0, 0);
+        Vector3 moveVector = new Vector3(virtualStick.GetHorizontalValue(), 0, virtualStick.GetVerticalValue());
         moveVector = Vector3.Normalize(moveVector);
 
 
@@ -53,7 +70,7 @@ public class InputManager : MonoBehaviour
         {
             return;
         }
-        aimPos += WorldManager.instance.GetMyPlayerPos();
+//        aimPos += WorldManager.instance.GetMyPlayerPos();
 
         KeyMessage msg;
         msg = new KeyMessage(keyCode, aimPos);
