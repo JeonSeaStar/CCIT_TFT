@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class Buff : MonoBehaviour
+[CreateAssetMenu(fileName = "Buff Data", menuName = "Scriptable Object/Buff Data", order = int.MaxValue)]
+public class Buff : ScriptableObject
 {
     public bool percentHealth;
     public bool percentMana;
@@ -29,6 +29,6 @@ public class Buff : MonoBehaviour
 
     void Effect()
     {
-        print("부가 효과는 이 곳에");
+        Debug.Log("부가 효과는 이 곳에");
     }
 }
