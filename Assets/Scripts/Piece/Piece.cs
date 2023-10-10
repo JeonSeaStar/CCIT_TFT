@@ -168,9 +168,6 @@ public class Piece : MonoBehaviour
         Destruction
     }
 
-    //public List<Coroutine> sBattleEffectInStart;
-    //public List<Coroutine> sBattleEffectInProgress;
-
     void Awake()
     {
         pieceData.InitialzePiece(this);
@@ -183,6 +180,8 @@ public class Piece : MonoBehaviour
         isOwned = true;
     }
 
+    public delegate void OnceAttackEffect();
+    OnceAttackEffect onceAttackEffect;
     protected virtual void Attack()
     {
         print(name + "(이)가" + target.name + "에게 일반 공격을 합니다.");
@@ -320,6 +319,7 @@ public class Piece : MonoBehaviour
         else if (currentPiece.currentTile.isReadyTile == false && currentPiece.targetTile.isReadyTile == true)
         {
             fieldManager.myFilePieceList.Remove(currentPiece);
+            currentPiece.buffList.Clear();
             var _duplicationCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
             if (_duplicationCheck == null) fieldManager.SynergeDecrease(currentPiece);
             fieldManager.CalSynerge(currentPiece);
@@ -333,6 +333,7 @@ public class Piece : MonoBehaviour
         else if (currentPiece.currentTile.isReadyTile == true && targetPiece.currentTile.isReadyTile == false)
         {
             fieldManager.myFilePieceList.Remove(targetPiece);
+            targetPiece.buffList.Clear();
             var _duplicationTargetCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == targetPiece.pieceName);
             if(_duplicationTargetCheck == null) fieldManager.SynergeDecrease(targetPiece); //Minus
             
@@ -346,6 +347,7 @@ public class Piece : MonoBehaviour
         else if (currentPiece.currentTile.isReadyTile == false && targetPiece.currentTile.isReadyTile == true)
         {
             fieldManager.myFilePieceList.Remove(currentPiece);
+            currentPiece.buffList.Clear();
             var _duplicationCurrentCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
             if (_duplicationCurrentCheck == null) fieldManager.SynergeDecrease(currentPiece); //Minus
 

@@ -24,9 +24,6 @@ public class FieldManager : MonoBehaviour
     public GameObject[] readyZoneHexaIndicators;
     public GameObject[] battleFieldHexaIndicators;
 
-    public Piece[] oneCostGreatMountainPieces;
-    public Piece[] twoCostGreatMountainPieces;
-
     public bool grab, isDrag = false;
     //public Piece controlPiece;
 
@@ -59,12 +56,6 @@ public class FieldManager : MonoBehaviour
         { PieceData.United.Creature          ,0 }
     };
 
-
-    void Awake()
-    {
-        Synerge.fieldManager = this;
-    }
-
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.S))
@@ -90,7 +81,6 @@ public class FieldManager : MonoBehaviour
             ArenaManager.Instance.roundType = RoundType.Ready;
             //InitializingRound();
         }
-
     }
     int d = 0;
     public Piece SpawnPiece(GameObject p, int star)
@@ -103,10 +93,6 @@ public class FieldManager : MonoBehaviour
         return piece;
     }
 
-    /// <summary>
-    /// Hexa Icon ON / OFF
-    /// </summary>
-    /// <param name="isactive"></param>
     public void ActiveHexaIndicators(bool isactive)
     {
         if (ArenaManager.Instance.roundType == RoundType.Deployment)
@@ -133,394 +119,251 @@ public class FieldManager : MonoBehaviour
     {
 
     }
-
-
     public void SynergeIncrease(Piece piece)
     {
         mythActiveCount[piece.pieceData.myth]++;
         animalActiveCount[piece.pieceData.animal]++;
         unitedActiveCount[piece.pieceData.united]++;
     }
-
     public void SynergeDecrease(Piece piece)
     {
         mythActiveCount[piece.pieceData.myth]--;
         animalActiveCount[piece.pieceData.animal]--;
         unitedActiveCount[piece.pieceData.united]--;
     }
-
-
     #region Calculate Synerge
-    List<int> _mythCountCheck = new List<int>() { 2, 3, 4, 6, 9 };
-    List<int> _animalCountCheck = new List<int>() { 2, 3, 4, 5, 6, 7, 8, 9 };
-    List<int> _unitedCountCheck = new List<int>() { 2, 3, 4, 5, 7, 9 };
     public void CalSynerge(Piece plus, Piece minus = null)
     {
         PieceData.Myth _plusMyth = plus.pieceData.myth;
         PieceData.Animal _plusAnimal = plus.pieceData.animal;
         PieceData.United _plusUnited = plus.pieceData.united;
 
-        int _mythCount = mythActiveCount[plus.pieceData.myth];
-        int _animalCount = animalActiveCount[plus.pieceData.animal];
-        int _unitedCount = unitedActiveCount[plus.pieceData.united];
+        void ApplySynerge(PieceData.Myth myth, PieceData.Animal animal, PieceData.United united)
+        {
+            ApplyMythSynerge(myth);
+            ApplyAnimalSynerge(animal);
+            ApplyUnitedSynerge(united);
+        }
 
-        bool check = plus.currentTile.isReadyTile;
         if (minus == null) //Set Piece
         {
-            if (check) //Plus
-            {
-                if (_mythCountCheck.Contains(_mythCount))
-                {
-                    switch (_plusMyth)
-                    {
-                        case PieceData.Myth.GreatMountain:
-                            Synerge.MythGreatMoutain(check);
-                            break;
-                        case PieceData.Myth.FrostyWind:
-                            Synerge.MythFrostyWind(check);
-                            break;
-                        case PieceData.Myth.SandKingdom:
-                            Synerge.MythSandKingdom(check);
-                            break;
-                        case PieceData.Myth.HeavenGround:
-                            Synerge.MythHeavenGround(check);
-                            break;
-                        case PieceData.Myth.BurningGround:
-                            Synerge.MythBurningGround(check);
-                            break;
-                    }
-                }
-                if (_animalCountCheck.Contains(_animalCount))
-                {
-                    switch (_plusAnimal)
-                    {
-                        case PieceData.Animal.Hamster:
-                            Synerge.AnimalHamster(check);
-                            break;
-                        case PieceData.Animal.Cat:
-                            Synerge.AnimalCat(check);
-                            break;
-                        case PieceData.Animal.Dog:
-                            Synerge.AnimalDog(check);
-                            break;
-                        case PieceData.Animal.Frog:
-                            Synerge.AnimalFrog(check);
-                            break;
-                        case PieceData.Animal.Rabbit:
-                            Synerge.AnimalRabbit(check);
-                            break;
-                    }
-                }
-                if (_unitedCountCheck.Contains(_unitedCount))
-                {
-                    switch (_plusUnited)
-                    {
-                        case PieceData.United.UnderWorld:
-                            Synerge.UnitedUnderWorld(check);
-                            break;
-                        case PieceData.United.Faddist:
-                            Synerge.UnitedFaddist(check);
-                            break;
-                        case PieceData.United.WarMachine:
-                            Synerge.UnitedWarMachine(check);
-                            break;
-                        case PieceData.United.Creature:
-                            Synerge.UnitedCreature(check);
-                            break;
-                    }
-                }
-            }
-            else //Minus
-            {
-                switch (_plusMyth)
-                {
-                    case PieceData.Myth.GreatMountain:
-                        Synerge.MythGreatMoutain(check);
-                        break;
-                    case PieceData.Myth.FrostyWind:
-                        Synerge.MythFrostyWind(check);
-                        break;
-                    case PieceData.Myth.SandKingdom:
-                        Synerge.MythSandKingdom(check);
-                        break;
-                    case PieceData.Myth.HeavenGround:
-                        Synerge.MythHeavenGround(check);
-                        break;
-                    case PieceData.Myth.BurningGround:
-                        Synerge.MythBurningGround(check);
-                        break;
-                }
-                switch (_plusAnimal)
-                {
-                    case PieceData.Animal.Hamster:
-                        Synerge.AnimalHamster(check);
-                        break;
-                    case PieceData.Animal.Cat:
-                        Synerge.AnimalCat(check);
-                        break;
-                    case PieceData.Animal.Dog:
-                        Synerge.AnimalDog(check);
-                        break;
-                    case PieceData.Animal.Frog:
-                        Synerge.AnimalFrog(check);
-                        break;
-                    case PieceData.Animal.Rabbit:
-                        Synerge.AnimalRabbit(check);
-                        break;
-                }
-                switch (_plusUnited)
-                {
-                    case PieceData.United.UnderWorld:
-                        Synerge.UnitedUnderWorld(check);
-                        break;
-                    case PieceData.United.Faddist:
-                        Synerge.UnitedFaddist(check);
-                        break;
-                    case PieceData.United.WarMachine:
-                        Synerge.UnitedWarMachine(check);
-                        break;
-                    case PieceData.United.Creature:
-                        Synerge.UnitedCreature(check);
-                        break;
-                }
-            }
+            ApplySynerge(_plusMyth, _plusAnimal, _plusUnited);
         }
-        else //Change Piece
+        else if (minus != null) //Change Piece
         {
-            PieceData.Myth _minusMyth = (minus != null) ? minus.pieceData.myth : PieceData.Myth.None;
-            PieceData.Animal _minusAnimal = (minus != null) ? minus.pieceData.animal : PieceData.Animal.None;
-            PieceData.United _minusUnited = (minus != null) ? minus.pieceData.united : PieceData.United.None;
+            PieceData.Myth _minusMyth = minus.pieceData.myth;
+            PieceData.Animal _minusAnimal = minus.pieceData.animal;
+            PieceData.United _minusUnited = minus.pieceData.united;
+            ApplySynerge(_plusMyth, _plusAnimal, _plusUnited);
+            ApplySynerge(_minusMyth, _minusAnimal, _minusUnited);
+        }
+    }
 
-            if (check) //Plus
+    //Direct--------------------1
+    //BattleStart---------------2
+    //BattleInProgress----------3
+    //OncePerAttack-------------4
+
+    //Methods Needs to be run once at the start of the battle round----2
+    public delegate void BattleEffect();
+    BattleEffect sOnceBattleEffect;
+    //Methods Needs to be run multiple times during the battle round---3
+    public delegate IEnumerator CoroutineEffect();
+    CoroutineEffect sCoroutineEffect;
+    public BuffManager buffManager;
+    void ApplyMythSynerge(PieceData.Myth value)
+    {
+        int _mythSynergeCount = mythActiveCount[value];
+        switch (value)
+        {
+            case PieceData.Myth.GreatMountain://2
+                ApplyMythBuff(buffManager.mythBuff[0].greatMoutainBuff, _mythSynergeCount, new int[] { 2, 4, 6, 8 }, value);
+                break;
+            case PieceData.Myth.FrostyWind://3
+                ApplyMythBuff(buffManager.mythBuff[0].frostyWindBuff, _mythSynergeCount, new int[] { 3, 6, 9 }, value);
+                break;
+            case PieceData.Myth.SandKingdom://2//3
+                ApplyMythBuff(buffManager.mythBuff[0].sandKingdomBuff, _mythSynergeCount, new int[] { 3, 5, 7 }, value);
+                break;
+            case PieceData.Myth.HeavenGround://1//3
+                ApplyMythBuff(buffManager.mythBuff[0].heavenGroundBuff, _mythSynergeCount, new int[] { 2, 4 }, value);
+                break;
+            case PieceData.Myth.BurningGround://4
+                ApplyMythBuff(buffManager.mythBuff[0].burningGroundBuff, _mythSynergeCount, new int[] { 2, 4 }, value);
+                break;
+        }
+    }
+    void ApplyAnimalSynerge(PieceData.Animal value)
+    {
+        int _animalSynergeCount = animalActiveCount[value];
+        switch (value)
+        {
+            case PieceData.Animal.Hamster://3
+                ApplyAnimalBuff(buffManager.animalBuff[0].hamsterBuff, _animalSynergeCount, new int[] { 2, 4, 6 }, value);
+                break;
+            case PieceData.Animal.Cat://4
+                ApplyAnimalBuff(buffManager.animalBuff[0].catBuff, _animalSynergeCount, new int[] { 2, 4 }, value);
+                break;
+            case PieceData.Animal.Dog://2
+                ApplyAnimalBuff(buffManager.animalBuff[0].dogBuff, _animalSynergeCount, new int[] { 3, 6, 9 }, value);
+                break;
+            case PieceData.Animal.Frog://1//2
+                ApplyAnimalBuff(buffManager.animalBuff[0].frogBuff, _animalSynergeCount, new int[] { 2, 4, 6 }, value);
+                break;
+            case PieceData.Animal.Rabbit://4
+                ApplyAnimalBuff(buffManager.animalBuff[0].rabbitBuff, _animalSynergeCount, new int[] { 3, 6, 9 }, value);
+                break;
+        }
+    }
+    void ApplyUnitedSynerge(PieceData.United value)
+    {
+        int _unitedSynergeCount = unitedActiveCount[value];
+        switch (value)
+        {
+            case PieceData.United.UnderWorld://2//3
+                ApplyUnitedBuff(buffManager.unitedBuff[0].underWorldBuff, _unitedSynergeCount, new int[] { 2, 4 }, value);
+                break;
+            case PieceData.United.Faddist://2
+                ApplyUnitedBuff(buffManager.unitedBuff[0].FaddistBuff, _unitedSynergeCount, new int[] { 2, 4 }, value);
+                break;
+            case PieceData.United.WarMachine://1
+                ApplyUnitedBuff(buffManager.unitedBuff[0].warMachineBuff, _unitedSynergeCount, new int[] { 2, 4 }, value);
+                break;
+            case PieceData.United.Creature://4
+                ApplyUnitedBuff(buffManager.unitedBuff[0].creatureBuff, _unitedSynergeCount, new int[] { 3, 5, 7, 9 }, value);
+                break;
+        }
+    }
+    void ApplyMythBuff(List<BuffData> buffList, int count, int[] thresholds, PieceData.Myth mythType)
+    {
+        for (int i = 0; i < thresholds.Length; i++)
+        {
+            if (count >= thresholds[i])
             {
-                switch (_plusMyth)
+                foreach (var piece in myFilePieceList)
                 {
-                    case PieceData.Myth.GreatMountain:
-                        Synerge.MythGreatMoutain(check);
-                        break;
-                    case PieceData.Myth.FrostyWind:
-                        Synerge.MythFrostyWind(check);
-                        break;
-                    case PieceData.Myth.SandKingdom:
-                        Synerge.MythSandKingdom(check);
-                        break;
-                    case PieceData.Myth.HeavenGround:
-                        Synerge.MythHeavenGround(check);
-                        break;
-                    case PieceData.Myth.BurningGround:
-                        Synerge.MythBurningGround(check);
-                        break;
-                }
-                switch (_minusMyth)
-                {
-                    case PieceData.Myth.GreatMountain:
-                        Synerge.MythGreatMoutain(!check);
-                        break;
-                    case PieceData.Myth.FrostyWind:
-                        Synerge.MythFrostyWind(!check);
-                        break;
-                    case PieceData.Myth.SandKingdom:
-                        Synerge.MythSandKingdom(!check);
-                        break;
-                    case PieceData.Myth.HeavenGround:
-                        Synerge.MythHeavenGround(!check);
-                        break;
-                    case PieceData.Myth.BurningGround:
-                        Synerge.MythBurningGround(!check);
-                        break;
-                }
+                    if (piece.pieceData.myth == mythType)
+                    {
+                        if (i > 0)
+                        {
+                            for (int j = 0; j < i; j++)
+                            {
+                                if (piece.buffList.Contains(buffList[j]))
+                                {
+                                    piece.buffList.Remove(buffList[j]);
+                                    DualPlayers[0].buffDatas.Remove(buffList[j]);
+                                }
+                            }
+                        }
 
-
-                switch (_plusAnimal)
-                {
-                    case PieceData.Animal.Hamster:
-                        Synerge.AnimalHamster(check);
-                        break;
-                    case PieceData.Animal.Cat:
-                        Synerge.AnimalCat(check);
-                        break;
-                    case PieceData.Animal.Dog:
-                        Synerge.AnimalDog(check);
-                        break;
-                    case PieceData.Animal.Frog:
-                        Synerge.AnimalFrog(check);
-                        break;
-                    case PieceData.Animal.Rabbit:
-                        Synerge.AnimalRabbit(check);
-                        break;
-                }
-                switch (_minusAnimal)
-                {
-                    case PieceData.Animal.Hamster:
-                        Synerge.AnimalHamster(!check);
-                        break;
-                    case PieceData.Animal.Cat:
-                        Synerge.AnimalCat(!check);
-                        break;
-                    case PieceData.Animal.Dog:
-                        Synerge.AnimalDog(!check);
-                        break;
-                    case PieceData.Animal.Frog:
-                        Synerge.AnimalFrog(!check);
-                        break;
-                    case PieceData.Animal.Rabbit:
-                        Synerge.AnimalRabbit(!check);
-                        break;
-                }
-
-
-                switch (_plusUnited)
-                {
-                    case PieceData.United.UnderWorld:
-                        Synerge.UnitedUnderWorld(check);
-                        break;
-                    case PieceData.United.Faddist:
-                        Synerge.UnitedFaddist(check);
-                        break;
-                    case PieceData.United.WarMachine:
-                        Synerge.UnitedWarMachine(check);
-                        break;
-                    case PieceData.United.Creature:
-                        Synerge.UnitedCreature(check);
-                        break;
-                }
-                switch (_minusUnited)
-                {
-                    case PieceData.United.UnderWorld:
-                        Synerge.UnitedUnderWorld(!check);
-                        break;
-                    case PieceData.United.Faddist:
-                        Synerge.UnitedFaddist(!check);
-                        break;
-                    case PieceData.United.WarMachine:
-                        Synerge.UnitedWarMachine(!check);
-                        break;
-                    case PieceData.United.Creature:
-                        Synerge.UnitedCreature(!check);
-                        break;
+                        if (!piece.buffList.Contains(buffList[i]))
+                        {
+                            piece.buffList.Add(buffList[i]);
+                            DualPlayers[0].buffDatas.Add(buffList[i]);
+                        }
+                    }
                 }
             }
-            else
+            else if(count < thresholds[i])
             {
-                switch (_plusMyth)
+                foreach (var piece in myFilePieceList)
                 {
-                    case PieceData.Myth.GreatMountain:
-                        Synerge.MythGreatMoutain(!check);
-                        break;
-                    case PieceData.Myth.FrostyWind:
-                        Synerge.MythFrostyWind(!check);
-                        break;
-                    case PieceData.Myth.SandKingdom:
-                        Synerge.MythSandKingdom(!check);
-                        break;
-                    case PieceData.Myth.HeavenGround:
-                        Synerge.MythHeavenGround(!check);
-                        break;
-                    case PieceData.Myth.BurningGround:
-                        Synerge.MythBurningGround(!check);
-                        break;
-                }
-                switch (_minusMyth)
-                {
-                    case PieceData.Myth.GreatMountain:
-                        Synerge.MythGreatMoutain(check);
-                        break;
-                    case PieceData.Myth.FrostyWind:
-                        Synerge.MythFrostyWind(check);
-                        break;
-                    case PieceData.Myth.SandKingdom:
-                        Synerge.MythSandKingdom(check);
-                        break;
-                    case PieceData.Myth.HeavenGround:
-                        Synerge.MythHeavenGround(check);
-                        break;
-                    case PieceData.Myth.BurningGround:
-                        Synerge.MythBurningGround(check);
-                        break;
-                }
-
-
-                switch (_plusAnimal)
-                {
-                    case PieceData.Animal.Hamster:
-                        Synerge.AnimalHamster(!check);
-                        break;
-                    case PieceData.Animal.Cat:
-                        Synerge.AnimalCat(!check);
-                        break;
-                    case PieceData.Animal.Dog:
-                        Synerge.AnimalDog(!check);
-                        break;
-                    case PieceData.Animal.Frog:
-                        Synerge.AnimalFrog(!check);
-                        break;
-                    case PieceData.Animal.Rabbit:
-                        Synerge.AnimalRabbit(!check);
-                        break;
-                }
-                switch (_minusAnimal)
-                {
-                    case PieceData.Animal.Hamster:
-                        Synerge.AnimalHamster(check);
-                        break;
-                    case PieceData.Animal.Cat:
-                        Synerge.AnimalCat(check);
-                        break;
-                    case PieceData.Animal.Dog:
-                        Synerge.AnimalDog(check);
-                        break;
-                    case PieceData.Animal.Frog:
-                        Synerge.AnimalFrog(check);
-                        break;
-                    case PieceData.Animal.Rabbit:
-                        Synerge.AnimalRabbit(check);
-                        break;
-                }
-
-
-                switch (_plusUnited)
-                {
-                    case PieceData.United.UnderWorld:
-                        Synerge.UnitedUnderWorld(!check);
-                        break;
-                    case PieceData.United.Faddist:
-                        Synerge.UnitedFaddist(!check);
-                        break;
-                    case PieceData.United.WarMachine:
-                        Synerge.UnitedWarMachine(!check);
-                        break;
-                    case PieceData.United.Creature:
-                        Synerge.UnitedCreature(!check);
-                        break;
-                }
-                switch (_minusUnited)
-                {
-                    case PieceData.United.UnderWorld:
-                        Synerge.UnitedUnderWorld(check);
-                        break;
-                    case PieceData.United.Faddist:
-                        Synerge.UnitedFaddist(check);
-                        break;
-                    case PieceData.United.WarMachine:
-                        Synerge.UnitedWarMachine(check);
-                        break;
-                    case PieceData.United.Creature:
-                        Synerge.UnitedCreature(check);
-                        break;
+                    if (piece.buffList.Contains(buffList[i]))
+                    {
+                        piece.buffList.Remove(buffList[i]);
+                        DualPlayers[0].buffDatas.Remove(buffList[i]);
+                    }
                 }
             }
         }
     }
+    void ApplyAnimalBuff(List<BuffData> buffList, int count, int[] thresholds, PieceData.Animal animalType)
+    {
+        for (int i = 0; i < thresholds.Length; i++)
+        {
+            if (count >= thresholds[i])
+            {
+                foreach (var piece in myFilePieceList)
+                {
+                    if (piece.pieceData.animal == animalType)
+                    {
+                        if (i > 0)
+                        {
+                            for (int j = 0; j < i; j++)
+                            {
+                                if (piece.buffList.Contains(buffList[j]))
+                                {
+                                    piece.buffList.Remove(buffList[j]);
+                                    DualPlayers[0].buffDatas.Remove(buffList[j]);
+                                }
+                            }
+                        }
 
-    //Methods Needs to be run once at the start of the battle round
-    public delegate void BattleBuff();
-    BattleBuff sOnceBuff;
+                        if (!piece.buffList.Contains(buffList[i]))
+                        {
+                            piece.buffList.Add(buffList[i]);
+                            DualPlayers[0].buffDatas.Add(buffList[i]);
+                        }
+                    }
+                }
+            }
+            else if (count < thresholds[i])
+            {
+                foreach (var piece in myFilePieceList)
+                {
+                    if (piece.buffList.Contains(buffList[i]))
+                    {
+                        piece.buffList.Remove(buffList[i]);
+                        DualPlayers[0].buffDatas.Remove(buffList[i]);
+                    }
+                }
+            }
+        }
+    }
+    void ApplyUnitedBuff(List<BuffData> buffList, int count, int[] thresholds, PieceData.United unitedType)
+    {
+        for (int i = 0; i < thresholds.Length; i++)
+        {
+            if (count >= thresholds[i])
+            {
+                foreach (var piece in myFilePieceList)
+                {
+                    if (piece.pieceData.united == unitedType)
+                    {
+                        if (i > 0)
+                        {
+                            for (int j = 0; j < i; j++)
+                            {
+                                if (piece.buffList.Contains(buffList[j]))
+                                {
+                                    piece.buffList.Remove(buffList[j]);
+                                    DualPlayers[0].buffDatas.Remove(buffList[j]);
+                                }
+                            }
+                        }
 
-    //Methods Needs to be run multiple times during the battle round
-    public delegate IEnumerator CoroutineBuff();
-    CoroutineBuff sCoroutineBuff;
-
- #endregion
+                        if (!piece.buffList.Contains(buffList[i]))
+                        {
+                            piece.buffList.Add(buffList[i]);
+                            DualPlayers[0].buffDatas.Add(buffList[i]);
+                        }
+                    }
+                }
+            }
+            else if (count < thresholds[i])
+            {
+                foreach (var piece in myFilePieceList)
+                {
+                    if (piece.buffList.Contains(buffList[i]))
+                    {
+                        piece.buffList.Remove(buffList[i]);
+                        DualPlayers[0].buffDatas.Remove(buffList[i]);
+                    }
+                }
+            }
+        }
+    }
+    #endregion
     public void InitializingRound()
     {
         if (DualPlayers[0].isGrab)

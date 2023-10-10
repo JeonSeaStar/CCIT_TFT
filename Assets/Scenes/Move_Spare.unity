@@ -646,6 +646,16 @@ MonoBehaviour:
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
+  health: 0
+  mana: 0
+  attackDamage: 0
+  abilityPower: 0
+  armor: 0
+  magicResist: 0
+  attackSpeed: 0
+  criticalChance: 0
+  criticalDamage: 0
+  attackRange: 0
   defaultHealth: 0
   currentHealth: 0
   defaultMana: 0
@@ -658,11 +668,8 @@ MonoBehaviour:
   defaultAbilityPower: 0
   abilityDamage: 0
   defaultArmor: 0
-  armor: 0
   defaultMagicResist: 0
-  magicResist: 0
   defaultAttackSpeed: 0
-  attackSpeed: 0
   defaultCriticalChance: 0
   defaultCriticalDamage: 0
   defaultAttackRange: 0
@@ -679,8 +686,8 @@ MonoBehaviour:
   equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
+  buffList: []
   expeditionTile: {fileID: 0}
-  sReceivedBuff: []
 --- !u!114 &43912632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8993,6 +9000,16 @@ MonoBehaviour:
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
+  health: 0
+  mana: 0
+  attackDamage: 0
+  abilityPower: 0
+  armor: 0
+  magicResist: 0
+  attackSpeed: 0
+  criticalChance: 0
+  criticalDamage: 0
+  attackRange: 0
   defaultHealth: 0
   currentHealth: 0
   defaultMana: 0
@@ -9005,11 +9022,8 @@ MonoBehaviour:
   defaultAbilityPower: 0
   abilityDamage: 0
   defaultArmor: 0
-  armor: 0
   defaultMagicResist: 0
-  magicResist: 0
   defaultAttackSpeed: 0
-  attackSpeed: 0
   defaultCriticalChance: 0
   defaultCriticalDamage: 0
   defaultAttackRange: 0
@@ -9026,8 +9040,8 @@ MonoBehaviour:
   equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
+  buffList: []
   expeditionTile: {fileID: 0}
-  sReceivedBuff: []
 --- !u!1 &592307816
 GameObject:
   m_ObjectHideFlags: 0
@@ -12059,12 +12073,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fieldManager: {fileID: 0}
-  pieceData: {fileID: 11400000, guid: 032b033ecb49fff44ac819c3f53a91d1, type: 2}
+  pieceData: {fileID: 11400000, guid: d754a47adb235204085b00ba54dffa69, type: 2}
   grade: 0
-  pieceName: 
+  pieceName: 555
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
+  health: 0
+  mana: 0
+  attackDamage: 0
+  abilityPower: 0
+  armor: 0
+  magicResist: 0
+  attackSpeed: 0
+  criticalChance: 0
+  criticalDamage: 0
+  attackRange: 0
   defaultHealth: 0
   currentHealth: 0
   defaultMana: 0
@@ -12077,11 +12101,8 @@ MonoBehaviour:
   defaultAbilityPower: 0
   abilityDamage: 0
   defaultArmor: 0
-  armor: 0
   defaultMagicResist: 0
-  magicResist: 0
   defaultAttackSpeed: 0
-  attackSpeed: 0
   defaultCriticalChance: 0
   defaultCriticalDamage: 0
   defaultAttackRange: 0
@@ -12098,8 +12119,8 @@ MonoBehaviour:
   equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
+  buffList: []
   expeditionTile: {fileID: 0}
-  sReceivedBuff: []
 --- !u!1001 &812478602
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12214,6 +12235,106 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+--- !u!1 &814488124
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 814488126}
+  - component: {fileID: 814488125}
+  m_Layer: 0
+  m_Name: BuffManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &814488125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814488124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01221b7e3ed7fc544a14045d0bcb6d15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mythBuff:
+  - greatMoutainBuff:
+    - {fileID: 11400000, guid: 6f4812ccb072bec4c9c279db59d6ec5d, type: 2}
+    - {fileID: 11400000, guid: ebe680f3b2ef0e641be517133d9322dc, type: 2}
+    - {fileID: 11400000, guid: a24f8cef0efa5214da1dec60c9a0850a, type: 2}
+    - {fileID: 11400000, guid: 4e0c6797961ba154b9cb97171bd3cf51, type: 2}
+    frostyWindBuff:
+    - {fileID: 11400000, guid: fbb0f5c3360fcd24a8446d2daca22af7, type: 2}
+    - {fileID: 11400000, guid: de9e11fb65106a74da47cc5c20818b61, type: 2}
+    - {fileID: 11400000, guid: bd61b7621f2b1654387f173d15c0f7d0, type: 2}
+    sandKingdomBuff:
+    - {fileID: 11400000, guid: eeb4a57fef4486d47b6d6a83ad91af61, type: 2}
+    - {fileID: 11400000, guid: f46fa8d13fbac1041b60f739f9dcc26b, type: 2}
+    - {fileID: 11400000, guid: a36fb0de84be9b3459cf3f2b251d36df, type: 2}
+    heavenGroundBuff:
+    - {fileID: 11400000, guid: c9bba982055096b478a8ab96a69728a4, type: 2}
+    - {fileID: 11400000, guid: 23f1dcd5fc75c9f41aae5aec07c2d281, type: 2}
+    burningGroundBuff:
+    - {fileID: 11400000, guid: 72784535b9e5433438e7fd01ecfd2881, type: 2}
+    - {fileID: 11400000, guid: ffb7948a6cd6b1448ad9b8c25fe89b23, type: 2}
+  animalBuff:
+  - hamsterBuff:
+    - {fileID: 11400000, guid: e6ce6a60c3879674ba32c566be55ec37, type: 2}
+    - {fileID: 11400000, guid: 42da895e0fb05794cbb5195607081b8b, type: 2}
+    - {fileID: 11400000, guid: a8f951b93a6361b40911b94d616f5e7a, type: 2}
+    catBuff:
+    - {fileID: 11400000, guid: 755ad7ac132ce4747982930df2a16bd7, type: 2}
+    - {fileID: 11400000, guid: 389777d75e078b8419fe497928f062a0, type: 2}
+    dogBuff:
+    - {fileID: 11400000, guid: 8ceebcdd6e62c284a874d66b2cf7dd67, type: 2}
+    - {fileID: 11400000, guid: 2a6f7c2cd7538c04ebb8ad330549cc6c, type: 2}
+    - {fileID: 11400000, guid: 88f54c23cb5b91347895b9ad2286233e, type: 2}
+    frogBuff:
+    - {fileID: 11400000, guid: d2304d099b43f734db5cefcdda8824ac, type: 2}
+    - {fileID: 11400000, guid: e42c612eeb7541c4da51851b97c73467, type: 2}
+    - {fileID: 11400000, guid: caadc15fde4b25a4c98aa257f5603a4f, type: 2}
+    rabbitBuff:
+    - {fileID: 11400000, guid: ab5994887846c67448f6b06e7fe0f682, type: 2}
+    - {fileID: 11400000, guid: 6dec651ac29c33c449da82f7272f07fa, type: 2}
+    - {fileID: 11400000, guid: affdc5c280b10234a9b0fd385a8603e2, type: 2}
+  unitedBuff:
+  - underWorldBuff:
+    - {fileID: 11400000, guid: d58d3ca6998e7534d8ed31db5d372714, type: 2}
+    - {fileID: 11400000, guid: 57cf655b691b67a459fc1bc37185f8ca, type: 2}
+    FaddistBuff:
+    - {fileID: 11400000, guid: 0c25e2363b8c4dd4e8ee1f246b47ed59, type: 2}
+    - {fileID: 11400000, guid: 02f7c136c14635b429a088c32557b38e, type: 2}
+    warMachineBuff:
+    - {fileID: 11400000, guid: b1a3767ee261efe42b5733597f669945, type: 2}
+    - {fileID: 11400000, guid: af4214a33bc77f3429c44a99f52c5bc2, type: 2}
+    creatureBuff:
+    - {fileID: 11400000, guid: 35a888f1e076a78448b38a288a55098d, type: 2}
+    - {fileID: 11400000, guid: 244d71d36a7e44848bf7f4f124c3b793, type: 2}
+    - {fileID: 11400000, guid: fc2fed279a453374b97c7ff64def3773, type: 2}
+    - {fileID: 11400000, guid: 26dd93284c68671448319a915c111e9a, type: 2}
+  test: {fileID: 0}
+--- !u!4 &814488126
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814488124}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.0611644, y: 3.3627815, z: 3.8702343}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &821336984
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14223,10 +14344,20 @@ MonoBehaviour:
   fieldManager: {fileID: 0}
   pieceData: {fileID: 11400000, guid: 111926e5dd1c8804ea31ba75743194f1, type: 2}
   grade: 0
-  pieceName: 
+  pieceName: 235
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
+  health: 0
+  mana: 0
+  attackDamage: 0
+  abilityPower: 0
+  armor: 0
+  magicResist: 0
+  attackSpeed: 0
+  criticalChance: 0
+  criticalDamage: 0
+  attackRange: 0
   defaultHealth: 0
   currentHealth: 0
   defaultMana: 0
@@ -14239,11 +14370,8 @@ MonoBehaviour:
   defaultAbilityPower: 0
   abilityDamage: 0
   defaultArmor: 0
-  armor: 0
   defaultMagicResist: 0
-  magicResist: 0
   defaultAttackSpeed: 0
-  attackSpeed: 0
   defaultCriticalChance: 0
   defaultCriticalDamage: 0
   defaultAttackRange: 0
@@ -14260,8 +14388,8 @@ MonoBehaviour:
   equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
+  buffList: []
   expeditionTile: {fileID: 0}
-  sReceivedBuff: []
 --- !u!4 &948282654 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9051238300485817969, guid: 2f6c4572e07a60b43b00e1c4f489a806,
@@ -15615,8 +15743,12 @@ MonoBehaviour:
   owned: 0
   isGrab: 0
   isDrag: 0
+  damagePerPiece: 020000000400000006000000080000000a0000000b0000000c0000000d0000000e0000000f000000
+  damagePerRound: 000000000100000002000000030000000400000006000000090000000f000000
   controlPiece: {fileID: 0}
   controlEquipment: {fileID: 0}
+  chargingParticle: {fileID: 0}
+  AttackParticle: {fileID: 0}
 --- !u!23 &1052439236
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -17595,10 +17727,20 @@ MonoBehaviour:
   fieldManager: {fileID: 0}
   pieceData: {fileID: 11400000, guid: 6891acecd0078c24c910eb77e64059db, type: 2}
   grade: 0
-  pieceName: 
+  pieceName: 123
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
+  health: 0
+  mana: 0
+  attackDamage: 0
+  abilityPower: 0
+  armor: 0
+  magicResist: 0
+  attackSpeed: 0
+  criticalChance: 0
+  criticalDamage: 0
+  attackRange: 0
   defaultHealth: 0
   currentHealth: 0
   defaultMana: 0
@@ -17611,11 +17753,8 @@ MonoBehaviour:
   defaultAbilityPower: 0
   abilityDamage: 0
   defaultArmor: 0
-  armor: 0
   defaultMagicResist: 0
-  magicResist: 0
   defaultAttackSpeed: 0
-  attackSpeed: 0
   defaultCriticalChance: 0
   defaultCriticalDamage: 0
   defaultAttackRange: 0
@@ -17632,8 +17771,8 @@ MonoBehaviour:
   equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
+  buffList: []
   expeditionTile: {fileID: 0}
-  sReceivedBuff: []
 --- !u!65 &1234782748
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20359,10 +20498,20 @@ MonoBehaviour:
   fieldManager: {fileID: 0}
   pieceData: {fileID: 11400000, guid: 032b033ecb49fff44ac819c3f53a91d1, type: 2}
   grade: 0
-  pieceName: 
+  pieceName: 444
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
+  health: 0
+  mana: 0
+  attackDamage: 0
+  abilityPower: 0
+  armor: 0
+  magicResist: 0
+  attackSpeed: 0
+  criticalChance: 0
+  criticalDamage: 0
+  attackRange: 0
   defaultHealth: 0
   currentHealth: 0
   defaultMana: 0
@@ -20375,11 +20524,8 @@ MonoBehaviour:
   defaultAbilityPower: 0
   abilityDamage: 0
   defaultArmor: 0
-  armor: 0
   defaultMagicResist: 0
-  magicResist: 0
   defaultAttackSpeed: 0
-  attackSpeed: 0
   defaultCriticalChance: 0
   defaultCriticalDamage: 0
   defaultAttackRange: 0
@@ -20396,8 +20542,8 @@ MonoBehaviour:
   equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
+  buffList: []
   expeditionTile: {fileID: 0}
-  sReceivedBuff: []
 --- !u!1 &1460477377
 GameObject:
   m_ObjectHideFlags: 0
@@ -23718,6 +23864,16 @@ MonoBehaviour:
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
+  health: 0
+  mana: 0
+  attackDamage: 0
+  abilityPower: 0
+  armor: 0
+  magicResist: 0
+  attackSpeed: 0
+  criticalChance: 0
+  criticalDamage: 0
+  attackRange: 0
   defaultHealth: 0
   currentHealth: 0
   defaultMana: 0
@@ -23730,11 +23886,8 @@ MonoBehaviour:
   defaultAbilityPower: 0
   abilityDamage: 0
   defaultArmor: 0
-  armor: 0
   defaultMagicResist: 0
-  magicResist: 0
   defaultAttackSpeed: 0
-  attackSpeed: 0
   defaultCriticalChance: 0
   defaultCriticalDamage: 0
   defaultAttackRange: 0
@@ -23751,8 +23904,8 @@ MonoBehaviour:
   equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
+  buffList: []
   expeditionTile: {fileID: 0}
-  sReceivedBuff: []
 --- !u!114 &1746667500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25125,12 +25278,10 @@ MonoBehaviour:
   - {fileID: 197550257}
   - {fileID: 802205873}
   - {fileID: 668044194}
-  oneCostGreatMountainPieces: []
-  twoCostGreatMountainPieces: []
   grab: 0
   isDrag: 0
   groundHeight: 0
-  BattleEffect: []
+  buffManager: {fileID: 814488125}
   currentPieceList:
   - pieceData: {fileID: 11400000, guid: 309f6986873b81042844f48195428c5d, type: 2}
     count:
@@ -25953,6 +26104,16 @@ MonoBehaviour:
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
+  health: 0
+  mana: 0
+  attackDamage: 0
+  abilityPower: 0
+  armor: 0
+  magicResist: 0
+  attackSpeed: 0
+  criticalChance: 0
+  criticalDamage: 0
+  attackRange: 0
   defaultHealth: 0
   currentHealth: 0
   defaultMana: 0
@@ -25965,11 +26126,8 @@ MonoBehaviour:
   defaultAbilityPower: 0
   abilityDamage: 0
   defaultArmor: 0
-  armor: 0
   defaultMagicResist: 0
-  magicResist: 0
   defaultAttackSpeed: 0
-  attackSpeed: 0
   defaultCriticalChance: 0
   defaultCriticalDamage: 0
   defaultAttackRange: 0
@@ -25986,8 +26144,8 @@ MonoBehaviour:
   equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
+  buffList: []
   expeditionTile: {fileID: 0}
-  sReceivedBuff: []
 --- !u!114 &1957474541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26446,6 +26604,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fieldManagers:
   - {fileID: 1886702829}
+  currentRound: 0
+  currentStage: 0
   roundType: 0
   deploymentTime: 30
   readyTime: 30
@@ -28482,8 +28642,12 @@ MonoBehaviour:
   owned: 1
   isGrab: 0
   isDrag: 0
+  damagePerPiece: 020000000400000006000000080000000a0000000b0000000c0000000d0000000e0000000f000000
+  damagePerRound: 000000000100000002000000030000000400000006000000090000000f000000
   controlPiece: {fileID: 0}
   controlEquipment: {fileID: 0}
+  chargingParticle: {fileID: 0}
+  AttackParticle: {fileID: 0}
 --- !u!54 &3469287837247737725
 Rigidbody:
   m_ObjectHideFlags: 0
