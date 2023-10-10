@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class Messenger : MonoBehaviour
 {
-    public HashSet<BuffData> buffDatas = new HashSet<BuffData>();
+    public List<BuffData> buffDatas = new List<BuffData>();
     public int level;
     public int experience;
     [Range(-30,200)] public int lifePoint = 100;

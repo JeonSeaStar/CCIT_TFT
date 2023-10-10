@@ -254,8 +254,7 @@ public class Piece : MonoBehaviour
             currentTile.IsFull = false;
             currentTile = path[0];
             currentTile.IsFull = true;
-            PieceControl pc = GetComponent<PieceControl>();
-            pc.currentTile = path[0];
+
             path.RemoveAt(0);
             canMove = true;
 

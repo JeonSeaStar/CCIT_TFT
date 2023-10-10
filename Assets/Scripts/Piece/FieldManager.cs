@@ -24,8 +24,7 @@ public class FieldManager : MonoBehaviour
     public GameObject[] readyZoneHexaIndicators;
     public GameObject[] battleFieldHexaIndicators;
 
-    public bool grab, isDrag = false;
-    //public Piece controlPiece;
+    public bool grab = false;
 
     public float groundHeight;
 
@@ -164,12 +163,6 @@ public class FieldManager : MonoBehaviour
     //BattleInProgress----------3
     //OncePerAttack-------------4
 
-    //Methods Needs to be run once at the start of the battle round----2
-    public delegate void BattleEffect();
-    BattleEffect sOnceBattleEffect;
-    //Methods Needs to be run multiple times during the battle round---3
-    public delegate IEnumerator CoroutineEffect();
-    CoroutineEffect sCoroutineEffect;
     public BuffManager buffManager;
     void ApplyMythSynerge(PieceData.Myth value)
     {
@@ -248,19 +241,12 @@ public class FieldManager : MonoBehaviour
                         {
                             for (int j = 0; j < i; j++)
                             {
-                                if (piece.buffList.Contains(buffList[j]))
-                                {
-                                    piece.buffList.Remove(buffList[j]);
-                                    DualPlayers[0].buffDatas.Remove(buffList[j]);
-                                }
+                                if (piece.buffList.Contains(buffList[j])) piece.buffList.Remove(buffList[j]);
+                                if(DualPlayers[0].buffDatas.Contains(buffList[j])) DualPlayers[0].buffDatas.Remove(buffList[j]);
                             }
                         }
-
-                        if (!piece.buffList.Contains(buffList[i]))
-                        {
-                            piece.buffList.Add(buffList[i]);
-                            DualPlayers[0].buffDatas.Add(buffList[i]);
-                        }
+                        if (!piece.buffList.Contains(buffList[i])) piece.buffList.Add(buffList[i]);
+                        if (!DualPlayers[0].buffDatas.Contains(buffList[i])) DualPlayers[0].buffDatas.Add(buffList[i]);
                     }
                 }
             }
@@ -268,11 +254,8 @@ public class FieldManager : MonoBehaviour
             {
                 foreach (var piece in myFilePieceList)
                 {
-                    if (piece.buffList.Contains(buffList[i]))
-                    {
-                        piece.buffList.Remove(buffList[i]);
-                        DualPlayers[0].buffDatas.Remove(buffList[i]);
-                    }
+                    if (piece.buffList.Contains(buffList[i])) piece.buffList.Remove(buffList[i]);
+                    if (DualPlayers[0].buffDatas.Contains(buffList[i])) DualPlayers[0].buffDatas.Remove(buffList[i]);
                 }
             }
         }
@@ -291,19 +274,12 @@ public class FieldManager : MonoBehaviour
                         {
                             for (int j = 0; j < i; j++)
                             {
-                                if (piece.buffList.Contains(buffList[j]))
-                                {
-                                    piece.buffList.Remove(buffList[j]);
-                                    DualPlayers[0].buffDatas.Remove(buffList[j]);
-                                }
+                                if (piece.buffList.Contains(buffList[j])) piece.buffList.Remove(buffList[j]);
+                                if (DualPlayers[0].buffDatas.Contains(buffList[j])) DualPlayers[0].buffDatas.Remove(buffList[j]);
                             }
                         }
-
-                        if (!piece.buffList.Contains(buffList[i]))
-                        {
-                            piece.buffList.Add(buffList[i]);
-                            DualPlayers[0].buffDatas.Add(buffList[i]);
-                        }
+                        if (!piece.buffList.Contains(buffList[i])) piece.buffList.Add(buffList[i]);
+                        if (!DualPlayers[0].buffDatas.Contains(buffList[i])) DualPlayers[0].buffDatas.Add(buffList[i]);
                     }
                 }
             }
@@ -311,11 +287,8 @@ public class FieldManager : MonoBehaviour
             {
                 foreach (var piece in myFilePieceList)
                 {
-                    if (piece.buffList.Contains(buffList[i]))
-                    {
-                        piece.buffList.Remove(buffList[i]);
-                        DualPlayers[0].buffDatas.Remove(buffList[i]);
-                    }
+                    if (piece.buffList.Contains(buffList[i])) piece.buffList.Remove(buffList[i]);
+                    if (DualPlayers[0].buffDatas.Contains(buffList[i])) DualPlayers[0].buffDatas.Remove(buffList[i]);
                 }
             }
         }
@@ -334,19 +307,12 @@ public class FieldManager : MonoBehaviour
                         {
                             for (int j = 0; j < i; j++)
                             {
-                                if (piece.buffList.Contains(buffList[j]))
-                                {
-                                    piece.buffList.Remove(buffList[j]);
-                                    DualPlayers[0].buffDatas.Remove(buffList[j]);
-                                }
+                                if (piece.buffList.Contains(buffList[j])) piece.buffList.Remove(buffList[j]);
+                                if (DualPlayers[0].buffDatas.Contains(buffList[j])) DualPlayers[0].buffDatas.Remove(buffList[j]);
                             }
                         }
-
-                        if (!piece.buffList.Contains(buffList[i]))
-                        {
-                            piece.buffList.Add(buffList[i]);
-                            DualPlayers[0].buffDatas.Add(buffList[i]);
-                        }
+                        if (!piece.buffList.Contains(buffList[i])) piece.buffList.Add(buffList[i]);
+                        if (!DualPlayers[0].buffDatas.Contains(buffList[i])) DualPlayers[0].buffDatas.Add(buffList[i]);
                     }
                 }
             }
@@ -354,15 +320,13 @@ public class FieldManager : MonoBehaviour
             {
                 foreach (var piece in myFilePieceList)
                 {
-                    if (piece.buffList.Contains(buffList[i]))
-                    {
-                        piece.buffList.Remove(buffList[i]);
-                        DualPlayers[0].buffDatas.Remove(buffList[i]);
-                    }
+                    if (piece.buffList.Contains(buffList[i])) piece.buffList.Remove(buffList[i]);
+                    if (DualPlayers[0].buffDatas.Contains(buffList[i])) DualPlayers[0].buffDatas.Remove(buffList[i]);
                 }
             }
         }
     }
+
     #endregion
     public void InitializingRound()
     {

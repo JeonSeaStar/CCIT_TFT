@@ -64,8 +64,6 @@ public class ArenaManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         var _restTime = time - 1f;
-        //Debug.Log(_restTime);
-
         if(_restTime == 0)
         {
             fieldManagers[0].InitializingRound();
