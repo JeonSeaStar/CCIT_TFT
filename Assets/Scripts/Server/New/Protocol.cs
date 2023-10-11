@@ -16,7 +16,18 @@ namespace Protocol
         PlayerNoMove,   // 플레이어 이동 멈춤
         PlayerNoRotate, // 플레이어 회전 멈춤
         PlayerDoTest,   // 플레이어가 함수 받을 수 있는지 확인
+        PlayerBuyPiece,
+        PlayerSellPiece,
+        
         bulletInfo,
+
+        PieceMove,
+        pieceRotate,
+        PieceAttack,
+        PieceDamaged,
+        PieceDead,
+        pieceNoMove,
+        PieceNoRotate,
 
         AIPlayerInfo,   // AI가 존재하는 경우 AI 정보
         LoadRoomScene,      // 룸 씬으로 전환
@@ -29,7 +40,7 @@ namespace Protocol
     }
 
     // 애니메이션 싱크는 사용하지 않습니다.
-    /*
+
     public enum AnimIndex
     {
         idle = 0,
@@ -38,7 +49,7 @@ namespace Protocol
         stop,
         max
     }
-    */
+
 
     // 조이스틱 키 이벤트 코드
     public static class KeyEventCode
@@ -155,6 +166,21 @@ namespace Protocol
         public PlayerNoMoveMessage(SessionId session, Vector3 pos) : base(Type.PlayerNoMove)
         {
             this.playerSession = session;
+            this.xPos = pos.x;
+            this.yPos = pos.y;
+            this.zPos = pos.z;
+        }
+    }
+
+    public class PieceMoveMessage : Message
+    {
+        public SessionId pieceSession;
+        public float xPos;
+        public float yPos;
+        public float zPos;
+        public PieceMoveMessage(SessionId piece, Vector3 pos) : base(Type.PieceMove)
+        {
+            this.pieceSession = piece;
             this.xPos = pos.x;
             this.yPos = pos.y;
             this.zPos = pos.z;

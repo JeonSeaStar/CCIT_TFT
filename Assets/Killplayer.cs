@@ -7,6 +7,10 @@ public class Killplayer : MonoBehaviour
     public GameObject playerPool;
     public Player[] TestPlayers;
 
+    public GameObject TestObject;
+    public GameObject[] TestObjects;
+
+    public GameObject instanveObj;
 
     public void GetKillPlayer()
     {
@@ -29,6 +33,19 @@ public class Killplayer : MonoBehaviour
                     new Protocol.PlayerDeadMessage(TestPlayers[k].GetIndex());
             BackEndMatchManager.GetInstance().SendDataToInGame<Protocol.PlayerDeadMessage>(message);
         }
-
     }
+    public void TestObjectActive()
+    {
+        int k = Random.Range(0, 8);
+        if (TestObjects[k])
+        {
+            TestObjects[k].SetActive(false);
+        }
+    }
+
+    public void InstantiateObj()
+    {
+        Instantiate(instanveObj);
+    }
+
 }
