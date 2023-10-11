@@ -18,22 +18,6 @@ public class FollowCamera : MonoBehaviour
         }
         // 이동
         var targetPos = target.position - (Vector3.forward * dist) + (Vector3.up * height);
-        if (targetPos.z >= 3)
-        {
-            targetPos.z = 3.0f;
-        }
-        else if (targetPos.z <= -25)
-        {
-            targetPos.z = -25.0f;
-        }
-        if (targetPos.x >= 5)
-        {
-            targetPos.x = 5.0f;
-        }
-        else if (targetPos.x <= -5)
-        {
-            targetPos.x = -5.0f;
-        }
         transform.position = Vector3.Lerp(transform.position, targetPos, smoothRotate * Time.deltaTime);
 
         // 회전
