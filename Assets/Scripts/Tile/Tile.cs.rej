@@ -1,0 +1,20 @@
+diff a/Assets/Scripts/Tile/Tile.cs b/Assets/Scripts/Tile/Tile.cs	(rejected hunks)
+@@ -9,7 +9,17 @@
+     [SerializeField]
+     private Vector2 targetIndex; // �����Ҷ� ���� �� Ÿ�� �迭
+ 
+-    public bool isFull = false;
++    public bool isFull
++    {
++        set
++        {
++            IsFull = value;
++            if (IsFull) { walkable = false; }
++            else { walkable = true; }
++        }
++        get { return IsFull; }
++    }
++    public bool IsFull = false;
+     public bool isReadyTile = false;
+     public GameObject piece;
+ 

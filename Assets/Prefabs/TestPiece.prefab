@@ -96,20 +96,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1392386ccdaa12c46a1bd3b5b5371ddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fieldManager: {fileID: 0}
   pieceData: {fileID: 11400000, guid: 6891acecd0078c24c910eb77e64059db, type: 2}
+  grade: 0
   pieceName: "\uD14C\uC2A4\uD2B8 \uAE30\uBB3C"
   piecePortrait: {fileID: 0}
-  synerges: []
   Equipments: []
-  pieceGrade: 1
+  star: 0
   health: 0
+  currentHealth: 0
   mana: 0
+  manaRecovery: 0
+  attackPower: 0
+  damageRise: 0
   attackDamage: 0
   abilityPower: 0
+  abilityRise: 0
+  abilityDamage: 0
   armor: 0
+  armorRise: 0
+  armorSum: 0
   magicResist: 0
+  magicResistRise: 0
+  magicResistSum: 0
   attackSpeed: 0
+  attackSpeedRise: 0
+  attackSpeedSum: 0
   criticalChance: 0
   criticalDamage: 0
   attackRange: 0
+  dead: 0
   owner: 
+  isOwned: 0
+  candidatePath: []
+  path: []
+  currentTile: {fileID: 0}
+  target: {fileID: 0}
+  moveSpeed: 0
+  ease: 0
+  randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
+    type: 3}
