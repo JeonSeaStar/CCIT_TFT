@@ -11,9 +11,9 @@ public class InputManager : MonoBehaviour
     private bool isMove = false;
     void Start()
     {
-        GameManager.InGame += MobileInput;
-        GameManager.InGame += AttackInput;
-        GameManager.AfterInGame += SendNoMoveMessage;
+        GameManager_Server.InGame += MobileInput;
+        GameManager_Server.InGame += AttackInput;
+        GameManager_Server.AfterInGame += SendNoMoveMessage;
     }
 
     void MobileInput()
@@ -86,7 +86,7 @@ public class InputManager : MonoBehaviour
 
     public void AttackInput(Vector3 pos)
     {
-        if (GameManager.GetInstance().GetGameState() != GameManager.GameState.InGame)
+        if (GameManager_Server.GetInstance().GetGameState() != GameManager_Server.GameState.InGame)
         {
             return;
         }

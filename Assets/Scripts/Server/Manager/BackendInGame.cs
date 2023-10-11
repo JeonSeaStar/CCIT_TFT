@@ -131,7 +131,7 @@ public partial class BackEndMatchManager : MonoBehaviour
     {
         Debug.Log("게임 시작 메시지 수신. 게임 설정 시작");
         // 게임 시작 메시지가 오면 게임을 레디 상태로 변경
-        if (GameManager.GetInstance().GetGameState() != GameManager.GameState.Ready)
+        if (GameManager_Server.GetInstance().GetGameState() != GameManager_Server.GameState.Ready)
         {
             isHost = false;
             isSetHost = false;
@@ -278,8 +278,17 @@ public partial class BackEndMatchManager : MonoBehaviour
         sessionIdList = sessions;
     }
 
+
+
+
+
+
+
+
+
+
     // 서버로 데이터 패킷 전송
-    // 서버에서는 이 패킷을 받아 모든 클라이언트(패킷 보낸 클라이언트 포함)로 브로드캐스팅 해준다.
+    // 서버에서는 이 패킷을 받아 모든 클라이언트(패킷 보낸 클라이언트 포함)로 브로드캐스팅 해준다. --중요
     public void SendDataToInGame<T>(T msg)
     {
         var byteArray = DataParser.DataToJsonData<T>(msg);
@@ -374,7 +383,7 @@ public partial class BackEndMatchManager : MonoBehaviour
                 }
                 return true;
             case Protocol.Type.LoadGameScene:
-                GameManager.GetInstance().ChangeState(GameManager.GameState.Start);
+                GameManager_Server.GetInstance().ChangeState(GameManager_Server.GameState.Start);
                 return true;
         }
         return false;

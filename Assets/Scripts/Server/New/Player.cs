@@ -14,12 +14,12 @@ public class Player : MonoBehaviour
     private bool isMe = false;
 
     // 스테이터스
+    public int hp { get; private set; } = 0;
+    private const int MAX_HP = 100;
     private bool isLive = false;
-
 
     // UI
     public GameObject nameObject;
-    public VirtualStick Test_vertualStick;
 
     private readonly string playerCanvas = "PlayerCanvas";
 
@@ -42,8 +42,7 @@ public class Player : MonoBehaviour
     {
         if (BackEndMatchManager.GetInstance() == null)
         {
-            // 매칭 인스턴스가 존재하지 않을 경우 (인게임 테스트 용도)
-            Initialize(true, SessionId.None, "testPlayer", 0);
+
         }
     }
 
@@ -55,7 +54,6 @@ public class Player : MonoBehaviour
 
         var playerUICanvas = GameObject.FindGameObjectWithTag(playerCanvas);
         nameObject = Instantiate(nameObject, Vector3.zero, Quaternion.identity, playerUICanvas.transform);
-        
 
         nameObject.GetComponent<TMP_Text>().text = nickName;
 
@@ -69,6 +67,9 @@ public class Player : MonoBehaviour
         this.isMove = false;
         this.moveVector = new Vector3(0, 0, 0);
         this.isRotate = false;
+
+        //hp
+        hp = MAX_HP;
 
         playerModelObject = this.gameObject;
         playerModelObject.transform.rotation = Quaternion.Euler(0, rot, 0);
@@ -87,7 +88,6 @@ public class Player : MonoBehaviour
     {
         SetMoveVector(this.transform.forward * move);
     }
-
     public void SetMoveVector(Vector3 vector)
     {
         moveVector = vector;
@@ -106,7 +106,6 @@ public class Player : MonoBehaviour
     {
         Move(moveVector);
     }
-
     public void Move(Vector3 var)
     {
         if (!isLive)
@@ -128,12 +127,16 @@ public class Player : MonoBehaviour
             {
                 isRotate = false;
             }
-
-            var pos = gameObject.transform.position + playerModelObject.transform.forward * moveSpeed * Time.deltaTime;
-            //gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, pos, Time.deltaTime * smoothVal);
-            SetPosition(pos);
         }
+
+        //playerModelObject.transform.rotation = Quaternion.LookRotation(var);
+
+        // 이동
+        var pos = gameObject.transform.position + playerModelObject.transform.forward * moveSpeed * Time.deltaTime;
+        //gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, pos, Time.deltaTime * smoothVal);
+        SetPosition(pos);
     }
+
     public void Rotate()
     {
         if (moveVector.Equals(Vector3.zero))
@@ -179,12 +182,28 @@ public class Player : MonoBehaviour
         //return gameObject.transform.rotation;
         return gameObject.transform.rotation.eulerAngles;
     }
-
     #endregion
+
 
     public bool GetIsLive()
     {
         return isLive;
+    }
+
+    public void Damaged()
+    {
+        hp -= 100;
+    }
+
+    public void SetHP(int hp)
+    {
+        this.hp = hp;
+    }
+
+    private void PlayerDie()
+    {
+        isLive = false;
+        nameObject.SetActive(false);
     }
 
     Vector3 GetNameUIPos()
@@ -196,16 +215,14 @@ public class Player : MonoBehaviour
     {
         if (BackEndMatchManager.GetInstance() == null)
         {
-            // 매칭 인스턴스가 존재하지 않는 경우 (인게임 테스트 용도)
-            Vector3 tmp = new Vector3(Test_vertualStick.GetHorizontalValue(), 0, Test_vertualStick.GetVerticalValue());
-            tmp = Vector3.Normalize(tmp);
-            SetMoveVector(tmp);
+
         }
 
         if (!isLive)
         {
             return;
         }
+
         if (isMove)
         {
             Move();
@@ -214,6 +231,18 @@ public class Player : MonoBehaviour
         if (isRotate)
         {
             Rotate();
+        }
+
+        if (transform.position.y < -10.0f)
+        {
+            PlayerDie();
+            WorldManager.instance.dieEvent(index);
+        }
+
+        if (hp <= 0)
+        {
+            PlayerDie();
+            WorldManager.instance.dieEvent(index);
         }
 
         if (nameObject.activeSelf)
@@ -235,5 +264,10 @@ public class Player : MonoBehaviour
     public string GetNickName()
     {
         return nickName;
+    }
+
+    public void Test()
+    {
+
     }
 }

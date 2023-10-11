@@ -180,12 +180,12 @@ public partial class LobbyUI : MonoBehaviour
         {
             fadeObject.ProcessFadeOut(() =>
             {
-                GameManager.GetInstance().ChangeState(GameManager.GameState.Ready);
+                GameManager_Server.GetInstance().ChangeState(GameManager_Server.GameState.Ready);
             });
         }
         else
         {
-            GameManager.GetInstance().ChangeState(GameManager.GameState.Ready);
+            GameManager_Server.GetInstance().ChangeState(GameManager_Server.GameState.Ready);
         }
     }
 

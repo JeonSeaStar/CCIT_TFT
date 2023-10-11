@@ -9,10 +9,10 @@ using UnityEngine.SceneManagement;
 /// 게임 프레임 고정, 슬립 모드 해제
 /// 상황에 맞는 씬 호출
 /// </summary>
-public class GameManager : MonoBehaviour
+public class GameManager_Server : MonoBehaviour
 {
 
-    private static GameManager instance;
+    private static GameManager_Server instance;
     private static bool isCreate = false;
 
     #region Scene
@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     private GameState gameState;
     #endregion
 
-    public static GameManager GetInstance()
+    public static GameManager_Server GetInstance()
     {
         if (instance == null)
         {
@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviour
 
         OnGameReconnect();
         ChangeScene(INGAME);
-        ChangeState(GameManager.GameState.InGame);
+        ChangeState(GameManager_Server.GameState.InGame);
     }
 
     public GameState GetGameState()

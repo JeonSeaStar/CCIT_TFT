@@ -144,12 +144,12 @@ public class MatchResultUI : MonoBehaviour
         {
             fadeObject.ProcessFadeOut(() =>
             {
-                GameManager.GetInstance().ChangeState(GameManager.GameState.MatchLobby);
+                GameManager_Server.GetInstance().ChangeState(GameManager_Server.GameState.MatchLobby);
             });
         }
         else
         {
-            GameManager.GetInstance().ChangeState(GameManager.GameState.MatchLobby);
+            GameManager_Server.GetInstance().ChangeState(GameManager_Server.GameState.MatchLobby);
         }
     }
 }

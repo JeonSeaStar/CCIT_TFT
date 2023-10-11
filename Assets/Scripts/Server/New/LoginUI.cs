@@ -270,7 +270,7 @@ public class LoginUI : MonoBehaviour
     {
         if (fadeObject != null)
         {
-            GameManager.GetInstance().ChangeState(GameManager.GameState.MatchLobby, (bool isDone) =>
+            GameManager_Server.GetInstance().ChangeState(GameManager_Server.GameState.MatchLobby, (bool isDone) =>
             {
                 Dispatcher.Current.BeginInvoke(() => loadingObject.transform.Rotate(0, 0, -10));
                 if (isDone)
@@ -281,7 +281,7 @@ public class LoginUI : MonoBehaviour
         }
         else
         {
-            GameManager.GetInstance().ChangeState(GameManager.GameState.MatchLobby);
+            GameManager_Server.GetInstance().ChangeState(GameManager_Server.GameState.MatchLobby);
         }
     }
 }

@@ -91,7 +91,7 @@ public partial class BackEndMatchManager : MonoBehaviour
         // 이벤트 설정
         //GameManager.OnRobby += IsMatchGameActivate;
         //GameManager.OnGameReady += OnGameReady;
-        GameManager.OnGameReconnect += OnGameReconnect;
+        GameManager_Server.OnGameReconnect += OnGameReconnect;
         // 핸들러 설정
         MatchMakingHandler();
         GameHandler();
@@ -374,7 +374,7 @@ public partial class BackEndMatchManager : MonoBehaviour
                     if (args.ErrInfo.Reason.Equals("Reconnect Success"))
                     {
                         //재접속 성공
-                        GameManager.GetInstance().ChangeState(GameManager.GameState.Reconnect);
+                        GameManager_Server.GetInstance().ChangeState(GameManager_Server.GameState.Reconnect);
                         Debug.Log("재접속 성공");
                     }
                     else if (args.ErrInfo.Reason.Equals("Fail To Reconnect"))
@@ -432,7 +432,7 @@ public partial class BackEndMatchManager : MonoBehaviour
             if (args.ErrInfo == BackEnd.Tcp.ErrorCode.Success)
             {
                 //InGameUiManager.instance.SetGameResult();
-                GameManager.GetInstance().ChangeState(GameManager.GameState.Result);
+                GameManager_Server.GetInstance().ChangeState(GameManager_Server.GameState.Result);
             }
             else if (args.ErrInfo == BackEnd.Tcp.ErrorCode.Match_InGame_Timeout)
             {
@@ -452,9 +452,15 @@ public partial class BackEndMatchManager : MonoBehaviour
         {
             // 각 클라이언트들이 서버를 통해 주고받은 패킷들
             // 서버는 단순 브로드캐스팅만 지원 (서버에서 어떠한 연산도 수행하지 않음)
-
-            // 게임 사전 설정
-            if (PrevGameMessage(args.BinaryUserData) == true)
+            Debug.Log("다른 유저가 보낸 메세지인가 : " + args.From.IsRemote);
+            if (args.From.IsRemote == true)
+            {
+                Debug.Log("유저 이름 : " + args.From.NickName);
+                Debug.Log("유저 세선 아이디 : " + args.From.SessionId);
+            }
+        
+        // 게임 사전 설정
+        if (PrevGameMessage(args.BinaryUserData) == true)
             {
                 // 게임 사전 설정을 진행하였으면 바로 리턴
                 return;

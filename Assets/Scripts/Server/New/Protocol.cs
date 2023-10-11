@@ -2,10 +2,6 @@ using BackEnd.Tcp;
 using UnityEngine;
 using System.Collections.Generic;
 
-/// <summary>
-/// 생각하기에 슈퍼플레이어가 있을 경우에 로컬에서 이벤트를 처리하기 위해서 사용하는 듯
-/// 우리 게임대로 다시 이벤트 타입부터 정리할 필요가 있음 현재는 이동, 총알 공격 정도의 이벤트만 처리함
-/// </summary>
 namespace Protocol
 {
     // 이벤트 타입
@@ -16,9 +12,10 @@ namespace Protocol
         PlayerRotate,   // 플레이어 회전
         PlayerAttack,   // 플레이어 공격
         PlayerDamaged,  // 플레이어 데미지 받음
+        PlayerDead, 
         PlayerNoMove,   // 플레이어 이동 멈춤
         PlayerNoRotate, // 플레이어 회전 멈춤
-        PlayerDead,
+        PlayerDoTest,   // 플레이어가 함수 받을 수 있는지 확인
         bulletInfo,
 
         AIPlayerInfo,   // AI가 존재하는 경우 AI 정보
@@ -28,7 +25,7 @@ namespace Protocol
         GameStart,      // 게임 시작
         GameEnd,        // 게임 종료
         GameSync,       // 플레이어 재접속 시 게임 현재 상황 싱크
-        Max,
+        Max
     }
 
     // 애니메이션 싱크는 사용하지 않습니다.
@@ -101,6 +98,21 @@ namespace Protocol
         }
     }
 
+    public class PlayerAttackMessage : Message
+    {
+        public SessionId playerSession;
+        public float dir_x;
+        public float dir_y;
+        public float dir_z;
+        public PlayerAttackMessage(SessionId session, Vector3 pos) : base(Type.PlayerAttack)
+        {
+            this.playerSession = session;
+            dir_x = pos.x;
+            dir_y = pos.y;
+            dir_z = pos.z;
+        }
+    }
+
     public class PlayerDamegedMessage : Message
     {
         public SessionId playerSession;
@@ -113,6 +125,24 @@ namespace Protocol
             this.hit_x = x;
             this.hit_y = y;
             this.hit_z = z;
+        }
+    }
+    public class PlayerDeadMessage : Message
+    {
+        public SessionId playerSession;
+        public PlayerDeadMessage(SessionId session) : base(Type.PlayerDead)
+        {
+            this.playerSession = session;
+        }
+    }
+
+    public class PlayerDoTest : Message
+    {
+        public SessionId playerSession;
+        
+        public PlayerDoTest(SessionId session) : base(Type.PlayerDoTest)
+        {
+            this.playerSession = session;
         }
     }
 
