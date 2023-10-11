@@ -159,6 +159,14 @@ public class Piece : MonoBehaviour
     //[Header("Synerge")]
     //public List<string> sReceivedBuff;
 
+    [Header("상태")]
+    public bool freeze;
+    public bool slow;
+    public bool airborne;
+    public bool faint;
+    public bool fear;
+    public bool invincible;
+
     public enum PieceStatus //상태 이상
     {
         StatusImmunity,
@@ -211,6 +219,9 @@ public class Piece : MonoBehaviour
     protected void Damage()
     {
         //target.defaultHealth -= attackPower;
+        if (target.invincible)
+            return;
+
         target.health -= attackDamage;
 
         //if (target.defaultHealth <= 0)
@@ -367,6 +378,36 @@ public class Piece : MonoBehaviour
     }
 
     #region 상태이상
+    void SetFreeze()
+    {
+        freeze = true;
+    }
 
+    void SetSlow()
+    {
+        slow = true;
+    }
+
+    void SetFaint()
+    {
+        faint = true;
+    }
+
+    void SetAirborne()
+    {
+        airborne = true;
+    }
+
+    void SetFear()
+    {
+        fear = true;
+    }
+
+    void SetInvincible()
+    {
+        invincible = true;
+    }
+
+    //void 
     #endregion
 }
