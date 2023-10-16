@@ -8,6 +8,7 @@ namespace Protocol
     public enum Type : sbyte
     {
         Key = 0,        // 키(가상 조이스틱) 입력
+        Button,
         PlayerMove,     // 플레이어 이동
         PlayerRotate,   // 플레이어 회전
         PlayerAttack,   // 플레이어 공격
@@ -15,7 +16,7 @@ namespace Protocol
         PlayerDead, 
         PlayerNoMove,   // 플레이어 이동 멈춤
         PlayerNoRotate, // 플레이어 회전 멈춤
-        PlayerDoTest,   // 플레이어가 함수 받을 수 있는지 확인
+        PlayerTest,   // 플레이어가 함수 받을 수 있는지 확인
         PlayerBuyPiece,
         PlayerSellPiece,
         
@@ -61,7 +62,6 @@ namespace Protocol
     }
 
 
-
     public class Message
     {
         public Type type;
@@ -69,6 +69,15 @@ namespace Protocol
         public Message(Type type)
         {
             this.type = type;
+        }
+    }
+
+    public class TestMessage : Message
+    {
+        public SessionId playerSession;
+        public TestMessage(SessionId index) : base(Type.Button)
+        {
+            this.playerSession = index;
         }
     }
 
@@ -147,16 +156,6 @@ namespace Protocol
         }
     }
 
-    public class PlayerDoTest : Message
-    {
-        public SessionId playerSession;
-        
-        public PlayerDoTest(SessionId session) : base(Type.PlayerDoTest)
-        {
-            this.playerSession = session;
-        }
-    }
-
     public class PlayerNoMoveMessage : Message
     {
         public SessionId playerSession;
@@ -184,6 +183,16 @@ namespace Protocol
             this.xPos = pos.x;
             this.yPos = pos.y;
             this.zPos = pos.z;
+        }
+    }
+
+    public class PlayerBuyPiece : Message
+    {
+        public SessionId playerSession;
+
+        public PlayerBuyPiece(SessionId session) : base(Type.PlayerBuyPiece)
+        {
+            this.playerSession = session;
         }
     }
 

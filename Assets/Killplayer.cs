@@ -7,11 +7,6 @@ public class Killplayer : MonoBehaviour
     public GameObject playerPool;
     public Player[] TestPlayers;
 
-    public GameObject TestObject;
-    public GameObject[] TestObjects;
-
-    public GameObject instanveObj;
-
     public void GetKillPlayer()
     {
         for (int i = 0; i < playerPool.transform.childCount; i++)
@@ -34,18 +29,28 @@ public class Killplayer : MonoBehaviour
             BackEndMatchManager.GetInstance().SendDataToInGame<Protocol.PlayerDeadMessage>(message);
         }
     }
-    public void TestObjectActive()
+
+    public void TestKillPlayer()
     {
         int k = Random.Range(0, 8);
-        if (TestObjects[k])
+        if (TestPlayers[k])
         {
-            TestObjects[k].SetActive(false);
+            //Protocol.TestMessage message;
+            //message = new Protocol.TestMessage(TestPlayers[k].GetIndex());
+            //if (BackEndMatchManager.GetInstance().IsHost())
+            //{
+            //    BackEndMatchManager.GetInstance().TestAddMsgToLocalQueue(message);
+            //}
+            //else
+            //{
+            //    BackEndMatchManager.GetInstance().SendDataToInGame<Protocol.TestMessage>(message);
+            //}
         }
     }
 
-    public void InstantiateObj()
+    public void buyOBJ()
     {
-        Instantiate(instanveObj);
+        
     }
 
 }

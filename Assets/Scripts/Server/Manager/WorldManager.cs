@@ -32,12 +32,16 @@ public class WorldManager : MonoBehaviour
     private const int MAXPLAYER = 8;
     public int alivePlayer { get; set; }
     private Dictionary<SessionId, Player> players;
+    private Dictionary<SessionId, Piece> pieces;
     public GameObject startPointObject;
     private List<Vector4> statringPoints;
 
     private Stack<SessionId> gameRecord;
     public delegate void PlayerDie(SessionId index);
     public PlayerDie dieEvent;
+
+    public delegate void PieceDie(SessionId index);
+    public PieceDie pieceDieEvent;
 
     //public Player[] TestPlayers;
     #endregion
@@ -114,39 +118,16 @@ public class WorldManager : MonoBehaviour
             return;
         }
 
-        if (BackEndMatchManager.GetInstance().nowModeType == MatchModeType.TeamOnTeam)
-        {
-            if (alivePlayer == 2)
-            {
-                int remainTeamNumber = -1;
-                SessionId remainSession = SessionId.None;
-                foreach (var player in players)
-                {
-                    if (player.Value.GetIsLive() == false)
-                    {
-                        continue;
-                    }
-                    if (remainTeamNumber == -1)
-                    {
-                        remainTeamNumber = BackEndMatchManager.GetInstance().GetTeamInfo(player.Key);
-                        remainSession = player.Key;
-                    }
-                    else if (remainTeamNumber == BackEndMatchManager.GetInstance().GetTeamInfo(player.Key))
-                    {
-                        // 남은 플레이어들이 같은편이면 그대로 게임종료 메시지를 보냄
-                        gameRecord.Push(remainSession);
-                        gameRecord.Push(player.Key);
-                        SendGameEndOrder();
-                        return;
-                    }
-                }
-            }
-        }
         // 1명 이하로 플레이어가 남으면 바로 종료 체크
         if (alivePlayer <= 1)
         {
             SendGameEndOrder();
         }
+    }
+
+    private void PieceDieEvent(SessionId index)
+    {
+
     }
 
     private void SendGameEndOrder()
@@ -298,7 +279,7 @@ public class WorldManager : MonoBehaviour
         }
     }
 
-    //데이터 브로드캐스팅
+    //데이터 브로드캐스팅 죽, 데이터를 수신받는 부분
     public void OnRecieve(MatchRelayEventArgs args)
     {
         if (args.BinaryUserData == null)
@@ -342,6 +323,8 @@ public class WorldManager : MonoBehaviour
                 KeyMessage keyMessage = DataParser.ReadJsonData<KeyMessage>(args.BinaryUserData);
                 ProcessKeyEvent(args.From.SessionId, keyMessage);
                 break;
+                //
+
             case Protocol.Type.PlayerMove:
                 PlayerMoveMessage moveMessage = DataParser.ReadJsonData<PlayerMoveMessage>(args.BinaryUserData);
                 ProcessPlayerData(moveMessage);
@@ -358,6 +341,8 @@ public class WorldManager : MonoBehaviour
                 PlayerDeadMessage deadMessage = DataParser.ReadJsonData<PlayerDeadMessage>(args.BinaryUserData);
                 ProcessPlayerData(deadMessage);
                 break;
+                //
+
             case Protocol.Type.PlayerNoMove:
                 PlayerNoMoveMessage noMoveMessage = DataParser.ReadJsonData<PlayerNoMoveMessage>(args.BinaryUserData);
                 ProcessPlayerData(noMoveMessage);
@@ -372,16 +357,20 @@ public class WorldManager : MonoBehaviour
         }
     }
 
+    //호스트만 데이터를 보냄
     public void OnRecieveForLocal(KeyMessage keyMessage)
     {
         ProcessKeyEvent(myPlayerIndex, keyMessage);
     }
 
+    //호스트만 데이터를 보냄
     public void OnRecieveForLocal(PlayerNoMoveMessage message)
     {
         ProcessPlayerData(message);
     }
 
+
+    //호스트에서 데이터를 연산하는 부분
     private void ProcessKeyEvent(SessionId index, KeyMessage keyMessage)
     {
         if (BackEndMatchManager.GetInstance().IsHost() == false)
@@ -465,7 +454,7 @@ public class WorldManager : MonoBehaviour
     {
         if (BackEndMatchManager.GetInstance().IsHost() == true)
         {
-            //호스트면 리턴
+            //호스트면 리턴 keyEvent로 받기 때문에 2번 받을 필요가 없어 리턴함
             return;
         }
         //players[data.playerSession].Attack(new Vector3(data.dir_x, data.dir_y, data.dir_z));
@@ -480,6 +469,7 @@ public class WorldManager : MonoBehaviour
     {
         players[data.playerSession].Damaged();
     }
+
 
     private void ProcessSyncData(GameSyncMessage syncMessage)
     {

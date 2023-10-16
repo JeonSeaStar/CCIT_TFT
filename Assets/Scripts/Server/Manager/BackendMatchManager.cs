@@ -53,7 +53,7 @@ public partial class BackEndMatchManager : MonoBehaviour
 
     #region Host
     public bool isHost = false;                    // 호스트 여부 (서버에서 설정한 SuperGamer 정보를 가져옴)
-    private Queue<KeyMessage> localQueue = null;    // 호스트에서 로컬로 처리하는 패킷을 쌓아두는 큐 (로컬처리하는 데이터는 서버로 발송 안함)
+    private Queue<KeyMessage> localQueue = null;   // 호스트에서 로컬로 처리하는 패킷을 쌓아두는 큐 (로컬처리하는 데이터는 서버로 발송 안함)
     #endregion
 
 
@@ -707,6 +707,9 @@ public partial class BackEndMatchManager : MonoBehaviour
 
         localQueue.Enqueue(message);
     }
+
+    //테스트용
+
 
     public void SetHostSession(SessionId host)
     {

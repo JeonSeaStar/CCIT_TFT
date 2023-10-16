@@ -4,6 +4,7 @@ using UnityEngine;
 public class DataParser : MonoBehaviour
 {
     #region json
+    //데이터 수신
     public static T ReadJsonData<T>(byte[] buf)
     {
         var strByte = Encoding.Default.GetString(buf);
@@ -11,6 +12,7 @@ public class DataParser : MonoBehaviour
         return JsonUtility.FromJson<T>(strByte);
     }
 
+    //데이터 전송
     public static byte[] DataToJsonData<T>(T obj)
     {
         var jsonData = JsonUtility.ToJson(obj);
