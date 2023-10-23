@@ -33,7 +33,7 @@ public class CentaurusBullet : Bullet
 
     private void Damage() //추후 애니메이션 실행 및 이벤트로 나눠서 구현
     {
-        parentPiece.Damage(damage);
+        //parentPiece.Damage(damage);
         StopAllCoroutines();
         Destroy(gameObject);
     }

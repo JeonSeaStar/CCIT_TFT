@@ -217,7 +217,7 @@ public class FieldManager : MonoBehaviour
                 ApplyUnitedBuff(buffManager.unitedBuff[0].underWorldBuff, _unitedSynergeCount, new int[] { 2, 4 }, value);
                 break;
             case PieceData.United.Faddist://2
-                ApplyUnitedBuff(buffManager.unitedBuff[0].FaddistBuff, _unitedSynergeCount, new int[] { 2, 4 }, value);
+                ApplyUnitedBuff(buffManager.unitedBuff[0].faddistBuff, _unitedSynergeCount, new int[] { 2, 4 }, value);
                 break;
             case PieceData.United.WarMachine://1
                 ApplyUnitedBuff(buffManager.unitedBuff[0].warMachineBuff, _unitedSynergeCount, new int[] { 2, 4 }, value);
