@@ -85,6 +85,7 @@ public class WorldManager : MonoBehaviour
         return true;
     }
 
+    //각 플레이어 처음 시작점 설정
     public void SetPlayerAttribute()
     {
         // 시작점
@@ -102,6 +103,7 @@ public class WorldManager : MonoBehaviour
         dieEvent += PlayerDieEvent;
     }
 
+    //플레이어 죽음 이벤트 처리
     private void PlayerDieEvent(SessionId index)
     {
         alivePlayer -= 1;
@@ -125,11 +127,7 @@ public class WorldManager : MonoBehaviour
         }
     }
 
-    private void PieceDieEvent(SessionId index)
-    {
-
-    }
-
+    //게임 종료 메세지 이벤트 발생
     private void SendGameEndOrder()
     {
         // 게임 종료 전환 메시지는 호스트에서만 보냄
@@ -145,11 +143,12 @@ public class WorldManager : MonoBehaviour
         BackEndMatchManager.GetInstance().SendDataToInGame<GameEndMessage>(message);
     }
 
-    public SessionId GetMyPlayerIndex()
+    public SessionId GetMyPlayerIndex() //테스트용으로 inputmanager에서 사용중
     {
         return myPlayerIndex;
     }
 
+    //게임 시작시 플레이어 정보 셋팅
     public void SetPlayerInfo()
     {
         if (BackEndMatchManager.GetInstance().sessionIdList == null)
@@ -294,6 +293,8 @@ public class WorldManager : MonoBehaviour
             return;
         }
         if (BackEndMatchManager.GetInstance().IsHost() != true && args.From.SessionId == myPlayerIndex)
+        //호스트도 아니고 내 Index 번호도 아니기 때문에 다른 유저의 index라면 작동한다. 따라서 데이터를 수신 받는 부분
+        //즉, 비호스트가 메세지를 처리
         {
             return;
         }
@@ -323,7 +324,17 @@ public class WorldManager : MonoBehaviour
                 KeyMessage keyMessage = DataParser.ReadJsonData<KeyMessage>(args.BinaryUserData);
                 ProcessKeyEvent(args.From.SessionId, keyMessage);
                 break;
-                //
+
+            //버튼 테스트용
+            case Protocol.Type.Button:
+                ButtonMessage buttonMessage = DataParser.ReadJsonData<ButtonMessage>(args.BinaryUserData);
+                ProceButtonEvent(args.From.SessionId, buttonMessage);
+                break;
+            //버튼 테스트용
+            case Protocol.Type.PlayerDead:
+                PlayerButtonDeadMessage playerButtonDeadMessage = DataParser.ReadJsonData<PlayerButtonDeadMessage>(args.BinaryUserData);
+                ProcessPlayerData(playerButtonDeadMessage);
+                break;
 
             case Protocol.Type.PlayerMove:
                 PlayerMoveMessage moveMessage = DataParser.ReadJsonData<PlayerMoveMessage>(args.BinaryUserData);
@@ -337,10 +348,10 @@ public class WorldManager : MonoBehaviour
                 PlayerDamegedMessage damegedMessage = DataParser.ReadJsonData<PlayerDamegedMessage>(args.BinaryUserData);
                 ProcessPlayerData(damegedMessage);
                 break;
-            case Protocol.Type.PlayerDead:
-                PlayerDeadMessage deadMessage = DataParser.ReadJsonData<PlayerDeadMessage>(args.BinaryUserData);
-                ProcessPlayerData(deadMessage);
-                break;
+            //case Protocol.Type.PlayerDead:
+            //    PlayerDeadMessage deadMessage = DataParser.ReadJsonData<PlayerDeadMessage>(args.BinaryUserData);
+            //    ProcessPlayerData(deadMessage);
+            //    break;
                 //
 
             case Protocol.Type.PlayerNoMove:
@@ -369,8 +380,36 @@ public class WorldManager : MonoBehaviour
         ProcessPlayerData(message);
     }
 
+    //버튼 테스트용 호스트만 데이터를 보냄
+    public void OnRecieveButtonForLocal(ButtonMessage buttonMessage)
+    {
+        ProceButtonEvent(myPlayerIndex, buttonMessage);
+    }
 
-    //호스트에서 데이터를 연산하는 부분
+    private void ProceButtonEvent(SessionId index, ButtonMessage buttonMessage)
+    {
+        if (BackEndMatchManager.GetInstance().IsHost() == false)
+        {
+            //호스트만 수행
+            return;
+        }
+        bool button1 = false;
+
+        int ButtonData = buttonMessage.ButtonData;
+        if((ButtonData & ButtonEventCode.TESTBUTTON1) == ButtonEventCode.TESTBUTTON1)
+        {
+            button1 = true;
+        }
+
+        if(button1)
+        {
+            players[index].Damaged();
+            PlayerButtonDeadMessage msg = new PlayerButtonDeadMessage(index);
+            BackEndMatchManager.GetInstance().SendDataToInGame<PlayerButtonDeadMessage>(msg);
+        }
+
+    }
+    //호스트에서 키메세지를 연산하는 부분
     private void ProcessKeyEvent(SessionId index, KeyMessage keyMessage)
     {
         if (BackEndMatchManager.GetInstance().IsHost() == false)
@@ -407,9 +446,9 @@ public class WorldManager : MonoBehaviour
 
         if (isMove)
         {
-            players[index].SetMoveVector(moveVecotr);
-            PlayerMoveMessage msg = new PlayerMoveMessage(index, playerPos, moveVecotr);
-            BackEndMatchManager.GetInstance().SendDataToInGame<PlayerMoveMessage>(msg);
+            players[index].SetMoveVector(moveVecotr); //연산
+            PlayerMoveMessage msg = new PlayerMoveMessage(index, playerPos, moveVecotr); //연산 데이터 메세지로 변경
+            BackEndMatchManager.GetInstance().SendDataToInGame<PlayerMoveMessage>(msg);  //연산한 데이터 메세지로 보냄
         }
         if (isNoMove)
         {
@@ -422,14 +461,16 @@ public class WorldManager : MonoBehaviour
             BackEndMatchManager.GetInstance().SendDataToInGame<PlayerAttackMessage>(msg);
         }
     }
-
+    
+    //구 버전 공격 호스트가 연산함
     private void ProcessAttackKeyData(SessionId session, Vector3 pos)
     {
-        //players[session].Attack(pos);
-        PlayerAttackMessage msg = new PlayerAttackMessage(session, pos);
-        BackEndMatchManager.GetInstance().SendDataToInGame<PlayerAttackMessage>(msg);
+        //players[session].Attack(pos);                                                 //연산
+        PlayerAttackMessage msg = new PlayerAttackMessage(session, pos);                //연산한 데이터 메세지로 변경
+        BackEndMatchManager.GetInstance().SendDataToInGame<PlayerAttackMessage>(msg);   //메세지를 호출
     }
 
+    //비호스트에 대한 연산?
     private void ProcessPlayerData(PlayerMoveMessage data)
     {
         if (BackEndMatchManager.GetInstance().IsHost() == true)
@@ -445,11 +486,26 @@ public class WorldManager : MonoBehaviour
             players[data.playerSession].SetMoveVector(moveVecotr);
         }
     }
+
+    //버튼 테스트용 비호스트에 대한 연산?
+    private void ProcessPlayerData(PlayerButtonDeadMessage data)
+    {
+        if (BackEndMatchManager.GetInstance().IsHost() == true)
+        {
+            //호스트면 리턴
+            return;
+        }
+        players[data.playerSession].Damaged();
+    }
+
+
     private void ProcessPlayerData(PlayerNoMoveMessage data)
     {
         players[data.playerSession].SetPosition(data.xPos, data.yPos, data.zPos);
         players[data.playerSession].SetMoveVector(Vector3.zero);
     }
+
+    //비호스트에 대한 연산?
     private void ProcessPlayerData(PlayerAttackMessage data)
     {
         if (BackEndMatchManager.GetInstance().IsHost() == true)
@@ -459,11 +515,14 @@ public class WorldManager : MonoBehaviour
         }
         //players[data.playerSession].Attack(new Vector3(data.dir_x, data.dir_y, data.dir_z));
     }
+
+
     private void ProcessPlayerData(PlayerDamegedMessage data)
     {
         players[data.playerSession].Damaged();
         //EffectManager.instance.EnableEffect(data.hit_x, data.hit_y, data.hit_z);
     }
+
 
     private void ProcessPlayerData(PlayerDeadMessage data)
     {
@@ -532,6 +591,12 @@ public class WorldManager : MonoBehaviour
     public Vector3 GetMyPlayerPos()
     {
         return players[myPlayerIndex].GetPosition();
+    }
+
+
+    public SessionId GetMyPlayer() //테스트용으로 inputmanager에서 사용중
+    {
+        return myPlayerIndex;
     }
     //public void GetKillPlayer()
     //{

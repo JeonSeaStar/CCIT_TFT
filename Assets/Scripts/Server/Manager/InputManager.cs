@@ -1,6 +1,6 @@
 using UnityEngine;
 using Protocol;
-
+using BackEnd.Tcp;
 /// <summary>
 /// 인풋 매니저는 어떻게 서버와 통신하는지 연결되어 있는지 확인하는 용도 + 슈퍼플레이어와도 어떻게 통신한는지
 /// </summary>
@@ -13,6 +13,7 @@ public class InputManager : MonoBehaviour
     {
         GameManager_Server.InGame += MobileInput;
         GameManager_Server.InGame += AttackInput;
+        //GameManager_Server.InGame += ButtonInput;
         GameManager_Server.AfterInGame += SendNoMoveMessage;
     }
 
@@ -125,6 +126,26 @@ public class InputManager : MonoBehaviour
         else
         {
             BackEndMatchManager.GetInstance().SendDataToInGame<KeyMessage>(msg);
+        }
+    }
+
+    public void ButtonInput()
+    {
+        int ButtonCode = 0;
+        ButtonCode |= ButtonEventCode.TESTBUTTON1;
+
+        SessionId Player= WorldManager.instance.GetMyPlayer();
+
+        ButtonMessage msg;
+        msg = new ButtonMessage(ButtonCode, Player);
+
+        if (BackEndMatchManager.GetInstance().IsHost())
+        {
+            BackEndMatchManager.GetInstance().AddMsgToButtonLocalQueue(msg);
+        }
+        else
+        {
+            BackEndMatchManager.GetInstance().SendDataToInGame<ButtonMessage>(msg);
         }
     }
 }

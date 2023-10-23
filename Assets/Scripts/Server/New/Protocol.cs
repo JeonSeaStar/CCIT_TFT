@@ -61,6 +61,13 @@ namespace Protocol
         public const int NO_MOVE = 4;   // 이동 멈춤 메시지
     }
 
+    public static class ButtonEventCode
+    {
+        public const int NONE = 0;
+        public const int TESTBUTTON1 = 1; //테스트 버튼이지만 누르면 누른 플레이어가 죽는것
+
+    }
+
 
     public class Message
     {
@@ -69,15 +76,6 @@ namespace Protocol
         public Message(Type type)
         {
             this.type = type;
-        }
-    }
-
-    public class TestMessage : Message
-    {
-        public SessionId playerSession;
-        public TestMessage(SessionId index) : base(Type.Button)
-        {
-            this.playerSession = index;
         }
     }
 
@@ -94,6 +92,26 @@ namespace Protocol
             this.x = pos.x;
             this.y = pos.y;
             this.z = pos.z;
+        }
+    }
+
+    public class ButtonMessage : Message
+    {
+        public int ButtonData;
+        public SessionId playerSession;
+        public ButtonMessage(int data, SessionId sessionId) : base(Type.Button)
+        {
+            this.ButtonData = data;
+            this.playerSession = sessionId;
+        }
+    }
+
+    public class PlayerButtonDeadMessage : Message
+    {
+        public SessionId playerSession;
+        public PlayerButtonDeadMessage(SessionId sessionId) : base(Type.PlayerDead)
+        {
+            this.playerSession = sessionId;
         }
     }
 
