@@ -26,7 +26,7 @@ public class AnimalBuffs
 public class UnitedBuffs
 {
     public List<BuffData> underWorldBuff;
-    public List<BuffData> FaddistBuff;
+    public List<BuffData> faddistBuff;
     public List<BuffData> warMachineBuff;
     public List<BuffData> creatureBuff;
 }

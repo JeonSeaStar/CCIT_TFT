@@ -688,6 +688,12 @@ MonoBehaviour:
     type: 3}
   buffList: []
   expeditionTile: {fileID: 0}
+  freeze: 0
+  slow: 0
+  airborne: 0
+  faint: 0
+  fear: 0
+  invincible: 0
 --- !u!114 &43912632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -700,11 +706,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff0c306d0ecb4524cb0d2056b28234ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fm: {fileID: 0}
-  pieceRigidbody: {fileID: 43912634}
-  currentTile: {fileID: 0}
-  targetTile: {fileID: 0}
-  controlPiece: {fileID: 0}
 --- !u!65 &43912633
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9043,6 +9044,12 @@ MonoBehaviour:
     type: 3}
   buffList: []
   expeditionTile: {fileID: 0}
+  freeze: 0
+  slow: 0
+  airborne: 0
+  faint: 0
+  fear: 0
+  invincible: 0
 --- !u!1 &592307816
 GameObject:
   m_ObjectHideFlags: 0
@@ -12122,6 +12129,12 @@ MonoBehaviour:
     type: 3}
   buffList: []
   expeditionTile: {fileID: 0}
+  freeze: 0
+  slow: 0
+  airborne: 0
+  faint: 0
+  fear: 0
+  invincible: 0
 --- !u!1001 &812478602
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12291,10 +12304,10 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 42da895e0fb05794cbb5195607081b8b, type: 2}
     - {fileID: 11400000, guid: a8f951b93a6361b40911b94d616f5e7a, type: 2}
     catBuff:
-    - {fileID: 11400000, guid: 755ad7ac132ce4747982930df2a16bd7, type: 2}
+    - {fileID: 11400000, guid: 3e52c51e33262da43ac262c7bebf1647, type: 2}
     - {fileID: 11400000, guid: 389777d75e078b8419fe497928f062a0, type: 2}
     dogBuff:
-    - {fileID: 11400000, guid: 8ceebcdd6e62c284a874d66b2cf7dd67, type: 2}
+    - {fileID: 11400000, guid: 3ffcc0d71ada0b94a9b73ef40c607183, type: 2}
     - {fileID: 11400000, guid: 2a6f7c2cd7538c04ebb8ad330549cc6c, type: 2}
     - {fileID: 11400000, guid: 88f54c23cb5b91347895b9ad2286233e, type: 2}
     frogBuff:
@@ -12309,11 +12322,11 @@ MonoBehaviour:
   - underWorldBuff:
     - {fileID: 11400000, guid: d58d3ca6998e7534d8ed31db5d372714, type: 2}
     - {fileID: 11400000, guid: 57cf655b691b67a459fc1bc37185f8ca, type: 2}
-    FaddistBuff:
+    faddistBuff:
     - {fileID: 11400000, guid: 0c25e2363b8c4dd4e8ee1f246b47ed59, type: 2}
     - {fileID: 11400000, guid: 02f7c136c14635b429a088c32557b38e, type: 2}
     warMachineBuff:
-    - {fileID: 11400000, guid: b1a3767ee261efe42b5733597f669945, type: 2}
+    - {fileID: 11400000, guid: bc04648eb829fb44eb6a3877e1fffeb2, type: 2}
     - {fileID: 11400000, guid: af4214a33bc77f3429c44a99f52c5bc2, type: 2}
     creatureBuff:
     - {fileID: 11400000, guid: 35a888f1e076a78448b38a288a55098d, type: 2}
@@ -14436,6 +14449,12 @@ MonoBehaviour:
     type: 3}
   buffList: []
   expeditionTile: {fileID: 0}
+  freeze: 0
+  slow: 0
+  airborne: 0
+  faint: 0
+  fear: 0
+  invincible: 0
 --- !u!4 &948282654 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9051238300485817969, guid: 2f6c4572e07a60b43b00e1c4f489a806,
@@ -17820,6 +17839,12 @@ MonoBehaviour:
     type: 3}
   buffList: []
   expeditionTile: {fileID: 0}
+  freeze: 0
+  slow: 0
+  airborne: 0
+  faint: 0
+  fear: 0
+  invincible: 0
 --- !u!65 &1234782748
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20591,6 +20616,12 @@ MonoBehaviour:
     type: 3}
   buffList: []
   expeditionTile: {fileID: 0}
+  freeze: 0
+  slow: 0
+  airborne: 0
+  faint: 0
+  fear: 0
+  invincible: 0
 --- !u!1 &1460477377
 GameObject:
   m_ObjectHideFlags: 0
@@ -23953,6 +23984,12 @@ MonoBehaviour:
     type: 3}
   buffList: []
   expeditionTile: {fileID: 0}
+  freeze: 0
+  slow: 0
+  airborne: 0
+  faint: 0
+  fear: 0
+  invincible: 0
 --- !u!114 &1746667500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23965,11 +24002,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff0c306d0ecb4524cb0d2056b28234ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fm: {fileID: 0}
-  pieceRigidbody: {fileID: 1746667502}
-  currentTile: {fileID: 0}
-  targetTile: {fileID: 0}
-  controlPiece: {fileID: 0}
 --- !u!65 &1746667501
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -26193,6 +26225,12 @@ MonoBehaviour:
     type: 3}
   buffList: []
   expeditionTile: {fileID: 0}
+  freeze: 0
+  slow: 0
+  airborne: 0
+  faint: 0
+  fear: 0
+  invincible: 0
 --- !u!114 &1957474541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26205,11 +26243,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff0c306d0ecb4524cb0d2056b28234ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fm: {fileID: 0}
-  pieceRigidbody: {fileID: 1957474543}
-  currentTile: {fileID: 1746104239}
-  targetTile: {fileID: 0}
-  controlPiece: {fileID: 0}
 --- !u!65 &1957474542
 BoxCollider:
   m_ObjectHideFlags: 0
