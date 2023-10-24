@@ -13,7 +13,6 @@ public class InputManager : MonoBehaviour
     {
         GameManager_Server.InGame += MobileInput;
         GameManager_Server.InGame += AttackInput;
-        //GameManager_Server.InGame += ButtonInput;
         GameManager_Server.AfterInGame += SendNoMoveMessage;
     }
 
@@ -129,12 +128,111 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    public void ButtonInput()
+    public void TestButtonInput()
     {
         int ButtonCode = 0;
         ButtonCode |= ButtonEventCode.TESTBUTTON1;
 
         SessionId Player= WorldManager.instance.GetMyPlayer();
+
+        ButtonMessage msg;
+        msg = new ButtonMessage(ButtonCode, Player);
+
+        if (BackEndMatchManager.GetInstance().IsHost())
+        {
+            BackEndMatchManager.GetInstance().AddMsgToButtonLocalQueue(msg);
+        }
+        else
+        {
+            BackEndMatchManager.GetInstance().SendDataToInGame<ButtonMessage>(msg);
+        }
+    }
+
+    public void BuyButtonInput()
+    {
+        int ButtonCode = 0;
+        ButtonCode |= ButtonEventCode.BUY;
+
+        SessionId Player = WorldManager.instance.GetMyPlayer();
+
+        ButtonMessage msg;
+        msg = new ButtonMessage(ButtonCode, Player);
+
+        if (BackEndMatchManager.GetInstance().IsHost())
+        {
+            BackEndMatchManager.GetInstance().AddMsgToButtonLocalQueue(msg);
+        }
+        else
+        {
+            BackEndMatchManager.GetInstance().SendDataToInGame<ButtonMessage>(msg);
+        }
+    }
+
+    public void SellButtonInput()
+    {
+        int ButtonCode = 0;
+        ButtonCode |= ButtonEventCode.SELL;
+
+        SessionId Player = WorldManager.instance.GetMyPlayer();
+
+        ButtonMessage msg;
+        msg = new ButtonMessage(ButtonCode, Player);
+
+        if (BackEndMatchManager.GetInstance().IsHost())
+        {
+            BackEndMatchManager.GetInstance().AddMsgToButtonLocalQueue(msg);
+        }
+        else
+        {
+            BackEndMatchManager.GetInstance().SendDataToInGame<ButtonMessage>(msg);
+        }
+    }
+
+    public void RerollButtonInput()
+    {
+        int ButtonCode = 0;
+        ButtonCode |= ButtonEventCode.REROLL;
+
+        SessionId Player = WorldManager.instance.GetMyPlayer();
+
+        ButtonMessage msg;
+        msg = new ButtonMessage(ButtonCode, Player);
+
+        if (BackEndMatchManager.GetInstance().IsHost())
+        {
+            BackEndMatchManager.GetInstance().AddMsgToButtonLocalQueue(msg);
+        }
+        else
+        {
+            BackEndMatchManager.GetInstance().SendDataToInGame<ButtonMessage>(msg);
+        }
+    }
+
+    public void StoreLockButtonInput()
+    {
+        int ButtonCode = 0;
+        ButtonCode |= ButtonEventCode.STORELOCK;
+
+        SessionId Player = WorldManager.instance.GetMyPlayer();
+
+        ButtonMessage msg;
+        msg = new ButtonMessage(ButtonCode, Player);
+
+        if (BackEndMatchManager.GetInstance().IsHost())
+        {
+            BackEndMatchManager.GetInstance().AddMsgToButtonLocalQueue(msg);
+        }
+        else
+        {
+            BackEndMatchManager.GetInstance().SendDataToInGame<ButtonMessage>(msg);
+        }
+    }
+    public void LevelUpButtonInput()
+    {
+        int ButtonCode = 0;
+        ButtonCode |= ButtonEventCode.LEVELUP;
+
+        SessionId Player = WorldManager.instance.GetMyPlayer();
 
         ButtonMessage msg;
         msg = new ButtonMessage(ButtonCode, Player);

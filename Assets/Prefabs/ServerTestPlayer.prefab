@@ -126,9 +126,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1584e0a7432686540bb0333c7ee284d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buffDatas: []
+  level: 0
+  experience: 0
+  lifePoint: 100
+  gold: 0
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
+  fieldManager: {fileID: 0}
+  ease: 0
+  moveSpeed: 0
+  owned: 0
+  isGrab: 0
+  isDrag: 0
+  damagePerPiece: 020000000400000006000000080000000a0000000b0000000c0000000d0000000e0000000f000000
+  damagePerRound: 000000000100000002000000030000000400000006000000090000000f000000
+  controlPiece: {fileID: 0}
   nameObject: {fileID: 5079969343725269691, guid: cca11b5630bacaf4cad79327f1692cae,
     type: 3}
-  Test_vertualStick: {fileID: 0}
+  controlEquipment: {fileID: 0}
+  chargingParticle: {fileID: 0}
+  AttackParticle: {fileID: 0}
+  piecePrefeb: {fileID: 7396218460754622074, guid: ad6daf06a0dda174d9ab9d4b9a2fdb0a,
+    type: 3}
 --- !u!54 &7839674898465345300
 Rigidbody:
   m_ObjectHideFlags: 0

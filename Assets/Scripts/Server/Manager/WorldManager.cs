@@ -335,6 +335,27 @@ public class WorldManager : MonoBehaviour
                 PlayerButtonDeadMessage playerButtonDeadMessage = DataParser.ReadJsonData<PlayerButtonDeadMessage>(args.BinaryUserData);
                 ProcessPlayerData(playerButtonDeadMessage);
                 break;
+            case Protocol.Type.PlayerBuyPiece:
+                PlayerButtonBuyMessage playerButtonBuyMessage = DataParser.ReadJsonData<PlayerButtonBuyMessage>(args.BinaryUserData);
+                ProcessPlayerData(playerButtonBuyMessage);
+                break;
+            case Protocol.Type.PlayerSellPiece:
+                PlayerButtonSellMessage playerButtonSellMessage = DataParser.ReadJsonData<PlayerButtonSellMessage>(args.BinaryUserData);
+                ProcessPlayerData(playerButtonSellMessage);
+                break;
+            case Protocol.Type.playerReroll:
+                PlayerButtonRerollMessage playerButtonRerollMessage = DataParser.ReadJsonData<PlayerButtonRerollMessage>(args.BinaryUserData);
+                ProcessPlayerData(playerButtonRerollMessage);
+                break;
+            case Protocol.Type.playerStoreLock:
+                PlayerButtonStoreLockMessage playerButtonStoreLockMessage = DataParser.ReadJsonData<PlayerButtonStoreLockMessage>(args.BinaryUserData);
+                ProcessPlayerData(playerButtonStoreLockMessage);
+                break;
+            case Protocol.Type.PlayerButtonLevelUp:
+                PlayerButtonLevelUpMessage playerButtonLevelUpMessage = DataParser.ReadJsonData<PlayerButtonLevelUpMessage>(args.BinaryUserData);
+                ProcessPlayerData(playerButtonLevelUpMessage);
+                break;
+
 
             case Protocol.Type.PlayerMove:
                 PlayerMoveMessage moveMessage = DataParser.ReadJsonData<PlayerMoveMessage>(args.BinaryUserData);
@@ -386,6 +407,7 @@ public class WorldManager : MonoBehaviour
         ProceButtonEvent(myPlayerIndex, buttonMessage);
     }
 
+    //호스트만 수행
     private void ProceButtonEvent(SessionId index, ButtonMessage buttonMessage)
     {
         if (BackEndMatchManager.GetInstance().IsHost() == false)
@@ -394,21 +416,78 @@ public class WorldManager : MonoBehaviour
             return;
         }
         bool button1 = false;
+        bool buyPiece = false;
+        bool sellPiece = false;
+        bool PieceReroll = false;
+        bool storeLock = false;
+        bool levelUp = false;
+
+        Vector3 piecePos = Vector3.zero;
 
         int ButtonData = buttonMessage.ButtonData;
         if((ButtonData & ButtonEventCode.TESTBUTTON1) == ButtonEventCode.TESTBUTTON1)
         {
             button1 = true;
         }
+        if((ButtonData & ButtonEventCode.BUY) == ButtonEventCode.BUY)
+        {
+            buyPiece = true;
+        }
+        if ((ButtonData & ButtonEventCode.SELL) == ButtonEventCode.SELL)
+        {
+            sellPiece = true;
+        }
+        if ((ButtonData & ButtonEventCode.REROLL) == ButtonEventCode.REROLL)
+        {
+            PieceReroll = true;
+        }
+        if ((ButtonData & ButtonEventCode.STORELOCK) == ButtonEventCode.STORELOCK)
+        {
+            storeLock = true;
+        }
+        if ((ButtonData & ButtonEventCode.LEVELUP) == ButtonEventCode.LEVELUP)
+        {
+            levelUp = true;
+        }
 
-        if(button1)
+        if (button1)
         {
             players[index].Damaged();
             PlayerButtonDeadMessage msg = new PlayerButtonDeadMessage(index);
             BackEndMatchManager.GetInstance().SendDataToInGame<PlayerButtonDeadMessage>(msg);
         }
-
+        if(buyPiece) //vector3 piecepos 받는중
+        {
+            players[index].BuyPiece(piecePos);
+            PlayerButtonBuyMessage msg = new PlayerButtonBuyMessage(index, piecePos);
+            BackEndMatchManager.GetInstance().SendDataToInGame<PlayerButtonBuyMessage>(msg);
+        }
+        if(sellPiece)
+        {
+            players[index].SellPiece();
+            PlayerButtonSellMessage msg = new PlayerButtonSellMessage(index);
+            BackEndMatchManager.GetInstance().SendDataToInGame<PlayerButtonSellMessage>(msg);
+        }
+        if(PieceReroll)
+        {
+            players[index].PieceReroll();
+            PlayerButtonRerollMessage msg = new PlayerButtonRerollMessage(index);
+            BackEndMatchManager.GetInstance().SendDataToInGame<PlayerButtonRerollMessage>(msg);
+        }
+        if(storeLock)
+        {
+            players[index].StoreLock();
+            PlayerButtonStoreLockMessage msg = new PlayerButtonStoreLockMessage(index);
+            BackEndMatchManager.GetInstance().SendDataToInGame<PlayerButtonStoreLockMessage>(msg);
+        }
+        if(levelUp)
+        {
+            players[index].ButtonLevelUp();
+            PlayerButtonLevelUpMessage msg = new PlayerButtonLevelUpMessage(index);
+            BackEndMatchManager.GetInstance().SendDataToInGame<PlayerButtonLevelUpMessage>(msg);
+        }
     }
+
     //호스트에서 키메세지를 연산하는 부분
     private void ProcessKeyEvent(SessionId index, KeyMessage keyMessage)
     {
@@ -488,7 +567,7 @@ public class WorldManager : MonoBehaviour
     }
 
     //버튼 테스트용 비호스트에 대한 연산?
-    private void ProcessPlayerData(PlayerButtonDeadMessage data)
+    private void ProcessPlayerData(PlayerButtonDeadMessage data) //누르면 죽어염
     {
         if (BackEndMatchManager.GetInstance().IsHost() == true)
         {
@@ -497,6 +576,47 @@ public class WorldManager : MonoBehaviour
         }
         players[data.playerSession].Damaged();
     }
+    private void ProcessPlayerData(PlayerButtonBuyMessage data) // 누르면 기물 생성
+    {
+        if(BackEndMatchManager.GetInstance().IsHost() == true)
+        {
+            return;
+        }
+        players[data.playerSession].BuyPiece(new Vector3(data.x, data.y, data.z));
+    }
+    private void ProcessPlayerData(PlayerButtonSellMessage data) // 누르면 기물 판매
+    {
+        if(BackEndMatchManager.GetInstance().IsHost() == true)
+        {
+            return;
+        }
+        players[data.playerSession].SellPiece();
+    }
+    private void ProcessPlayerData(PlayerButtonRerollMessage data) // 누르면 기물 리롤
+    {
+        if (BackEndMatchManager.GetInstance().IsHost() == true)
+        {
+            return;
+        }
+        players[data.playerSession].PieceReroll();
+    }
+    private void ProcessPlayerData(PlayerButtonStoreLockMessage data) // 누르면 스토어 락
+    {
+        if (BackEndMatchManager.GetInstance().IsHost() == true)
+        {
+            return;
+        }
+        players[data.playerSession].StoreLock();
+    }
+    private void ProcessPlayerData(PlayerButtonLevelUpMessage data) // 누르면 플레이어 레벨업
+    {
+        if (BackEndMatchManager.GetInstance().IsHost() == true)
+        {
+            return;
+        }
+        players[data.playerSession].ButtonLevelUp();
+    }
+         
 
 
     private void ProcessPlayerData(PlayerNoMoveMessage data)

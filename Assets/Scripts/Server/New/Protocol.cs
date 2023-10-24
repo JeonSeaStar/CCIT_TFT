@@ -19,6 +19,9 @@ namespace Protocol
         PlayerTest,   // 플레이어가 함수 받을 수 있는지 확인
         PlayerBuyPiece,
         PlayerSellPiece,
+        playerReroll,
+        playerStoreLock,
+        PlayerButtonLevelUp,
         
         bulletInfo,
 
@@ -65,7 +68,11 @@ namespace Protocol
     {
         public const int NONE = 0;
         public const int TESTBUTTON1 = 1; //테스트 버튼이지만 누르면 누른 플레이어가 죽는것
-
+        public const int BUY = 2;
+        public const int SELL = 3;
+        public const int REROLL = 4;
+        public const int STORELOCK = 5;
+        public const int LEVELUP = 6;
     }
 
 
@@ -110,6 +117,55 @@ namespace Protocol
     {
         public SessionId playerSession;
         public PlayerButtonDeadMessage(SessionId sessionId) : base(Type.PlayerDead)
+        {
+            this.playerSession = sessionId;
+        }
+    }
+
+    public class PlayerButtonBuyMessage : Message
+    {
+        public SessionId playerSession;
+        public float x;
+        public float y;
+        public float z;
+        public PlayerButtonBuyMessage(SessionId sessionId, Vector3 pos) : base(Type.PlayerBuyPiece)
+        {
+            this.playerSession = sessionId;
+            x = pos.x;
+            y = pos.y;
+            z = pos.z;
+        }
+    }
+
+    public class PlayerButtonSellMessage : Message
+    {
+        public SessionId playerSession;
+        public PlayerButtonSellMessage(SessionId sessionId) : base(Type.PlayerSellPiece)
+        {
+            this.playerSession = sessionId;
+        }
+    }
+    public class PlayerButtonRerollMessage : Message
+    {
+        public SessionId playerSession;
+        public PlayerButtonRerollMessage(SessionId sessionId) : base(Type.playerReroll)
+        {
+            this.playerSession = sessionId;
+        }
+    }
+    public class PlayerButtonStoreLockMessage : Message
+    {
+        public SessionId playerSession;
+        public PlayerButtonStoreLockMessage(SessionId sessionId) : base(Type.playerStoreLock)
+        {
+            this.playerSession = sessionId;
+        }
+    }
+
+    public class PlayerButtonLevelUpMessage : Message
+    {
+        public SessionId playerSession;
+        public PlayerButtonLevelUpMessage(SessionId sessionId) : base(Type.PlayerButtonLevelUp)
         {
             this.playerSession = sessionId;
         }
@@ -165,6 +221,7 @@ namespace Protocol
             this.hit_z = z;
         }
     }
+
     public class PlayerDeadMessage : Message
     {
         public SessionId playerSession;

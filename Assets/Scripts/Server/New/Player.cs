@@ -9,21 +9,6 @@ using DG.Tweening;
 
 public class Player : MonoBehaviour
 {
-    public enum SurfaceType
-    {
-        Opaque,
-        Transparent
-    }
-    public enum BlendMode
-    {
-        Alpha,
-        Premultiply,
-        Additive,
-        Multiply
-    }
-    public bool isHide = false;
-
-
     public List<BuffData> buffDatas = new List<BuffData>();
     public int level;
     public int experience;
@@ -556,90 +541,34 @@ public class Player : MonoBehaviour
     {
         return nickName;
     }
-    void OnTriggerEnter(Collider collider)
+
+    public GameObject piecePrefeb;
+    public void BuyPiece(Vector3 firstPos)
     {
-        // 플레이어 투명화
-        if (collider.gameObject.CompareTag("Bush"))
-        {
-            if (isHide)
-            {
-                return;
-            }
-            isHide = true;
-
-            var standardShaderMaterial = playerModelObject.GetComponentInChildren<MeshRenderer>().material;
-            standardShaderMaterial.SetFloat("_Surface", (float)SurfaceType.Transparent);
-            standardShaderMaterial.SetFloat("_Blend", (float)BlendMode.Alpha);
-
-            standardShaderMaterial.SetOverrideTag("RenderType", "Transparent");
-            standardShaderMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-            standardShaderMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-            standardShaderMaterial.SetInt("_ZWrite", 0);
-            standardShaderMaterial.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-            standardShaderMaterial.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
-            standardShaderMaterial.SetShaderPassEnabled("ShadowCaster", false);
-
-            if (isMe)
-            {
-                standardShaderMaterial.color = new Color32(255, 255, 255, 100);
-            }
-            else
-            {
-                standardShaderMaterial.color = new Color32(255, 255, 255, 0);
-                nameObject.SetActive(false);
-            }
-        }
-    }
-
-    void OnTriggerStay(Collider collider)
-    {
-        if (isHide)
-        {
+        if (!isLive)
             return;
-        }
-        isHide = true;
-
-        var standardShaderMaterial = playerModelObject.GetComponentInChildren<MeshRenderer>().material;
-        standardShaderMaterial.SetFloat("_Surface", (float)SurfaceType.Transparent);
-        standardShaderMaterial.SetFloat("_Blend", (float)BlendMode.Alpha);
-
-        standardShaderMaterial.SetOverrideTag("RenderType", "Transparent");
-        standardShaderMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-        standardShaderMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-        standardShaderMaterial.SetInt("_ZWrite", 0);
-        standardShaderMaterial.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-        standardShaderMaterial.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
-        standardShaderMaterial.SetShaderPassEnabled("ShadowCaster", false);
-
-        if (isMe)
-        {
-            standardShaderMaterial.color = new Color32(255, 255, 255, 100);
-        }
-        else
-        {
-            standardShaderMaterial.color = new Color32(255, 255, 255, 0);
-            nameObject.SetActive(false);
-        }
+        firstPos = Vector3.zero;
+        Instantiate(piecePrefeb, firstPos, Quaternion.identity);
     }
 
-    void OnTriggerExit(Collider collider)
+    public void SellPiece()
     {
-        // 플레이어 투명화 해제
-        if (collider.gameObject.CompareTag("Bush"))
-        {
-            isHide = false;
-            var standardShaderMaterial = playerModelObject.GetComponentInChildren<MeshRenderer>().material;
-            standardShaderMaterial.SetFloat("_Surface", (float)SurfaceType.Opaque);
-            standardShaderMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
-            standardShaderMaterial.SetInt("_ZWrite", 1);
-            standardShaderMaterial.EnableKeyword("_ALPHATEST_ON");
-            standardShaderMaterial.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-            standardShaderMaterial.renderQueue = 2450;
+        //todo..
+    }
 
-            standardShaderMaterial.color = new Color32(255, 255, 255, 255);
+    public void PieceReroll()
+    {
+        //todo..
+    }
 
-            nameObject.SetActive(true);
-        }
+    public void StoreLock()
+    {
+        //todo..
+    }
+
+    public void ButtonLevelUp()
+    {
+        //todo..
     }
 
     #endregion
