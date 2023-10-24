@@ -193,7 +193,7 @@ public class Piece : MonoBehaviour
     protected virtual void Attack()
     {
         print(name + "(이)가" + target.name + "에게 일반 공격을 합니다.");
-        Damage();
+        Damage(attackDamage);
         //currentMana += manaRecovery;
         Invoke("NextBehavior", attackSpeed);
     }
@@ -216,13 +216,13 @@ public class Piece : MonoBehaviour
             return false;
     }
 
-    protected void Damage()
+    public void Damage(float damage)
     {
         //target.defaultHealth -= attackPower;
         if (target.invincible)
             return;
 
-        target.health -= attackDamage;
+        target.health -= damage;
 
         //if (target.defaultHealth <= 0)
         if (target.health <= 0)
