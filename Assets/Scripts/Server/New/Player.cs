@@ -363,11 +363,12 @@ public class Player : MonoBehaviour
     }
 
     #region 서버 머지
-    public void Initialize(bool isMe, SessionId index, string nickName, float rot)
+    public void Initialize(bool isMe, SessionId index, string nickName, float rot, FieldManager fieldManage)
     {
         this.isMe = isMe;
         this.index = index;
         this.nickName = nickName;
+        this.fieldManager = fieldManage;
 
         var playerUICanvas = GameObject.FindGameObjectWithTag(playerCanvas);
         nameObject = Instantiate(nameObject, Vector3.zero, Quaternion.identity, playerUICanvas.transform);

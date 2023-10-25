@@ -25,23 +25,19 @@ public class WorldManager : MonoBehaviour
     private SessionId myPlayerIndex = SessionId.None;
 
     #region 플레이어
-    public GameObject playerPool;
+    public GameObject[] playerPool;
     public GameObject playerPrefeb;
     public int numOfPlayer = 0;
     public GameObject particle;
     private const int MAXPLAYER = 8;
     public int alivePlayer { get; set; }
     private Dictionary<SessionId, Player> players;
-    private Dictionary<SessionId, Piece> pieces;
-    public GameObject startPointObject;
+    public GameObject[] startPointObject;
     private List<Vector4> statringPoints;
 
     private Stack<SessionId> gameRecord;
     public delegate void PlayerDie(SessionId index);
     public PlayerDie dieEvent;
-
-    public delegate void PieceDie(SessionId index);
-    public PieceDie pieceDieEvent;
 
     //public Player[] TestPlayers;
     #endregion
@@ -70,7 +66,7 @@ public class WorldManager : MonoBehaviour
 	 */
     public bool InitializeGame()
     {
-        if (!playerPool)
+        if (!playerPool[0])
         {
             Debug.Log("Player Pool Not Exist!");
             return false;
@@ -91,10 +87,10 @@ public class WorldManager : MonoBehaviour
         // 시작점
         statringPoints = new List<Vector4>();
 
-        int num = startPointObject.transform.childCount;
+        int num = startPointObject.Length;
         for (int i = 0; i < num; ++i)
         {
-            var child = startPointObject.transform.GetChild(i);
+            var child = startPointObject[i].transform;
             Vector4 point = child.transform.position;
             point.w = child.transform.rotation.eulerAngles.y;
             statringPoints.Add(point);
@@ -143,7 +139,7 @@ public class WorldManager : MonoBehaviour
         BackEndMatchManager.GetInstance().SendDataToInGame<GameEndMessage>(message);
     }
 
-    public SessionId GetMyPlayerIndex() //테스트용으로 inputmanager에서 사용중
+    public SessionId GetMyPlayerIndex()
     {
         return myPlayerIndex;
     }
@@ -176,17 +172,17 @@ public class WorldManager : MonoBehaviour
         int index = 0;
         foreach (var sessionId in gamers)
         {
-            GameObject player = Instantiate(playerPrefeb, new Vector3(statringPoints[index].x, statringPoints[index].y, statringPoints[index].z), Quaternion.identity, playerPool.transform);
+            GameObject player = Instantiate(playerPrefeb, new Vector3(statringPoints[index].x, statringPoints[index].y, statringPoints[index].z), Quaternion.identity, playerPool[index].transform);
             players.Add(sessionId, player.GetComponent<Player>());
 
-            if (BackEndMatchManager.GetInstance().IsMySessionId(sessionId))
+            if (BackEndMatchManager.GetInstance().IsMySessionId(sessionId)) //나인거
             {
                 myPlayerIndex = sessionId;
-                players[sessionId].Initialize(true, myPlayerIndex, BackEndMatchManager.GetInstance().GetNickNameBySessionId(sessionId), statringPoints[index].w);
+                players[sessionId].Initialize(true, myPlayerIndex, BackEndMatchManager.GetInstance().GetNickNameBySessionId(sessionId), statringPoints[index].w, playerPool[index].GetComponentInChildren<FieldManager>());
             }
-            else
+            else //나 아닌거
             {
-                players[sessionId].Initialize(false, sessionId, BackEndMatchManager.GetInstance().GetNickNameBySessionId(sessionId), statringPoints[index].w);
+                players[sessionId].Initialize(false, sessionId, BackEndMatchManager.GetInstance().GetNickNameBySessionId(sessionId), statringPoints[index].w, playerPool[index].GetComponentInChildren<FieldManager>());
             }
             index += 1;
         }
@@ -549,7 +545,7 @@ public class WorldManager : MonoBehaviour
         BackEndMatchManager.GetInstance().SendDataToInGame<PlayerAttackMessage>(msg);   //메세지를 호출
     }
 
-    //비호스트에 대한 연산?
+    //비호스트에 대한 연산? --비호스트들의 적용 하는 부분
     private void ProcessPlayerData(PlayerMoveMessage data)
     {
         if (BackEndMatchManager.GetInstance().IsHost() == true)

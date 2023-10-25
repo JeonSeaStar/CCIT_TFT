@@ -25,14 +25,6 @@ namespace Protocol
         
         bulletInfo,
 
-        PieceMove,
-        pieceRotate,
-        PieceAttack,
-        PieceDamaged,
-        PieceDead,
-        pieceNoMove,
-        PieceNoRotate,
-
         AIPlayerInfo,   // AI가 존재하는 경우 AI 정보
         LoadRoomScene,      // 룸 씬으로 전환
         LoadGameScene,      // 인게임 씬으로 전환
@@ -52,6 +44,17 @@ namespace Protocol
         walkBack,
         stop,
         max
+    }
+
+    public enum PieceIndex
+    {
+        PieceMove = 0,
+        pieceRotate,
+        PieceAttack,
+        PieceDamaged,
+        PieceDead,
+        pieceNoMove,
+        PieceNoRotate,
     }
 
 
@@ -246,21 +249,6 @@ namespace Protocol
         }
     }
 
-    public class PieceMoveMessage : Message
-    {
-        public SessionId pieceSession;
-        public float xPos;
-        public float yPos;
-        public float zPos;
-        public PieceMoveMessage(SessionId piece, Vector3 pos) : base(Type.PieceMove)
-        {
-            this.pieceSession = piece;
-            this.xPos = pos.x;
-            this.yPos = pos.y;
-            this.zPos = pos.z;
-        }
-    }
-
     public class PlayerBuyPiece : Message
     {
         public SessionId playerSession;
@@ -271,6 +259,24 @@ namespace Protocol
         }
     }
 
+    public class PieceMessage
+    {
+        public PieceIndex piece;
+
+        public PieceMessage(PieceIndex pieceIndex)
+        {
+            this.piece = pieceIndex;
+        }
+    }
+
+    public class PieceMoveMessage : PieceMessage
+    {
+        public int test;
+        public PieceMoveMessage(int test) : base(PieceIndex.PieceMove)
+        {
+            this.test = test;
+        }
+    }
     public class AIPlayerInfo : Message
     {
         public SessionId m_sessionId;

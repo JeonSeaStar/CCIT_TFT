@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 4630760546841663471}
   - component: {fileID: 5611186179106705482}
   - component: {fileID: 5611186179106705481}
-  - component: {fileID: 672983020754892102}
   m_Layer: 0
   m_Name: Sender
   m_TagString: Player
@@ -157,31 +156,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &672983020754892102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8159109791445402960}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a9134c8592f4d04590c9b821674ebaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DualPlayers:
-  - {fileID: 0}
-  - {fileID: 0}
-  targetPositions: []
-  myFilePieceList: []
-  enemyFilePieceList: []
-  pathFinding: {fileID: 0}
-  readyTileList: []
-  battleTileList: []
-  readyZoneHexaIndicators: []
-  battleFieldHexaIndicators: []
-  grab: 0
-  groundHeight: 0
-  buffManager: {fileID: 0}
-  currentPieceList: []
-  chest: {fileID: 0}
