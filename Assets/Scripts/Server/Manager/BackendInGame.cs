@@ -300,7 +300,7 @@ public partial class BackEndMatchManager : MonoBehaviour
         if (hostSession.Equals(sessionId))
         {
             // 호스트 연결 대기를 띄움
-           InGameUiManager.GetInstance().SetHostWaitBoard();
+            InGameUiManager.GetInstance().SetHostWaitBoard();
         }
         else
         {

@@ -53,7 +53,8 @@ public partial class BackEndMatchManager : MonoBehaviour
 
     #region Host
     public bool isHost = false;                    // 호스트 여부 (서버에서 설정한 SuperGamer 정보를 가져옴)
-    private Queue<KeyMessage> localQueue = null;    // 호스트에서 로컬로 처리하는 패킷을 쌓아두는 큐 (로컬처리하는 데이터는 서버로 발송 안함)
+    private Queue<KeyMessage> localQueue = null;   // 호스트에서 로컬로 처리하는 패킷을 쌓아두는 큐 (로컬처리하는 데이터는 서버로 발송 안함)
+    private Queue<ButtonMessage> localButtonQueue = null;
     #endregion
 
 
@@ -143,7 +144,7 @@ public partial class BackEndMatchManager : MonoBehaviour
 
                     isHost = true;
                     StartCoroutine(YouHosts());
-                    
+
                 }
                 hostSession = record.Value.m_sessionId;
                 break;
@@ -156,10 +157,12 @@ public partial class BackEndMatchManager : MonoBehaviour
         if (isHost)
         {
             localQueue = new Queue<KeyMessage>();
+            localButtonQueue = new Queue<ButtonMessage>();
         }
         else
         {
             localQueue = null;
+            localButtonQueue = null;
         }
 
         // 호스트 설정까지 끝나면 매치서버와 접속 끊음
@@ -207,10 +210,12 @@ public partial class BackEndMatchManager : MonoBehaviour
         if (isHost)
         {
             localQueue = new Queue<KeyMessage>();
+            localButtonQueue = new Queue<ButtonMessage>();
         }
         else
         {
             localQueue = null;
+            localButtonQueue = null;
         }
 
         Debug.Log("서브 호스트 설정 완료");
@@ -448,6 +453,9 @@ public partial class BackEndMatchManager : MonoBehaviour
             sessionIdList = null;
         };
 
+
+
+
         Backend.Match.OnMatchRelay += (args) =>
         {
             // 각 클라이언트들이 서버를 통해 주고받은 패킷들
@@ -458,9 +466,9 @@ public partial class BackEndMatchManager : MonoBehaviour
                 Debug.Log("유저 이름 : " + args.From.NickName);
                 Debug.Log("유저 세선 아이디 : " + args.From.SessionId);
             }
-        
-        // 게임 사전 설정
-        if (PrevGameMessage(args.BinaryUserData) == true)
+
+            // 게임 사전 설정
+            if (PrevGameMessage(args.BinaryUserData) == true)
             {
                 // 게임 사전 설정을 진행하였으면 바로 리턴
                 return;
@@ -472,6 +480,8 @@ public partial class BackEndMatchManager : MonoBehaviour
                 return;
             }
 
+
+            //
             WorldManager.instance.OnRecieve(args);
         };
 
@@ -550,6 +560,14 @@ public partial class BackEndMatchManager : MonoBehaviour
                 {
                     var msg = localQueue.Dequeue();
                     WorldManager.instance.OnRecieveForLocal(msg); //게임의 로컬 데이터를 받아 로컬큐에 쌓는다
+                }
+            }
+            if (localButtonQueue != null)
+            {
+                while (localButtonQueue.Count > 0)
+                {
+                    var msg = localButtonQueue.Dequeue();
+                    WorldManager.instance.OnRecieveButtonForLocal(msg);
                 }
             }
         }
@@ -697,6 +715,8 @@ public partial class BackEndMatchManager : MonoBehaviour
         });
     }
 
+
+
     public void AddMsgToLocalQueue(KeyMessage message)
     {
         // 로컬 큐에 메시지 추가
@@ -706,6 +726,18 @@ public partial class BackEndMatchManager : MonoBehaviour
         }
 
         localQueue.Enqueue(message);
+    }
+
+    //테스트용
+    public void AddMsgToButtonLocalQueue(ButtonMessage message)
+    {
+        //버튼로컬큐에 메세지 추가
+        if (isHost == false || localButtonQueue == null)
+        {
+            return;
+        }
+
+        localButtonQueue.Enqueue(message);
     }
 
     public void SetHostSession(SessionId host)
