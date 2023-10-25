@@ -8,14 +8,21 @@ namespace Protocol
     public enum Type : sbyte
     {
         Key = 0,        // 키(가상 조이스틱) 입력
+        Button,
         PlayerMove,     // 플레이어 이동
         PlayerRotate,   // 플레이어 회전
         PlayerAttack,   // 플레이어 공격
         PlayerDamaged,  // 플레이어 데미지 받음
-        PlayerDead, 
+        PlayerDead,
         PlayerNoMove,   // 플레이어 이동 멈춤
         PlayerNoRotate, // 플레이어 회전 멈춤
-        PlayerDoTest,   // 플레이어가 함수 받을 수 있는지 확인
+        PlayerTest,   // 플레이어가 함수 받을 수 있는지 확인
+        PlayerBuyPiece,
+        PlayerSellPiece,
+        playerReroll,
+        playerStoreLock,
+        PlayerButtonLevelUp,
+
         bulletInfo,
 
         AIPlayerInfo,   // AI가 존재하는 경우 AI 정보
@@ -29,7 +36,7 @@ namespace Protocol
     }
 
     // 애니메이션 싱크는 사용하지 않습니다.
-    /*
+
     public enum AnimIndex
     {
         idle = 0,
@@ -38,7 +45,18 @@ namespace Protocol
         stop,
         max
     }
-    */
+
+    public enum PieceIndex
+    {
+        PieceMove = 0,
+        pieceRotate,
+        PieceAttack,
+        PieceDamaged,
+        PieceDead,
+        pieceNoMove,
+        PieceNoRotate,
+    }
+
 
     // 조이스틱 키 이벤트 코드
     public static class KeyEventCode
@@ -49,6 +67,16 @@ namespace Protocol
         public const int NO_MOVE = 4;   // 이동 멈춤 메시지
     }
 
+    public static class ButtonEventCode
+    {
+        public const int NONE = 0;
+        public const int TESTBUTTON1 = 1; //테스트 버튼이지만 누르면 누른 플레이어가 죽는것
+        public const int BUY = 2;
+        public const int SELL = 3;
+        public const int REROLL = 4;
+        public const int STORELOCK = 5;
+        public const int LEVELUP = 6;
+    }
 
 
     public class Message
@@ -74,6 +102,75 @@ namespace Protocol
             this.x = pos.x;
             this.y = pos.y;
             this.z = pos.z;
+        }
+    }
+
+    public class ButtonMessage : Message
+    {
+        public int ButtonData;
+        public SessionId playerSession;
+        public ButtonMessage(int data, SessionId sessionId) : base(Type.Button)
+        {
+            this.ButtonData = data;
+            this.playerSession = sessionId;
+        }
+    }
+
+    public class PlayerButtonDeadMessage : Message
+    {
+        public SessionId playerSession;
+        public PlayerButtonDeadMessage(SessionId sessionId) : base(Type.PlayerDead)
+        {
+            this.playerSession = sessionId;
+        }
+    }
+
+    public class PlayerButtonBuyMessage : Message
+    {
+        public SessionId playerSession;
+        public float x;
+        public float y;
+        public float z;
+        public PlayerButtonBuyMessage(SessionId sessionId, Vector3 pos) : base(Type.PlayerBuyPiece)
+        {
+            this.playerSession = sessionId;
+            x = pos.x;
+            y = pos.y;
+            z = pos.z;
+        }
+    }
+
+    public class PlayerButtonSellMessage : Message
+    {
+        public SessionId playerSession;
+        public PlayerButtonSellMessage(SessionId sessionId) : base(Type.PlayerSellPiece)
+        {
+            this.playerSession = sessionId;
+        }
+    }
+    public class PlayerButtonRerollMessage : Message
+    {
+        public SessionId playerSession;
+        public PlayerButtonRerollMessage(SessionId sessionId) : base(Type.playerReroll)
+        {
+            this.playerSession = sessionId;
+        }
+    }
+    public class PlayerButtonStoreLockMessage : Message
+    {
+        public SessionId playerSession;
+        public PlayerButtonStoreLockMessage(SessionId sessionId) : base(Type.playerStoreLock)
+        {
+            this.playerSession = sessionId;
+        }
+    }
+
+    public class PlayerButtonLevelUpMessage : Message
+    {
+        public SessionId playerSession;
+        public PlayerButtonLevelUpMessage(SessionId sessionId) : base(Type.PlayerButtonLevelUp)
+        {
+            this.playerSession = sessionId;
         }
     }
 
@@ -127,20 +224,11 @@ namespace Protocol
             this.hit_z = z;
         }
     }
+
     public class PlayerDeadMessage : Message
     {
         public SessionId playerSession;
         public PlayerDeadMessage(SessionId session) : base(Type.PlayerDead)
-        {
-            this.playerSession = session;
-        }
-    }
-
-    public class PlayerDoTest : Message
-    {
-        public SessionId playerSession;
-        
-        public PlayerDoTest(SessionId session) : base(Type.PlayerDoTest)
         {
             this.playerSession = session;
         }
@@ -161,6 +249,34 @@ namespace Protocol
         }
     }
 
+    public class PlayerBuyPiece : Message
+    {
+        public SessionId playerSession;
+
+        public PlayerBuyPiece(SessionId session) : base(Type.PlayerBuyPiece)
+        {
+            this.playerSession = session;
+        }
+    }
+
+    public class PieceMessage
+    {
+        public PieceIndex piece;
+
+        public PieceMessage(PieceIndex pieceIndex)
+        {
+            this.piece = pieceIndex;
+        }
+    }
+
+    public class PieceMoveMessage : PieceMessage
+    {
+        public int test;
+        public PieceMoveMessage(int test) : base(PieceIndex.PieceMove)
+        {
+            this.test = test;
+        }
+    }
     public class AIPlayerInfo : Message
     {
         public SessionId m_sessionId;

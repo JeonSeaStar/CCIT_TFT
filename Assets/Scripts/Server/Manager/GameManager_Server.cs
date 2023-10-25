@@ -19,7 +19,7 @@ public class GameManager_Server : MonoBehaviour
     private const string LOGIN = "0. Login";
     private const string LOBBY = "1. MatchLobby";
     private const string READY = "2. LoadRoom";
-    private const string INGAME = "3. InGame";
+    private const string INGAME = "Arena";
     #endregion
 
 
