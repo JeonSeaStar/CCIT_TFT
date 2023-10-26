@@ -87,6 +87,8 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject chargingParticle;
     [SerializeField] GameObject AttackParticle;
 
+    public MatchingInformation matchingInformation;
+
     private void Awake()
     {
         //fieldManager.DualPlayers[0] = this;

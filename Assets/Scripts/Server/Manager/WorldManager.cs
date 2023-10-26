@@ -32,6 +32,7 @@ public class WorldManager : MonoBehaviour
     private const int MAXPLAYER = 8;
     public int alivePlayer { get; set; }
     private Dictionary<SessionId, Player> players;
+    private Dictionary<SessionId, FieldManager> fields;
     public GameObject[] startPointObject;
     private List<Vector4> statringPoints;
 

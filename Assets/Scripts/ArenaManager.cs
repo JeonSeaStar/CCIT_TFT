@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BackEnd.Tcp;
 
 public class ArenaManager : MonoBehaviour
 {
@@ -58,6 +59,13 @@ public class ArenaManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
         }
         //StartCoroutine(CalRoundTime(3));
+    }
+
+    public List<Player> playersSessionID = new List<Player>();
+    public SessionId[] sessionIds;
+    private void Start()
+    {
+        StartCoroutine(FindPlayerList());
     }
 
     IEnumerator CalRoundTime(float time, string nextRound = "Deployment")
@@ -137,6 +145,7 @@ public class ArenaManager : MonoBehaviour
                     {
                         duplicate = false;
                         //상대방 매칭
+                        //상대방 매칭된 것을 어떻게 알려주고 각 필드에 넣어주어야 하냐?
                         aGroup[i].matchingInformation.matchingHistroy.Add(bGroup[m].matchingInformation.myIndex);
                     }
                 }
@@ -149,6 +158,62 @@ public class ArenaManager : MonoBehaviour
     {
         for (int i = 0; i < fieldManagers.Count; i++)
             fieldManagers[i].owerPlyer.matchingInformation.HistoryIniti();
+    }
+
+    IEnumerator FindPlayerList()
+    {
+        yield return new WaitForSeconds(3f);
+        for (int i = 0; i < fieldManagers.Count; ++i)
+        {
+            playersSessionID[i] = fieldManagers[i].owerPlayerTest;
+            sessionIds[i] = playersSessionID[i].GetIndex();
+            Debug.Log(playersSessionID[i].GetIndex());
+        }
+    }
+
+    private void MatchingTest()
+    {
+        float playerCountHalf = fieldManagers.Count / 2;
+        int pairCount = Mathf.RoundToInt(playerCountHalf);
+
+        List<Player> playerList = new List<Player>();
+
+        for (int i = 0; i < fieldManagers.Count; i++)
+            playerList.Add(fieldManagers[i].owerPlayerTest);
+
+        List<Player> aGroup = new List<Player>();
+        List<Player> bGroup = new List<Player>();
+
+        for (int i = 0; i < pairCount; i++)
+        {
+            int m = Random.Range(0, pairCount);
+            aGroup.Add(playerList[m]);
+            playerList.RemoveAt(m);
+        }
+        bGroup = playerList;
+
+        for (int i = 0; i < aGroup.Count; i++)
+        {
+            int m;
+            bool duplicate = true;
+
+            do
+            {
+                m = Random.Range(0, bGroup.Count);
+
+                for (int j = 0; j < aGroup[i].matchingInformation.matchingHistroy.Count; j++)
+                {
+                    if (aGroup[i].matchingInformation.matchingHistroy[j] != bGroup[m].matchingInformation.myIndex)
+                    {
+                        duplicate = false;
+                        //상대방 매칭
+                        //상대방 매칭된 것을 어떻게 알려주고 각 필드에 넣어주어야 하냐?
+                        aGroup[i].matchingInformation.matchingHistroy.Add(bGroup[m].matchingInformation.myIndex);
+                    }
+                }
+            }
+            while (duplicate);
+        }
     }
     #endregion
 }

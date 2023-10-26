@@ -3,13 +3,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BackEnd.Tcp;
 using static ArenaManager;
 
 public class FieldManager : MonoBehaviour
 {
     //public static FieldManager instance;
-
+    
     public Messenger owerPlyer;
+    public Player owerPlayerTest;
     public Messenger[] DualPlayers = new Messenger[2];
     public Player[] DualPlayersTest = new Player[2];
     public GameObject whereIsIt;
@@ -58,6 +60,12 @@ public class FieldManager : MonoBehaviour
         { PieceData.United.Creature          ,0 }
     };
 
+
+    #region 서버머지
+    private SessionId index = 0;
+    private bool isMe = false;
+
+    #endregion
     void Start()
     {
         //whereIsIt = gameObject.GetComponentInParent<Player>();
@@ -577,6 +585,8 @@ public class FieldManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         Transform e = whereIsIt.transform.GetChild(10);
         DualPlayersTest[0] = e.gameObject.GetComponent<Player>();
+        owerPlayerTest = e.gameObject.GetComponent<Player>();
+        
     }
 
     public Chest chest;

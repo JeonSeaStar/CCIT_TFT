@@ -23,6 +23,8 @@ namespace Protocol
         playerStoreLock,
         PlayerButtonLevelUp,
         
+        PlayerMatching,
+
         bulletInfo,
 
         AIPlayerInfo,   // AI가 존재하는 경우 AI 정보
@@ -76,6 +78,7 @@ namespace Protocol
         public const int REROLL = 4;
         public const int STORELOCK = 5;
         public const int LEVELUP = 6;
+        public const int MATCHING = 11;
     }
 
 
