@@ -24,7 +24,7 @@ public class PieceData : ScriptableObject
     public float defaultCriticalChance;  //크리티컬 확률
     public float defaultCriticalDamage;  //크리티컬 배율
     public int defaultAttackRange;       //공격범위
-
+    public float bloodBrain;             //흡협률
     public Buff buff;
 
     //토끼 전용 고정 데미지 수치 파라티터 추가 필요 Ex) JumpDemage
