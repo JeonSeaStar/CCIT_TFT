@@ -10,6 +10,8 @@ public class FieldManager : MonoBehaviour
     //public static FieldManager instance;
 
     public Messenger[] DualPlayers = new Messenger[2];
+    public Player[] DualPlayersTest = new Player[2];
+    public GameObject whereIsIt;
 
     public List<Transform> targetPositions = new List<Transform>();
 
@@ -54,6 +56,12 @@ public class FieldManager : MonoBehaviour
         { PieceData.United.WarMachine        ,0 },
         { PieceData.United.Creature          ,0 }
     };
+
+    void Start()
+    {
+        //whereIsIt = gameObject.GetComponentInParent<Player>();
+        StartCoroutine(MyPlayerFind());
+    }
 
     void Update()
     {
@@ -561,6 +569,13 @@ public class FieldManager : MonoBehaviour
         }
 
         return tile;
+    }
+
+    IEnumerator MyPlayerFind()
+    {
+        yield return new WaitForSeconds(2f);
+        Transform e = whereIsIt.transform.GetChild(10);
+        DualPlayersTest[0] = e.gameObject.GetComponent<Player>();
     }
 
     public Chest chest;
