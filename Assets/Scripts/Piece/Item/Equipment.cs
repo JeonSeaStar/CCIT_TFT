@@ -28,7 +28,7 @@ public class Equipment : MonoBehaviour
 
     [TextArea] public string explanation;
 
-    public virtual void EquipmentEffect()
+    public virtual void EquipmentEffect(bool isAdd)
     {
 
     }

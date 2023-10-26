@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Scriptable Object/Buff Datas/Myth/FrostyWindBuff3")]
 public class FrostyWindBuff3 : BuffData
 {
-    public override void Effect()
+    public override void DirectEffect(Piece piece, bool isAdd)
     {
         throw new System.NotImplementedException();
     }

@@ -128,7 +128,7 @@ public class Piece : MonoBehaviour
     public float defaultCriticalChance;
     public float defaultCriticalDamage;
     public int defaultAttackRange;
-
+    public float defaultbloodBrain;
     public bool dead;
 
     public string owner;
@@ -378,32 +378,32 @@ public class Piece : MonoBehaviour
     }
 
     #region 상태이상
-    void SetFreeze()
+    public void SetFreeze()
     {
         freeze = true;
     }
 
-    void SetSlow()
+    public void SetSlow()
     {
         slow = true;
     }
 
-    void SetFaint()
+    public void SetFaint()
     {
         faint = true;
     }
 
-    void SetAirborne()
+    public void SetAirborne()
     {
         airborne = true;
     }
 
-    void SetFear()
+    public void SetFear()
     {
         fear = true;
     }
 
-    void SetInvincible()
+    public void SetInvincible()
     {
         invincible = true;
     }

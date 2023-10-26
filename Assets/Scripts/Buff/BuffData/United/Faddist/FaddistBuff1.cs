@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Scriptable Object/Buff Datas/United/FaddistBuff1")]
 public class FaddistBuff1 : BuffData
 {
-    public override void Effect()
+    public override void DirectEffect(Piece piece, bool isAdd)
     {
         throw new System.NotImplementedException();
     }

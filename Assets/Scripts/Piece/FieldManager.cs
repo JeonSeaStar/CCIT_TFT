@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using static ArenaManager;
 
@@ -70,11 +71,23 @@ public class FieldManager : MonoBehaviour
                       "BurningGround ½Ã³ÊÁö = " + mythActiveCount[PieceData.Myth.BurningGround]);
         }
 
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.B) && ArenaManager.Instance.roundType != RoundType.Battle)
         {
             ArenaManager.Instance.roundType = RoundType.Battle;
+            //foreach (var effect in sBattleStartEffect) effect(true);
+            Debug.Log(sBattleStartEffect.Count);
+            Debug.Log(sCoroutineEffect.Count);
+            foreach (var effect in sCoroutineEffect) effect();
+            //foreach (var effect in sCoroutineEffect) StopCoroutine(effect);
             InitializingRound();
         }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            StopAllCoroutines();
+        }
+
+
         if (Input.GetKeyDown(KeyCode.R) && ArenaManager.Instance.roundType == RoundType.Battle)
         {
             ArenaManager.Instance.roundType = RoundType.Ready;
@@ -163,6 +176,14 @@ public class FieldManager : MonoBehaviour
     //BattleInProgress----------3
     //OncePerAttack-------------4
 
+    public delegate void BattleStartEffect(bool isAdd); public HashSet<BattleStartEffect> sBattleStartEffect = new HashSet<BattleStartEffect>();
+    void AddBattleStartEffect(BattleStartEffect handler) { sBattleStartEffect.Add(handler); }
+    void RemoveBattleStartEffect(BattleStartEffect handler) { sBattleStartEffect.Remove(handler); }
+
+    public delegate void CoroutineEffect(); public HashSet<CoroutineEffect> sCoroutineEffect = new HashSet<CoroutineEffect>();
+    void AddCoroutine(CoroutineEffect handler) { sCoroutineEffect.Add(handler); }
+    void RemoveCoroutine(CoroutineEffect handler) { sCoroutineEffect.Remove(handler); }
+
     public BuffManager buffManager;
     void ApplyMythSynerge(PieceData.Myth value)
     {
@@ -170,12 +191,12 @@ public class FieldManager : MonoBehaviour
         switch (value)
         {
             case PieceData.Myth.GreatMountain://2
-                ApplyMythBuff(buffManager.mythBuff[0].greatMoutainBuff, _mythSynergeCount, new int[] { 2, 4, 6, 8 }, value);
+                ApplyMythBuff(buffManager.mythBuff[0].greatMoutainBuff, _mythSynergeCount, new int[] { 3, 6, 9 }, value);
                 break;
             case PieceData.Myth.FrostyWind://3
                 ApplyMythBuff(buffManager.mythBuff[0].frostyWindBuff, _mythSynergeCount, new int[] { 3, 6, 9 }, value);
                 break;
-            case PieceData.Myth.SandKingdom://2//3
+            case PieceData.Myth.SandKingdom://1//3
                 ApplyMythBuff(buffManager.mythBuff[0].sandKingdomBuff, _mythSynergeCount, new int[] { 3, 5, 7 }, value);
                 break;
             case PieceData.Myth.HeavenGround://1//3
@@ -227,6 +248,7 @@ public class FieldManager : MonoBehaviour
                 break;
         }
     }
+
     void ApplyMythBuff(List<BuffData> buffList, int count, int[] thresholds, PieceData.Myth mythType)
     {
         for (int i = 0; i < thresholds.Length; i++)
@@ -237,15 +259,56 @@ public class FieldManager : MonoBehaviour
                 {
                     if (piece.pieceData.myth == mythType)
                     {
-                        if (i > 0)
-                        {
-                            for (int j = 0; j < i; j++)
+                        if (i > 0 && piece.buffList.Contains(buffList[i - 1]))
+                        { 
+                            piece.buffList.Remove(buffList[i - 1]);
+                            switch (mythType)
                             {
-                                if (piece.buffList.Contains(buffList[j])) piece.buffList.Remove(buffList[j]);
-                                if(DualPlayers[0].buffDatas.Contains(buffList[j])) DualPlayers[0].buffDatas.Remove(buffList[j]);
+                                case PieceData.Myth.GreatMountain:
+                                    RemoveBattleStartEffect(buffManager.mythBuff[0].greatMoutainBuff[i - 1].BattleStartEffect);
+                                    break;
+                                case PieceData.Myth.FrostyWind:
+                                    RemoveCoroutine(buffManager.mythBuff[0].frostyWindBuff[i - 1].CoroutineEffect);
+                                    break;
+                                case PieceData.Myth.SandKingdom:
+                                    buffManager.mythBuff[0].sandKingdomBuff[i - 1].DirectEffect(piece, false);
+                                    RemoveCoroutine(buffManager.mythBuff[0].sandKingdomBuff[i - 1].CoroutineEffect);
+                                    break;
+                                case PieceData.Myth.HeavenGround:
+                                    buffManager.mythBuff[0].heavenGroundBuff[i - 1].DirectEffect(piece, false);
+                                    RemoveCoroutine(buffManager.mythBuff[0].heavenGroundBuff[i - 1].CoroutineEffect);
+                                    break;
+                                case PieceData.Myth.BurningGround:
+                                    //OncePerAttack
+                                    break;
                             }
                         }
-                        if (!piece.buffList.Contains(buffList[i])) piece.buffList.Add(buffList[i]);
+                        if (i > 0 && DualPlayers[0].buffDatas.Contains(buffList[i - 1])) DualPlayers[0].buffDatas.Remove(buffList[i - 1]);
+
+                        if (!piece.buffList.Contains(buffList[i])) 
+                        {
+                            piece.buffList.Add(buffList[i]);
+                            switch (mythType)
+                            {
+                                case PieceData.Myth.GreatMountain:
+                                    AddBattleStartEffect(buffManager.mythBuff[0].greatMoutainBuff[i].BattleStartEffect);
+                                    break;
+                                case PieceData.Myth.FrostyWind:
+                                    AddCoroutine(buffManager.mythBuff[0].frostyWindBuff[i].CoroutineEffect);
+                                    break;
+                                case PieceData.Myth.SandKingdom:
+                                    buffManager.mythBuff[0].sandKingdomBuff[i].DirectEffect(piece, true);
+                                    AddCoroutine(buffManager.mythBuff[0].sandKingdomBuff[i].CoroutineEffect);
+                                    break;
+                                case PieceData.Myth.HeavenGround:
+                                    buffManager.mythBuff[0].heavenGroundBuff[i].DirectEffect(piece, true);
+                                    AddCoroutine(buffManager.mythBuff[0].heavenGroundBuff[i].CoroutineEffect);
+                                    break;
+                                case PieceData.Myth.BurningGround:
+                                    //OncePerAttack
+                                    break;
+                            }
+                        }
                         if (!DualPlayers[0].buffDatas.Contains(buffList[i])) DualPlayers[0].buffDatas.Add(buffList[i]);
                     }
                 }
@@ -254,7 +317,30 @@ public class FieldManager : MonoBehaviour
             {
                 foreach (var piece in myFilePieceList)
                 {
-                    if (piece.buffList.Contains(buffList[i])) piece.buffList.Remove(buffList[i]);
+                    if (piece.buffList.Contains(buffList[i])) 
+                    {
+                        piece.buffList.Remove(buffList[i]);
+                        switch (mythType)
+                        {
+                            case PieceData.Myth.GreatMountain:
+                                RemoveBattleStartEffect(buffManager.mythBuff[0].greatMoutainBuff[i - 1].BattleStartEffect);
+                                break;
+                            case PieceData.Myth.FrostyWind:
+                                RemoveCoroutine(buffManager.mythBuff[0].frostyWindBuff[i - 1].CoroutineEffect);
+                                break;
+                            case PieceData.Myth.SandKingdom:
+                                buffManager.mythBuff[0].sandKingdomBuff[i - 1].DirectEffect(piece, false);
+                                RemoveCoroutine(buffManager.mythBuff[0].sandKingdomBuff[i - 1].CoroutineEffect);
+                                break;
+                            case PieceData.Myth.HeavenGround:
+                                buffManager.mythBuff[0].heavenGroundBuff[i - 1].DirectEffect(piece, false);
+                                RemoveCoroutine(buffManager.mythBuff[0].heavenGroundBuff[i - 1].CoroutineEffect);
+                                break;
+                            case PieceData.Myth.BurningGround:
+                                //OncePerAttack
+                                break;
+                        }
+                    }
                     if (DualPlayers[0].buffDatas.Contains(buffList[i])) DualPlayers[0].buffDatas.Remove(buffList[i]);
                 }
             }
@@ -270,15 +356,56 @@ public class FieldManager : MonoBehaviour
                 {
                     if (piece.pieceData.animal == animalType)
                     {
-                        if (i > 0)
+                        //Remove
+                        if (i > 0 && piece.buffList.Contains(buffList[i - 1]))
                         {
-                            for (int j = 0; j < i; j++)
+                            piece.buffList.Remove(buffList[i - 1]);
+                            switch (animalType)
                             {
-                                if (piece.buffList.Contains(buffList[j])) piece.buffList.Remove(buffList[j]);
-                                if (DualPlayers[0].buffDatas.Contains(buffList[j])) DualPlayers[0].buffDatas.Remove(buffList[j]);
+                                case PieceData.Animal.Hamster:
+                                    RemoveCoroutine(buffManager.animalBuff[0].hamsterBuff[i - 1].CoroutineEffect);
+                                    break;
+                                case PieceData.Animal.Cat:
+                                    //OncePerAttack
+                                    break;
+                                case PieceData.Animal.Dog:
+                                    RemoveBattleStartEffect(buffManager.animalBuff[0].dogBuff[i - 1].BattleStartEffect);
+                                    break;
+                                case PieceData.Animal.Frog:
+                                    buffManager.animalBuff[0].frogBuff[i - 1].DirectEffect(piece, false);
+                                    RemoveBattleStartEffect(buffManager.animalBuff[0].frogBuff[i - 1].BattleStartEffect);
+                                    break;
+                                case PieceData.Animal.Rabbit:
+                                    //OncePerAttack
+                                    break;
                             }
                         }
-                        if (!piece.buffList.Contains(buffList[i])) piece.buffList.Add(buffList[i]);
+                        if (i > 0 && DualPlayers[0].buffDatas.Contains(buffList[i - 1])) DualPlayers[0].buffDatas.Remove(buffList[i - 1]);
+                        //Add
+                        if (!piece.buffList.Contains(buffList[i]))
+                        {
+                            piece.buffList.Add(buffList[i]);
+                            switch (animalType)
+                            {
+                                case PieceData.Animal.Hamster:
+                                    AddCoroutine(buffManager.animalBuff[0].hamsterBuff[i].CoroutineEffect);
+                                    break;
+                                case PieceData.Animal.Cat:
+                                    //OncePerAttack
+                                    break;
+                                case PieceData.Animal.Dog:
+                                    buffManager.animalBuff[0].dogBuff[i].DirectEffect(piece, true);
+                                    AddBattleStartEffect(buffManager.animalBuff[0].dogBuff[i].BattleStartEffect);
+                                    break;
+                                case PieceData.Animal.Frog:
+                                    buffManager.animalBuff[0].frogBuff[i].DirectEffect(piece, true);
+                                    AddBattleStartEffect(buffManager.animalBuff[0].frogBuff[i].BattleStartEffect);
+                                    break;
+                                case PieceData.Animal.Rabbit:
+                                    //OncePerAttack
+                                    break;
+                            }
+                        }
                         if (!DualPlayers[0].buffDatas.Contains(buffList[i])) DualPlayers[0].buffDatas.Add(buffList[i]);
                     }
                 }
@@ -287,7 +414,29 @@ public class FieldManager : MonoBehaviour
             {
                 foreach (var piece in myFilePieceList)
                 {
-                    if (piece.buffList.Contains(buffList[i])) piece.buffList.Remove(buffList[i]);
+                    if (piece.buffList.Contains(buffList[i]))
+                    {
+                        piece.buffList.Remove(buffList[i]);
+                        switch (animalType)
+                        {
+                            case PieceData.Animal.Hamster:
+                                RemoveCoroutine(buffManager.animalBuff[0].hamsterBuff[i - 1].CoroutineEffect);
+                                break;
+                            case PieceData.Animal.Cat:
+                                //OncePerAttack
+                                break;
+                            case PieceData.Animal.Dog:
+                                RemoveBattleStartEffect(buffManager.animalBuff[0].dogBuff[i - 1].BattleStartEffect);
+                                break;
+                            case PieceData.Animal.Frog:
+                                buffManager.animalBuff[0].frogBuff[i - 1].DirectEffect(piece, false);
+                                RemoveBattleStartEffect(buffManager.animalBuff[0].frogBuff[i - 1].BattleStartEffect);
+                                break;
+                            case PieceData.Animal.Rabbit:
+                                //OncePerAttack
+                                break;
+                        }
+                    }
                     if (DualPlayers[0].buffDatas.Contains(buffList[i])) DualPlayers[0].buffDatas.Remove(buffList[i]);
                 }
             }
@@ -303,15 +452,49 @@ public class FieldManager : MonoBehaviour
                 {
                     if (piece.pieceData.united == unitedType)
                     {
-                        if (i > 0)
+                        //Remove
+                        if (i > 0 && piece.buffList.Contains(buffList[i - 1]))
                         {
-                            for (int j = 0; j < i; j++)
+                            piece.buffList.Remove(buffList[i - 1]);
+                            switch (unitedType)
                             {
-                                if (piece.buffList.Contains(buffList[j])) piece.buffList.Remove(buffList[j]);
-                                if (DualPlayers[0].buffDatas.Contains(buffList[j])) DualPlayers[0].buffDatas.Remove(buffList[j]);
+                                case PieceData.United.UnderWorld://2//3
+                                    RemoveBattleStartEffect(buffManager.unitedBuff[0].underWorldBuff[i - 1].BattleStartEffect);
+                                    RemoveCoroutine(buffManager.unitedBuff[0].underWorldBuff[i - 1].CoroutineEffect);
+                                    break;
+                                case PieceData.United.Faddist://2
+                                    RemoveBattleStartEffect(buffManager.unitedBuff[0].faddistBuff[i - 1].BattleStartEffect);
+                                    break;
+                                case PieceData.United.WarMachine://1
+                                    buffManager.unitedBuff[0].warMachineBuff[i - 1].DirectEffect(piece, false);
+                                    break;
+                                case PieceData.United.Creature://4
+                                    //OncePerAttack
+                                    break;
                             }
                         }
-                        if (!piece.buffList.Contains(buffList[i])) piece.buffList.Add(buffList[i]);
+                        if (i > 0 && DualPlayers[0].buffDatas.Contains(buffList[i - 1])) DualPlayers[0].buffDatas.Remove(buffList[i - 1]);
+                        //Add
+                        if (!piece.buffList.Contains(buffList[i]))
+                        { 
+                            piece.buffList.Add(buffList[i]);
+                            switch (unitedType)
+                            {
+                                case PieceData.United.UnderWorld://2//3
+                                    AddBattleStartEffect(buffManager.unitedBuff[0].underWorldBuff[i].BattleStartEffect);
+                                    AddCoroutine(buffManager.unitedBuff[0].underWorldBuff[i].CoroutineEffect);
+                                    break;
+                                case PieceData.United.Faddist://2
+                                    AddBattleStartEffect(buffManager.unitedBuff[0].faddistBuff[i].BattleStartEffect);
+                                    break;
+                                case PieceData.United.WarMachine://1
+                                    buffManager.unitedBuff[0].warMachineBuff[i].DirectEffect(piece, true);
+                                    break;
+                                case PieceData.United.Creature://4
+                                    //OncePerAttack
+                                    break;
+                            }
+                        }
                         if (!DualPlayers[0].buffDatas.Contains(buffList[i])) DualPlayers[0].buffDatas.Add(buffList[i]);
                     }
                 }
@@ -320,13 +503,31 @@ public class FieldManager : MonoBehaviour
             {
                 foreach (var piece in myFilePieceList)
                 {
-                    if (piece.buffList.Contains(buffList[i])) piece.buffList.Remove(buffList[i]);
+                    if (piece.buffList.Contains(buffList[i]))
+                    {
+                        piece.buffList.Remove(buffList[i]);
+                        switch (unitedType)
+                        {
+                            case PieceData.United.UnderWorld://2//3
+                                RemoveBattleStartEffect(buffManager.unitedBuff[0].underWorldBuff[i - 1].BattleStartEffect);
+                                RemoveCoroutine(buffManager.unitedBuff[0].underWorldBuff[i - 1].CoroutineEffect);
+                                break;
+                            case PieceData.United.Faddist://2
+                                RemoveBattleStartEffect(buffManager.unitedBuff[0].faddistBuff[i - 1].BattleStartEffect);
+                                break;
+                            case PieceData.United.WarMachine://1
+                                buffManager.unitedBuff[0].warMachineBuff[i - 1].DirectEffect(piece, false);
+                                break;
+                            case PieceData.United.Creature://4
+                                //OncePerAttack
+                                break;
+                        }
+                    }
                     if (DualPlayers[0].buffDatas.Contains(buffList[i])) DualPlayers[0].buffDatas.Remove(buffList[i]);
                 }
             }
         }
     }
-
     #endregion
     public void InitializingRound()
     {
@@ -350,6 +551,7 @@ public class FieldManager : MonoBehaviour
                 return;
             }
         }
+        //
         foreach (var test in myFilePieceList)
         {
             test.ExpeditionTileCheck();

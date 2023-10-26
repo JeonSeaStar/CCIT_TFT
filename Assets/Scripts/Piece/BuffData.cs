@@ -36,16 +36,12 @@ public abstract class BuffData : ScriptableObject
     public float criticalDamage;
     public float attackRange;
 
-    public enum ApplyBuffType
-    {
-        None,
-        Direct,
-        BattleStart,
-        BattleInProgress,
-        OncePerAttack,
-        Max
-    }
-    public ApplyBuffType buffType = ApplyBuffType.None;
+    public virtual void DirectEffect(Piece piece, bool isAdd) { }
 
-    public abstract void Effect();
+    public virtual void BattleStartEffect(bool isAdd) { }
+
+    protected Coroutine coroutine;
+    public virtual void CoroutineEffect() { }
+
+    //public virtual void sCoroutineEffect(bool isRoundEnd) { }
 }

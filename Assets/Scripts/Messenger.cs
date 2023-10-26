@@ -171,6 +171,7 @@ public class Messenger : MonoBehaviour
                             controlPiece.currentTile = controlPiece.targetTile;
                         }
                     }
+                    else if (_currentTileInformation == _targetTileInformation) ChangeTileTransform(controlPiece, controlPiece.targetTile);
                     ResetDragState(false);
                     fieldManager.ActiveHexaIndicators(false);
                     return;
