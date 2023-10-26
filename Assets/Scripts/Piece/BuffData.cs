@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Buff Data", menuName = "Scriptable Object/Buff Data", order = int.MaxValue)]
-public class BuffData : ScriptableObject
+public abstract class BuffData : ScriptableObject
 {
     [Header("Buff Name")]
     public string buffName;
@@ -35,4 +35,17 @@ public class BuffData : ScriptableObject
     public float criticalChance;
     public float criticalDamage;
     public float attackRange;
+
+    public enum ApplyBuffType
+    {
+        None,
+        Direct,
+        BattleStart,
+        BattleInProgress,
+        OncePerAttack,
+        Max
+    }
+    public ApplyBuffType buffType = ApplyBuffType.None;
+
+    public abstract void Effect();
 }

@@ -159,6 +159,14 @@ public class Piece : MonoBehaviour
     //[Header("Synerge")]
     //public List<string> sReceivedBuff;
 
+    [Header("상태")]
+    public bool freeze;
+    public bool slow;
+    public bool airborne;
+    public bool faint;
+    public bool fear;
+    public bool invincible;
+
     public enum PieceStatus //상태 이상
     {
         StatusImmunity,
@@ -185,7 +193,7 @@ public class Piece : MonoBehaviour
     protected virtual void Attack()
     {
         print(name + "(이)가" + target.name + "에게 일반 공격을 합니다.");
-        Damage();
+        Damage(attackDamage);
         //currentMana += manaRecovery;
         Invoke("NextBehavior", attackSpeed);
     }
@@ -208,10 +216,13 @@ public class Piece : MonoBehaviour
             return false;
     }
 
-    protected void Damage()
+    public void Damage(float damage)
     {
         //target.defaultHealth -= attackPower;
-        target.health -= attackDamage;
+        if (target.invincible)
+            return;
+
+        target.health -= damage;
 
         //if (target.defaultHealth <= 0)
         if (target.health <= 0)
@@ -367,6 +378,36 @@ public class Piece : MonoBehaviour
     }
 
     #region 상태이상
+    void SetFreeze()
+    {
+        freeze = true;
+    }
 
+    void SetSlow()
+    {
+        slow = true;
+    }
+
+    void SetFaint()
+    {
+        faint = true;
+    }
+
+    void SetAirborne()
+    {
+        airborne = true;
+    }
+
+    void SetFear()
+    {
+        fear = true;
+    }
+
+    void SetInvincible()
+    {
+        invincible = true;
+    }
+
+    //void 
     #endregion
 }

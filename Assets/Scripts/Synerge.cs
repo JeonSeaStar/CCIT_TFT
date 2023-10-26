@@ -31,22 +31,18 @@ public class Synerge : MonoBehaviour
     public void GreatMountain(bool isBattle)
     {
         var _greatMountainCount = fieldManager.mythActiveCount[PieceData.Myth.GreatMountain];
-        Debug.Log(2525);
     }
     public void SandKingdom(bool isBattle)
     {
         var _sandKingdomCount = fieldManager.mythActiveCount[PieceData.Myth.SandKingdom];
-        Debug.Log(2626);
     }
     public void Dog(bool isBattle)
     {
         var _dogCount = fieldManager.animalActiveCount[PieceData.Animal.Dog];
-        Debug.Log(2727);
     }
     public void Frog(bool isBattle)
     {
         var _FrogCount = fieldManager.animalActiveCount[PieceData.Animal.Frog];
-        Debug.Log(2828);
     }
     public void UnderWorld(bool isBattle)
     {

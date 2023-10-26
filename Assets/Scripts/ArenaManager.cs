@@ -64,7 +64,7 @@ public class ArenaManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         var _restTime = time - 1f;
-        if(_restTime == 0)
+        if (_restTime == 0)
         {
             fieldManagers[0].InitializingRound();
             switch (roundType)
@@ -89,7 +89,7 @@ public class ArenaManager : MonoBehaviour
                     }
                     yield break;
                 case RoundType.Battle:
-                    if(fieldManagers[0].myFilePieceList.Count > 0 && fieldManagers[0].enemyFilePieceList.Count > 0)
+                    if (fieldManagers[0].myFilePieceList.Count > 0 && fieldManagers[0].enemyFilePieceList.Count > 0)
                         roundType = RoundType.Overtime;
                     yield break;
                 case RoundType.Overtime:
@@ -99,4 +99,56 @@ public class ArenaManager : MonoBehaviour
         }
         StartCoroutine(CalRoundTime(_restTime));
     }
+
+    #region 매칭
+    private void Matching()
+    {
+        float playerCountHalf = fieldManagers.Count / 2;
+        int pairCount = Mathf.RoundToInt(playerCountHalf);
+
+        List<Messenger> messengerList = new List<Messenger>();
+
+        for (int i = 0; i < fieldManagers.Count; i++)
+            messengerList.Add(fieldManagers[i].owerPlyer);
+
+        List<Messenger> aGroup = new List<Messenger>();
+        List<Messenger> bGroup = new List<Messenger>();
+
+        for (int i = 0; i < pairCount; i++)
+        {
+            int m = Random.Range(0, pairCount);
+            aGroup.Add(messengerList[m]);
+            messengerList.RemoveAt(m);
+        }
+        bGroup = messengerList;
+
+        for (int i = 0; i < aGroup.Count; i++)
+        {
+            int m;
+            bool duplicate = true;
+
+            do
+            {
+                m = Random.Range(0, bGroup.Count);
+
+                for (int j = 0; j < aGroup[i].matchingInformation.matchingHistroy.Count; j++)
+                {
+                    if (aGroup[i].matchingInformation.matchingHistroy[j] != bGroup[m].matchingInformation.myIndex)
+                    {
+                        duplicate = false;
+                        //상대방 매칭
+                        aGroup[i].matchingInformation.matchingHistroy.Add(bGroup[m].matchingInformation.myIndex);
+                    }
+                }
+            }
+            while (duplicate);
+        }
+    }
+
+    private void InitMatchingHistory()
+    {
+        for (int i = 0; i < fieldManagers.Count; i++)
+            fieldManagers[i].owerPlyer.matchingInformation.HistoryIniti();
+    }
+    #endregion
 }
