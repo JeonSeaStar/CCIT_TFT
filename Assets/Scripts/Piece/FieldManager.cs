@@ -10,6 +10,7 @@ public class FieldManager : MonoBehaviour
 {
     //public static FieldManager instance;
 
+    public Messenger owerPlyer;
     public Messenger[] DualPlayers = new Messenger[2];
 
     public List<Transform> targetPositions = new List<Transform>();
