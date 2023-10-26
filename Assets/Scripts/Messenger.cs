@@ -49,6 +49,8 @@ public class Messenger : MonoBehaviour
     [SerializeField] GameObject chargingParticle;
     [SerializeField] GameObject AttackParticle;
 
+    public MatchingInformation matchingInformation;
+
     private void Awake()
     {
         fieldManager.DualPlayers[0] = this;
@@ -285,5 +287,16 @@ public class Messenger : MonoBehaviour
 
             }
         }
+    }
+}
+
+[System.Serializable]
+public class MatchingInformation
+{
+    public int myIndex;
+    public List<int> matchingHistroy = new List<int>();
+    public void HistoryIniti()
+    {
+        matchingHistroy = new List<int>();
     }
 }
