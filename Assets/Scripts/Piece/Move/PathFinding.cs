@@ -74,7 +74,7 @@ public class PathFinding : MonoBehaviour
         }
     }
 
-    List<Tile> GetNeighbor(Tile tile)
+    public List<Tile> GetNeighbor(Tile tile)
     {
         List<Tile> neighbor = new List<Tile>();
 

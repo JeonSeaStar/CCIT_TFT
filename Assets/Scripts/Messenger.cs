@@ -18,6 +18,7 @@ public class Messenger : MonoBehaviour
     [SerializeField] bool owned;
     public bool isGrab = false;
     public bool isDrag = false;
+    public bool isExpedition;
 
     [SerializeField] int[] damagePerPiece = new int[] { 2, 4, 6, 8, 10, 11, 12, 13, 14, 15};
     [SerializeField] int[] damagePerRound = new int[] { 0, 1, 2, 3, 4, 6, 9, 15 };
@@ -155,7 +156,7 @@ public class Messenger : MonoBehaviour
                             //Piece
                             _currentTileInformation.piece = null;
                             _currentTileInformation.IsFull = false;
-                            _targetTileInformation.piece = controlPiece.gameObject;
+                            _targetTileInformation.piece = controlPiece;
                             _targetTileInformation.IsFull = true;
                         }
                         else
@@ -166,7 +167,7 @@ public class Messenger : MonoBehaviour
                             ChangeTileTransform(_targetPieceInformation, controlPiece.currentTile);
                             //Piece
                             _currentTileInformation.piece = _targetTileInformation.piece;
-                            _targetTileInformation.piece = controlPiece.gameObject;
+                            _targetTileInformation.piece = controlPiece;
                             //Tile
                             _targetPieceInformation.currentTile = controlPiece.currentTile;
                             _targetPieceInformation.targetTile = controlPiece.currentTile;

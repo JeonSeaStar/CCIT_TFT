@@ -132,6 +132,7 @@ public class FieldManager : MonoBehaviour
     {
 
     }
+    #region Calculate Synerge
     public void SynergeIncrease(Piece piece)
     {
         mythActiveCount[piece.pieceData.myth]++;
@@ -144,7 +145,6 @@ public class FieldManager : MonoBehaviour
         animalActiveCount[piece.pieceData.animal]--;
         unitedActiveCount[piece.pieceData.united]--;
     }
-    #region Calculate Synerge
     public void CalSynerge(Piece plus, Piece minus = null)
     {
         PieceData.Myth _plusMyth = plus.pieceData.myth;
@@ -273,6 +273,7 @@ public class FieldManager : MonoBehaviour
                                     break;
                                 case PieceData.Myth.SandKingdom:
                                     buffManager.mythBuff[0].sandKingdomBuff[i - 1].DirectEffect(piece, false);
+                                    RemoveBattleStartEffect(buffManager.mythBuff[0].sandKingdomBuff[i - 1].BattleStartEffect);
                                     RemoveCoroutine(buffManager.mythBuff[0].sandKingdomBuff[i - 1].CoroutineEffect);
                                     break;
                                 case PieceData.Myth.HeavenGround:
@@ -280,7 +281,7 @@ public class FieldManager : MonoBehaviour
                                     RemoveCoroutine(buffManager.mythBuff[0].heavenGroundBuff[i - 1].CoroutineEffect);
                                     break;
                                 case PieceData.Myth.BurningGround:
-                                    //OncePerAttack
+                                    buffManager.mythBuff[0].burningGroundBuff[i - 1].DirectEffect(piece, false);
                                     break;
                             }
                         }
@@ -299,6 +300,7 @@ public class FieldManager : MonoBehaviour
                                     break;
                                 case PieceData.Myth.SandKingdom:
                                     buffManager.mythBuff[0].sandKingdomBuff[i].DirectEffect(piece, true);
+                                    AddBattleStartEffect(buffManager.mythBuff[0].sandKingdomBuff[i].BattleStartEffect);
                                     AddCoroutine(buffManager.mythBuff[0].sandKingdomBuff[i].CoroutineEffect);
                                     break;
                                 case PieceData.Myth.HeavenGround:
@@ -306,7 +308,7 @@ public class FieldManager : MonoBehaviour
                                     AddCoroutine(buffManager.mythBuff[0].heavenGroundBuff[i].CoroutineEffect);
                                     break;
                                 case PieceData.Myth.BurningGround:
-                                    //OncePerAttack
+                                    buffManager.mythBuff[0].burningGroundBuff[i].DirectEffect(piece, true);
                                     break;
                             }
                         }
@@ -331,6 +333,7 @@ public class FieldManager : MonoBehaviour
                                 break;
                             case PieceData.Myth.SandKingdom:
                                 buffManager.mythBuff[0].sandKingdomBuff[i - 1].DirectEffect(piece, false);
+                                RemoveBattleStartEffect(buffManager.mythBuff[0].sandKingdomBuff[i - 1].BattleStartEffect);
                                 RemoveCoroutine(buffManager.mythBuff[0].sandKingdomBuff[i - 1].CoroutineEffect);
                                 break;
                             case PieceData.Myth.HeavenGround:
@@ -338,7 +341,7 @@ public class FieldManager : MonoBehaviour
                                 RemoveCoroutine(buffManager.mythBuff[0].heavenGroundBuff[i - 1].CoroutineEffect);
                                 break;
                             case PieceData.Myth.BurningGround:
-                                //OncePerAttack
+                                buffManager.mythBuff[0].burningGroundBuff[i - 1].DirectEffect(piece, false);
                                 break;
                         }
                     }

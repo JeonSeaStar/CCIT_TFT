@@ -9,22 +9,21 @@ public class PieceData : ScriptableObject
     public Sprite piecePortrait;
     public GameObject piecePrefab;
 
-    public float defaultHealth;          //체력
-    public float defaultMana;            //마나
-    public float defaultManaRecovery;    //마나 회복력
+    public float[] health           = new float[3];          //체력
+    public float[] mana             = new float[3];            //마나
+    public float[] manaRecovery     = new float[3];    //마나 회복력
 
-    public float defaultAttackPower;     //기본 공격력
-    public float defaultAttackDamage;    //최종 공격력
-    public float defaultAbilityPower;    //최종 스킬 공격력
+    public float[] attackPower      = new float[3];    //기본 공격력
+    public float[] abilityPower     = new float[3];   //최종 스킬 공격력
 
-    public float defaultArmor;           //방어력
-    public float defaultMagicResist;     //마법 저항력
+    public float[] armor            = new float[3];//방어력
+    public float[] magicResist      = new float[3];//마법 저항력
 
-    public float defaultAttackSpeed;     //공격속도
-    public float defaultCriticalChance;  //크리티컬 확률
-    public float defaultCriticalDamage;  //크리티컬 배율
-    public int defaultAttackRange;       //공격범위
-    public float bloodBrain;             //흡협률
+    public float[] attackSpeed      = new float[3];     //공격속도
+    public float[] criticalChance   = new float[3];  //크리티컬 확률
+    public float[] criticalDamage   = new float[3];  //크리티컬 배율
+    public int[] attackRange        = new int[3];       //공격범위
+    public float[] bloodBrain       = new float[3];      //흡협률
     public Buff buff;
 
     //토끼 전용 고정 데미지 수치 파라티터 추가 필요 Ex) JumpDemage
@@ -139,6 +138,20 @@ public class PieceData : ScriptableObject
             criticalDamage += CalculateStatus(piece.criticalDamage, item.criticalDamage, item.percentCriticalDamage);
             attackRange += CalculateStatus(piece.attackRange, item.attackRange, item.percentAttackRange);
         }
+    }
+
+    public void CalculateBuff(Piece piece , BuffData buffData)
+    {
+        piece.health += CalculateStatus(piece.health, buffData.health, buffData.percentHealth);
+        piece.mana += CalculateStatus(piece.mana, buffData.mana, buffData.percentMana);
+        piece.attackDamage += CalculateStatus(piece.attackDamage, buffData.attackDamage, buffData.percentAttackDamage);
+        piece.abilityPower += CalculateStatus(piece.abilityPower, buffData.abilityPower, buffData.percentAbilityPower);
+        piece.armor += CalculateStatus(piece.armor, buffData.armor, buffData.percentArmor);
+        piece.magicResist += CalculateStatus(piece.magicResist, buffData.magicResist, buffData.percentMagicResist);
+        piece.attackSpeed += CalculateStatus(piece.attackSpeed, buffData.attackSpeed, buffData.percentAttackSpeed);
+        piece.criticalChance += CalculateStatus(piece.criticalChance, buffData.criticalChance, buffData.percentCriticalChance);
+        piece.criticalDamage += CalculateStatus(piece.criticalDamage, buffData.criticalDamage, buffData.percentCriticalDamage);
+        piece.attackRange += CalculateStatus(piece.attackRange, buffData.attackRange, buffData.percentAttackRange);
     }
 
     float CalculateStatus(float target, float value, bool percent)

@@ -7,6 +7,21 @@ public class BurningGroundBuff1 : BuffData
 {
     public override void DirectEffect(Piece piece, bool isAdd)
     {
-        throw new System.NotImplementedException();
+        if (isAdd)
+        {
+            percentHealth = true;
+            percentAttackDamage = true;
+
+            health = 20;
+            attackDamage = 15;
+        }
+        else if (!isAdd)
+        {
+            percentHealth = false;
+            percentAttackDamage = false;
+
+            health = 0;
+            attackDamage = 0;
+        }
     }
 }

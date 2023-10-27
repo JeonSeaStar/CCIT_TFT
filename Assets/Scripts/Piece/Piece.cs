@@ -29,106 +29,11 @@ public class Piece : MonoBehaviour
     public float criticalChance;
     public float criticalDamage;
     public float attackRange;
-
-
-    public float defaultHealth;
-    public float currentHealth;
-    public float defaultMana;
-    public float currentMana;
-    public float manaRecovery;
+    public float bloodBrain;
 
     public float shield; //임시값
     public float currentShield; //임시값
 
-    [Space(10f)]
-    public float defaultAttackPower;
-    private float damageRise;
-    public float DamageRise
-    {
-        get { return damageRise; }
-        set
-        {
-            if (damageRise != value)
-            {
-                damageRise = value;
-                //Event Detect Change Rise
-            }
-        }
-    }
-    public float attackPower;
-
-    [Space(10f)]
-    public float defaultAbilityPower;
-    private float abilityRise;
-    public float AbilityRise
-    {
-        get { return abilityRise; }
-        set
-        {
-            if (abilityRise != value)
-            {
-                abilityRise = value;
-                //Event Detect Change Rise
-            }
-        }
-    }
-    public float abilityDamage;
-
-    [Space(10f)]
-    public float defaultArmor;
-    private float armorRise;
-    public float ArmorRise
-    {
-        get { return armorRise; }
-        set
-        {
-            if (armorRise != value)
-            {
-                armorRise = value;
-                //Event Detect Change Rise
-            }
-        }
-    }
-    //public float armor;
-
-    [Space(10f)]
-    public float defaultMagicResist;
-    private float magicResistRise;
-    public float MagicResistRise
-    {
-        get { return magicResistRise; }
-        set
-        {
-            if (magicResistRise != value)
-            {
-                magicResistRise = value;
-                //Event Detect Change Rise
-            }
-        }
-    }
-    //public float magicResist;
-
-    [Space(10f)]
-    public float defaultAttackSpeed;
-    private float attackSpeedRise;
-    public float AttackSpeedRise
-    {
-        get { return attackSpeedRise; }
-        set
-        {
-            if (attackSpeedRise != value)
-            {
-                attackSpeedRise = value;
-            }
-        }
-    }
-    //public float attackSpeed;
-
-
-    public float defaultCriticalChance;
-    public float defaultCriticalDamage;
-    public int defaultAttackRange;
-    public float defaultbloodBrain;
     public bool dead;
 
     public string owner;
@@ -160,21 +65,14 @@ public class Piece : MonoBehaviour
     //public List<string> sReceivedBuff;
 
     [Header("상태")]
+    public bool immune;
     public bool freeze;
     public bool slow;
     public bool airborne;
     public bool faint;
     public bool fear;
     public bool invincible;
-
-    public enum PieceStatus //상태 이상
-    {
-        StatusImmunity,
-        Freeze,
-        Fear,
-        Slow,
-        Destruction
-    }
+    public bool charm; //매혹
 
     void Awake()
     {
@@ -216,19 +114,27 @@ public class Piece : MonoBehaviour
             return false;
     }
 
+    public void Damage(Piece piece, float damage)
+    {
+        piece.health -= damage;
+        if (piece.health <= 0) piece.Dead();
+    }
+
     public void Damage(float damage)
     {
-        //target.defaultHealth -= attackPower;
         if (target.invincible)
             return;
 
         target.health -= damage;
 
-        //if (target.defaultHealth <= 0)
         if (target.health <= 0)
         {
             target.Dead();
             target = null;
+            if (this.pieceData.myth == PieceData.Myth.BurningGround)
+            {
+                //this.pieceData.CalculateBuff(this,)
+            }
         }
     }
 
@@ -381,6 +287,8 @@ public class Piece : MonoBehaviour
     public void SetFreeze()
     {
         freeze = true;
+        //1초 뒤에 빙결을 푸는 기능 추가해주세요.
+        //canMove = false;
     }
 
     public void SetSlow()
@@ -406,6 +314,11 @@ public class Piece : MonoBehaviour
     public void SetInvincible()
     {
         invincible = true;
+    }
+
+    public void SetCharm()
+    {
+        charm = true;
     }
 
     //void 

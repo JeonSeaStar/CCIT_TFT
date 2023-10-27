@@ -11,7 +11,7 @@ public class CentaurusBullet : Bullet
 
     protected override void SetDamage()
     {
-        damage = defaultDamage + parentPiece.abilityDamage;
+        damage = defaultDamage + parentPiece.abilityPower;
     }
 
     public override void Shot(Vector3 direction)

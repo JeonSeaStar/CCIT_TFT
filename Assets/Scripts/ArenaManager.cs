@@ -122,6 +122,9 @@ public class ArenaManager : MonoBehaviour
         }
         bGroup = messengerList;
 
+        for (int i = 0; i < bGroup.Count; i++)
+            bGroup[i].isExpedition = true;
+
         for (int i = 0; i < aGroup.Count; i++)
         {
             int m;
