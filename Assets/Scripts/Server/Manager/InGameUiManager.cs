@@ -11,6 +11,7 @@ public class InGameUiManager : MonoBehaviour
 {
     static private InGameUiManager instance;
     public TMP_Text scoreBoard;
+    public TMP_Text gameStateBoard;
     public GameObject startCountObject;
     public GameObject reconnectBoardObject;
 
@@ -19,6 +20,9 @@ public class InGameUiManager : MonoBehaviour
     public GameObject youHost;
     const string HostOfflineMsg = "호스트와의 연결이 끊어졌습니다.\n연결 대기중";
     const string PlayerReconnectMsg = "{0} 플레이어 재접속중...";
+
+    public TMP_Text gameStateText;
+    public TMP_Text gmaeStateCountText;
 
     void Awake()
     {
@@ -49,6 +53,29 @@ public class InGameUiManager : MonoBehaviour
     {
         scoreBoard.text = "잘 접속한 플레이어 수 : " + score;
     }
+
+    public void SetGameStateEvent()
+    {
+        gameStateBoard.text = "게임상태 : EVENT ";
+    }
+
+    public void SetGameStateWating()
+    {
+        gameStateBoard.text = "게임상태 : WATING ";
+    }
+    public void SetGameStateBattleReady()
+    {
+        gameStateBoard.text = "게임상태 : BATTLEREADY ";
+    }
+    public void SetGameStateBattle()
+    {
+        gameStateBoard.text = "게임상태 : BATTLE ";
+    }
+    public void SetGameStateWinnerCheck()
+    {
+        gameStateBoard.text = "게임상태 : WINNERCHECK ";
+    }
+
 
     public void SetStartCount(int time, bool isEnable = true)
     {

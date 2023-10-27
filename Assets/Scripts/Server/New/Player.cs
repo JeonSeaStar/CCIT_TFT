@@ -535,6 +535,11 @@ public class Player : MonoBehaviour
         return index;
     }
 
+    public SessionId GetMyIndexMatching() //내가 누구인지 식별 매치용
+    {
+        return index;
+    }
+
     public bool IsMe()
     {
         return isMe;
@@ -575,4 +580,15 @@ public class Player : MonoBehaviour
     }
 
     #endregion
+
+    [System.Serializable]
+    public class MatchingInformation
+    {
+        public int myIndex;
+        public List<int> matchingHistroy = new List<int>();
+        public void HistoryIniti()
+        {
+            matchingHistroy = new List<int>();
+        }
+    }
 }

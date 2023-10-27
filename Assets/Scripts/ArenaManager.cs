@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using BackEnd.Tcp;
+using Protocol;
+
 
 public class ArenaManager : MonoBehaviour
 {
@@ -171,7 +173,7 @@ public class ArenaManager : MonoBehaviour
         }
     }
 
-    private void MatchingTest()
+    public void MatchingTest(SessionId sessionID)
     {
         float playerCountHalf = fieldManagers.Count / 2;
         int pairCount = Mathf.RoundToInt(playerCountHalf);
@@ -207,7 +209,13 @@ public class ArenaManager : MonoBehaviour
                     {
                         duplicate = false;
                         //상대방 매칭
+
                         //상대방 매칭된 것을 어떻게 알려주고 각 필드에 넣어주어야 하냐?
+                        if(fieldManagers[i].DualPlayersTest[1].GetMyIndexMatching() != fieldManagers[i].owerPlayerTest.GetMyIndexMatching())
+                        {
+                            fieldManagers[i].DualPlayersTest[1] = aGroup[i];  //예시로
+                        }
+
                         aGroup[i].matchingInformation.matchingHistroy.Add(bGroup[m].matchingInformation.myIndex);
                     }
                 }

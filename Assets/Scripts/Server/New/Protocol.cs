@@ -22,17 +22,23 @@ namespace Protocol
         playerReroll,
         playerStoreLock,
         PlayerButtonLevelUp,
-        
-        PlayerMatching,
+       
+        PlayerTouchMove,
 
         bulletInfo,
 
-        AIPlayerInfo,   // AI가 존재하는 경우 AI 정보
+        AIPlayerInfo,       // AI가 존재하는 경우 AI 정보
         LoadRoomScene,      // 룸 씬으로 전환
         LoadGameScene,      // 인게임 씬으로 전환
-        StartCount,     // 시작 카운트
-        GameStart,      // 게임 시작
-        GameEnd,        // 게임 종료
+        StartCount,         // 시작 카운트
+        GameStart,          // 게임 시작
+        InGameEvent,        // 게임 시작 이후 각 x-1번 스테이지 이벤트 용
+        InGameWating,       // 이벤트 이후 기물 배치 - 재화 이자
+        InGameBattleReady,  // 전투 대기 이때 값 동기화
+        InGameBattle,       // 전투
+        InGameWinnerCheck,  //전투 종료후 메신저에게 데미지, 골드등 지급
+        GameEnd,            // 게임 종료
+        GameMatching,
         GameSync,       // 플레이어 재접속 시 게임 현재 상황 싱크
         Max
     }
@@ -67,6 +73,8 @@ namespace Protocol
         public const int MOVE = 1;      // 이동 메시지
         public const int ATTACK = 2;    // 공격 메시지
         public const int NO_MOVE = 4;   // 이동 멈춤 메시지
+
+        public const int TOUCH_MOVE = 10;
     }
 
     public static class ButtonEventCode
@@ -187,6 +195,27 @@ namespace Protocol
         public float yDir;
         public float zDir;
         public PlayerMoveMessage(SessionId session, Vector3 pos, Vector3 dir) : base(Type.PlayerMove)
+        {
+            this.playerSession = session;
+            this.xPos = pos.x;
+            this.yPos = pos.y;
+            this.zPos = pos.z;
+            this.xDir = dir.x;
+            this.yDir = dir.y;
+            this.zDir = dir.z;
+        }
+    }
+
+    public class PlayerTouchMoveMessaeg : Message
+    {
+        public SessionId playerSession;
+        public float xPos;
+        public float yPos;
+        public float zPos;
+        public float xDir;
+        public float yDir;
+        public float zDir;
+        public PlayerTouchMoveMessaeg(SessionId session, Vector3 pos, Vector3 dir) : base(Type.PlayerTouchMove)
         {
             this.playerSession = session;
             this.xPos = pos.x;
@@ -344,6 +373,57 @@ namespace Protocol
         public StartCountMessage(int time) : base(Type.StartCount)
         {
             this.time = time;
+        }
+    }
+    public class InGameEventCountMessage : Message
+    {
+        public int time;
+        public InGameEventCountMessage(int time) : base(Type.InGameEvent)
+        {
+            this.time = time;
+        }
+    }
+    public class InGameWatingCountMessage : Message
+    {
+        public int time;
+        public InGameWatingCountMessage(int time) : base(Type.InGameWating)
+        {
+            this.time = time;
+        }
+    }
+    public class InGameBattleReadyCountMessage : Message
+    {
+        public int time;
+        public InGameBattleReadyCountMessage(int time) : base(Type.InGameBattleReady)
+        {
+            this.time = time;
+        }
+    }
+    public class InGameBattleCountMessage : Message
+    {
+        public int time;
+        public InGameBattleCountMessage(int time) : base(Type.InGameBattle)
+        {
+            this.time = time;
+        }
+    }
+    public class InGameWinnerCheckCountMessage : Message
+    {
+        public int time;
+        public InGameWinnerCheckCountMessage(int time) : base(Type.InGameWinnerCheck)
+        {
+            this.time = time;
+        }
+    }
+
+
+    //
+    public class PlayerMatchingMessage : Message
+    {
+        public SessionId otherPlayerSession;
+        public PlayerMatchingMessage(SessionId sessionId) : base(Type.GameMatching)
+        {
+            this.otherPlayerSession = sessionId;
         }
     }
 

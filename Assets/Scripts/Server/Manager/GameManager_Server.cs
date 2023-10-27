@@ -37,6 +37,7 @@ public class GameManager_Server : MonoBehaviour
     private IEnumerator InGameUpdateCoroutine;
 
     public enum GameState { Login, MatchLobby, Ready, Start, InGame, Over, Result, Reconnect };
+    public enum InGameState { InGameEvent, InGameWating, InGameBattleReady, InGameBattle, InGameWinnerCheck };
     private GameState gameState;
     #endregion
 

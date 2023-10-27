@@ -7,12 +7,17 @@ using BackEnd.Tcp;
 public class InputManager : MonoBehaviour
 {
     public VirtualStick virtualStick;
+    [SerializeField] LayerMask playerMask; //9 - Player
+    [SerializeField] LayerMask groundMask; //8 - Plane
+    Vector3 test;
 
     private bool isMove = false;
+    private bool isTouchMove = false;
     void Start()
     {
         GameManager_Server.InGame += MobileInput;
         GameManager_Server.InGame += AttackInput;
+        //GameManager_Server.InGame += TouchMoveInput;
         GameManager_Server.AfterInGame += SendNoMoveMessage;
     }
 
@@ -59,6 +64,45 @@ public class InputManager : MonoBehaviour
             BackEndMatchManager.GetInstance().SendDataToInGame<KeyMessage>(msg);
         }
     }
+
+
+
+    void TouchMoveInput()
+    {
+        int keyCode = 0;
+        isTouchMove = false;
+
+
+        keyCode |= KeyEventCode.TOUCH_MOVE;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, groundMask))
+        {
+            isTouchMove = true;
+            Vector3 moveVector = new Vector3(hitInfo.point.x, 0, hitInfo.point.z);
+            test = moveVector;
+        }
+        Debug.Log(test);
+        
+
+        if(keyCode <= 0)
+        {
+            return;
+        }
+
+        KeyMessage msg;
+        msg = new KeyMessage(keyCode, test);
+        if (BackEndMatchManager.GetInstance().IsHost())
+        {
+            BackEndMatchManager.GetInstance().AddMsgToLocalQueue(msg);
+        }
+        else
+        {
+            BackEndMatchManager.GetInstance().SendDataToInGame<KeyMessage>(msg);
+        }
+    }
+
+
 
     void AttackInput()
     {
@@ -246,4 +290,6 @@ public class InputManager : MonoBehaviour
             BackEndMatchManager.GetInstance().SendDataToInGame<ButtonMessage>(msg);
         }
     }
+
+    
 }

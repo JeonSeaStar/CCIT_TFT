@@ -14,6 +14,7 @@ public class FieldManager : MonoBehaviour
     public Player owerPlayerTest;
     public Messenger[] DualPlayers = new Messenger[2];
     public Player[] DualPlayersTest = new Player[2];
+    public SessionId[] DualPlayersSessionId = new SessionId[2];
     public GameObject whereIsIt;
 
     public List<Transform> targetPositions = new List<Transform>();
@@ -64,6 +65,7 @@ public class FieldManager : MonoBehaviour
     #region 서버머지
     private SessionId index = 0;
     private bool isMe = false;
+    public int testIndex = 0;
 
     #endregion
     void Start()
@@ -424,6 +426,7 @@ public class FieldManager : MonoBehaviour
         return kind;
     }
 
+    //스폰할때 누구의 필드매니저의 기물인지 스폰해주어야 함
     public void SpawnPiece(PieceData pieceData, int grade, Tile targetTile)
     {
         Vector3 targetPosition = new Vector3(targetTile.transform.position.x, groundHeight, targetTile.transform.position.z);
@@ -586,6 +589,7 @@ public class FieldManager : MonoBehaviour
         Transform e = whereIsIt.transform.GetChild(10);
         DualPlayersTest[0] = e.gameObject.GetComponent<Player>();
         owerPlayerTest = e.gameObject.GetComponent<Player>();
+        testIndex = ((int)owerPlayerTest.GetIndex());
         
     }
 

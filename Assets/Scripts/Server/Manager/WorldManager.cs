@@ -21,6 +21,12 @@ public class WorldManager : MonoBehaviour
     static public WorldManager instance;
 
     const int START_COUNT = 5;
+    const int IN_GAME_EVENT_COUNT = 5;
+    const int IN_GAME_WATING_COUNT = 5;
+    const int IN_GAME_BATTLE_READY_COUNT = 5;
+    const int IN_GAME_BATTAL_COUNT = 5;
+    const int IN_GAME_WINNER_CHECK_COUNT = 5;
+
 
     private SessionId myPlayerIndex = SessionId.None;
 
@@ -228,6 +234,52 @@ public class WorldManager : MonoBehaviour
         SetPlayerInfo();
     }
 
+    public void OnGameEvent()
+    {
+        if (BackEndMatchManager.GetInstance().IsHost())
+        {
+            StartCoroutine("InGameEventCount");
+            Debug.Log("EVENT");
+        }
+    }
+
+    public void OnGameWating()
+    {
+        if (BackEndMatchManager.GetInstance().IsHost())
+        {
+            StartCoroutine("InGameWatingCount");
+            Debug.Log("WATING");
+        }
+    }
+
+    public void OnGameBattleReady()
+    {
+        if (BackEndMatchManager.GetInstance().IsHost())
+        {
+            StartCoroutine("InGameBattleReadyCount");
+            Debug.Log("BATTLEREADY");
+        }
+    }
+
+    public void OnGameBattle()
+    {
+        if (BackEndMatchManager.GetInstance().IsHost())
+        {
+            StartCoroutine("InGameBattleCount");
+            Debug.Log("BATTLE");
+        }
+    }
+
+    public void  OnWinnerCheck()
+    {
+        if (BackEndMatchManager.GetInstance().IsHost())
+        {
+            StartCoroutine("InGameWinnerCheckCount");
+            Debug.Log("WINNERCHECK");
+        }
+    }
+
+    //초 카운트
     IEnumerator StartCount()
     {
         StartCountMessage msg = new StartCountMessage(START_COUNT);
@@ -239,11 +291,73 @@ public class WorldManager : MonoBehaviour
             BackEndMatchManager.GetInstance().SendDataToInGame<StartCountMessage>(msg);
             yield return new WaitForSeconds(1); //1초 단위
         }
-
-        // 게임 시작 메시지를 전송
+        // 카운트 다운이 끝난 뒤 게임 시작 메시지를 전송
         GameStartMessage gameStartMessage = new GameStartMessage();
         BackEndMatchManager.GetInstance().SendDataToInGame<GameStartMessage>(gameStartMessage);
+        OnGameEvent();
     }
+    IEnumerator InGameEventCount()
+    {
+        InGameEventCountMessage msg = new InGameEventCountMessage(IN_GAME_EVENT_COUNT);
+        // 카운트 다운
+        for (int i = 0; i < IN_GAME_EVENT_COUNT + 1; ++i)
+        {
+            msg.time = IN_GAME_EVENT_COUNT - i;
+            BackEndMatchManager.GetInstance().SendDataToInGame<InGameEventCountMessage>(msg);
+            yield return new WaitForSeconds(1); //1초 단위
+        }
+        OnGameWating();
+    }
+    IEnumerator InGameWatingCount()
+    {
+        InGameWatingCountMessage msg = new InGameWatingCountMessage(IN_GAME_WATING_COUNT);
+        //카운트 다운
+        for (int i = 0; i < IN_GAME_WATING_COUNT + 1; ++i)
+        {
+            msg.time = IN_GAME_WATING_COUNT - i;
+            BackEndMatchManager.GetInstance().SendDataToInGame<InGameWatingCountMessage>(msg);
+            yield return new WaitForSeconds(1); //1초 단위
+        }
+        OnGameBattleReady();
+    }
+    IEnumerator InGameBattleReadyCount()
+    {
+        InGameBattleReadyCountMessage msg = new InGameBattleReadyCountMessage(IN_GAME_BATTLE_READY_COUNT);
+        //카운트 다운
+        for (int i = 0; i < IN_GAME_BATTLE_READY_COUNT + 1; ++i)
+        {
+            msg.time = IN_GAME_BATTLE_READY_COUNT - i;
+            BackEndMatchManager.GetInstance().SendDataToInGame<InGameBattleReadyCountMessage>(msg);
+            yield return new WaitForSeconds(1); //1초 단위
+        }
+        OnGameBattle();
+    }
+    IEnumerator InGameBattleCount()
+    {
+        InGameBattleCountMessage msg = new InGameBattleCountMessage(IN_GAME_BATTAL_COUNT);
+        //카운트 다운
+        for (int i = 0; i < IN_GAME_BATTAL_COUNT + 1; ++i)
+        {
+            msg.time = IN_GAME_BATTAL_COUNT - i;
+            BackEndMatchManager.GetInstance().SendDataToInGame<InGameBattleCountMessage>(msg);
+            yield return new WaitForSeconds(1); //1초 단위
+        }
+        OnWinnerCheck();
+    }
+    IEnumerator InGameWinnerCheckCount()
+    {
+        InGameWinnerCheckCountMessage msg = new InGameWinnerCheckCountMessage(IN_GAME_WINNER_CHECK_COUNT);
+        //카운트 다운
+        for (int i = 0; i < IN_GAME_WINNER_CHECK_COUNT + 1; ++i)
+        {
+            msg.time = IN_GAME_WINNER_CHECK_COUNT - i;
+            BackEndMatchManager.GetInstance().SendDataToInGame<InGameWinnerCheckCountMessage>(msg);
+            yield return new WaitForSeconds(1); //1초 단위
+        }
+        OnGameEvent();
+    }
+
+
 
     public void PreInGame()
     {
@@ -302,6 +416,7 @@ public class WorldManager : MonoBehaviour
         }
         switch (msg.type)
         {
+            //월드에서 보내주는 것들
             case Protocol.Type.StartCount:
                 StartCountMessage startCount = DataParser.ReadJsonData<StartCountMessage>(args.BinaryUserData);
                 Debug.Log("wait second : " + (startCount.time));
@@ -316,7 +431,40 @@ public class WorldManager : MonoBehaviour
                 SetGameRecord(endMessage.count, endMessage.sessionList);
                 GameManager_Server.GetInstance().ChangeState(GameManager_Server.GameState.Over);
                 break;
+            case Protocol.Type.GameMatching:
+                PlayerMatchingMessage matchingMessage = DataParser.ReadJsonData<PlayerMatchingMessage>(args.BinaryUserData);
+                ArenaManager.Instance.MatchingTest(matchingMessage.otherPlayerSession);
+                break;
+            case Protocol.Type.InGameEvent:
+                InGameEventCountMessage eventCount = DataParser.ReadJsonData<InGameEventCountMessage>(args.BinaryUserData);
+                Debug.Log("Event second :" + (eventCount.time));
+                InGameUiManager.GetInstance().SetGameStateEvent();
+                break;
+            case Protocol.Type.InGameWating:
+                InGameWatingCountMessage watingCount = DataParser.ReadJsonData<InGameWatingCountMessage>(args.BinaryUserData);
+                Debug.Log("Wating second :" + (watingCount.time));
+                InGameUiManager.GetInstance().SetGameStateWating();
+                break;
+            case Protocol.Type.InGameBattleReady:
+                InGameBattleReadyCountMessage battleReadyCount = DataParser.ReadJsonData<InGameBattleReadyCountMessage>(args.BinaryUserData);
+                Debug.Log("Battle Ready second :" + (battleReadyCount.time));
+                InGameUiManager.GetInstance().SetGameStateBattleReady();
+                break;
+            case Protocol.Type.InGameBattle:
+                InGameBattleCountMessage battleCount = DataParser.ReadJsonData<InGameBattleCountMessage>(args.BinaryUserData);
+                Debug.Log("Battle second :" + (battleCount.time));
+                InGameUiManager.GetInstance().SetGameStateBattle();
+                break;
+            case Protocol.Type.InGameWinnerCheck:
+                InGameWinnerCheckCountMessage winnerCheckCount = DataParser.ReadJsonData<InGameWinnerCheckCountMessage>(args.BinaryUserData);
+                Debug.Log("Winner Check second :" + (winnerCheckCount.time));
+                InGameUiManager.GetInstance().SetGameStateWinnerCheck();
+                break;
 
+
+
+
+            //키랑 버튼은 완전히 다른 것이니 따로 생각하기
             case Protocol.Type.Key:
                 KeyMessage keyMessage = DataParser.ReadJsonData<KeyMessage>(args.BinaryUserData);
                 ProcessKeyEvent(args.From.SessionId, keyMessage);
@@ -357,6 +505,10 @@ public class WorldManager : MonoBehaviour
             case Protocol.Type.PlayerMove:
                 PlayerMoveMessage moveMessage = DataParser.ReadJsonData<PlayerMoveMessage>(args.BinaryUserData);
                 ProcessPlayerData(moveMessage);
+                break;
+            case Protocol.Type.PlayerTouchMove:
+                PlayerTouchMoveMessaeg touchMoveMessage = DataParser.ReadJsonData<PlayerTouchMoveMessaeg>(args.BinaryUserData);
+                ProcessPlayerData(touchMoveMessage);
                 break;
             case Protocol.Type.PlayerAttack:
                 PlayerAttackMessage attackMessage = DataParser.ReadJsonData<PlayerAttackMessage>(args.BinaryUserData);
@@ -494,6 +646,7 @@ public class WorldManager : MonoBehaviour
             return;
         }
         bool isMove = false;
+        bool isTouchMove = false;
         bool isAttack = false;
         bool isNoMove = false;
 
@@ -507,6 +660,11 @@ public class WorldManager : MonoBehaviour
             moveVecotr = new Vector3(keyMessage.x, keyMessage.y, keyMessage.z);
             moveVecotr = Vector3.Normalize(moveVecotr);
             isMove = true;
+        }
+        if((keyData & KeyEventCode.TOUCH_MOVE) == KeyEventCode.TOUCH_MOVE)
+        {
+            moveVecotr = new Vector3(keyMessage.x, keyMessage.y, keyMessage.z);
+            isTouchMove = true;
         }
         if ((keyData & KeyEventCode.ATTACK) == KeyEventCode.ATTACK)
         {
@@ -525,6 +683,12 @@ public class WorldManager : MonoBehaviour
             players[index].SetMoveVector(moveVecotr); //연산
             PlayerMoveMessage msg = new PlayerMoveMessage(index, playerPos, moveVecotr); //연산 데이터 메세지로 변경
             BackEndMatchManager.GetInstance().SendDataToInGame<PlayerMoveMessage>(msg);  //연산한 데이터 메세지로 보냄
+        }
+        if(isTouchMove)
+        {
+            players[index].SetMoveVector(moveVecotr);
+            PlayerTouchMoveMessaeg msg = new PlayerTouchMoveMessaeg(index, playerPos, moveVecotr);
+            BackEndMatchManager.GetInstance().SendDataToInGame<PlayerTouchMoveMessaeg>(msg);
         }
         if (isNoMove)
         {
@@ -556,6 +720,21 @@ public class WorldManager : MonoBehaviour
         }
         Vector3 moveVecotr = new Vector3(data.xDir, data.yDir, data.zDir);
         // moveVector가 같으면 방향 & 이동량 같으므로 적용 굳이 안함
+        if (!moveVecotr.Equals(players[data.playerSession].moveVector))
+        {
+            players[data.playerSession].SetPosition(data.xPos, data.yPos, data.zPos);
+            players[data.playerSession].SetMoveVector(moveVecotr);
+        }
+    }
+
+    private void ProcessPlayerData(PlayerTouchMoveMessaeg data)
+    {
+        if (BackEndMatchManager.GetInstance().IsHost() == true)
+        {
+            //호스트면 리턴
+            return;
+        }
+        Vector3 moveVecotr = new Vector3(data.xDir, data.yDir, data.zDir);
         if (!moveVecotr.Equals(players[data.playerSession].moveVector))
         {
             players[data.playerSession].SetPosition(data.xPos, data.yPos, data.zPos);
