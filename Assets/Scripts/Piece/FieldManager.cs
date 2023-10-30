@@ -178,8 +178,8 @@ public class FieldManager : MonoBehaviour
     //OncePerAttack-------------4
 
     public delegate void BattleStartEffect(bool isAdd); public HashSet<BattleStartEffect> sBattleStartEffect = new HashSet<BattleStartEffect>();
-    void AddBattleStartEffect(BattleStartEffect handler) { sBattleStartEffect.Add(handler); }
-    void RemoveBattleStartEffect(BattleStartEffect handler) { sBattleStartEffect.Remove(handler); }
+    public void AddBattleStartEffect(BattleStartEffect handler) { sBattleStartEffect.Add(handler); }
+    public void RemoveBattleStartEffect(BattleStartEffect handler) { sBattleStartEffect.Remove(handler); }
 
     public delegate void CoroutineEffect(); public HashSet<CoroutineEffect> sCoroutineEffect = new HashSet<CoroutineEffect>();
     void AddCoroutine(CoroutineEffect handler) { sCoroutineEffect.Add(handler); }
@@ -281,7 +281,7 @@ public class FieldManager : MonoBehaviour
                                     RemoveCoroutine(buffManager.mythBuff[0].heavenGroundBuff[i - 1].CoroutineEffect);
                                     break;
                                 case PieceData.Myth.BurningGround:
-                                    buffManager.mythBuff[0].burningGroundBuff[i - 1].DirectEffect(piece, false);
+                                    //buffManager.mythBuff[0].burningGroundBuff[i - 1].DirectEffect(piece, false);
                                     break;
                             }
                         }
@@ -308,7 +308,7 @@ public class FieldManager : MonoBehaviour
                                     AddCoroutine(buffManager.mythBuff[0].heavenGroundBuff[i].CoroutineEffect);
                                     break;
                                 case PieceData.Myth.BurningGround:
-                                    buffManager.mythBuff[0].burningGroundBuff[i].DirectEffect(piece, true);
+                                    //buffManager.mythBuff[0].burningGroundBuff[i].DirectEffect(piece, true);
                                     break;
                             }
                         }
@@ -341,7 +341,7 @@ public class FieldManager : MonoBehaviour
                                 RemoveCoroutine(buffManager.mythBuff[0].heavenGroundBuff[i - 1].CoroutineEffect);
                                 break;
                             case PieceData.Myth.BurningGround:
-                                buffManager.mythBuff[0].burningGroundBuff[i - 1].DirectEffect(piece, false);
+                                //buffManager.mythBuff[0].burningGroundBuff[i - 1].DirectEffect(piece, false);
                                 break;
                         }
                     }

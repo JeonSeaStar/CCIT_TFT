@@ -13,7 +13,7 @@ public class PieceData : ScriptableObject
     public float[] mana             = new float[3];            //마나
     public float[] manaRecovery     = new float[3];    //마나 회복력
 
-    public float[] attackPower      = new float[3];    //기본 공격력
+    public float[] attackDamage     = new float[3];    //기본 공격력
     public float[] abilityPower     = new float[3];   //최종 스킬 공격력
 
     public float[] armor            = new float[3];//방어력
@@ -142,16 +142,18 @@ public class PieceData : ScriptableObject
 
     public void CalculateBuff(Piece piece , BuffData buffData)
     {
-        piece.health += CalculateStatus(piece.health, buffData.health, buffData.percentHealth);
-        piece.mana += CalculateStatus(piece.mana, buffData.mana, buffData.percentMana);
-        piece.attackDamage += CalculateStatus(piece.attackDamage, buffData.attackDamage, buffData.percentAttackDamage);
-        piece.abilityPower += CalculateStatus(piece.abilityPower, buffData.abilityPower, buffData.percentAbilityPower);
-        piece.armor += CalculateStatus(piece.armor, buffData.armor, buffData.percentArmor);
-        piece.magicResist += CalculateStatus(piece.magicResist, buffData.magicResist, buffData.percentMagicResist);
-        piece.attackSpeed += CalculateStatus(piece.attackSpeed, buffData.attackSpeed, buffData.percentAttackSpeed);
-        piece.criticalChance += CalculateStatus(piece.criticalChance, buffData.criticalChance, buffData.percentCriticalChance);
-        piece.criticalDamage += CalculateStatus(piece.criticalDamage, buffData.criticalDamage, buffData.percentCriticalDamage);
-        piece.attackRange += CalculateStatus(piece.attackRange, buffData.attackRange, buffData.percentAttackRange);
+        int _star = piece.star; //0, 1, 2
+
+        piece.health += CalculateStatus(piece.pieceData.health[_star], buffData.health, buffData.percentHealth);
+        piece.mana += CalculateStatus(piece.pieceData.mana[_star], buffData.mana, buffData.percentMana);
+        piece.attackDamage += CalculateStatus(piece.pieceData.attackDamage[_star], buffData.attackDamage, buffData.percentAttackDamage);
+        piece.abilityPower += CalculateStatus(piece.pieceData.abilityPower[_star], buffData.abilityPower, buffData.percentAbilityPower);
+        piece.armor += CalculateStatus(piece.pieceData.armor[_star], buffData.armor, buffData.percentArmor);
+        piece.magicResist += CalculateStatus(piece.pieceData.magicResist[_star], buffData.magicResist, buffData.percentMagicResist);
+        piece.attackSpeed += CalculateStatus(piece.pieceData.attackSpeed[_star], buffData.attackSpeed, buffData.percentAttackSpeed);
+        piece.criticalChance += CalculateStatus(piece.pieceData.criticalChance[_star], buffData.criticalChance, buffData.percentCriticalChance);
+        piece.criticalDamage += CalculateStatus(piece.pieceData.criticalDamage[_star], buffData.criticalDamage, buffData.percentCriticalDamage);
+        piece.attackRange += CalculateStatus(piece.pieceData.attackRange[_star], buffData.attackRange, buffData.percentAttackRange);
     }
 
     float CalculateStatus(float target, float value, bool percent)

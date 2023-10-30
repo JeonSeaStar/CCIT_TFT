@@ -65,7 +65,7 @@ public class Piece : MonoBehaviour
     //public List<string> sReceivedBuff;
 
     [Header("상태")]
-    public bool immune;
+    public bool immune; //상태면역
     public bool freeze;
     public bool slow;
     public bool airborne;
@@ -129,14 +129,27 @@ public class Piece : MonoBehaviour
 
         if (target.health <= 0)
         {
+            #region 악마 기물 시너지 확인
+            var _burningPiece = ArenaManager.Instance.fieldManagers[0].buffManager.mythBuff[0];
+            if(buffList.Contains(_burningPiece.burningGroundBuff[0]) || buffList.Contains(_burningPiece.burningGroundBuff[1]))
+            {
+                var _buff = (ArenaManager.Instance.fieldManagers[0].mythActiveCount[PieceData.Myth.BurningGround] >= 4) ? _burningPiece.burningGroundBuff[1] : _burningPiece.burningGroundBuff[0];
+                _buff.DirectEffect(this, true);
+                _buff.BattleStartEffect(true);
+
+                int _r = UnityEngine.Random.Range(0, 9);
+                if (_r == 0 && _buff == _burningPiece.burningGroundBuff[1])
+                {
+                    target.SetCharm();
+                }
+            }
+            #endregion
             target.Dead();
             target = null;
-            if (this.pieceData.myth == PieceData.Myth.BurningGround)
-            {
-                //this.pieceData.CalculateBuff(this,)
-            }
         }
     }
+    
+
 
     void Dead()
     {
@@ -289,6 +302,11 @@ public class Piece : MonoBehaviour
         freeze = true;
         //1초 뒤에 빙결을 푸는 기능 추가해주세요.
         //canMove = false;
+    }
+
+    public void SetImmune()
+    {
+        immune = true;
     }
 
     public void SetSlow()

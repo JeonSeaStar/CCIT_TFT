@@ -5,23 +5,40 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Scriptable Object/Buff Datas/Myth/BurningGroundBuff1")]
 public class BurningGroundBuff1 : BuffData
 {
+    Dictionary<Piece, int> burningGroungPiece = new Dictionary<Piece, int>();
     public override void DirectEffect(Piece piece, bool isAdd)
     {
-        if (isAdd)
-        {
-            percentHealth = true;
-            percentAttackDamage = true;
+        if (burningGroungPiece.ContainsKey(piece)) burningGroungPiece[piece] = burningGroungPiece[piece] + 1;
+        else burningGroungPiece.Add(piece, 1);
 
-            health = 20;
-            attackDamage = 15;
-        }
+        int _star = piece.star;
+
+        piece.health += piece.pieceData.health[_star] * 0.2f;
+        if (piece.health > piece.pieceData.health[_star]) piece.health = piece.pieceData.health[_star];
+
+        float attackPlus = piece.pieceData.attackDamage[_star] * 0.15f;
+        piece.attackDamage += attackPlus;
+        
+    }
+
+    public override void BattleStartEffect(bool isAdd)
+    {
+        if (isAdd) ArenaManager.Instance.fieldManagers[0].AddBattleStartEffect(BattleStartEffect);
         else if (!isAdd)
         {
-            percentHealth = false;
-            percentAttackDamage = false;
-
-            health = 0;
-            attackDamage = 0;
+            foreach(var _piece in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
+            {
+                if(_piece.pieceData.myth == PieceData.Myth.BurningGround && burningGroungPiece.ContainsKey(_piece))
+                {
+                    for (int i = 0; i < burningGroungPiece[_piece]; i++)
+                    {
+                        int _star = _piece.star;
+                        _piece.attackDamage -= _piece.pieceData.attackDamage[_star] * 0.15f;
+                    }
+                }
+            }
+            burningGroungPiece.Clear();
+            ArenaManager.Instance.fieldManagers[0].RemoveBattleStartEffect(BattleStartEffect);
         }
     }
 }

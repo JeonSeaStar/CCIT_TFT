@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Scriptable Object/Buff Datas/Myth/FrostyWindBuff3")]
 public class FrostyWindBuff3 : BuffData
 {
-    List<Piece> frostyWindPiece;
+    List<Piece> frostyWindPiece = new List<Piece>();
     public override void CoroutineEffect()
     {
         ArenaManager.Instance.fieldManagers[0].StartCoroutine(FrostyWind());
