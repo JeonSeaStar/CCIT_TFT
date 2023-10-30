@@ -19,7 +19,11 @@ public class FrostyWindBuff3 : BuffData
             yield return new WaitForSeconds(3f);
 
             int _count = Random.Range(1, 4);
-            List<Piece> enemyList = ArenaManager.Instance.fieldManagers[0].enemyFilePieceList;
+            List<Piece> enemyList = new List<Piece>();
+            foreach (var _activePiece in ArenaManager.Instance.fieldManagers[0].enemyFilePieceList)
+            {
+                if (_activePiece.gameObject.activeSelf == true) enemyList.Add(_activePiece);
+            }
             Piece[] enemyPiece = new Piece[_count];
 
             for (int i = 0; i < _count; i++)

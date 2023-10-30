@@ -367,6 +367,7 @@ public class FieldManager : MonoBehaviour
                             switch (animalType)
                             {
                                 case PieceData.Animal.Hamster:
+                                    RemoveBattleStartEffect(buffManager.animalBuff[0].hamsterBuff[i - 1].BattleStartEffect);
                                     RemoveCoroutine(buffManager.animalBuff[0].hamsterBuff[i - 1].CoroutineEffect);
                                     break;
                                 case PieceData.Animal.Cat:
@@ -392,6 +393,7 @@ public class FieldManager : MonoBehaviour
                             switch (animalType)
                             {
                                 case PieceData.Animal.Hamster:
+                                    AddBattleStartEffect(buffManager.animalBuff[0].hamsterBuff[i].BattleStartEffect);
                                     AddCoroutine(buffManager.animalBuff[0].hamsterBuff[i].CoroutineEffect);
                                     break;
                                 case PieceData.Animal.Cat:
@@ -424,6 +426,7 @@ public class FieldManager : MonoBehaviour
                         switch (animalType)
                         {
                             case PieceData.Animal.Hamster:
+                                RemoveBattleStartEffect(buffManager.animalBuff[0].hamsterBuff[i - 1].BattleStartEffect);
                                 RemoveCoroutine(buffManager.animalBuff[0].hamsterBuff[i - 1].CoroutineEffect);
                                 break;
                             case PieceData.Animal.Cat:

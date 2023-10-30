@@ -656,23 +656,9 @@ MonoBehaviour:
   criticalChance: 0
   criticalDamage: 0
   attackRange: 0
-  defaultHealth: 0
-  currentHealth: 0
-  defaultMana: 0
-  currentMana: 0
-  manaRecovery: 0
+  bloodBrain: 0
   shield: 0
   currentShield: 0
-  defaultAttackPower: 0
-  attackPower: 0
-  defaultAbilityPower: 0
-  abilityDamage: 0
-  defaultArmor: 0
-  defaultMagicResist: 0
-  defaultAttackSpeed: 0
-  defaultCriticalChance: 0
-  defaultCriticalDamage: 0
-  defaultAttackRange: 0
   dead: 0
   owner: 
   isOwned: 0
@@ -688,12 +674,14 @@ MonoBehaviour:
     type: 3}
   buffList: []
   expeditionTile: {fileID: 0}
+  immune: 0
   freeze: 0
   slow: 0
   airborne: 0
   faint: 0
   fear: 0
   invincible: 0
+  charm: 0
 --- !u!114 &43912632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9012,23 +9000,9 @@ MonoBehaviour:
   criticalChance: 0
   criticalDamage: 0
   attackRange: 0
-  defaultHealth: 0
-  currentHealth: 0
-  defaultMana: 0
-  currentMana: 0
-  manaRecovery: 0
+  bloodBrain: 0
   shield: 0
   currentShield: 0
-  defaultAttackPower: 0
-  attackPower: 0
-  defaultAbilityPower: 0
-  abilityDamage: 0
-  defaultArmor: 0
-  defaultMagicResist: 0
-  defaultAttackSpeed: 0
-  defaultCriticalChance: 0
-  defaultCriticalDamage: 0
-  defaultAttackRange: 0
   dead: 0
   owner: 
   isOwned: 1
@@ -9044,12 +9018,14 @@ MonoBehaviour:
     type: 3}
   buffList: []
   expeditionTile: {fileID: 0}
+  immune: 0
   freeze: 0
   slow: 0
   airborne: 0
   faint: 0
   fear: 0
   invincible: 0
+  charm: 0
 --- !u!1 &592307816
 GameObject:
   m_ObjectHideFlags: 0
@@ -12097,23 +12073,9 @@ MonoBehaviour:
   criticalChance: 0
   criticalDamage: 0
   attackRange: 0
-  defaultHealth: 0
-  currentHealth: 0
-  defaultMana: 0
-  currentMana: 0
-  manaRecovery: 0
+  bloodBrain: 0
   shield: 0
   currentShield: 0
-  defaultAttackPower: 0
-  attackPower: 0
-  defaultAbilityPower: 0
-  abilityDamage: 0
-  defaultArmor: 0
-  defaultMagicResist: 0
-  defaultAttackSpeed: 0
-  defaultCriticalChance: 0
-  defaultCriticalDamage: 0
-  defaultAttackRange: 0
   dead: 0
   owner: 
   isOwned: 1
@@ -12129,12 +12091,14 @@ MonoBehaviour:
     type: 3}
   buffList: []
   expeditionTile: {fileID: 0}
+  immune: 0
   freeze: 0
   slow: 0
   airborne: 0
   faint: 0
   fear: 0
   invincible: 0
+  charm: 0
 --- !u!1001 &812478602
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14416,23 +14380,9 @@ MonoBehaviour:
   criticalChance: 0
   criticalDamage: 0
   attackRange: 0
-  defaultHealth: 0
-  currentHealth: 0
-  defaultMana: 0
-  currentMana: 0
-  manaRecovery: 0
+  bloodBrain: 0
   shield: 0
   currentShield: 0
-  defaultAttackPower: 0
-  attackPower: 0
-  defaultAbilityPower: 0
-  abilityDamage: 0
-  defaultArmor: 0
-  defaultMagicResist: 0
-  defaultAttackSpeed: 0
-  defaultCriticalChance: 0
-  defaultCriticalDamage: 0
-  defaultAttackRange: 0
   dead: 0
   owner: 
   isOwned: 1
@@ -14448,12 +14398,14 @@ MonoBehaviour:
     type: 3}
   buffList: []
   expeditionTile: {fileID: 0}
+  immune: 0
   freeze: 0
   slow: 0
   airborne: 0
   faint: 0
   fear: 0
   invincible: 0
+  charm: 0
 --- !u!4 &948282654 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9051238300485817969, guid: 2f6c4572e07a60b43b00e1c4f489a806,
@@ -15808,12 +15760,16 @@ MonoBehaviour:
   owned: 0
   isGrab: 0
   isDrag: 0
+  isExpedition: 0
   damagePerPiece: 020000000400000006000000080000000a0000000b0000000c0000000d0000000e0000000f000000
   damagePerRound: 000000000100000002000000030000000400000006000000090000000f000000
   controlPiece: {fileID: 0}
   controlEquipment: {fileID: 0}
   chargingParticle: {fileID: 0}
   AttackParticle: {fileID: 0}
+  matchingInformation:
+    myIndex: 0
+    matchingHistroy: 
 --- !u!23 &1052439236
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -17806,23 +17762,9 @@ MonoBehaviour:
   criticalChance: 0
   criticalDamage: 0
   attackRange: 0
-  defaultHealth: 0
-  currentHealth: 0
-  defaultMana: 0
-  currentMana: 0
-  manaRecovery: 0
+  bloodBrain: 0
   shield: 0
   currentShield: 0
-  defaultAttackPower: 0
-  attackPower: 0
-  defaultAbilityPower: 0
-  abilityDamage: 0
-  defaultArmor: 0
-  defaultMagicResist: 0
-  defaultAttackSpeed: 0
-  defaultCriticalChance: 0
-  defaultCriticalDamage: 0
-  defaultAttackRange: 0
   dead: 0
   owner: 
   isOwned: 1
@@ -17838,12 +17780,14 @@ MonoBehaviour:
     type: 3}
   buffList: []
   expeditionTile: {fileID: 0}
+  immune: 0
   freeze: 0
   slow: 0
   airborne: 0
   faint: 0
   fear: 0
   invincible: 0
+  charm: 0
 --- !u!65 &1234782748
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20583,23 +20527,9 @@ MonoBehaviour:
   criticalChance: 0
   criticalDamage: 0
   attackRange: 0
-  defaultHealth: 0
-  currentHealth: 0
-  defaultMana: 0
-  currentMana: 0
-  manaRecovery: 0
+  bloodBrain: 0
   shield: 0
   currentShield: 0
-  defaultAttackPower: 0
-  attackPower: 0
-  defaultAbilityPower: 0
-  abilityDamage: 0
-  defaultArmor: 0
-  defaultMagicResist: 0
-  defaultAttackSpeed: 0
-  defaultCriticalChance: 0
-  defaultCriticalDamage: 0
-  defaultAttackRange: 0
   dead: 0
   owner: 
   isOwned: 1
@@ -20615,12 +20545,14 @@ MonoBehaviour:
     type: 3}
   buffList: []
   expeditionTile: {fileID: 0}
+  immune: 0
   freeze: 0
   slow: 0
   airborne: 0
   faint: 0
   fear: 0
   invincible: 0
+  charm: 0
 --- !u!1 &1460477377
 GameObject:
   m_ObjectHideFlags: 0
@@ -23951,23 +23883,9 @@ MonoBehaviour:
   criticalChance: 0
   criticalDamage: 0
   attackRange: 0
-  defaultHealth: 0
-  currentHealth: 0
-  defaultMana: 0
-  currentMana: 0
-  manaRecovery: 0
+  bloodBrain: 0
   shield: 0
   currentShield: 0
-  defaultAttackPower: 0
-  attackPower: 0
-  defaultAbilityPower: 0
-  abilityDamage: 0
-  defaultArmor: 0
-  defaultMagicResist: 0
-  defaultAttackSpeed: 0
-  defaultCriticalChance: 0
-  defaultCriticalDamage: 0
-  defaultAttackRange: 0
   dead: 0
   owner: 
   isOwned: 0
@@ -23983,12 +23901,14 @@ MonoBehaviour:
     type: 3}
   buffList: []
   expeditionTile: {fileID: 0}
+  immune: 0
   freeze: 0
   slow: 0
   airborne: 0
   faint: 0
   fear: 0
   invincible: 0
+  charm: 0
 --- !u!114 &1746667500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25264,6 +25184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a9134c8592f4d04590c9b821674ebaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  owerPlyer: {fileID: 0}
   DualPlayers:
   - {fileID: 0}
   - {fileID: 0}
@@ -26192,23 +26113,9 @@ MonoBehaviour:
   criticalChance: 0
   criticalDamage: 0
   attackRange: 0
-  defaultHealth: 0
-  currentHealth: 0
-  defaultMana: 0
-  currentMana: 0
-  manaRecovery: 0
+  bloodBrain: 0
   shield: 0
   currentShield: 0
-  defaultAttackPower: 0
-  attackPower: 0
-  defaultAbilityPower: 0
-  abilityDamage: 0
-  defaultArmor: 0
-  defaultMagicResist: 0
-  defaultAttackSpeed: 0
-  defaultCriticalChance: 0
-  defaultCriticalDamage: 0
-  defaultAttackRange: 0
   dead: 0
   owner: 
   isOwned: 0
@@ -26224,12 +26131,14 @@ MonoBehaviour:
     type: 3}
   buffList: []
   expeditionTile: {fileID: 0}
+  immune: 0
   freeze: 0
   slow: 0
   airborne: 0
   faint: 0
   fear: 0
   invincible: 0
+  charm: 0
 --- !u!114 &1957474541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28723,12 +28632,16 @@ MonoBehaviour:
   owned: 1
   isGrab: 0
   isDrag: 0
+  isExpedition: 0
   damagePerPiece: 020000000400000006000000080000000a0000000b0000000c0000000d0000000e0000000f000000
   damagePerRound: 000000000100000002000000030000000400000006000000090000000f000000
   controlPiece: {fileID: 0}
   controlEquipment: {fileID: 0}
   chargingParticle: {fileID: 0}
   AttackParticle: {fileID: 0}
+  matchingInformation:
+    myIndex: 0
+    matchingHistroy: 
 --- !u!54 &3469287837247737725
 Rigidbody:
   m_ObjectHideFlags: 0

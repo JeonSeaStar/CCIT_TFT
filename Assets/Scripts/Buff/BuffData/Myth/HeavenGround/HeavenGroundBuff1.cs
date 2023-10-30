@@ -18,7 +18,7 @@ public class HeavenGroundBuff1 : BuffData
     PathFinding pathFinding;
     IEnumerator HeavenGround()
     {
-        pathFinding = GameObject.Find("PathFinding").GetComponent<PathFinding>();
+        pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
         List<Piece> heavenGroundPieces = new List<Piece>();
         foreach(var piece in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
         {

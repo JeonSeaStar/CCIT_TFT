@@ -15,7 +15,7 @@ public class GreatMountainBuff2 : BuffData
     public override void BattleStartEffect(bool isAdd)
     {
         pieceParent = GameObject.Find("Pieces");
-        pathFinding = GameObject.Find("PathFinding").GetComponent<PathFinding>();
+        pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
         if (isAdd)
         {
             int _count = greatMountainPieceData2.Count;
