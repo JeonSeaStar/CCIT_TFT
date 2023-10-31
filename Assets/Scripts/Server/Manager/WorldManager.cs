@@ -28,7 +28,7 @@ public class WorldManager : MonoBehaviour
     const int IN_GAME_WINNER_CHECK_COUNT = 5;
 
 
-    private SessionId myPlayerIndex = SessionId.None;
+    public SessionId myPlayerIndex = SessionId.None;
 
     #region 플레이어
     public GameObject[] playerPool;
@@ -37,8 +37,7 @@ public class WorldManager : MonoBehaviour
     public GameObject particle;
     private const int MAXPLAYER = 8;
     public int alivePlayer { get; set; }
-    private Dictionary<SessionId, Player> players;
-    private Dictionary<SessionId, FieldManager> fields;
+    public Dictionary<SessionId, Player> players;
     public GameObject[] startPointObject;
     private List<Vector4> statringPoints;
 
@@ -47,6 +46,11 @@ public class WorldManager : MonoBehaviour
     public PlayerDie dieEvent;
 
     //public Player[] TestPlayers;
+    #endregion
+
+    #region 기물
+    Tile tiles;
+    public GameObject[] shops;
     #endregion
     void Awake()
     {
@@ -185,11 +189,12 @@ public class WorldManager : MonoBehaviour
             if (BackEndMatchManager.GetInstance().IsMySessionId(sessionId)) //나인거
             {
                 myPlayerIndex = sessionId;
-                players[sessionId].Initialize(true, myPlayerIndex, BackEndMatchManager.GetInstance().GetNickNameBySessionId(sessionId), statringPoints[index].w, playerPool[index].GetComponentInChildren<FieldManager>());
+                players[sessionId].Initialize(true, myPlayerIndex, BackEndMatchManager.GetInstance().GetNickNameBySessionId(sessionId), statringPoints[index].w, playerPool[index].GetComponentInChildren<FieldManager>(), InGameUiManager.GetInstance().playersHp[index].GetComponent<TMP_Text>(), shops[index].GetComponent<GameObject>());
             }
             else //나 아닌거
             {
-                players[sessionId].Initialize(false, sessionId, BackEndMatchManager.GetInstance().GetNickNameBySessionId(sessionId), statringPoints[index].w, playerPool[index].GetComponentInChildren<FieldManager>());
+                players[sessionId].Initialize(false, sessionId, BackEndMatchManager.GetInstance().GetNickNameBySessionId(sessionId), statringPoints[index].w, playerPool[index].GetComponentInChildren<FieldManager>(), InGameUiManager.GetInstance().playersHp[index].GetComponent<TMP_Text>(), shops[index].GetComponent<GameObject>());
+                shops[index].SetActive(false);
             }
             index += 1;
         }
@@ -270,7 +275,7 @@ public class WorldManager : MonoBehaviour
         }
     }
 
-    public void  OnWinnerCheck()
+    public void OnWinnerCheck()
     {
         if (BackEndMatchManager.GetInstance().IsHost())
         {
@@ -484,6 +489,33 @@ public class WorldManager : MonoBehaviour
                 PlayerButtonBuyMessage playerButtonBuyMessage = DataParser.ReadJsonData<PlayerButtonBuyMessage>(args.BinaryUserData);
                 ProcessPlayerData(playerButtonBuyMessage);
                 break;
+
+
+
+            case Protocol.Type.PlayerBuyPiece0:
+                PlayerButtonBuyPiece0Message playerButtonBuyPiece0Message = DataParser.ReadJsonData<PlayerButtonBuyPiece0Message>(args.BinaryUserData);
+                ProcessPlayerData(playerButtonBuyPiece0Message);
+                break;
+            //case Protocol.Type.PlayerBuyPiece1:
+            //    PlayerButtonBuyPiece1Message playerButtonBuyPiece1Message = DataParser.ReadJsonData<PlayerButtonBuyPiece1Message>(args.BinaryUserData);
+            //    ProcessPlayerData(playerButtonBuyPiece1Message);
+            //    break;
+            //case Protocol.Type.PlayerBuyPiece2:
+            //    PlayerButtonBuyPiece2Message playerButtonBuyPiece2Message = DataParser.ReadJsonData<PlayerButtonBuyPiece2Message>(args.BinaryUserData);
+            //    ProcessPlayerData(playerButtonBuyPiece2Message);
+            //    break;
+            //case Protocol.Type.PlayerBuyPiece3:
+            //    PlayerButtonBuyPiece3Message playerButtonBuyPiece3Message = DataParser.ReadJsonData<PlayerButtonBuyPiece3Message>(args.BinaryUserData);
+            //    ProcessPlayerData(playerButtonBuyPiece3Message);
+            //    break;
+            //case Protocol.Type.PlayerBuyPiece4:
+            //    PlayerButtonBuyPiece4Message playerButtonBuyPiece4Message = DataParser.ReadJsonData<PlayerButtonBuyPiece4Message>(args.BinaryUserData);
+            //    ProcessPlayerData(playerButtonBuyPiece4Message);
+            //    break;
+
+
+
+
             case Protocol.Type.PlayerSellPiece:
                 PlayerButtonSellMessage playerButtonSellMessage = DataParser.ReadJsonData<PlayerButtonSellMessage>(args.BinaryUserData);
                 ProcessPlayerData(playerButtonSellMessage);
@@ -522,7 +554,7 @@ public class WorldManager : MonoBehaviour
             //    PlayerDeadMessage deadMessage = DataParser.ReadJsonData<PlayerDeadMessage>(args.BinaryUserData);
             //    ProcessPlayerData(deadMessage);
             //    break;
-                //
+            //
 
             case Protocol.Type.PlayerNoMove:
                 PlayerNoMoveMessage noMoveMessage = DataParser.ReadJsonData<PlayerNoMoveMessage>(args.BinaryUserData);
@@ -571,17 +603,44 @@ public class WorldManager : MonoBehaviour
         bool storeLock = false;
         bool levelUp = false;
 
+        bool buyPiece0 = false;
+        //bool buyPiece1 = false;
+        //bool buyPiece2 = false;
+        //bool buyPiece3 = false;
+        //bool buyPiece4 = false;
+
         Vector3 piecePos = Vector3.zero;
+        Tile targetTile;
 
         int ButtonData = buttonMessage.ButtonData;
-        if((ButtonData & ButtonEventCode.TESTBUTTON1) == ButtonEventCode.TESTBUTTON1)
+        if ((ButtonData & ButtonEventCode.TESTBUTTON1) == ButtonEventCode.TESTBUTTON1)
         {
             button1 = true;
         }
-        if((ButtonData & ButtonEventCode.BUY) == ButtonEventCode.BUY)
+        if ((ButtonData & ButtonEventCode.BUY) == ButtonEventCode.BUY)
         {
-            buyPiece = true;
+            buyPiece = true; //이거는 사실상 사용 X
         }
+        if ((ButtonData & ButtonEventCode.BUYPIECE0) == ButtonEventCode.BUYPIECE0)
+        {
+            buyPiece0 = true;
+        }
+        //if ((ButtonData & ButtonEventCode.BUYPIECE1) == ButtonEventCode.BUYPIECE1)
+        //{
+        //    buyPiece1 = true;
+        //}
+        //if ((ButtonData & ButtonEventCode.BUYPIECE2) == ButtonEventCode.BUYPIECE2)
+        //{
+        //    buyPiece2 = true;
+        //}
+        //if ((ButtonData & ButtonEventCode.BUYPIECE3) == ButtonEventCode.BUYPIECE3)
+        //{
+        //    buyPiece3 = true;
+        //}
+        //if ((ButtonData & ButtonEventCode.BUYPIECE4) == ButtonEventCode.BUYPIECE4)
+        //{
+        //    buyPiece4 = true;
+        //}
         if ((ButtonData & ButtonEventCode.SELL) == ButtonEventCode.SELL)
         {
             sellPiece = true;
@@ -605,31 +664,69 @@ public class WorldManager : MonoBehaviour
             PlayerButtonDeadMessage msg = new PlayerButtonDeadMessage(index);
             BackEndMatchManager.GetInstance().SendDataToInGame<PlayerButtonDeadMessage>(msg);
         }
-        if(buyPiece) //vector3 piecepos 받는중
+        if (buyPiece) //vector3 piecepos 받는중 사실상 사용 X
         {
+
             players[index].BuyPiece(piecePos);
             PlayerButtonBuyMessage msg = new PlayerButtonBuyMessage(index, piecePos);
             BackEndMatchManager.GetInstance().SendDataToInGame<PlayerButtonBuyMessage>(msg);
         }
-        if(sellPiece)
+        //
+        if(buyPiece0)
+        {
+            targetTile = players[index].fieldManager.GetTile();
+            players[index].pieceBuySlots[0].BuyPiece();
+            PlayerButtonBuyPiece0Message msg = new PlayerButtonBuyPiece0Message(index, targetTile);
+            BackEndMatchManager.GetInstance().SendDataToInGame<PlayerButtonBuyPiece0Message>(msg);
+        }
+        //if (buyPiece1)
+        //{
+        //    targetTile = players[index].fieldManager.GetTile();
+        //    players[index].pieceBuySlots[1].BuyPiece();
+        //    PlayerButtonBuyPiece1Message msg = new PlayerButtonBuyPiece1Message(index, targetTile);
+        //    BackEndMatchManager.GetInstance().SendDataToInGame<PlayerButtonBuyPiece1Message>(msg);
+        //}
+        //if (buyPiece2)
+        //{
+        //    targetTile = players[index].fieldManager.GetTile();
+        //    players[index].pieceBuySlots[2].BuyPiece();
+        //    PlayerButtonBuyPiece2Message msg = new PlayerButtonBuyPiece2Message(index, targetTile);
+        //    BackEndMatchManager.GetInstance().SendDataToInGame<PlayerButtonBuyPiece2Message>(msg);
+        //}
+        //if (buyPiece3)
+        //{
+        //    targetTile = players[index].fieldManager.GetTile();
+        //    players[index].pieceBuySlots[3].BuyPiece();
+        //    PlayerButtonBuyPiece3Message msg = new PlayerButtonBuyPiece3Message(index, targetTile);
+        //    BackEndMatchManager.GetInstance().SendDataToInGame<PlayerButtonBuyPiece3Message>(msg);
+        //}
+        //if (buyPiece4)
+        //{
+        //    targetTile = players[index].fieldManager.GetTile();
+        //    players[index].pieceBuySlots[4].BuyPiece();
+        //    PlayerButtonBuyPiece4Message msg = new PlayerButtonBuyPiece4Message(index, targetTile);
+        //    BackEndMatchManager.GetInstance().SendDataToInGame<PlayerButtonBuyPiece4Message>(msg);
+        //}
+        //
+        if (sellPiece)
         {
             players[index].SellPiece();
             PlayerButtonSellMessage msg = new PlayerButtonSellMessage(index);
             BackEndMatchManager.GetInstance().SendDataToInGame<PlayerButtonSellMessage>(msg);
         }
-        if(PieceReroll)
+        if (PieceReroll)
         {
             players[index].PieceReroll();
             PlayerButtonRerollMessage msg = new PlayerButtonRerollMessage(index);
             BackEndMatchManager.GetInstance().SendDataToInGame<PlayerButtonRerollMessage>(msg);
         }
-        if(storeLock)
+        if (storeLock)
         {
             players[index].StoreLock();
             PlayerButtonStoreLockMessage msg = new PlayerButtonStoreLockMessage(index);
             BackEndMatchManager.GetInstance().SendDataToInGame<PlayerButtonStoreLockMessage>(msg);
         }
-        if(levelUp)
+        if (levelUp)
         {
             players[index].ButtonLevelUp();
             PlayerButtonLevelUpMessage msg = new PlayerButtonLevelUpMessage(index);
@@ -661,7 +758,7 @@ public class WorldManager : MonoBehaviour
             moveVecotr = Vector3.Normalize(moveVecotr);
             isMove = true;
         }
-        if((keyData & KeyEventCode.TOUCH_MOVE) == KeyEventCode.TOUCH_MOVE)
+        if ((keyData & KeyEventCode.TOUCH_MOVE) == KeyEventCode.TOUCH_MOVE)
         {
             moveVecotr = new Vector3(keyMessage.x, keyMessage.y, keyMessage.z);
             isTouchMove = true;
@@ -684,7 +781,7 @@ public class WorldManager : MonoBehaviour
             PlayerMoveMessage msg = new PlayerMoveMessage(index, playerPos, moveVecotr); //연산 데이터 메세지로 변경
             BackEndMatchManager.GetInstance().SendDataToInGame<PlayerMoveMessage>(msg);  //연산한 데이터 메세지로 보냄
         }
-        if(isTouchMove)
+        if (isTouchMove)
         {
             players[index].SetMoveVector(moveVecotr);
             PlayerTouchMoveMessaeg msg = new PlayerTouchMoveMessaeg(index, playerPos, moveVecotr);
@@ -701,7 +798,7 @@ public class WorldManager : MonoBehaviour
             BackEndMatchManager.GetInstance().SendDataToInGame<PlayerAttackMessage>(msg);
         }
     }
-    
+
     //구 버전 공격 호스트가 연산함
     private void ProcessAttackKeyData(SessionId session, Vector3 pos)
     {
@@ -754,15 +851,63 @@ public class WorldManager : MonoBehaviour
     }
     private void ProcessPlayerData(PlayerButtonBuyMessage data) // 누르면 기물 생성
     {
-        if(BackEndMatchManager.GetInstance().IsHost() == true)
+        if (BackEndMatchManager.GetInstance().IsHost() == true)
         {
             return;
         }
         players[data.playerSession].BuyPiece(new Vector3(data.x, data.y, data.z));
     }
+    //
+    private void ProcessPlayerData(PlayerButtonBuyPiece0Message data) // 누르면 기물 생성
+    {
+        if (BackEndMatchManager.GetInstance().IsHost() == true)
+        {
+            return;
+        }
+        tiles = players[data.playerSession].fieldManager.GetTile();
+        players[data.playerSession].pieceBuySlots[0].BuyPiece();
+    }
+    //private void ProcessPlayerData(PlayerButtonBuyPiece1Message data) // 누르면 기물 생성
+    //{
+    //    if (BackEndMatchManager.GetInstance().IsHost() == true)
+    //    {
+    //        return;
+    //    }
+    //    tiles = players[data.playerSession].fieldManager.GetTile();
+    //    players[data.playerSession].pieceBuySlots[1].BuyPiece();
+    //}
+    //private void ProcessPlayerData(PlayerButtonBuyPiece2Message data) // 누르면 기물 생성
+    //{
+    //    if (BackEndMatchManager.GetInstance().IsHost() == true)
+    //    {
+    //        return;
+    //    }
+    //    tiles = players[data.playerSession].fieldManager.GetTile();
+    //    players[data.playerSession].pieceBuySlots[2].BuyPiece();
+    //}
+    //private void ProcessPlayerData(PlayerButtonBuyPiece3Message data) // 누르면 기물 생성
+    //{
+    //    if (BackEndMatchManager.GetInstance().IsHost() == true)
+    //    {
+    //        return;
+    //    }
+    //    tiles = players[data.playerSession].fieldManager.GetTile();
+    //    players[data.playerSession].pieceBuySlots[3].BuyPiece();
+    //}
+    //private void ProcessPlayerData(PlayerButtonBuyPiece4Message data) // 누르면 기물 생성
+    //{
+    //    if (BackEndMatchManager.GetInstance().IsHost() == true)
+    //    {
+    //        return;
+    //    }
+    //    tiles = players[data.playerSession].fieldManager.GetTile();
+    //    players[data.playerSession].pieceBuySlots[4].BuyPiece();
+    //}
+    //
+
     private void ProcessPlayerData(PlayerButtonSellMessage data) // 누르면 기물 판매
     {
-        if(BackEndMatchManager.GetInstance().IsHost() == true)
+        if (BackEndMatchManager.GetInstance().IsHost() == true)
         {
             return;
         }
@@ -792,7 +937,7 @@ public class WorldManager : MonoBehaviour
         }
         players[data.playerSession].ButtonLevelUp();
     }
-         
+
 
 
     private void ProcessPlayerData(PlayerNoMoveMessage data)

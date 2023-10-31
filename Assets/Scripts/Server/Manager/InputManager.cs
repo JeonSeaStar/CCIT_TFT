@@ -172,7 +172,7 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    public void TestButtonInput()
+    public void TestButtonInput() //현재 사용중 플레이어 피 다는거
     {
         int ButtonCode = 0;
         ButtonCode |= ButtonEventCode.TESTBUTTON1;
@@ -192,7 +192,7 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    public void BuyButtonInput()
+    public void BuyButtonInput() //박스 오브젝트 한쪽으로 인스턴스
     {
         int ButtonCode = 0;
         ButtonCode |= ButtonEventCode.BUY;

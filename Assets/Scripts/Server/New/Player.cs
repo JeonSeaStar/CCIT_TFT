@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using Protocol;
@@ -16,7 +17,7 @@ public class Player : MonoBehaviour
     public int gold = 0;
     [SerializeField] LayerMask playerMask; //9 - Player
     [SerializeField] LayerMask groundMask; //8 - Plane
-    [SerializeField] FieldManager fieldManager;
+    public FieldManager fieldManager;
     [SerializeField] Ease ease;
     [SerializeField] float moveSpeed;
     [SerializeField] bool owned;
@@ -27,7 +28,8 @@ public class Player : MonoBehaviour
     [SerializeField] int[] damagePerRound = new int[] { 0, 1, 2, 3, 4, 6, 9, 15 };
 
     [SerializeField] Piece controlPiece;
-
+    public PieceBuySlot[] pieceBuySlots;
+    PieceData[] havePieceData;
     #region 서버 머지
     //serverMerge
 
@@ -42,6 +44,9 @@ public class Player : MonoBehaviour
 
     // UI
     public GameObject nameObject;
+    public TMP_Text hpUi;
+
+    public GameObject shop;
 
     private readonly string playerCanvas = "PlayerCanvas";
 
@@ -92,6 +97,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         //fieldManager.DualPlayers[0] = this;
+        StartCoroutine(TESTTEST());
     }
 
     void Update()
@@ -365,12 +371,14 @@ public class Player : MonoBehaviour
     }
 
     #region 서버 머지
-    public void Initialize(bool isMe, SessionId index, string nickName, float rot, FieldManager fieldManage)
+    public void Initialize(bool isMe, SessionId index, string nickName, float rot, FieldManager fieldManage, TMP_Text hpUi, GameObject shop)
     {
         this.isMe = isMe;
         this.index = index;
         this.nickName = nickName;
         this.fieldManager = fieldManage;
+        this.hpUi = hpUi;
+        this.shop = shop;
 
         var playerUICanvas = GameObject.FindGameObjectWithTag(playerCanvas);
         nameObject = Instantiate(nameObject, Vector3.zero, Quaternion.identity, playerUICanvas.transform);
@@ -381,7 +389,6 @@ public class Player : MonoBehaviour
         {
             Camera.main.GetComponent<FollowCamera>().target = this.transform;
         }
-
         this.isLive = true;
 
         this.isMove = false;
@@ -390,10 +397,10 @@ public class Player : MonoBehaviour
 
         //hp
         hp = MAX_HP;
-
         playerModelObject = this.gameObject;
         playerModelObject.transform.rotation = Quaternion.Euler(0, rot, 0);
 
+        hpUi.GetComponent<TMP_Text>().text = hp.ToString();
         rigidBody = this.GetComponent<Rigidbody>();
 
         nameObject.transform.position = GetNameUIPos();
@@ -503,6 +510,7 @@ public class Player : MonoBehaviour
     }
     #endregion
 
+    
 
     public bool GetIsLive()
     {
@@ -511,7 +519,8 @@ public class Player : MonoBehaviour
 
     public void Damaged()
     {
-        hp -= 100;
+        hp -= 10;
+        hpUi.text = hp.ToString();
     }
 
     public void SetHP(int hp)
@@ -559,6 +568,16 @@ public class Player : MonoBehaviour
         Instantiate(piecePrefeb, firstPos, Quaternion.identity);
     }
 
+    public void BuyPieceTest()
+    {
+        if (!isLive)
+            return;
+        for(int i = 0; i < pieceBuySlots.Length; i++)
+        {
+            havePieceData[i] = pieceBuySlots[i].pieceData;
+        }
+    }
+
     public void SellPiece()
     {
         //todo..
@@ -577,6 +596,15 @@ public class Player : MonoBehaviour
     public void ButtonLevelUp()
     {
         //todo..
+    }
+
+    IEnumerator TESTTEST()
+    {
+        yield return new WaitForSeconds(0.1f);
+        for(int i = 0; i < fieldManager.TESTTEST.Length; i++)
+        {
+            pieceBuySlots[i] = fieldManager.TESTTEST[i];
+        }
     }
 
     #endregion

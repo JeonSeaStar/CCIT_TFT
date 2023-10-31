@@ -21,8 +21,7 @@ public class InGameUiManager : MonoBehaviour
     const string HostOfflineMsg = "호스트와의 연결이 끊어졌습니다.\n연결 대기중";
     const string PlayerReconnectMsg = "{0} 플레이어 재접속중...";
 
-    public TMP_Text gameStateText;
-    public TMP_Text gmaeStateCountText;
+    public TMP_Text[] playersHp;
 
     void Awake()
     {
