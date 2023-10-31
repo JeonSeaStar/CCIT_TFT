@@ -37,14 +37,14 @@ public class FrostyWindBuff3 : BuffData
 
     IEnumerator FrostyWindBuff()
     {
-        foreach (var _frostyWind in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
-        {
-            if (_frostyWind.pieceData.myth == PieceData.Myth.FrostyWind)
-                frostyWindPiece.Add(_frostyWind);
-        }
         while (true)
         {
             yield return new WaitForSeconds(1f);
+            foreach (var _frostyWind in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
+            {
+                if (_frostyWind.pieceData.myth == PieceData.Myth.FrostyWind)
+                    frostyWindPiece.Add(_frostyWind);
+            }
             foreach (var healthCheck in frostyWindPiece)
             {
                 if (healthCheck.health <= healthCheck.pieceData.health[healthCheck.star] * 0.5f)

@@ -19,14 +19,15 @@ public class HeavenGroundBuff2 : BuffData
     IEnumerator HeavenGround()
     {
         pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
-        List<Piece> heavenGroundPieces = new List<Piece>();
-        foreach (var piece in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
-        {
-            if (piece.pieceData.myth == PieceData.Myth.HeavenGround) heavenGroundPieces.Add(piece);
-        }
         while (true)
         {
             yield return new WaitForSeconds(1f);
+            List<Piece> heavenGroundPieces = new List<Piece>();
+            foreach (var piece in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
+            {
+                if (piece.pieceData.myth == PieceData.Myth.HeavenGround && piece.gameObject.activeSelf == true)
+                    heavenGroundPieces.Add(piece);
+            }
 
             foreach (var tilePiece in heavenGroundPieces)
             {
