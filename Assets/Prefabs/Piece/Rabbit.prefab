@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6571346781610000309}
   - component: {fileID: 8995634991942978431}
   - component: {fileID: 3866802291264561842}
-  - component: {fileID: 2124891413985041364}
   - component: {fileID: 9195186931903534640}
   - component: {fileID: 1939396701246263752}
   m_Layer: 6
@@ -106,29 +105,19 @@ MonoBehaviour:
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
-  defaultHealth: 100
-  currentHealth: 0
-  defaultMana: 0
-  currentMana: 0
-  manaRecovery: 0
-  defaultAttackPower: 0
-  damageRise: 0
-  attackPower: 20
-  defaultAbilityPower: 0
-  abilityRise: 0
-  abilityDamage: 0
-  defaultArmor: 0
-  armorRise: 0
+  health: 0
+  mana: 0
+  attackDamage: 0
+  abilityPower: 0
   armor: 0
-  defaultMagicResist: 0
-  magicResistRise: 0
   magicResist: 0
-  defaultAttackSpeed: 0
-  attackSpeedRise: 0
   attackSpeed: 1
-  defaultCriticalChance: 0
-  defaultCriticalDamage: 0
-  defaultAttackRange: 3
+  criticalChance: 0
+  criticalDamage: 0
+  attackRange: 0
+  bloodBrain: 0
+  shield: 0
+  currentShield: 0
   dead: 0
   owner: 
   isOwned: 0
@@ -142,23 +131,16 @@ MonoBehaviour:
   equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
+  buffList: []
   expeditionTile: {fileID: 0}
---- !u!114 &2124891413985041364
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7482192213611014826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff0c306d0ecb4524cb0d2056b28234ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fm: {fileID: 0}
-  pieceRigidbody: {fileID: 9195186931903534640}
-  currentTile: {fileID: 0}
-  targetTile: {fileID: 0}
+  immune: 0
+  freeze: 0
+  slow: 0
+  airborne: 0
+  faint: 0
+  fear: 0
+  invincible: 0
+  charm: 0
 --- !u!54 &9195186931903534640
 Rigidbody:
   m_ObjectHideFlags: 0

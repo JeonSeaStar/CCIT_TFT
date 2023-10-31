@@ -8,9 +8,6 @@ public class PathFinding : MonoBehaviour
     public int gridSizeX = 7;
     public int gridSizeY = 8;
 
-    public int X;
-    public int Y;
-
     [Serializable]
     public class TileList
     {
@@ -19,10 +16,6 @@ public class PathFinding : MonoBehaviour
     public List<TileList> grid;
     //public List<TileList> tileList;
     //public List<List<Tile>> grid;
-
-    //테스트용
-    public Piece startPiece;
-    public Piece targetPiece;
 
     void Start()
     {
@@ -218,7 +211,7 @@ public class PathFinding : MonoBehaviour
         }
         path.Reverse();
         candidatePath.path.Reverse();
-        candidatePath.target = endTile.piece.GetComponent<Piece>();
+        candidatePath.target = endTile.piece;
 
         piece.candidatePath.Add(candidatePath);
     }

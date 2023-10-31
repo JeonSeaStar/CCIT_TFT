@@ -101,6 +101,11 @@ public class ArenaManager : MonoBehaviour
     }
 
     #region 매칭
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A)) { Matching(); }
+    }
+
     private void Matching()
     {
         float playerCountHalf = fieldManagers.Count / 2;

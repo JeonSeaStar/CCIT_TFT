@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 8102041414719612820}
   - component: {fileID: 7471944694360414044}
   - component: {fileID: 7471944694360414115}
-  - component: {fileID: 7471944694360414113}
   - component: {fileID: 7471944694360414112}
   m_Layer: 6
   m_Name: ch(2) (7)
@@ -116,22 +115,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.39, y: 0.13059773, z: 0.79311144}
   m_Center: {x: 0.0040406287, y: -0.011130758, z: 0.031631798}
---- !u!114 &7471944694360414113
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7741907443964315201}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff0c306d0ecb4524cb0d2056b28234ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fieldManager: {fileID: 0}
-  pieceRigidbody: {fileID: 7471944694360414044}
-  currentTile: {fileID: 0}
-  targetTile: {fileID: 0}
 --- !u!114 &7471944694360414112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,13 +129,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fieldManager: {fileID: 0}
   pieceData: {fileID: 11400000, guid: 6891acecd0078c24c910eb77e64059db, type: 2}
+  grade: 0
   pieceName: 
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
   health: 0
   mana: 0
-  manaRecovery: 0
   attackDamage: 0
   abilityPower: 0
   armor: 0
@@ -161,13 +144,28 @@ MonoBehaviour:
   criticalChance: 0
   criticalDamage: 0
   attackRange: 0
+  bloodBrain: 0
+  shield: 0
+  currentShield: 0
   dead: 0
   owner: 
   isOwned: 0
   candidatePath: []
   path: []
-  currentNode: {fileID: 0}
+  currentTile: {fileID: 0}
+  targetTile: {fileID: 0}
   target: {fileID: 0}
   moveSpeed: 0
   ease: 0
+  equipmentDatas: []
   randomBoxObject: {fileID: 0}
+  buffList: []
+  expeditionTile: {fileID: 0}
+  immune: 0
+  freeze: 0
+  slow: 0
+  airborne: 0
+  faint: 0
+  fear: 0
+  invincible: 0
+  charm: 0
