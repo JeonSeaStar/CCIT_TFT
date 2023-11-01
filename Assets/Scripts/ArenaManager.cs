@@ -29,6 +29,8 @@ public class ArenaManager : MonoBehaviour
     public int currentRound = 0;
     public int currentStage = 0;
 
+    public List<PlayerPair> playerMatchingPair;
+
     public enum RoundType
     {
         None = -1,
@@ -112,16 +114,20 @@ public class ArenaManager : MonoBehaviour
         int pairCount = Mathf.RoundToInt(playerCountHalf);
 
         List<Messenger> messengerList = new List<Messenger>();
+        playerMatchingPair = new List<PlayerPair>();
 
         for (int i = 0; i < fieldManagers.Count; i++)
+        {
+            fieldManagers[i].owerPlyer.isExpedition = false;
             messengerList.Add(fieldManagers[i].owerPlyer);
+        }
 
         List<Messenger> aGroup = new List<Messenger>();
         List<Messenger> bGroup = new List<Messenger>();
 
         for (int i = 0; i < pairCount; i++)
         {
-            int m = Random.Range(0, pairCount);
+            int m = Random.Range(0, messengerList.Count);
             aGroup.Add(messengerList[m]);
             messengerList.RemoveAt(m);
         }
@@ -130,7 +136,7 @@ public class ArenaManager : MonoBehaviour
         for (int i = 0; i < bGroup.Count; i++)
             bGroup[i].isExpedition = true;
 
-        for (int i = 0; i < aGroup.Count; i++)
+        for (int i = 0; i < pairCount; i++)
         {
             int m;
             bool duplicate = true;
@@ -139,13 +145,42 @@ public class ArenaManager : MonoBehaviour
             {
                 m = Random.Range(0, bGroup.Count);
 
-                for (int j = 0; j < aGroup[i].matchingInformation.matchingHistroy.Count; j++)
+                if (aGroup[i].matchingInformation.matchingHistroy.Count == 0)
                 {
-                    if (aGroup[i].matchingInformation.matchingHistroy[j] != bGroup[m].matchingInformation.myIndex)
+                    duplicate = false;
+                    PlayerMatching(aGroup[i], bGroup[m]);
+                    aGroup[i].matchingInformation.matchingHistroy.Add(bGroup[m].matchingInformation.myIndex);
+                    bGroup[m].matchingInformation.matchingHistroy.Add(aGroup[i].matchingInformation.myIndex);
+                    bGroup.RemoveAt(m);
+                }
+                else
+                {
+                    for (int j = 0; j < aGroup[i].matchingInformation.matchingHistroy.Count; j++)
                     {
-                        duplicate = false;
-                        //상대방 매칭
-                        aGroup[i].matchingInformation.matchingHistroy.Add(bGroup[m].matchingInformation.myIndex);
+                        if(j + 1 == aGroup[i].matchingInformation.matchingHistroy.Count)
+                        {
+                            if (aGroup[i].matchingInformation.matchingHistroy[j] == bGroup[m].matchingInformation.myIndex)
+                            {
+
+                            }
+                            else
+                            {
+                                duplicate = false;
+                                PlayerMatching(aGroup[i], bGroup[m]);
+                                bGroup.RemoveAt(m);
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            if (aGroup[i].matchingInformation.matchingHistroy[j] != bGroup[m].matchingInformation.myIndex)
+                            {
+                                duplicate = false;
+                                PlayerMatching(aGroup[i], bGroup[m]);
+                                bGroup.RemoveAt(m);
+                                break;
+                            }
+                        }
                     }
                 }
             }
@@ -158,5 +193,27 @@ public class ArenaManager : MonoBehaviour
         for (int i = 0; i < fieldManagers.Count; i++)
             fieldManagers[i].owerPlyer.matchingInformation.HistoryIniti();
     }
+
+    private void PlayerMatching(Messenger home, Messenger away)
+    {
+        PlayerPair pair = new PlayerPair(home, away);
+        playerMatchingPair.Add(pair);
+
+        home.matchingInformation.matchingHistroy.Add(away.matchingInformation.myIndex);
+        away.matchingInformation.matchingHistroy.Add(home.matchingInformation.myIndex);
+    }
     #endregion
+}
+
+[System.Serializable]
+public class PlayerPair
+{
+    public Messenger homePlayer;
+    public Messenger awayPlayer;
+
+    public PlayerPair(Messenger home, Messenger away)
+    {
+        homePlayer = home;
+        awayPlayer = away;
+    }
 }
