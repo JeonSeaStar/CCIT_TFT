@@ -17,7 +17,6 @@ namespace Protocol
         PlayerNoMove,   // 플레이어 이동 멈춤
         PlayerNoRotate, // 플레이어 회전 멈춤
         PlayerTest,   // 플레이어가 함수 받을 수 있는지 확인
-        PlayerBuyPiece0,
         PlayerBuyPiece,
         PlayerSellPiece,
         playerReroll,
@@ -25,7 +24,7 @@ namespace Protocol
         PlayerButtonLevelUp,
        
         PlayerTouchMove,
-
+        PlayerBuyPiece0,
 
 
         bulletInfo,
@@ -92,10 +91,6 @@ namespace Protocol
         public const int LEVELUP = 6;
         public const int MATCHING = 11;
         public const int BUYPIECE0 = 20;
-        public const int BUYPIECE1 = 21;
-        public const int BUYPIECE2 = 22;
-        public const int BUYPIECE3 = 23;
-        public const int BUYPIECE4 = 24;
     }
 
 
@@ -160,56 +155,20 @@ namespace Protocol
         }
     }
 
-    public class PlayerButtonBuyPiece0Message : Message
+    public class PlayerBuyPiece0Message : Message
     {
         public SessionId playerSession;
+        public PieceData pieceData;
+        public int star;
         public Tile tile;
-        public PlayerButtonBuyPiece0Message(SessionId sessionId, Tile tile) : base(Type.PlayerBuyPiece0)
+        public PlayerBuyPiece0Message(SessionId sessionId, PieceData pieceData, int star, Tile tile) : base(Type.PlayerBuyPiece0)
         {
             this.playerSession = sessionId;
+            this.pieceData = pieceData;
+            this.star = star;
             this.tile = tile;
         }
     }
-    //public class PlayerButtonBuyPiece1Message : Message
-    //{
-    //    public SessionId playerSession;
-    //    public Tile tile;
-    //    public PlayerButtonBuyPiece1Message(SessionId sessionId, Tile tile) : base(Type.PlayerBuyPiece1)
-    //    {
-    //        this.playerSession = sessionId;
-    //        this.tile = tile;
-    //    }
-    //}
-    //public class PlayerButtonBuyPiece2Message : Message
-    //{
-    //    public SessionId playerSession;
-    //    public Tile tile;
-    //    public PlayerButtonBuyPiece2Message(SessionId sessionId, Tile tile) : base(Type.PlayerBuyPiece2)
-    //    {
-    //        this.playerSession = sessionId;
-    //        this.tile = tile;
-    //    }
-    //}
-    //public class PlayerButtonBuyPiece3Message : Message
-    //{
-    //    public SessionId playerSession;
-    //    public Tile tile;
-    //    public PlayerButtonBuyPiece3Message(SessionId sessionId, Tile tile) : base(Type.PlayerBuyPiece3)
-    //    {
-    //        this.playerSession = sessionId;
-    //        this.tile = tile;
-    //    }
-    //}
-    //public class PlayerButtonBuyPiece4Message : Message
-    //{
-    //    public SessionId playerSession;
-    //    public Tile tile;
-    //    public PlayerButtonBuyPiece4Message(SessionId sessionId, Tile tile) : base(Type.PlayerBuyPiece4)
-    //    {
-    //        this.playerSession = sessionId;
-    //        this.tile = tile;
-    //    }
-    //}
 
 
     public class PlayerButtonSellMessage : Message

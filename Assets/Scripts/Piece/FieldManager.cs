@@ -583,6 +583,7 @@ public class FieldManager : MonoBehaviour
         return tile;
     }
 
+    //플레이어가 누구 인지와 내가 누구의 필드 매니저 인지
     IEnumerator MyPlayerFind()
     {
         yield return new WaitForSeconds(2f);
@@ -590,7 +591,6 @@ public class FieldManager : MonoBehaviour
         DualPlayersTest[0] = e.gameObject.GetComponent<Player>();
         owerPlayerTest = e.gameObject.GetComponent<Player>();
         testIndex = ((int)owerPlayerTest.GetIndex());
-        
     }
 
     public Chest chest;

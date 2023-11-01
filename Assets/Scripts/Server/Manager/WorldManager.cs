@@ -49,12 +49,19 @@ public class WorldManager : MonoBehaviour
     #endregion
 
     #region 기물
-    Tile tiles;
+    public Tile tiles; //같은 타일을 받아야 할 수 도 있음
     public GameObject[] shops;
+
+    public PieceData[] pieceDatas;
+    public PieceBuySlot[] pieceBuySlots;
+
+
+
     #endregion
     void Awake()
     {
         instance = this;
+        StartCoroutine(TEST());
     }
     void Start()
     {
@@ -194,7 +201,7 @@ public class WorldManager : MonoBehaviour
             else //나 아닌거
             {
                 players[sessionId].Initialize(false, sessionId, BackEndMatchManager.GetInstance().GetNickNameBySessionId(sessionId), statringPoints[index].w, playerPool[index].GetComponentInChildren<FieldManager>(), InGameUiManager.GetInstance().playersHp[index].GetComponent<TMP_Text>(), shops[index].GetComponent<GameObject>());
-                shops[index].SetActive(false);
+                shops[index].transform.position = new Vector3(0,0,-1001);
             }
             index += 1;
         }
@@ -244,7 +251,6 @@ public class WorldManager : MonoBehaviour
         if (BackEndMatchManager.GetInstance().IsHost())
         {
             StartCoroutine("InGameEventCount");
-            Debug.Log("EVENT");
         }
     }
 
@@ -253,7 +259,6 @@ public class WorldManager : MonoBehaviour
         if (BackEndMatchManager.GetInstance().IsHost())
         {
             StartCoroutine("InGameWatingCount");
-            Debug.Log("WATING");
         }
     }
 
@@ -262,7 +267,6 @@ public class WorldManager : MonoBehaviour
         if (BackEndMatchManager.GetInstance().IsHost())
         {
             StartCoroutine("InGameBattleReadyCount");
-            Debug.Log("BATTLEREADY");
         }
     }
 
@@ -271,7 +275,6 @@ public class WorldManager : MonoBehaviour
         if (BackEndMatchManager.GetInstance().IsHost())
         {
             StartCoroutine("InGameBattleCount");
-            Debug.Log("BATTLE");
         }
     }
 
@@ -280,7 +283,6 @@ public class WorldManager : MonoBehaviour
         if (BackEndMatchManager.GetInstance().IsHost())
         {
             StartCoroutine("InGameWinnerCheckCount");
-            Debug.Log("WINNERCHECK");
         }
     }
 
@@ -442,27 +444,27 @@ public class WorldManager : MonoBehaviour
                 break;
             case Protocol.Type.InGameEvent:
                 InGameEventCountMessage eventCount = DataParser.ReadJsonData<InGameEventCountMessage>(args.BinaryUserData);
-                Debug.Log("Event second :" + (eventCount.time));
+                //Debug.Log("Event second :" + (eventCount.time));
                 InGameUiManager.GetInstance().SetGameStateEvent();
                 break;
             case Protocol.Type.InGameWating:
                 InGameWatingCountMessage watingCount = DataParser.ReadJsonData<InGameWatingCountMessage>(args.BinaryUserData);
-                Debug.Log("Wating second :" + (watingCount.time));
+                //Debug.Log("Wating second :" + (watingCount.time));
                 InGameUiManager.GetInstance().SetGameStateWating();
                 break;
             case Protocol.Type.InGameBattleReady:
                 InGameBattleReadyCountMessage battleReadyCount = DataParser.ReadJsonData<InGameBattleReadyCountMessage>(args.BinaryUserData);
-                Debug.Log("Battle Ready second :" + (battleReadyCount.time));
+                //Debug.Log("Battle Ready second :" + (battleReadyCount.time));
                 InGameUiManager.GetInstance().SetGameStateBattleReady();
                 break;
             case Protocol.Type.InGameBattle:
                 InGameBattleCountMessage battleCount = DataParser.ReadJsonData<InGameBattleCountMessage>(args.BinaryUserData);
-                Debug.Log("Battle second :" + (battleCount.time));
+                //Debug.Log("Battle second :" + (battleCount.time));
                 InGameUiManager.GetInstance().SetGameStateBattle();
                 break;
             case Protocol.Type.InGameWinnerCheck:
                 InGameWinnerCheckCountMessage winnerCheckCount = DataParser.ReadJsonData<InGameWinnerCheckCountMessage>(args.BinaryUserData);
-                Debug.Log("Winner Check second :" + (winnerCheckCount.time));
+                //Debug.Log("Winner Check second :" + (winnerCheckCount.time));
                 InGameUiManager.GetInstance().SetGameStateWinnerCheck();
                 break;
 
@@ -490,28 +492,11 @@ public class WorldManager : MonoBehaviour
                 ProcessPlayerData(playerButtonBuyMessage);
                 break;
 
-
-
+                //1번 피스 구매 테스트
             case Protocol.Type.PlayerBuyPiece0:
-                PlayerButtonBuyPiece0Message playerButtonBuyPiece0Message = DataParser.ReadJsonData<PlayerButtonBuyPiece0Message>(args.BinaryUserData);
+                PlayerBuyPiece0Message playerButtonBuyPiece0Message = DataParser.ReadJsonData<PlayerBuyPiece0Message>(args.BinaryUserData);
                 ProcessPlayerData(playerButtonBuyPiece0Message);
                 break;
-            //case Protocol.Type.PlayerBuyPiece1:
-            //    PlayerButtonBuyPiece1Message playerButtonBuyPiece1Message = DataParser.ReadJsonData<PlayerButtonBuyPiece1Message>(args.BinaryUserData);
-            //    ProcessPlayerData(playerButtonBuyPiece1Message);
-            //    break;
-            //case Protocol.Type.PlayerBuyPiece2:
-            //    PlayerButtonBuyPiece2Message playerButtonBuyPiece2Message = DataParser.ReadJsonData<PlayerButtonBuyPiece2Message>(args.BinaryUserData);
-            //    ProcessPlayerData(playerButtonBuyPiece2Message);
-            //    break;
-            //case Protocol.Type.PlayerBuyPiece3:
-            //    PlayerButtonBuyPiece3Message playerButtonBuyPiece3Message = DataParser.ReadJsonData<PlayerButtonBuyPiece3Message>(args.BinaryUserData);
-            //    ProcessPlayerData(playerButtonBuyPiece3Message);
-            //    break;
-            //case Protocol.Type.PlayerBuyPiece4:
-            //    PlayerButtonBuyPiece4Message playerButtonBuyPiece4Message = DataParser.ReadJsonData<PlayerButtonBuyPiece4Message>(args.BinaryUserData);
-            //    ProcessPlayerData(playerButtonBuyPiece4Message);
-            //    break;
 
 
 
@@ -604,10 +589,6 @@ public class WorldManager : MonoBehaviour
         bool levelUp = false;
 
         bool buyPiece0 = false;
-        //bool buyPiece1 = false;
-        //bool buyPiece2 = false;
-        //bool buyPiece3 = false;
-        //bool buyPiece4 = false;
 
         Vector3 piecePos = Vector3.zero;
         Tile targetTile;
@@ -625,22 +606,7 @@ public class WorldManager : MonoBehaviour
         {
             buyPiece0 = true;
         }
-        //if ((ButtonData & ButtonEventCode.BUYPIECE1) == ButtonEventCode.BUYPIECE1)
-        //{
-        //    buyPiece1 = true;
-        //}
-        //if ((ButtonData & ButtonEventCode.BUYPIECE2) == ButtonEventCode.BUYPIECE2)
-        //{
-        //    buyPiece2 = true;
-        //}
-        //if ((ButtonData & ButtonEventCode.BUYPIECE3) == ButtonEventCode.BUYPIECE3)
-        //{
-        //    buyPiece3 = true;
-        //}
-        //if ((ButtonData & ButtonEventCode.BUYPIECE4) == ButtonEventCode.BUYPIECE4)
-        //{
-        //    buyPiece4 = true;
-        //}
+
         if ((ButtonData & ButtonEventCode.SELL) == ButtonEventCode.SELL)
         {
             sellPiece = true;
@@ -672,41 +638,23 @@ public class WorldManager : MonoBehaviour
             BackEndMatchManager.GetInstance().SendDataToInGame<PlayerButtonBuyMessage>(msg);
         }
         //
+        //1번 피스 구매인데
         if(buyPiece0)
         {
-            targetTile = players[index].fieldManager.GetTile();
-            players[index].pieceBuySlots[0].BuyPiece();
-            PlayerButtonBuyPiece0Message msg = new PlayerButtonBuyPiece0Message(index, targetTile);
-            BackEndMatchManager.GetInstance().SendDataToInGame<PlayerButtonBuyPiece0Message>(msg);
+            if(BackEndMatchManager.GetInstance().IsMySessionId(index))
+            {
+                pieceDatas[0] = pieceBuySlots[0].pieceData;
+                targetTile = players[index].fieldManager.GetTile();
+                //players[index].pieceBuySlots[0].BuyPiece();
+                players[index].fieldManager.SpawnPiece(pieceDatas[0], 0, targetTile);
+                PlayerBuyPiece0Message msg = new PlayerBuyPiece0Message(index, pieceDatas[0], 0, targetTile);
+                BackEndMatchManager.GetInstance().SendDataToInGame<PlayerBuyPiece0Message>(msg);
+            }
+            else
+            {
+
+            }
         }
-        //if (buyPiece1)
-        //{
-        //    targetTile = players[index].fieldManager.GetTile();
-        //    players[index].pieceBuySlots[1].BuyPiece();
-        //    PlayerButtonBuyPiece1Message msg = new PlayerButtonBuyPiece1Message(index, targetTile);
-        //    BackEndMatchManager.GetInstance().SendDataToInGame<PlayerButtonBuyPiece1Message>(msg);
-        //}
-        //if (buyPiece2)
-        //{
-        //    targetTile = players[index].fieldManager.GetTile();
-        //    players[index].pieceBuySlots[2].BuyPiece();
-        //    PlayerButtonBuyPiece2Message msg = new PlayerButtonBuyPiece2Message(index, targetTile);
-        //    BackEndMatchManager.GetInstance().SendDataToInGame<PlayerButtonBuyPiece2Message>(msg);
-        //}
-        //if (buyPiece3)
-        //{
-        //    targetTile = players[index].fieldManager.GetTile();
-        //    players[index].pieceBuySlots[3].BuyPiece();
-        //    PlayerButtonBuyPiece3Message msg = new PlayerButtonBuyPiece3Message(index, targetTile);
-        //    BackEndMatchManager.GetInstance().SendDataToInGame<PlayerButtonBuyPiece3Message>(msg);
-        //}
-        //if (buyPiece4)
-        //{
-        //    targetTile = players[index].fieldManager.GetTile();
-        //    players[index].pieceBuySlots[4].BuyPiece();
-        //    PlayerButtonBuyPiece4Message msg = new PlayerButtonBuyPiece4Message(index, targetTile);
-        //    BackEndMatchManager.GetInstance().SendDataToInGame<PlayerButtonBuyPiece4Message>(msg);
-        //}
         //
         if (sellPiece)
         {
@@ -858,51 +806,27 @@ public class WorldManager : MonoBehaviour
         players[data.playerSession].BuyPiece(new Vector3(data.x, data.y, data.z));
     }
     //
-    private void ProcessPlayerData(PlayerButtonBuyPiece0Message data) // 누르면 기물 생성
+    private void ProcessPlayerData(PlayerBuyPiece0Message data) // 누르면 기물 생성
     {
         if (BackEndMatchManager.GetInstance().IsHost() == true)
         {
             return;
         }
-        tiles = players[data.playerSession].fieldManager.GetTile();
-        players[data.playerSession].pieceBuySlots[0].BuyPiece();
+        if(BackEndMatchManager.GetInstance().IsMySessionId(data.playerSession))
+        {
+            pieceDatas[0] = pieceBuySlots[0].pieceData;
+            tiles = players[data.playerSession].fieldManager.GetTile();
+            //players[data.playerSession].pieceBuySlots[0].BuyPiece();
+            players[data.playerSession].fieldManager.SpawnPiece(pieceDatas[0], 0, tiles);
+        }
+        else
+        {
+             //다른 사람이 구매한 기물을 어떻게 받아올까?
+             //피스 데이터
+             //타일 데이터
+             //피스를 스폰해주는 것
+        }
     }
-    //private void ProcessPlayerData(PlayerButtonBuyPiece1Message data) // 누르면 기물 생성
-    //{
-    //    if (BackEndMatchManager.GetInstance().IsHost() == true)
-    //    {
-    //        return;
-    //    }
-    //    tiles = players[data.playerSession].fieldManager.GetTile();
-    //    players[data.playerSession].pieceBuySlots[1].BuyPiece();
-    //}
-    //private void ProcessPlayerData(PlayerButtonBuyPiece2Message data) // 누르면 기물 생성
-    //{
-    //    if (BackEndMatchManager.GetInstance().IsHost() == true)
-    //    {
-    //        return;
-    //    }
-    //    tiles = players[data.playerSession].fieldManager.GetTile();
-    //    players[data.playerSession].pieceBuySlots[2].BuyPiece();
-    //}
-    //private void ProcessPlayerData(PlayerButtonBuyPiece3Message data) // 누르면 기물 생성
-    //{
-    //    if (BackEndMatchManager.GetInstance().IsHost() == true)
-    //    {
-    //        return;
-    //    }
-    //    tiles = players[data.playerSession].fieldManager.GetTile();
-    //    players[data.playerSession].pieceBuySlots[3].BuyPiece();
-    //}
-    //private void ProcessPlayerData(PlayerButtonBuyPiece4Message data) // 누르면 기물 생성
-    //{
-    //    if (BackEndMatchManager.GetInstance().IsHost() == true)
-    //    {
-    //        return;
-    //    }
-    //    tiles = players[data.playerSession].fieldManager.GetTile();
-    //    players[data.playerSession].pieceBuySlots[4].BuyPiece();
-    //}
     //
 
     private void ProcessPlayerData(PlayerButtonSellMessage data) // 누르면 기물 판매
@@ -1058,4 +982,10 @@ public class WorldManager : MonoBehaviour
     //    }
 
     //}
+
+    IEnumerator TEST()
+    {
+        yield return new WaitForSeconds(10f);
+        pieceDatas[0] = pieceBuySlots[0].pieceData;
+    }
 }

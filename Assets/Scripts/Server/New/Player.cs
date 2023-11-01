@@ -48,6 +48,8 @@ public class Player : MonoBehaviour
 
     public GameObject shop;
 
+    //public GameObject shop;
+
     private readonly string playerCanvas = "PlayerCanvas";
 
     // 애니메이터
@@ -598,6 +600,8 @@ public class Player : MonoBehaviour
         //todo..
     }
 
+
+    //필드 매니저에 있는 piecebuyslot[]을 가져오는 것
     IEnumerator TESTTEST()
     {
         yield return new WaitForSeconds(0.1f);

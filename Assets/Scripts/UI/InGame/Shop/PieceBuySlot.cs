@@ -20,7 +20,6 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public Player myPlayer;
     public SessionId myPlayerIndex;
     public Dictionary<SessionId, Player> players;
-    public GameObject shop;
 
     private void Awake()
     {
@@ -52,8 +51,10 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         Bought = false;
         slotHighlight.color = slotColour[0];
 
+        
         pieceData = data;
         pieceName.text = data.pieceName;
+        //WorldManager.instance.pieceDatas[0] = pieceData;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -78,16 +79,7 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         //if (!Bought)
         //    BuyPiece(pieceData);
-        if(index == 0)
             ButtonBuyPiece0();
-        //if (index == 1)
-        //    ButtonBuyPiece1();
-        //if (index == 2)
-        //    ButtonBuyPiece2();
-        //if (index == 3)
-        //    ButtonBuyPiece3();
-        //if (index == 4)
-        //    ButtonBuyPiece4();
     }
 
     IEnumerator ColourLerp(Color targetColour)
@@ -172,94 +164,7 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             {
                 BackEndMatchManager.GetInstance().SendDataToInGame<ButtonMessage>(msg);
             }
-        }
-    }
-    public void ButtonBuyPiece1()
-    {
-        if (index == 1)
-        {
-            int ButtonCode = 0;
-            ButtonCode |= ButtonEventCode.BUYPIECE1;
-
-            SessionId Player = WorldManager.instance.GetMyPlayer();
-
-            ButtonMessage msg;
-            msg = new ButtonMessage(ButtonCode, Player);
-
-            if (BackEndMatchManager.GetInstance().IsHost())
-            {
-                BackEndMatchManager.GetInstance().AddMsgToButtonLocalQueue(msg);
-            }
-            else
-            {
-                BackEndMatchManager.GetInstance().SendDataToInGame<ButtonMessage>(msg);
-            }
-        }
-    }
-    public void ButtonBuyPiece2()
-    {
-        if (index == 2)
-        {
-            int ButtonCode = 0;
-            ButtonCode |= ButtonEventCode.BUYPIECE2;
-
-            SessionId Player = WorldManager.instance.GetMyPlayer();
-
-            ButtonMessage msg;
-            msg = new ButtonMessage(ButtonCode, Player);
-
-            if (BackEndMatchManager.GetInstance().IsHost())
-            {
-                BackEndMatchManager.GetInstance().AddMsgToButtonLocalQueue(msg);
-            }
-            else
-            {
-                BackEndMatchManager.GetInstance().SendDataToInGame<ButtonMessage>(msg);
-            }
-        }
-    }
-    public void ButtonBuyPiece3()
-    {
-        if (index == 3)
-        {
-            int ButtonCode = 0;
-            ButtonCode |= ButtonEventCode.BUYPIECE3;
-
-            SessionId Player = WorldManager.instance.GetMyPlayer();
-
-            ButtonMessage msg;
-            msg = new ButtonMessage(ButtonCode, Player);
-
-            if (BackEndMatchManager.GetInstance().IsHost())
-            {
-                BackEndMatchManager.GetInstance().AddMsgToButtonLocalQueue(msg);
-            }
-            else
-            {
-                BackEndMatchManager.GetInstance().SendDataToInGame<ButtonMessage>(msg);
-            }
-        }
-    }
-    public void ButtonBuyPiece4()
-    {
-        if (index == 4)
-        {
-            int ButtonCode = 0;
-            ButtonCode |= ButtonEventCode.BUYPIECE4;
-
-            SessionId Player = WorldManager.instance.GetMyPlayer();
-
-            ButtonMessage msg;
-            msg = new ButtonMessage(ButtonCode, Player);
-
-            if (BackEndMatchManager.GetInstance().IsHost())
-            {
-                BackEndMatchManager.GetInstance().AddMsgToButtonLocalQueue(msg);
-            }
-            else
-            {
-                BackEndMatchManager.GetInstance().SendDataToInGame<ButtonMessage>(msg);
-            }
+            bought = true;
         }
     }
 
@@ -267,6 +172,7 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     #endregion
 
+    //내 플레이어 누구이고 누구의 필드매니저를 받는지
     IEnumerator MyPlayerFind()
     {
         yield return new WaitForSeconds(0.1f);
