@@ -646,7 +646,7 @@ MonoBehaviour:
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
-  health: 0
+  health: 99999
   mana: 0
   attackDamage: 0
   abilityPower: 0
@@ -682,6 +682,7 @@ MonoBehaviour:
   fear: 0
   invincible: 0
   charm: 0
+  isRabbitSynergeActiveCheck: 0
 --- !u!114 &43912632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8992,14 +8993,14 @@ MonoBehaviour:
   star: 0
   health: 0
   mana: 0
-  attackDamage: 0
+  attackDamage: 10
   abilityPower: 0
   armor: 0
   magicResist: 0
-  attackSpeed: 0
+  attackSpeed: 1
   criticalChance: 0
   criticalDamage: 0
-  attackRange: 0
+  attackRange: 1
   bloodBrain: 0
   shield: 0
   currentShield: 0
@@ -9011,7 +9012,7 @@ MonoBehaviour:
   currentTile: {fileID: 57161754}
   targetTile: {fileID: 0}
   target: {fileID: 0}
-  moveSpeed: 0.7
+  moveSpeed: 2
   ease: 1
   equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
@@ -9026,6 +9027,7 @@ MonoBehaviour:
   fear: 0
   invincible: 0
   charm: 0
+  isRabbitSynergeActiveCheck: 0
 --- !u!1 &592307816
 GameObject:
   m_ObjectHideFlags: 0
@@ -12065,14 +12067,14 @@ MonoBehaviour:
   star: 0
   health: 0
   mana: 0
-  attackDamage: 0
+  attackDamage: 10
   abilityPower: 0
   armor: 0
   magicResist: 0
-  attackSpeed: 0
+  attackSpeed: 1
   criticalChance: 0
   criticalDamage: 0
-  attackRange: 0
+  attackRange: 1
   bloodBrain: 0
   shield: 0
   currentShield: 0
@@ -12084,7 +12086,7 @@ MonoBehaviour:
   currentTile: {fileID: 57161754}
   targetTile: {fileID: 0}
   target: {fileID: 0}
-  moveSpeed: 0.7
+  moveSpeed: 2
   ease: 1
   equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
@@ -12099,6 +12101,7 @@ MonoBehaviour:
   fear: 0
   invincible: 0
   charm: 0
+  isRabbitSynergeActiveCheck: 0
 --- !u!1001 &812478602
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12203,7 +12206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFull: 0
   isReadyTile: 0
-  piece: {fileID: 1746667498}
+  piece: {fileID: 1746667499}
   listX: 0
   listY: 0
   gridX: 0
@@ -13998,8 +14001,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridSizeX: 7
   gridSizeY: 8
-  X: 6
-  Y: 7
   grid:
   - tile:
     - {fileID: 2025196364}
@@ -14065,8 +14066,6 @@ MonoBehaviour:
     - {fileID: 427009107}
     - {fileID: 1553733209}
     - {fileID: 382470588}
-  startPiece: {fileID: 0}
-  targetPiece: {fileID: 0}
 --- !u!4 &902181547
 Transform:
   m_ObjectHideFlags: 0
@@ -14372,14 +14371,14 @@ MonoBehaviour:
   star: 0
   health: 0
   mana: 0
-  attackDamage: 0
+  attackDamage: 10
   abilityPower: 0
   armor: 0
   magicResist: 0
-  attackSpeed: 0
+  attackSpeed: 1
   criticalChance: 0
   criticalDamage: 0
-  attackRange: 0
+  attackRange: 1
   bloodBrain: 0
   shield: 0
   currentShield: 0
@@ -14391,7 +14390,7 @@ MonoBehaviour:
   currentTile: {fileID: 2032397309}
   targetTile: {fileID: 0}
   target: {fileID: 0}
-  moveSpeed: 0.7
+  moveSpeed: 2
   ease: 1
   equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
@@ -14406,6 +14405,7 @@ MonoBehaviour:
   fear: 0
   invincible: 0
   charm: 0
+  isRabbitSynergeActiveCheck: 0
 --- !u!4 &948282654 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9051238300485817969, guid: 2f6c4572e07a60b43b00e1c4f489a806,
@@ -17754,14 +17754,14 @@ MonoBehaviour:
   star: 0
   health: 0
   mana: 0
-  attackDamage: 0
+  attackDamage: 10
   abilityPower: 0
   armor: 0
   magicResist: 0
-  attackSpeed: 0
+  attackSpeed: 1
   criticalChance: 0
   criticalDamage: 0
-  attackRange: 0
+  attackRange: 1
   bloodBrain: 0
   shield: 0
   currentShield: 0
@@ -17773,7 +17773,7 @@ MonoBehaviour:
   currentTile: {fileID: 57161754}
   targetTile: {fileID: 0}
   target: {fileID: 0}
-  moveSpeed: 0.7
+  moveSpeed: 2
   ease: 1
   equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
@@ -17788,6 +17788,7 @@ MonoBehaviour:
   fear: 0
   invincible: 0
   charm: 0
+  isRabbitSynergeActiveCheck: 0
 --- !u!65 &1234782748
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20519,14 +20520,14 @@ MonoBehaviour:
   star: 0
   health: 0
   mana: 0
-  attackDamage: 0
+  attackDamage: 10
   abilityPower: 0
   armor: 0
   magicResist: 0
-  attackSpeed: 0
+  attackSpeed: 1
   criticalChance: 0
   criticalDamage: 0
-  attackRange: 0
+  attackRange: 1
   bloodBrain: 0
   shield: 0
   currentShield: 0
@@ -20538,7 +20539,7 @@ MonoBehaviour:
   currentTile: {fileID: 57161754}
   targetTile: {fileID: 0}
   target: {fileID: 0}
-  moveSpeed: 0.7
+  moveSpeed: 2
   ease: 1
   equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
@@ -20553,6 +20554,7 @@ MonoBehaviour:
   fear: 0
   invincible: 0
   charm: 0
+  isRabbitSynergeActiveCheck: 0
 --- !u!1 &1460477377
 GameObject:
   m_ObjectHideFlags: 0
@@ -23739,7 +23741,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFull: 0
   isReadyTile: 0
-  piece: {fileID: 1957474539}
+  piece: {fileID: 1957474540}
   listX: 0
   listY: 0
   gridX: 0
@@ -23873,7 +23875,7 @@ MonoBehaviour:
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
-  health: 0
+  health: 99999
   mana: 0
   attackDamage: 0
   abilityPower: 0
@@ -23909,6 +23911,7 @@ MonoBehaviour:
   fear: 0
   invincible: 0
   charm: 0
+  isRabbitSynergeActiveCheck: 0
 --- !u!114 &1746667500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26103,7 +26106,7 @@ MonoBehaviour:
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
-  health: 0
+  health: 99999
   mana: 0
   attackDamage: 0
   abilityPower: 0
@@ -26139,6 +26142,7 @@ MonoBehaviour:
   fear: 0
   invincible: 0
   charm: 0
+  isRabbitSynergeActiveCheck: 0
 --- !u!114 &1957474541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26290,7 +26294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFull: 0
   isReadyTile: 0
-  piece: {fileID: 43912630}
+  piece: {fileID: 43912631}
   listX: 0
   listY: 0
   gridX: 0

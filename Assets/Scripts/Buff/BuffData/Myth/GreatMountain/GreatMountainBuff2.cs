@@ -29,10 +29,10 @@ public class GreatMountainBuff2 : BuffData
                 {
                     for (int j = 0; j < pathFinding.grid[j].tile.Count; j++)
                     {
-                        if (pathFinding.grid[i].tile[j].GetComponent<Tile>().IsFull == false)
+                        if (pathFinding.grid[i].tile[j].IsFull == false)
                         {
                             //기물 소환 타일 정보 저장
-                            spawnTile = pathFinding.grid[i].tile[j].GetComponent<Tile>();
+                            spawnTile = pathFinding.grid[i].tile[j];
                             spawnTile.IsFull = true;
                             spawnTile.piece = greatMountainPiece.GetComponent<Piece>();
 
@@ -50,10 +50,10 @@ public class GreatMountainBuff2 : BuffData
                 {
                     for (int j = 0; j < pathFinding.grid[j].tile.Count; j++)
                     {
-                        if (pathFinding.grid[i].tile[j].GetComponent<Tile>().IsFull == false)
+                        if (pathFinding.grid[i].tile[j].IsFull == false)
                         {
                             //기물 소환 타일 정보 저장
-                            spawnTile = pathFinding.grid[i].tile[j].GetComponent<Tile>();
+                            spawnTile = pathFinding.grid[i].tile[j];
                             spawnTile.IsFull = true;
                             spawnTile.piece = greatMountainPiece.GetComponent<Piece>();
 
