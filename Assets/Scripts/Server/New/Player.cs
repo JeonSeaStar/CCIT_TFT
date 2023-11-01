@@ -99,7 +99,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         //fieldManager.DualPlayers[0] = this;
-        StartCoroutine(TESTTEST());
+        //StartCoroutine(TESTTEST());
     }
 
     void Update()
@@ -602,14 +602,14 @@ public class Player : MonoBehaviour
 
 
     //필드 매니저에 있는 piecebuyslot[]을 가져오는 것
-    IEnumerator TESTTEST()
-    {
-        yield return new WaitForSeconds(0.1f);
-        for(int i = 0; i < fieldManager.TESTTEST.Length; i++)
-        {
-            pieceBuySlots[i] = fieldManager.TESTTEST[i];
-        }
-    }
+    //IEnumerator TESTTEST()
+    //{
+    //    yield return new WaitForSeconds(0.1f);
+    //    for(int i = 0; i < fieldManager.TESTTEST.Length; i++)
+    //    {
+    //        pieceBuySlots[i] = fieldManager.TESTTEST[i];
+    //    }
+    //}
 
     #endregion
 

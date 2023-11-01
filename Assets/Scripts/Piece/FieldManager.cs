@@ -66,7 +66,8 @@ public class FieldManager : MonoBehaviour
     private SessionId index = 0;
     private bool isMe = false;
     public int testIndex = 0;
-    public PieceBuySlot[] TESTTEST;
+    public PieceBuySlot[] pieceBuySlots;
+    public PieceData[] pieceDatas;
     #endregion
     void Start()
     {

@@ -54,7 +54,7 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         
         pieceData = data;
         pieceName.text = data.pieceName;
-        //WorldManager.instance.pieceDatas[0] = pieceData;
+        fieldManager.pieceDatas[0] = pieceData;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -79,6 +79,7 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         //if (!Bought)
         //    BuyPiece(pieceData);
+        if(!bought)
             ButtonBuyPiece0();
     }
 
@@ -146,7 +147,7 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     #region 서버 메세지
     public void ButtonBuyPiece0()
     {
-        if(index == 0)
+        if(index == 4)
         {
             int ButtonCode = 0;
             ButtonCode |= ButtonEventCode.BUYPIECE0;

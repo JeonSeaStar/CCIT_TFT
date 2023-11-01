@@ -52,16 +52,12 @@ public class WorldManager : MonoBehaviour
     public Tile tiles; //같은 타일을 받아야 할 수 도 있음
     public GameObject[] shops;
 
-    public PieceData[] pieceDatas;
-    public PieceBuySlot[] pieceBuySlots;
-
 
 
     #endregion
     void Awake()
     {
         instance = this;
-        StartCoroutine(TEST());
     }
     void Start()
     {
@@ -643,16 +639,16 @@ public class WorldManager : MonoBehaviour
         {
             if(BackEndMatchManager.GetInstance().IsMySessionId(index))
             {
-                pieceDatas[0] = pieceBuySlots[0].pieceData;
                 targetTile = players[index].fieldManager.GetTile();
                 //players[index].pieceBuySlots[0].BuyPiece();
-                players[index].fieldManager.SpawnPiece(pieceDatas[0], 0, targetTile);
-                PlayerBuyPiece0Message msg = new PlayerBuyPiece0Message(index, pieceDatas[0], 0, targetTile);
+                players[index].fieldManager.SpawnPiece(players[index].fieldManager.pieceDatas[0], 0, targetTile);
+                PlayerBuyPiece0Message msg = new PlayerBuyPiece0Message(index, players[index].fieldManager.pieceDatas[0], 0, targetTile);
                 BackEndMatchManager.GetInstance().SendDataToInGame<PlayerBuyPiece0Message>(msg);
             }
             else
             {
-
+                //가지고 있는 필드 매니저에서 뽑아쓰면 어떨까?
+                players[index].pieceBuySlots[0].BuyPiece();
             }
         }
         //
@@ -814,17 +810,18 @@ public class WorldManager : MonoBehaviour
         }
         if(BackEndMatchManager.GetInstance().IsMySessionId(data.playerSession))
         {
-            pieceDatas[0] = pieceBuySlots[0].pieceData;
             tiles = players[data.playerSession].fieldManager.GetTile();
             //players[data.playerSession].pieceBuySlots[0].BuyPiece();
-            players[data.playerSession].fieldManager.SpawnPiece(pieceDatas[0], 0, tiles);
+            players[data.playerSession].fieldManager.SpawnPiece(players[data.playerSession].fieldManager.pieceDatas[0], 0, tiles);
         }
         else
         {
-             //다른 사람이 구매한 기물을 어떻게 받아올까?
-             //피스 데이터
-             //타일 데이터
-             //피스를 스폰해주는 것
+            players[data.playerSession].pieceBuySlots[0].BuyPiece();
+            //다른 사람이 구매한 기물을 어떻게 받아올까?
+            //피스 데이터
+            //타일 데이터
+            //피스를 스폰해주는 것
+            //가지고 있는 필드 매니저에서 뽑아쓰면 어떨까?
         }
     }
     //
@@ -982,10 +979,4 @@ public class WorldManager : MonoBehaviour
     //    }
 
     //}
-
-    IEnumerator TEST()
-    {
-        yield return new WaitForSeconds(10f);
-        pieceDatas[0] = pieceBuySlots[0].pieceData;
-    }
 }
