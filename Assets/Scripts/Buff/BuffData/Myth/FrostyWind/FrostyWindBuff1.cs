@@ -24,8 +24,8 @@ public class FrostyWindBuff1 : BuffData
             {
                 if (_activePiece.gameObject.activeSelf == true) enemyList.Add(_activePiece);
             }
-            Piece[] enemyPiece = new Piece[_count];
 
+            Piece[] enemyPiece = new Piece[_count];
             for (int i = 0; i < _count; i++)
             {
                 enemyPiece[i] = enemyList[Random.Range(0, enemyList.Count)];

@@ -146,6 +146,14 @@ public class Piece : MonoBehaviour
                 }
             }
             #endregion
+
+            #region 고양이 기물 시너지 확인
+            var _catPiece = ArenaManager.Instance.fieldManagers[0].buffManager.animalBuff[0];
+            if(buffList.Contains(_catPiece.catBuff[0]) && buffList.Contains(_catPiece.catBuff[1]))
+            {
+
+            }
+            #endregion
             target.Dead();
             target = null;
         }
@@ -184,8 +192,11 @@ public class Piece : MonoBehaviour
             Vector3 targetTilePos = new Vector3(path[0].transform.position.x, transform.position.y, path[0].transform.position.z);
             transform.DOMove(targetTilePos, moveSpeed).SetEase(ease);
 
+            currentTile.piece = null;
             currentTile.IsFull = false;
             currentTile = path[0];
+
+            currentTile.piece = this;
             currentTile.IsFull = true;
 
             path.RemoveAt(0);
@@ -194,42 +205,47 @@ public class Piece : MonoBehaviour
             Invoke("NextBehavior", moveSpeed);
         }
     }
-
+    #region 토끼
     public void RabbitJump()
     {
-        List<Tile> _candidatePathCountCheck = (candidatePath.Count > 1) ? candidatePath[1].path : candidatePath[0].path;
-
-        ///
-        ///
-        ///
-        if (ArenaManager.Instance.fieldManagers[0].pathFinding.GetDistance(currentTile, _candidatePathCountCheck[0]) == 0) Debug.Log(24);
-        ///
-        ///
-        ///
-
-        int _candidatePathCount = _candidatePathCountCheck.Count;
-        Tile _targetTile = _candidatePathCountCheck[_candidatePathCount - 1];
-
-        List<Tile> _neighbor = ArenaManager.Instance.fieldManagers[0].pathFinding.GetNeighbor(_targetTile);
-        foreach(var _targetCheck in _neighbor)
+        var _distance = ArenaManager.Instance.fieldManagers[0].pathFinding.GetDistance(currentTile, target.currentTile);
+        List<Tile> _neighbor = new List<Tile>();
+        if (attackRange >= _distance) //제자리 점프
         {
-            if(_targetCheck.IsFull == false)
-            {
-                Vector3 targetTilePos = new Vector3(path[0].transform.position.x, 1, path[0].transform.position.z);
-                Vector3 hpos = transform.position + ((targetTilePos - transform.position) / 2);
-                Vector3[] Jumppath ={new Vector3(transform.position.x,transform.position.y,transform.position.z),
-                                 new Vector3(hpos.x,hpos.y+3f,hpos.z),
-                                 new Vector3(targetTilePos.x, targetTilePos.y, targetTilePos.z) };
-                GetComponent<Rigidbody>().DOPath(Jumppath, 2, PathType.CatmullRom, PathMode.Full3D); //점프구간
-
-                currentTile.IsFull = false;
-                currentTile = _targetCheck;
-                currentTile.IsFull = true;
-
-                isRabbitSynergeActiveCheck = false;
-                return;
-            }
+            _neighbor = ArenaManager.Instance.fieldManagers[0].pathFinding.GetNeighbor(currentTile);
+            Vector3[] Jumppath ={ new Vector3(transform.position.x,transform.position.y,transform.position.z),
+                                     new Vector3(transform.position.x,transform.position.y + 3f, transform.position.z),
+                                     new Vector3(transform.position.x, transform.position.y, transform.position.z) };
+            GetComponent<Rigidbody>().DOPath(Jumppath, 2, PathType.CatmullRom, PathMode.Full3D); //점프구간
         }
+        else
+        {
+            if (_distance <= 4)
+            {
+                _neighbor = ArenaManager.Instance.fieldManagers[0].pathFinding.GetNeighbor(target.currentTile);
+                foreach(var _neighborTile in _neighbor)
+                {
+                    if (_neighborTile.IsFull == false)
+                    {
+                        Vector3 targetTilePos = new Vector3(path[0].transform.position.x, 1, path[0].transform.position.z);
+                        Vector3 hpos = transform.position + ((targetTilePos - transform.position) / 2);
+                        Vector3[] Jumppath = { new Vector3(transform.position.x, transform.position.y, transform.position.z),
+                                                 new Vector3(hpos.x, hpos.y + 3f, hpos.z),
+                                                 new Vector3(targetTilePos.x, targetTilePos.y, targetTilePos.z) };
+                        GetComponent<Rigidbody>().DOPath(Jumppath, 2, PathType.CatmullRom, PathMode.Full3D); //점프구간
+
+                        currentTile.piece = null;
+                        currentTile.IsFull = false;
+                        currentTile = _neighborTile;
+
+                        currentTile.piece = this;
+                        currentTile.IsFull = true;
+                    }
+                }
+            }
+            else { Move(); return; } 
+        }
+
         StartCoroutine(RabbitSplashDamage(_neighbor, 3));
         Invoke("NextBehavior", 3); 
     }
@@ -239,17 +255,32 @@ public class Piece : MonoBehaviour
         yield return new WaitForSeconds(time);
         int splashDamage = 0;
         var _buff = ArenaManager.Instance.fieldManagers[0].buffManager.animalBuff[0];
-        if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[0])) splashDamage = 10;
-        else if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[1])) splashDamage = 15;
-        else if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[2])) splashDamage = 20;
+        if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[0])) { splashDamage = 10; pieceData.CalculateBuff(this, _buff.rabbitBuff[0]); }
+        else if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[1])) { splashDamage = 15; pieceData.CalculateBuff(this, _buff.rabbitBuff[1]); }
+        else if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[2])) { splashDamage = 20; pieceData.CalculateBuff(this, _buff.rabbitBuff[2]); }
 
+        Invoke("RsetRabbitStatus", 3);
         foreach (var tile in neighbor)
         {
             if (tile.IsFull && !tile.piece.isOwned) Damage(tile.piece, splashDamage);
         }
+
+        isRabbitSynergeActiveCheck = false;
     }
 
-    public bool isRabbitSynergeActiveCheck;
+    void RsetRabbitStatus()
+    {
+        if (ArenaManager.Instance.roundType != ArenaManager.RoundType.Battle) return;
+
+        var _rabbitCount = ArenaManager.Instance.fieldManagers[0].animalActiveCount[PieceData.Animal.Rabbit];
+        int _activeCount = _rabbitCount / 3;
+        this.attackSpeed -= pieceData.attackSpeed[star] * 0.1f * _activeCount;
+        this.moveSpeed -= pieceData.moveSpeed[star] * 0.1f * _activeCount;
+    }
+
+    [HideInInspector] public bool isRabbitSynergeActiveCheck;
+    #endregion
+
     public void NextBehavior()
     {
         if (CheckEnemySurvival(ArenaManager.Instance.fieldManagers[0].enemyFilePieceList))

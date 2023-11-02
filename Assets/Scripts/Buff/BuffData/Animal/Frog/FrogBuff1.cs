@@ -23,7 +23,7 @@ public class FrogBuff1 : BuffData
 
     public override void BattleStartEffect(bool isAdd)
     {
-        if (isAdd) frogRain.SetActive(true);
-        else if (!isAdd) frogRain.SetActive(false);
+        if (isAdd == true) ArenaManager.Instance.fieldManagers[0].FrogRain(true);
+        else if (isAdd == false) ArenaManager.Instance.fieldManagers[0].FrogRain(false);
     }
 }

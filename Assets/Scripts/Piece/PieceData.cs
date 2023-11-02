@@ -24,6 +24,7 @@ public class PieceData : ScriptableObject
     public float[] criticalDamage   = new float[3];  //크리티컬 배율
     public int[] attackRange        = new int[3];       //공격범위
     public float[] bloodBrain       = new float[3];      //흡협률
+    public float[] moveSpeed        = new float[3];     //이동속도
     public Buff buff;
 
     //토끼 전용 고정 데미지 수치 파라티터 추가 필요 Ex) JumpDemage

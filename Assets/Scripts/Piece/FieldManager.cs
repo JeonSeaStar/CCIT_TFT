@@ -57,6 +57,9 @@ public class FieldManager : MonoBehaviour
         { PieceData.United.Creature          ,0 }
     };
 
+    [Header("È¯°æ_ºñ")]
+    public GameObject frogRain;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.S))
@@ -75,7 +78,7 @@ public class FieldManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.B) && ArenaManager.Instance.roundType != RoundType.Battle)
         {
             ArenaManager.Instance.roundType = RoundType.Battle;
-            //foreach (var effect in sBattleStartEffect) effect(true);
+            foreach (var effect in sBattleStartEffect) effect(true);
             Debug.Log(sBattleStartEffect.Count);
             Debug.Log(sCoroutineEffect.Count);
             foreach (var effect in sCoroutineEffect) effect();
@@ -217,7 +220,7 @@ public class FieldManager : MonoBehaviour
                 ApplyAnimalBuff(buffManager.animalBuff[0].hamsterBuff, _animalSynergeCount, new int[] { 2, 4, 6 }, value);
                 break;
             case PieceData.Animal.Cat://4
-                ApplyAnimalBuff(buffManager.animalBuff[0].catBuff, _animalSynergeCount, new int[] { 2, 4 }, value);
+                ApplyAnimalBuff(buffManager.animalBuff[0].catBuff, _animalSynergeCount, new int[] { 2, 4, 6, 8 }, value);
                 break;
             case PieceData.Animal.Dog://2
                 ApplyAnimalBuff(buffManager.animalBuff[0].dogBuff, _animalSynergeCount, new int[] { 3, 6, 9 }, value);
@@ -381,7 +384,7 @@ public class FieldManager : MonoBehaviour
                                     RemoveBattleStartEffect(buffManager.animalBuff[0].frogBuff[i - 1].BattleStartEffect);
                                     break;
                                 case PieceData.Animal.Rabbit:
-                                    //OncePerAttack
+                                    RemoveCoroutine(buffManager.animalBuff[0].rabbitBuff[i - 1].CoroutineEffect);
                                     break;
                             }
                         }
@@ -408,7 +411,7 @@ public class FieldManager : MonoBehaviour
                                     AddBattleStartEffect(buffManager.animalBuff[0].frogBuff[i].BattleStartEffect);
                                     break;
                                 case PieceData.Animal.Rabbit:
-                                    //OncePerAttack
+                                    AddCoroutine(buffManager.animalBuff[0].rabbitBuff[i].CoroutineEffect);
                                     break;
                             }
                         }
@@ -440,7 +443,7 @@ public class FieldManager : MonoBehaviour
                                 RemoveBattleStartEffect(buffManager.animalBuff[0].frogBuff[i - 1].BattleStartEffect);
                                 break;
                             case PieceData.Animal.Rabbit:
-                                //OncePerAttack
+                                RemoveCoroutine(buffManager.animalBuff[0].rabbitBuff[i - 1].CoroutineEffect);
                                 break;
                         }
                     }
@@ -536,6 +539,12 @@ public class FieldManager : MonoBehaviour
         }
     }
     #endregion
+
+    public void FrogRain(bool isRain)
+    {
+        if (isRain) frogRain.SetActive(true);
+        else if (!isRain) frogRain.SetActive(false);
+    }
     public void InitializingRound()
     {
         if (DualPlayers[0].isGrab)
