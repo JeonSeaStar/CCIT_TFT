@@ -427,6 +427,12 @@ public class FieldManager : MonoBehaviour
         return kind;
     }
 
+    public void PieceFieldData(PieceData pieceData, int grade ,Tile targetTile)
+    {
+
+    }
+
+
     //스폰할때 누구의 필드매니저의 기물인지 스폰해주어야 함
     public void SpawnPiece(PieceData pieceData, int grade, Tile targetTile)
     {

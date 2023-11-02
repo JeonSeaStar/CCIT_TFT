@@ -23,7 +23,6 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     private void Awake()
     {
-        
         StartCoroutine(MyPlayerFind());
     }
 
@@ -54,7 +53,6 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         
         pieceData = data;
         pieceName.text = data.pieceName;
-        fieldManager.pieceDatas[0] = pieceData;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -80,7 +78,12 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         //if (!Bought)
         //    BuyPiece(pieceData);
         if(!bought)
+        {
+            fieldManager.pieceBuySlots[0] = this;
+            fieldManager.pieceDatas[0] = pieceData;
+            WorldManager.instance.pieceData = fieldManager.pieceDatas[0];
             ButtonBuyPiece0();
+        }
     }
 
     IEnumerator ColourLerp(Color targetColour)
@@ -147,7 +150,7 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     #region 서버 메세지
     public void ButtonBuyPiece0()
     {
-        if(index == 4)
+        //if(index == 0)
         {
             int ButtonCode = 0;
             ButtonCode |= ButtonEventCode.BUYPIECE0;

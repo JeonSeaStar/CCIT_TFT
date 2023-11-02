@@ -50,10 +50,45 @@ public class WorldManager : MonoBehaviour
 
     #region 기물
     public Tile tiles; //같은 타일을 받아야 할 수 도 있음
+    public PieceData pieceData;
+    #endregion
+
+    #region 상점
     public GameObject[] shops;
+    [System.Serializable]
+    public class PiecePercents
+    {
+        public List<int> tier;
+    }
+    public List<PiecePercents> percentageByLevel;
 
+    //테스트용
+    [System.Serializable]
+    public class TestPieceCount
+    {
+        public int count;
+        public PieceData piecedata;
 
+    }
+    [System.Serializable]
+    public class TestPieceCountList
+    {
+        public List<TestPieceCount> testCountList;
+    }
+    public List<TestPieceCountList> testList;
 
+    [System.Serializable]
+    public class TestPieceSlot
+    {
+        public SessionId playerIndex;
+        public List<PieceBuySlot> pieceBuySlots;
+    }
+    [System.Serializable]
+    public class TestPieceSlotList
+    {
+        public List<TestPieceSlot> testPieceSlots;
+    }
+    public List<TestPieceSlotList> testSlots;
     #endregion
     void Awake()
     {
@@ -72,6 +107,7 @@ public class WorldManager : MonoBehaviour
             InGameUiManager.GetInstance().SetStartCount(0, false);
             InGameUiManager.GetInstance().SetReconnectBoard(BackEndServerManager.GetInstance().myNickName);
         }
+        //testSlots[0].testPieceSlots[0].pieceBuySlots[0].pieceData = pieceData;
     }
 
     /*
@@ -192,12 +228,16 @@ public class WorldManager : MonoBehaviour
             if (BackEndMatchManager.GetInstance().IsMySessionId(sessionId)) //나인거
             {
                 myPlayerIndex = sessionId;
-                players[sessionId].Initialize(true, myPlayerIndex, BackEndMatchManager.GetInstance().GetNickNameBySessionId(sessionId), statringPoints[index].w, playerPool[index].GetComponentInChildren<FieldManager>(), InGameUiManager.GetInstance().playersHp[index].GetComponent<TMP_Text>(), shops[index].GetComponent<GameObject>());
+                players[sessionId].Initialize(true, myPlayerIndex, BackEndMatchManager.GetInstance().GetNickNameBySessionId(sessionId), statringPoints[index].w, playerPool[index].GetComponentInChildren<FieldManager>(), InGameUiManager.GetInstance().playersHp[index].GetComponent<TMP_Text>(), shops[index]);
+                testSlots[index].testPieceSlots[0].playerIndex = sessionId;
+                Debug.Log("My Player" + testSlots[index].testPieceSlots[0].playerIndex);
             }
             else //나 아닌거
             {
-                players[sessionId].Initialize(false, sessionId, BackEndMatchManager.GetInstance().GetNickNameBySessionId(sessionId), statringPoints[index].w, playerPool[index].GetComponentInChildren<FieldManager>(), InGameUiManager.GetInstance().playersHp[index].GetComponent<TMP_Text>(), shops[index].GetComponent<GameObject>());
-                shops[index].transform.position = new Vector3(0,0,-1001);
+                players[sessionId].Initialize(false, sessionId, BackEndMatchManager.GetInstance().GetNickNameBySessionId(sessionId), statringPoints[index].w, playerPool[index].GetComponentInChildren<FieldManager>(), InGameUiManager.GetInstance().playersHp[index].GetComponent<TMP_Text>(), shops[index]);
+                testSlots[index].testPieceSlots[0].playerIndex = sessionId;
+                Debug.Log("Other Player" + testSlots[index].testPieceSlots[0].playerIndex);
+                shops[index].transform.position = new Vector3(0, 0, -1001);
             }
             index += 1;
         }
@@ -587,7 +627,6 @@ public class WorldManager : MonoBehaviour
         bool buyPiece0 = false;
 
         Vector3 piecePos = Vector3.zero;
-        Tile targetTile;
 
         int ButtonData = buttonMessage.ButtonData;
         if ((ButtonData & ButtonEventCode.TESTBUTTON1) == ButtonEventCode.TESTBUTTON1)
@@ -637,19 +676,24 @@ public class WorldManager : MonoBehaviour
         //1번 피스 구매인데
         if(buyPiece0)
         {
-            if(BackEndMatchManager.GetInstance().IsMySessionId(index))
-            {
-                targetTile = players[index].fieldManager.GetTile();
-                //players[index].pieceBuySlots[0].BuyPiece();
-                players[index].fieldManager.SpawnPiece(players[index].fieldManager.pieceDatas[0], 0, targetTile);
-                PlayerBuyPiece0Message msg = new PlayerBuyPiece0Message(index, players[index].fieldManager.pieceDatas[0], 0, targetTile);
-                BackEndMatchManager.GetInstance().SendDataToInGame<PlayerBuyPiece0Message>(msg);
-            }
-            else
-            {
-                //가지고 있는 필드 매니저에서 뽑아쓰면 어떨까?
-                players[index].pieceBuySlots[0].BuyPiece();
-            }
+            tiles = players[index].fieldManager.GetTile();
+            //players[index].pieceBuySlots[0].BuyPiece();
+            players[index].fieldManager.SpawnPiece(pieceData, 0, tiles);
+            PlayerBuyPiece0Message msg = new PlayerBuyPiece0Message(index, pieceData, 0, tiles);
+            BackEndMatchManager.GetInstance().SendDataToInGame<PlayerBuyPiece0Message>(msg);
+            //if (BackEndMatchManager.GetInstance().IsMySessionId(index))
+            //{
+            //    targetTile = players[index].fieldManager.GetTile();
+            //    //players[index].pieceBuySlots[0].BuyPiece();
+            //    players[index].fieldManager.SpawnPiece(players[index].fieldManager.pieceDatas[0], 0, targetTile);
+            //    PlayerBuyPiece0Message msg = new PlayerBuyPiece0Message(index, players[index].fieldManager.pieceDatas[0], 0, targetTile);
+            //    BackEndMatchManager.GetInstance().SendDataToInGame<PlayerBuyPiece0Message>(msg);
+            //}
+            //else
+            //{
+            //    //가지고 있는 필드 매니저에서 뽑아쓰면 어떨까?
+            //    //players[index].pieceBuySlots[0].BuyPiece();
+            //}
         }
         //
         if (sellPiece)
@@ -808,21 +852,24 @@ public class WorldManager : MonoBehaviour
         {
             return;
         }
-        if(BackEndMatchManager.GetInstance().IsMySessionId(data.playerSession))
-        {
-            tiles = players[data.playerSession].fieldManager.GetTile();
-            //players[data.playerSession].pieceBuySlots[0].BuyPiece();
-            players[data.playerSession].fieldManager.SpawnPiece(players[data.playerSession].fieldManager.pieceDatas[0], 0, tiles);
-        }
-        else
-        {
-            players[data.playerSession].pieceBuySlots[0].BuyPiece();
-            //다른 사람이 구매한 기물을 어떻게 받아올까?
-            //피스 데이터
-            //타일 데이터
-            //피스를 스폰해주는 것
-            //가지고 있는 필드 매니저에서 뽑아쓰면 어떨까?
-        }
+        tiles = players[data.playerSession].fieldManager.GetTile();
+        //tiles = players[data.playerSession].fieldManager.GetTile();
+        players[data.playerSession].fieldManager.SpawnPiece(pieceData, 0, tiles);
+        //if (BackEndMatchManager.GetInstance().IsMySessionId(data.playerSession))
+        //{
+        //    tiles = players[data.playerSession].fieldManager.GetTile();
+        //    //players[data.playerSession].pieceBuySlots[0].BuyPiece();
+        //    players[data.playerSession].fieldManager.SpawnPiece(players[data.playerSession].fieldManager.pieceDatas[0], 0, tiles);
+        //}
+        //else
+        //{
+        //    //players[data.playerSession].pieceBuySlots[0].BuyPiece();
+        //    //다른 사람이 구매한 기물을 어떻게 받아올까?
+        //    //피스 데이터
+        //    //타일 데이터
+        //    //피스를 스폰해주는 것
+        //    //가지고 있는 필드 매니저에서 뽑아쓰면 어떨까?
+        //}
     }
     //
 

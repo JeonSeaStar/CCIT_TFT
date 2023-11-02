@@ -36,6 +36,7 @@ public class Player : MonoBehaviour
     private SessionId index = 0;
     private string nickName = string.Empty;
     private bool isMe = false;
+    public int PLAYERINDEX = 0;
 
     // 스테이터스
     public int hp { get; private set; } = 0;

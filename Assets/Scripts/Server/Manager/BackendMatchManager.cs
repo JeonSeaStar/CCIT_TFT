@@ -460,12 +460,12 @@ public partial class BackEndMatchManager : MonoBehaviour
         {
             // 각 클라이언트들이 서버를 통해 주고받은 패킷들
             // 서버는 단순 브로드캐스팅만 지원 (서버에서 어떠한 연산도 수행하지 않음)
-            Debug.Log("다른 유저가 보낸 메세지인가 : " + args.From.IsRemote);
-            if (args.From.IsRemote == true)
-            {
-                Debug.Log("유저 이름 : " + args.From.NickName);
-                Debug.Log("유저 세선 아이디 : " + args.From.SessionId);
-            }
+            //Debug.Log("다른 유저가 보낸 메세지인가 : " + args.From.IsRemote);
+            //if (args.From.IsRemote == true)
+            //{
+            //    Debug.Log("유저 이름 : " + args.From.NickName);
+            //    Debug.Log("유저 세선 아이디 : " + args.From.SessionId);
+            //}
 
             // 게임 사전 설정
             if (PrevGameMessage(args.BinaryUserData) == true)
