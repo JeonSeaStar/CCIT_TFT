@@ -148,12 +148,18 @@ public class Piece : MonoBehaviour
             #endregion
 
             #region 고양이 기물 시너지 확인
-            var _catPiece = ArenaManager.Instance.fieldManagers[0].buffManager.animalBuff[0];
-            if(buffList.Contains(_catPiece.catBuff[0]) && buffList.Contains(_catPiece.catBuff[1]))
+            if (isCatSynergeActiveCheck)
             {
-
+                int _r = (ArenaManager.Instance.fieldManagers[0].animalActiveCount[PieceData.Animal.Cat] >= 4) ? UnityEngine.Random.Range(0, 3) : UnityEngine.Random.Range(0, 2);
+                if (_r == 0) 
+                { 
+                    int _gold = UnityEngine.Random.Range(2, 6);
+                    ArenaManager.Instance.fieldManagers[0].DualPlayers[0].gold += _gold;
+                } 
+                
             }
             #endregion
+
             target.Dead();
             target = null;
         }
@@ -280,7 +286,9 @@ public class Piece : MonoBehaviour
 
     [HideInInspector] public bool isRabbitSynergeActiveCheck;
     #endregion
-
+    #region 고양이
+    [HideInInspector] public bool isCatSynergeActiveCheck;
+    #endregion
     public void NextBehavior()
     {
         if (CheckEnemySurvival(ArenaManager.Instance.fieldManagers[0].enemyFilePieceList))
@@ -292,6 +300,7 @@ public class Piece : MonoBehaviour
             if (target != null)
             {
                 if (isRabbitSynergeActiveCheck) { RabbitJump(); return; }
+                if (isCatSynergeActiveCheck) { }
 
                 if (RangeCheck())
                     Attack();
