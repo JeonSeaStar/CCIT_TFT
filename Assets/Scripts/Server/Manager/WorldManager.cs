@@ -1007,6 +1007,19 @@ public class WorldManager : MonoBehaviour
     {
         return myPlayerIndex;
     }
+
+    IEnumerator asd()
+    {
+        yield return new WaitForSeconds(15f);
+        Debug.Log(testSlots[0].testPieceSlots[0].playerIndex);
+        Debug.Log(testSlots[1].testPieceSlots[0].playerIndex);
+        Debug.Log(testSlots[2].testPieceSlots[0].playerIndex);
+        Debug.Log(testSlots[3].testPieceSlots[0].playerIndex);
+        Debug.Log(testSlots[4].testPieceSlots[0].playerIndex);
+        Debug.Log(testSlots[5].testPieceSlots[0].playerIndex);
+        Debug.Log(testSlots[6].testPieceSlots[0].playerIndex);
+        Debug.Log(testSlots[7].testPieceSlots[0].playerIndex);
+    }
     //public void GetKillPlayer()
     //{
     //    for (int i = 0; i < playerPool.transform.childCount; i++)
