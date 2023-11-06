@@ -28,65 +28,65 @@ public class PieceShop : MonoBehaviour
     }
     public List<TestPieceCountList> testList;
 
-    public void RefreshSlots()
-    {
-        foreach (var slot in slots)
-        {
-            //여기 줄에 기물 데이터 넣어주기
-            GetPieceTier(0, slot);
-        }
-    }
+    //public void RefreshSlots()
+    //{
+    //    foreach (var slot in slots)
+    //    {
+    //        //여기 줄에 기물 데이터 넣어주기
+    //        GetPieceTier(0, slot);
+    //    }
+    //}
 
     public void ShopSwitch()
     {
         gameObject.SetActive(!gameObject.activeSelf);
     }
 
-    void SetSlot(PieceBuySlot slot, PieceData pieceData)
-    {
-        slot.InitSlot(pieceData);
-    }
+    //void SetSlot(PieceBuySlot slot, PieceData pieceData)
+    //{
+    //    slot.InitSlot(pieceData);
+    //}
 
-    void GetPieceTier(int level, PieceBuySlot slot)
-    {
-        int chooseTier = Random.Range(1, 100);
-        int currentPercent = 0;
-        for (int i = 0; i < percentageByLevel[level].tier.Count; i++)
-        {
-            if (currentPercent < chooseTier && currentPercent + percentageByLevel[level].tier[i] >= chooseTier)
-            {
-                SetSlot(slot, testList[i].testCountList[GetRandomIndex(i)].piecedata);
-                return;
-            }
+    //void GetPieceTier(int level, PieceBuySlot slot)
+    //{
+    //    int chooseTier = Random.Range(1, 100);
+    //    int currentPercent = 0;
+    //    for (int i = 0; i < percentageByLevel[level].tier.Count; i++)
+    //    {
+    //        if (currentPercent < chooseTier && currentPercent + percentageByLevel[level].tier[i] >= chooseTier)
+    //        {
+    //            SetSlot(slot, testList[i].testCountList[GetRandomIndex(i)].piecedata);
+    //            return;
+    //        }
 
-            currentPercent += percentageByLevel[level].tier[i];
-        }
-    }
+    //        currentPercent += percentageByLevel[level].tier[i];
+    //    }
+    //}
 
-    int GetRandomIndex(int tier)
-    {
-        List<int> weights = new List<int>();
+    //int GetRandomIndex(int tier)
+    //{
+    //    List<int> weights = new List<int>();
 
-        for (int i = 0; i < testList[tier].testCountList.Count; i++)
-        {
-            weights.Add(testList[tier].testCountList[i].count);
-        }
+    //    for (int i = 0; i < testList[tier].testCountList.Count; i++)
+    //    {
+    //        weights.Add(testList[tier].testCountList[i].count);
+    //    }
 
-        int total = 0;
-        for (int i = 0; i < weights.Count; i++)
-            total += weights[i];
+    //    int total = 0;
+    //    for (int i = 0; i < weights.Count; i++)
+    //        total += weights[i];
 
-        int pivot = Mathf.RoundToInt(total * Random.Range(0.0f, 1.0f));
-        int weight = 0;
+    //    int pivot = Mathf.RoundToInt(total * Random.Range(0.0f, 1.0f));
+    //    int weight = 0;
 
-        for (int i = 0; i < weights.Count; i++)
-        {
-            weight += weights[i];
-            if (pivot <= weight)
-            {
-                return i;
-            }
-        }
-        return 1;
-    }
+    //    for (int i = 0; i < weights.Count; i++)
+    //    {
+    //        weight += weights[i];
+    //        if (pivot <= weight)
+    //        {
+    //            return i;
+    //        }
+    //    }
+    //    return 1;
+    //}
 }

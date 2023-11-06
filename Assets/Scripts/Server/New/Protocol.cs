@@ -29,6 +29,8 @@ namespace Protocol
 
         bulletInfo,
 
+        PieceDataRefresh,
+
         AIPlayerInfo,       // AI가 존재하는 경우 AI 정보
         LoadRoomScene,      // 룸 씬으로 전환
         LoadGameScene,      // 인게임 씬으로 전환
@@ -433,6 +435,17 @@ namespace Protocol
         public InGameWinnerCheckCountMessage(int time) : base(Type.InGameWinnerCheck)
         {
             this.time = time;
+        }
+    }
+
+    public class InGamePieceRefreshSlotsMessage : Message
+    {
+        //public SessionId Player;
+        public PieceData pieceData;
+        public InGamePieceRefreshSlotsMessage(PieceData pieceData) : base (Type.PieceDataRefresh)
+        {
+            //this.Player = sessionId;
+            this.pieceData = pieceData;
         }
     }
 

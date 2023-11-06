@@ -107,7 +107,6 @@ public class WorldManager : MonoBehaviour
             InGameUiManager.GetInstance().SetStartCount(0, false);
             InGameUiManager.GetInstance().SetReconnectBoard(BackEndServerManager.GetInstance().myNickName);
         }
-        //testSlots[0].testPieceSlots[0].pieceBuySlots[0].pieceData = pieceData;
     }
 
     /*
@@ -229,14 +228,12 @@ public class WorldManager : MonoBehaviour
             {
                 myPlayerIndex = sessionId;
                 players[sessionId].Initialize(true, myPlayerIndex, BackEndMatchManager.GetInstance().GetNickNameBySessionId(sessionId), statringPoints[index].w, playerPool[index].GetComponentInChildren<FieldManager>(), InGameUiManager.GetInstance().playersHp[index].GetComponent<TMP_Text>(), shops[index]);
-                testSlots[index].testPieceSlots[0].playerIndex = sessionId;
-                Debug.Log("My Player" + testSlots[index].testPieceSlots[0].playerIndex);
+                testSlots[index].testPieceSlots[0].playerIndex = myPlayerIndex;
             }
             else //나 아닌거
             {
                 players[sessionId].Initialize(false, sessionId, BackEndMatchManager.GetInstance().GetNickNameBySessionId(sessionId), statringPoints[index].w, playerPool[index].GetComponentInChildren<FieldManager>(), InGameUiManager.GetInstance().playersHp[index].GetComponent<TMP_Text>(), shops[index]);
                 testSlots[index].testPieceSlots[0].playerIndex = sessionId;
-                Debug.Log("Other Player" + testSlots[index].testPieceSlots[0].playerIndex);
                 shops[index].transform.position = new Vector3(0, 0, -1001);
             }
             index += 1;
@@ -400,6 +397,11 @@ public class WorldManager : MonoBehaviour
         OnGameEvent();
     }
 
+    public void TestPieceRefresh()
+    {
+        
+    }
+
 
 
     public void PreInGame()
@@ -504,6 +506,13 @@ public class WorldManager : MonoBehaviour
                 InGameUiManager.GetInstance().SetGameStateWinnerCheck();
                 break;
 
+            //피스 데이터 테스트용
+            case Protocol.Type.PieceDataRefresh:
+                InGamePieceRefreshSlotsMessage inGamePieceRefreshSlotsMessage = DataParser.ReadJsonData<InGamePieceRefreshSlotsMessage>(args.BinaryUserData);
+                //PieceRefreshSlotsMessageData(); //해당 데이터를 어떻게 넣어야 할까?
+                Debug.Log("다섯번 보내는 것이 아닌 모아서 한번에 데이터를 보내면 됨");
+                
+                break;
 
 
 
@@ -1007,19 +1016,6 @@ public class WorldManager : MonoBehaviour
     {
         return myPlayerIndex;
     }
-
-    IEnumerator asd()
-    {
-        yield return new WaitForSeconds(15f);
-        Debug.Log(testSlots[0].testPieceSlots[0].playerIndex);
-        Debug.Log(testSlots[1].testPieceSlots[0].playerIndex);
-        Debug.Log(testSlots[2].testPieceSlots[0].playerIndex);
-        Debug.Log(testSlots[3].testPieceSlots[0].playerIndex);
-        Debug.Log(testSlots[4].testPieceSlots[0].playerIndex);
-        Debug.Log(testSlots[5].testPieceSlots[0].playerIndex);
-        Debug.Log(testSlots[6].testPieceSlots[0].playerIndex);
-        Debug.Log(testSlots[7].testPieceSlots[0].playerIndex);
-    }
     //public void GetKillPlayer()
     //{
     //    for (int i = 0; i < playerPool.transform.childCount; i++)
@@ -1039,4 +1035,88 @@ public class WorldManager : MonoBehaviour
     //    }
 
     //}
+
+
+    #region 상점관련
+    public void RefreshSlots()
+    {
+        for(int i = 0; i < 8; i++)
+        {
+            if (testSlots[i].testPieceSlots[0].playerIndex == myPlayerIndex)
+            {
+                foreach (var slot in testSlots[i].testPieceSlots[0].pieceBuySlots) //이때 플레이어 인덱스 받아서 리롤할 플레이어의 슬롯만 변경되도록
+                {
+                    //여기 줄에 기물 데이터 넣어주기
+                    GetPieceTier(0, slot);
+                    //Debug.Log(slot.pieceData);
+                }
+            }
+        }
+        PieceRefreshSlotsMessageData();
+    }
+
+    public void PieceRefreshSlotsMessageData()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            if (testSlots[i].testPieceSlots[0].playerIndex == myPlayerIndex)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    Debug.Log(testSlots[i].testPieceSlots[0].pieceBuySlots[j].pieceData);
+                    InGamePieceRefreshSlotsMessage msg = new InGamePieceRefreshSlotsMessage(testSlots[i].testPieceSlots[0].pieceBuySlots[j].pieceData);
+                    BackEndMatchManager.GetInstance().SendDataToInGame<InGamePieceRefreshSlotsMessage>(msg);
+                }
+            }
+        }
+    }
+
+    void SetSlot(PieceBuySlot slot, PieceData pieceData)
+    {
+        slot.InitSlot(pieceData);
+    }
+
+    void GetPieceTier(int level, PieceBuySlot slot)
+    {
+        int chooseTier = Random.Range(1, 100);
+        int currentPercent = 0;
+        for (int i = 0; i < percentageByLevel[level].tier.Count; i++)
+        {
+            if (currentPercent < chooseTier && currentPercent + percentageByLevel[level].tier[i] >= chooseTier)
+            {
+                SetSlot(slot, testList[i].testCountList[GetRandomIndex(i)].piecedata);
+                return;
+            }
+
+            currentPercent += percentageByLevel[level].tier[i];
+        }
+    }
+
+    int GetRandomIndex(int tier)
+    {
+        List<int> weights = new List<int>();
+
+        for (int i = 0; i < testList[tier].testCountList.Count; i++)
+        {
+            weights.Add(testList[tier].testCountList[i].count);
+        }
+
+        int total = 0;
+        for (int i = 0; i < weights.Count; i++)
+            total += weights[i];
+
+        int pivot = Mathf.RoundToInt(total * Random.Range(0.0f, 1.0f));
+        int weight = 0;
+
+        for (int i = 0; i < weights.Count; i++)
+        {
+            weight += weights[i];
+            if (pivot <= weight)
+            {
+                return i;
+            }
+        }
+        return 1;
+    }
+    #endregion
 }

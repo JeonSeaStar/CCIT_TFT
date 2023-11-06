@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
     private SessionId index = 0;
     private string nickName = string.Empty;
     private bool isMe = false;
-    public int PLAYERINDEX = 0;
+    public int PLAYERINDEX = 0; //플레이어의 고유 인덱스를 통해서 리롤 시 어떤 플레이어가 리롤했는지 알 수 있도록 할 예정
 
     // 스테이터스
     public int hp { get; private set; } = 0;
@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
     public GameObject nameObject;
     public TMP_Text hpUi;
 
-    public GameObject shop;
+    public GameObject shop; //어떤 상점이 보여지는지
 
     //public GameObject shop;
 
