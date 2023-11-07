@@ -50,7 +50,7 @@ public class WorldManager : MonoBehaviour
 
     #region 기물
     public Tile tiles; //같은 타일을 받아야 할 수 도 있음
-    public PieceData pieceData;
+    //public PieceData pieceData;
     #endregion
 
     #region 상점
@@ -89,6 +89,9 @@ public class WorldManager : MonoBehaviour
         public List<TestPieceSlot> testPieceSlots;
     }
     public List<TestPieceSlotList> testSlots;
+
+    public bool rrr;
+    public bool eee;
     #endregion
     void Awake()
     {
@@ -509,12 +512,15 @@ public class WorldManager : MonoBehaviour
             //피스 데이터 테스트용
             case Protocol.Type.PieceDataRefresh:
                 InGamePieceRefreshSlotsMessage inGamePieceRefreshSlotsMessage = DataParser.ReadJsonData<InGamePieceRefreshSlotsMessage>(args.BinaryUserData);
-                //PieceRefreshSlotsMessageData(); //해당 데이터를 어떻게 넣어야 할까?
-                Debug.Log("다섯번 보내는 것이 아닌 모아서 한번에 데이터를 보내면 됨");
-                
+                PieceRefreshSlotsMessageData(inGamePieceRefreshSlotsMessage); //해당 데이터를 어떻게 넣어야 할까?
+                rrr = false;
                 break;
 
-
+            case Protocol.Type.PieceSlotRefresh:
+                InGamePieceSlotRefreshMessage inGamePieceSlotRefreshMessage = DataParser.ReadJsonData<InGamePieceSlotRefreshMessage>(args.BinaryUserData);
+                PieceRefreshSlotsMessageData1(inGamePieceSlotRefreshMessage); //해당 데이터를 어떻게 넣어야 할까?
+                eee = false;
+                break;
 
             //키랑 버튼은 완전히 다른 것이니 따로 생각하기
             case Protocol.Type.Key:
@@ -687,8 +693,9 @@ public class WorldManager : MonoBehaviour
         {
             tiles = players[index].fieldManager.GetTile();
             //players[index].pieceBuySlots[0].BuyPiece();
-            players[index].fieldManager.SpawnPiece(pieceData, 0, tiles);
-            PlayerBuyPiece0Message msg = new PlayerBuyPiece0Message(index, pieceData, 0, tiles);
+            players[index].fieldManager.SpawnPiece(players[index].fieldManager.pieceData, 0, tiles);
+            Debug.Log(players[index].fieldManager.pieceData);
+            PlayerBuyPiece0Message msg = new PlayerBuyPiece0Message(index, players[index].fieldManager.pieceData, 0, tiles);
             BackEndMatchManager.GetInstance().SendDataToInGame<PlayerBuyPiece0Message>(msg);
             //if (BackEndMatchManager.GetInstance().IsMySessionId(index))
             //{
@@ -863,7 +870,8 @@ public class WorldManager : MonoBehaviour
         }
         tiles = players[data.playerSession].fieldManager.GetTile();
         //tiles = players[data.playerSession].fieldManager.GetTile();
-        players[data.playerSession].fieldManager.SpawnPiece(pieceData, 0, tiles);
+        players[data.playerSession].fieldManager.SpawnPiece(players[data.playerSession].fieldManager.pieceData, 0, tiles);
+        Debug.Log(players[data.playerSession].fieldManager.pieceData);
         //if (BackEndMatchManager.GetInstance().IsMySessionId(data.playerSession))
         //{
         //    tiles = players[data.playerSession].fieldManager.GetTile();
@@ -1038,34 +1046,101 @@ public class WorldManager : MonoBehaviour
 
 
     #region 상점관련
+    //피스데이터만 변경
     public void RefreshSlots()
     {
-        for(int i = 0; i < 8; i++)
+        //if (BackEndMatchManager.GetInstance().IsHost())
         {
-            if (testSlots[i].testPieceSlots[0].playerIndex == myPlayerIndex)
+            rrr = true;
+            for (int i = 0; i < 8; i++)
             {
-                foreach (var slot in testSlots[i].testPieceSlots[0].pieceBuySlots) //이때 플레이어 인덱스 받아서 리롤할 플레이어의 슬롯만 변경되도록
+                for (int j = 0; j < 5; j++) //if문이랑 같이 플어야 함
                 {
-                    //여기 줄에 기물 데이터 넣어주기
-                    GetPieceTier(0, slot);
-                    //Debug.Log(slot.pieceData);
+                    if (testSlots[i].testPieceSlots[0].playerIndex == testSlots[i].testPieceSlots[0].pieceBuySlots[j].myPlayerIndex)
+                    //if (testSlots[i].testPieceSlots[0].playerIndex == myPlayerIndex)
+                    {
+                        foreach (var slot in testSlots[i].testPieceSlots[0].pieceBuySlots) //이때 플레이어 인덱스 받아서 리롤할 플레이어의 슬롯만 변경되도록
+                        {
+                            //여기 줄에 기물 데이터 넣어주기
+                            GetPieceTier(0, slot);
+                            //Debug.Log(slot.pieceData);
+                            InGamePieceRefreshSlotsMessage msg = new InGamePieceRefreshSlotsMessage(slot.pieceData);
+                            BackEndMatchManager.GetInstance().SendDataToInGame<InGamePieceRefreshSlotsMessage>(msg);
+                        }
+                    }
                 }
             }
         }
-        PieceRefreshSlotsMessageData();
     }
 
-    public void PieceRefreshSlotsMessageData()
+    public void PieceRefreshSlotsMessageData(InGamePieceRefreshSlotsMessage data)
     {
         for (int i = 0; i < 8; i++)
         {
-            if (testSlots[i].testPieceSlots[0].playerIndex == myPlayerIndex)
+            for(int k = 0; k < 5; k++) //if문이랑 같이 플어야 함
             {
-                for (int j = 0; j < 5; j++)
+                if (testSlots[i].testPieceSlots[0].playerIndex == testSlots[i].testPieceSlots[0].pieceBuySlots[k].myPlayerIndex)
+                //if (testSlots[i].testPieceSlots[0].playerIndex == myPlayerIndex)
                 {
-                    Debug.Log(testSlots[i].testPieceSlots[0].pieceBuySlots[j].pieceData);
-                    InGamePieceRefreshSlotsMessage msg = new InGamePieceRefreshSlotsMessage(testSlots[i].testPieceSlots[0].pieceBuySlots[j].pieceData);
-                    BackEndMatchManager.GetInstance().SendDataToInGame<InGamePieceRefreshSlotsMessage>(msg);
+                    if (rrr)
+                    {
+                        //Debug.Log(testSlots[i].testPieceSlots[0].pieceBuySlots[j].pieceData);
+                        data.pieceData = testSlots[i].testPieceSlots[0].pieceBuySlots[k].pieceData;
+                        Debug.Log(data.pieceData);
+                        testSlots[i].testPieceSlots[0].pieceBuySlots[k].pieceData = data.pieceData;
+                        //testSlots[i].testPieceSlots[0].pieceBuySlots[j].pieceData = data.pieceData;
+                        //Debug.Log(data.pieceData);
+                    }
+                }
+            }
+        }
+    }
+
+    //아래는 슬롯 데이터만 변경
+    public void RefreshSlots1()
+    {
+        //if (BackEndMatchManager.GetInstance().IsHost())
+        {
+            eee = true;
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 5; j++) //if문이랑 같이 플어야 함
+                {
+                    if (testSlots[i].testPieceSlots[0].playerIndex == testSlots[i].testPieceSlots[0].pieceBuySlots[j].myPlayerIndex)
+                    //if (testSlots[i].testPieceSlots[0].playerIndex == myPlayerIndex)
+                    {
+                        foreach (var slot in testSlots[i].testPieceSlots[0].pieceBuySlots) //이때 플레이어 인덱스 받아서 리롤할 플레이어의 슬롯만 변경되도록
+                        {
+                            //여기 줄에 기물 데이터 넣어주기
+                            GetPieceTier(0, slot);
+                            //Debug.Log(slot.pieceData);
+                            InGamePieceSlotRefreshMessage msg = new InGamePieceSlotRefreshMessage(slot);
+                            BackEndMatchManager.GetInstance().SendDataToInGame<InGamePieceSlotRefreshMessage>(msg);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void PieceRefreshSlotsMessageData1(InGamePieceSlotRefreshMessage data)
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            for (int k = 0; k < 5; k++) //if문이랑 같이 플어야 함
+            {
+                if (testSlots[i].testPieceSlots[0].playerIndex == testSlots[i].testPieceSlots[0].pieceBuySlots[k].myPlayerIndex)
+                //if (testSlots[i].testPieceSlots[0].playerIndex == myPlayerIndex)
+                {
+                    if (eee)
+                    {
+                        //Debug.Log(data.pieceBuySlot);
+                        //data.pieceBuySlot = testSlots[i].testPieceSlots[0].pieceBuySlots[k];
+                        testSlots[i].testPieceSlots[0].pieceBuySlots[k] = data.pieceBuySlot;
+                        Debug.Log(testSlots[i].testPieceSlots[0].pieceBuySlots[k].pieceData);
+                        //Debug.Log(testSlots[i].testPieceSlots[0].pieceBuySlots[k]);
+                        //testSlots[i].testPieceSlots[0].pieceBuySlots[k] = data.pieceBuySlot;
+                    }
                 }
             }
         }

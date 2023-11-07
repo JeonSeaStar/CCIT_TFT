@@ -19,7 +19,6 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public Player myPlayer;
     public SessionId myPlayerIndex;
-    public Dictionary<SessionId, Player> players;
 
     private void Awake()
     {
@@ -79,10 +78,13 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         //    BuyPiece(pieceData);
         if(!bought)
         {
-            fieldManager.pieceBuySlots[0] = this;
-            fieldManager.pieceDatas[0] = pieceData;
-            WorldManager.instance.pieceData = fieldManager.pieceDatas[0];
-            ButtonBuyPiece0();
+            if(myPlayerIndex == fieldManager.index)
+            {
+                fieldManager.pieceBuySlot = this;
+                fieldManager.pieceData = pieceData;
+                //WorldManager.instance.pieceData = fieldManager.pieceData;
+                ButtonBuyPiece0();
+            }
         }
     }
 
@@ -179,21 +181,8 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     //내 플레이어 누구이고 누구의 필드매니저를 받는지
     IEnumerator MyPlayerFind()
     {
-        yield return new WaitForSeconds(0.1f);
-        myPlayerIndex = WorldManager.instance.myPlayerIndex;
-        players = WorldManager.instance.players;
-
-        var gamers = BackEndMatchManager.GetInstance().sessionIdList;
-
-        foreach (var sessionId in gamers)
-        {
-            if (BackEndMatchManager.GetInstance().IsMySessionId(sessionId)) //나인거
-            {
-                myPlayerIndex = sessionId;
-                myPlayer = players[sessionId].GetComponent<Player>();
-                fieldManager = myPlayer.fieldManager;
-            }
-        }
-        //shop.SetActive(false);
+        yield return new WaitForSeconds(5f);
+        myPlayer = fieldManager.owerPlayerTest;
+        myPlayerIndex = fieldManager.index;
     }
 }

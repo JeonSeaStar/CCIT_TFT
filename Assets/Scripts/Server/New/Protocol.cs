@@ -30,6 +30,7 @@ namespace Protocol
         bulletInfo,
 
         PieceDataRefresh,
+        PieceSlotRefresh,
 
         AIPlayerInfo,       // AI가 존재하는 경우 AI 정보
         LoadRoomScene,      // 룸 씬으로 전환
@@ -446,6 +447,15 @@ namespace Protocol
         {
             //this.Player = sessionId;
             this.pieceData = pieceData;
+        }
+    }
+
+    public class InGamePieceSlotRefreshMessage : Message
+    {
+        public PieceBuySlot pieceBuySlot;
+        public InGamePieceSlotRefreshMessage(PieceBuySlot pieceBuySlot) : base (Type.PieceSlotRefresh)
+        {
+            this.pieceBuySlot = pieceBuySlot;
         }
     }
 

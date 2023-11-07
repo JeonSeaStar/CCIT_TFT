@@ -63,11 +63,10 @@ public class FieldManager : MonoBehaviour
 
 
     #region 서버머지
-    private SessionId index = 0;
-    private bool isMe = false;
+    public SessionId index = 0;
     public int testIndex = 0;
-    public PieceBuySlot[] pieceBuySlots;
-    public PieceData[] pieceDatas;
+    public PieceBuySlot pieceBuySlot;
+    public PieceData pieceData;
     #endregion
     void Start()
     {
@@ -597,6 +596,7 @@ public class FieldManager : MonoBehaviour
         Transform e = whereIsIt.transform.GetChild(10);
         DualPlayersTest[0] = e.gameObject.GetComponent<Player>();
         owerPlayerTest = e.gameObject.GetComponent<Player>();
+        index = owerPlayerTest.GetIndex();
         testIndex = ((int)owerPlayerTest.GetIndex());
     }
 
