@@ -721,8 +721,25 @@ public class WorldManager : MonoBehaviour
         if (PieceReroll)
         {
             players[index].PieceReroll();
-            PlayerButtonRerollMessage msg = new PlayerButtonRerollMessage(index);
-            BackEndMatchManager.GetInstance().SendDataToInGame<PlayerButtonRerollMessage>(msg);
+            //for (int i = 0; i < 5; i++)
+            {
+                PlayerButtonRerollMessage msg = new PlayerButtonRerollMessage(index, testSlots[0].testPieceSlots[0].pieceBuySlots[0].pieceData);
+                BackEndMatchManager.GetInstance().SendDataToInGame<PlayerButtonRerollMessage>(msg);
+            }
+            //for(int j = 0; j < 8; j++)
+            //{
+            //    for (int i = 0; i < 5; i++)
+            //    {
+            //        Debug.Log(testSlots[j].testPieceSlots[0].pieceBuySlots[i].pieceData);
+            //        PlayerButtonRerollMessage msg = new PlayerButtonRerollMessage(index, testSlots[j].testPieceSlots[0].pieceBuySlots[i].pieceData);
+            //        BackEndMatchManager.GetInstance().SendDataToInGame<PlayerButtonRerollMessage>(msg);
+            //    }
+            //}
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    PlayerButtonRerollMessage msg = new PlayerButtonRerollMessage(index, players[index].pieceBuySlots[i].pieceData);
+            //    BackEndMatchManager.GetInstance().SendDataToInGame<PlayerButtonRerollMessage>(msg);
+            //}
         }
         if (storeLock)
         {
@@ -905,6 +922,25 @@ public class WorldManager : MonoBehaviour
             return;
         }
         players[data.playerSession].PieceReroll();
+        //for (int i = 0; i < 5; i++)
+        {
+            //players[data.playerSession].pieceBuySlots[i].pieceData = data.pieceData;
+            testSlots[0].testPieceSlots[0].pieceBuySlots[0].pieceData = data.pieceData;
+            Debug.Log(data); //데이터가 안들어 가는듯? 플레이어의 시즌 아이디는 들어가지만 피스데이터는 안받음!
+        }
+        //    for (int j = 0; j < 8; j++)
+        //{
+        //    for (int i = 0; i < 5; i++)
+        //    {
+        //        //data.pieceData = testSlots[j].testPieceSlots[0].pieceBuySlots[i].pieceData;
+        //        testSlots[j].testPieceSlots[0].pieceBuySlots[i].pieceData = data.pieceData;
+        //        Debug.Log(data.pieceData);
+        //    }
+        //}
+        //for(int i = 0; i < 5; i++)
+        //{
+        //    data.pieceData = players[data.playerSession].pieceBuySlots[i].pieceData;
+        //}
     }
     private void ProcessPlayerData(PlayerButtonStoreLockMessage data) // 누르면 스토어 락
     {
@@ -1046,6 +1082,44 @@ public class WorldManager : MonoBehaviour
 
 
     #region 상점관련
+    //플레이어 인풋 받는 상점 리롤
+
+    public void Resetasd()
+    {
+
+        RefreshSlotsPlayerInput(myPlayerIndex);
+    }
+    public void RefreshSlotsPlayerInput(SessionId player)
+    {
+        //if (BackEndMatchManager.GetInstance().IsHost())
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                //for (int j = 0; j < 5; j++) //if문이랑 같이 플어야 함
+                {
+                    //if (testSlots[i].testPieceSlots[0].playerIndex == testSlots[i].testPieceSlots[0].pieceBuySlots[j].myPlayerIndex)
+                    //if (testSlots[i].testPieceSlots[0].playerIndex == myPlayerIndex)
+                    if(testSlots[i].testPieceSlots[0].playerIndex == player)
+                    {
+                        foreach (var slot in testSlots[i].testPieceSlots[0].pieceBuySlots) //이때 플레이어 인덱스 받아서 리롤할 플레이어의 슬롯만 변경되도록
+                        {
+                            //여기 줄에 기물 데이터 넣어주기
+                            GetPieceTier(0, slot);
+                            Debug.Log(slot.pieceData);
+                            //for(int k = 0; k < 5; k++)
+                            //{
+                            //    players[player].pieceBuySlots[k] = testSlots[i].testPieceSlots[0].pieceBuySlots[k];
+                            //}
+                            //InGamePieceRefreshSlotsMessage msg = new InGamePieceRefreshSlotsMessage(slot.pieceData);
+                            //BackEndMatchManager.GetInstance().SendDataToInGame<InGamePieceRefreshSlotsMessage>(msg);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
     //피스데이터만 변경
     public void RefreshSlots()
     {
@@ -1087,9 +1161,7 @@ public class WorldManager : MonoBehaviour
                         //Debug.Log(testSlots[i].testPieceSlots[0].pieceBuySlots[j].pieceData);
                         data.pieceData = testSlots[i].testPieceSlots[0].pieceBuySlots[k].pieceData;
                         Debug.Log(data.pieceData);
-                        testSlots[i].testPieceSlots[0].pieceBuySlots[k].pieceData = data.pieceData;
-                        //testSlots[i].testPieceSlots[0].pieceBuySlots[j].pieceData = data.pieceData;
-                        //Debug.Log(data.pieceData);
+                        //testSlots[i].testPieceSlots[0].pieceBuySlots[k].pieceData = data.pieceData;
                     }
                 }
             }

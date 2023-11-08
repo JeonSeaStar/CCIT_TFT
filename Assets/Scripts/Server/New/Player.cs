@@ -588,7 +588,18 @@ public class Player : MonoBehaviour
 
     public void PieceReroll()
     {
-        //todo..
+        WorldManager.instance.RefreshSlotsPlayerInput(index);
+        //for (int i = 0; i < 8; i++)
+        //{
+        //    if (WorldManager.instance.testSlots[i].testPieceSlots[0].playerIndex == index)
+        //    {
+        //        for (int j = 0; j < 5; j++)
+        //        {
+        //            pieceBuySlots[j].pieceData = WorldManager.instance.testSlots[i].testPieceSlots[0].pieceBuySlots[j].pieceData;
+        //        }
+        //    }
+        //}
+        //WorldManager.instance.RefreshSlotsPlayerInput(index);
     }
 
     public void StoreLock()

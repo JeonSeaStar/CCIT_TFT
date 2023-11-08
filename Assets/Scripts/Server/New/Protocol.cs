@@ -185,9 +185,11 @@ namespace Protocol
     public class PlayerButtonRerollMessage : Message
     {
         public SessionId playerSession;
-        public PlayerButtonRerollMessage(SessionId sessionId) : base(Type.playerReroll)
+        public PieceData pieceData;
+        public PlayerButtonRerollMessage(SessionId sessionId, PieceData pieceData) : base(Type.playerReroll)
         {
             this.playerSession = sessionId;
+            this.pieceData = pieceData;
         }
     }
     public class PlayerButtonStoreLockMessage : Message
