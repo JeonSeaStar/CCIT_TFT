@@ -58,9 +58,10 @@ public class InGameUiManager : MonoBehaviour
         gameStateBoard.text = "게임상태 : EVENT ";
     }
 
-    public void SetGameStateWating()
+    public void SetGameStateWating(string pieceData)
     {
         gameStateBoard.text = "게임상태 : WATING ";
+        WorldManager.instance.testDataPiece = pieceData;
     }
     public void SetGameStateBattleReady()
     {

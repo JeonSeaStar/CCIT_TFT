@@ -22,7 +22,7 @@ public class WorldManager : MonoBehaviour
 
     const int START_COUNT = 5;
     const int IN_GAME_EVENT_COUNT = 5;
-    const int IN_GAME_WATING_COUNT = 5;
+    const int IN_GAME_WATING_COUNT = 30;
     const int IN_GAME_BATTLE_READY_COUNT = 5;
     const int IN_GAME_BATTAL_COUNT = 5;
     const int IN_GAME_WINNER_CHECK_COUNT = 5;
@@ -92,6 +92,7 @@ public class WorldManager : MonoBehaviour
 
     public bool rrr;
     public bool eee;
+    public string testDataPiece;
     #endregion
     void Awake()
     {
@@ -230,12 +231,12 @@ public class WorldManager : MonoBehaviour
             if (BackEndMatchManager.GetInstance().IsMySessionId(sessionId)) //나인거
             {
                 myPlayerIndex = sessionId;
-                players[sessionId].Initialize(true, myPlayerIndex, BackEndMatchManager.GetInstance().GetNickNameBySessionId(sessionId), statringPoints[index].w, playerPool[index].GetComponentInChildren<FieldManager>(), InGameUiManager.GetInstance().playersHp[index].GetComponent<TMP_Text>(), shops[index]);
+                players[sessionId].Initialize(true, myPlayerIndex, BackEndMatchManager.GetInstance().GetNickNameBySessionId(sessionId), statringPoints[index].w, playerPool[index].GetComponentInChildren<FieldManager>(), InGameUiManager.GetInstance().playersHp[index].GetComponent<TMP_Text>(), shops[index], index);
                 testSlots[index].testPieceSlots[0].playerIndex = myPlayerIndex;
             }
             else //나 아닌거
             {
-                players[sessionId].Initialize(false, sessionId, BackEndMatchManager.GetInstance().GetNickNameBySessionId(sessionId), statringPoints[index].w, playerPool[index].GetComponentInChildren<FieldManager>(), InGameUiManager.GetInstance().playersHp[index].GetComponent<TMP_Text>(), shops[index]);
+                players[sessionId].Initialize(false, sessionId, BackEndMatchManager.GetInstance().GetNickNameBySessionId(sessionId), statringPoints[index].w, playerPool[index].GetComponentInChildren<FieldManager>(), InGameUiManager.GetInstance().playersHp[index].GetComponent<TMP_Text>(), shops[index], index);
                 testSlots[index].testPieceSlots[0].playerIndex = sessionId;
                 shops[index].transform.position = new Vector3(0, 0, -1001);
             }
@@ -294,6 +295,8 @@ public class WorldManager : MonoBehaviour
     {
         if (BackEndMatchManager.GetInstance().IsHost())
         {
+            //모든 플레리어 리롤한 데이터 브로드케스트
+            Resetasd();
             StartCoroutine("InGameWatingCount");
         }
     }
@@ -353,12 +356,15 @@ public class WorldManager : MonoBehaviour
     }
     IEnumerator InGameWatingCount()
     {
-        InGameWatingCountMessage msg = new InGameWatingCountMessage(IN_GAME_WATING_COUNT);
+        InGameWatingCountMessage msg = new InGameWatingCountMessage(IN_GAME_WATING_COUNT, testSlots[0].testPieceSlots[0].pieceBuySlots[0].pieceData.pieceName);
         //카운트 다운
+    
         for (int i = 0; i < IN_GAME_WATING_COUNT + 1; ++i)
         {
             msg.time = IN_GAME_WATING_COUNT - i;
+            msg.pieceData = testSlots[0].testPieceSlots[0].pieceBuySlots[0].pieceData.name;
             BackEndMatchManager.GetInstance().SendDataToInGame<InGameWatingCountMessage>(msg);
+            Debug.Log("뿌려즘" + msg.pieceData);
             yield return new WaitForSeconds(1); //1초 단위
         }
         OnGameBattleReady();
@@ -491,7 +497,8 @@ public class WorldManager : MonoBehaviour
             case Protocol.Type.InGameWating:
                 InGameWatingCountMessage watingCount = DataParser.ReadJsonData<InGameWatingCountMessage>(args.BinaryUserData);
                 //Debug.Log("Wating second :" + (watingCount.time));
-                InGameUiManager.GetInstance().SetGameStateWating();
+                InGameUiManager.GetInstance().SetGameStateWating(watingCount.pieceData);
+                Debug.Log(watingCount.pieceData);
                 break;
             case Protocol.Type.InGameBattleReady:
                 InGameBattleReadyCountMessage battleReadyCount = DataParser.ReadJsonData<InGameBattleReadyCountMessage>(args.BinaryUserData);
@@ -723,8 +730,11 @@ public class WorldManager : MonoBehaviour
             players[index].PieceReroll();
             //for (int i = 0; i < 5; i++)
             {
-                PlayerButtonRerollMessage msg = new PlayerButtonRerollMessage(index, testSlots[0].testPieceSlots[0].pieceBuySlots[0].pieceData);
+                int k = 10000;
+                PlayerButtonRerollMessage msg = new PlayerButtonRerollMessage(index, testSlots[0].testPieceSlots[0].pieceBuySlots[0].pieceData, k);
                 BackEndMatchManager.GetInstance().SendDataToInGame<PlayerButtonRerollMessage>(msg);
+                Debug.Log("데이터 계산" + msg.pieceData);
+                Debug.Log("데이터 계산" + msg.testData);
             }
             //for(int j = 0; j < 8; j++)
             //{
@@ -924,9 +934,14 @@ public class WorldManager : MonoBehaviour
         players[data.playerSession].PieceReroll();
         //for (int i = 0; i < 5; i++)
         {
+            //int k = 10230;
+            //data.testData = k;
             //players[data.playerSession].pieceBuySlots[i].pieceData = data.pieceData;
-            testSlots[0].testPieceSlots[0].pieceBuySlots[0].pieceData = data.pieceData;
-            Debug.Log(data); //데이터가 안들어 가는듯? 플레이어의 시즌 아이디는 들어가지만 피스데이터는 안받음!
+            //testSlots[0].testPieceSlots[0].pieceBuySlots[0].pieceData = data.pieceData;
+            //data.pieceData = testSlots[0].testPieceSlots[0].pieceBuySlots[0].pieceData;
+            Debug.Log(data.pieceData); //데이터가 안들어 가는듯? 플레이어의 시즌 아이디는 들어가지만 피스데이터는 안받음!
+            Debug.Log(data.testData);
+            Debug.Log(data.playerSession);
         }
         //    for (int j = 0; j < 8; j++)
         //{
@@ -1086,8 +1101,32 @@ public class WorldManager : MonoBehaviour
 
     public void Resetasd()
     {
+        for(int i = 0; i < 8; i++)
+        {
+            foreach (var slot in testSlots[i].testPieceSlots[0].pieceBuySlots) //이때 플레이어 인덱스 받아서 리롤할 플레이어의 슬롯만 변경되도록
+            {
+                //여기 줄에 기물 데이터 넣어주기
+                GetPieceTier(0, slot);
+                Debug.Log("12" + slot.pieceData);
+                //testSlots[i].testPieceSlots[0].pieceBuySlots[0] = slot;
+            }
+        }
+        //foreach (var slot in testSlots[0].testPieceSlots[0].pieceBuySlots) //이때 플레이어 인덱스 받아서 리롤할 플레이어의 슬롯만 변경되도록
+        //{
+        //    //여기 줄에 기물 데이터 넣어주기
+        //    GetPieceTier(0, slot);
+        //    Debug.Log("12" + slot.pieceData);
+        //    testSlots[0].testPieceSlots[0].pieceBuySlots[0].pieceData = slot.pieceData;
+        //    //for(int k = 0; k < 5; k++)
+        //    //{
+        //    //    players[player].pieceBuySlots[k] = testSlots[i].testPieceSlots[0].pieceBuySlots[k];
+        //    //}
+        //    //InGamePieceRefreshSlotsMessage msg = new InGamePieceRefreshSlotsMessage(slot.pieceData);
+        //    //BackEndMatchManager.GetInstance().SendDataToInGame<InGamePieceRefreshSlotsMessage>(msg);
+        //}
+        //RefreshSlotsPlayerInput(myPlayerIndex);
 
-        RefreshSlotsPlayerInput(myPlayerIndex);
+        
     }
     public void RefreshSlotsPlayerInput(SessionId player)
     {

@@ -186,10 +186,12 @@ namespace Protocol
     {
         public SessionId playerSession;
         public PieceData pieceData;
-        public PlayerButtonRerollMessage(SessionId sessionId, PieceData pieceData) : base(Type.playerReroll)
+        public int testData;
+        public PlayerButtonRerollMessage(SessionId sessionId, PieceData pieceData, int data) : base(Type.playerReroll)
         {
             this.playerSession = sessionId;
             this.pieceData = pieceData;
+            this.testData = data;
         }
     }
     public class PlayerButtonStoreLockMessage : Message
@@ -411,9 +413,11 @@ namespace Protocol
     public class InGameWatingCountMessage : Message
     {
         public int time;
-        public InGameWatingCountMessage(int time) : base(Type.InGameWating)
+        public string pieceData;
+        public InGameWatingCountMessage(int time, string pieceData) : base(Type.InGameWating)
         {
             this.time = time;
+            this.pieceData = pieceData;
         }
     }
     public class InGameBattleReadyCountMessage : Message
