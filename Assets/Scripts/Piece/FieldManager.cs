@@ -15,8 +15,9 @@ public class FieldManager : MonoBehaviour
 
     public List<Transform> targetPositions = new List<Transform>();
 
-    public List<Piece> myFilePieceList;
-    public List<Piece> enemyFilePieceList;
+    [Header("아군 전투 유닛")] public List<Piece> myFilePieceList;
+    [Header("상대 전투 유닛")] public List<Piece> enemyFilePieceList;
+    [Header("아이템 소지 목록")] public List<Equipment> myEquipmentList;
 
     public PathFinding pathFinding;
 
@@ -378,7 +379,7 @@ public class FieldManager : MonoBehaviour
                                     RemoveCoroutine(buffManager.animalBuff[0].catBuff[i - 1].CoroutineEffect);
                                     break;
                                 case PieceData.Animal.Dog:
-                                    buffManager.animalBuff[0].dogBuff[i].DirectEffect(piece, false);
+                                    buffManager.animalBuff[0].dogBuff[i - 1].DirectEffect(piece, false);
                                     RemoveBattleStartEffect(buffManager.animalBuff[0].dogBuff[i - 1].BattleStartEffect);
                                     break;
                                 case PieceData.Animal.Frog:
@@ -440,7 +441,7 @@ public class FieldManager : MonoBehaviour
                                 RemoveCoroutine(buffManager.animalBuff[0].catBuff[i - 1].CoroutineEffect);
                                 break;
                             case PieceData.Animal.Dog:
-                                buffManager.animalBuff[0].dogBuff[i].DirectEffect(piece, false);
+                                buffManager.animalBuff[0].dogBuff[i - 1].DirectEffect(piece, false);
                                 RemoveBattleStartEffect(buffManager.animalBuff[0].dogBuff[i - 1].BattleStartEffect);
                                 break;
                             case PieceData.Animal.Frog:
@@ -473,8 +474,7 @@ public class FieldManager : MonoBehaviour
                             piece.buffList.Remove(buffList[i - 1]);
                             switch (unitedType)
                             {
-                                case PieceData.United.UnderWorld://2//3
-                                    RemoveBattleStartEffect(buffManager.unitedBuff[0].underWorldBuff[i - 1].BattleStartEffect);
+                                case PieceData.United.UnderWorld://3
                                     RemoveCoroutine(buffManager.unitedBuff[0].underWorldBuff[i - 1].CoroutineEffect);
                                     break;
                                 case PieceData.United.Faddist://2
@@ -484,7 +484,7 @@ public class FieldManager : MonoBehaviour
                                     buffManager.unitedBuff[0].warMachineBuff[i - 1].DirectEffect(piece, false);
                                     break;
                                 case PieceData.United.Creature://4
-                                    //OncePerAttack
+                                    buffManager.unitedBuff[0].creatureBuff[i - 1].DirectEffect(piece, false);
                                     break;
                             }
                         }
@@ -495,8 +495,7 @@ public class FieldManager : MonoBehaviour
                             piece.buffList.Add(buffList[i]);
                             switch (unitedType)
                             {
-                                case PieceData.United.UnderWorld://2//3
-                                    AddBattleStartEffect(buffManager.unitedBuff[0].underWorldBuff[i].BattleStartEffect);
+                                case PieceData.United.UnderWorld://3
                                     AddCoroutine(buffManager.unitedBuff[0].underWorldBuff[i].CoroutineEffect);
                                     break;
                                 case PieceData.United.Faddist://2
@@ -506,7 +505,7 @@ public class FieldManager : MonoBehaviour
                                     buffManager.unitedBuff[0].warMachineBuff[i].DirectEffect(piece, true);
                                     break;
                                 case PieceData.United.Creature://4
-                                    //OncePerAttack
+                                    buffManager.unitedBuff[0].creatureBuff[i].DirectEffect(piece, true);
                                     break;
                             }
                         }
@@ -523,8 +522,7 @@ public class FieldManager : MonoBehaviour
                         piece.buffList.Remove(buffList[i]);
                         switch (unitedType)
                         {
-                            case PieceData.United.UnderWorld://2//3
-                                RemoveBattleStartEffect(buffManager.unitedBuff[0].underWorldBuff[i - 1].BattleStartEffect);
+                            case PieceData.United.UnderWorld://3
                                 RemoveCoroutine(buffManager.unitedBuff[0].underWorldBuff[i - 1].CoroutineEffect);
                                 break;
                             case PieceData.United.Faddist://2
@@ -534,7 +532,7 @@ public class FieldManager : MonoBehaviour
                                 buffManager.unitedBuff[0].warMachineBuff[i - 1].DirectEffect(piece, false);
                                 break;
                             case PieceData.United.Creature://4
-                                //OncePerAttack
+                                buffManager.unitedBuff[0].creatureBuff[i - 1].DirectEffect(piece, false);
                                 break;
                         }
                     }

@@ -683,6 +683,7 @@ MonoBehaviour:
   invincible: 0
   charm: 0
   isRabbitSynergeActiveCheck: 0
+  isCatSynergeActiveCheck: 0
 --- !u!114 &43912632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9110,6 +9111,7 @@ MonoBehaviour:
   invincible: 0
   charm: 0
   isRabbitSynergeActiveCheck: 0
+  isCatSynergeActiveCheck: 0
 --- !u!1 &592307816
 GameObject:
   m_ObjectHideFlags: 0
@@ -12184,6 +12186,7 @@ MonoBehaviour:
   invincible: 0
   charm: 0
   isRabbitSynergeActiveCheck: 0
+  isCatSynergeActiveCheck: 0
 --- !u!1001 &812478602
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12381,6 +12384,11 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 244d71d36a7e44848bf7f4f124c3b793, type: 2}
     - {fileID: 11400000, guid: fc2fed279a453374b97c7ff64def3773, type: 2}
     - {fileID: 11400000, guid: 26dd93284c68671448319a915c111e9a, type: 2}
+  warMachineEquipments:
+  - {fileID: 2701560059947826741, guid: a3be7518bf3369642af5bfc652498522, type: 3}
+  - {fileID: 2701560059947826741, guid: a3be7518bf3369642af5bfc652498522, type: 3}
+  - {fileID: 2701560059947826741, guid: a3be7518bf3369642af5bfc652498522, type: 3}
+  - {fileID: 2701560059947826741, guid: a3be7518bf3369642af5bfc652498522, type: 3}
 --- !u!4 &814488126
 Transform:
   m_ObjectHideFlags: 0
@@ -14488,6 +14496,7 @@ MonoBehaviour:
   invincible: 0
   charm: 0
   isRabbitSynergeActiveCheck: 0
+  isCatSynergeActiveCheck: 0
 --- !u!4 &948282654 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9051238300485817969, guid: 2f6c4572e07a60b43b00e1c4f489a806,
@@ -17951,6 +17960,7 @@ MonoBehaviour:
   invincible: 0
   charm: 0
   isRabbitSynergeActiveCheck: 0
+  isCatSynergeActiveCheck: 0
 --- !u!65 &1234782748
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20717,6 +20727,7 @@ MonoBehaviour:
   invincible: 0
   charm: 0
   isRabbitSynergeActiveCheck: 0
+  isCatSynergeActiveCheck: 0
 --- !u!1 &1460477377
 GameObject:
   m_ObjectHideFlags: 0
@@ -24074,6 +24085,7 @@ MonoBehaviour:
   invincible: 0
   charm: 0
   isRabbitSynergeActiveCheck: 0
+  isCatSynergeActiveCheck: 0
 --- !u!114 &1746667500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25362,6 +25374,7 @@ MonoBehaviour:
   - {fileID: 43912631}
   - {fileID: 1746667499}
   - {fileID: 1957474540}
+  myEquipmentList: []
   pathFinding: {fileID: 902181546}
   readyTileList:
   - {fileID: 57161754}
@@ -26312,6 +26325,7 @@ MonoBehaviour:
   invincible: 0
   charm: 0
   isRabbitSynergeActiveCheck: 0
+  isCatSynergeActiveCheck: 0
 --- !u!114 &1957474541
 MonoBehaviour:
   m_ObjectHideFlags: 0

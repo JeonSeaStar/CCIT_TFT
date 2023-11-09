@@ -146,7 +146,6 @@ public class Piece : MonoBehaviour
                 }
             }
             #endregion
-
             #region 고양이 기물 시너지 확인
             if (isCatSynergeActiveCheck)
             {
@@ -167,7 +166,7 @@ public class Piece : MonoBehaviour
     
 
 
-    void Dead()
+    public void Dead()
     {
         print(name + "(이)가 체력이 0 이하가 되어 사망.");
         dead = true;

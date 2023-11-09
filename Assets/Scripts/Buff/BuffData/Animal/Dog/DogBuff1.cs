@@ -63,12 +63,17 @@ public class DogBuff1 : BuffData
                 isOnce = true;
             }
 
-
             if (endCount == ArenaManager.Instance.fieldManagers[0].animalActiveCount[PieceData.Animal.Dog])
             {
                 endCount = 0;
                 isOnce = false;
             }
+        }
+        else if (isAdd == false)
+        {
+            int _star = captainDog.star;
+            captainDog.attackDamage -= captainDog.pieceData.attackDamage[_star] * 0.1f;
+            captainDog = null;
         }
     }
 
@@ -83,7 +88,6 @@ public class DogBuff1 : BuffData
             int _tileGridX = captainDog.currentTile.listX;
             int _tileGridY = captainDog.currentTile.listY;
 
-            Piece dogPiece = pathFinding.grid[_tileGridY].tile[_tileGridX].piece;
             if (_tileGridX != 0)
             {
                 Piece _leftPiece = pathFinding.grid[_tileGridY].tile[_tileGridX - 1].piece;

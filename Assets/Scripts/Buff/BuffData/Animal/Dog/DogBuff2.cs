@@ -63,12 +63,17 @@ public class DogBuff2 : BuffData
                 isOnce = true;
             }
 
-
             if (endCount == ArenaManager.Instance.fieldManagers[0].animalActiveCount[PieceData.Animal.Dog])
             {
                 endCount = 0;
                 isOnce = false;
             }
+        }
+        else if (isAdd == false)
+        {
+            int _star = captainDog.star;
+            captainDog.attackDamage -= captainDog.pieceData.attackDamage[_star] * 0.1f;
+            captainDog = null;
         }
     }
 
