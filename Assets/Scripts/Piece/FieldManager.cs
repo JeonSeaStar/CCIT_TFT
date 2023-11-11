@@ -15,8 +15,9 @@ public class FieldManager : MonoBehaviour
 
     public List<Transform> targetPositions = new List<Transform>();
 
-    public List<Piece> myFilePieceList;
-    public List<Piece> enemyFilePieceList;
+    [Header("아군 전투 유닛")] public List<Piece> myFilePieceList;
+    [Header("상대 전투 유닛")] public List<Piece> enemyFilePieceList;
+    [Header("아이템 소지 목록")] public List<Equipment> myEquipmentList;
 
     public PathFinding pathFinding;
 
@@ -57,6 +58,9 @@ public class FieldManager : MonoBehaviour
         { PieceData.United.Creature          ,0 }
     };
 
+    [Header("환경_비")]
+    public GameObject frogRain;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.S))
@@ -75,7 +79,7 @@ public class FieldManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.B) && ArenaManager.Instance.roundType != RoundType.Battle)
         {
             ArenaManager.Instance.roundType = RoundType.Battle;
-            //foreach (var effect in sBattleStartEffect) effect(true);
+            foreach (var effect in sBattleStartEffect) effect(true);
             Debug.Log(sBattleStartEffect.Count);
             Debug.Log(sCoroutineEffect.Count);
             foreach (var effect in sCoroutineEffect) effect();
@@ -217,7 +221,7 @@ public class FieldManager : MonoBehaviour
                 ApplyAnimalBuff(buffManager.animalBuff[0].hamsterBuff, _animalSynergeCount, new int[] { 2, 4, 6 }, value);
                 break;
             case PieceData.Animal.Cat://4
-                ApplyAnimalBuff(buffManager.animalBuff[0].catBuff, _animalSynergeCount, new int[] { 2, 4 }, value);
+                ApplyAnimalBuff(buffManager.animalBuff[0].catBuff, _animalSynergeCount, new int[] { 2, 4, 6, 8 }, value);
                 break;
             case PieceData.Animal.Dog://2
                 ApplyAnimalBuff(buffManager.animalBuff[0].dogBuff, _animalSynergeCount, new int[] { 3, 6, 9 }, value);
@@ -371,9 +375,11 @@ public class FieldManager : MonoBehaviour
                                     RemoveCoroutine(buffManager.animalBuff[0].hamsterBuff[i - 1].CoroutineEffect);
                                     break;
                                 case PieceData.Animal.Cat:
-                                    //OncePerAttack
+                                    buffManager.animalBuff[0].catBuff[i - 1].DirectEffect(piece, false);
+                                    RemoveCoroutine(buffManager.animalBuff[0].catBuff[i - 1].CoroutineEffect);
                                     break;
                                 case PieceData.Animal.Dog:
+                                    buffManager.animalBuff[0].dogBuff[i - 1].DirectEffect(piece, false);
                                     RemoveBattleStartEffect(buffManager.animalBuff[0].dogBuff[i - 1].BattleStartEffect);
                                     break;
                                 case PieceData.Animal.Frog:
@@ -381,7 +387,7 @@ public class FieldManager : MonoBehaviour
                                     RemoveBattleStartEffect(buffManager.animalBuff[0].frogBuff[i - 1].BattleStartEffect);
                                     break;
                                 case PieceData.Animal.Rabbit:
-                                    //OncePerAttack
+                                    RemoveCoroutine(buffManager.animalBuff[0].rabbitBuff[i - 1].CoroutineEffect);
                                     break;
                             }
                         }
@@ -397,7 +403,8 @@ public class FieldManager : MonoBehaviour
                                     AddCoroutine(buffManager.animalBuff[0].hamsterBuff[i].CoroutineEffect);
                                     break;
                                 case PieceData.Animal.Cat:
-                                    //OncePerAttack
+                                    buffManager.animalBuff[0].catBuff[i].DirectEffect(piece, true);
+                                    AddCoroutine(buffManager.animalBuff[0].catBuff[i].CoroutineEffect);
                                     break;
                                 case PieceData.Animal.Dog:
                                     buffManager.animalBuff[0].dogBuff[i].DirectEffect(piece, true);
@@ -408,7 +415,7 @@ public class FieldManager : MonoBehaviour
                                     AddBattleStartEffect(buffManager.animalBuff[0].frogBuff[i].BattleStartEffect);
                                     break;
                                 case PieceData.Animal.Rabbit:
-                                    //OncePerAttack
+                                    AddCoroutine(buffManager.animalBuff[0].rabbitBuff[i].CoroutineEffect);
                                     break;
                             }
                         }
@@ -430,9 +437,11 @@ public class FieldManager : MonoBehaviour
                                 RemoveCoroutine(buffManager.animalBuff[0].hamsterBuff[i - 1].CoroutineEffect);
                                 break;
                             case PieceData.Animal.Cat:
-                                //OncePerAttack
+                                buffManager.animalBuff[0].catBuff[i - 1].DirectEffect(piece, false);
+                                RemoveCoroutine(buffManager.animalBuff[0].catBuff[i - 1].CoroutineEffect);
                                 break;
                             case PieceData.Animal.Dog:
+                                buffManager.animalBuff[0].dogBuff[i - 1].DirectEffect(piece, false);
                                 RemoveBattleStartEffect(buffManager.animalBuff[0].dogBuff[i - 1].BattleStartEffect);
                                 break;
                             case PieceData.Animal.Frog:
@@ -440,7 +449,7 @@ public class FieldManager : MonoBehaviour
                                 RemoveBattleStartEffect(buffManager.animalBuff[0].frogBuff[i - 1].BattleStartEffect);
                                 break;
                             case PieceData.Animal.Rabbit:
-                                //OncePerAttack
+                                RemoveCoroutine(buffManager.animalBuff[0].rabbitBuff[i - 1].CoroutineEffect);
                                 break;
                         }
                     }
@@ -465,8 +474,7 @@ public class FieldManager : MonoBehaviour
                             piece.buffList.Remove(buffList[i - 1]);
                             switch (unitedType)
                             {
-                                case PieceData.United.UnderWorld://2//3
-                                    RemoveBattleStartEffect(buffManager.unitedBuff[0].underWorldBuff[i - 1].BattleStartEffect);
+                                case PieceData.United.UnderWorld://3
                                     RemoveCoroutine(buffManager.unitedBuff[0].underWorldBuff[i - 1].CoroutineEffect);
                                     break;
                                 case PieceData.United.Faddist://2
@@ -476,7 +484,7 @@ public class FieldManager : MonoBehaviour
                                     buffManager.unitedBuff[0].warMachineBuff[i - 1].DirectEffect(piece, false);
                                     break;
                                 case PieceData.United.Creature://4
-                                    //OncePerAttack
+                                    buffManager.unitedBuff[0].creatureBuff[i - 1].DirectEffect(piece, false);
                                     break;
                             }
                         }
@@ -487,8 +495,7 @@ public class FieldManager : MonoBehaviour
                             piece.buffList.Add(buffList[i]);
                             switch (unitedType)
                             {
-                                case PieceData.United.UnderWorld://2//3
-                                    AddBattleStartEffect(buffManager.unitedBuff[0].underWorldBuff[i].BattleStartEffect);
+                                case PieceData.United.UnderWorld://3
                                     AddCoroutine(buffManager.unitedBuff[0].underWorldBuff[i].CoroutineEffect);
                                     break;
                                 case PieceData.United.Faddist://2
@@ -498,7 +505,7 @@ public class FieldManager : MonoBehaviour
                                     buffManager.unitedBuff[0].warMachineBuff[i].DirectEffect(piece, true);
                                     break;
                                 case PieceData.United.Creature://4
-                                    //OncePerAttack
+                                    buffManager.unitedBuff[0].creatureBuff[i].DirectEffect(piece, true);
                                     break;
                             }
                         }
@@ -515,8 +522,7 @@ public class FieldManager : MonoBehaviour
                         piece.buffList.Remove(buffList[i]);
                         switch (unitedType)
                         {
-                            case PieceData.United.UnderWorld://2//3
-                                RemoveBattleStartEffect(buffManager.unitedBuff[0].underWorldBuff[i - 1].BattleStartEffect);
+                            case PieceData.United.UnderWorld://3
                                 RemoveCoroutine(buffManager.unitedBuff[0].underWorldBuff[i - 1].CoroutineEffect);
                                 break;
                             case PieceData.United.Faddist://2
@@ -526,7 +532,7 @@ public class FieldManager : MonoBehaviour
                                 buffManager.unitedBuff[0].warMachineBuff[i - 1].DirectEffect(piece, false);
                                 break;
                             case PieceData.United.Creature://4
-                                //OncePerAttack
+                                buffManager.unitedBuff[0].creatureBuff[i - 1].DirectEffect(piece, false);
                                 break;
                         }
                     }
@@ -536,6 +542,12 @@ public class FieldManager : MonoBehaviour
         }
     }
     #endregion
+
+    public void FrogRain(bool isRain)
+    {
+        if (isRain) frogRain.SetActive(true);
+        else if (!isRain) frogRain.SetActive(false);
+    }
     public void InitializingRound()
     {
         if (DualPlayers[0].isGrab)

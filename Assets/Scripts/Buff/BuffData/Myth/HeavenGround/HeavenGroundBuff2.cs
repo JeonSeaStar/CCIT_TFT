@@ -34,14 +34,14 @@ public class HeavenGroundBuff2 : BuffData
                 int _tileGridX = tilePiece.currentTile.listX;
                 int _tileGridY = tilePiece.currentTile.listY;
 
-                Piece _angelPiece = pathFinding.grid[_tileGridX].tile[_tileGridY].piece.GetComponent<Piece>();
+                Piece _angelPiece = pathFinding.grid[_tileGridY].tile[_tileGridX].piece.GetComponent<Piece>();
                 if (_angelPiece.isOwned)
                 {
                     _angelPiece.pieceData.CalculateBuff(_angelPiece, this);
                     if (_angelPiece.health > _angelPiece.pieceData.health[_angelPiece.star]) _angelPiece.health = _angelPiece.pieceData.health[_angelPiece.star];
                 }
 
-                List<Tile> _getNeigbor = pathFinding.GetNeighbor(pathFinding.grid[_tileGridX].tile[_tileGridY]);
+                List<Tile> _getNeigbor = pathFinding.GetNeighbor(pathFinding.grid[_tileGridY].tile[_tileGridX]);
                 foreach(var _Neigbor in _getNeigbor)
                 {
                     if (_Neigbor.piece.isOwned)

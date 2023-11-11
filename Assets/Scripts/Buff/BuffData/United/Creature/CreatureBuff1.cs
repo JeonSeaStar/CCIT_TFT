@@ -7,6 +7,7 @@ public class CreatureBuff1 : BuffData
 {
     public override void DirectEffect(Piece piece, bool isAdd)
     {
-        throw new System.NotImplementedException();
+        if (isAdd) piece.pieceData.CalculateBuff(piece, this);
+        else if (isAdd == false) piece.pieceData.CalculateBuff(piece, this , false);
     }
 }

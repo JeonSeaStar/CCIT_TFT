@@ -7,6 +7,6 @@ public class CatBuff2 : BuffData
 {
     public override void DirectEffect(Piece piece, bool isAdd)
     {
-        throw new System.NotImplementedException();
+        piece.isCatSynergeActiveCheck = true;
     }
 }

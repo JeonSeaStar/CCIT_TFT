@@ -37,4 +37,6 @@ public class BuffManager : MonoBehaviour
     public List<MythBuffs> mythBuff = new List<MythBuffs>();
     public List<AnimalBuffs> animalBuff = new List<AnimalBuffs>();
     public List<UnitedBuffs> unitedBuff = new List<UnitedBuffs>();
+
+    [Header("전쟁 병기 아이템")] public List<Equipment> warMachineEquipments; 
 }

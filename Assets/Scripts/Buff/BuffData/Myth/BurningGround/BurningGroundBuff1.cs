@@ -26,9 +26,9 @@ public class BurningGroundBuff1 : BuffData
         if (isAdd) ArenaManager.Instance.fieldManagers[0].AddBattleStartEffect(BattleStartEffect);
         else if (!isAdd)
         {
-            foreach(var _piece in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
+            foreach (var _piece in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
             {
-                if(_piece.pieceData.myth == PieceData.Myth.BurningGround && burningGroungPiece.ContainsKey(_piece))
+                if (_piece.pieceData.myth == PieceData.Myth.BurningGround && burningGroungPiece.ContainsKey(_piece))
                 {
                     for (int i = 0; i < burningGroungPiece[_piece]; i++)
                     {
