@@ -106,6 +106,7 @@ public class ArenaManager : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.A)) { Matching(); }
+        if (Input.GetKeyDown(KeyCode.S)) { InitMatchingHistory(); }
     }
 
     private void Matching()
@@ -119,6 +120,7 @@ public class ArenaManager : MonoBehaviour
         for (int i = 0; i < fieldManagers.Count; i++)
         {
             fieldManagers[i].owerPlyer.isExpedition = false;
+            fieldManagers[i].owerPlyer.matchingInformation.pairings = false;
             messengerList.Add(fieldManagers[i].owerPlyer);
         }
 
@@ -133,59 +135,66 @@ public class ArenaManager : MonoBehaviour
         }
         bGroup = messengerList;
 
-        for (int i = 0; i < bGroup.Count; i++)
-            bGroup[i].isExpedition = true;
-
-        for (int i = 0; i < pairCount; i++)
+        for(int i = 0; i < aGroup.Count; i++)
         {
-            int m;
-            bool duplicate = true;
+            DFS(aGroup[i], bGroup);
+        }
+    }
 
-            do
+    private bool DFS(Messenger homePlayer, List<Messenger> awayPlayerList)
+    {
+        List<Messenger> canPairingsPlayer = new List<Messenger>();
+        canPairingsPlayer = awayPlayerList;
+
+        for (int i = 0; i < homePlayer.matchingInformation.matchingHistroy.Count; i++)
+        {
+            for (int j = 0; j < canPairingsPlayer.Count; j++)
             {
-                m = Random.Range(0, bGroup.Count);
-
-                if (aGroup[i].matchingInformation.matchingHistroy.Count == 0)
+                if (homePlayer.matchingInformation.matchingHistroy[i] == canPairingsPlayer[j].matchingInformation.myIndex)
                 {
-                    duplicate = false;
-                    PlayerMatching(aGroup[i], bGroup[m]);
-                    aGroup[i].matchingInformation.matchingHistroy.Add(bGroup[m].matchingInformation.myIndex);
-                    bGroup[m].matchingInformation.matchingHistroy.Add(aGroup[i].matchingInformation.myIndex);
-                    bGroup.RemoveAt(m);
-                }
-                else
-                {
-                    for (int j = 0; j < aGroup[i].matchingInformation.matchingHistroy.Count; j++)
-                    {
-                        if(j + 1 == aGroup[i].matchingInformation.matchingHistroy.Count)
-                        {
-                            if (aGroup[i].matchingInformation.matchingHistroy[j] == bGroup[m].matchingInformation.myIndex)
-                            {
-
-                            }
-                            else
-                            {
-                                duplicate = false;
-                                PlayerMatching(aGroup[i], bGroup[m]);
-                                bGroup.RemoveAt(m);
-                                break;
-                            }
-                        }
-                        else
-                        {
-                            if (aGroup[i].matchingInformation.matchingHistroy[j] != bGroup[m].matchingInformation.myIndex)
-                            {
-                                duplicate = false;
-                                PlayerMatching(aGroup[i], bGroup[m]);
-                                bGroup.RemoveAt(m);
-                                break;
-                            }
-                        }
-                    }
+                    canPairingsPlayer.RemoveAt(j);
+                    break;
                 }
             }
-            while (duplicate);
         }
+
+        for (int i  = 0; i < canPairingsPlayer.Count; i++)
+        {
+            int t = canPairingsPlayer[i].matchingInformation.myIndex;
+            Messenger targetPlayer = GetMessenger(t);
+            if (targetPlayer.matchingInformation.pairings) continue;
+            targetPlayer.matchingInformation.pairings = true;
+
+            if(!homePlayer.matchingInformation.pairings || DFS(targetPlayer, awayPlayerList))
+            {
+                PlayerMatching(homePlayer, targetPlayer);
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+    private bool CheckPairings(int playerIndex)
+    {
+        for(int i = 0; i < playerMatchingPair.Count; i++)
+        {
+            if (playerMatchingPair[i].awayPlayer.matchingInformation.myIndex == playerIndex)
+                return true;
+        }
+
+        return false;
+    }
+
+    private Messenger GetMessenger(int index)
+    {
+        for(int i =0; i < fieldManagers.Count; i++)
+        {
+            if (fieldManagers[i].owerPlyer.matchingInformation.myIndex == index)
+                return fieldManagers[i].owerPlyer;
+        }
+
+        return null;
     }
 
     private void InitMatchingHistory()

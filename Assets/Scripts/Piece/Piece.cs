@@ -252,6 +252,21 @@ public class Piece : MonoBehaviour
     public bool isRabbitSynergeActiveCheck;
     public void NextBehavior()
     {
+        List<Piece> enemyPieceList = new List<Piece>();
+        List<Piece> myPieceList = new List<Piece>();
+
+        if(isOwned)
+        {
+            myPieceList = ArenaManager.Instance.fieldManagers[0].myFilePieceList;
+            enemyPieceList = ArenaManager.Instance.fieldManagers[0].enemyFilePieceList;
+        }
+        else
+        {
+            myPieceList = ArenaManager.Instance.fieldManagers[0].enemyFilePieceList;
+            enemyPieceList = ArenaManager.Instance.fieldManagers[0].myFilePieceList;
+        }
+
+
         if (CheckEnemySurvival(ArenaManager.Instance.fieldManagers[0].enemyFilePieceList))
         {
             foreach (var enemy in ArenaManager.Instance.fieldManagers[0].enemyFilePieceList)

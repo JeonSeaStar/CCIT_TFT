@@ -301,4 +301,5 @@ public class MatchingInformation
     {
         matchingHistroy = new List<int>();
     }
+    public bool pairings;
 }
