@@ -68,6 +68,55 @@ public class PathFinding : MonoBehaviour
         }
     }
 
+    public List<Tile> GetFront(Tile tile)
+    {
+        List<Tile> front = new List<Tile>();
+
+        int x = tile.listX;
+        int y = tile.listY;
+
+        if(y % 2 == 0)
+        {
+            if (indexCheck(y + 1, x + 1))
+                if (grid[y + 1].tile[x + 1] != null)
+                    front.Add(grid[y + 1].tile[x + 1]);
+            if (indexCheck(y + 1, x))
+                if (grid[y + 1].tile[x] != null)
+                    front.Add(grid[y + 1].tile[x]);
+        }
+
+        if(y % 2 != 0)
+        {
+            if (indexCheck(y + 1, x))
+                if (grid[y + 1].tile[x] != null)
+                    front.Add(grid[y + 1].tile[x]);
+            if (indexCheck(y + 1, x - 1))
+                if (grid[y + 1].tile[x - 1] != null)
+                    front.Add(grid[y + 1].tile[x - 1]);
+        }
+        return front;
+    }
+
+    public List<Tile> GetSide(Tile tile)
+    {
+        List<Tile> side = new List<Tile>();
+
+        int x = tile.listX;
+        int y = tile.listY;
+
+        if (indexCheck(y, x + 1))
+            if (grid[y].tile[x + 1] != null)
+                side.Add(grid[y].tile[x + 1]);
+
+        if (indexCheck(y, x - 1))
+            if (grid[y].tile[x - 1] != null)
+                side.Add(grid[y].tile[x - 1]);
+
+
+        return side;
+    }
+
+
     public List<Tile> GetNeighbor(Tile tile)
     {
         List<Tile> neighbor = new List<Tile>();
