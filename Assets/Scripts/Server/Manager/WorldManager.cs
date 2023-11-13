@@ -1305,4 +1305,16 @@ public class WorldManager : MonoBehaviour
         return 1;
     }
     #endregion
+
+    //뒤끝 펑션 테스트
+
+    public void FunTest()
+    {
+        Param param = new Param();
+        param.Add("value", "Hello world");
+
+        var bro = Backend.BFunc.InvokeFunction("Publish", param);
+        Debug.Log(bro);
+    }
+    
 }

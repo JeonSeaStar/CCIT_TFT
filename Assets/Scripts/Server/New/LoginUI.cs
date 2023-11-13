@@ -29,7 +29,6 @@ public class LoginUI : MonoBehaviour
 
     const string PlayStoreLink = "";
     const string AppStoreLink = "";
-
     void Awake()
     {
         instance = this;
