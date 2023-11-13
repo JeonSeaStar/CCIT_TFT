@@ -154,21 +154,6 @@ public class Messenger : MonoBehaviour
                             ChangeTileTransform(controlPiece, controlPiece.targetTile);
                             controlPiece.currentTile = controlPiece.targetTile;
                             //Piece
-                            if (_currentTileInformation.isReadyTile)
-                            {
-                                if(!_targetTileInformation.isReadyTile)
-                                {
-                                    fieldManager.myFilePieceList.Add(_currentTileInformation.piece);
-                                }
-                            }
-                            else
-                            {
-                                if (_targetTileInformation.isReadyTile)
-                                {
-                                    fieldManager.myFilePieceList.Remove(_currentTileInformation.piece);
-                                }
-                            }
-
                             _currentTileInformation.piece = null;
                             _currentTileInformation.IsFull = false;
                             _targetTileInformation.piece = controlPiece;
@@ -181,23 +166,6 @@ public class Messenger : MonoBehaviour
                             ChangeTileTransform(controlPiece, controlPiece.targetTile);
                             ChangeTileTransform(_targetPieceInformation, controlPiece.currentTile);
                             //Piece
-                            if (_currentTileInformation.isReadyTile)
-                            {
-                                if (!_targetTileInformation.isReadyTile)
-                                {
-                                    fieldManager.myFilePieceList.Add(_currentTileInformation.piece);
-                                    fieldManager.myFilePieceList.Remove(_targetTileInformation.piece);
-                                }
-                            }
-                            else
-                            {
-                                if (_targetTileInformation.isReadyTile)
-                                {
-                                    fieldManager.myFilePieceList.Add(_targetTileInformation.piece);
-                                    fieldManager.myFilePieceList.Remove(_currentTileInformation.piece);
-                                }
-                            }
-
                             _currentTileInformation.piece = _targetTileInformation.piece;
                             _targetTileInformation.piece = controlPiece;
                             //Tile

@@ -353,16 +353,16 @@ public class Piece : MonoBehaviour
     {
         if (currentPiece.currentTile.isReadyTile == true && currentPiece.targetTile.isReadyTile == false)
         {
-            var _duplicationCheck = myPieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
+            var _duplicationCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
             if (_duplicationCheck == null) fieldManager.SynergeIncrease(currentPiece);
-            myPieceList.Add(currentPiece);
+            fieldManager.myFilePieceList.Add(currentPiece);
             fieldManager.CalSynerge(currentPiece);
         } // Set Ready -> Battle
         else if (currentPiece.currentTile.isReadyTile == false && currentPiece.targetTile.isReadyTile == true)
         {
-            myPieceList.Remove(currentPiece);
+            fieldManager.myFilePieceList.Remove(currentPiece);
             currentPiece.buffList.Clear();
-            var _duplicationCheck = myPieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
+            var _duplicationCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
             if (_duplicationCheck == null) fieldManager.SynergeDecrease(currentPiece);
             fieldManager.CalSynerge(currentPiece);
         } // Set Battle -> Ready
@@ -374,28 +374,28 @@ public class Piece : MonoBehaviour
         else if (currentPiece.currentTile.isReadyTile == false && targetPiece.currentTile.isReadyTile == false) return;
         else if (currentPiece.currentTile.isReadyTile == true && targetPiece.currentTile.isReadyTile == false)
         {
-            myPieceList.Remove(targetPiece);
+            fieldManager.myFilePieceList.Remove(targetPiece);
             targetPiece.buffList.Clear();
-            var _duplicationTargetCheck = myPieceList.FirstOrDefault(listPiece => listPiece.pieceName == targetPiece.pieceName);
+            var _duplicationTargetCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == targetPiece.pieceName);
             if(_duplicationTargetCheck == null) fieldManager.SynergeDecrease(targetPiece); //Minus
             
 
-            var _duplicationCurrentCheck = myPieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
+            var _duplicationCurrentCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
             if (_duplicationCurrentCheck == null) fieldManager.SynergeIncrease(currentPiece); //Plus
-            myPieceList.Add(currentPiece);
+            fieldManager.myFilePieceList.Add(currentPiece);
 
             fieldManager.CalSynerge(currentPiece, targetPiece);
         }  // Change Ready -> Battle
         else if (currentPiece.currentTile.isReadyTile == false && targetPiece.currentTile.isReadyTile == true)
         {
-            myPieceList.Remove(currentPiece);
+            fieldManager.myFilePieceList.Remove(currentPiece);
             currentPiece.buffList.Clear();
-            var _duplicationCurrentCheck = myPieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
+            var _duplicationCurrentCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
             if (_duplicationCurrentCheck == null) fieldManager.SynergeDecrease(currentPiece); //Minus
 
-            var _duplicationTargetCheck = myPieceList.FirstOrDefault(listPiece => listPiece.pieceName == targetPiece.pieceName);
+            var _duplicationTargetCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == targetPiece.pieceName);
             if(_duplicationTargetCheck == null) fieldManager.SynergeIncrease(targetPiece); //Plus
-            myPieceList.Add(targetPiece);
+            fieldManager.myFilePieceList.Add(targetPiece);
 
             fieldManager.CalSynerge(targetPiece, currentPiece);
         }  // Change Battle -> Ready
