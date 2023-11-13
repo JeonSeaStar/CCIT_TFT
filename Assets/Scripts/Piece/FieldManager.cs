@@ -570,11 +570,6 @@ public class FieldManager : MonoBehaviour
                 return;
             }
         }
-        //
-        foreach (var test in myFilePieceList)
-        {
-            test.ExpeditionTileCheck();
-        }
     }
 
     [System.Serializable]

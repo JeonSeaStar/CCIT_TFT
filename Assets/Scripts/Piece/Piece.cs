@@ -58,12 +58,6 @@ public class Piece : MonoBehaviour
     [Header("버프")]
     public List<BuffData> buffList;
 
-    [Header("ExpeditionTile Information")]
-    public Tile expeditionTile;
-
-    //[Header("Synerge")]
-    //public List<string> sReceivedBuff;
-
     [Header("상태")]
     public bool immune; //상태면역
     public bool freeze;
@@ -400,14 +394,6 @@ public class Piece : MonoBehaviour
 
             fieldManager.CalSynerge(targetPiece, currentPiece);
         }  // Change Battle -> Ready
-    }
-
-    public void ExpeditionTileCheck()
-    {
-        var _x = 6 - currentTile.listX;
-        var _y = 7 - currentTile.listY;
-
-        expeditionTile = fieldManager.pathFinding.grid[_y].tile[_x];
     }
 
     #region 상태이상
