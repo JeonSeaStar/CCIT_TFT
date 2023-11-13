@@ -628,7 +628,7 @@ public class FieldManager : MonoBehaviour
         return kind;
     }
 
-    public void SpawnPiece(PieceData pieceData, int grade, Tile targetTile)
+    public Piece SpawnPiece(PieceData pieceData, int grade, Tile targetTile)
     {
         Vector3 targetPosition = new Vector3(targetTile.transform.position.x, groundHeight, targetTile.transform.position.z);
         GameObject pieceObject = Instantiate(pieceData.piecePrefab, targetPosition, Quaternion.Euler(0, 0, 0));
@@ -643,6 +643,8 @@ public class FieldManager : MonoBehaviour
         //
 
         PieceListCountUp(piece);
+
+        return piece;
     }
 
     void FusionPiece(Piece piece)

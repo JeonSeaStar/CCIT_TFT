@@ -19,7 +19,6 @@ public class PieceShop : MonoBehaviour
     {
         public int count;
         public PieceData piecedata;
-        
     }
     [System.Serializable]
     public class TestPieceCountList
@@ -27,6 +26,11 @@ public class PieceShop : MonoBehaviour
         public List<TestPieceCount> testCountList;
     }
     public List<TestPieceCountList> testList;
+
+    private void Awake()
+    {
+        RefreshSlots();
+    }
 
     public void RefreshSlots()
     {

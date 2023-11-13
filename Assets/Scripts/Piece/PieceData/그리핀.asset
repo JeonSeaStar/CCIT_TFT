@@ -16,18 +16,56 @@ MonoBehaviour:
   piecePortrait: {fileID: 0}
   piecePrefab: {fileID: 6147433639900124300, guid: cf73dfa3621e6c846b4d5fce7beac11e,
     type: 3}
-  defaultHealth: 100
-  defaultMana: 0
-  defaultManaRecovery: 0
-  defaultAttackPower: 20
-  defaultAttackDamage: 20
-  defaultAbilityPower: 0
-  defaultArmor: 0
-  defaultMagicResist: 0
-  defaultAttackSpeed: 1
-  defaultCriticalChance: 0
-  defaultCriticalDamage: 0
-  defaultAttackRange: 1
+  health:
+  - 100
+  - 0
+  - 0
+  mana:
+  - 10
+  - 0
+  - 0
+  manaRecovery:
+  - 0
+  - 0
+  - 0
+  attackDamage:
+  - 10
+  - 0
+  - 0
+  abilityPower:
+  - 5
+  - 0
+  - 0
+  armor:
+  - 5
+  - 0
+  - 0
+  magicResist:
+  - 5
+  - 0
+  - 0
+  attackSpeed:
+  - 0
+  - 0
+  - 0
+  criticalChance:
+  - 0
+  - 0
+  - 0
+  criticalDamage:
+  - 0
+  - 0
+  - 0
+  attackRange: 010000000000000000000000
+  bloodBrain:
+  - 0
+  - 0
+  - 0
+  moveSpeed:
+  - 1
+  - 0
+  - 0
+  buff: {fileID: 0}
   myth: -1
   animal: -1
   united: 0
