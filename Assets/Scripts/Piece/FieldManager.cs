@@ -15,6 +15,21 @@ public class FieldManager : MonoBehaviour
 
     public List<Transform> targetPositions = new List<Transform>();
 
+    [System.Serializable]
+    public class PieceDPList
+    {
+        public Piece piece;
+        public Tile dpTile;
+
+        public PieceDPList(Piece piece, Tile dpTile)
+        {
+            this.piece = piece;
+            this.dpTile = dpTile;
+        }
+    }
+
+    public List<PieceDPList> pieceDpList;
+
     [Header("아군 전투 유닛")] public List<Piece> myFilePieceList;
     [Header("상대 전투 유닛")] public List<Piece> enemyFilePieceList;
     [Header("아이템 소지 목록")] public List<Equipment> myEquipmentList;
@@ -61,6 +76,22 @@ public class FieldManager : MonoBehaviour
     [Header("환경_비")]
     public GameObject frogRain;
 
+    [System.Serializable]
+    public class EnemyInformation
+    {
+        public GameObject piece;
+        public Vector2 spawnTile;
+    }
+
+    [System.Serializable]
+    public class StageInformation
+    {
+        public List<EnemyInformation> enemyInformation;
+    }
+
+    public List<StageInformation> stageInformation;
+    [SerializeField] private int currentStage;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.S))
@@ -98,8 +129,99 @@ public class FieldManager : MonoBehaviour
             ArenaManager.Instance.roundType = RoundType.Ready;
             //InitializingRound();
         }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            FieldInit();
+        }
+
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            SpawnEnemy(currentStage);
+            currentStage++;
+        }
     }
+
+    public void AddDPList(Piece target)
+    {
+        PieceDPList pieceDP = new PieceDPList(target, target.targetTile);
+        pieceDpList.Add(pieceDP);
+    }
+
+    public void RemoveDPList(Piece target)
+    {
+        for(int i = 0; i < pieceDpList.Count; i++)
+        {
+            if(pieceDpList[i].piece == target)
+            {
+                pieceDpList.RemoveAt(i);
+                return;
+            }
+        }
+    }
+
+    private void FieldInit()
+    {
+        foreach(Piece piece in myFilePieceList)
+            piece.gameObject.SetActive(false);
+
+        foreach (Piece piece in enemyFilePieceList)
+            piece.gameObject.SetActive(false);
+
+        foreach (Tile tile in battleTileList)
+        {
+            tile.piece = null;
+            tile.IsFull = false;
+            tile.walkable = false;
+        }
+
+        foreach(PieceDPList dp in pieceDpList)
+        {
+            dp.dpTile.piece = dp.piece;
+            dp.dpTile.IsFull = true;
+            dp.dpTile.walkable = true;
+
+            dp.piece.currentTile = dp.dpTile;
+            dp.piece.targetTile = dp.dpTile;
+
+            dp.piece.transform.position = new Vector3(dp.dpTile.transform.position.x, 0, dp.dpTile.transform.position.z);
+        }
+
+        foreach (Piece piece in myFilePieceList)
+            piece.gameObject.SetActive(true);
+
+        foreach (Piece piece in enemyFilePieceList)
+            Destroy(piece.gameObject);
+        enemyFilePieceList = new List<Piece>();
+    }
+
+    private void SpawnEnemy(int stage)
+    {
+        for(int i = 0; i < stageInformation[stage].enemyInformation.Count; i++)
+        {
+            int tileX = ((int)stageInformation[stage].enemyInformation[i].spawnTile.x);
+            int tileY = ((int)stageInformation[stage].enemyInformation[i].spawnTile.y);
+
+            GameObject enemyGameObject = Instantiate(stageInformation[stage].enemyInformation[i].piece, Vector3.zero, Quaternion.identity);
+
+            Piece enemyPiece = enemyGameObject.GetComponent<Piece>();
+            Tile targetTile = pathFinding.grid[tileX].tile[tileY];
+
+            targetTile.piece = enemyPiece;
+            targetTile.IsFull = true;
+            targetTile.walkable = true;
+
+            enemyPiece.currentTile = targetTile;
+            enemyPiece.targetTile = targetTile;
+
+            enemyGameObject.transform.position = new Vector3(targetTile.transform.position.x, 0, targetTile.transform.position.z);
+
+            enemyFilePieceList.Add(enemyPiece);
+        }
+    }
+
     int d = 0;
+
     public Piece SpawnPiece(GameObject p, int star)
     {
         GameObject pieceGameObject = Instantiate(p, new Vector3(0, 0, 0), Quaternion.identity);

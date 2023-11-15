@@ -22607,7 +22607,6 @@ MonoBehaviour:
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
   buffList: []
-  expeditionTile: {fileID: 0}
   immune: 0
   freeze: 0
   slow: 0
@@ -23891,6 +23890,7 @@ MonoBehaviour:
   - {fileID: 178479010}
   - {fileID: 2114872210}
   - {fileID: 859797339}
+  pieceDpList: []
   myFilePieceList: []
   enemyFilePieceList:
   - {fileID: 1746667499}
@@ -23979,6 +23979,28 @@ MonoBehaviour:
   grab: 0
   groundHeight: -0.7296928
   frogRain: {fileID: 0}
+  stageInformation:
+  - enemyInformation:
+    - piece: {fileID: 6147433639900124300, guid: cf73dfa3621e6c846b4d5fce7beac11e,
+        type: 3}
+      spawnTile: {x: 4, y: 1}
+    - piece: {fileID: 6147433639900124300, guid: cf73dfa3621e6c846b4d5fce7beac11e,
+        type: 3}
+      spawnTile: {x: 4, y: 2}
+    - piece: {fileID: 6147433639900124300, guid: cf73dfa3621e6c846b4d5fce7beac11e,
+        type: 3}
+      spawnTile: {x: 4, y: 3}
+  - enemyInformation:
+    - piece: {fileID: 6147433639900124300, guid: cf73dfa3621e6c846b4d5fce7beac11e,
+        type: 3}
+      spawnTile: {x: 5, y: 1}
+    - piece: {fileID: 6147433639900124300, guid: cf73dfa3621e6c846b4d5fce7beac11e,
+        type: 3}
+      spawnTile: {x: 5, y: 2}
+    - piece: {fileID: 6147433639900124300, guid: cf73dfa3621e6c846b4d5fce7beac11e,
+        type: 3}
+      spawnTile: {x: 5, y: 3}
+  currentStage: 0
   buffManager: {fileID: 0}
   currentPieceList:
   - pieceData: {fileID: 11400000, guid: 309f6986873b81042844f48195428c5d, type: 2}

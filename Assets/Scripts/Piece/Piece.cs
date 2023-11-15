@@ -356,10 +356,12 @@ public class Piece : MonoBehaviour
             var _duplicationCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
             if (_duplicationCheck == null) fieldManager.SynergeIncrease(currentPiece);
             fieldManager.myFilePieceList.Add(currentPiece);
+            fieldManager.AddDPList(currentPiece);
             fieldManager.CalSynerge(currentPiece);
         } // Set Ready -> Battle
         else if (currentPiece.currentTile.isReadyTile == false && currentPiece.targetTile.isReadyTile == true)
         {
+            fieldManager.RemoveDPList(currentPiece);
             fieldManager.myFilePieceList.Remove(currentPiece);
             currentPiece.buffList.Clear();
             var _duplicationCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
@@ -374,6 +376,7 @@ public class Piece : MonoBehaviour
         else if (currentPiece.currentTile.isReadyTile == false && targetPiece.currentTile.isReadyTile == false) return;
         else if (currentPiece.currentTile.isReadyTile == true && targetPiece.currentTile.isReadyTile == false)
         {
+            fieldManager.RemoveDPList(currentPiece);
             fieldManager.myFilePieceList.Remove(targetPiece);
             targetPiece.buffList.Clear();
             var _duplicationTargetCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == targetPiece.pieceName);
@@ -383,11 +386,12 @@ public class Piece : MonoBehaviour
             var _duplicationCurrentCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
             if (_duplicationCurrentCheck == null) fieldManager.SynergeIncrease(currentPiece); //Plus
             fieldManager.myFilePieceList.Add(currentPiece);
-
+            fieldManager.AddDPList(currentPiece);
             fieldManager.CalSynerge(currentPiece, targetPiece);
         }  // Change Ready -> Battle
         else if (currentPiece.currentTile.isReadyTile == false && targetPiece.currentTile.isReadyTile == true)
         {
+            fieldManager.RemoveDPList(currentPiece);
             fieldManager.myFilePieceList.Remove(currentPiece);
             currentPiece.buffList.Clear();
             var _duplicationCurrentCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
@@ -396,7 +400,7 @@ public class Piece : MonoBehaviour
             var _duplicationTargetCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == targetPiece.pieceName);
             if(_duplicationTargetCheck == null) fieldManager.SynergeIncrease(targetPiece); //Plus
             fieldManager.myFilePieceList.Add(targetPiece);
-
+            fieldManager.AddDPList(currentPiece);
             fieldManager.CalSynerge(targetPiece, currentPiece);
         }  // Change Battle -> Ready
     }
