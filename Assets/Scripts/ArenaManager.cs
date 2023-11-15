@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ArenaManager : MonoBehaviour
 {
@@ -26,9 +27,6 @@ public class ArenaManager : MonoBehaviour
 
     public List<FieldManager> fieldManagers;
 
-    public int currentRound = 0;
-    public int currentStage = 0;
-
     public List<PlayerPair> playerMatchingPair;
 
     public enum RoundType
@@ -51,6 +49,12 @@ public class ArenaManager : MonoBehaviour
     public float battleOverTime = 60f;
     public float groundEventTime = 10000f;
     public float duelTime = 60f;
+
+    public int currentRound = 0;
+    public int currentStage = 0;
+
+    public TextMeshProUGUI stageText;
+    public TextMeshProUGUI roundText;
 
     private void Awake()
     {
@@ -101,6 +105,37 @@ public class ArenaManager : MonoBehaviour
         }
         StartCoroutine(CalRoundTime(_restTime));
     }
+
+    #region 라운드(버튼식)
+    public void BattleEndCheck(List<Piece> pieceList)
+    {
+        for(int i = 0; i < pieceList.Count; i++)
+        {
+            if(pieceList[i].dead)
+            {
+                NextRound();
+                return;
+            }
+        }
+    }
+
+    public void NextRound()
+    {
+        roundType = RoundType.Ready;
+
+        fieldManagers[0].FieldInit();
+    }
+
+    public void StartBattle()
+    {
+        roundType = RoundType.Battle;
+        foreach (var piece in fieldManagers[0].myFilePieceList)
+            piece.NextBehavior();
+
+        foreach (var piece in fieldManagers[0].enemyFilePieceList)
+            piece.NextBehavior();
+    }
+    #endregion
 
     #region 매칭
     void Update()

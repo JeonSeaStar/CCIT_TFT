@@ -160,7 +160,7 @@ public class FieldManager : MonoBehaviour
         }
     }
 
-    private void FieldInit()
+    public void FieldInit()
     {
         foreach(Piece piece in myFilePieceList)
             piece.gameObject.SetActive(false);
@@ -195,7 +195,7 @@ public class FieldManager : MonoBehaviour
         enemyFilePieceList = new List<Piece>();
     }
 
-    private void SpawnEnemy(int stage)
+    public void SpawnEnemy(int stage)
     {
         for(int i = 0; i < stageInformation[stage].enemyInformation.Count; i++)
         {
