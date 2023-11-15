@@ -115,7 +115,23 @@ public class Piece : MonoBehaviour
 
     public void Damage(Piece piece, float damage)
     {
-        piece.health -= damage;
+        if (shield > 0)
+        {
+            float shieldPoint = piece.shield;
+            if (shieldPoint < damage)
+            {
+                damage = damage - shieldPoint;
+            }
+            else
+            {
+                shieldPoint -= damage;
+            }
+            piece.shield = shieldPoint;
+        }
+        else
+        {
+            piece.health -= damage;
+        }
         if (piece.health <= 0) piece.Dead();
     }
 
@@ -124,13 +140,29 @@ public class Piece : MonoBehaviour
         if (target.invincible)
             return;
 
-        target.health -= damage;
+        if (target.shield > 0)
+        {
+            float shieldPoint = target.shield;
+            if (shieldPoint < damage)
+            {
+                damage = damage - shieldPoint;
+            }
+            else
+            {
+                shieldPoint -= damage;
+            }
+            target.shield = shieldPoint;
+        }
+        else
+        {
+            target.health -= damage;
+        }
 
         if (target.health <= 0)
         {
             #region 악마 기물 시너지 확인
             var _burningPiece = ArenaManager.Instance.fieldManagers[0].buffManager.mythBuff[0];
-            if(buffList.Contains(_burningPiece.burningGroundBuff[0]) || buffList.Contains(_burningPiece.burningGroundBuff[1]))
+            if (buffList.Contains(_burningPiece.burningGroundBuff[0]) || buffList.Contains(_burningPiece.burningGroundBuff[1]))
             {
                 var _buff = (ArenaManager.Instance.fieldManagers[0].mythActiveCount[PieceData.Myth.BurningGround] >= 4) ? _burningPiece.burningGroundBuff[1] : _burningPiece.burningGroundBuff[0];
                 _buff.DirectEffect(this, true);
@@ -147,12 +179,12 @@ public class Piece : MonoBehaviour
             if (isCatSynergeActiveCheck)
             {
                 int _r = (ArenaManager.Instance.fieldManagers[0].animalActiveCount[PieceData.Animal.Cat] >= 4) ? UnityEngine.Random.Range(0, 3) : UnityEngine.Random.Range(0, 2);
-                if (_r == 0) 
-                { 
+                if (_r == 0)
+                {
                     int _gold = UnityEngine.Random.Range(2, 6);
                     ArenaManager.Instance.fieldManagers[0].DualPlayers[0].gold += _gold;
-                } 
-                
+                }
+
             }
             #endregion
 
@@ -160,8 +192,6 @@ public class Piece : MonoBehaviour
             target = null;
         }
     }
-    
-
 
     public void Dead()
     {
