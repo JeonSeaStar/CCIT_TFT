@@ -4,32 +4,33 @@ using UnityEngine;
 
 public class ValkyriePiece : Piece
 {
+    protected override void Attack()
+    {
+        if (mana <= 100)
+        {
+            Skill();
+            mana = 0;
+        }
+        else
+        {
+            base.Attack();
+        }
+    }
+
     protected override void Skill()
     {
         base.Skill();
-        if(star == 0)
+        if (star == 0)
         {
-            if (mana == 100)
-            {
-                Damage(180f);
-                mana = 0;
-            }
+            Damage(180f);
         }
-        else if(star == 1)
+        else if (star == 1)
         {
-            if (mana == 100)
-            {
-                Damage(270f);
-                mana = 0;
-            }
+            Damage(270f);
         }
-        else if(star == 2)
+        else if (star == 2)
         {
-            if (mana == 100)
-            {
-                Damage(450f);
-                mana = 0;
-            }
+            Damage(450f);
         }
     }
 }

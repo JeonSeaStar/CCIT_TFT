@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SurtrPiece : Piece
+public class OdinPiece : Piece
 {
     protected override void Attack()
     {
-        if (mana <= 100)
+        if (mana <= 99)
         {
             Skill();
             mana = 0;
@@ -22,15 +22,25 @@ public class SurtrPiece : Piece
         base.Skill();
         if (star == 0)
         {
-            this.shield = attackDamage * 2.5f;
+            AllPieceHealSkill(1.3f);
         }
         else if (star == 1)
         {
-            this.shield = attackDamage * 3.7f;
+            AllPieceHealSkill(1.6f);
         }
         else if (star == 2)
         {
-            this.shield = attackDamage * 5f;
+            AllPieceHealSkill(1.99f);
+        }
+    }
+
+    void AllPieceHealSkill(float buff)
+    {
+        List<Piece> _allPiece = fieldManager.enemyFilePieceList;
+        foreach (var _Neigbor in _allPiece)
+        {
+            Piece _targets = _Neigbor.GetComponent<Piece>();
+            _targets.attackDamage = attackDamage * buff;
         }
     }
 }

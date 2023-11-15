@@ -4,32 +4,33 @@ using UnityEngine;
 
 public class DraugrPiece : Piece
 {
+    protected override void Attack()
+    {
+        if(mana <= 60)
+        {
+            Skill();
+            mana = 0;
+        }
+        else
+        {
+            base.Attack();
+        }
+    }
+
     protected override void Skill()
     {
         base.Skill();
         if (star == 0)
         {
-            if (mana == 60)
-            {
-                Damage(attackDamage * 1.35f);
-                mana = 0;
-            }
+            Damage(attackDamage * 1.35f);
         }
-        else if(star == 1)
+        else if (star == 1)
         {
-            if (mana == 60)
-            {
-                Damage(attackDamage * 2f);
-                mana = 0;
-            }
+            Damage(attackDamage * 2f);
         }
         else if (star == 2)
         {
-            if (mana == 60)
-            {
-                Damage(attackDamage * 3f);
-                mana = 0;
-            }
+            Damage(attackDamage * 3f);
         }
     }
 }

@@ -5,23 +5,34 @@ using UnityEngine;
 public class MimirPiece : Piece
 {
     float pieceHealth = 4000f;
+    
+    protected override void Attack()
+    {
+        if (mana <= 90)
+        {
+            Skill();
+            mana = 0;
+        }
+        else
+        {
+            base.Attack();
+        }
+    }
+
     protected override void Skill()
     {
         base.Skill();
         if (star == 0)
         {
-            if (mana == 100)
-                FindLeastHealthPiece(150f);
+            FindLeastHealthPiece(150f);
         }
         else if (star == 1)
         {
-            if (mana == 100)
-                FindLeastHealthPiece(175f);
+            FindLeastHealthPiece(175f);
         }
         else if (star == 2)
         {
-            if (mana == 100)
-                FindLeastHealthPiece(230f);
+            FindLeastHealthPiece(230f);
         }
     }
 

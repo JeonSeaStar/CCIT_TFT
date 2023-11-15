@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SurtrPiece : Piece
+public class FreyaPiece : Piece
 {
     protected override void Attack()
     {
-        if (mana <= 100)
+        if (mana <= 80)
         {
             Skill();
             mana = 0;
@@ -22,15 +22,21 @@ public class SurtrPiece : Piece
         base.Skill();
         if (star == 0)
         {
-            this.shield = attackDamage * 2.5f;
+            FreezeSkill(1.2f, 1f);
         }
         else if (star == 1)
         {
-            this.shield = attackDamage * 3.7f;
+            FreezeSkill(2.3f, 1.5f);
         }
         else if (star == 2)
         {
-            this.shield = attackDamage * 5f;
+            FreezeSkill(3.5f, 2f);
         }
+    }
+
+    void FreezeSkill(float damage, float time)
+    {
+        Damage(damage);
+        target.SetFreeze(); //몇 초 동안 프리즈 되는지 시간 필요해 보임
     }
 }
