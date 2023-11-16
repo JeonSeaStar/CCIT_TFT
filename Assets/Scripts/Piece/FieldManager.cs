@@ -90,7 +90,7 @@ public class FieldManager : MonoBehaviour
     }
 
     public List<StageInformation> stageInformation;
-    [SerializeField] private int currentStage;
+    public int currentStage;
 
     void Update()
     {
@@ -129,17 +129,6 @@ public class FieldManager : MonoBehaviour
             ArenaManager.Instance.roundType = RoundType.Ready;
             //InitializingRound();
         }
-
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            FieldInit();
-        }
-
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            SpawnEnemy(currentStage);
-            currentStage++;
-        }
     }
 
     public void AddDPList(Piece target)
@@ -150,9 +139,9 @@ public class FieldManager : MonoBehaviour
 
     public void RemoveDPList(Piece target)
     {
-        for(int i = 0; i < pieceDpList.Count; i++)
+        for (int i = 0; i < pieceDpList.Count; i++)
         {
-            if(pieceDpList[i].piece == target)
+            if (pieceDpList[i].piece == target)
             {
                 pieceDpList.RemoveAt(i);
                 return;
@@ -162,7 +151,7 @@ public class FieldManager : MonoBehaviour
 
     public void FieldInit()
     {
-        foreach(Piece piece in myFilePieceList)
+        foreach (Piece piece in myFilePieceList)
             piece.gameObject.SetActive(false);
 
         foreach (Piece piece in enemyFilePieceList)
@@ -172,23 +161,30 @@ public class FieldManager : MonoBehaviour
         {
             tile.piece = null;
             tile.IsFull = false;
-            tile.walkable = false;
+            tile.walkable = true;
         }
 
-        foreach(PieceDPList dp in pieceDpList)
+        foreach (PieceDPList dp in pieceDpList)
         {
             dp.dpTile.piece = dp.piece;
             dp.dpTile.IsFull = true;
-            dp.dpTile.walkable = true;
+            dp.dpTile.walkable = false;
 
             dp.piece.currentTile = dp.dpTile;
             dp.piece.targetTile = dp.dpTile;
+            dp.piece.dead = false;
+            dp.piece.target = null;
+            dp.piece.candidatePath = null;
+            dp.piece.path = null;
+            dp.piece.target = null;
 
             dp.piece.transform.position = new Vector3(dp.dpTile.transform.position.x, 0, dp.dpTile.transform.position.z);
+
+            dp.piece.gameObject.SetActive(true);
         }
 
-        foreach (Piece piece in myFilePieceList)
-            piece.gameObject.SetActive(true);
+        //foreach (Piece piece in myFilePieceList)
+        //    piece.gameObject.SetActive(true);
 
         foreach (Piece piece in enemyFilePieceList)
             Destroy(piece.gameObject);
@@ -197,7 +193,7 @@ public class FieldManager : MonoBehaviour
 
     public void SpawnEnemy(int stage)
     {
-        for(int i = 0; i < stageInformation[stage].enemyInformation.Count; i++)
+        for (int i = 0; i < stageInformation[stage].enemyInformation.Count; i++)
         {
             int tileX = ((int)stageInformation[stage].enemyInformation[i].spawnTile.x);
             int tileY = ((int)stageInformation[stage].enemyInformation[i].spawnTile.y);
@@ -209,7 +205,7 @@ public class FieldManager : MonoBehaviour
 
             targetTile.piece = enemyPiece;
             targetTile.IsFull = true;
-            targetTile.walkable = true;
+            targetTile.walkable = false;
 
             enemyPiece.currentTile = targetTile;
             enemyPiece.targetTile = targetTile;
@@ -218,6 +214,14 @@ public class FieldManager : MonoBehaviour
 
             enemyFilePieceList.Add(enemyPiece);
         }
+    }
+
+    public void NextStage()
+    {
+        FieldInit();
+
+        SpawnEnemy(currentStage);
+        currentStage++;
     }
 
     int d = 0;
@@ -387,7 +391,7 @@ public class FieldManager : MonoBehaviour
                     if (piece.pieceData.myth == mythType)
                     {
                         if (i > 0 && piece.buffList.Contains(buffList[i - 1]))
-                        { 
+                        {
                             piece.buffList.Remove(buffList[i - 1]);
                             switch (mythType)
                             {
@@ -413,7 +417,7 @@ public class FieldManager : MonoBehaviour
                         }
                         if (i > 0 && DualPlayers[0].buffDatas.Contains(buffList[i - 1])) DualPlayers[0].buffDatas.Remove(buffList[i - 1]);
 
-                        if (!piece.buffList.Contains(buffList[i])) 
+                        if (!piece.buffList.Contains(buffList[i]))
                         {
                             piece.buffList.Add(buffList[i]);
                             switch (mythType)
@@ -442,11 +446,11 @@ public class FieldManager : MonoBehaviour
                     }
                 }
             }
-            else if(count < thresholds[i])
+            else if (count < thresholds[i])
             {
                 foreach (var piece in myFilePieceList)
                 {
-                    if (piece.buffList.Contains(buffList[i])) 
+                    if (piece.buffList.Contains(buffList[i]))
                     {
                         piece.buffList.Remove(buffList[i]);
                         switch (mythType)
@@ -613,7 +617,7 @@ public class FieldManager : MonoBehaviour
                         if (i > 0 && DualPlayers[0].buffDatas.Contains(buffList[i - 1])) DualPlayers[0].buffDatas.Remove(buffList[i - 1]);
                         //Add
                         if (!piece.buffList.Contains(buffList[i]))
-                        { 
+                        {
                             piece.buffList.Add(buffList[i]);
                             switch (unitedType)
                             {
@@ -780,7 +784,7 @@ public class FieldManager : MonoBehaviour
         {
             Tile compareTile = currentPieceList[kind].count[grade].count[i].currentTile;
 
-            if(parentTile.isReadyTile)
+            if (parentTile.isReadyTile)
             {
                 if (!compareTile.isReadyTile)
                 {
@@ -799,7 +803,7 @@ public class FieldManager : MonoBehaviour
 
             if (parentPiece == currentPieceList[kind].count[grade].count[i]) continue;
 
-            if(!parentTile.isReadyTile && !compareTile.isReadyTile)
+            if (!parentTile.isReadyTile && !compareTile.isReadyTile)
             {
                 if (parentTile.gridX > compareTile.gridX)
                 {

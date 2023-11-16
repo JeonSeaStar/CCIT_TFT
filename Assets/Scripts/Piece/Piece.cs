@@ -160,33 +160,33 @@ public class Piece : MonoBehaviour
 
         if (target.health <= 0)
         {
-            #region 악마 기물 시너지 확인
-            var _burningPiece = ArenaManager.Instance.fieldManagers[0].buffManager.mythBuff[0];
-            if (buffList.Contains(_burningPiece.burningGroundBuff[0]) || buffList.Contains(_burningPiece.burningGroundBuff[1]))
-            {
-                var _buff = (ArenaManager.Instance.fieldManagers[0].mythActiveCount[PieceData.Myth.BurningGround] >= 4) ? _burningPiece.burningGroundBuff[1] : _burningPiece.burningGroundBuff[0];
-                _buff.DirectEffect(this, true);
-                _buff.BattleStartEffect(true);
+            //#region 악마 기물 시너지 확인
+            //var _burningPiece = ArenaManager.Instance.fieldManagers[0].buffManager.mythBuff[0];
+            //if (buffList.Contains(_burningPiece.burningGroundBuff[0]) || buffList.Contains(_burningPiece.burningGroundBuff[1]))
+            //{
+            //    var _buff = (ArenaManager.Instance.fieldManagers[0].mythActiveCount[PieceData.Myth.BurningGround] >= 4) ? _burningPiece.burningGroundBuff[1] : _burningPiece.burningGroundBuff[0];
+            //    _buff.DirectEffect(this, true);
+            //    _buff.BattleStartEffect(true);
 
-                int _r = UnityEngine.Random.Range(0, 9);
-                if (_r == 0 && _buff == _burningPiece.burningGroundBuff[1])
-                {
-                    target.SetCharm();
-                }
-            }
-            #endregion
-            #region 고양이 기물 시너지 확인
-            if (isCatSynergeActiveCheck)
-            {
-                int _r = (ArenaManager.Instance.fieldManagers[0].animalActiveCount[PieceData.Animal.Cat] >= 4) ? UnityEngine.Random.Range(0, 3) : UnityEngine.Random.Range(0, 2);
-                if (_r == 0)
-                {
-                    int _gold = UnityEngine.Random.Range(2, 6);
-                    ArenaManager.Instance.fieldManagers[0].DualPlayers[0].gold += _gold;
-                }
+            //    int _r = UnityEngine.Random.Range(0, 9);
+            //    if (_r == 0 && _buff == _burningPiece.burningGroundBuff[1])
+            //    {
+            //        target.SetCharm();
+            //    }
+            //}
+            //#endregion
+            //#region 고양이 기물 시너지 확인
+            //if (isCatSynergeActiveCheck)
+            //{
+            //    int _r = (ArenaManager.Instance.fieldManagers[0].animalActiveCount[PieceData.Animal.Cat] >= 4) ? UnityEngine.Random.Range(0, 3) : UnityEngine.Random.Range(0, 2);
+            //    if (_r == 0)
+            //    {
+            //        int _gold = UnityEngine.Random.Range(2, 6);
+            //        ArenaManager.Instance.fieldManagers[0].DualPlayers[0].gold += _gold;
+            //    }
 
-            }
-            #endregion
+            //}
+            //#endregion
 
             target.Dead();
             target = null;
@@ -199,6 +199,7 @@ public class Piece : MonoBehaviour
         dead = true;
         SpawnRandomBox();
         gameObject.SetActive(false);
+        ArenaManager.Instance.BattleEndCheck(myPieceList);
     }
 
     void SpawnRandomBox()
@@ -334,7 +335,7 @@ public class Piece : MonoBehaviour
     {
         EnemyCheck();
 
-        if (CheckEnemySurvival(enemyPieceList))
+        if (CheckEnemySurvival(enemyPieceList) && !dead && ArenaManager.Instance.roundType == ArenaManager.RoundType.Battle)
         {
             foreach (var enemy in enemyPieceList)
                 enemy.currentTile.walkable = true;
