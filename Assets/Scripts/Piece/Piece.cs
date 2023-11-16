@@ -67,6 +67,8 @@ public class Piece : MonoBehaviour
     public bool fear;
     public bool invincible;
     public bool charm; //매혹
+    public bool blind;
+    public bool stun;
 
     public List<Piece> enemyPieceList = new List<Piece>();
     public List<Piece> myPieceList = new List<Piece>();
@@ -443,8 +445,11 @@ public class Piece : MonoBehaviour
     public void SetFreeze()
     {
         freeze = true;
-        //1초 뒤에 빙결을 푸는 기능 추가해주세요.
-        //canMove = false;
+        //가려던 위치로 바로 이동후 프리징 걸리기
+    }
+    public void SetFreeze(float time)
+    {
+        freeze = true;
     }
 
     public void SetImmune()
@@ -480,6 +485,28 @@ public class Piece : MonoBehaviour
     public void SetCharm()
     {
         charm = true;
+    }
+
+    public void SetBlind(float time)
+    {
+        blind = true;
+        Invoke("BlindClear", time);
+    }
+
+    void BlindClear()
+    {
+        blind = false;
+    }
+
+    public void SetStun(float time)
+    {
+        stun = true;
+        Invoke("StunClear", time);
+    }
+
+    void StunClear()
+    {
+        stun = false;
     }
 
     //void 

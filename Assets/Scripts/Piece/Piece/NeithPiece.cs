@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CentaurusPiece : Piece
+public class NeithPiece : Piece
 {
     [SerializeField] private GameObject bullet;
     protected override void Attack()
@@ -37,10 +37,10 @@ public class CentaurusPiece : Piece
 
     void ProjectionSkill()
     {
-        if(target != null)
+        if (target != null)
         {
             GameObject centaBullet = Instantiate(bullet, transform.position, Quaternion.identity);
-            Bullet b = centaBullet.GetComponent<CentaurusBullet>();
+            Bullet b = centaBullet.GetComponent<NeithBullet>();
             b.Shot(target.transform.position - transform.position);
         }
     }

@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CentaurusPiece : Piece
+public class PoseidonPiece : Piece
 {
-    [SerializeField] private GameObject bullet;
+    public List<Tile> tiles;
     protected override void Attack()
     {
-        if (mana <= 100)
+        if (mana <= 80)
         {
             Skill();
             mana = 0;
@@ -23,25 +23,26 @@ public class CentaurusPiece : Piece
         base.Skill();
         if (star == 0)
         {
-            ProjectionSkill();
+            DamageAllTile(attackDamage);
         }
         else if (star == 1)
         {
-            ProjectionSkill();
+            DamageAllTile(attackDamage * 1.5f);
         }
         else if (star == 2)
         {
-            ProjectionSkill();
+            DamageAllTile(attackDamage * 3.75f);
         }
     }
 
-    void ProjectionSkill()
+    void DamageAllTile(float damage)
     {
-        if(target != null)
+        List<Tile> _getHalf = tiles;
+        foreach (var _Neigbor in _getHalf)
         {
-            GameObject centaBullet = Instantiate(bullet, transform.position, Quaternion.identity);
-            Bullet b = centaBullet.GetComponent<CentaurusBullet>();
-            b.Shot(target.transform.position - transform.position);
+            Piece _targets = _Neigbor.GetComponent<Piece>();
+            if (!_targets.isOwned)
+                _targets.Damage(damage);
         }
     }
 }
