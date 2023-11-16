@@ -15,7 +15,7 @@ public class HamsterBuff3 : BuffData
         if (!isAdd)
         {
             foreach (var _hamster in hamsterList) ArenaManager.Instance.fieldManagers[0].myFilePieceList.Remove(_hamster);
-            foreach (var _hamster in hamsterList) Destroy(_hamster);
+            foreach (var _hamster in hamsterList) Destroy(_hamster.gameObject);
         }
     }
 
@@ -32,10 +32,9 @@ public class HamsterBuff3 : BuffData
         {
             yield return new WaitForSeconds(2f);
             List<Tile> _randomTile = new List<Tile>();
-            int _spawnStartIndex = (_me.isExpedition) ? 7 : 0;
-            for (int i = 0; i < pathFinding.grid[_spawnStartIndex].tile.Count; i++)
+            for (int i = 0; i < pathFinding.grid[0].tile.Count; i++)
             {
-                if (pathFinding.grid[_spawnStartIndex].tile[i].IsFull == false) _randomTile.Add(pathFinding.grid[_spawnStartIndex].tile[i]);
+                if (pathFinding.grid[0].tile[i].IsFull == false) _randomTile.Add(pathFinding.grid[0].tile[i]);
             }
             for (int i = 0; i < 3; i++)
             {
@@ -46,16 +45,19 @@ public class HamsterBuff3 : BuffData
                     hamsterList.Add(_miniHamster.GetComponent<Piece>());
 
                     int _randomSpot = Random.Range(0, _randomTile.Count);
-                    Tile spawnTile = pathFinding.grid[_spawnStartIndex].tile[_randomSpot].GetComponent<Tile>();
+                    Tile spawnTile = pathFinding.grid[0].tile[_randomSpot].GetComponent<Tile>();
                     spawnTile.IsFull = true;
                     spawnTile.piece = _miniHamster.GetComponent<Piece>();
 
-                    _miniHamster.GetComponent<Piece>().currentTile = spawnTile;
-                    _miniHamster.GetComponent<Piece>().targetTile = spawnTile;
-                    _miniHamster.transform.position = new Vector3(spawnTile.transform.position.x, 0, spawnTile.transform.position.z);
+                    spawnTile.piece.isOwned = true;
+                    spawnTile.piece.currentTile = spawnTile;
+                    spawnTile.piece.targetTile = spawnTile;
+                    spawnTile.piece.transform.position = new Vector3(spawnTile.transform.position.x, 0, spawnTile.transform.position.z);
+                    spawnTile.piece.NextBehavior();
                     _randomTile.RemoveAt(_randomSpot);
                 }
             }
+            _randomTile.Clear();
         }
     }
 }

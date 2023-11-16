@@ -373,6 +373,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &20673098 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1080130986706448777, guid: 2cc9a1e83a9d94442a57e5c0b568a703,
+    type: 3}
+  m_PrefabInstance: {fileID: 1060931208}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &30626254
 GameObject:
   m_ObjectHideFlags: 0
@@ -4944,7 +4950,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae9959b62a5020745aa9b9dd1335a07d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 5
 --- !u!4 &336001385
 Transform:
   m_ObjectHideFlags: 0
@@ -12462,6 +12467,10 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 244d71d36a7e44848bf7f4f124c3b793, type: 2}
     - {fileID: 11400000, guid: fc2fed279a453374b97c7ff64def3773, type: 2}
     - {fileID: 11400000, guid: 26dd93284c68671448319a915c111e9a, type: 2}
+  frogRain: {fileID: 1924766443}
+  frogThunder: {fileID: 1811855940}
+  frostyWind: {fileID: 0}
+  sandKingdomWind: {fileID: 20673098}
   warMachineEquipments:
   - {fileID: 2701560059947826741, guid: a3be7518bf3369642af5bfc652498522, type: 3}
   - {fileID: 2701560059947826741, guid: a3be7518bf3369642af5bfc652498522, type: 3}
@@ -20045,7 +20054,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1000010302070858, guid: d0c0b49979d372942ae5a964d9364111, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1000011503386248, guid: d0c0b49979d372942ae5a964d9364111, type: 3}
       propertyPath: m_IsActive
@@ -24996,6 +25005,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5062c1312f2beb14694d90a058d444e4, type: 3}
+--- !u!1 &1811855940 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4532142441725249119, guid: 2b376c3c2c380ae4da88e5faa9942c8e,
+    type: 3}
+  m_PrefabInstance: {fileID: 108387795}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1827839256
 GameObject:
   m_ObjectHideFlags: 0
@@ -25677,6 +25692,7 @@ MonoBehaviour:
   - {fileID: 178479010}
   - {fileID: 2114872210}
   - {fileID: 859797339}
+  pieceDpList: []
   myFilePieceList: []
   enemyFilePieceList:
   - {fileID: 43912631}
@@ -25766,7 +25782,8 @@ MonoBehaviour:
   - {fileID: 668044194}
   grab: 0
   groundHeight: 0
-  frogRain: {fileID: 1924766443}
+  stageInformation: []
+  currentStage: 0
   buffManager: {fileID: 814488125}
   currentPieceList:
   - pieceData: {fileID: 11400000, guid: 309f6986873b81042844f48195428c5d, type: 2}
@@ -27092,8 +27109,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fieldManagers:
   - {fileID: 1886702829}
-  currentRound: 0
-  currentStage: 0
   playerMatchingPair: []
   roundType: 0
   deploymentTime: 30
@@ -27102,6 +27117,10 @@ MonoBehaviour:
   battleOverTime: 60
   groundEventTime: 10000
   duelTime: 60
+  currentRound: 0
+  currentStage: 0
+  stageText: {fileID: 0}
+  roundText: {fileID: 0}
 --- !u!4 &1993184858
 Transform:
   m_ObjectHideFlags: 0

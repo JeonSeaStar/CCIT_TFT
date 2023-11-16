@@ -8,6 +8,7 @@ public class FrostyWindBuff2 : BuffData
     List<Piece> frostyWindPiece = new List<Piece>();
     public override void CoroutineEffect()
     {
+        frostyWindPiece.Clear();
         ArenaManager.Instance.fieldManagers[0].StartCoroutine(FrostyWind());
         ArenaManager.Instance.fieldManagers[0].StartCoroutine(FrostyWindBuff());
     }
@@ -31,7 +32,7 @@ public class FrostyWindBuff2 : BuffData
                 else
                 {
                     Piece enemy = enemyList[Random.Range(0, enemyList.Count)];
-                    if (enemy.immune != true) { enemy.SetFreeze(); Debug.Log("서리바람이 " + enemy.pieceName + "을 빙결시킵니다."); }
+                    if (enemy.immune != true) { enemy.SetFreeze(); Debug.Log("서리바람이 " + enemy.gameObject.name + "을 빙결시킵니다."); }
                     enemyList.Remove(enemy);
                 }
             }

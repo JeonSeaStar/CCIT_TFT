@@ -8,7 +8,7 @@ public class SandKingdomBuff1 : BuffData
     public override void DirectEffect(Piece piece, bool isAdd)
     {
         if (isAdd) piece.pieceData.CalculateBuff(piece, this);
-        else if (!isAdd) piece.shield = 0;
+        else if (!isAdd) piece.pieceData.CalculateBuff(piece, this,isAdd);
     }
 
     public override void BattleStartEffect(bool isAdd)
@@ -33,6 +33,7 @@ public class SandKingdomBuff1 : BuffData
                 if (enemy.gameObject.activeSelf == true)
                 {
                     enemy.Damage(enemy, 10);
+                    Debug.Log("모래바람 시너지가 적 전체에게 데미지를 줍니다.");    
                 }
             }
         }

@@ -87,7 +87,7 @@ public class Piece : MonoBehaviour
     OnceAttackEffect onceAttackEffect;
     protected virtual void Attack()
     {
-        print(name + "(이)가" + target.name + "에게 일반 공격을 합니다.");
+        //print(name + "(이)가" + target.name + "에게 일반 공격을 합니다.");
         Damage(attackDamage);
         //currentMana += manaRecovery;
         Invoke("NextBehavior", attackSpeed);
@@ -197,9 +197,9 @@ public class Piece : MonoBehaviour
     {
         print(name + "(이)가 체력이 0 이하가 되어 사망.");
         dead = true;
-        SpawnRandomBox();
+        //SpawnRandomBox();
         gameObject.SetActive(false);
-        ArenaManager.Instance.BattleEndCheck(myPieceList);
+        //ArenaManager.Instance.BattleEndCheck(myPieceList);
     }
 
     void SpawnRandomBox()
@@ -392,6 +392,7 @@ public class Piece : MonoBehaviour
         } // Set Ready -> Battle
         else if (currentPiece.currentTile.isReadyTile == false && currentPiece.targetTile.isReadyTile == true)
         {
+            currentPiece.pieceData.InitialzePiece(currentPiece);
             fieldManager.RemoveDPList(currentPiece);
             fieldManager.myFilePieceList.Remove(currentPiece);
             currentPiece.buffList.Clear();
@@ -407,6 +408,7 @@ public class Piece : MonoBehaviour
         else if (currentPiece.currentTile.isReadyTile == false && targetPiece.currentTile.isReadyTile == false) return;
         else if (currentPiece.currentTile.isReadyTile == true && targetPiece.currentTile.isReadyTile == false)
         {
+            currentPiece.pieceData.InitialzePiece(targetPiece);
             fieldManager.RemoveDPList(currentPiece);
             fieldManager.myFilePieceList.Remove(targetPiece);
             targetPiece.buffList.Clear();
@@ -422,6 +424,7 @@ public class Piece : MonoBehaviour
         }  // Change Ready -> Battle
         else if (currentPiece.currentTile.isReadyTile == false && targetPiece.currentTile.isReadyTile == true)
         {
+            currentPiece.pieceData.InitialzePiece(currentPiece);
             fieldManager.RemoveDPList(currentPiece);
             fieldManager.myFilePieceList.Remove(currentPiece);
             currentPiece.buffList.Clear();

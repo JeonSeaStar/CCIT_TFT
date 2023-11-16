@@ -8,7 +8,8 @@ public class FrostyWindBuff1 : BuffData
     List<Piece> frostyWindPiece = new List<Piece>() { };
     public override void CoroutineEffect()
     {
-        //ArenaManager.Instance.fieldManagers[0].StartCoroutine(FrostyWind());
+        frostyWindPiece.Clear();
+        ArenaManager.Instance.fieldManagers[0].StartCoroutine(FrostyWind());
         ArenaManager.Instance.fieldManagers[0].StartCoroutine(FrostyWindBuff());
     }
 
@@ -17,6 +18,7 @@ public class FrostyWindBuff1 : BuffData
         while(true)
         {
             yield return new WaitForSeconds(3f);
+
 
             int _count = Random.Range(1, 4);
             List<Piece> enemyList = new List<Piece>();
@@ -31,7 +33,12 @@ public class FrostyWindBuff1 : BuffData
                 else
                 {
                     Piece enemy = enemyList[Random.Range(0, enemyList.Count)];
-                    if (enemy.immune != true) { enemy.SetFreeze(); Debug.Log("서리바람이 " + enemy.pieceName + "을 빙결시킵니다."); }
+                    if (enemy.immune != true) 
+                    {
+                        enemy.SetFreeze();
+                        //서리바람 켜줘야함
+                        Debug.Log("서리바람이 " + enemy.gameObject.name + "을 빙결시킵니다."); 
+                    }
                     enemyList.Remove(enemy);
                 }
             }
@@ -40,14 +47,10 @@ public class FrostyWindBuff1 : BuffData
 
     IEnumerator FrostyWindBuff()
     {
-        Debug.Log(frostyWindPiece.Count);
-        Debug.Log(25);
-        //foreach (var _frostyWind in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
-        //{
-        //    if (_frostyWind.pieceData.myth == PieceData.Myth.FrostyWind) frostyWindPiece.Add(_frostyWind);
-        //}
-        Debug.Log(26);
-        Debug.Log(frostyWindPiece.Count);
+        foreach (var _frostyWind in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
+        {
+            if (_frostyWind.pieceData.myth == PieceData.Myth.FrostyWind) frostyWindPiece.Add(_frostyWind);
+        }
         while (true)
         {
             yield return new WaitForSeconds(0.5f);
@@ -63,6 +66,5 @@ public class FrostyWindBuff1 : BuffData
                 }
             }
         }
-        Debug.Log(27);
     }
 }

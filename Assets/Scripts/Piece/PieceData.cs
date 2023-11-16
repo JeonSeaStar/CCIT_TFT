@@ -67,17 +67,19 @@ public class PieceData : ScriptableObject
     {
         piece.pieceName = pieceName;
         piece.piecePortrait = piecePortrait;
-        piece.health = health[0];
-        piece.mana = mana[0];
-        piece.attackDamage = attackDamage[0];
-        piece.abilityPower = abilityPower[0];
-        piece.armor = armor[0];
-        piece.magicResist = magicResist[0];
-        piece.attackSpeed = attackSpeed[0];
-        piece.criticalChance = criticalChance[0];
-        piece.criticalDamage = criticalDamage[0];
-        piece.attackRange = attackRange[0];
-        piece.bloodBrain = bloodBrain[0];
+        piece.health = health[piece.star];
+        piece.mana = mana[piece.star];
+        piece.attackDamage = attackDamage[piece.star];
+        piece.abilityPower = abilityPower[piece.star];
+        piece.armor = armor[piece.star];
+        piece.magicResist = magicResist[piece.star];
+        piece.attackSpeed = attackSpeed[piece.star];
+        piece.criticalChance = criticalChance[piece.star];
+        piece.criticalDamage = criticalDamage[piece.star];
+        piece.attackRange = attackRange[piece.star];
+        piece.bloodBrain = bloodBrain[piece.star];
+
+        piece.shield = 0;
     }
 
     void CalculateEquipments(Piece piece)
@@ -152,6 +154,8 @@ public class PieceData : ScriptableObject
             piece.criticalChance += CalculateStatus(piece.pieceData.criticalChance[_star], buffData.criticalChance, buffData.percentCriticalChance);
             piece.criticalDamage += CalculateStatus(piece.pieceData.criticalDamage[_star], buffData.criticalDamage, buffData.percentCriticalDamage);
             piece.attackRange += CalculateStatus(piece.pieceData.attackRange[_star], buffData.attackRange, buffData.percentAttackRange);
+
+            piece.shield += CalculateStatus(piece.pieceData.health[_star], buffData.shield, buffData.percentShield);
         }
         else if(isPlus == false)
         {
@@ -165,6 +169,8 @@ public class PieceData : ScriptableObject
             piece.criticalChance -= CalculateStatus(piece.pieceData.criticalChance[_star], buffData.criticalChance, buffData.percentCriticalChance);
             piece.criticalDamage -= CalculateStatus(piece.pieceData.criticalDamage[_star], buffData.criticalDamage, buffData.percentCriticalDamage);
             piece.attackRange -= CalculateStatus(piece.pieceData.attackRange[_star], buffData.attackRange, buffData.percentAttackRange);
+
+            piece.shield -= CalculateStatus(piece.pieceData.health[_star], buffData.shield, buffData.percentShield);
         }
     }
 
