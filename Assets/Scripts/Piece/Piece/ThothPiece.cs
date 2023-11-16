@@ -1,0 +1,47 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ThothPiece : Piece
+{
+    [SerializeField] private GameObject bullet;
+    protected override void Attack()
+    {
+        if (mana <= 100)
+        {
+            Skill();
+            mana = 0;
+        }
+        else
+        {
+            base.Attack();
+        }
+    }
+
+    protected override void Skill()
+    {
+        base.Skill();
+        if (star == 0)
+        {
+            ProjectionSkill();
+        }
+        else if (star == 1)
+        {
+            ProjectionSkill();
+        }
+        else if (star == 2)
+        {
+            ProjectionSkill();
+        }
+    }
+
+    void ProjectionSkill()
+    {
+        if (target != null)
+        {
+            GameObject centaBullet = Instantiate(bullet, transform.position, Quaternion.identity);
+            Bullet b = centaBullet.GetComponent<ThothBullet>();
+            b.Shot(target.transform.position - transform.position);
+        }
+    }
+}
