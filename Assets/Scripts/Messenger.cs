@@ -137,7 +137,7 @@ public class Messenger : MonoBehaviour
         if (controlPiece != null)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, (-1) - (1 << 6)) && hit.transform.gameObject.layer == 7)
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, (-1) - (1 << 6)) && hit.transform.gameObject.layer == 7 && hit.transform.gameObject.GetComponent<Tile>().myTile)
             {
                 var _currentRound = ArenaManager.Instance.roundType;
                 Tile _currentTileInformation = controlPiece.currentTile; 
@@ -162,7 +162,7 @@ public class Messenger : MonoBehaviour
                         else
                         {
                             controlPiece.SetPiece(controlPiece, controlPiece.targetTile.piece);
-                            var _targetPieceInformation = _targetTileInformation.piece.GetComponent<Piece>();
+                            var _targetPieceInformation = _targetTileInformation.piece;
                             ChangeTileTransform(controlPiece, controlPiece.targetTile);
                             ChangeTileTransform(_targetPieceInformation, controlPiece.currentTile);
                             //Piece

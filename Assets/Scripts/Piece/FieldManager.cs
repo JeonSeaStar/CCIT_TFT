@@ -80,11 +80,19 @@ public class FieldManager : MonoBehaviour
         {
             ArenaManager.Instance.roundType = RoundType.Battle;
             foreach (var effect in sBattleStartEffect) effect(true);
-            Debug.Log(sBattleStartEffect.Count);
-            Debug.Log(sCoroutineEffect.Count);
             foreach (var effect in sCoroutineEffect) effect();
+
+            Debug.Log("즉시 발동 시너지 효과 : " + sBattleStartEffect.Count);
+            Debug.Log("지연 발동 시너지 효과 : " + sCoroutineEffect.Count);
             //foreach (var effect in sCoroutineEffect) StopCoroutine(effect);
             InitializingRound();
+        }
+
+        if(Input.GetKeyDown(KeyCode.N) && ArenaManager.Instance.roundType == RoundType.Battle)
+        {
+            ArenaManager.Instance.roundType = RoundType.Deployment;
+            foreach (var effect in sBattleStartEffect) effect(false);
+            StopAllCoroutines();
         }
 
         if (Input.GetKeyDown(KeyCode.P))
@@ -141,13 +149,13 @@ public class FieldManager : MonoBehaviour
     {
         mythActiveCount[piece.pieceData.myth]++;
         animalActiveCount[piece.pieceData.animal]++;
-        unitedActiveCount[piece.pieceData.united]++;
+        //unitedActiveCount[piece.pieceData.united]++;
     }
     public void SynergeDecrease(Piece piece)
     {
         mythActiveCount[piece.pieceData.myth]--;
         animalActiveCount[piece.pieceData.animal]--;
-        unitedActiveCount[piece.pieceData.united]--;
+        //unitedActiveCount[piece.pieceData.united]--;
     }
     public void CalSynerge(Piece plus, Piece minus = null)
     {
@@ -159,7 +167,7 @@ public class FieldManager : MonoBehaviour
         {
             ApplyMythSynerge(myth);
             ApplyAnimalSynerge(animal);
-            ApplyUnitedSynerge(united);
+            //ApplyUnitedSynerge(united);
         }
 
         if (minus == null) //Set Piece
@@ -234,7 +242,7 @@ public class FieldManager : MonoBehaviour
                 break;
         }
     }
-    void ApplyUnitedSynerge(PieceData.United value)
+    /*void ApplyUnitedSynerge(PieceData.United value)
     {
         int _unitedSynergeCount = unitedActiveCount[value];
         switch (value)
@@ -253,7 +261,7 @@ public class FieldManager : MonoBehaviour
                 break;
         }
     }
-
+    */
     void ApplyMythBuff(List<BuffData> buffList, int count, int[] thresholds, PieceData.Myth mythType)
     {
         for (int i = 0; i < thresholds.Length; i++)
@@ -458,7 +466,7 @@ public class FieldManager : MonoBehaviour
             }
         }
     }
-    void ApplyUnitedBuff(List<BuffData> buffList, int count, int[] thresholds, PieceData.United unitedType)
+    /*void ApplyUnitedBuff(List<BuffData> buffList, int count, int[] thresholds, PieceData.United unitedType)
     {
         for (int i = 0; i < thresholds.Length; i++)
         {
@@ -540,7 +548,7 @@ public class FieldManager : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
     #endregion
 
     public void FrogRain(bool isRain)

@@ -23,45 +23,22 @@ public class GreatMountainBuff3 : BuffData
             god = Instantiate(gods[_randomCount].piecePrefab, pieceParent.transform);
             ArenaManager.Instance.fieldManagers[0].myFilePieceList.Add(god.GetComponent<Piece>());
 
-            if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].isExpedition == true)
+            for (int i = 3; i < 7; i++)
             {
-                for (int i = 4; i < 7; i++)
+                for (int j = 0; j < pathFinding.grid[j].tile.Count; j++)
                 {
-                    for (int j = 0; j < pathFinding.grid[j].tile.Count; j++)
+                    if (pathFinding.grid[i].tile[j].IsFull == false)
                     {
-                        if (pathFinding.grid[i].tile[j].IsFull == false)
-                        {
-                            //기물 소환 타일 정보 저장
-                            spawnTile = pathFinding.grid[i].tile[j];
-                            spawnTile.IsFull = true;
-                            spawnTile.piece = god.GetComponent<Piece>();
+                        //기물 소환 타일 정보 저장
+                        spawnTile = pathFinding.grid[i].tile[j];
+                        spawnTile.IsFull = true;
+                        spawnTile.piece = god.GetComponent<Piece>();
 
-                            god.GetComponent<Piece>().currentTile = spawnTile;
-                            god.GetComponent<Piece>().targetTile = spawnTile;
-                            god.transform.position = new Vector3(spawnTile.transform.position.x, 0, spawnTile.transform.position.z);
-                            return;
-                        }
-                    }
-                }
-            }
-            else if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].isExpedition == false)
-            {
-                for (int i = 3; i > 0; i--)
-                {
-                    for (int j = 0; j < pathFinding.grid[j].tile.Count; j++)
-                    {
-                        if (pathFinding.grid[i].tile[j].IsFull == false)
-                        {
-                            //기물 소환 타일 정보 저장
-                            spawnTile = pathFinding.grid[i].tile[j];
-                            spawnTile.IsFull = true;
-                            spawnTile.piece = god.GetComponent<Piece>();
-
-                            god.GetComponent<Piece>().currentTile = spawnTile;
-                            god.GetComponent<Piece>().targetTile = spawnTile;
-                            god.transform.position = new Vector3(spawnTile.transform.position.x, 0, spawnTile.transform.position.z);
-                            return;
-                        }
+                        spawnTile.piece.currentTile = spawnTile;
+                        spawnTile.piece.targetTile = spawnTile;
+                        spawnTile.piece.isOwned = true;
+                        god.transform.position = new Vector3(spawnTile.transform.position.x, 0, spawnTile.transform.position.z);
+                        return;
                     }
                 }
             }
@@ -69,10 +46,9 @@ public class GreatMountainBuff3 : BuffData
         else if (!isAdd)
         {
             ArenaManager.Instance.fieldManagers[0].myFilePieceList.Remove(god.GetComponent<Piece>());
-            Destroy(god);
-            spawnTile.IsFull = false;
+            god.GetComponent<Piece>().currentTile.IsFull = false;
 
-            spawnTile.piece = null;
+            Destroy(god);
             god = null;
             spawnTile = null;
         }

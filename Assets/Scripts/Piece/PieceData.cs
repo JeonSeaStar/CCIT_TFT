@@ -65,24 +65,19 @@ public class PieceData : ScriptableObject
 
     public void InitialzePiece(Piece piece)
     {
-        //piece.pieceName = pieceName;
-        //piece.piecePortrait = piecePortrait;
-        //piece.defaultHealth = defaultHealth;
-        //piece.defaultMana = defaultMana;
-        //piece.manaRecovery = defaultManaRecovery;
-        //piece.defaultAttackPower = defaultAttackDamage;
-        //piece.defaultAbilityPower = defaultAbilityPower;
-        //piece.defaultArmor = defaultArmor;
-        //piece.defaultMagicResist = defaultMagicResist;
-        //piece.defaultAttackSpeed = defaultAttackSpeed;
-        //piece.defaultCriticalChance = defaultCriticalChance;
-        //piece.defaultCriticalDamage = defaultCriticalDamage;
-        //piece.defaultAttackRange = defaultAttackRange;
-
-
-        //piece.mythology = mythology;
-        //piece.species = species;
-        //piece.plusSynerge = plusSynerge;
+        piece.pieceName = pieceName;
+        piece.piecePortrait = piecePortrait;
+        piece.health = health[0];
+        piece.mana = mana[0];
+        piece.attackDamage = attackDamage[0];
+        piece.abilityPower = abilityPower[0];
+        piece.armor = armor[0];
+        piece.magicResist = magicResist[0];
+        piece.attackSpeed = attackSpeed[0];
+        piece.criticalChance = criticalChance[0];
+        piece.criticalDamage = criticalDamage[0];
+        piece.attackRange = attackRange[0];
+        piece.bloodBrain = bloodBrain[0];
     }
 
     void CalculateEquipments(Piece piece)
