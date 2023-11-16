@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6147433639900124300}
   m_LocalRotation: {x: 0.00000008146034, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.9551057, y: -0.7296939, z: -0.29853868}
+  m_LocalPosition: {x: 5.25, y: 0, z: 3.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -105,16 +105,16 @@ MonoBehaviour:
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
-  health: 0
+  health: 100
   mana: 0
-  attackDamage: 0
+  attackDamage: 10
   abilityPower: 0
   armor: 0
   magicResist: 0
   attackSpeed: 1
   criticalChance: 0
   criticalDamage: 0
-  attackRange: 0
+  attackRange: 1
   bloodBrain: 0
   shield: 0
   currentShield: 0
@@ -132,7 +132,6 @@ MonoBehaviour:
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
   buffList: []
-  expeditionTile: {fileID: 0}
   immune: 0
   freeze: 0
   slow: 0
@@ -141,6 +140,10 @@ MonoBehaviour:
   fear: 0
   invincible: 0
   charm: 0
+  enemyPieceList: []
+  myPieceList: []
+  isRabbitSynergeActiveCheck: 0
+  isCatSynergeActiveCheck: 0
 --- !u!54 &3553032022681259750
 Rigidbody:
   m_ObjectHideFlags: 0

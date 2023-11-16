@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ArenaManager : MonoBehaviour
 {
@@ -26,9 +27,6 @@ public class ArenaManager : MonoBehaviour
 
     public List<FieldManager> fieldManagers;
 
-    public int currentRound = 0;
-    public int currentStage = 0;
-
     public List<PlayerPair> playerMatchingPair;
 
     public enum RoundType
@@ -52,6 +50,12 @@ public class ArenaManager : MonoBehaviour
     public float groundEventTime = 10000f;
     public float duelTime = 60f;
 
+    public int currentRound = 0;
+    public int currentStage = 0;
+
+    public TextMeshProUGUI stageText;
+    public TextMeshProUGUI roundText;
+
     private void Awake()
     {
         if (instance == null)
@@ -59,9 +63,11 @@ public class ArenaManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
+
+        StartGame();
         //StartCoroutine(CalRoundTime(3));
     }
-
+    #region 라운드(타이머식)
     IEnumerator CalRoundTime(float time, string nextRound = "Deployment")
     {
         yield return new WaitForSeconds(1f);
@@ -101,6 +107,57 @@ public class ArenaManager : MonoBehaviour
         }
         StartCoroutine(CalRoundTime(_restTime));
     }
+    #endregion
+
+    #region 라운드(버튼식)
+    public void BattleEndCheck(List<Piece> pieceList)
+    {
+        for(int i = 0; i < pieceList.Count; i++)
+        {
+            if(!pieceList[i].dead)
+                return;
+
+            if (i == pieceList.Count - 1 && pieceList[i].dead)
+            {
+                currentStage++;
+                fieldManagers[0].currentStage++;
+                NextRound();
+            }
+        }
+    }
+
+    private void NextRound()
+    {
+        roundType = RoundType.Ready;
+
+        fieldManagers[0].NextStage();
+
+        ChangeStage(currentRound);
+    }
+
+    public void StartBattle()
+    {
+        roundType = RoundType.Battle;
+
+        foreach (var piece in fieldManagers[0].myFilePieceList)
+            piece.NextBehavior();
+        foreach (var piece in fieldManagers[0].enemyFilePieceList)
+            piece.NextBehavior();
+    }
+
+    private void ChangeStage(int round)
+    {
+        roundText.text = round.ToString();
+    }
+
+    private void StartGame()
+    {
+        stageText.text = currentStage.ToString();
+
+        fieldManagers[0].SpawnEnemy(currentStage);
+        ChangeStage(1);
+    }
+    #endregion
 
     #region 매칭
     void Update()

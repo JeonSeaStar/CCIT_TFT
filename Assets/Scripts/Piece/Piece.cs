@@ -115,7 +115,23 @@ public class Piece : MonoBehaviour
 
     public void Damage(Piece piece, float damage)
     {
-        piece.health -= damage;
+        if (shield > 0)
+        {
+            float shieldPoint = piece.shield;
+            if (shieldPoint < damage)
+            {
+                damage = damage - shieldPoint;
+            }
+            else
+            {
+                shieldPoint -= damage;
+            }
+            piece.shield = shieldPoint;
+        }
+        else
+        {
+            piece.health -= damage;
+        }
         if (piece.health <= 0) piece.Dead();
     }
 
@@ -124,44 +140,58 @@ public class Piece : MonoBehaviour
         if (target.invincible)
             return;
 
-        target.health -= damage;
+        if (target.shield > 0)
+        {
+            float shieldPoint = target.shield;
+            if (shieldPoint < damage)
+            {
+                damage = damage - shieldPoint;
+            }
+            else
+            {
+                shieldPoint -= damage;
+            }
+            target.shield = shieldPoint;
+        }
+        else
+        {
+            target.health -= damage;
+        }
 
         if (target.health <= 0)
         {
-            #region 악마 기물 시너지 확인
-            var _burningPiece = ArenaManager.Instance.fieldManagers[0].buffManager.mythBuff[0];
-            if(buffList.Contains(_burningPiece.burningGroundBuff[0]) || buffList.Contains(_burningPiece.burningGroundBuff[1]))
-            {
-                var _buff = (ArenaManager.Instance.fieldManagers[0].mythActiveCount[PieceData.Myth.BurningGround] >= 4) ? _burningPiece.burningGroundBuff[1] : _burningPiece.burningGroundBuff[0];
-                _buff.DirectEffect(this, true);
-                _buff.BattleStartEffect(true);
+            //#region 악마 기물 시너지 확인
+            //var _burningPiece = ArenaManager.Instance.fieldManagers[0].buffManager.mythBuff[0];
+            //if (buffList.Contains(_burningPiece.burningGroundBuff[0]) || buffList.Contains(_burningPiece.burningGroundBuff[1]))
+            //{
+            //    var _buff = (ArenaManager.Instance.fieldManagers[0].mythActiveCount[PieceData.Myth.BurningGround] >= 4) ? _burningPiece.burningGroundBuff[1] : _burningPiece.burningGroundBuff[0];
+            //    _buff.DirectEffect(this, true);
+            //    _buff.BattleStartEffect(true);
 
-                int _r = UnityEngine.Random.Range(0, 9);
-                if (_r == 0 && _buff == _burningPiece.burningGroundBuff[1])
-                {
-                    target.SetCharm();
-                }
-            }
-            #endregion
-            #region 고양이 기물 시너지 확인
-            if (isCatSynergeActiveCheck)
-            {
-                int _r = (ArenaManager.Instance.fieldManagers[0].animalActiveCount[PieceData.Animal.Cat] >= 4) ? UnityEngine.Random.Range(0, 3) : UnityEngine.Random.Range(0, 2);
-                if (_r == 0) 
-                { 
-                    int _gold = UnityEngine.Random.Range(2, 6);
-                    ArenaManager.Instance.fieldManagers[0].DualPlayers[0].gold += _gold;
-                } 
-                
-            }
-            #endregion
+            //    int _r = UnityEngine.Random.Range(0, 9);
+            //    if (_r == 0 && _buff == _burningPiece.burningGroundBuff[1])
+            //    {
+            //        target.SetCharm();
+            //    }
+            //}
+            //#endregion
+            //#region 고양이 기물 시너지 확인
+            //if (isCatSynergeActiveCheck)
+            //{
+            //    int _r = (ArenaManager.Instance.fieldManagers[0].animalActiveCount[PieceData.Animal.Cat] >= 4) ? UnityEngine.Random.Range(0, 3) : UnityEngine.Random.Range(0, 2);
+            //    if (_r == 0)
+            //    {
+            //        int _gold = UnityEngine.Random.Range(2, 6);
+            //        ArenaManager.Instance.fieldManagers[0].DualPlayers[0].gold += _gold;
+            //    }
+
+            //}
+            //#endregion
 
             target.Dead();
             target = null;
         }
     }
-    
-
 
     public void Dead()
     {
@@ -169,6 +199,7 @@ public class Piece : MonoBehaviour
         dead = true;
         SpawnRandomBox();
         gameObject.SetActive(false);
+        ArenaManager.Instance.BattleEndCheck(myPieceList);
     }
 
     void SpawnRandomBox()
@@ -304,7 +335,7 @@ public class Piece : MonoBehaviour
     {
         EnemyCheck();
 
-        if (CheckEnemySurvival(enemyPieceList))
+        if (CheckEnemySurvival(enemyPieceList) && !dead && ArenaManager.Instance.roundType == ArenaManager.RoundType.Battle)
         {
             foreach (var enemy in enemyPieceList)
                 enemy.currentTile.walkable = true;
@@ -356,10 +387,12 @@ public class Piece : MonoBehaviour
             var _duplicationCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
             if (_duplicationCheck == null) fieldManager.SynergeIncrease(currentPiece);
             fieldManager.myFilePieceList.Add(currentPiece);
+            fieldManager.AddDPList(currentPiece);
             fieldManager.CalSynerge(currentPiece);
         } // Set Ready -> Battle
         else if (currentPiece.currentTile.isReadyTile == false && currentPiece.targetTile.isReadyTile == true)
         {
+            fieldManager.RemoveDPList(currentPiece);
             fieldManager.myFilePieceList.Remove(currentPiece);
             currentPiece.buffList.Clear();
             var _duplicationCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
@@ -374,6 +407,7 @@ public class Piece : MonoBehaviour
         else if (currentPiece.currentTile.isReadyTile == false && targetPiece.currentTile.isReadyTile == false) return;
         else if (currentPiece.currentTile.isReadyTile == true && targetPiece.currentTile.isReadyTile == false)
         {
+            fieldManager.RemoveDPList(currentPiece);
             fieldManager.myFilePieceList.Remove(targetPiece);
             targetPiece.buffList.Clear();
             var _duplicationTargetCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == targetPiece.pieceName);
@@ -383,11 +417,12 @@ public class Piece : MonoBehaviour
             var _duplicationCurrentCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
             if (_duplicationCurrentCheck == null) fieldManager.SynergeIncrease(currentPiece); //Plus
             fieldManager.myFilePieceList.Add(currentPiece);
-
+            fieldManager.AddDPList(currentPiece);
             fieldManager.CalSynerge(currentPiece, targetPiece);
         }  // Change Ready -> Battle
         else if (currentPiece.currentTile.isReadyTile == false && targetPiece.currentTile.isReadyTile == true)
         {
+            fieldManager.RemoveDPList(currentPiece);
             fieldManager.myFilePieceList.Remove(currentPiece);
             currentPiece.buffList.Clear();
             var _duplicationCurrentCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
@@ -396,7 +431,7 @@ public class Piece : MonoBehaviour
             var _duplicationTargetCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == targetPiece.pieceName);
             if(_duplicationTargetCheck == null) fieldManager.SynergeIncrease(targetPiece); //Plus
             fieldManager.myFilePieceList.Add(targetPiece);
-
+            fieldManager.AddDPList(currentPiece);
             fieldManager.CalSynerge(targetPiece, currentPiece);
         }  // Change Battle -> Ready
     }
