@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HelPiece : Piece
 {
-    public GameObject helBullet;
+    [SerializeField] private GameObject helBullet;
     protected override void Attack()
     {
         if (mana <= 90)
@@ -39,7 +39,9 @@ public class HelPiece : Piece
     {
         if(target != null)
         {
-            Instantiate(helBullet, target.transform.position, Quaternion.identity);
+            GameObject centaBullet = Instantiate(helBullet, transform.position, Quaternion.identity);
+            Bullet b = centaBullet.GetComponent<HelBullet>();
+            b.Shot(target.transform.position - transform.position);
         }
     }
 }
