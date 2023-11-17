@@ -50,11 +50,9 @@ public class ArenaManager : MonoBehaviour
     public float groundEventTime = 10000f;
     public float duelTime = 60f;
 
+    public RoundState roundState;
     public int currentRound = 0;
     public int currentStage = 0;
-
-    public TextMeshProUGUI stageText;
-    public TextMeshProUGUI roundText;
 
     private void Awake()
     {
@@ -64,7 +62,7 @@ public class ArenaManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
         }
 
-        //StartGame();
+        StartGame();
         //StartCoroutine(CalRoundTime(3));
     }
     #region 라운드(타이머식)
@@ -139,6 +137,8 @@ public class ArenaManager : MonoBehaviour
     {
         roundType = RoundType.Battle;
 
+        fieldManagers[0].ActiveSynerge();
+
         foreach (var piece in fieldManagers[0].myFilePieceList)
             piece.NextBehavior();
         foreach (var piece in fieldManagers[0].enemyFilePieceList)
@@ -147,15 +147,14 @@ public class ArenaManager : MonoBehaviour
 
     private void ChangeStage(int round)
     {
-        roundText.text = round.ToString();
+        roundState.NextRound(round);
     }
 
     private void StartGame()
     {
-        stageText.text = currentStage.ToString();
-
-        fieldManagers[0].SpawnEnemy(currentStage);
+        roundState.SetStage(currentStage);
         ChangeStage(1);
+        fieldManagers[0].SpawnEnemy(currentStage);
     }
     #endregion
 
