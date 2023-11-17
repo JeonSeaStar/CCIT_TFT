@@ -5,22 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Scriptable Object/Buff Datas/Myth/SandKingdomBuff2")]
 public class SandKingdomBuff2 : BuffData
 {
-    public override void DirectEffect(Piece piece, bool isAdd)
-    {
-        if (isAdd) piece.pieceData.CalculateBuff(piece, this);
-        else if (!isAdd) piece.pieceData.CalculateBuff(piece, this, isAdd);
-    }
-
-    public override void BattleStartEffect(bool isAdd)
-    {
-        if (isAdd) Debug.Log("¸ğ·¡ ¹Ù¶÷ Å´");
-        else if (!isAdd) Debug.Log("¸ğ·¡ ¹Ù¶÷ ²û");
-    }
-
-    public override void CoroutineEffect()
-    {
-        ArenaManager.Instance.fieldManagers[0].StartCoroutine(SandKingdom());
-    }
+    public override void DirectEffect(Piece piece, bool isAdd) => piece.pieceData.CalculateBuff(piece, this, isAdd);
+    public override void BattleStartEffect(bool isAdd) => ArenaManager.Instance.fieldManagers[0].buffManager.sandKingdomWind.SetActive(isAdd);
+    public override void CoroutineEffect() => ArenaManager.Instance.fieldManagers[0].StartCoroutine(SandKingdom());
 
     IEnumerator SandKingdom()
     {
