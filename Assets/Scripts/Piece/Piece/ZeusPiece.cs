@@ -10,6 +10,7 @@ public class ZeusPiece : Piece
         {
             Skill();
             mana = 0;
+            Invoke("NextBehavior", attackSpeed);
         }
         else
         {
@@ -19,7 +20,6 @@ public class ZeusPiece : Piece
 
     protected override void Skill()
     {
-        base.Skill();
         if (star == 0)
         {
             StartCoroutine(GetLockTarget(attackDamage * 7.35f, 3f));
@@ -39,9 +39,9 @@ public class ZeusPiece : Piece
         for (int i = 0; i < time; i++)
         {
             if (target == null)
-                yield return null;
+                yield break; //or yield return null;
             else
-                target.Damage(damage);
+                target.SkillDamage(damage);
             yield return new WaitForSeconds(1f);
         }
     }

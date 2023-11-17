@@ -7,10 +7,11 @@ public class FenrirPiece : Piece
     PathFinding pathFinding;
     protected override void Attack()
     {
-        if (mana <= 80)
+        if (mana >= 80)
         {
             Skill();
             mana = 0;
+            Invoke("NextBehavior", attackSpeed);
         }
         else
         {
@@ -20,7 +21,6 @@ public class FenrirPiece : Piece
 
     protected override void Skill()
     {
-        base.Skill();
         if (star == 0)
             GetLocationMultiRangeSkill(attackDamage * 2.35f);
         else if (star == 1)
@@ -35,9 +35,15 @@ public class FenrirPiece : Piece
         List<Tile> _getNeigbor = pathFinding.GetFront(currentTile);
         foreach (var _Neigbor in _getNeigbor)
         {
-            Piece _targets = _Neigbor.GetComponent<Piece>();
-            if(!_targets.isOwned)
-                _targets.Damage(damage);
+            Piece _targets = _Neigbor.piece;
+            if(_targets == null)
+            {
+                Debug.Log("대상없음");
+            }
+            else if(!_targets.isOwned)
+            {
+                _targets.SkillDamage(damage);
+            }
         }
     }
 }

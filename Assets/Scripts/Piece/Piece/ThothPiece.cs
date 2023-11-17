@@ -7,10 +7,11 @@ public class ThothPiece : Piece
     [SerializeField] private GameObject bullet;
     protected override void Attack()
     {
-        if (mana <= 100)
+        if (mana <= 100 && target != null)
         {
             Skill();
             mana = 0;
+            Invoke("NextBehavior", attackSpeed);
         }
         else
         {
@@ -20,7 +21,6 @@ public class ThothPiece : Piece
 
     protected override void Skill()
     {
-        base.Skill();
         if (star == 0)
         {
             ProjectionSkill();
@@ -37,11 +37,8 @@ public class ThothPiece : Piece
 
     void ProjectionSkill()
     {
-        if (target != null)
-        {
-            GameObject centaBullet = Instantiate(bullet, transform.position, Quaternion.identity);
-            Bullet b = centaBullet.GetComponent<ThothBullet>();
-            b.Shot(target.transform.position - transform.position);
-        }
+        GameObject centaBullet = Instantiate(bullet, transform.position, Quaternion.identity);
+        Bullet b = centaBullet.GetComponent<ThothBullet>();
+        b.Shot(target.transform.position - transform.position);
     }
 }

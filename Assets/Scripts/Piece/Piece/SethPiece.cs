@@ -11,6 +11,7 @@ public class SethPiece : Piece
         {
             Skill();
             mana = 0;
+            Invoke("NextBehavior", attackSpeed);
         }
         else
         {
@@ -20,7 +21,6 @@ public class SethPiece : Piece
 
     protected override void Skill()
     {
-        base.Skill();
         if (star == 0)
             GetLocationMultiRangeSkill(attackDamage * 1.45f);
         else if (star == 1)
@@ -36,8 +36,14 @@ public class SethPiece : Piece
         foreach (var _Neigbor in _getNeigbor)
         {
             Piece _targets = _Neigbor.GetComponent<Piece>();
-            if(!_targets.isOwned)
-                _targets.Damage(damage);
+            if(_targets == null)
+            {
+                Debug.Log("대상없음");
+            }
+            else if(!_targets.isOwned)
+            {
+                _targets.SkillDamage(damage);
+            }
         }
     }
 }

@@ -10,6 +10,7 @@ public class OdinPiece : Piece
         {
             Skill();
             mana = 0;
+            Invoke("NextBehavior", attackSpeed);
         }
         else
         {
@@ -19,29 +20,34 @@ public class OdinPiece : Piece
 
     protected override void Skill()
     {
-        base.Skill();
         if (star == 0)
         {
-            AllPieceHealSkill(1.3f);
+            AllPieceBuffSkill(1.3f);
         }
         else if (star == 1)
         {
-            AllPieceHealSkill(1.6f);
+            AllPieceBuffSkill(1.6f);
         }
         else if (star == 2)
         {
-            AllPieceHealSkill(1.99f);
+            AllPieceBuffSkill(1.99f);
         }
     }
 
-    void AllPieceHealSkill(float buff)
+    void AllPieceBuffSkill(float buff)
     {
-        List<Piece> _allPiece = fieldManager.enemyFilePieceList;
+        List<Piece> _allPiece = fieldManager.myFilePieceList;
         foreach (var _Neigbor in _allPiece)
         {
             Piece _targets = _Neigbor.GetComponent<Piece>();
-            if(_targets.isOwned)
+            if(_targets == null)
+            {
+                Debug.Log("대상없음");
+            }
+            else if(_targets.isOwned)
+            {
                 _targets.attackDamage = attackDamage * buff;
+            }
         }
     }
 }

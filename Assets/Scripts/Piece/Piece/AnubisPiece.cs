@@ -6,10 +6,11 @@ public class AnubisPiece : Piece
 {
     protected override void Attack()
     {
-        if (mana <= 150)
+        if (mana >= 150 && target != null)
         {
             Skill();
             mana = 0;
+            Invoke("NextBehavior", attackSpeed);
         }
         else
         {
@@ -19,13 +20,11 @@ public class AnubisPiece : Piece
 
     protected override void Skill()
     {
-        base.Skill();
         if (star == 0)
-            target.Damage(attackDamage * 1.5f);
+            target.SkillDamage(attackDamage * 1.5f);
         else if (star == 1)
-            target.Damage(attackDamage * 2.5f);
+            target.SkillDamage(attackDamage * 2.5f);
         else if (star == 2)
-            target.Damage(attackDamage * 5f);
-
+            target.SkillDamage(attackDamage * 5f);
     }
 }

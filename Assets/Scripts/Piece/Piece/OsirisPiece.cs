@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class OsirisPiece : Piece
 {
-    float pieceHealth = 4000f;
+    float pieceHealth = 5000f;
 
     protected override void Attack()
     {
@@ -12,6 +12,7 @@ public class OsirisPiece : Piece
         {
             Skill();
             mana = 0;
+            Invoke("NextBehavior", attackSpeed);
         }
         else
         {
@@ -21,7 +22,6 @@ public class OsirisPiece : Piece
 
     protected override void Skill()
     {
-        base.Skill();
         if (star == 0)
         {
             FindLeastHealthPiece(120f);
@@ -46,8 +46,8 @@ public class OsirisPiece : Piece
                 {
                     pieceHealth = fieldManager.myFilePieceList[i].health;
                 }
+                fieldManager.myFilePieceList[i].health += heal;
             }
-            pieceHealth += heal;
         }
     }
 }

@@ -6,10 +6,11 @@ public class ThorPiece : Piece
 {
     protected override void Attack()
     {
-        if (mana <= 80)
+        if (mana <= 80 && target != null)
         {
             Skill();
             mana = 0;
+            Invoke("NextBehavior", attackSpeed);
         }
         else
         {
@@ -19,7 +20,6 @@ public class ThorPiece : Piece
 
     protected override void Skill()
     {
-        base.Skill();
         if (star == 0)
         {
             AllPieceDamageSkill(attackDamage * 2.5f);
@@ -45,7 +45,14 @@ public class ThorPiece : Piece
             foreach (var _Neigbor in _allPiece)
             {
                 Piece _targets = _Neigbor.GetComponent<Piece>();
-                _targets.Damage(damage);
+                if(_targets == null)
+                {
+                    Debug.Log("대상없음");
+                }
+                else
+                {
+                    _targets.SkillDamage(damage);
+                }
             }
             yield return new WaitForSeconds(1f);
         }
@@ -57,7 +64,14 @@ public class ThorPiece : Piece
         foreach (var _Neigbor in _allPiece)
         {
             Piece _targets = _Neigbor.GetComponent<Piece>();
-            _targets.Damage(damage);
+            if(_targets == null)
+            {
+                Debug.Log("대상없음");
+            }
+            else
+            {
+                _targets.SkillDamage(damage);
+            }
         }
     }
 }

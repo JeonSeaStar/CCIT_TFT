@@ -7,10 +7,11 @@ public class CentaurusPiece : Piece
     [SerializeField] private GameObject bullet;
     protected override void Attack()
     {
-        if (mana <= 100)
+        if (mana >= 100 && target != null)
         {
             Skill();
             mana = 0;
+            Invoke("NextBehavior", attackSpeed);
         }
         else
         {
@@ -20,7 +21,6 @@ public class CentaurusPiece : Piece
 
     protected override void Skill()
     {
-        base.Skill();
         if (star == 0)
         {
             ProjectionSkill();

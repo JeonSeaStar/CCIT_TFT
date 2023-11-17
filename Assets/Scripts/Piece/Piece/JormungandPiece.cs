@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class JormungandPiece : Piece
 {
-    Tile skillCheckTile;
-    PathFinding pathFinding;
+    public Tile skillCheckTile;
+    public PathFinding pathFinding;
     int time;
     protected override void Attack()
     {
-        if (mana <= 50)
+        if (mana >= 50)
         {
             Skill();
             mana = 0;
+            Invoke("NextBehavior", attackSpeed);
         }
         else
         {
@@ -40,9 +41,9 @@ public class JormungandPiece : Piece
 
     public void GetLocationMultiRangeSkill(float damage, int time)
     {
-        skillCheckTile = targetTile;
+        skillCheckTile = target.currentTile;
         pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
-        FindNeighbor(damage, time);
+        StartCoroutine(FindNeighbor(damage, time));
     }
 
     IEnumerator FindNeighbor(float damage,int time)
@@ -53,9 +54,16 @@ public class JormungandPiece : Piece
             _getNeigbor.Add(skillCheckTile);
             foreach (var _Neigbor in _getNeigbor)
             {
-                Piece _targets = _Neigbor.GetComponent<Piece>();
-                if(!_targets.isOwned)
-                    _targets.Damage(damage);
+                Piece _targets = _Neigbor.piece;
+                
+                if(_targets == null)
+                {
+                    Debug.Log("대상없음");
+                }
+                else if(_targets.isOwned == false)
+                {
+                    _targets.SkillDamage(damage);
+                }
             }
             yield return new WaitForSeconds(1f);
         }

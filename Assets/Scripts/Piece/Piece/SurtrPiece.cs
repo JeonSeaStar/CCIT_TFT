@@ -6,10 +6,11 @@ public class SurtrPiece : Piece
 {
     protected override void Attack()
     {
-        if (mana <= 100)
+        if (mana <= 100 && target != null)
         {
             Skill();
             mana = 0;
+            Invoke("NextBehavior", attackSpeed);
         }
         else
         {
@@ -19,7 +20,6 @@ public class SurtrPiece : Piece
 
     protected override void Skill()
     {
-        base.Skill();
         if (star == 0)
         {
             this.shield = attackDamage * 2.5f;

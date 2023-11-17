@@ -6,10 +6,11 @@ public class HermesPiece : Piece
 {
     protected override void Attack()
     {
-        if (mana <= 75)
+        if (mana >= 75 && target != null)
         {
             Skill();
             mana = 0;
+            Invoke("NextBehavior", attackSpeed);
         }
         else
         {
@@ -19,7 +20,6 @@ public class HermesPiece : Piece
 
     protected override void Skill()
     {
-        base.Skill();
         if (star == 0)
         {
             BlindSkill(1.5f);

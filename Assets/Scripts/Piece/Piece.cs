@@ -138,6 +138,35 @@ public class Piece : MonoBehaviour
         if (piece.health <= 0) piece.Dead();
     }
 
+    public void SkillDamage(float damage)
+    {
+        if (invincible)
+            return;
+
+        if (shield > 0)
+        {
+            float shieldPoint = shield;
+            if (shieldPoint < damage)
+            {
+                damage = damage - shieldPoint;
+            }
+            else
+            {
+                shieldPoint -= damage;
+            }
+            shield = shieldPoint;
+        }
+        else
+        {
+            health -= damage;
+        }
+
+        if (health <= 0)
+        {
+            Dead();
+        }
+    }
+
     public void Damage(float damage)
     {
         if (target.invincible)

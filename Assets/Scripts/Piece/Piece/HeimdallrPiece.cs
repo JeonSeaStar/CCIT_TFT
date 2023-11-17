@@ -7,10 +7,11 @@ public class HeimdallrPiece : Piece
     PathFinding pathFinding;
     protected override void Attack()
     {
-        if (mana <= 110)
+        if (mana >= 110)
         {
             Skill();
             mana = 0;
+            Invoke("NextBehavior", attackSpeed);
         }
         else
         {
@@ -20,7 +21,6 @@ public class HeimdallrPiece : Piece
 
     protected override void Skill()
     {
-        base.Skill();
         if (star == 0)
             GetLocationMultiRangeSkill(attackDamage * 1.5f);
         else if (star == 1)
@@ -31,12 +31,20 @@ public class HeimdallrPiece : Piece
 
     void GetLocationMultiRangeSkill(float heal)
     {
+        pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
         List<Tile> _getNeigbor = pathFinding.GetNeighbor(currentTile);
         foreach (var _Neigbor in _getNeigbor)
         {
-            Piece _targets = _Neigbor.GetComponent<Piece>();
-            if (_targets.isOwned)
+            Piece _targets = _Neigbor.piece;
+            if (_targets == null)
+            {
+                Debug.Log("대상없음");
+            }
+            else if(_targets.isOwned)
+            {
                 _targets.health += heal;
+            }
+
         }
     }
 }
