@@ -291,6 +291,8 @@ public class FieldManager : MonoBehaviour
         if (minus == null) //Set Piece
         {
             ApplySynerge(_plusMyth, _plusAnimal, _plusUnited);
+
+            SynergeBoard.instance.SynergeCountUpdate(_plusMyth, _plusAnimal, _plusUnited, true);
         }
         else if (minus != null) //Change Piece
         {
@@ -299,6 +301,9 @@ public class FieldManager : MonoBehaviour
             PieceData.United _minusUnited = minus.pieceData.united;
             ApplySynerge(_plusMyth, _plusAnimal, _plusUnited);
             ApplySynerge(_minusMyth, _minusAnimal, _minusUnited);
+
+            SynergeBoard.instance.SynergeCountUpdate(_plusMyth, _plusAnimal, _plusUnited, true);
+            SynergeBoard.instance.SynergeCountUpdate(_minusMyth, _minusAnimal, _minusUnited, false);
         }
     }
 

@@ -50,11 +50,9 @@ public class ArenaManager : MonoBehaviour
     public float groundEventTime = 10000f;
     public float duelTime = 60f;
 
+    public RoundState roundState;
     public int currentRound = 0;
     public int currentStage = 0;
-
-    public TextMeshProUGUI stageText;
-    public TextMeshProUGUI roundText;
 
     private void Awake()
     {
@@ -147,15 +145,14 @@ public class ArenaManager : MonoBehaviour
 
     private void ChangeStage(int round)
     {
-        roundText.text = round.ToString();
+        roundState.NextRound(round);
     }
 
     private void StartGame()
     {
-        stageText.text = currentStage.ToString();
-
-        fieldManagers[0].SpawnEnemy(currentStage);
+        roundState.SetStage(currentStage);
         ChangeStage(1);
+        fieldManagers[0].SpawnEnemy(currentStage);
     }
     #endregion
 

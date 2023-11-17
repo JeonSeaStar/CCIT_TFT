@@ -197,7 +197,7 @@ public class Piece : MonoBehaviour
     {
         print(name + "(이)가 체력이 0 이하가 되어 사망.");
         dead = true;
-        SpawnRandomBox();
+        //SpawnRandomBox();
         gameObject.SetActive(false);
         ArenaManager.Instance.BattleEndCheck(myPieceList);
     }
