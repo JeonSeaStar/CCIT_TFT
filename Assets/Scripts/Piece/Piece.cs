@@ -273,10 +273,12 @@ public class Piece : MonoBehaviour
 
                         currentTile.piece = null;
                         currentTile.IsFull = false;
+                        currentTile.walkable = true;
                         currentTile = _neighbor[i];
 
                         currentTile.piece = this;
                         currentTile.IsFull = true;
+                        currentTile.walkable = false;
                         break;
                     }
                 }
