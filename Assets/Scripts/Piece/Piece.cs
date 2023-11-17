@@ -48,7 +48,8 @@ public class Piece : MonoBehaviour
     
 
     bool canMove = true;
-    public Ease ease;
+    [Header("이동 DoTween")] public Ease ease;
+    [Header("토끼 DoTween")] public Ease rabbitEase;
 
     [Header("장비")]
     public List<EquipmentData> equipmentDatas;
@@ -269,7 +270,7 @@ public class Piece : MonoBehaviour
                         Vector3[] Jumppath = { new Vector3(transform.position.x, transform.position.y, transform.position.z),
                                              new Vector3(hpos.x, hpos.y + 5f, hpos.z),
                                              new Vector3(targetTilePos.x, targetTilePos.y, targetTilePos.z) };
-                        GetComponent<Rigidbody>().DOPath(Jumppath, 2, PathType.CatmullRom, PathMode.Full3D); //점프구간
+                        GetComponent<Rigidbody>().DOPath(Jumppath, 2, PathType.CatmullRom, PathMode.Full3D).SetEase(rabbitEase); //점프구간
 
                         currentTile.piece = null;
                         currentTile.IsFull = false;

@@ -675,6 +675,7 @@ MonoBehaviour:
   target: {fileID: 0}
   moveSpeed: 1
   ease: 1
+  rabbitEase: 0
   equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
@@ -9176,6 +9177,7 @@ MonoBehaviour:
   target: {fileID: 0}
   moveSpeed: 2
   ease: 1
+  rabbitEase: 0
   equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
@@ -12257,6 +12259,7 @@ MonoBehaviour:
   target: {fileID: 0}
   moveSpeed: 2
   ease: 1
+  rabbitEase: 0
   equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
@@ -14680,6 +14683,7 @@ MonoBehaviour:
   target: {fileID: 0}
   moveSpeed: 2
   ease: 1
+  rabbitEase: 0
   equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
@@ -18153,6 +18157,7 @@ MonoBehaviour:
   target: {fileID: 0}
   moveSpeed: 2
   ease: 1
+  rabbitEase: 1
   equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
@@ -20926,6 +20931,7 @@ MonoBehaviour:
   target: {fileID: 0}
   moveSpeed: 2
   ease: 1
+  rabbitEase: 0
   equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
@@ -24303,6 +24309,7 @@ MonoBehaviour:
   target: {fileID: 0}
   moveSpeed: 1
   ease: 1
+  rabbitEase: 0
   equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
@@ -24416,6 +24423,7 @@ MonoBehaviour:
   target: {fileID: 0}
   moveSpeed: 2
   ease: 1
+  rabbitEase: 0
   equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
@@ -25723,6 +25731,8 @@ MonoBehaviour:
   - {fileID: 1746667499}
   - {fileID: 1957474540}
   myEquipmentList: []
+  pieceParent: {fileID: 0}
+  enemyParent: {fileID: 0}
   pathFinding: {fileID: 902181546}
   readyTileList:
   - {fileID: 57161754}
@@ -26661,6 +26671,7 @@ MonoBehaviour:
   target: {fileID: 0}
   moveSpeed: 1
   ease: 1
+  rabbitEase: 0
   equipmentDatas: []
   randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
     type: 3}
@@ -27143,10 +27154,9 @@ MonoBehaviour:
   battleOverTime: 60
   groundEventTime: 10000
   duelTime: 60
+  roundState: {fileID: 0}
   currentRound: 0
   currentStage: 0
-  stageText: {fileID: 0}
-  roundText: {fileID: 0}
 --- !u!4 &1993184858
 Transform:
   m_ObjectHideFlags: 0
