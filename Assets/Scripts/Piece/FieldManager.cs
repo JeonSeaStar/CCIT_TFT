@@ -408,6 +408,7 @@ public class FieldManager : MonoBehaviour
                                     RemoveBattleStartEffect(buffManager.mythBuff[0].greatMoutainBuff[i - 1].BattleStartEffect);
                                     break;
                                 case PieceData.Myth.FrostyWind:
+                                    RemoveBattleStartEffect(buffManager.mythBuff[0].frostyWindBuff[i - 1].BattleStartEffect);
                                     RemoveCoroutine(buffManager.mythBuff[0].frostyWindBuff[i - 1].CoroutineEffect);
                                     break;
                                 case PieceData.Myth.SandKingdom:
@@ -435,6 +436,7 @@ public class FieldManager : MonoBehaviour
                                     AddBattleStartEffect(buffManager.mythBuff[0].greatMoutainBuff[i].BattleStartEffect);
                                     break;
                                 case PieceData.Myth.FrostyWind:
+                                    AddBattleStartEffect(buffManager.mythBuff[0].frostyWindBuff[i].BattleStartEffect);
                                     AddCoroutine(buffManager.mythBuff[0].frostyWindBuff[i].CoroutineEffect);
                                     break;
                                 case PieceData.Myth.SandKingdom:
@@ -468,6 +470,7 @@ public class FieldManager : MonoBehaviour
                                 RemoveBattleStartEffect(buffManager.mythBuff[0].greatMoutainBuff[i].BattleStartEffect);
                                 break;
                             case PieceData.Myth.FrostyWind:
+                                RemoveBattleStartEffect(buffManager.mythBuff[0].frostyWindBuff[i].BattleStartEffect);
                                 RemoveCoroutine(buffManager.mythBuff[0].frostyWindBuff[i].CoroutineEffect);
                                 break;
                             case PieceData.Myth.SandKingdom:
