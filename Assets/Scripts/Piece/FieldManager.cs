@@ -361,7 +361,7 @@ public class FieldManager : MonoBehaviour
                 ApplyAnimalBuff(buffManager.animalBuff[0].frogBuff, _animalSynergeCount, new int[] { 2, 4, 6 }, value);
                 break;
             case PieceData.Animal.Rabbit://4
-                ApplyAnimalBuff(buffManager.animalBuff[0].rabbitBuff, _animalSynergeCount, new int[] { 3, 6, 9 }, value);
+                ApplyAnimalBuff(buffManager.animalBuff[0].rabbitBuff, _animalSynergeCount, new int[] { 1, 6, 9 }, value);
                 break;
         }
     }
@@ -508,7 +508,6 @@ public class FieldManager : MonoBehaviour
                                     break;
                                 case PieceData.Animal.Cat:
                                     buffManager.animalBuff[0].catBuff[i - 1].DirectEffect(piece, false);
-                                    RemoveCoroutine(buffManager.animalBuff[0].catBuff[i - 1].CoroutineEffect);
                                     break;
                                 case PieceData.Animal.Dog:
                                     buffManager.animalBuff[0].dogBuff[i - 1].DirectEffect(piece, false);
@@ -536,7 +535,6 @@ public class FieldManager : MonoBehaviour
                                     break;
                                 case PieceData.Animal.Cat:
                                     buffManager.animalBuff[0].catBuff[i].DirectEffect(piece, true);
-                                    AddCoroutine(buffManager.animalBuff[0].catBuff[i].CoroutineEffect);
                                     break;
                                 case PieceData.Animal.Dog:
                                     buffManager.animalBuff[0].dogBuff[i].DirectEffect(piece, true);
@@ -570,7 +568,6 @@ public class FieldManager : MonoBehaviour
                                 break;
                             case PieceData.Animal.Cat:
                                 buffManager.animalBuff[0].catBuff[i].DirectEffect(piece, false);
-                                RemoveCoroutine(buffManager.animalBuff[0].catBuff[i].CoroutineEffect);
                                 break;
                             case PieceData.Animal.Dog:
                                 buffManager.animalBuff[0].dogBuff[i].DirectEffect(piece, false);

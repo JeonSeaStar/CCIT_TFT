@@ -7,15 +7,19 @@ public class HamsterBuff1 : BuffData
 {
     public GameObject pieceParent;
     public PieceData miniHamster;
-    List<GameObject> hamsterList = new List<GameObject>();
-
+    [SerializeField] List<GameObject> hamsterList = new List<GameObject>();
+    [SerializeField] PathFinding pathFinding;
     public override void BattleStartEffect(bool isAdd)
     {
-        if (!isAdd)
+        if (isAdd) hamsterList.Clear();
+        else if (!isAdd)
         {
-            Debug.Log(hamsterList.Count);
-            foreach (var _hamster in hamsterList) ArenaManager.Instance.fieldManagers[0].myFilePieceList.Remove(_hamster.GetComponent<Piece>());
-            foreach (var _hamster in hamsterList) Destroy(_hamster);
+            foreach (var _hamster in hamsterList)
+            {
+                ArenaManager.Instance.fieldManagers[0].myFilePieceList.Remove(_hamster.GetComponent<Piece>());
+                Destroy(_hamster);
+            }
+            hamsterList.Clear();
         }
     }
 
@@ -23,7 +27,7 @@ public class HamsterBuff1 : BuffData
     {
         ArenaManager.Instance.fieldManagers[0].StartCoroutine(Hamster());
     }
-    PathFinding pathFinding;
+    
     IEnumerator Hamster()
     {
         pieceParent = GameObject.Find("Pieces");

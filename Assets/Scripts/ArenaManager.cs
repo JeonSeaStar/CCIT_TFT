@@ -64,7 +64,7 @@ public class ArenaManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
         }
 
-        StartGame();
+        //StartGame();
         //StartCoroutine(CalRoundTime(3));
     }
     #region 라운드(타이머식)
