@@ -62,7 +62,7 @@ public class ArenaManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
         }
 
-        //StartGame();
+        StartGame();
         //StartCoroutine(CalRoundTime(3));
     }
     #region 라운드(타이머식)
@@ -136,6 +136,8 @@ public class ArenaManager : MonoBehaviour
     public void StartBattle()
     {
         roundType = RoundType.Battle;
+
+        fieldManagers[0].ActiveSynerge();
 
         foreach (var piece in fieldManagers[0].myFilePieceList)
             piece.NextBehavior();

@@ -181,7 +181,6 @@ public class Piece : MonoBehaviour
             if (isCatSynergeActiveCheck)
             {
                 int _r = (ArenaManager.Instance.fieldManagers[0].animalActiveCount[PieceData.Animal.Cat] >= 4) ? UnityEngine.Random.Range(0, 3) : UnityEngine.Random.Range(0, 2);
-                Debug.Log(_r);
                 if (_r == 0)
                 {
                     int _gold = UnityEngine.Random.Range(2, 6);
@@ -202,7 +201,7 @@ public class Piece : MonoBehaviour
         dead = true;
         //SpawnRandomBox();
         gameObject.SetActive(false);
-        //ArenaManager.Instance.BattleEndCheck(myPieceList);
+        ArenaManager.Instance.BattleEndCheck(myPieceList);
     }
 
     void SpawnRandomBox()

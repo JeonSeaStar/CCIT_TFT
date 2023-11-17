@@ -50,7 +50,7 @@ public class SynergeBoard : MonoBehaviour
     private void SortingSynergeItem()
     {
         int highestGrade = GetHighestGrade();
-        print(highestGrade);
+
         List<SynergeItem> sortingSynergeItem = new List<SynergeItem>();
 
         for(int i = highestGrade; i >= 0; i--)
@@ -83,7 +83,7 @@ public class SynergeBoard : MonoBehaviour
         foreach(SynergeItem item in synergeList)
         {
             int grade = GetSynergeGrade(item);
-            print(item.name + ", " + grade);
+
             if (highestGrade < grade)
                 highestGrade = grade;
         }

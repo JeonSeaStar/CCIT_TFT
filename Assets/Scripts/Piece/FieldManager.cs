@@ -33,6 +33,8 @@ public class FieldManager : MonoBehaviour
     [Header("아군 전투 유닛")] public List<Piece> myFilePieceList;
     [Header("상대 전투 유닛")] public List<Piece> enemyFilePieceList;
     [Header("아이템 소지 목록")] public List<Equipment> myEquipmentList;
+    [Header("아군 기물")] public Transform pieceParent;
+    [Header("상대 기물")] public Transform enemyParent;
 
     public PathFinding pathFinding;
 
@@ -112,7 +114,6 @@ public class FieldManager : MonoBehaviour
 
             Debug.Log("즉시 발동 시너지 효과 : " + sBattleStartEffect.Count);
             Debug.Log("지연 발동 시너지 효과 : " + sCoroutineEffect.Count);
-            //foreach (var effect in sCoroutineEffect) StopCoroutine(effect);
             InitializingRound();
         }
 
@@ -120,11 +121,6 @@ public class FieldManager : MonoBehaviour
         {
             ArenaManager.Instance.roundType = RoundType.Deployment;
             foreach (var effect in sBattleStartEffect) effect(false);
-            StopAllCoroutines();
-        }
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
             StopAllCoroutines();
         }
 
@@ -188,9 +184,6 @@ public class FieldManager : MonoBehaviour
             dp.piece.gameObject.SetActive(true);
         }
 
-        //foreach (Piece piece in myFilePieceList)
-        //    piece.gameObject.SetActive(true);
-
         foreach (Piece piece in enemyFilePieceList)
             Destroy(piece.gameObject);
         enemyFilePieceList = new List<Piece>();
@@ -204,6 +197,7 @@ public class FieldManager : MonoBehaviour
             int tileY = ((int)stageInformation[stage].enemyInformation[i].spawnTile.y);
 
             GameObject enemyGameObject = Instantiate(stageInformation[stage].enemyInformation[i].piece, Vector3.zero, Quaternion.identity);
+            enemyGameObject.transform.parent = enemyParent;
 
             Piece enemyPiece = enemyGameObject.GetComponent<Piece>();
             Tile targetTile = pathFinding.grid[tileX].tile[tileY];
@@ -224,6 +218,10 @@ public class FieldManager : MonoBehaviour
     public void NextStage()
     {
         FieldInit();
+
+        ArenaManager.Instance.roundType = RoundType.Deployment;
+        foreach (var effect in sBattleStartEffect) effect(false);
+        StopAllCoroutines();
 
         SpawnEnemy(currentStage);
         currentStage++;
@@ -366,7 +364,7 @@ public class FieldManager : MonoBehaviour
                 ApplyAnimalBuff(buffManager.animalBuff[0].frogBuff, _animalSynergeCount, new int[] { 2, 4, 6 }, value);
                 break;
             case PieceData.Animal.Rabbit://4
-                ApplyAnimalBuff(buffManager.animalBuff[0].rabbitBuff, _animalSynergeCount, new int[] { 1, 6, 9 }, value);
+                ApplyAnimalBuff(buffManager.animalBuff[0].rabbitBuff, _animalSynergeCount, new int[] { 3, 6, 9 }, value);
                 break;
         }
     }
@@ -675,6 +673,16 @@ public class FieldManager : MonoBehaviour
             }
         }
     }*/
+
+    public void ActiveSynerge() // 임시 변경 요망
+    {
+        foreach (var effect in sBattleStartEffect) effect(true);
+        foreach (var effect in sCoroutineEffect) effect();
+
+        Debug.Log("즉시 발동 시너지 효과 : " + sBattleStartEffect.Count);
+        Debug.Log("지연 발동 시너지 효과 : " + sCoroutineEffect.Count);
+        InitializingRound();
+    }
     #endregion
 
     
@@ -757,6 +765,7 @@ public class FieldManager : MonoBehaviour
     {
         Vector3 targetPosition = new Vector3(targetTile.transform.position.x, groundHeight, targetTile.transform.position.z);
         GameObject pieceObject = Instantiate(pieceData.piecePrefab, targetPosition, Quaternion.Euler(0, 0, 0));
+        pieceObject.transform.parent = pieceParent;
         Piece piece = pieceObject.GetComponent<Piece>();
         piece.currentTile = targetTile;
         piece.grade = grade;
