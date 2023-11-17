@@ -771,6 +771,7 @@ public class FieldManager : MonoBehaviour
         piece.grade = grade;
 
         targetTile.IsFull = true;
+        targetTile.walkable = false;
 
         //나중에 지울 거
         piece.pieceData = pieceData;
@@ -890,6 +891,7 @@ public class FieldManager : MonoBehaviour
     public void DestroyPiece(Piece piece, Tile targetTile)
     {
         targetTile.IsFull = false;
+        targetTile.walkable = true;
         CheckPieceKind(piece.pieceData);
         Destroy(piece.gameObject);
     }

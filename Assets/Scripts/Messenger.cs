@@ -156,8 +156,10 @@ public class Messenger : MonoBehaviour
                             //Piece
                             _currentTileInformation.piece = null;
                             _currentTileInformation.IsFull = false;
+                            _currentTileInformation.walkable = true;
                             _targetTileInformation.piece = controlPiece;
                             _targetTileInformation.IsFull = true;
+                            _targetTileInformation.walkable = false;
                         }
                         else
                         {

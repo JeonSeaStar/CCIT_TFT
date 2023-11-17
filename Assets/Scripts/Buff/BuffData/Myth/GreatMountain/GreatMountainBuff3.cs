@@ -32,6 +32,7 @@ public class GreatMountainBuff3 : BuffData
                         //기물 소환 타일 정보 저장
                         spawnTile = pathFinding.grid[i].tile[j];
                         spawnTile.IsFull = true;
+                        spawnTile.walkable = false;
                         spawnTile.piece = god.GetComponent<Piece>();
 
                         spawnTile.piece.currentTile = spawnTile;
@@ -47,6 +48,7 @@ public class GreatMountainBuff3 : BuffData
         {
             ArenaManager.Instance.fieldManagers[0].myFilePieceList.Remove(god.GetComponent<Piece>());
             god.GetComponent<Piece>().currentTile.IsFull = false;
+            god.GetComponent<Piece>().currentTile.walkable = true;
 
             Destroy(god);
             god = null;

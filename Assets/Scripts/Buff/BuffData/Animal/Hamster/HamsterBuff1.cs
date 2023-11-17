@@ -53,6 +53,7 @@ public class HamsterBuff1 : BuffData
                 int _randomSpot = Random.Range(0, _randomTile.Count);
                 Tile spawnTile = pathFinding.grid[0].tile[_randomSpot];
                 spawnTile.IsFull = true;
+                spawnTile.walkable = false;
                 spawnTile.piece = _miniHamster.GetComponent<Piece>();
 
                 //타일 정보와 미니 햄스터 위치 갱신

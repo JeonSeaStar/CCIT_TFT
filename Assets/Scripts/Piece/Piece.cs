@@ -229,10 +229,12 @@ public class Piece : MonoBehaviour
 
             currentTile.piece = null;
             currentTile.IsFull = false;
+            currentTile.walkable = true;
             currentTile = path[0];
 
             currentTile.piece = this;
             currentTile.IsFull = true;
+            currentTile.walkable = false;
 
             path.RemoveAt(0);
             canMove = true;
