@@ -68,6 +68,7 @@ public class PathFinding : MonoBehaviour
         }
     }
 
+
     public List<Tile> GetFront(Tile tile)
     {
         List<Tile> front = new List<Tile>();
@@ -114,6 +115,28 @@ public class PathFinding : MonoBehaviour
 
 
         return side;
+    }
+
+    public List<Tile> GetStrangeSide(Tile tile)
+    {
+        List<Tile> StrangeSide = new List<Tile>();
+
+        int x = tile.listX;
+        int y = tile.listY;
+
+        if (indexCheck(y, x + 1))
+            if (grid[y].tile[x + 1] != null)
+                StrangeSide.Add(grid[y].tile[x + 1]);
+
+        if (indexCheck(y, x - 1))
+            if (grid[y].tile[x - 1] != null)
+                StrangeSide.Add(grid[y].tile[x - 1]);
+
+        if (indexCheck(y, x - 2))
+            if (grid[y].tile[x - 2] != null)
+                StrangeSide.Add(grid[y].tile[x - 2]);
+
+        return StrangeSide;
     }
 
 

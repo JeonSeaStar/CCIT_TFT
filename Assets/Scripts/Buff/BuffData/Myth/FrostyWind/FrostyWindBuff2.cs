@@ -8,6 +8,7 @@ public class FrostyWindBuff2 : BuffData
     List<Piece> frostyWindPiece = new List<Piece>();
     public override void CoroutineEffect()
     {
+        frostyWindPiece.Clear();
         ArenaManager.Instance.fieldManagers[0].StartCoroutine(FrostyWind());
         ArenaManager.Instance.fieldManagers[0].StartCoroutine(FrostyWindBuff());
     }
@@ -24,35 +25,39 @@ public class FrostyWindBuff2 : BuffData
             {
                 if (_activePiece.gameObject.activeSelf == true) enemyList.Add(_activePiece);
             }
-            Piece[] enemyPiece = new Piece[_count];
 
             for (int i = 0; i < _count; i++)
             {
-                enemyPiece[i] = enemyList[Random.Range(0, enemyList.Count)];
-                if (!enemyList[i].immune) { enemyList[i].SetFreeze(); }
-                enemyList.Remove(enemyPiece[i]);
+                if (enemyList.Count == 0) break;
+                else
+                {
+                    Piece enemy = enemyList[Random.Range(0, enemyList.Count)];
+                    if (enemy.immune != true) { enemy.SetFreeze(); Debug.Log("서리바람이 " + enemy.gameObject.name + "을 빙결시킵니다."); }
+                    enemyList.Remove(enemy);
+                }
             }
         }
     }
     IEnumerator FrostyWindBuff()
     {
+        foreach (var _frostyWind in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
+        {
+            if (_frostyWind.pieceData.myth == PieceData.Myth.FrostyWind) frostyWindPiece.Add(_frostyWind);
+        }
         while (true)
         {
-            yield return new WaitForSeconds(1f);
-            foreach (var _frostyWind in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
+            yield return new WaitForSeconds(0.5f);
+            if (frostyWindPiece.Count > 0)
             {
-                if (_frostyWind.pieceData.myth == PieceData.Myth.FrostyWind)
-                    frostyWindPiece.Add(_frostyWind);
-            }
-            foreach (var healthCheck in frostyWindPiece)
-            {
-                if (healthCheck.health <= healthCheck.pieceData.health[healthCheck.star] * 0.5f)
+                for (int i = 0; i < frostyWindPiece.Count; i++)
                 {
-                    healthCheck.pieceData.CalculateBuff(healthCheck, this);
-                    frostyWindPiece.Remove(healthCheck);
+                    if (frostyWindPiece[i].health <= frostyWindPiece[i].pieceData.health[frostyWindPiece[i].star] * 0.5f)
+                    {
+                        frostyWindPiece[i].pieceData.CalculateBuff(frostyWindPiece[i], this);
+                        frostyWindPiece.Remove(frostyWindPiece[i]);
+                    }
                 }
             }
-            if (frostyWindPiece.Count == 0) break;
         }
     }
 }

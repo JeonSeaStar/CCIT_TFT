@@ -67,6 +67,8 @@ public class Piece : MonoBehaviour
     public bool fear;
     public bool invincible;
     public bool charm; //매혹
+    public bool blind;
+    public bool stun;
 
     public List<Piece> enemyPieceList = new List<Piece>();
     public List<Piece> myPieceList = new List<Piece>();
@@ -175,18 +177,19 @@ public class Piece : MonoBehaviour
             //    }
             //}
             //#endregion
-            //#region 고양이 기물 시너지 확인
-            //if (isCatSynergeActiveCheck)
-            //{
-            //    int _r = (ArenaManager.Instance.fieldManagers[0].animalActiveCount[PieceData.Animal.Cat] >= 4) ? UnityEngine.Random.Range(0, 3) : UnityEngine.Random.Range(0, 2);
-            //    if (_r == 0)
-            //    {
-            //        int _gold = UnityEngine.Random.Range(2, 6);
-            //        ArenaManager.Instance.fieldManagers[0].DualPlayers[0].gold += _gold;
-            //    }
-
-            //}
-            //#endregion
+            #region 고양이 기물 시너지 확인
+            if (isCatSynergeActiveCheck)
+            {
+                int _r = (ArenaManager.Instance.fieldManagers[0].animalActiveCount[PieceData.Animal.Cat] >= 4) ? UnityEngine.Random.Range(0, 3) : UnityEngine.Random.Range(0, 2);
+                Debug.Log(_r);
+                if (_r == 0)
+                {
+                    int _gold = UnityEngine.Random.Range(2, 6);
+                    ArenaManager.Instance.fieldManagers[0].DualPlayers[0].gold += _gold;
+                    Debug.Log(_gold + " 만큼 골드를 획득합니다.");
+                }
+            }
+            #endregion
 
             target.Dead();
             target = null;
@@ -199,7 +202,7 @@ public class Piece : MonoBehaviour
         dead = true;
         //SpawnRandomBox();
         gameObject.SetActive(false);
-        ArenaManager.Instance.BattleEndCheck(myPieceList);
+        //ArenaManager.Instance.BattleEndCheck(myPieceList);
     }
 
     void SpawnRandomBox()
@@ -239,11 +242,13 @@ public class Piece : MonoBehaviour
         }
     }
     #region 토끼
+    public bool isRabbitSynergeActiveCheck;
     public void RabbitJump()
     {
-        var _distance = ArenaManager.Instance.fieldManagers[0].pathFinding.GetDistance(currentTile, target.currentTile);
         List<Tile> _neighbor = new List<Tile>();
-        if (attackRange >= _distance) //제자리 점프
+        int _distance = ArenaManager.Instance.fieldManagers[0].pathFinding.GetDistance(currentTile, target.currentTile);
+        Debug.Log(_distance);
+        if (_distance <= attackRange)
         {
             _neighbor = ArenaManager.Instance.fieldManagers[0].pathFinding.GetNeighbor(currentTile);
             Vector3[] Jumppath ={ new Vector3(transform.position.x,transform.position.y,transform.position.z),
@@ -253,34 +258,80 @@ public class Piece : MonoBehaviour
         }
         else
         {
-            if (_distance <= 4)
+            if (ArenaManager.Instance.fieldManagers[0].pathFinding.GetDistance(currentTile, target.currentTile) <= 4)
             {
                 _neighbor = ArenaManager.Instance.fieldManagers[0].pathFinding.GetNeighbor(target.currentTile);
-                foreach(var _neighborTile in _neighbor)
+                for (int i = 0; i < _neighbor.Count; i++)
                 {
-                    if (_neighborTile.IsFull == false)
+                    if (_neighbor[i].IsFull == false)
                     {
-                        Vector3 targetTilePos = new Vector3(path[0].transform.position.x, 1, path[0].transform.position.z);
+                        Vector3 targetTilePos = new Vector3(_neighbor[i].transform.position.x, 0, _neighbor[i].transform.position.z);
                         Vector3 hpos = transform.position + ((targetTilePos - transform.position) / 2);
                         Vector3[] Jumppath = { new Vector3(transform.position.x, transform.position.y, transform.position.z),
-                                                 new Vector3(hpos.x, hpos.y + 3f, hpos.z),
-                                                 new Vector3(targetTilePos.x, targetTilePos.y, targetTilePos.z) };
+                                             new Vector3(hpos.x, hpos.y + 5f, hpos.z),
+                                             new Vector3(targetTilePos.x, targetTilePos.y, targetTilePos.z) };
                         GetComponent<Rigidbody>().DOPath(Jumppath, 2, PathType.CatmullRom, PathMode.Full3D); //점프구간
 
                         currentTile.piece = null;
                         currentTile.IsFull = false;
-                        currentTile = _neighborTile;
+                        currentTile = _neighbor[i];
 
                         currentTile.piece = this;
                         currentTile.IsFull = true;
+                        break;
                     }
                 }
             }
-            else { Move(); return; } 
+            else
+            {
+                NextBehavior();
+            }
         }
 
-        StartCoroutine(RabbitSplashDamage(_neighbor, 3));
-        Invoke("NextBehavior", 3); 
+        isRabbitSynergeActiveCheck = false;
+
+
+
+        //var _distance = ArenaManager.Instance.fieldManagers[0].pathFinding.GetDistance(currentTile, target.currentTile);
+        //Debug.Log(_distance);
+        //List<Tile> _neighbor = new List<Tile>();
+        //if (attackRange >= _distance) //제자리 점프
+        //{
+        //    _neighbor = ArenaManager.Instance.fieldManagers[0].pathFinding.GetNeighbor(currentTile);
+        //    Vector3[] Jumppath ={ new Vector3(transform.position.x,transform.position.y,transform.position.z),
+        //                             new Vector3(transform.position.x,transform.position.y + 3f, transform.position.z),
+        //                             new Vector3(transform.position.x, transform.position.y, transform.position.z) };
+        //    GetComponent<Rigidbody>().DOPath(Jumppath, 2, PathType.CatmullRom, PathMode.Full3D); //점프구간
+        //}
+        //else
+        //{
+        //    if (_distance <= 4)
+        //    {
+        //        _neighbor = ArenaManager.Instance.fieldManagers[0].pathFinding.GetNeighbor(target.currentTile);
+        //        foreach(var _neighborTile in _neighbor)
+        //        {
+        //            if (_neighborTile.IsFull == false)
+        //            {
+        //                Vector3 targetTilePos = new Vector3(path[0].transform.position.x, 1, path[0].transform.position.z);
+        //                Vector3 hpos = transform.position + ((targetTilePos - transform.position) / 2);
+        //                Vector3[] Jumppath = { new Vector3(transform.position.x, transform.position.y, transform.position.z),
+        //                                         new Vector3(hpos.x, hpos.y + 3f, hpos.z),
+        //                                         new Vector3(targetTilePos.x, targetTilePos.y, targetTilePos.z) };
+        //                GetComponent<Rigidbody>().DOPath(Jumppath, 2, PathType.CatmullRom, PathMode.Full3D); //점프구간
+
+        //                currentTile.piece = null;
+        //                currentTile.IsFull = false;
+        //                currentTile = _neighborTile;
+
+        //                currentTile.piece = this;
+        //                currentTile.IsFull = true;
+        //            }
+        //        }
+        //    }
+        //    else { Move(); return; } 
+        //}
+        //isRabbitSynergeActiveCheck = false;
+        //StartCoroutine(RabbitSplashDamage(_neighbor, 2));
     }
 
     IEnumerator RabbitSplashDamage(List<Tile> neighbor, int time)
@@ -297,8 +348,6 @@ public class Piece : MonoBehaviour
         {
             if (tile.IsFull && !tile.piece.isOwned) Damage(tile.piece, splashDamage);
         }
-
-        isRabbitSynergeActiveCheck = false;
     }
 
     void RsetRabbitStatus()
@@ -310,8 +359,6 @@ public class Piece : MonoBehaviour
         this.attackSpeed -= pieceData.attackSpeed[star] * 0.1f * _activeCount;
         this.moveSpeed -= pieceData.moveSpeed[star] * 0.1f * _activeCount;
     }
-
-    [HideInInspector] public bool isRabbitSynergeActiveCheck;
     #endregion
     #region 고양이
     [HideInInspector] public bool isCatSynergeActiveCheck;
@@ -343,8 +390,7 @@ public class Piece : MonoBehaviour
 
             if (target != null)
             {
-                if (isRabbitSynergeActiveCheck) { RabbitJump(); return; }
-                if (isCatSynergeActiveCheck) { }
+                if (isRabbitSynergeActiveCheck) { RabbitJump(); }
 
                 if (RangeCheck())
                     Attack();
@@ -392,6 +438,7 @@ public class Piece : MonoBehaviour
         } // Set Ready -> Battle
         else if (currentPiece.currentTile.isReadyTile == false && currentPiece.targetTile.isReadyTile == true)
         {
+            currentPiece.pieceData.InitialzePiece(currentPiece);
             fieldManager.RemoveDPList(currentPiece);
             fieldManager.myFilePieceList.Remove(currentPiece);
             currentPiece.buffList.Clear();
@@ -407,6 +454,7 @@ public class Piece : MonoBehaviour
         else if (currentPiece.currentTile.isReadyTile == false && targetPiece.currentTile.isReadyTile == false) return;
         else if (currentPiece.currentTile.isReadyTile == true && targetPiece.currentTile.isReadyTile == false)
         {
+            currentPiece.pieceData.InitialzePiece(targetPiece);
             fieldManager.RemoveDPList(currentPiece);
             fieldManager.myFilePieceList.Remove(targetPiece);
             targetPiece.buffList.Clear();
@@ -422,6 +470,7 @@ public class Piece : MonoBehaviour
         }  // Change Ready -> Battle
         else if (currentPiece.currentTile.isReadyTile == false && targetPiece.currentTile.isReadyTile == true)
         {
+            currentPiece.pieceData.InitialzePiece(currentPiece);
             fieldManager.RemoveDPList(currentPiece);
             fieldManager.myFilePieceList.Remove(currentPiece);
             currentPiece.buffList.Clear();
@@ -440,8 +489,11 @@ public class Piece : MonoBehaviour
     public void SetFreeze()
     {
         freeze = true;
-        //1초 뒤에 빙결을 푸는 기능 추가해주세요.
-        //canMove = false;
+        //가려던 위치로 바로 이동후 프리징 걸리기
+    }
+    public void SetFreeze(float time)
+    {
+        freeze = true;
     }
 
     public void SetImmune()
@@ -477,6 +529,28 @@ public class Piece : MonoBehaviour
     public void SetCharm()
     {
         charm = true;
+    }
+
+    public void SetBlind(float time)
+    {
+        blind = true;
+        Invoke("BlindClear", time);
+    }
+
+    void BlindClear()
+    {
+        blind = false;
+    }
+
+    public void SetStun(float time)
+    {
+        stun = true;
+        Invoke("StunClear", time);
+    }
+
+    void StunClear()
+    {
+        stun = false;
     }
 
     //void 

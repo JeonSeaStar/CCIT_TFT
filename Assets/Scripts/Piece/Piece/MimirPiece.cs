@@ -49,6 +49,5 @@ public class MimirPiece : Piece
             }
             pieceHealth += heal;
         }
-
     }
 }

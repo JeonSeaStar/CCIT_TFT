@@ -38,5 +38,29 @@ public class BuffManager : MonoBehaviour
     public List<AnimalBuffs> animalBuff = new List<AnimalBuffs>();
     public List<UnitedBuffs> unitedBuff = new List<UnitedBuffs>();
 
-    [Header("전쟁 병기 아이템")] public List<Equipment> warMachineEquipments; 
+    [Header("개구리 시너지 환경 요소")]
+    public GameObject frogRain;
+    public GameObject frogThunder;
+
+    [Header("서리바람 시너지 환경 요소")]
+    public GameObject frostyWind;
+
+    [Header("모래바람 시너지 환경 요소")]
+    public GameObject sandKingdomWind;
+
+    [Header("전쟁 병기 아이템")] 
+    public List<Equipment> warMachineEquipments;
+
+
+    public void FrogRain(bool isRain)
+    {
+        if (isRain) frogRain.SetActive(true);
+        else if (!isRain) frogRain.SetActive(false);
+    }
+
+    public void FrogThunder(bool isThunder)
+    {
+        if (isThunder) frogThunder.SetActive(true);
+        else if (!isThunder) frogThunder.SetActive(false);
+    }
 }

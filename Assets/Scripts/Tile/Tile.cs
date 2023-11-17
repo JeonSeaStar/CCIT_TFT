@@ -28,6 +28,7 @@ public class Tile : MonoBehaviour
     public int gCost, hCost;
     public int fCost { get { return hCost + gCost; } }
     public bool walkable = true;
+    public bool myTile = false;
 
     public Tile(int gridX, int gridY, int gridZ)
     {

@@ -73,9 +73,6 @@ public class FieldManager : MonoBehaviour
         { PieceData.United.Creature          ,0 }
     };
 
-    [Header("환경_비")]
-    public GameObject frogRain;
-
     [System.Serializable]
     public class EnemyInformation
     {
@@ -111,11 +108,19 @@ public class FieldManager : MonoBehaviour
         {
             ArenaManager.Instance.roundType = RoundType.Battle;
             foreach (var effect in sBattleStartEffect) effect(true);
-            Debug.Log(sBattleStartEffect.Count);
-            Debug.Log(sCoroutineEffect.Count);
             foreach (var effect in sCoroutineEffect) effect();
+
+            Debug.Log("즉시 발동 시너지 효과 : " + sBattleStartEffect.Count);
+            Debug.Log("지연 발동 시너지 효과 : " + sCoroutineEffect.Count);
             //foreach (var effect in sCoroutineEffect) StopCoroutine(effect);
             InitializingRound();
+        }
+
+        if(Input.GetKeyDown(KeyCode.N) && ArenaManager.Instance.roundType == RoundType.Battle)
+        {
+            ArenaManager.Instance.roundType = RoundType.Deployment;
+            foreach (var effect in sBattleStartEffect) effect(false);
+            StopAllCoroutines();
         }
 
         if (Input.GetKeyDown(KeyCode.P))
@@ -267,13 +272,13 @@ public class FieldManager : MonoBehaviour
     {
         mythActiveCount[piece.pieceData.myth]++;
         animalActiveCount[piece.pieceData.animal]++;
-        unitedActiveCount[piece.pieceData.united]++;
+        //unitedActiveCount[piece.pieceData.united]++;
     }
     public void SynergeDecrease(Piece piece)
     {
         mythActiveCount[piece.pieceData.myth]--;
         animalActiveCount[piece.pieceData.animal]--;
-        unitedActiveCount[piece.pieceData.united]--;
+        //unitedActiveCount[piece.pieceData.united]--;
     }
     public void CalSynerge(Piece plus, Piece minus = null)
     {
@@ -285,7 +290,7 @@ public class FieldManager : MonoBehaviour
         {
             ApplyMythSynerge(myth);
             ApplyAnimalSynerge(animal);
-            ApplyUnitedSynerge(united);
+            //ApplyUnitedSynerge(united);
         }
 
         if (minus == null) //Set Piece
@@ -361,11 +366,11 @@ public class FieldManager : MonoBehaviour
                 ApplyAnimalBuff(buffManager.animalBuff[0].frogBuff, _animalSynergeCount, new int[] { 2, 4, 6 }, value);
                 break;
             case PieceData.Animal.Rabbit://4
-                ApplyAnimalBuff(buffManager.animalBuff[0].rabbitBuff, _animalSynergeCount, new int[] { 3, 6, 9 }, value);
+                ApplyAnimalBuff(buffManager.animalBuff[0].rabbitBuff, _animalSynergeCount, new int[] { 1, 6, 9 }, value);
                 break;
         }
     }
-    void ApplyUnitedSynerge(PieceData.United value)
+    /*void ApplyUnitedSynerge(PieceData.United value)
     {
         int _unitedSynergeCount = unitedActiveCount[value];
         switch (value)
@@ -384,6 +389,7 @@ public class FieldManager : MonoBehaviour
                 break;
         }
     }
+    */
 
     void ApplyMythBuff(List<BuffData> buffList, int count, int[] thresholds, PieceData.Myth mythType)
     {
@@ -461,19 +467,19 @@ public class FieldManager : MonoBehaviour
                         switch (mythType)
                         {
                             case PieceData.Myth.GreatMountain:
-                                RemoveBattleStartEffect(buffManager.mythBuff[0].greatMoutainBuff[i - 1].BattleStartEffect);
+                                RemoveBattleStartEffect(buffManager.mythBuff[0].greatMoutainBuff[i].BattleStartEffect);
                                 break;
                             case PieceData.Myth.FrostyWind:
-                                RemoveCoroutine(buffManager.mythBuff[0].frostyWindBuff[i - 1].CoroutineEffect);
+                                RemoveCoroutine(buffManager.mythBuff[0].frostyWindBuff[i].CoroutineEffect);
                                 break;
                             case PieceData.Myth.SandKingdom:
-                                buffManager.mythBuff[0].sandKingdomBuff[i - 1].DirectEffect(piece, false);
-                                RemoveBattleStartEffect(buffManager.mythBuff[0].sandKingdomBuff[i - 1].BattleStartEffect);
-                                RemoveCoroutine(buffManager.mythBuff[0].sandKingdomBuff[i - 1].CoroutineEffect);
+                                buffManager.mythBuff[0].sandKingdomBuff[i].DirectEffect(piece, false);
+                                RemoveBattleStartEffect(buffManager.mythBuff[0].sandKingdomBuff[i].BattleStartEffect);
+                                RemoveCoroutine(buffManager.mythBuff[0].sandKingdomBuff[i].CoroutineEffect);
                                 break;
                             case PieceData.Myth.HeavenGround:
-                                buffManager.mythBuff[0].heavenGroundBuff[i - 1].DirectEffect(piece, false);
-                                RemoveCoroutine(buffManager.mythBuff[0].heavenGroundBuff[i - 1].CoroutineEffect);
+                                buffManager.mythBuff[0].heavenGroundBuff[i].DirectEffect(piece, false);
+                                RemoveCoroutine(buffManager.mythBuff[0].heavenGroundBuff[i].CoroutineEffect);
                                 break;
                             case PieceData.Myth.BurningGround:
                                 //buffManager.mythBuff[0].burningGroundBuff[i - 1].DirectEffect(piece, false);
@@ -507,7 +513,6 @@ public class FieldManager : MonoBehaviour
                                     break;
                                 case PieceData.Animal.Cat:
                                     buffManager.animalBuff[0].catBuff[i - 1].DirectEffect(piece, false);
-                                    RemoveCoroutine(buffManager.animalBuff[0].catBuff[i - 1].CoroutineEffect);
                                     break;
                                 case PieceData.Animal.Dog:
                                     buffManager.animalBuff[0].dogBuff[i - 1].DirectEffect(piece, false);
@@ -535,7 +540,6 @@ public class FieldManager : MonoBehaviour
                                     break;
                                 case PieceData.Animal.Cat:
                                     buffManager.animalBuff[0].catBuff[i].DirectEffect(piece, true);
-                                    AddCoroutine(buffManager.animalBuff[0].catBuff[i].CoroutineEffect);
                                     break;
                                 case PieceData.Animal.Dog:
                                     buffManager.animalBuff[0].dogBuff[i].DirectEffect(piece, true);
@@ -564,23 +568,22 @@ public class FieldManager : MonoBehaviour
                         switch (animalType)
                         {
                             case PieceData.Animal.Hamster:
-                                RemoveBattleStartEffect(buffManager.animalBuff[0].hamsterBuff[i - 1].BattleStartEffect);
-                                RemoveCoroutine(buffManager.animalBuff[0].hamsterBuff[i - 1].CoroutineEffect);
+                                RemoveBattleStartEffect(buffManager.animalBuff[0].hamsterBuff[i].BattleStartEffect);
+                                RemoveCoroutine(buffManager.animalBuff[0].hamsterBuff[i].CoroutineEffect);
                                 break;
                             case PieceData.Animal.Cat:
-                                buffManager.animalBuff[0].catBuff[i - 1].DirectEffect(piece, false);
-                                RemoveCoroutine(buffManager.animalBuff[0].catBuff[i - 1].CoroutineEffect);
+                                buffManager.animalBuff[0].catBuff[i].DirectEffect(piece, false);
                                 break;
                             case PieceData.Animal.Dog:
-                                buffManager.animalBuff[0].dogBuff[i - 1].DirectEffect(piece, false);
-                                RemoveBattleStartEffect(buffManager.animalBuff[0].dogBuff[i - 1].BattleStartEffect);
+                                buffManager.animalBuff[0].dogBuff[i].DirectEffect(piece, false);
+                                RemoveBattleStartEffect(buffManager.animalBuff[0].dogBuff[i].BattleStartEffect);
                                 break;
                             case PieceData.Animal.Frog:
-                                buffManager.animalBuff[0].frogBuff[i - 1].DirectEffect(piece, false);
-                                RemoveBattleStartEffect(buffManager.animalBuff[0].frogBuff[i - 1].BattleStartEffect);
+                                buffManager.animalBuff[0].frogBuff[i].DirectEffect(piece, false);
+                                RemoveBattleStartEffect(buffManager.animalBuff[0].frogBuff[i].BattleStartEffect);
                                 break;
                             case PieceData.Animal.Rabbit:
-                                RemoveCoroutine(buffManager.animalBuff[0].rabbitBuff[i - 1].CoroutineEffect);
+                                RemoveCoroutine(buffManager.animalBuff[0].rabbitBuff[i].CoroutineEffect);
                                 break;
                         }
                     }
@@ -589,7 +592,7 @@ public class FieldManager : MonoBehaviour
             }
         }
     }
-    void ApplyUnitedBuff(List<BuffData> buffList, int count, int[] thresholds, PieceData.United unitedType)
+    /*void ApplyUnitedBuff(List<BuffData> buffList, int count, int[] thresholds, PieceData.United unitedType)
     {
         for (int i = 0; i < thresholds.Length; i++)
         {
@@ -671,14 +674,10 @@ public class FieldManager : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
     #endregion
 
-    public void FrogRain(bool isRain)
-    {
-        if (isRain) frogRain.SetActive(true);
-        else if (!isRain) frogRain.SetActive(false);
-    }
+    
     public void InitializingRound()
     {
         if (DualPlayers[0].isGrab)

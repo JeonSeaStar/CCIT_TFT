@@ -65,24 +65,21 @@ public class PieceData : ScriptableObject
 
     public void InitialzePiece(Piece piece)
     {
-        //piece.pieceName = pieceName;
-        //piece.piecePortrait = piecePortrait;
-        //piece.defaultHealth = defaultHealth;
-        //piece.defaultMana = defaultMana;
-        //piece.manaRecovery = defaultManaRecovery;
-        //piece.defaultAttackPower = defaultAttackDamage;
-        //piece.defaultAbilityPower = defaultAbilityPower;
-        //piece.defaultArmor = defaultArmor;
-        //piece.defaultMagicResist = defaultMagicResist;
-        //piece.defaultAttackSpeed = defaultAttackSpeed;
-        //piece.defaultCriticalChance = defaultCriticalChance;
-        //piece.defaultCriticalDamage = defaultCriticalDamage;
-        //piece.defaultAttackRange = defaultAttackRange;
+        piece.pieceName = pieceName;
+        piece.piecePortrait = piecePortrait;
+        piece.health = health[piece.star];
+        piece.mana = mana[piece.star];
+        piece.attackDamage = attackDamage[piece.star];
+        piece.abilityPower = abilityPower[piece.star];
+        piece.armor = armor[piece.star];
+        piece.magicResist = magicResist[piece.star];
+        piece.attackSpeed = attackSpeed[piece.star];
+        piece.criticalChance = criticalChance[piece.star];
+        piece.criticalDamage = criticalDamage[piece.star];
+        piece.attackRange = attackRange[piece.star];
+        piece.bloodBrain = bloodBrain[piece.star];
 
-
-        //piece.mythology = mythology;
-        //piece.species = species;
-        //piece.plusSynerge = plusSynerge;
+        piece.shield = 0;
     }
 
     void CalculateEquipments(Piece piece)
@@ -157,6 +154,8 @@ public class PieceData : ScriptableObject
             piece.criticalChance += CalculateStatus(piece.pieceData.criticalChance[_star], buffData.criticalChance, buffData.percentCriticalChance);
             piece.criticalDamage += CalculateStatus(piece.pieceData.criticalDamage[_star], buffData.criticalDamage, buffData.percentCriticalDamage);
             piece.attackRange += CalculateStatus(piece.pieceData.attackRange[_star], buffData.attackRange, buffData.percentAttackRange);
+
+            piece.shield += CalculateStatus(piece.pieceData.health[_star], buffData.shield, buffData.percentShield);
         }
         else if(isPlus == false)
         {
@@ -170,6 +169,8 @@ public class PieceData : ScriptableObject
             piece.criticalChance -= CalculateStatus(piece.pieceData.criticalChance[_star], buffData.criticalChance, buffData.percentCriticalChance);
             piece.criticalDamage -= CalculateStatus(piece.pieceData.criticalDamage[_star], buffData.criticalDamage, buffData.percentCriticalDamage);
             piece.attackRange -= CalculateStatus(piece.pieceData.attackRange[_star], buffData.attackRange, buffData.percentAttackRange);
+
+            piece.shield -= CalculateStatus(piece.pieceData.health[_star], buffData.shield, buffData.percentShield);
         }
     }
 

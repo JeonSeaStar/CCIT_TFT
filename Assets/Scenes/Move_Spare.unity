@@ -367,12 +367,18 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 43912637}
   - {fileID: 1746667505}
+  - {fileID: 43912637}
   - {fileID: 1957474546}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &20673098 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1080130986706448777, guid: 2cc9a1e83a9d94442a57e5c0b568a703,
+    type: 3}
+  m_PrefabInstance: {fileID: 1060931208}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &30626254
 GameObject:
   m_ObjectHideFlags: 0
@@ -532,7 +538,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 7497b64e8bca5c24291a89bbe1e73c11,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7497b64e8bca5c24291a89bbe1e73c11,
         type: 3}
@@ -646,16 +652,16 @@ MonoBehaviour:
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
-  health: 99999
+  health: 100
   mana: 0
-  attackDamage: 0
+  attackDamage: 1
   abilityPower: 0
   armor: 0
   magicResist: 0
   attackSpeed: 0
   criticalChance: 0
   criticalDamage: 0
-  attackRange: 0
+  attackRange: 1
   bloodBrain: 0
   shield: 0
   currentShield: 0
@@ -681,6 +687,8 @@ MonoBehaviour:
   fear: 0
   invincible: 0
   charm: 0
+  blind: 0
+  stun: 0
   enemyPieceList: []
   myPieceList: []
   isRabbitSynergeActiveCheck: 0
@@ -861,6 +869,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!65 &57161755
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1143,6 +1152,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!65 &78088376
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2034,6 +2044,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 0
 --- !u!1 &112845548 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
@@ -2070,6 +2081,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!1 &113299921
 GameObject:
   m_ObjectHideFlags: 0
@@ -2603,6 +2615,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!1 &139715238 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
@@ -2639,6 +2652,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!1 &152060445 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
@@ -2675,6 +2689,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!1 &166421762
 GameObject:
   m_ObjectHideFlags: 0
@@ -3254,6 +3269,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!65 &231066716
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3431,6 +3447,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 0
 --- !u!1 &238385304
 GameObject:
   m_ObjectHideFlags: 0
@@ -4516,6 +4533,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!65 &315740716
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4693,6 +4711,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 0
 --- !u!4 &326626555 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9051238300485817969, guid: 2f6c4572e07a60b43b00e1c4f489a806,
@@ -4819,6 +4838,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!1 &335093207
 GameObject:
   m_ObjectHideFlags: 0
@@ -4932,7 +4952,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae9959b62a5020745aa9b9dd1335a07d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 5
 --- !u!4 &336001385
 Transform:
   m_ObjectHideFlags: 0
@@ -5074,9 +5093,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
+  isFull: 1
   isReadyTile: 1
-  piece: {fileID: 0}
+  piece: {fileID: 1750531213}
   listX: 0
   listY: 0
   gridX: 0
@@ -5086,6 +5105,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!65 &341538014
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5263,6 +5283,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 0
 --- !u!4 &344224867 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9051238300485817969, guid: 2f6c4572e07a60b43b00e1c4f489a806,
@@ -5369,6 +5390,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!1 &350563338 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
@@ -5405,6 +5427,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!1 &351033890
 GameObject:
   m_ObjectHideFlags: 0
@@ -5787,6 +5810,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!1001 &382470585
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5901,6 +5925,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 0
 --- !u!1 &389733958
 GameObject:
   m_ObjectHideFlags: 0
@@ -6093,6 +6118,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 0
 --- !u!1001 &398791088
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6207,6 +6233,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 0
 --- !u!1 &398976820
 GameObject:
   m_ObjectHideFlags: 0
@@ -6372,6 +6399,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!4 &424532917 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9051238300485817969, guid: 2f6c4572e07a60b43b00e1c4f489a806,
@@ -6492,6 +6520,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 0
 --- !u!1 &429650248
 GameObject:
   m_ObjectHideFlags: 0
@@ -7121,6 +7150,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 0
 --- !u!1001 &464716007
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8205,6 +8235,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!1001 &542123262
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8326,6 +8357,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!1001 &546170411
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8693,6 +8725,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!1 &572675600
 GameObject:
   m_ObjectHideFlags: 0
@@ -9114,15 +9147,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fieldManager: {fileID: 0}
-  pieceData: {fileID: 11400000, guid: 032b033ecb49fff44ac819c3f53a91d1, type: 2}
+  pieceData: {fileID: 11400000, guid: 05a7a4b530b7b8e4eb0e6e16fe20fc46, type: 2}
   grade: 0
   pieceName: 
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
-  health: 0
+  health: 100
   mana: 0
-  attackDamage: 10
+  attackDamage: 0
   abilityPower: 0
   armor: 0
   magicResist: 0
@@ -9155,6 +9188,8 @@ MonoBehaviour:
   fear: 0
   invincible: 0
   charm: 0
+  blind: 0
+  stun: 0
   enemyPieceList: []
   myPieceList: []
   isRabbitSynergeActiveCheck: 0
@@ -9751,6 +9786,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!65 &611610401
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11356,6 +11392,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!65 &752547662
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11896,6 +11933,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 0
 --- !u!1001 &797310798
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12196,9 +12234,9 @@ MonoBehaviour:
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
-  health: 0
+  health: 100
   mana: 0
-  attackDamage: 10
+  attackDamage: 0
   abilityPower: 0
   armor: 0
   magicResist: 0
@@ -12231,6 +12269,8 @@ MonoBehaviour:
   fear: 0
   invincible: 0
   charm: 0
+  blind: 0
+  stun: 0
   enemyPieceList: []
   myPieceList: []
   isRabbitSynergeActiveCheck: 0
@@ -12337,7 +12377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
+  isFull: 1
   isReadyTile: 0
   piece: {fileID: 1746667499}
   listX: 0
@@ -12349,6 +12389,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 0
 --- !u!1 &814488124
 GameObject:
   m_ObjectHideFlags: 0
@@ -12405,6 +12446,8 @@ MonoBehaviour:
     catBuff:
     - {fileID: 11400000, guid: 3e52c51e33262da43ac262c7bebf1647, type: 2}
     - {fileID: 11400000, guid: 389777d75e078b8419fe497928f062a0, type: 2}
+    - {fileID: 11400000, guid: 055b1f88609eb3e468438e5e0af458e7, type: 2}
+    - {fileID: 11400000, guid: 0f300df760806f2418ee8fec69634893, type: 2}
     dogBuff:
     - {fileID: 11400000, guid: 3ffcc0d71ada0b94a9b73ef40c607183, type: 2}
     - {fileID: 11400000, guid: 2a6f7c2cd7538c04ebb8ad330549cc6c, type: 2}
@@ -12432,6 +12475,10 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 244d71d36a7e44848bf7f4f124c3b793, type: 2}
     - {fileID: 11400000, guid: fc2fed279a453374b97c7ff64def3773, type: 2}
     - {fileID: 11400000, guid: 26dd93284c68671448319a915c111e9a, type: 2}
+  frogRain: {fileID: 1924766443}
+  frogThunder: {fileID: 1811855940}
+  frostyWind: {fileID: 0}
+  sandKingdomWind: {fileID: 20673098}
   warMachineEquipments:
   - {fileID: 2701560059947826741, guid: a3be7518bf3369642af5bfc652498522, type: 3}
   - {fileID: 2701560059947826741, guid: a3be7518bf3369642af5bfc652498522, type: 3}
@@ -12756,6 +12803,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!1 &836992118
 GameObject:
   m_ObjectHideFlags: 0
@@ -12861,6 +12909,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!65 &837100735
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13122,6 +13171,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 0
 --- !u!1001 &850863566
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13236,6 +13286,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 0
 --- !u!1 &859797338
 GameObject:
   m_ObjectHideFlags: 0
@@ -13267,6 +13318,105 @@ Transform:
   m_Father: {fileID: 238385305}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &859829325
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2053709485}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 7497b64e8bca5c24291a89bbe1e73c11,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7497b64e8bca5c24291a89bbe1e73c11,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7497b64e8bca5c24291a89bbe1e73c11,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7497b64e8bca5c24291a89bbe1e73c11,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7497b64e8bca5c24291a89bbe1e73c11,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7497b64e8bca5c24291a89bbe1e73c11,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7497b64e8bca5c24291a89bbe1e73c11,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7497b64e8bca5c24291a89bbe1e73c11,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7497b64e8bca5c24291a89bbe1e73c11,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7497b64e8bca5c24291a89bbe1e73c11,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7497b64e8bca5c24291a89bbe1e73c11,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7497b64e8bca5c24291a89bbe1e73c11,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7497b64e8bca5c24291a89bbe1e73c11,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7497b64e8bca5c24291a89bbe1e73c11,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 7497b64e8bca5c24291a89bbe1e73c11,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 14ff60440988fa949b6bebe8cc900f60, type: 2}
+    - target: {fileID: 919132149155446097, guid: 7497b64e8bca5c24291a89bbe1e73c11,
+        type: 3}
+      propertyPath: m_Name
+      value: ch(2) (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7497b64e8bca5c24291a89bbe1e73c11,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7497b64e8bca5c24291a89bbe1e73c11,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7497b64e8bca5c24291a89bbe1e73c11, type: 3}
 --- !u!4 &860852469 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8209778948206908569, guid: 5062c1312f2beb14694d90a058d444e4,
@@ -14507,9 +14657,9 @@ MonoBehaviour:
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
-  health: 0
+  health: 100
   mana: 0
-  attackDamage: 10
+  attackDamage: 0
   abilityPower: 0
   armor: 0
   magicResist: 0
@@ -14542,6 +14692,8 @@ MonoBehaviour:
   fear: 0
   invincible: 0
   charm: 0
+  blind: 0
+  stun: 0
   enemyPieceList: []
   myPieceList: []
   isRabbitSynergeActiveCheck: 0
@@ -15190,6 +15342,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 0
 --- !u!1 &1006729015
 GameObject:
   m_ObjectHideFlags: 0
@@ -16311,6 +16464,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!1 &1089197555
 GameObject:
   m_ObjectHideFlags: 0
@@ -16507,6 +16661,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!1001 &1107915431
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16880,6 +17035,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 0
 --- !u!1 &1142401304
 GameObject:
   m_ObjectHideFlags: 0
@@ -17313,6 +17469,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 0
 --- !u!1 &1173633578
 GameObject:
   m_ObjectHideFlags: 0
@@ -17973,9 +18130,9 @@ MonoBehaviour:
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
-  health: 0
+  health: 100
   mana: 0
-  attackDamage: 10
+  attackDamage: 0
   abilityPower: 0
   armor: 0
   magicResist: 0
@@ -18008,6 +18165,8 @@ MonoBehaviour:
   fear: 0
   invincible: 0
   charm: 0
+  blind: 0
+  stun: 0
   enemyPieceList: []
   myPieceList: []
   isRabbitSynergeActiveCheck: 0
@@ -18399,6 +18558,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 0
 --- !u!1 &1271382098
 GameObject:
   m_ObjectHideFlags: 0
@@ -18896,6 +19056,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!1 &1316063508
 GameObject:
   m_ObjectHideFlags: 0
@@ -19905,7 +20066,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1000010302070858, guid: d0c0b49979d372942ae5a964d9364111, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1000011503386248, guid: d0c0b49979d372942ae5a964d9364111, type: 3}
       propertyPath: m_IsActive
@@ -20681,6 +20842,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!1 &1458093532 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7497b64e8bca5c24291a89bbe1e73c11,
@@ -20741,9 +20903,9 @@ MonoBehaviour:
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
-  health: 0
+  health: 100
   mana: 0
-  attackDamage: 10
+  attackDamage: 0
   abilityPower: 0
   armor: 0
   magicResist: 0
@@ -20776,6 +20938,8 @@ MonoBehaviour:
   fear: 0
   invincible: 0
   charm: 0
+  blind: 0
+  stun: 0
   enemyPieceList: []
   myPieceList: []
   isRabbitSynergeActiveCheck: 0
@@ -20906,6 +21070,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!1 &1490709523
 GameObject:
   m_ObjectHideFlags: 0
@@ -21104,6 +21269,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 0
 --- !u!1001 &1509269728
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21218,6 +21384,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 0
 --- !u!1 &1515803984
 GameObject:
   m_ObjectHideFlags: 0
@@ -21667,6 +21834,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 0
 --- !u!1001 &1532752047
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21856,6 +22024,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 0
 --- !u!1 &1585383525
 GameObject:
   m_ObjectHideFlags: 0
@@ -22554,6 +22723,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 0
 --- !u!1 &1644805653
 GameObject:
   m_ObjectHideFlags: 0
@@ -23242,6 +23412,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 0
 --- !u!1 &1666274077 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
@@ -23278,6 +23449,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!1001 &1670666420
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23703,6 +23875,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!1 &1727828143
 GameObject:
   m_ObjectHideFlags: 0
@@ -23964,7 +24137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
+  isFull: 1
   isReadyTile: 0
   piece: {fileID: 1957474540}
   listX: 0
@@ -23976,6 +24149,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 0
 --- !u!1001 &1746667497
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23986,7 +24160,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 7497b64e8bca5c24291a89bbe1e73c11,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7497b64e8bca5c24291a89bbe1e73c11,
         type: 3}
@@ -24100,16 +24274,16 @@ MonoBehaviour:
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
-  health: 99999
+  health: 100
   mana: 0
-  attackDamage: 0
+  attackDamage: 1
   abilityPower: 0
   armor: 0
   magicResist: 0
   attackSpeed: 0
   criticalChance: 0
   criticalDamage: 0
-  attackRange: 0
+  attackRange: 1
   bloodBrain: 0
   shield: 0
   currentShield: 0
@@ -24135,6 +24309,8 @@ MonoBehaviour:
   fear: 0
   invincible: 0
   charm: 0
+  blind: 0
+  stun: 0
   enemyPieceList: []
   myPieceList: []
   isRabbitSynergeActiveCheck: 0
@@ -24185,6 +24361,107 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7497b64e8bca5c24291a89bbe1e73c11,
     type: 3}
   m_PrefabInstance: {fileID: 1746667497}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1750531212 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7497b64e8bca5c24291a89bbe1e73c11,
+    type: 3}
+  m_PrefabInstance: {fileID: 859829325}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1750531213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750531212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1392386ccdaa12c46a1bd3b5b5371ddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fieldManager: {fileID: 0}
+  pieceData: {fileID: 11400000, guid: 5904b2b6b8445ac43b4b68bf3287a129, type: 2}
+  grade: 0
+  pieceName: 
+  piecePortrait: {fileID: 0}
+  Equipments: []
+  star: 0
+  health: 100
+  mana: 0
+  attackDamage: 0
+  abilityPower: 0
+  armor: 0
+  magicResist: 0
+  attackSpeed: 1
+  criticalChance: 0
+  criticalDamage: 0
+  attackRange: 1
+  bloodBrain: 0
+  shield: 0
+  currentShield: 0
+  dead: 0
+  owner: 
+  isOwned: 1
+  candidatePath: []
+  path: []
+  currentTile: {fileID: 341538013}
+  targetTile: {fileID: 0}
+  target: {fileID: 0}
+  moveSpeed: 2
+  ease: 1
+  equipmentDatas: []
+  randomBoxObject: {fileID: 8609173777344526003, guid: 6923762d687bc6640b7100f038c2b46d,
+    type: 3}
+  buffList: []
+  immune: 0
+  freeze: 0
+  slow: 0
+  airborne: 0
+  faint: 0
+  fear: 0
+  invincible: 0
+  charm: 0
+  blind: 0
+  stun: 0
+  enemyPieceList: []
+  myPieceList: []
+  isRabbitSynergeActiveCheck: 0
+  isCatSynergeActiveCheck: 0
+--- !u!65 &1750531214
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750531212}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.4098605, y: 0.31023628, z: 0.80939144}
+  m_Center: {x: 0, y: -0.006647836, z: 0.039771806}
+--- !u!54 &1750531215
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750531212}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!4 &1750531218 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7497b64e8bca5c24291a89bbe1e73c11,
+    type: 3}
+  m_PrefabInstance: {fileID: 859829325}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1755576160
 PrefabInstance:
@@ -24676,6 +24953,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!1001 &1805189288
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24745,6 +25023,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5062c1312f2beb14694d90a058d444e4, type: 3}
+--- !u!1 &1811855940 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4532142441725249119, guid: 2b376c3c2c380ae4da88e5faa9942c8e,
+    type: 3}
+  m_PrefabInstance: {fileID: 108387795}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1827839256
 GameObject:
   m_ObjectHideFlags: 0
@@ -24935,6 +25219,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!1 &1833451775 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
@@ -24971,6 +25256,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!1 &1834190859
 GameObject:
   m_ObjectHideFlags: 0
@@ -25148,6 +25434,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!1 &1865653138
 GameObject:
   m_ObjectHideFlags: 0
@@ -25346,6 +25633,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 0
 --- !u!1 &1884555906
 GameObject:
   m_ObjectHideFlags: 0
@@ -25422,6 +25710,7 @@ MonoBehaviour:
   - {fileID: 178479010}
   - {fileID: 2114872210}
   - {fileID: 859797339}
+  pieceDpList: []
   myFilePieceList: []
   enemyFilePieceList:
   - {fileID: 43912631}
@@ -25511,7 +25800,8 @@ MonoBehaviour:
   - {fileID: 668044194}
   grab: 0
   groundHeight: 0
-  frogRain: {fileID: 1924766443}
+  stageInformation: []
+  currentStage: 0
   buffManager: {fileID: 814488125}
   currentPieceList:
   - pieceData: {fileID: 11400000, guid: 309f6986873b81042844f48195428c5d, type: 2}
@@ -25819,6 +26109,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 0
 --- !u!1 &1906176705
 GameObject:
   m_ObjectHideFlags: 0
@@ -26341,16 +26632,16 @@ MonoBehaviour:
   piecePortrait: {fileID: 0}
   Equipments: []
   star: 0
-  health: 99999
+  health: 100
   mana: 0
-  attackDamage: 0
+  attackDamage: 1
   abilityPower: 0
   armor: 0
   magicResist: 0
   attackSpeed: 0
   criticalChance: 0
   criticalDamage: 0
-  attackRange: 0
+  attackRange: 1
   bloodBrain: 0
   shield: 0
   currentShield: 0
@@ -26376,6 +26667,8 @@ MonoBehaviour:
   fear: 0
   invincible: 0
   charm: 0
+  blind: 0
+  stun: 0
   enemyPieceList: []
   myPieceList: []
   isRabbitSynergeActiveCheck: 0
@@ -26529,7 +26822,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
+  isFull: 1
   isReadyTile: 0
   piece: {fileID: 43912631}
   listX: 0
@@ -26541,6 +26834,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 0
 --- !u!1001 &1962951380
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26652,6 +26946,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!1 &1980013585
 GameObject:
   m_ObjectHideFlags: 0
@@ -26834,8 +27129,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fieldManagers:
   - {fileID: 1886702829}
-  currentRound: 0
-  currentStage: 0
   playerMatchingPair: []
   roundType: 0
   deploymentTime: 30
@@ -26844,6 +27137,10 @@ MonoBehaviour:
   battleOverTime: 60
   groundEventTime: 10000
   duelTime: 60
+  currentRound: 0
+  currentStage: 0
+  stageText: {fileID: 0}
+  roundText: {fileID: 0}
 --- !u!4 &1993184858
 Transform:
   m_ObjectHideFlags: 0
@@ -27148,6 +27445,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!1 &2013923833
 GameObject:
   m_ObjectHideFlags: 0
@@ -27423,6 +27721,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!1 &2027169098
 GameObject:
   m_ObjectHideFlags: 0
@@ -27645,6 +27944,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!65 &2032397310
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -27744,6 +28044,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!1001 &2037670217
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27858,6 +28159,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 0
 --- !u!1001 &2050529091
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27966,6 +28268,7 @@ Transform:
   - {fileID: 1458093538}
   - {fileID: 810062471}
   - {fileID: 587955028}
+  - {fileID: 1750531218}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -28177,6 +28480,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   walkable: 0
+  myTile: 1
 --- !u!65 &2086493047
 BoxCollider:
   m_ObjectHideFlags: 0

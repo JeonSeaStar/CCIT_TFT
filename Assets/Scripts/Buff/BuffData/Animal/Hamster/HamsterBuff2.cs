@@ -7,15 +7,19 @@ public class HamsterBuff2 : BuffData
 {
     public GameObject pieceParent;
     public PieceData miniHamster;
-    List<Piece> hamsterList = new List<Piece>();
-
+    [SerializeField] List<GameObject> hamsterList = new List<GameObject>();
+    [SerializeField] PathFinding pathFinding;
     public override void BattleStartEffect(bool isAdd)
     {
-        //if (isAdd) null;
-        if (!isAdd)
+        if (isAdd) hamsterList.Clear();
+        else if (!isAdd)
         {
-            foreach (var _hamster in hamsterList) ArenaManager.Instance.fieldManagers[0].myFilePieceList.Remove(_hamster);
-            foreach (var _hamster in hamsterList) Destroy(_hamster);
+            foreach (var _hamster in hamsterList)
+            {
+                ArenaManager.Instance.fieldManagers[0].myFilePieceList.Remove(_hamster.GetComponent<Piece>());
+                Destroy(_hamster);
+            }
+            hamsterList.Clear();
         }
     }
 
@@ -23,19 +27,17 @@ public class HamsterBuff2 : BuffData
     {
         ArenaManager.Instance.fieldManagers[0].StartCoroutine(Hamster());
     }
-    PathFinding pathFinding;
     IEnumerator Hamster()
     {
+        pieceParent = GameObject.Find("Pieces");
         pathFinding = GameObject.Find("PathFinding").GetComponent<PathFinding>();
-        Messenger _me = ArenaManager.Instance.fieldManagers[0].DualPlayers[0];
         while (true)
         {
             yield return new WaitForSeconds(4f);
             List<Tile> _randomTile = new List<Tile>();
-            int _spawnStartIndex = (_me.isExpedition) ? 7 : 0;
-            for (int i = 0; i < pathFinding.grid[_spawnStartIndex].tile.Count; i++)
+            for (int i = 0; i < pathFinding.grid[0].tile.Count; i++)
             {
-                if (pathFinding.grid[_spawnStartIndex].tile[i].IsFull == false) _randomTile.Add(pathFinding.grid[_spawnStartIndex].tile[i]);
+                if (pathFinding.grid[0].tile[i].IsFull == false) _randomTile.Add(pathFinding.grid[0].tile[i]);
             }
             for (int i = 0; i < 2; i++)
             {
@@ -43,19 +45,22 @@ public class HamsterBuff2 : BuffData
                 {
                     GameObject _miniHamster = Instantiate(miniHamster.piecePrefab, pieceParent.transform);
                     ArenaManager.Instance.fieldManagers[0].myFilePieceList.Add(_miniHamster.GetComponent<Piece>());
-                    hamsterList.Add(_miniHamster.GetComponent<Piece>());
+                    hamsterList.Add(_miniHamster);
 
                     int _randomSpot = Random.Range(0, _randomTile.Count);
-                    Tile spawnTile = pathFinding.grid[_spawnStartIndex].tile[_randomSpot].GetComponent<Tile>();
+                    Tile spawnTile = pathFinding.grid[0].tile[_randomSpot].GetComponent<Tile>();
                     spawnTile.IsFull = true;
                     spawnTile.piece = _miniHamster.GetComponent<Piece>();
 
-                    _miniHamster.GetComponent<Piece>().currentTile = spawnTile;
-                    _miniHamster.GetComponent<Piece>().targetTile = spawnTile;
-                    _miniHamster.transform.position = new Vector3(spawnTile.transform.position.x, 0, spawnTile.transform.position.z);
+                    spawnTile.piece.isOwned = true;
+                    spawnTile.piece.currentTile = spawnTile;
+                    spawnTile.piece.targetTile = spawnTile;
+                    spawnTile.piece.transform.position = new Vector3(spawnTile.transform.position.x, 0, spawnTile.transform.position.z);
+                    spawnTile.piece.NextBehavior();
                     _randomTile.RemoveAt(_randomSpot);
                 }
             }
+            _randomTile.Clear();
         }
     }
 }

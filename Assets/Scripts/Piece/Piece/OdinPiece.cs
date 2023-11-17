@@ -40,7 +40,8 @@ public class OdinPiece : Piece
         foreach (var _Neigbor in _allPiece)
         {
             Piece _targets = _Neigbor.GetComponent<Piece>();
-            _targets.attackDamage = attackDamage * buff;
+            if(_targets.isOwned)
+                _targets.attackDamage = attackDamage * buff;
         }
     }
 }

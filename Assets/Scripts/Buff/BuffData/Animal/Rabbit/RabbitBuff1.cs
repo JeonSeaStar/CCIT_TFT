@@ -28,7 +28,7 @@ public class RabbitBuff1 : BuffData
             {
                 if(!rabbit.isRabbitSynergeActiveCheck) rabbit.isRabbitSynergeActiveCheck = true;
             }
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(6f);
         }
 
     }
