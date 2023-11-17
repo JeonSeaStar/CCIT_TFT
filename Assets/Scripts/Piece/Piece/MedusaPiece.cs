@@ -21,10 +21,10 @@ public class MedusaPiece : Piece
     {
         base.Skill();
         if (star == 0)
-            Damage(attackDamage * 1.6f);
+            target.Damage(attackDamage * 1.6f);
         else if (star == 1)
-            Damage(attackDamage * 2.5f);
+            target.Damage(attackDamage * 2.5f);
         else if (star == 2)
-            Damage(attackDamage * 2.6f);
+            target.Damage(attackDamage * 2.6f);
     }
 }

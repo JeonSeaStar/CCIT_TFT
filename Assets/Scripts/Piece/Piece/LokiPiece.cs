@@ -10,7 +10,7 @@ public class LokiPiece : Piece
     int randomCount;
     protected override void Attack()
     {
-        if (mana <= 90)
+        if (mana <= 60)
         {
             Skill();
             mana = 0;
@@ -49,32 +49,51 @@ public class LokiPiece : Piece
             }
         }
     }
-    void RandomCapability(float abilityPower)
-    {
-        randomCount = Random.Range(0, 6);
-        if(randomCount == 1)
+
+    void RandomCapability(float percentage)
+    {//체력, 공격력, 공속, 꽝
+        randomCount = Random.Range(0, 5);
+        if (randomCount == 0)
         {
-            //어떤 능력치 사용할 건지 넣어주어야 함
+            for (int i = 0; i < targets.Length; i++)
+            {
+                targets[i].health = targets[i].health * percentage;
+            }
+        }
+        else if (randomCount == 1)
+        {
+            for(int i = 0; i < targets.Length; i++)
+            {
+                targets[i].attackDamage = targets[i].attackDamage * percentage;
+            }
         }
         else if(randomCount == 2)
         {
-
+            for (int i = 0; i < targets.Length; i++)
+            {
+                targets[i].attackSpeed = targets[i].attackSpeed * percentage;
+            }
         }
         else if(randomCount == 3)
         {
-
+            for (int i = 0; i < targets.Length; i++)
+            {
+                targets[i].health = targets[i].health;
+            }
         }
         else if(randomCount == 4)
         {
-
+            for (int i = 0; i < targets.Length; i++)
+            {
+                targets[i].attackDamage = targets[i].attackDamage;
+            }
         }
         else if(randomCount == 5)
         {
-
-        }
-        else if(randomCount == 6)
-        {
-
+            for (int i = 0; i < targets.Length; i++)
+            {
+                targets[i].attackSpeed = targets[i].attackSpeed;
+            }
         }
     }
 }

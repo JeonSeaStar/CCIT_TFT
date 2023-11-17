@@ -22,15 +22,15 @@ public class ValkyriePiece : Piece
         base.Skill();
         if (star == 0)
         {
-            Damage(180f);
+            target.Damage(180f);
         }
         else if (star == 1)
         {
-            Damage(270f);
+            target.Damage(270f);
         }
         else if (star == 2)
         {
-            Damage(450f);
+            target.Damage(450f);
         }
     }
 }

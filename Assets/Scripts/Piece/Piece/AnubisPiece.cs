@@ -28,6 +28,4 @@ public class AnubisPiece : Piece
             target.Damage(attackDamage * 5f);
 
     }
-
-
 }

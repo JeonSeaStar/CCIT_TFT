@@ -36,7 +36,8 @@ public class FenrirPiece : Piece
         foreach (var _Neigbor in _getNeigbor)
         {
             Piece _targets = _Neigbor.GetComponent<Piece>();
-            _targets.Damage(damage);
+            if(!_targets.isOwned)
+                _targets.Damage(damage);
         }
     }
 }

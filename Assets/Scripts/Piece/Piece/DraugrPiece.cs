@@ -22,15 +22,15 @@ public class DraugrPiece : Piece
         base.Skill();
         if (star == 0)
         {
-            Damage(attackDamage * 1.35f);
+            target.Damage(attackDamage * 1.35f);
         }
         else if (star == 1)
         {
-            Damage(attackDamage * 2f);
+            target.Damage(attackDamage * 2f);
         }
         else if (star == 2)
         {
-            Damage(attackDamage * 3f);
+            target.Damage(attackDamage * 3f);
         }
     }
 }
