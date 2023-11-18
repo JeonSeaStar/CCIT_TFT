@@ -14,6 +14,7 @@ public class LokiPiece : Piece
         {
             Skill();
             mana = 0;
+            Invoke("NextBehavior", attackSpeed);
         }
         else
         {
@@ -23,7 +24,6 @@ public class LokiPiece : Piece
 
     protected override void Skill()
     {
-        base.Skill();
         if (star == 0)
         {
             RandomCapability(1.3f);
@@ -43,7 +43,11 @@ public class LokiPiece : Piece
         for (int i = 0; i < firstLineTiles.Length; i++)
         {
             firstLinePieces[i] = firstLineTiles[i].piece;
-            if (firstLinePieces[i].isOwned)
+            if(firstLinePieces[i] == null)
+            {
+                Debug.Log("대상없음");
+            }
+            else if (firstLinePieces[i].isOwned)
             {
                 targets[i] = firstLinePieces[i];
             }
@@ -71,7 +75,7 @@ public class LokiPiece : Piece
         {
             for (int i = 0; i < targets.Length; i++)
             {
-                targets[i].attackSpeed = targets[i].attackSpeed * percentage;
+                targets[i].attackSpeed = targets[i].attackSpeed - (percentage % 3f);
             }
         }
         else if(randomCount == 3)

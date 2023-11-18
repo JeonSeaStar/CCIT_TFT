@@ -6,10 +6,11 @@ public class ValkyriePiece : Piece
 {
     protected override void Attack()
     {
-        if (mana <= 100)
+        if (mana <= 100 && target != null)
         {
             Skill();
             mana = 0;
+            Invoke("NextBehavior", attackSpeed);
         }
         else
         {
@@ -19,18 +20,17 @@ public class ValkyriePiece : Piece
 
     protected override void Skill()
     {
-        base.Skill();
         if (star == 0)
         {
-            target.Damage(180f);
+            target.SkillDamage(180f);
         }
         else if (star == 1)
         {
-            target.Damage(270f);
+            target.SkillDamage(270f);
         }
         else if (star == 2)
         {
-            target.Damage(450f);
+            target.SkillDamage(450f);
         }
     }
 }

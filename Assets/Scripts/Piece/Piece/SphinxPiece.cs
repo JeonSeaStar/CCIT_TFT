@@ -6,10 +6,11 @@ public class SphinxPiece : Piece
 {
     protected override void Attack()
     {
-        if (mana <= 80)
+        if (mana <= 80 && target != null)
         {
             Skill();
             mana = 0;
+            Invoke("NextBehavior", attackSpeed);
         }
         else
         {
@@ -19,7 +20,6 @@ public class SphinxPiece : Piece
 
     protected override void Skill()
     {
-        base.Skill();
         if (star == 0)
             SphinxSkill(1f, 0.7f);
         else if (star == 1)
@@ -30,7 +30,7 @@ public class SphinxPiece : Piece
 
     void SphinxSkill(float damage, float time)
     {
-        target.Damage(attackDamage * damage);
+        target.SkillDamage(attackDamage * damage);
         target.SetStun(time);
     }
 }

@@ -11,6 +11,7 @@ public class PoseidonPiece : Piece
         {
             Skill();
             mana = 0;
+            Invoke("NextBehavior", attackSpeed);
         }
         else
         {
@@ -20,7 +21,6 @@ public class PoseidonPiece : Piece
 
     protected override void Skill()
     {
-        base.Skill();
         if (star == 0)
         {
             DamageAllTile(attackDamage);
@@ -41,8 +41,14 @@ public class PoseidonPiece : Piece
         foreach (var _Neigbor in _getHalf)
         {
             Piece _targets = _Neigbor.GetComponent<Piece>();
-            if (!_targets.isOwned)
-                _targets.Damage(damage);
+            if(_targets == null)
+            {
+                Debug.Log("대상없음");
+            }
+            else if (!_targets.isOwned)
+            {
+                _targets.SkillDamage(damage);
+            }
         }
     }
 }

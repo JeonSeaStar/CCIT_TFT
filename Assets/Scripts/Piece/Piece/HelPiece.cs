@@ -7,10 +7,11 @@ public class HelPiece : Piece
     [SerializeField] private GameObject helBullet;
     protected override void Attack()
     {
-        if (mana <= 90)
+        if (mana >= 90 && target != null)
         {
             Skill();
             mana = 0;
+            Invoke("NextBehavior", attackSpeed);
         }
         else
         {
@@ -20,7 +21,6 @@ public class HelPiece : Piece
 
     protected override void Skill()
     {
-        base.Skill();
         if (star == 0)
         {
             ProjectionSkill();

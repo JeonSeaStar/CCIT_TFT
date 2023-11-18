@@ -6,10 +6,11 @@ public class DraugrPiece : Piece
 {
     protected override void Attack()
     {
-        if(mana <= 60)
+        if(mana >= 60 && target != null)
         {
             Skill();
             mana = 0;
+            Invoke("NextBehavior", attackSpeed);
         }
         else
         {
@@ -19,18 +20,11 @@ public class DraugrPiece : Piece
 
     protected override void Skill()
     {
-        base.Skill();
         if (star == 0)
-        {
-            target.Damage(attackDamage * 1.35f);
-        }
+            target.SkillDamage(attackDamage * 1.35f);
         else if (star == 1)
-        {
-            target.Damage(attackDamage * 2f);
-        }
+            target.SkillDamage(attackDamage * 2f);
         else if (star == 2)
-        {
-            target.Damage(attackDamage * 3f);
-        }
+            target.SkillDamage(attackDamage * 3f);
     }
 }

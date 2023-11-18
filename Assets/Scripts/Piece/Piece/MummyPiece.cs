@@ -10,6 +10,7 @@ public class MummyPiece : Piece
         {
             Skill();
             mana = 0;
+            Invoke("NextBehavior", attackSpeed);
         }
         else
         {
@@ -19,7 +20,6 @@ public class MummyPiece : Piece
 
     protected override void Skill()
     {
-        base.Skill();
         if (star == 0)
         {
             this.shield = 130f;
