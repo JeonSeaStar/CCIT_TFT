@@ -388,8 +388,8 @@ public class Piece : MonoBehaviour
 
         if (CheckEnemySurvival(enemyPieceList) && !dead && ArenaManager.Instance.roundType == ArenaManager.RoundType.Battle)
         {
-            foreach (var enemy in enemyPieceList)
-                enemy.currentTile.walkable = true;
+            //foreach (var enemy in enemyPieceList)
+            //    enemy.currentTile.walkable = true;
             ArenaManager.Instance.fieldManagers[0].pathFinding.SetCandidatePath(this, enemyPieceList);
 
             if (target != null)

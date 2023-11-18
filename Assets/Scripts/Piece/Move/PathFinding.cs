@@ -240,9 +240,11 @@ public class PathFinding : MonoBehaviour
             openTile.Remove(currentTile);
             closedTile.Add(currentTile);
 
-            if (currentTile == targetTile)
+            //if (currentTile == targetTile)
+            if (GetDistance(currentTile, targetTile) == 1)
             {
-                RetracePath(piece, startTile, targetTile);
+                RetracePath(piece, startTile, currentTile, targetTile.piece);
+                //RetracePath(piece, startTile, targetTile);
                 return;
             }
 
@@ -268,7 +270,7 @@ public class PathFinding : MonoBehaviour
         }
     }
 
-    void RetracePath(Piece piece, Tile startTile, Tile endTile)
+    void RetracePath(Piece piece, Tile startTile, Tile endTile, Piece target)
     {
         CandidatePath candidatePath = new CandidatePath();
         candidatePath.path = new List<Tile>();
@@ -284,7 +286,7 @@ public class PathFinding : MonoBehaviour
         }
         path.Reverse();
         candidatePath.path.Reverse();
-        candidatePath.target = endTile.piece;
+        candidatePath.target = target;
 
         piece.candidatePath.Add(candidatePath);
     }

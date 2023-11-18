@@ -117,7 +117,7 @@ public class FieldManager : MonoBehaviour
             InitializingRound();
         }
 
-        if(Input.GetKeyDown(KeyCode.N) && ArenaManager.Instance.roundType == RoundType.Battle)
+        if (Input.GetKeyDown(KeyCode.N) && ArenaManager.Instance.roundType == RoundType.Battle)
         {
             ArenaManager.Instance.roundType = RoundType.Deployment;
             foreach (var effect in sBattleStartEffect) effect(false);
@@ -152,17 +152,19 @@ public class FieldManager : MonoBehaviour
 
     public void FieldInit()
     {
-        foreach (Piece piece in myFilePieceList)
-            piece.gameObject.SetActive(false);
+        //foreach (Piece piece in myFilePieceList)
+        //    piece.gameObject.SetActive(false);
 
-        foreach (Piece piece in enemyFilePieceList)
-            piece.gameObject.SetActive(false);
+        //foreach (Piece piece in enemyFilePieceList)
+        //    piece.gameObject.SetActive(false);
 
         foreach (Tile tile in battleTileList)
         {
             tile.piece = null;
             tile.IsFull = false;
             tile.walkable = true;
+            if (tile.piece != null)
+                tile.piece.gameObject.SetActive(false);
         }
 
         foreach (PieceDPList dp in pieceDpList)
@@ -688,7 +690,7 @@ public class FieldManager : MonoBehaviour
     }
     #endregion
 
-    
+
     public void InitializingRound()
     {
         if (DualPlayers[0].isGrab)
