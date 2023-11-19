@@ -22,8 +22,8 @@ public class RoundState : MonoBehaviour
         stageText.text = stage.ToString();
     }
 
-    public void UpdateStageIcon(int currentRound)
+    public void UpdateStageIcon(int currentRound, int updateSprite)
     {
-        
+        roundIconImages[currentRound].sprite = roundIconSprites[updateSprite];
     }
 }

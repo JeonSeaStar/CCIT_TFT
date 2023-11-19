@@ -5,7 +5,7 @@ using UnityEngine;
 public class HeimdallrPiece : Piece
 {
     PathFinding pathFinding;
-    protected override void Attack()
+    protected override IEnumerator Attack()
     {
         if (mana >= 110)
         {
@@ -19,7 +19,7 @@ public class HeimdallrPiece : Piece
         }
     }
 
-    protected override void Skill()
+    protected override IEnumerator Skill()
     {
         if (star == 0)
             GetLocationMultiRangeSkill(attackDamage * 1.5f);

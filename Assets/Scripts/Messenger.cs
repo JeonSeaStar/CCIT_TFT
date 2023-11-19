@@ -7,7 +7,8 @@ public class Messenger : MonoBehaviour
 {
     public List<BuffData> buffDatas = new List<BuffData>();
     public int level;
-    public int experience;
+    public int currentXP;
+    public int[] maxXP;
     [Range(-30,200)] public int lifePoint = 100;
     public int gold = 0;
     [SerializeField] LayerMask playerMask; //9 - Player
@@ -231,7 +232,7 @@ public class Messenger : MonoBehaviour
 
     void ChangeTileTransform(Piece piece, Tile target)
     {
-        piece.transform.position = new Vector3(target.transform.position.x, 0, target.transform.position.z);
+        piece.transform.position = new Vector3(target.transform.position.x, -0.5f, target.transform.position.z);
     }
     #endregion
 

@@ -37,6 +37,7 @@ public class FieldManager : MonoBehaviour
     [Header("상대 기물")] public Transform enemyParent;
 
     public PathFinding pathFinding;
+    public PlayerState playerState;
 
     public List<Tile> readyTileList;
     public List<Tile> battleTileList;
@@ -75,20 +76,21 @@ public class FieldManager : MonoBehaviour
         { PieceData.United.Creature          ,0 }
     };
 
-    [System.Serializable]
-    public class EnemyInformation
-    {
-        public GameObject piece;
-        public Vector2 spawnTile;
-    }
+    //[System.Serializable]
+    //public class EnemyInformation
+    //{
+    //    public GameObject piece;
+    //    public Vector2 spawnTile;
+    //}
 
-    [System.Serializable]
-    public class StageInformation
-    {
-        public List<EnemyInformation> enemyInformation;
-    }
+    //[System.Serializable]
+    //public class StageInformation
+    //{
+    //    public List<EnemyInformation> enemyInformation;
+    //}
 
-    public List<StageInformation> stageInformation;
+    //public List<StageInformation> stageInformation;
+    public EnemyInformationData stageInformation;
     public int currentStage;
 
     void Update()
@@ -152,12 +154,6 @@ public class FieldManager : MonoBehaviour
 
     public void FieldInit()
     {
-        //foreach (Piece piece in myFilePieceList)
-        //    piece.gameObject.SetActive(false);
-
-        //foreach (Piece piece in enemyFilePieceList)
-        //    piece.gameObject.SetActive(false);
-
         foreach (Tile tile in battleTileList)
         {
             tile.piece = null;
@@ -181,9 +177,10 @@ public class FieldManager : MonoBehaviour
             dp.piece.path = null;
             dp.piece.target = null;
 
-            dp.piece.transform.position = new Vector3(dp.dpTile.transform.position.x, 0, dp.dpTile.transform.position.z);
+            dp.piece.transform.position = new Vector3(dp.dpTile.transform.position.x, groundHeight, dp.dpTile.transform.position.z);
 
             dp.piece.gameObject.SetActive(true);
+            dp.piece.PieceState = Piece.State.IDLE;
         }
 
         foreach (Piece piece in enemyFilePieceList)
@@ -193,12 +190,12 @@ public class FieldManager : MonoBehaviour
 
     public void SpawnEnemy(int stage)
     {
-        for (int i = 0; i < stageInformation[stage].enemyInformation.Count; i++)
+        for (int i = 0; i < stageInformation.enemy[stage].enemyInformation.Count; i++)
         {
-            int tileX = ((int)stageInformation[stage].enemyInformation[i].spawnTile.x);
-            int tileY = ((int)stageInformation[stage].enemyInformation[i].spawnTile.y);
+            int tileX = ((int)stageInformation.enemy[stage].enemyInformation[i].spawnTile.x);
+            int tileY = ((int)stageInformation.enemy[stage].enemyInformation[i].spawnTile.y);
 
-            GameObject enemyGameObject = Instantiate(stageInformation[stage].enemyInformation[i].piece, Vector3.zero, Quaternion.identity);
+            GameObject enemyGameObject = Instantiate(stageInformation.enemy[stage].enemyInformation[i].piece, Vector3.zero, Quaternion.identity);
             enemyGameObject.transform.parent = enemyParent;
 
             Piece enemyPiece = enemyGameObject.GetComponent<Piece>();
@@ -211,7 +208,7 @@ public class FieldManager : MonoBehaviour
             enemyPiece.currentTile = targetTile;
             enemyPiece.targetTile = targetTile;
 
-            enemyGameObject.transform.position = new Vector3(targetTile.transform.position.x, 0, targetTile.transform.position.z);
+            enemyGameObject.transform.position = new Vector3(targetTile.transform.position.x, -0.5f, targetTile.transform.position.z);
 
             enemyFilePieceList.Add(enemyPiece);
         }
@@ -221,12 +218,15 @@ public class FieldManager : MonoBehaviour
     {
         FieldInit();
 
-        ArenaManager.Instance.roundType = RoundType.Deployment;
+        Instance.roundType = RoundType.Deployment;
         foreach (var effect in sBattleStartEffect) effect(false);
         StopAllCoroutines();
 
         SpawnEnemy(currentStage);
         currentStage++;
+
+        playerState.UpdateMoney(owerPlyer.gold);
+        playerState.UpdateCurrentXP(owerPlyer.currentXP);
     }
 
     int d = 0;

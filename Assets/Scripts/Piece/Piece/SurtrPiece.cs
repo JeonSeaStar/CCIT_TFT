@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SurtrPiece : Piece
 {
-    protected override void Attack()
+    protected override IEnumerator Attack()
     {
         if (mana <= 100 && target != null)
         {
@@ -18,7 +18,7 @@ public class SurtrPiece : Piece
         }
     }
 
-    protected override void Skill()
+    protected override IEnumerator Skill()
     {
         if (star == 0)
         {

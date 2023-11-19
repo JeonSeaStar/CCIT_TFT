@@ -54,6 +54,33 @@ public class ArenaManager : MonoBehaviour
     public int currentRound = 0;
     public int currentStage = 0;
 
+    public enum Result { NONE, VICTORY, DEFEAT }
+    public Result BattleResult
+    {
+        get { return battleResult; }
+        set
+        {
+            if (BattleResult != value)
+            {
+                battleResult = value;
+
+                if (BattleResult == Result.VICTORY)
+                {
+                    Invoke("NextRound", 3f);
+                    roundState.UpdateStageIcon(currentRound, 1);
+                    foreach (var piece in fieldManagers[0].myFilePieceList)
+                        piece.VictoryDacnce();
+                }
+                else if (BattleResult == Result.DEFEAT)
+                {
+                    Invoke("NextRound", 3f);
+                    roundState.UpdateStageIcon(currentRound, 2);
+                }
+            }
+        }
+    }
+    public Result battleResult;
+
     private void Awake()
     {
         if (instance == null)
@@ -110,16 +137,17 @@ public class ArenaManager : MonoBehaviour
     #region 라운드(버튼식)
     public void BattleEndCheck(List<Piece> pieceList)
     {
-        for(int i = 0; i < pieceList.Count; i++)
+        for (int i = 0; i < pieceList.Count; i++)
         {
-            if(!pieceList[i].dead)
+            if (!pieceList[i].dead)
                 return;
 
             if (i == pieceList.Count - 1 && pieceList[i].dead)
             {
-                currentStage++;
-                fieldManagers[0].currentStage++;
-                NextRound();
+                if (pieceList[i].isOwned)
+                    BattleResult = Result.DEFEAT;
+                else
+                    BattleResult = Result.VICTORY;
             }
         }
     }
@@ -129,8 +157,9 @@ public class ArenaManager : MonoBehaviour
         roundType = RoundType.Ready;
 
         fieldManagers[0].NextStage();
-
+        currentStage++;
         ChangeStage(currentRound);
+        roundState.UpdateStageIcon(currentRound + 1, 0);
     }
 
     public void StartBattle()
@@ -155,6 +184,7 @@ public class ArenaManager : MonoBehaviour
         roundState.SetStage(currentStage);
         ChangeStage(1);
         fieldManagers[0].SpawnEnemy(currentStage);
+        roundState.UpdateStageIcon(currentStage, 0);
     }
     #endregion
 
@@ -191,7 +221,7 @@ public class ArenaManager : MonoBehaviour
         }
         bGroup = messengerList;
 
-        for(int i = 0; i < aGroup.Count; i++)
+        for (int i = 0; i < aGroup.Count; i++)
         {
             DFS(aGroup[i], bGroup);
         }
@@ -214,26 +244,26 @@ public class ArenaManager : MonoBehaviour
             }
         }
 
-        for (int i  = 0; i < canPairingsPlayer.Count; i++)
+        for (int i = 0; i < canPairingsPlayer.Count; i++)
         {
             int t = canPairingsPlayer[i].matchingInformation.myIndex;
             Messenger targetPlayer = GetMessenger(t);
             if (targetPlayer.matchingInformation.pairings) continue;
             targetPlayer.matchingInformation.pairings = true;
 
-            if(!homePlayer.matchingInformation.pairings || DFS(targetPlayer, awayPlayerList))
+            if (!homePlayer.matchingInformation.pairings || DFS(targetPlayer, awayPlayerList))
             {
                 PlayerMatching(homePlayer, targetPlayer);
                 return true;
             }
         }
-        
+
         return false;
     }
 
     private bool CheckPairings(int playerIndex)
     {
-        for(int i = 0; i < playerMatchingPair.Count; i++)
+        for (int i = 0; i < playerMatchingPair.Count; i++)
         {
             if (playerMatchingPair[i].awayPlayer.matchingInformation.myIndex == playerIndex)
                 return true;
@@ -244,7 +274,7 @@ public class ArenaManager : MonoBehaviour
 
     private Messenger GetMessenger(int index)
     {
-        for(int i =0; i < fieldManagers.Count; i++)
+        for (int i = 0; i < fieldManagers.Count; i++)
         {
             if (fieldManagers[i].owerPlyer.matchingInformation.myIndex == index)
                 return fieldManagers[i].owerPlyer;

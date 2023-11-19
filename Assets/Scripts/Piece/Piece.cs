@@ -44,8 +44,8 @@ public class Piece : MonoBehaviour
     public Tile currentTile;
     public Tile targetTile;
     public Piece target;
-    public float moveSpeed;
-    
+    public float moveSpeed = 0.7f;
+
 
     bool canMove = true;
     [Header("이동 DoTween")] public Ease ease;
@@ -74,11 +74,37 @@ public class Piece : MonoBehaviour
     public List<Piece> enemyPieceList = new List<Piece>();
     public List<Piece> myPieceList = new List<Piece>();
 
+    public Animator animator;
+    public enum State
+    {
+        NONE,
+        IDLE,
+        MOVE,
+        ATTACK,
+        SKILL,
+        DANCE,
+        DEAD
+    }
+    public State PieceState
+    {
+        get { return pieceState; }
+        set
+        {
+            if (PieceState != value)
+            {
+                pieceState = value;
+                animator.SetTrigger(PieceState.ToString());
+            }
+        }
+    }
+    public State pieceState;
+
     void Awake()
     {
         pieceData.InitialzePiece(this);
         pieceName = pieceData.pieceName;
         fieldManager = ArenaManager.Instance.fieldManagers[0];
+        PieceState = State.IDLE;
     }
 
     public void Owned()
@@ -88,22 +114,17 @@ public class Piece : MonoBehaviour
 
     public delegate void OnceAttackEffect();
     OnceAttackEffect onceAttackEffect;
-    protected virtual void Attack()
+    public void AttackState()
     {
-        print(name + "(이)가" + target.name + "에게 일반 공격을 합니다.");
-        Damage(attackDamage);
-        //currentMana += manaRecovery;
-        Invoke("NextBehavior", attackSpeed);
+        PieceState = State.ATTACK;
     }
 
-    protected virtual void Skill()
+    public void SkillState()
     {
-        print(name + "(이)가" + target.name + "에게 스킬을 사용합니다.");
-
-        Invoke("NextBehavior", attackSpeed);
+        PieceState = State.SKILL;
     }
 
-    protected virtual void Effect() { }
+    public void Effect() { }
 
     protected bool RangeCheck()
     {
@@ -135,7 +156,7 @@ public class Piece : MonoBehaviour
         {
             piece.health -= damage;
         }
-        if (piece.health <= 0) piece.Dead();
+        if (piece.health <= 0) piece.DeadState();
     }
 
     public void SkillDamage(float damage)
@@ -163,7 +184,7 @@ public class Piece : MonoBehaviour
 
         if (health <= 0)
         {
-            Dead();
+            DeadState();
         }
     }
 
@@ -220,17 +241,17 @@ public class Piece : MonoBehaviour
             }
             #endregion
 
-            target.Dead();
+            target.DeadState();
             target = null;
         }
     }
 
-    public void Dead()
+    public void DeadState()
     {
+        PieceState = State.DEAD;
         print(name + "(이)가 체력이 0 이하가 되어 사망.");
         dead = true;
         //SpawnRandomBox();
-        gameObject.SetActive(false);
         ArenaManager.Instance.BattleEndCheck(myPieceList);
     }
 
@@ -245,6 +266,8 @@ public class Piece : MonoBehaviour
     //이동
     public void Move()
     {
+        PieceState = State.MOVE;
+
         if (path.Count > 0 && canMove)
         {
             canMove = false;
@@ -256,6 +279,9 @@ public class Piece : MonoBehaviour
 
             Vector3 targetTilePos = new Vector3(path[0].transform.position.x, transform.position.y, path[0].transform.position.z);
             transform.DOMove(targetTilePos, moveSpeed).SetEase(ease);
+
+            Vector3 targetTileRotation = new Vector3(path[0].transform.rotation.x, path[0].transform.rotation.y, path[0].transform.rotation.z);
+            transform.DORotate(targetTileRotation, 0.3f);
 
             currentTile.piece = null;
             currentTile.IsFull = false;
@@ -411,10 +437,11 @@ public class Piece : MonoBehaviour
         }
     }
 
-    public void NextBehavior()
+    public IEnumerator NextBehavior()
     {
+        yield return 0;
         EnemyCheck();
-
+        PieceState = State.IDLE;
         if (CheckEnemySurvival(enemyPieceList) && !dead && ArenaManager.Instance.roundType == ArenaManager.RoundType.Battle)
         {
             //foreach (var enemy in enemyPieceList)
@@ -426,7 +453,7 @@ public class Piece : MonoBehaviour
                 if (isRabbitSynergeActiveCheck) { RabbitJump(); }
 
                 if (RangeCheck())
-                    Attack();
+                    AttackState();
                 else
                     Move();
             }
@@ -434,7 +461,16 @@ public class Piece : MonoBehaviour
                 NextBehavior();
         }
         else
-            print(name + "(이)가 승리의 춤 추는 중.");
+        {
+            PieceState = State.IDLE;
+        }
+    }
+
+    public void VictoryDacnce()
+    {
+        StopAllCoroutines();
+        print(name + "(이)가 승리의 춤 추는 중.");
+        PieceState = State.DANCE;
     }
 
     public bool CheckMyFileSurvival(List<Piece> myFile)
@@ -492,8 +528,8 @@ public class Piece : MonoBehaviour
             fieldManager.myFilePieceList.Remove(targetPiece);
             targetPiece.buffList.Clear();
             var _duplicationTargetCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == targetPiece.pieceName);
-            if(_duplicationTargetCheck == null) fieldManager.SynergeDecrease(targetPiece); //Minus
-            
+            if (_duplicationTargetCheck == null) fieldManager.SynergeDecrease(targetPiece); //Minus
+
 
             var _duplicationCurrentCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
             if (_duplicationCurrentCheck == null) fieldManager.SynergeIncrease(currentPiece); //Plus
@@ -511,7 +547,7 @@ public class Piece : MonoBehaviour
             if (_duplicationCurrentCheck == null) fieldManager.SynergeDecrease(currentPiece); //Minus
 
             var _duplicationTargetCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == targetPiece.pieceName);
-            if(_duplicationTargetCheck == null) fieldManager.SynergeIncrease(targetPiece); //Plus
+            if (_duplicationTargetCheck == null) fieldManager.SynergeIncrease(targetPiece); //Plus
             fieldManager.myFilePieceList.Add(targetPiece);
             fieldManager.AddDPList(currentPiece);
             fieldManager.CalSynerge(targetPiece, currentPiece);
@@ -588,4 +624,32 @@ public class Piece : MonoBehaviour
 
     //void 
     #endregion
+
+    public void StartNextBehavior()
+    {
+        NextBehavior();
+    }
+
+    protected virtual IEnumerator Attack()
+    {
+        print(name + "(이)가" + target.name + "에게 일반 공격을 합니다.");
+        Damage(attackDamage);
+        //currentMana += manaRecovery;
+        yield return new WaitForSeconds(attackSpeed);
+        StartCoroutine(NextBehavior());
+    }
+
+    public void Dead()
+    {
+        StopAllCoroutines();
+        gameObject.SetActive(false);
+    }
+
+    protected virtual IEnumerator Skill()
+    {
+        print(name + "(이)가" + target.name + "에게 스킬을 사용합니다.");
+
+        yield return new WaitForSeconds(attackSpeed);
+        StartCoroutine(NextBehavior());
+    }
 }
