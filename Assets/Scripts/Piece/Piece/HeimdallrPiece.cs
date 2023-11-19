@@ -11,7 +11,8 @@ public class HeimdallrPiece : Piece
         {
             Skill();
             mana = 0;
-            Invoke("NextBehavior", attackSpeed);
+            yield return new WaitForSeconds(attackSpeed);
+            StartCoroutine(NextBehavior());
         }
         else
         {
@@ -27,6 +28,8 @@ public class HeimdallrPiece : Piece
             GetLocationMultiRangeSkill(attackDamage * 2.2f);
         else if (star == 2)
             GetLocationMultiRangeSkill(attackDamage * 3.5f);
+        yield return new WaitForSeconds(attackSpeed);
+        StartCoroutine(NextBehavior());
     }
 
     void GetLocationMultiRangeSkill(float heal)

@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class HermesPiece : Piece
 {
-    protected override void Attack()
+    protected override IEnumerator Attack()
     {
         if (mana >= 75 && target != null)
         {
             Skill();
             mana = 0;
-            Invoke("NextBehavior", attackSpeed);
+            yield return new WaitForSeconds(attackSpeed);
+            StartCoroutine(NextBehavior());
         }
         else
         {
@@ -18,7 +19,7 @@ public class HermesPiece : Piece
         }
     }
 
-    protected override void Skill()
+    protected override IEnumerator Skill()
     {
         if (star == 0)
         {
@@ -32,6 +33,8 @@ public class HermesPiece : Piece
         {
             BlindSkill(2.5f);
         }
+        yield return new WaitForSeconds(attackSpeed);
+        StartCoroutine(NextBehavior());
     }
 
     void BlindSkill(float time)

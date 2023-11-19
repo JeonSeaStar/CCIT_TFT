@@ -5,13 +5,14 @@ using UnityEngine;
 public class ApollonPiece : Piece
 {
     PathFinding pathFinding;
-    protected override void Attack()
+    protected override IEnumerator Attack()
     {
         if (mana >= 120)
         {
             Skill();
             mana = 0;
-            Invoke("NextBehavior", attackSpeed);
+            yield return new WaitForSeconds(attackSpeed);
+            StartCoroutine(NextBehavior());
         }
         else
         {
@@ -19,7 +20,7 @@ public class ApollonPiece : Piece
         }
     }
 
-    protected override void Skill()
+    protected override IEnumerator Skill()
     {
         if (star == 0)
             GetLocationMultiRangeSkill(1f);
@@ -27,6 +28,8 @@ public class ApollonPiece : Piece
             GetLocationMultiRangeSkill(1.5f);
         else if (star == 2)
             GetLocationMultiRangeSkill(2f);
+        yield return new WaitForSeconds(attackSpeed);
+        StartCoroutine(NextBehavior());
     }
 
     void GetLocationMultiRangeSkill(float time)

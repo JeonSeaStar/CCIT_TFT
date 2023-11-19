@@ -10,7 +10,8 @@ public class OdinPiece : Piece
         {
             Skill();
             mana = 0;
-            Invoke("NextBehavior", attackSpeed);
+            yield return new WaitForSeconds(attackSpeed);
+            StartCoroutine(NextBehavior());
         }
         else
         {
@@ -32,6 +33,8 @@ public class OdinPiece : Piece
         {
             AllPieceBuffSkill(1.99f);
         }
+        yield return new WaitForSeconds(attackSpeed);
+        StartCoroutine(NextBehavior());
     }
 
     void AllPieceBuffSkill(float buff)

@@ -5,13 +5,14 @@ using UnityEngine;
 public class HadesPiece : Piece
 {
     PathFinding pathFinding;
-    protected override void Attack()
+    protected override IEnumerator Attack()
     {
         if (mana >= 100)
         {
             Skill();
             mana = 0;
-            Invoke("NextBehavior", attackSpeed);
+            yield return new WaitForSeconds(attackSpeed);
+            StartCoroutine(NextBehavior());
         }
         else
         {
@@ -19,7 +20,7 @@ public class HadesPiece : Piece
         }
     }
 
-    protected override void Skill()
+    protected override IEnumerator Skill()
     {
         if (star == 0)
         {
@@ -36,6 +37,8 @@ public class HadesPiece : Piece
             GetLocationMultiRangeSkill(500f);
             this.shield = 600f;
         }
+        yield return new WaitForSeconds(attackSpeed);
+        StartCoroutine(NextBehavior());
     }
 
     void GetLocationMultiRangeSkill(float damage)

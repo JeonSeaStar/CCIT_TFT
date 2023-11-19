@@ -5,13 +5,14 @@ using UnityEngine;
 public class HelPiece : Piece
 {
     [SerializeField] private GameObject helBullet;
-    protected override void Attack()
+    protected override IEnumerator Attack()
     {
         if (mana >= 90 && target != null)
         {
             Skill();
             mana = 0;
-            Invoke("NextBehavior", attackSpeed);
+            yield return new WaitForSeconds(attackSpeed);
+            StartCoroutine(NextBehavior());
         }
         else
         {
@@ -19,7 +20,7 @@ public class HelPiece : Piece
         }
     }
 
-    protected override void Skill()
+    protected override IEnumerator Skill()
     {
         if (star == 0)
         {
@@ -33,6 +34,8 @@ public class HelPiece : Piece
         {
             ProjectionSkill();
         }
+        yield return new WaitForSeconds(attackSpeed);
+        StartCoroutine(NextBehavior());
     }
 
     void ProjectionSkill()//미리 만들어진 총알 있기는 한데.. 사용하는지 모르겠음.. 내일 오면 물어보기!

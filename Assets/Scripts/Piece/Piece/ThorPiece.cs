@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class ThorPiece : Piece
 {
-    protected override void Attack()
+    protected override IEnumerator Attack()
     {
         if (mana <= 80 && target != null)
         {
             Skill();
             mana = 0;
-            Invoke("NextBehavior", attackSpeed);
+            yield return new WaitForSeconds(attackSpeed);
+            StartCoroutine(NextBehavior());
         }
         else
         {
@@ -18,7 +19,7 @@ public class ThorPiece : Piece
         }
     }
 
-    protected override void Skill()
+    protected override IEnumerator Skill()
     {
         if (star == 0)
         {
@@ -35,6 +36,8 @@ public class ThorPiece : Piece
             AllPieceDamageSkill(attackDamage * 6f);
             StartCoroutine(AllPieceDamageTimeSkill(attackDamage, 30f));
         }
+        yield return new WaitForSeconds(attackSpeed);
+        StartCoroutine(NextBehavior());
     }
 
     IEnumerator AllPieceDamageTimeSkill(float damage, float time)

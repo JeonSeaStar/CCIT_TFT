@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class TestPiece : Piece
 {
-    protected override void Attack()
+    protected override IEnumerator Attack()
     {
         base.Attack();
+        yield return new WaitForSeconds(attackSpeed);
+        StartCoroutine(NextBehavior());
     }
 
-    protected override void Skill()
+    protected override IEnumerator Skill()
     {
         base.Skill();
+        yield return new WaitForSeconds(attackSpeed);
+        StartCoroutine(NextBehavior());
     }
 }

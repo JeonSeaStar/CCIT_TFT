@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class MummyPiece : Piece
 {
-    protected override void Attack()
+    protected override IEnumerator Attack()
     {
         if (mana <= 60)
         {
             Skill();
             mana = 0;
-            Invoke("NextBehavior", attackSpeed);
+            yield return new WaitForSeconds(attackSpeed);
+            StartCoroutine(NextBehavior());
         }
         else
         {
@@ -18,7 +19,7 @@ public class MummyPiece : Piece
         }
     }
 
-    protected override void Skill()
+    protected override IEnumerator Skill()
     {
         if (star == 0)
         {
@@ -32,5 +33,7 @@ public class MummyPiece : Piece
         {
             this.shield = 500f;
         }
+        yield return new WaitForSeconds(attackSpeed);
+        StartCoroutine(NextBehavior());
     }
 }

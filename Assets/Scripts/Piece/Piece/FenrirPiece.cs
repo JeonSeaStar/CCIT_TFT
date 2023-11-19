@@ -5,13 +5,14 @@ using UnityEngine;
 public class FenrirPiece : Piece
 {
     PathFinding pathFinding;
-    protected override void Attack()
+    protected override IEnumerator Attack()
     {
         if (mana >= 80)
         {
             Skill();
             mana = 0;
-            Invoke("NextBehavior", attackSpeed);
+            yield return new WaitForSeconds(attackSpeed);
+            StartCoroutine(NextBehavior());
         }
         else
         {
@@ -19,7 +20,7 @@ public class FenrirPiece : Piece
         }
     }
 
-    protected override void Skill()
+    protected override IEnumerator Skill()
     {
         if (star == 0)
             GetLocationMultiRangeSkill(attackDamage * 2.35f);
@@ -27,6 +28,8 @@ public class FenrirPiece : Piece
             GetLocationMultiRangeSkill(attackDamage * 3.4f);
         else if (star == 2)
             GetLocationMultiRangeSkill(attackDamage * 5.4f);
+        yield return new WaitForSeconds(attackSpeed);
+        StartCoroutine(NextBehavior());
     }
 
     void GetLocationMultiRangeSkill(float damage)

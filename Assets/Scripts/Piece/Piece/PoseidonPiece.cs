@@ -5,13 +5,14 @@ using UnityEngine;
 public class PoseidonPiece : Piece
 {
     public List<Tile> tiles;
-    protected override void Attack()
+    protected override IEnumerator Attack()
     {
         if (mana <= 80)
         {
             Skill();
             mana = 0;
-            Invoke("NextBehavior", attackSpeed);
+            yield return new WaitForSeconds(attackSpeed);
+            StartCoroutine(NextBehavior());
         }
         else
         {
@@ -19,7 +20,7 @@ public class PoseidonPiece : Piece
         }
     }
 
-    protected override void Skill()
+    protected override IEnumerator Skill()
     {
         if (star == 0)
         {
@@ -33,6 +34,8 @@ public class PoseidonPiece : Piece
         {
             DamageAllTile(attackDamage * 3.75f);
         }
+        yield return new WaitForSeconds(attackSpeed);
+        StartCoroutine(NextBehavior());
     }
 
     void DamageAllTile(float damage)

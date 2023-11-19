@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class MedusaPiece : Piece
 {
-    protected override void Attack()
+    protected override IEnumerator Attack()
     {
         if (mana <= 40 && target != null)
         {
             Skill();
             mana = 0;
-            Invoke("NextBehavior", attackSpeed);
+            yield return new WaitForSeconds(attackSpeed);
+            StartCoroutine(NextBehavior());
         }
         else
         {
@@ -18,7 +19,7 @@ public class MedusaPiece : Piece
         }
     }
 
-    protected override void Skill()
+    protected override IEnumerator Skill()
     {
         if (star == 0)
             target.SkillDamage(attackDamage * 1.6f);
@@ -26,5 +27,8 @@ public class MedusaPiece : Piece
             target.SkillDamage(attackDamage * 2.5f);
         else if (star == 2)
             target.SkillDamage(attackDamage * 2.6f);
+
+        yield return new WaitForSeconds(attackSpeed);
+        StartCoroutine(NextBehavior());
     }
 }

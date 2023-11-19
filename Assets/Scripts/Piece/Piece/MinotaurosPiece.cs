@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class MinotaurosPiece : Piece
 {
-    protected override void Attack()
+    protected override IEnumerator Attack()
     {
         if (mana <= 100)
         {
             Skill();
             mana = 0;
-            Invoke("NextBehavior", attackSpeed);
+            yield return new WaitForSeconds(attackSpeed);
+            StartCoroutine(NextBehavior());
         }
         else
         {
@@ -18,7 +19,7 @@ public class MinotaurosPiece : Piece
         }
     }
 
-    protected override void Skill()
+    protected override IEnumerator Skill()
     {
         if (star == 0)
             this.shield = 150f;
@@ -26,5 +27,7 @@ public class MinotaurosPiece : Piece
             this.shield = 250f;
         else if (star == 2)
             this.shield = 350f;
+        yield return new WaitForSeconds(attackSpeed);
+        StartCoroutine(NextBehavior());
     }
 }

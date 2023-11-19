@@ -6,13 +6,14 @@ public class MimirPiece : Piece
 {
     float pieceHealth = 5000f;
     
-    protected override void Attack()
+    protected override IEnumerator Attack()
     {
         if (mana <= 90)
         {
             Skill();
             mana = 0;
-            Invoke("NextBehavior", attackSpeed);
+            yield return new WaitForSeconds(attackSpeed);
+            StartCoroutine(NextBehavior());
         }
         else
         {
@@ -20,7 +21,7 @@ public class MimirPiece : Piece
         }
     }
 
-    protected override void Skill()
+    protected override IEnumerator Skill()
     {
         if (star == 0)
         {
@@ -34,6 +35,8 @@ public class MimirPiece : Piece
         {
             FindLeastHealthPiece(230f);
         }
+        yield return new WaitForSeconds(attackSpeed);
+        StartCoroutine(NextBehavior());
     }
 
     public void FindLeastHealthPiece(float heal)

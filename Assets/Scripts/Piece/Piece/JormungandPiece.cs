@@ -7,13 +7,14 @@ public class JormungandPiece : Piece
     public Tile skillCheckTile;
     public PathFinding pathFinding;
     int time;
-    protected override void Attack()
+    protected override IEnumerator Attack()
     {
         if (mana >= 50)
         {
             Skill();
             mana = 0;
-            Invoke("NextBehavior", attackSpeed);
+            yield return new WaitForSeconds(attackSpeed);
+            StartCoroutine(NextBehavior());
         }
         else
         {
@@ -21,7 +22,7 @@ public class JormungandPiece : Piece
         }
     }
 
-    protected override void Skill()
+    protected override IEnumerator Skill()
     {
         base.Skill();
         //타겟 지정 후 타일 알아오고 범위에 있는 피스 1초당 알아오고 데미지 주기
@@ -37,6 +38,8 @@ public class JormungandPiece : Piece
         {
             GetLocationMultiRangeSkill(attackDamage * 4.25f, 10);
         }
+        yield return new WaitForSeconds(attackSpeed);
+        StartCoroutine(NextBehavior());
     }
 
     public void GetLocationMultiRangeSkill(float damage, int time)
