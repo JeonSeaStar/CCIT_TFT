@@ -5,22 +5,22 @@ using UnityEngine;
 public class HadesPiece : Piece
 {
     PathFinding pathFinding;
-    protected override IEnumerator Attack()
+    public override IEnumerator Attack()
     {
         if (mana >= 100)
         {
-            Skill();
+            StartSkill();
             mana = 0;
             yield return new WaitForSeconds(attackSpeed);
-            StartCoroutine(NextBehavior());
+            StartNextBehavior();
         }
         else
         {
-            base.Attack();
+            DoAttack();
         }
     }
 
-    protected override IEnumerator Skill()
+    public override IEnumerator Skill()
     {
         if (star == 0)
         {
@@ -38,7 +38,7 @@ public class HadesPiece : Piece
             this.shield = 600f;
         }
         yield return new WaitForSeconds(attackSpeed);
-        StartCoroutine(NextBehavior());
+        StartNextBehavior();
     }
 
     void GetLocationMultiRangeSkill(float damage)
@@ -48,7 +48,7 @@ public class HadesPiece : Piece
         foreach (var _Neigbor in _getNeigbor)
         {
             Piece _targets = _Neigbor.piece;
-            if(_targets == null)
+            if (_targets == null)
             {
                 Debug.Log("대상없음");
             }

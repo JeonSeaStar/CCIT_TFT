@@ -5,22 +5,22 @@ using UnityEngine;
 public class HeimdallrPiece : Piece
 {
     PathFinding pathFinding;
-    protected override IEnumerator Attack()
+    public override IEnumerator Attack()
     {
         if (mana >= 110)
         {
-            Skill();
+            StartSkill();
             mana = 0;
             yield return new WaitForSeconds(attackSpeed);
-            StartCoroutine(NextBehavior());
+            StartNextBehavior();
         }
         else
         {
-            base.Attack();
+            DoAttack();
         }
     }
 
-    protected override IEnumerator Skill()
+    public override IEnumerator Skill()
     {
         if (star == 0)
             GetLocationMultiRangeSkill(attackDamage * 1.5f);
@@ -29,7 +29,7 @@ public class HeimdallrPiece : Piece
         else if (star == 2)
             GetLocationMultiRangeSkill(attackDamage * 3.5f);
         yield return new WaitForSeconds(attackSpeed);
-        StartCoroutine(NextBehavior());
+        StartNextBehavior();
     }
 
     void GetLocationMultiRangeSkill(float heal)
@@ -43,7 +43,7 @@ public class HeimdallrPiece : Piece
             {
                 Debug.Log("대상없음");
             }
-            else if(_targets.isOwned)
+            else if (_targets.isOwned)
             {
                 _targets.health += heal;
             }

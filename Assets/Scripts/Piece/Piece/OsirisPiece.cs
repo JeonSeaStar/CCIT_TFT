@@ -6,22 +6,22 @@ public class OsirisPiece : Piece
 {
     float pieceHealth = 5000f;
 
-    protected override IEnumerator Attack()
+    public override IEnumerator Attack()
     {
         if (mana <= 75)
         {
-            Skill();
+            StartSkill();
             mana = 0;
             yield return new WaitForSeconds(attackSpeed);
-            StartCoroutine(NextBehavior());
+            StartNextBehavior();
         }
         else
         {
-            base.Attack();
+            DoAttack();
         }
     }
 
-    protected override IEnumerator Skill()
+    public override IEnumerator Skill()
     {
         if (star == 0)
         {
@@ -36,7 +36,7 @@ public class OsirisPiece : Piece
             FindLeastHealthPiece(400f);
         }
         yield return new WaitForSeconds(attackSpeed);
-        StartCoroutine(NextBehavior());
+        StartNextBehavior();
     }
 
     public void FindLeastHealthPiece(float heal)

@@ -5,23 +5,23 @@ using UnityEngine;
 public class MimirPiece : Piece
 {
     float pieceHealth = 5000f;
-    
-    protected override IEnumerator Attack()
+
+    public override IEnumerator Attack()
     {
         if (mana <= 90)
         {
-            Skill();
+            StartSkill();
             mana = 0;
             yield return new WaitForSeconds(attackSpeed);
-            StartCoroutine(NextBehavior());
+            StartNextBehavior();
         }
         else
         {
-            base.Attack();
+            DoAttack();
         }
     }
 
-    protected override IEnumerator Skill()
+    public override IEnumerator Skill()
     {
         if (star == 0)
         {
@@ -36,7 +36,7 @@ public class MimirPiece : Piece
             FindLeastHealthPiece(230f);
         }
         yield return new WaitForSeconds(attackSpeed);
-        StartCoroutine(NextBehavior());
+        StartNextBehavior();
     }
 
     public void FindLeastHealthPiece(float heal)
@@ -45,7 +45,7 @@ public class MimirPiece : Piece
         {
             for (int i = 0; i < fieldManager.myFilePieceList.Count; i++)
             {
-                if(pieceHealth > fieldManager.myFilePieceList[i].health)
+                if (pieceHealth > fieldManager.myFilePieceList[i].health)
                 {
                     pieceHealth = fieldManager.myFilePieceList[i].health;
                 }

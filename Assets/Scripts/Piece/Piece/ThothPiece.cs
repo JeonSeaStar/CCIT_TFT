@@ -5,22 +5,22 @@ using UnityEngine;
 public class ThothPiece : Piece
 {
     [SerializeField] private GameObject bullet;
-    protected override IEnumerator Attack()
+    public override IEnumerator Attack()
     {
         if (mana <= 100 && target != null)
         {
-            Skill();
+            StartSkill();
             mana = 0;
             yield return new WaitForSeconds(attackSpeed);
-            StartCoroutine(NextBehavior());
+            StartNextBehavior();
         }
         else
         {
-            base.Attack();
+            DoAttack();
         }
     }
 
-    protected override IEnumerator Skill()
+    public override IEnumerator Skill()
     {
         if (star == 0)
         {
@@ -35,7 +35,7 @@ public class ThothPiece : Piece
             ProjectionSkill();
         }
         yield return new WaitForSeconds(attackSpeed);
-        StartCoroutine(NextBehavior());
+        StartNextBehavior();
     }
 
     void ProjectionSkill()

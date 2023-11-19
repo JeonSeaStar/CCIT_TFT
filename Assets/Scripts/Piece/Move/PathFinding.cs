@@ -28,10 +28,10 @@ public class PathFinding : MonoBehaviour
         {
             //내 기물 움직임 시작, 다음에 적 움직임까지 추가해서 테스트
             foreach (var piece in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
-                piece.NextBehavior();
+                piece.StartNextBehavior();
 
             foreach (var piece in ArenaManager.Instance.fieldManagers[0].enemyFilePieceList)
-                piece.NextBehavior();
+                piece.StartNextBehavior();
         }
     }
 

@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class SurtrPiece : Piece
 {
-    protected override IEnumerator Attack()
+    public override IEnumerator Attack()
     {
         if (mana <= 100 && target != null)
         {
-            Skill();
+            StartSkill();
             mana = 0;
             yield return new WaitForSeconds(attackSpeed);
-            StartCoroutine(NextBehavior());
+            StartNextBehavior();
         }
         else
         {
-            base.Attack();
+            DoAttack();
         }
     }
 
-    protected override IEnumerator Skill()
+    public override IEnumerator Skill()
     {
         if (star == 0)
         {
@@ -34,6 +34,6 @@ public class SurtrPiece : Piece
             this.shield = attackDamage * 5f;
         }
         yield return new WaitForSeconds(attackSpeed);
-        StartCoroutine(NextBehavior());
+        StartNextBehavior();
     }
 }

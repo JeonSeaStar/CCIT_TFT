@@ -8,22 +8,22 @@ public class LokiPiece : Piece
     Piece[] firstLinePieces;
     Piece[] targets;
     int randomCount;
-    protected override IEnumerator Attack()
+    public override IEnumerator Attack()
     {
         if (mana <= 60)
         {
-            Skill();
+            StartSkill();
             mana = 0;
             yield return new WaitForSeconds(attackSpeed);
-            StartCoroutine(NextBehavior());
+            StartNextBehavior();
         }
         else
         {
-            base.Attack();
+            DoAttack();
         }
     }
 
-    protected override IEnumerator Skill()
+    public override IEnumerator Skill()
     {
         if (star == 0)
         {
@@ -38,7 +38,7 @@ public class LokiPiece : Piece
             RandomCapability(1.9f);
         }
         yield return new WaitForSeconds(attackSpeed);
-        StartCoroutine(NextBehavior());
+        StartNextBehavior();
     }
 
     void GetAdbilityTarget() //라운드 시작시 받기
@@ -46,7 +46,7 @@ public class LokiPiece : Piece
         for (int i = 0; i < firstLineTiles.Length; i++)
         {
             firstLinePieces[i] = firstLineTiles[i].piece;
-            if(firstLinePieces[i] == null)
+            if (firstLinePieces[i] == null)
             {
                 Debug.Log("대상없음");
             }
@@ -69,33 +69,33 @@ public class LokiPiece : Piece
         }
         else if (randomCount == 1)
         {
-            for(int i = 0; i < targets.Length; i++)
+            for (int i = 0; i < targets.Length; i++)
             {
                 targets[i].attackDamage = targets[i].attackDamage * percentage;
             }
         }
-        else if(randomCount == 2)
+        else if (randomCount == 2)
         {
             for (int i = 0; i < targets.Length; i++)
             {
                 targets[i].attackSpeed = targets[i].attackSpeed - (percentage % 3f);
             }
         }
-        else if(randomCount == 3)
+        else if (randomCount == 3)
         {
             for (int i = 0; i < targets.Length; i++)
             {
                 targets[i].health = targets[i].health;
             }
         }
-        else if(randomCount == 4)
+        else if (randomCount == 4)
         {
             for (int i = 0; i < targets.Length; i++)
             {
                 targets[i].attackDamage = targets[i].attackDamage;
             }
         }
-        else if(randomCount == 5)
+        else if (randomCount == 5)
         {
             for (int i = 0; i < targets.Length; i++)
             {

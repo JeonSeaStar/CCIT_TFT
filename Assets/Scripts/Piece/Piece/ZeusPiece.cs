@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class ZeusPiece : Piece
 {
-    protected override IEnumerator Attack()
+    public override IEnumerator Attack()
     {
         if (mana <= 60)
         {
-            Skill();
+            StartSkill();
             mana = 0;
             yield return new WaitForSeconds(attackSpeed);
-            StartCoroutine(NextBehavior());
+            StartNextBehavior();
         }
         else
         {
-            base.Attack();
+            DoAttack();
         }
     }
 
-    protected override IEnumerator Skill()
+    public override IEnumerator Skill()
     {
         if (star == 0)
         {
@@ -34,7 +34,7 @@ public class ZeusPiece : Piece
             StartCoroutine(GetLockTarget(attackDamage * 27.5f, 9f));
         }
         yield return new WaitForSeconds(attackSpeed);
-        StartCoroutine(NextBehavior());
+        StartNextBehavior();
     }
 
     IEnumerator GetLockTarget(float damage, float time)

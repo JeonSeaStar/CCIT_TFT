@@ -253,20 +253,20 @@ public class Messenger : MonoBehaviour
     //
     void Aim()
     {
-        var (success, position) = GetMousePosition();
-        if(success)
-        {
-            var direction = position - transform.position;
+        //var (success, position) = GetMousePosition();
+        //if(success)
+        //{
+        //    var direction = position - transform.position;
 
-            transform.forward = direction;
+        //    transform.forward = direction;
 
-            if(!fieldManager.grab)
-            {
-                DOTween.Kill(transform);
-                transform.DOMove(position, moveSpeed * Vector3.Distance(transform.position, position)).SetEase(ease);
-                transform.Rotate(90, transform.rotation.y, transform.rotation.z);
-            }
-        }
+        //    if(!fieldManager.grab)
+        //    {
+        //        DOTween.Kill(transform);
+        //        transform.DOMove(position, moveSpeed * Vector3.Distance(transform.position, position)).SetEase(ease);
+        //        transform.Rotate(90, transform.rotation.y, transform.rotation.z);
+        //    }
+        //}
     }
 
     int MessengerDamage()

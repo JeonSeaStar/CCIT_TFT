@@ -57,7 +57,7 @@ public class HamsterBuff3 : BuffData
                     spawnTile.piece.currentTile = spawnTile;
                     spawnTile.piece.targetTile = spawnTile;
                     spawnTile.piece.transform.position = new Vector3(spawnTile.transform.position.x, 0, spawnTile.transform.position.z);
-                    spawnTile.piece.NextBehavior();
+                    spawnTile.piece.StartNextBehavior();;
                     _randomTile.RemoveAt(_randomSpot);
                 }
             }

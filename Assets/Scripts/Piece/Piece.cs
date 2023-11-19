@@ -116,6 +116,7 @@ public class Piece : MonoBehaviour
     OnceAttackEffect onceAttackEffect;
     public void AttackState()
     {
+        transform.DOLookAt(target.transform.position, 0.1f);
         PieceState = State.ATTACK;
     }
 
@@ -264,7 +265,7 @@ public class Piece : MonoBehaviour
     }
 
     //이동
-    public void Move()
+    public IEnumerator Move()
     {
         PieceState = State.MOVE;
 
@@ -273,15 +274,14 @@ public class Piece : MonoBehaviour
             canMove = false;
             if (path[0].IsFull)
             {
-                Invoke("NextBehavior", moveSpeed);
-                return;
+                yield return new WaitForSeconds(moveSpeed);
+                StartNextBehavior();
             }
 
             Vector3 targetTilePos = new Vector3(path[0].transform.position.x, transform.position.y, path[0].transform.position.z);
             transform.DOMove(targetTilePos, moveSpeed).SetEase(ease);
 
-            Vector3 targetTileRotation = new Vector3(path[0].transform.rotation.x, path[0].transform.rotation.y, path[0].transform.rotation.z);
-            transform.DORotate(targetTileRotation, 0.3f);
+            transform.DOLookAt(path[0].transform.position, 0.1f);
 
             currentTile.piece = null;
             currentTile.IsFull = false;
@@ -295,7 +295,8 @@ public class Piece : MonoBehaviour
             path.RemoveAt(0);
             canMove = true;
 
-            Invoke("NextBehavior", moveSpeed);
+            yield return new WaitForSeconds(moveSpeed);
+            StartNextBehavior();
         }
     }
     #region 토끼
@@ -439,7 +440,7 @@ public class Piece : MonoBehaviour
 
     public IEnumerator NextBehavior()
     {
-        yield return 0;
+        yield return new WaitForSeconds(0);
         EnemyCheck();
         PieceState = State.IDLE;
         if (CheckEnemySurvival(enemyPieceList) && !dead && ArenaManager.Instance.roundType == ArenaManager.RoundType.Battle)
@@ -455,10 +456,10 @@ public class Piece : MonoBehaviour
                 if (RangeCheck())
                     AttackState();
                 else
-                    Move();
+                    StartMove();
             }
             else
-                NextBehavior();
+                StartNextBehavior();
         }
         else
         {
@@ -627,16 +628,40 @@ public class Piece : MonoBehaviour
 
     public void StartNextBehavior()
     {
-        NextBehavior();
+        StopAllCoroutines();
+        StartCoroutine(NextBehavior());
     }
 
-    protected virtual IEnumerator Attack()
+    public void StartMove()
+    {
+        StopAllCoroutines();
+        StartCoroutine(Move());
+    }
+
+    public void StartAttack()
+    {
+        StopAllCoroutines();
+        StartCoroutine(Attack());
+    }
+
+    public void StartSkill()
+    {
+        StopAllCoroutines();
+        StartCoroutine(Skill());
+    }
+
+    public virtual IEnumerator Attack()
+    {
+        yield return 0;
+        DoAttack();
+    }
+
+    public void DoAttack()
     {
         print(name + "(이)가" + target.name + "에게 일반 공격을 합니다.");
         Damage(attackDamage);
         //currentMana += manaRecovery;
-        yield return new WaitForSeconds(attackSpeed);
-        StartCoroutine(NextBehavior());
+        StartNextBehavior();
     }
 
     public void Dead()
@@ -645,11 +670,11 @@ public class Piece : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    protected virtual IEnumerator Skill()
+    public virtual IEnumerator Skill()
     {
         print(name + "(이)가" + target.name + "에게 스킬을 사용합니다.");
 
         yield return new WaitForSeconds(attackSpeed);
-        StartCoroutine(NextBehavior());
+        StartNextBehavior();
     }
 }

@@ -5,22 +5,22 @@ using UnityEngine;
 public class HelPiece : Piece
 {
     [SerializeField] private GameObject helBullet;
-    protected override IEnumerator Attack()
+    public override IEnumerator Attack()
     {
         if (mana >= 90 && target != null)
         {
-            Skill();
+            StartSkill();
             mana = 0;
             yield return new WaitForSeconds(attackSpeed);
-            StartCoroutine(NextBehavior());
+            StartNextBehavior();
         }
         else
         {
-            base.Attack();
+            DoAttack();
         }
     }
 
-    protected override IEnumerator Skill()
+    public override IEnumerator Skill()
     {
         if (star == 0)
         {
@@ -35,12 +35,12 @@ public class HelPiece : Piece
             ProjectionSkill();
         }
         yield return new WaitForSeconds(attackSpeed);
-        StartCoroutine(NextBehavior());
+        StartNextBehavior();
     }
 
     void ProjectionSkill()//미리 만들어진 총알 있기는 한데.. 사용하는지 모르겠음.. 내일 오면 물어보기!
     {
-        if(target != null)
+        if (target != null)
         {
             GameObject centaBullet = Instantiate(helBullet, transform.position, Quaternion.identity);
             Bullet b = centaBullet.GetComponent<HelBullet>();

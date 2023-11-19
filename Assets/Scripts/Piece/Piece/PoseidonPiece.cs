@@ -5,22 +5,22 @@ using UnityEngine;
 public class PoseidonPiece : Piece
 {
     public List<Tile> tiles;
-    protected override IEnumerator Attack()
+    public override IEnumerator Attack()
     {
         if (mana <= 80)
         {
-            Skill();
+            StartSkill();
             mana = 0;
             yield return new WaitForSeconds(attackSpeed);
-            StartCoroutine(NextBehavior());
+            StartNextBehavior();
         }
         else
         {
-            base.Attack();
+            DoAttack();
         }
     }
 
-    protected override IEnumerator Skill()
+    public override IEnumerator Skill()
     {
         if (star == 0)
         {
@@ -35,7 +35,7 @@ public class PoseidonPiece : Piece
             DamageAllTile(attackDamage * 3.75f);
         }
         yield return new WaitForSeconds(attackSpeed);
-        StartCoroutine(NextBehavior());
+        StartNextBehavior();
     }
 
     void DamageAllTile(float damage)
@@ -44,7 +44,7 @@ public class PoseidonPiece : Piece
         foreach (var _Neigbor in _getHalf)
         {
             Piece _targets = _Neigbor.GetComponent<Piece>();
-            if(_targets == null)
+            if (_targets == null)
             {
                 Debug.Log("대상없음");
             }

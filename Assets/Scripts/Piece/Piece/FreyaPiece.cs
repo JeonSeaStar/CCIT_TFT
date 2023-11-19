@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class FreyaPiece : Piece
 {
-    protected override IEnumerator Attack()
+    public override IEnumerator Attack()
     {
         if (mana >= 80 && target != null)
         {
-            Skill();
+            StartSkill();
             mana = 0;
             yield return new WaitForSeconds(attackSpeed);
-            StartCoroutine(NextBehavior());
+            StartNextBehavior();
         }
         else
         {
-            base.Attack();
+            DoAttack();
         }
     }
 
-    protected override IEnumerator Skill()
+    public override IEnumerator Skill()
     {
         if (star == 0)
             FreezeSkill(1.2f, 1f);
@@ -28,7 +28,7 @@ public class FreyaPiece : Piece
         else if (star == 2)
             FreezeSkill(3.5f, 2f);
         yield return new WaitForSeconds(attackSpeed);
-        StartCoroutine(NextBehavior());
+        StartNextBehavior();
     }
 
     void FreezeSkill(float damage, float time)

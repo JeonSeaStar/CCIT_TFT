@@ -7,24 +7,24 @@ public class JormungandPiece : Piece
     public Tile skillCheckTile;
     public PathFinding pathFinding;
     int time;
-    protected override IEnumerator Attack()
+    public override IEnumerator Attack()
     {
         if (mana >= 50)
         {
-            Skill();
+            StartSkill();
             mana = 0;
             yield return new WaitForSeconds(attackSpeed);
-            StartCoroutine(NextBehavior());
+            StartNextBehavior();
         }
         else
         {
-            base.Attack();
+            DoAttack();
         }
     }
 
-    protected override IEnumerator Skill()
+    public override IEnumerator Skill()
     {
-        base.Skill();
+        base.StartSkill();
         //타겟 지정 후 타일 알아오고 범위에 있는 피스 1초당 알아오고 데미지 주기
         if (star == 0)
         {
@@ -39,7 +39,7 @@ public class JormungandPiece : Piece
             GetLocationMultiRangeSkill(attackDamage * 4.25f, 10);
         }
         yield return new WaitForSeconds(attackSpeed);
-        StartCoroutine(NextBehavior());
+        StartNextBehavior();
     }
 
     public void GetLocationMultiRangeSkill(float damage, int time)
@@ -49,7 +49,7 @@ public class JormungandPiece : Piece
         StartCoroutine(FindNeighbor(damage, time));
     }
 
-    IEnumerator FindNeighbor(float damage,int time)
+    IEnumerator FindNeighbor(float damage, int time)
     {
         for (int i = 0; i < time; i++)
         {
@@ -58,12 +58,12 @@ public class JormungandPiece : Piece
             foreach (var _Neigbor in _getNeigbor)
             {
                 Piece _targets = _Neigbor.piece;
-                
-                if(_targets == null)
+
+                if (_targets == null)
                 {
                     Debug.Log("대상없음");
                 }
-                else if(_targets.isOwned == false)
+                else if (_targets.isOwned == false)
                 {
                     _targets.SkillDamage(damage);
                 }

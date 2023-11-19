@@ -5,22 +5,22 @@ using UnityEngine;
 public class SethPiece : Piece
 {
     PathFinding pathFinding;
-    protected override IEnumerator Attack()
+    public override IEnumerator Attack()
     {
         if (mana <= 100)
         {
-            Skill();
+            StartSkill();
             mana = 0;
             yield return new WaitForSeconds(attackSpeed);
-            StartCoroutine(NextBehavior());
+            StartNextBehavior();
         }
         else
         {
-            base.Attack();
+            DoAttack();
         }
     }
 
-    protected override IEnumerator Skill()
+    public override IEnumerator Skill()
     {
         if (star == 0)
             GetLocationMultiRangeSkill(attackDamage * 1.45f);
@@ -29,7 +29,7 @@ public class SethPiece : Piece
         else if (star == 2)
             GetLocationMultiRangeSkill(attackDamage * 3.5f);
         yield return new WaitForSeconds(attackSpeed);
-        StartCoroutine(NextBehavior());
+        StartNextBehavior();
     }
 
     void GetLocationMultiRangeSkill(float damage)
@@ -39,11 +39,11 @@ public class SethPiece : Piece
         foreach (var _Neigbor in _getNeigbor)
         {
             Piece _targets = _Neigbor.GetComponent<Piece>();
-            if(_targets == null)
+            if (_targets == null)
             {
                 Debug.Log("대상없음");
             }
-            else if(!_targets.isOwned)
+            else if (!_targets.isOwned)
             {
                 _targets.SkillDamage(damage);
             }

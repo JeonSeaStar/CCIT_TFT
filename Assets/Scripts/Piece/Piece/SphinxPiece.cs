@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class SphinxPiece : Piece
 {
-    protected override IEnumerator Attack()
+    public override IEnumerator Attack()
     {
         if (mana <= 80 && target != null)
         {
-            Skill();
+            StartSkill();
             mana = 0;
             yield return new WaitForSeconds(attackSpeed);
-            StartCoroutine(NextBehavior());
+            StartNextBehavior();
         }
         else
         {
-            base.Attack();
+            DoAttack();
         }
     }
 
-    protected override IEnumerator Skill()
+    public override IEnumerator Skill()
     {
         if (star == 0)
             SphinxSkill(1f, 0.7f);
@@ -28,7 +28,7 @@ public class SphinxPiece : Piece
         else if (star == 2)
             SphinxSkill(2.1f, 1.8f);
         yield return new WaitForSeconds(attackSpeed);
-        StartCoroutine(NextBehavior());
+        StartNextBehavior();
     }
 
     void SphinxSkill(float damage, float time)

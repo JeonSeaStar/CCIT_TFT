@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class OdinPiece : Piece
 {
-    protected override IEnumerator Attack()
+    public override IEnumerator Attack()
     {
         if (mana <= 99)
         {
-            Skill();
+            StartSkill();
             mana = 0;
             yield return new WaitForSeconds(attackSpeed);
-            StartCoroutine(NextBehavior());
+            StartNextBehavior();
         }
         else
         {
-            base.Attack();
+            DoAttack();
         }
     }
 
-    protected override IEnumerator Skill()
+    public override IEnumerator Skill()
     {
         if (star == 0)
         {
@@ -34,7 +34,7 @@ public class OdinPiece : Piece
             AllPieceBuffSkill(1.99f);
         }
         yield return new WaitForSeconds(attackSpeed);
-        StartCoroutine(NextBehavior());
+        StartNextBehavior();
     }
 
     void AllPieceBuffSkill(float buff)
@@ -43,11 +43,11 @@ public class OdinPiece : Piece
         foreach (var _Neigbor in _allPiece)
         {
             Piece _targets = _Neigbor.GetComponent<Piece>();
-            if(_targets == null)
+            if (_targets == null)
             {
                 Debug.Log("대상없음");
             }
-            else if(_targets.isOwned)
+            else if (_targets.isOwned)
             {
                 _targets.attackDamage = attackDamage * buff;
             }

@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class AnubisPiece : Piece
 {
-    protected override IEnumerator Attack()
+    public override IEnumerator Attack()
     {
         if (mana >= 150 && target != null)
         {
-            Skill();
+            StartSkill();
             mana = 0;
             yield return new WaitForSeconds(attackSpeed);
-            StartCoroutine(NextBehavior());
+            StartNextBehavior();
         }
         else
         {
-            base.Attack();
+            DoAttack();
         }
     }
 
-    protected override IEnumerator Skill()
+    public override IEnumerator Skill()
     {
         if (star == 0)
             target.SkillDamage(attackDamage * 1.5f);
@@ -28,6 +28,6 @@ public class AnubisPiece : Piece
         else if (star == 2)
             target.SkillDamage(attackDamage * 5f);
         yield return new WaitForSeconds(attackSpeed);
-        StartCoroutine(NextBehavior());
+        StartNextBehavior();
     }
 }

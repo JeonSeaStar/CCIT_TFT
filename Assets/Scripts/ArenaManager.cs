@@ -54,6 +54,7 @@ public class ArenaManager : MonoBehaviour
     public int currentRound = 0;
     public int currentStage = 0;
 
+    public ResultPopup resultPopup;
     public enum Result { NONE, VICTORY, DEFEAT }
     public Result BattleResult
     {
@@ -66,14 +67,20 @@ public class ArenaManager : MonoBehaviour
 
                 if (BattleResult == Result.VICTORY)
                 {
-                    Invoke("NextRound", 3f);
+                    if (currentRound != fieldManagers[0].stageInformation.enemy.Count)
+                        Invoke("NextRound", 3f);
+                    else
+                    {
+                        resultPopup.ActiveResultPopup(true);
+                    }
                     roundState.UpdateStageIcon(currentRound, 1);
                     foreach (var piece in fieldManagers[0].myFilePieceList)
                         piece.VictoryDacnce();
                 }
                 else if (BattleResult == Result.DEFEAT)
                 {
-                    Invoke("NextRound", 3f);
+                    //Invoke("NextRound", 3f);
+                    resultPopup.ActiveResultPopup(false);
                     roundState.UpdateStageIcon(currentRound, 2);
                 }
             }
@@ -155,7 +162,7 @@ public class ArenaManager : MonoBehaviour
     private void NextRound()
     {
         roundType = RoundType.Ready;
-
+        BattleResult = Result.NONE;
         fieldManagers[0].NextStage();
         currentStage++;
         ChangeStage(currentRound);
@@ -169,9 +176,9 @@ public class ArenaManager : MonoBehaviour
         fieldManagers[0].ActiveSynerge();
 
         foreach (var piece in fieldManagers[0].myFilePieceList)
-            piece.NextBehavior();
+            piece.StartNextBehavior();
         foreach (var piece in fieldManagers[0].enemyFilePieceList)
-            piece.NextBehavior();
+            piece.StartNextBehavior();
     }
 
     private void ChangeStage(int round)

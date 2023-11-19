@@ -180,6 +180,7 @@ public class FieldManager : MonoBehaviour
             dp.piece.transform.position = new Vector3(dp.dpTile.transform.position.x, groundHeight, dp.dpTile.transform.position.z);
 
             dp.piece.gameObject.SetActive(true);
+            dp.piece.pieceData.InitialzePiece(dp.piece);
             dp.piece.PieceState = Piece.State.IDLE;
         }
 
@@ -207,6 +208,7 @@ public class FieldManager : MonoBehaviour
 
             enemyPiece.currentTile = targetTile;
             enemyPiece.targetTile = targetTile;
+            enemyPiece.pieceData.InitialzePiece(enemyPiece);
 
             enemyGameObject.transform.position = new Vector3(targetTile.transform.position.x, -0.5f, targetTile.transform.position.z);
 
