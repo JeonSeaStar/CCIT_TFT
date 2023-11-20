@@ -45,6 +45,7 @@ public class FenrirPiece : Piece
             }
             else if (!_targets.isOwned)
             {
+                Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
                 _targets.SkillDamage(damage);
             }
         }

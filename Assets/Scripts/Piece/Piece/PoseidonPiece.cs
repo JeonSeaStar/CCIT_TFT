@@ -41,6 +41,7 @@ public class PoseidonPiece : Piece
     void DamageAllTile(float damage)
     {
         List<Tile> _getHalf = tiles;
+        Instantiate(skillEffects, transform.position, Quaternion.identity);
         foreach (var _Neigbor in _getHalf)
         {
             Piece _targets = _Neigbor.GetComponent<Piece>();

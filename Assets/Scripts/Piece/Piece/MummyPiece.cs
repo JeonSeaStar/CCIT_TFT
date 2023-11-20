@@ -23,14 +23,17 @@ public class MummyPiece : Piece
     {
         if (star == 0)
         {
+            Instantiate(skillEffects, this.transform.position, Quaternion.identity);
             this.shield = 130f;
         }
         else if (star == 1)
         {
+            Instantiate(skillEffects, this.transform.position, Quaternion.identity);
             this.shield = 230f;
         }
         else if (star == 2)
         {
+            Instantiate(skillEffects, this.transform.position, Quaternion.identity);
             this.shield = 500f;
         }
         yield return new WaitForSeconds(attackSpeed);

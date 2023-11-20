@@ -45,6 +45,7 @@ public class HeimdallrPiece : Piece
             }
             else if (_targets.isOwned)
             {
+                Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
                 _targets.health += heal;
             }
 
