@@ -856,11 +856,21 @@ public class FieldManager : MonoBehaviour
 
         Tile targetTile = parentPiece.currentTile;
 
+        if (!firstChild.currentTile.isReadyTile)
+            RemoveDPList(firstChild);
+        if (!secondChild.currentTile.isReadyTile)
+            RemoveDPList(secondChild);
+
         DestroyPiece(parentPiece, targetTile);
         DestroyPiece(firstChild, firstChild.currentTile);
         DestroyPiece(secondChild, secondChild.currentTile);
+
         if (!targetTile.isReadyTile)
-            myFilePieceList.Add(SpawnPiece(piece.pieceData, star + 1, targetTile));
+        {
+            Piece resultPiece = SpawnPiece(piece.pieceData, star + 1, targetTile);
+            myFilePieceList.Add(resultPiece);
+            AddDPList(resultPiece);
+        }
         else
             SpawnPiece(piece.pieceData, star + 1, targetTile);
     }
