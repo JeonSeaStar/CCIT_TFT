@@ -1990,6 +1990,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1371259064}
     m_Modifications:
+    - target: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
+      propertyPath: myTile
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
       propertyPath: m_Name
       value: Tile [ 4 , 5 ]
@@ -2067,74 +2071,36 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 112677993}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &112677995 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
+--- !u!114 &112677997 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 112677993}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &112677996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 112677995}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 0
---- !u!1 &112845548 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
-    type: 3}
-  m_PrefabInstance: {fileID: 1755576160}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &112845549 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4787460223657084, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 1755576160}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &112845550
+--- !u!114 &112845551 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1755576160}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 112845548}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 1
 --- !u!1 &113466929
 GameObject:
   m_ObjectHideFlags: 0
@@ -2742,43 +2708,24 @@ MonoBehaviour:
   maxValue: 00000000010000000f00000014000000
   currentValue: 0
   grade: 0
---- !u!1 &137991196 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
-    type: 3}
-  m_PrefabInstance: {fileID: 1655427741}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &137991197 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4787460223657084, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 1655427741}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &137991198
+--- !u!114 &137991199 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1655427741}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 137991196}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 1
 --- !u!1 &139715238 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
@@ -2892,43 +2839,24 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &152060445 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
-    type: 3}
-  m_PrefabInstance: {fileID: 1448846932}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &152060446 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4787460223657084, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 1448846932}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &152060447
+--- !u!114 &152060448 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1448846932}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 152060445}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 1
 --- !u!1 &162816695
 GameObject:
   m_ObjectHideFlags: 0
@@ -3726,6 +3654,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1371259064}
     m_Modifications:
+    - target: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
+      propertyPath: myTile
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
       propertyPath: m_Name
       value: Tile [ 2 , 6 ]
@@ -3803,37 +3735,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 232039759}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &232039761 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
+--- !u!114 &232039763 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 232039759}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &232039762
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 232039761}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 0
 --- !u!1 &234107207
 GameObject:
   m_ObjectHideFlags: 0
@@ -5274,6 +5187,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1371259064}
     m_Modifications:
+    - target: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
+      propertyPath: myTile
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
       propertyPath: m_Name
       value: Tile [ 1 , 7 ]
@@ -5351,37 +5268,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 319846054}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &319846056 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
+--- !u!114 &319846058 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 319846054}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &319846057
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 319846056}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 0
 --- !u!4 &326626555 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9051238300485817969, guid: 2f6c4572e07a60b43b00e1c4f489a806,
@@ -5442,43 +5340,24 @@ MonoBehaviour:
   result:
   - "\uC2B9\uB9AC"
   - "\uD328\uBC30"
---- !u!1 &334471379 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
-    type: 3}
-  m_PrefabInstance: {fileID: 2145344629}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &334471380 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4787460223657084, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 2145344629}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &334471381
+--- !u!114 &334471382 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 2145344629}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 334471379}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 1
 --- !u!1 &334900970
 GameObject:
   m_ObjectHideFlags: 0
@@ -5900,6 +5779,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1371259064}
     m_Modifications:
+    - target: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
+      propertyPath: myTile
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
       propertyPath: m_Name
       value: Tile [ 3 , 4 ]
@@ -5977,37 +5860,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 343751036}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &343751038 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
+--- !u!114 &343751040 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 343751036}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &343751039
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 343751038}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 0
 --- !u!4 &344224867 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9051238300485817969, guid: 2f6c4572e07a60b43b00e1c4f489a806,
@@ -6079,80 +5943,42 @@ Transform:
   m_Father: {fileID: 1940834294}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &347269596 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
-    type: 3}
-  m_PrefabInstance: {fileID: 337782117}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &347269597 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4787460223657084, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 337782117}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &347269598
+--- !u!114 &347269599 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 337782117}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 347269596}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 1
---- !u!1 &350563338 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
-    type: 3}
-  m_PrefabInstance: {fileID: 2020514119}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &350563339 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4787460223657084, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 2020514119}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &350563340
+--- !u!114 &350563341 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 2020514119}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 350563338}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 1
 --- !u!1 &351450538
 GameObject:
   m_ObjectHideFlags: 0
@@ -7102,43 +6928,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 376247442}
   m_CullTransparentMesh: 1
---- !u!1 &376313329 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
-    type: 3}
-  m_PrefabInstance: {fileID: 684628080}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &376313330 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4787460223657084, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 684628080}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &376313331
+--- !u!114 &376313332 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 684628080}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 376313329}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 1
 --- !u!1001 &382470585
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7146,6 +6953,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1371259064}
     m_Modifications:
+    - target: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
+      propertyPath: myTile
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
       propertyPath: m_Name
       value: Tile [ 6 , 7 ]
@@ -7223,37 +7034,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 382470585}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &382470587 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
+--- !u!114 &382470589 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 382470585}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &382470588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 382470587}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 0
 --- !u!1 &384680668 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1515803984, guid: cc0b6d4b15530d942bffb81f838c93fc,
@@ -7345,6 +7137,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1371259064}
     m_Modifications:
+    - target: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
+      propertyPath: myTile
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
       propertyPath: m_Name
       value: Tile [ 6 , 4 ]
@@ -7422,37 +7218,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 395839580}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &395839582 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
+--- !u!114 &395839584 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 395839580}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &395839583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 395839582}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 0
 --- !u!1001 &398791088
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7460,6 +7237,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1371259064}
     m_Modifications:
+    - target: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
+      propertyPath: myTile
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
       propertyPath: m_Name
       value: Tile [ 0 , 7 ]
@@ -7537,37 +7318,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 398791088}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &398791090 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
+--- !u!114 &398791092 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 398791088}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &398791091
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 398791090}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 0
 --- !u!1 &398976820
 GameObject:
   m_ObjectHideFlags: 0
@@ -7613,43 +7375,24 @@ Transform:
   m_Father: {fileID: 748338644}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &419977569 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
-    type: 3}
-  m_PrefabInstance: {fileID: 806461115}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &419977570 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4787460223657084, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 806461115}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &419977571
+--- !u!114 &419977572 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 806461115}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 419977569}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 1
 --- !u!4 &424532917 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9051238300485817969, guid: 2f6c4572e07a60b43b00e1c4f489a806,
@@ -7663,6 +7406,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1371259064}
     m_Modifications:
+    - target: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
+      propertyPath: myTile
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
       propertyPath: m_Name
       value: Tile [ 4 , 7 ]
@@ -7740,37 +7487,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 427009104}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &427009106 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
+--- !u!114 &427009108 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 427009104}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &427009107
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 427009106}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 0
 --- !u!1 &427877113
 GameObject:
   m_ObjectHideFlags: 0
@@ -8246,7 +7974,8 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
 --- !u!1 &458742134
 GameObject:
@@ -8452,6 +8181,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1371259064}
     m_Modifications:
+    - target: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
+      propertyPath: myTile
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
       propertyPath: m_Name
       value: Tile [ 2 , 5 ]
@@ -8529,37 +8262,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 461144338}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &461144340 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
+--- !u!114 &461144342 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 461144338}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &461144341
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 461144340}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 0
 --- !u!1001 &464716007
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9570,43 +9284,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534581764}
   m_CullTransparentMesh: 1
---- !u!1 &538273245 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
-    type: 3}
-  m_PrefabInstance: {fileID: 287728940}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &538273246 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4787460223657084, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 287728940}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &538273247
+--- !u!114 &538273248 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 287728940}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 538273245}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 1
 --- !u!1001 &542123262
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9692,43 +9387,24 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 542123262}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &543257476 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
-    type: 3}
-  m_PrefabInstance: {fileID: 292269051}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &543257477 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4787460223657084, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 292269051}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &543257478
+--- !u!114 &543257479 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 292269051}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 543257476}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 1
 --- !u!1 &543539643 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1515803984, guid: cc0b6d4b15530d942bffb81f838c93fc,
@@ -9975,43 +9651,24 @@ Transform:
   m_Father: {fileID: 134767927}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &571789281 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
-    type: 3}
-  m_PrefabInstance: {fileID: 1177554334}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &571789282 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4787460223657084, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 1177554334}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &571789283
+--- !u!114 &571789284 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1177554334}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 571789281}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 1
 --- !u!1 &572641181
 GameObject:
   m_ObjectHideFlags: 0
@@ -14123,6 +13780,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1371259064}
     m_Modifications:
+    - target: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
+      propertyPath: myTile
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
       propertyPath: m_Name
       value: Tile [ 2 , 7 ]
@@ -14200,37 +13861,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 797113254}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &797113256 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
+--- !u!114 &797113258 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 797113254}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &797113257
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 797113256}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 0
 --- !u!1001 &797310798
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14626,6 +14268,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1371259064}
     m_Modifications:
+    - target: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
+      propertyPath: myTile
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
       propertyPath: m_Name
       value: Tile [ 1 , 4 ]
@@ -14703,37 +14349,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 812478602}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &812478604 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
+--- !u!114 &812478606 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 812478602}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &812478605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 812478604}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 0
 --- !u!1 &816423580
 GameObject:
   m_ObjectHideFlags: 0
@@ -15195,43 +14822,24 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
---- !u!1 &833503418 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
-    type: 3}
-  m_PrefabInstance: {fileID: 1654990534}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &833503419 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4787460223657084, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 1654990534}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &833503420
+--- !u!114 &833503421 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1654990534}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 833503418}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 1
 --- !u!1 &836992118
 GameObject:
   m_ObjectHideFlags: 0
@@ -15680,6 +15288,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1371259064}
     m_Modifications:
+    - target: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
+      propertyPath: myTile
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
       propertyPath: m_Name
       value: Tile [ 0 , 6 ]
@@ -15757,37 +15369,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 848991153}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &848991155 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
+--- !u!114 &848991157 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 848991153}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &848991156
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 848991155}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 0
 --- !u!1001 &850863566
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15795,6 +15388,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1371259064}
     m_Modifications:
+    - target: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
+      propertyPath: myTile
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
       propertyPath: m_Name
       value: Tile [ 4 , 4 ]
@@ -15872,37 +15469,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 850863566}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &850863568 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
+--- !u!114 &850863570 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 850863566}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &850863569
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 850863568}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 0
 --- !u!1 &859797338
 GameObject:
   m_ObjectHideFlags: 0
@@ -16630,67 +16208,67 @@ MonoBehaviour:
   - tile:
     - {fileID: 2025196364}
     - {fileID: 139715240}
-    - {fileID: 1489981515}
-    - {fileID: 1456367869}
-    - {fileID: 112845550}
-    - {fileID: 1102808566}
-    - {fileID: 538273247}
+    - {fileID: 1489981516}
+    - {fileID: 1456367870}
+    - {fileID: 112845551}
+    - {fileID: 1102808567}
+    - {fileID: 538273248}
   - tile:
-    - {fileID: 334471381}
-    - {fileID: 2034195586}
-    - {fileID: 1723650074}
-    - {fileID: 1308797086}
-    - {fileID: 1666274079}
-    - {fileID: 419977571}
-    - {fileID: 1833451777}
+    - {fileID: 334471382}
+    - {fileID: 2034195587}
+    - {fileID: 1723650075}
+    - {fileID: 1308797087}
+    - {fileID: 1666274080}
+    - {fileID: 419977572}
+    - {fileID: 1833451778}
   - tile:
-    - {fileID: 1865173160}
-    - {fileID: 350563340}
-    - {fileID: 1831324173}
-    - {fileID: 833503420}
-    - {fileID: 2010926217}
-    - {fileID: 571789283}
-    - {fileID: 376313331}
+    - {fileID: 1865173161}
+    - {fileID: 350563341}
+    - {fileID: 1831324174}
+    - {fileID: 833503421}
+    - {fileID: 2010926218}
+    - {fileID: 571789284}
+    - {fileID: 376313332}
   - tile:
-    - {fileID: 1082562708}
-    - {fileID: 1797935566}
-    - {fileID: 1974895413}
-    - {fileID: 152060447}
-    - {fileID: 137991198}
-    - {fileID: 543257478}
-    - {fileID: 347269598}
+    - {fileID: 1082562709}
+    - {fileID: 1797935567}
+    - {fileID: 1974895414}
+    - {fileID: 152060448}
+    - {fileID: 137991199}
+    - {fileID: 543257479}
+    - {fileID: 347269599}
   - tile:
-    - {fileID: 998222367}
-    - {fileID: 812478605}
-    - {fileID: 1131415882}
-    - {fileID: 343751039}
-    - {fileID: 850863569}
-    - {fileID: 1746104239}
-    - {fileID: 395839583}
+    - {fileID: 998222368}
+    - {fileID: 812478606}
+    - {fileID: 1131415883}
+    - {fileID: 343751040}
+    - {fileID: 850863570}
+    - {fileID: 1746104240}
+    - {fileID: 395839584}
   - tile:
-    - {fileID: 1172071957}
-    - {fileID: 2037670220}
-    - {fileID: 461144341}
-    - {fileID: 1624655896}
-    - {fileID: 112677996}
-    - {fileID: 1499947456}
-    - {fileID: 1899060236}
+    - {fileID: 1172071958}
+    - {fileID: 2037670221}
+    - {fileID: 461144342}
+    - {fileID: 1624655897}
+    - {fileID: 112677997}
+    - {fileID: 1499947457}
+    - {fileID: 1899060237}
   - tile:
-    - {fileID: 848991156}
-    - {fileID: 1883633996}
-    - {fileID: 232039762}
-    - {fileID: 1961288157}
-    - {fileID: 1267806604}
-    - {fileID: 1529141520}
-    - {fileID: 1665351947}
+    - {fileID: 848991157}
+    - {fileID: 1883633997}
+    - {fileID: 232039763}
+    - {fileID: 1961288158}
+    - {fileID: 1267806605}
+    - {fileID: 1529141521}
+    - {fileID: 1665351948}
   - tile:
-    - {fileID: 398791091}
-    - {fileID: 319846057}
-    - {fileID: 797113257}
-    - {fileID: 1509269731}
-    - {fileID: 427009107}
-    - {fileID: 1553733209}
-    - {fileID: 382470588}
+    - {fileID: 398791092}
+    - {fileID: 319846058}
+    - {fileID: 797113258}
+    - {fileID: 1509269732}
+    - {fileID: 427009108}
+    - {fileID: 1553733210}
+    - {fileID: 382470589}
 --- !u!4 &902181547
 Transform:
   m_ObjectHideFlags: 0
@@ -18637,6 +18215,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1371259064}
     m_Modifications:
+    - target: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
+      propertyPath: myTile
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
       propertyPath: m_Name
       value: Tile [ 0 , 4 ]
@@ -18714,37 +18296,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 998222364}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &998222366 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
+--- !u!114 &998222368 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 998222364}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &998222367
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 998222366}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 0
 --- !u!1 &1001017160
 GameObject:
   m_ObjectHideFlags: 0
@@ -20006,43 +19569,24 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1962951380}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1082562706 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
-    type: 3}
-  m_PrefabInstance: {fileID: 598537047}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1082562707 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4787460223657084, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 598537047}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1082562708
+--- !u!114 &1082562709 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 598537047}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1082562706}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 1
 --- !u!1 &1089197555
 GameObject:
   m_ObjectHideFlags: 0
@@ -20279,43 +19823,24 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2020514119}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1102808564 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
-    type: 3}
-  m_PrefabInstance: {fileID: 15379878}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1102808565 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4787460223657084, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 15379878}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1102808566
+--- !u!114 &1102808567 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 15379878}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1102808564}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 1
 --- !u!1001 &1107915431
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20755,6 +20280,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1371259064}
     m_Modifications:
+    - target: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
+      propertyPath: myTile
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
       propertyPath: m_Name
       value: Tile [ 2 , 4 ]
@@ -20832,37 +20361,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1131415879}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1131415881 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
+--- !u!114 &1131415883 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 1131415879}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1131415882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1131415881}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 0
 --- !u!1 &1138814907
 GameObject:
   m_ObjectHideFlags: 0
@@ -21357,6 +20867,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1371259064}
     m_Modifications:
+    - target: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
+      propertyPath: myTile
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
       propertyPath: m_Name
       value: Tile [ 0 , 5 ]
@@ -21434,37 +20948,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1172071954}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1172071956 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
+--- !u!114 &1172071958 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 1172071954}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1172071957
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1172071956}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 0
 --- !u!1 &1173633578
 GameObject:
   m_ObjectHideFlags: 0
@@ -22460,6 +21955,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1371259064}
     m_Modifications:
+    - target: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
+      propertyPath: myTile
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
       propertyPath: m_Name
       value: Tile [ 4 , 6 ]
@@ -22537,37 +22036,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1267806601}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1267806603 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
+--- !u!114 &1267806605 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 1267806601}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1267806604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1267806603}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 0
 --- !u!1 &1276719705 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1515803984, guid: cc0b6d4b15530d942bffb81f838c93fc,
@@ -23215,43 +22695,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1301132454}
   m_CullTransparentMesh: 1
---- !u!1 &1308797084 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
-    type: 3}
-  m_PrefabInstance: {fileID: 861645203}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1308797085 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4787460223657084, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 861645203}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1308797086
+--- !u!114 &1308797087 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 861645203}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1308797084}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 1
 --- !u!1 &1318655403
 GameObject:
   m_ObjectHideFlags: 0
@@ -25185,43 +24646,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
---- !u!1 &1456367867 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
-    type: 3}
-  m_PrefabInstance: {fileID: 1838818037}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1456367868 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4787460223657084, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 1838818037}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1456367869
+--- !u!114 &1456367870 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1838818037}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1456367867}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 1
 --- !u!1 &1465531596
 GameObject:
   m_ObjectHideFlags: 0
@@ -25638,43 +25080,24 @@ RectTransform:
   m_AnchoredPosition: {x: 190, y: 0}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1489981513 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
-    type: 3}
-  m_PrefabInstance: {fileID: 1337406831}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1489981514 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4787460223657084, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 1337406831}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1489981515
+--- !u!114 &1489981516 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1337406831}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1489981513}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 1
 --- !u!1 &1493837727
 GameObject:
   m_ObjectHideFlags: 0
@@ -25758,6 +25181,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1371259064}
     m_Modifications:
+    - target: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
+      propertyPath: myTile
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
       propertyPath: m_Name
       value: Tile [ 5 , 5 ]
@@ -25835,37 +25262,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1499947453}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1499947455 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
+--- !u!114 &1499947457 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 1499947453}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1499947456
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1499947455}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 0
 --- !u!1 &1509116033
 GameObject:
   m_ObjectHideFlags: 0
@@ -25915,6 +25323,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1371259064}
     m_Modifications:
+    - target: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
+      propertyPath: myTile
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
       propertyPath: m_Name
       value: Tile [ 3 , 7 ]
@@ -25992,37 +25404,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1509269728}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1509269730 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
+--- !u!114 &1509269732 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 1509269728}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1509269731
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1509269730}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 0
 --- !u!1 &1513782823 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1515803984, guid: cc0b6d4b15530d942bffb81f838c93fc,
@@ -26429,6 +25822,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1371259064}
     m_Modifications:
+    - target: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
+      propertyPath: myTile
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
       propertyPath: m_Name
       value: Tile [ 5 , 6 ]
@@ -26506,37 +25903,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1529141517}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1529141519 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
+--- !u!114 &1529141521 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 1529141517}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1529141520
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1529141519}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 0
 --- !u!1 &1531732897
 GameObject:
   m_ObjectHideFlags: 0
@@ -27029,6 +26407,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1371259064}
     m_Modifications:
+    - target: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
+      propertyPath: myTile
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
       propertyPath: m_Name
       value: Tile [ 5 , 7 ]
@@ -27106,37 +26488,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1553733206}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1553733208 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
+--- !u!114 &1553733210 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 1553733206}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1553733209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1553733208}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 0
 --- !u!1 &1577419794
 GameObject:
   m_ObjectHideFlags: 0
@@ -27928,6 +27291,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1371259064}
     m_Modifications:
+    - target: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
+      propertyPath: myTile
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
       propertyPath: m_Name
       value: Tile [ 3 , 5 ]
@@ -28005,37 +27372,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1624655893}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1624655895 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
+--- !u!114 &1624655897 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 1624655893}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1624655896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1624655895}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 0
 --- !u!1 &1632950499
 GameObject:
   m_ObjectHideFlags: 0
@@ -28963,6 +28311,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1371259064}
     m_Modifications:
+    - target: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
+      propertyPath: myTile
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
       propertyPath: m_Name
       value: Tile [ 6 , 6 ]
@@ -29040,74 +28392,36 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1665351944}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1665351946 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
+--- !u!114 &1665351948 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 1665351944}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1665351947
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1665351946}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 0
---- !u!1 &1666274077 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
-    type: 3}
-  m_PrefabInstance: {fileID: 1018793311}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1666274078 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4787460223657084, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 1018793311}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1666274079
+--- !u!114 &1666274080 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1018793311}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1666274077}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 1
 --- !u!1 &1667587511
 GameObject:
   m_ObjectHideFlags: 0
@@ -29919,43 +29233,24 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1838818037}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1723650072 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
-    type: 3}
-  m_PrefabInstance: {fileID: 866410297}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1723650073 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4787460223657084, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 866410297}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1723650074
+--- !u!114 &1723650075 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 866410297}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1723650072}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 1
 --- !u!1001 &1733610158
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30186,6 +29481,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1371259064}
     m_Modifications:
+    - target: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
+      propertyPath: myTile
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
       propertyPath: m_Name
       value: Tile [ 5 , 4 ]
@@ -30263,37 +29562,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1746104236}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1746104238 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
+--- !u!114 &1746104240 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 1746104236}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1746104239
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1746104238}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 0
 --- !u!1001 &1755576160
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31137,43 +30417,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1797168964}
   m_CullTransparentMesh: 1
---- !u!1 &1797935564 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
-    type: 3}
-  m_PrefabInstance: {fileID: 523232533}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1797935565 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4787460223657084, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 523232533}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1797935566
+--- !u!114 &1797935567 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 523232533}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1797935564}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 1
 --- !u!1 &1798308606
 GameObject:
   m_ObjectHideFlags: 0
@@ -31588,43 +30849,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
---- !u!1 &1831324171 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
-    type: 3}
-  m_PrefabInstance: {fileID: 1056190458}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1831324172 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4787460223657084, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 1056190458}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1831324173
+--- !u!114 &1831324174 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1056190458}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1831324171}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 1
 --- !u!1001 &1831326887
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31755,43 +30997,24 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1831326887}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1833451775 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
-    type: 3}
-  m_PrefabInstance: {fileID: 797310798}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1833451776 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4787460223657084, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 797310798}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1833451777
+--- !u!114 &1833451778 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 797310798}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1833451775}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 1
 --- !u!1 &1833479526
 GameObject:
   m_ObjectHideFlags: 0
@@ -32460,43 +31683,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1857997523}
   m_CullTransparentMesh: 1
---- !u!1 &1865173158 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
-    type: 3}
-  m_PrefabInstance: {fileID: 1692235269}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1865173159 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4787460223657084, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 1692235269}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1865173160
+--- !u!114 &1865173161 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1692235269}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1865173158}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 1
 --- !u!1 &1865653138
 GameObject:
   m_ObjectHideFlags: 0
@@ -32588,6 +31792,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1371259064}
     m_Modifications:
+    - target: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
+      propertyPath: myTile
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
       propertyPath: m_Name
       value: Tile [ 1 , 6 ]
@@ -32665,37 +31873,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1883633993}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1883633995 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
+--- !u!114 &1883633997 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 1883633993}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1883633996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1883633995}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 0
 --- !u!1 &1884555906
 GameObject:
   m_ObjectHideFlags: 0
@@ -32793,32 +31982,32 @@ MonoBehaviour:
   battleTileList:
   - {fileID: 2025196364}
   - {fileID: 139715240}
-  - {fileID: 1489981515}
-  - {fileID: 1456367869}
-  - {fileID: 112845550}
-  - {fileID: 1102808566}
-  - {fileID: 538273247}
-  - {fileID: 334471381}
-  - {fileID: 2034195586}
-  - {fileID: 1723650074}
-  - {fileID: 1308797086}
-  - {fileID: 1666274079}
-  - {fileID: 419977571}
-  - {fileID: 1833451777}
-  - {fileID: 1865173160}
-  - {fileID: 350563340}
-  - {fileID: 1831324173}
-  - {fileID: 833503420}
-  - {fileID: 2010926217}
-  - {fileID: 571789283}
-  - {fileID: 376313331}
-  - {fileID: 1082562708}
-  - {fileID: 1797935566}
-  - {fileID: 1974895413}
-  - {fileID: 152060447}
-  - {fileID: 137991198}
-  - {fileID: 543257478}
-  - {fileID: 347269598}
+  - {fileID: 1489981516}
+  - {fileID: 1456367870}
+  - {fileID: 112845551}
+  - {fileID: 1102808567}
+  - {fileID: 538273248}
+  - {fileID: 334471382}
+  - {fileID: 2034195587}
+  - {fileID: 1723650075}
+  - {fileID: 1308797087}
+  - {fileID: 1666274080}
+  - {fileID: 419977572}
+  - {fileID: 1833451778}
+  - {fileID: 1865173161}
+  - {fileID: 350563341}
+  - {fileID: 1831324174}
+  - {fileID: 833503421}
+  - {fileID: 2010926218}
+  - {fileID: 571789284}
+  - {fileID: 376313332}
+  - {fileID: 1082562709}
+  - {fileID: 1797935567}
+  - {fileID: 1974895414}
+  - {fileID: 152060448}
+  - {fileID: 137991199}
+  - {fileID: 543257479}
+  - {fileID: 347269599}
   readyZoneHexaIndicators:
   - {fileID: 73644821}
   - {fileID: 1865653138}
@@ -33116,6 +32305,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1371259064}
     m_Modifications:
+    - target: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
+      propertyPath: myTile
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
       propertyPath: m_Name
       value: Tile [ 6 , 5 ]
@@ -33193,37 +32386,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1899060233}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1899060235 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
+--- !u!114 &1899060237 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 1899060233}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1899060236
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1899060235}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 0
 --- !u!1 &1904898964
 GameObject:
   m_ObjectHideFlags: 0
@@ -33710,6 +32884,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1371259064}
     m_Modifications:
+    - target: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
+      propertyPath: myTile
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
       propertyPath: m_Name
       value: Tile [ 3 , 6 ]
@@ -33787,37 +32965,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1961288154}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1961288156 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
+--- !u!114 &1961288158 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 1961288154}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1961288157
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1961288156}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 0
 --- !u!1001 &1962951380
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33893,43 +33052,24 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1331840348}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1974895411 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
-    type: 3}
-  m_PrefabInstance: {fileID: 1398257911}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1974895412 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4787460223657084, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 1398257911}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1974895413
+--- !u!114 &1974895414 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1398257911}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1974895411}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 1
 --- !u!1 &1980013585
 GameObject:
   m_ObjectHideFlags: 0
@@ -34711,43 +33851,24 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2009957897}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2010926215 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
-    type: 3}
-  m_PrefabInstance: {fileID: 651644672}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2010926216 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4787460223657084, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 651644672}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2010926217
+--- !u!114 &2010926218 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 651644672}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2010926215}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 1
 --- !u!1 &2014325440 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1515803984, guid: cc0b6d4b15530d942bffb81f838c93fc,
@@ -35129,43 +34250,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2032397307}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &2034195584 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
-    type: 3}
-  m_PrefabInstance: {fileID: 259845040}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2034195585 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4787460223657084, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 259845040}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2034195586
+--- !u!114 &2034195587 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 259845040}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2034195584}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 1
 --- !u!1001 &2037670217
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35173,6 +34275,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1371259064}
     m_Modifications:
+    - target: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
+      propertyPath: myTile
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
       propertyPath: m_Name
       value: Tile [ 1 , 5 ]
@@ -35250,37 +34356,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2037670217}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2037670219 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc,
+--- !u!114 &2037670221 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2025196364, guid: cc0b6d4b15530d942bffb81f838c93fc,
     type: 3}
   m_PrefabInstance: {fileID: 2037670217}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2037670220
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2037670219}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db9772aa1ab51b48808bf0f4ad8aa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 0
-  isReadyTile: 0
-  piece: {fileID: 0}
-  listX: 0
-  listY: 0
-  gridX: 0
-  gridY: 0
-  gridZ: 0
-  parent: {fileID: 0}
-  gCost: 0
-  hCost: 0
-  walkable: 0
-  myTile: 0
 --- !u!1 &2042781519 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1515803984, guid: cc0b6d4b15530d942bffb81f838c93fc,

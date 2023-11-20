@@ -21,6 +21,7 @@ public class GreatMountainBuff3 : BuffData
             int _count = gods.Count;
             int _randomCount = Random.Range(0, _count);
             god = Instantiate(gods[_randomCount].piecePrefab, pieceParent.transform);
+            god.name = "그리스 시너지 생성 기물";
             ArenaManager.Instance.fieldManagers[0].myFilePieceList.Add(god.GetComponent<Piece>());
 
             for (int i = 3; i < 7; i++)
