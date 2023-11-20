@@ -249,10 +249,15 @@ public class Piece : MonoBehaviour
 
     public void DeadState()
     {
+        StopAllCoroutines();
         PieceState = State.DEAD;
-        print(name + "(이)가 체력이 0 이하가 되어 사망.");
         dead = true;
         //SpawnRandomBox();
+
+        currentTile.piece = null;
+        currentTile.IsFull = false;
+        currentTile.walkable = true;
+
         ArenaManager.Instance.BattleEndCheck(myPieceList);
     }
 
@@ -656,10 +661,11 @@ public class Piece : MonoBehaviour
         DoAttack();
     }
 
-    public void DoAttack()
+    public virtual void DoAttack()
     {
         print(name + "(이)가" + target.name + "에게 일반 공격을 합니다.");
         Damage(attackDamage);
+        mana += 100;
         //currentMana += manaRecovery;
         StartNextBehavior();
     }

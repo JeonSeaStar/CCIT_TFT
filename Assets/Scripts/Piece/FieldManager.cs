@@ -776,7 +776,7 @@ public class FieldManager : MonoBehaviour
         Piece piece = pieceObject.GetComponent<Piece>();
         piece.currentTile = targetTile;
         piece.grade = grade;
-
+        piece.isOwned = true;
         targetTile.IsFull = true;
         targetTile.walkable = false;
 
