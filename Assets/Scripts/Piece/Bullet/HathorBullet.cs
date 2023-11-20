@@ -6,12 +6,12 @@ public class HathorBullet : Bullet
 {
     private void Start()
     {
-        SetDamage();
+        SetDamage(damage);
     }
 
-    protected override void SetDamage()
+    protected override void SetDamage(float damage)
     {
-        damage = defaultDamage + parentPiece.abilityPower;
+        damage = this.damage;
     }
 
     public override void Shot(Vector3 direction)

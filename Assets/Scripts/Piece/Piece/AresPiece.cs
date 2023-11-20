@@ -24,26 +24,28 @@ public class AresPiece : Piece
     {
         if (star == 0)
         {
-            ProjectionSkill();
+            ProjectionSkill(attackDamage * 2.1f);
         }
         else if (star == 1)
         {
-            ProjectionSkill();
+            ProjectionSkill(attackDamage * 3f);
         }
         else if (star == 2)
         {
-            ProjectionSkill();
+            ProjectionSkill(attackDamage * 4.9f);
         }
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
 
-    void ProjectionSkill()
+    void ProjectionSkill(float damage)
     {
         if (target != null)
         {
             GameObject centaBullet = Instantiate(bullet, transform.position, Quaternion.identity);
             Bullet b = centaBullet.GetComponent<AresBullet>();
+            b.parentPiece = this;
+            b.damage = damage;
             b.Shot(target.transform.position - transform.position);
         }
     }

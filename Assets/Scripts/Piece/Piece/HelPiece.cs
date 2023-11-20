@@ -24,26 +24,28 @@ public class HelPiece : Piece
     {
         if (star == 0)
         {
-            ProjectionSkill();
+            ProjectionSkill(attackDamage * 2.5f);
         }
         else if (star == 1)
         {
-            ProjectionSkill();
+            ProjectionSkill(attackDamage * 4f);
         }
         else if (star == 2)
         {
-            ProjectionSkill();
+            ProjectionSkill(attackDamage * 6f);
         }
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
 
-    void ProjectionSkill()//미리 만들어진 총알 있기는 한데.. 사용하는지 모르겠음.. 내일 오면 물어보기!
+    void ProjectionSkill(float damage)//미리 만들어진 총알 있기는 한데.. 사용하는지 모르겠음.. 내일 오면 물어보기!
     {
         if (target != null)
         {
             GameObject centaBullet = Instantiate(helBullet, transform.position, Quaternion.identity);
             Bullet b = centaBullet.GetComponent<HelBullet>();
+            b.parentPiece = this;
+            b.damage = damage;
             b.Shot(target.transform.position - transform.position);
         }
     }
