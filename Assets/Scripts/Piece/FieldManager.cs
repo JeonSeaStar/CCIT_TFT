@@ -779,6 +779,7 @@ public class FieldManager : MonoBehaviour
         pieceObject.transform.parent = pieceParent;
         Piece piece = pieceObject.GetComponent<Piece>();
         piece.currentTile = targetTile;
+        piece.targetTile = targetTile;
         piece.star = star;
         piece.isOwned = true;
         targetTile.IsFull = true;
@@ -856,10 +857,9 @@ public class FieldManager : MonoBehaviour
 
         Tile targetTile = parentPiece.currentTile;
 
-        if (!firstChild.currentTile.isReadyTile)
-            RemoveDPList(firstChild);
-        if (!secondChild.currentTile.isReadyTile)
-            RemoveDPList(secondChild);
+        RemoveDPList(firstChild.currentTile.piece);
+        RemoveDPList(secondChild.currentTile.piece);
+        RemoveDPList(parentPiece.currentTile.piece);
 
         DestroyPiece(parentPiece, targetTile);
         DestroyPiece(firstChild, firstChild.currentTile);
