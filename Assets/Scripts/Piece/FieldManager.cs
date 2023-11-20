@@ -738,11 +738,11 @@ public class FieldManager : MonoBehaviour
     public void PieceListCountUp(Piece piece)
     {
         int kind = CheckPieceKind(piece.pieceData);
-        int grade = piece.grade;
+        int star = piece.star;
 
-        currentPieceList[kind].count[grade].count.Add(piece);
+        currentPieceList[kind].count[star].count.Add(piece);
 
-        if (currentPieceList[kind].count[grade].count.Count >= 3)
+        if (currentPieceList[kind].count[star].count.Count >= 3)
         {
             FusionPiece(piece);
         }
@@ -751,9 +751,9 @@ public class FieldManager : MonoBehaviour
     public void PieceListCountDown(Piece piece)
     {
         int kind = CheckPieceKind(piece.pieceData);
-        int grade = piece.grade;
+        int star = piece.star;
 
-        currentPieceList[kind].count[grade].count.Remove(piece);
+        currentPieceList[kind].count[star].count.Remove(piece);
     }
 
     public int CheckPieceKind(PieceData pieceData)
@@ -772,14 +772,14 @@ public class FieldManager : MonoBehaviour
         return kind;
     }
 
-    public Piece SpawnPiece(PieceData pieceData, int grade, Tile targetTile)
+    public Piece SpawnPiece(PieceData pieceData, int star, Tile targetTile)
     {
         Vector3 targetPosition = new Vector3(targetTile.transform.position.x, groundHeight, targetTile.transform.position.z);
         GameObject pieceObject = Instantiate(pieceData.piecePrefab, targetPosition, Quaternion.Euler(0, 0, 0));
         pieceObject.transform.parent = pieceParent;
         Piece piece = pieceObject.GetComponent<Piece>();
         piece.currentTile = targetTile;
-        piece.grade = grade;
+        piece.star = star;
         piece.isOwned = true;
         targetTile.IsFull = true;
         targetTile.walkable = false;
@@ -796,7 +796,7 @@ public class FieldManager : MonoBehaviour
     void FusionPiece(Piece piece)
     {
         int kind = CheckPieceKind(piece.pieceData);
-        int grade = piece.grade;
+        int star = piece.star;
 
         Piece parentPiece = piece;
         Piece firstChild = null;
@@ -805,102 +805,102 @@ public class FieldManager : MonoBehaviour
         Tile parentTile = parentPiece.currentTile;
 
         //set parentPiece
-        for (int i = 0; i < currentPieceList[kind].count[grade].count.Count; i++)
+        for (int i = 0; i < currentPieceList[kind].count[star].count.Count; i++)
         {
-            Tile compareTile = currentPieceList[kind].count[grade].count[i].currentTile;
+            Tile compareTile = currentPieceList[kind].count[star].count[i].currentTile;
 
             if (parentTile.isReadyTile)
             {
                 if (!compareTile.isReadyTile)
                 {
-                    parentPiece = currentPieceList[kind].count[grade].count[i];
+                    parentPiece = currentPieceList[kind].count[star].count[i];
                     parentTile = parentPiece.currentTile;
                 }
                 else if (compareTile.isReadyTile)
                 {
                     if (readyTileList.IndexOf(parentTile) > readyTileList.IndexOf(compareTile))
                     {
-                        parentPiece = currentPieceList[kind].count[grade].count[i];
+                        parentPiece = currentPieceList[kind].count[star].count[i];
                         parentTile = parentPiece.currentTile;
                     }
                 }
             }
 
-            if (parentPiece == currentPieceList[kind].count[grade].count[i]) continue;
+            if (parentPiece == currentPieceList[kind].count[star].count[i]) continue;
 
             if (!parentTile.isReadyTile && !compareTile.isReadyTile)
             {
                 if (parentTile.gridX > compareTile.gridX)
                 {
-                    parentPiece = currentPieceList[kind].count[grade].count[i];
+                    parentPiece = currentPieceList[kind].count[star].count[i];
                     parentTile = parentPiece.currentTile;
                 }
                 else if (parentTile.gridX == compareTile.gridX)
                 {
                     if (parentTile.gridY > compareTile.gridY)
                     {
-                        parentPiece = currentPieceList[kind].count[grade].count[i];
+                        parentPiece = currentPieceList[kind].count[star].count[i];
                         parentTile = parentPiece.currentTile;
                     }
                 }
             }
         }
-        currentPieceList[kind].count[grade].count.Remove(parentPiece);
+        currentPieceList[kind].count[star].count.Remove(parentPiece);
 
 
         //set firstChild
-        firstChild = GetChildPiece(kind, grade);
+        firstChild = GetChildPiece(kind, star);
 
         //set secondChild
-        secondChild = GetChildPiece(kind, grade);
+        secondChild = GetChildPiece(kind, star);
 
         Tile targetTile = parentPiece.currentTile;
-
-        //fusion
-        print("parentPiece: " + targetTile.gameObject.name);
-        print("firstChild: " + firstChild.currentTile.gameObject.name);
-        print("secondChild: " + secondChild.currentTile.gameObject.name);
 
         DestroyPiece(parentPiece, targetTile);
         DestroyPiece(firstChild, firstChild.currentTile);
         DestroyPiece(secondChild, secondChild.currentTile);
-        SpawnPiece(piece.pieceData, grade + 1, targetTile);
+        if (!targetTile.isReadyTile)
+            myFilePieceList.Add(SpawnPiece(piece.pieceData, star + 1, targetTile));
+        else
+            SpawnPiece(piece.pieceData, star + 1, targetTile);
     }
 
-    Piece GetChildPiece(int kind, int grade)
+    Piece GetChildPiece(int kind, int star)
     {
-        Piece childPiece = currentPieceList[kind].count[grade].count[0];
+        Piece childPiece = currentPieceList[kind].count[star].count[0];
 
-        for (int i = 0; i < currentPieceList[kind].count[grade].count.Count; i++)
+        for (int i = 0; i < currentPieceList[kind].count[star].count.Count; i++)
         {
             Tile parentTile = childPiece.currentTile;
-            Tile compareTile = currentPieceList[kind].count[grade].count[i].currentTile;
+            Tile compareTile = currentPieceList[kind].count[star].count[i].currentTile;
 
             if (!parentTile.isReadyTile && compareTile.isReadyTile)
-                childPiece = currentPieceList[kind].count[grade].count[i];
+                childPiece = currentPieceList[kind].count[star].count[i];
             else if (parentTile.isReadyTile && compareTile.isReadyTile)
             {
                 if (readyTileList.IndexOf(parentTile) < readyTileList.IndexOf(compareTile))
-                    childPiece = currentPieceList[kind].count[grade].count[i];
+                    childPiece = currentPieceList[kind].count[star].count[i];
             }
 
             if (!parentTile.isReadyTile && !compareTile.isReadyTile)
             {
                 if (parentTile.gridX < compareTile.gridX)
-                    childPiece = currentPieceList[kind].count[grade].count[i];
+                    childPiece = currentPieceList[kind].count[star].count[i];
                 else if (parentTile.gridX == compareTile.gridX)
                 {
                     if (parentTile.gridY > compareTile.gridY)
-                        childPiece = currentPieceList[kind].count[grade].count[i];
+                        childPiece = currentPieceList[kind].count[star].count[i];
                 }
             }
         }
-        currentPieceList[kind].count[grade].count.Remove(childPiece);
+        currentPieceList[kind].count[star].count.Remove(childPiece);
         return childPiece;
     }
 
     public void DestroyPiece(Piece piece, Tile targetTile)
     {
+        if (!piece.currentTile.isReadyTile)
+            myFilePieceList.Remove(piece);
         targetTile.IsFull = false;
         targetTile.walkable = true;
         CheckPieceKind(piece.pieceData);
