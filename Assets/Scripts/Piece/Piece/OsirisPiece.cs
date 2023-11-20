@@ -49,6 +49,7 @@ public class OsirisPiece : Piece
                 {
                     pieceHealth = fieldManager.myFilePieceList[i].health;
                 }
+                Instantiate(skillEffects, fieldManager.myFilePieceList[i].transform.position, Quaternion.identity);
                 fieldManager.myFilePieceList[i].health += heal;
             }
         }

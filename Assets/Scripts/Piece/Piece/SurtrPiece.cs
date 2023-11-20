@@ -23,14 +23,17 @@ public class SurtrPiece : Piece
     {
         if (star == 0)
         {
+            Instantiate(skillEffects, this.transform.position, Quaternion.identity);
             this.shield = attackDamage * 2.5f;
         }
         else if (star == 1)
         {
+            Instantiate(skillEffects, this.transform.position, Quaternion.identity);
             this.shield = attackDamage * 3.7f;
         }
         else if (star == 2)
         {
+            Instantiate(skillEffects, this.transform.position, Quaternion.identity);
             this.shield = attackDamage * 5f;
         }
         yield return new WaitForSeconds(attackSpeed);
