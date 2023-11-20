@@ -208,21 +208,21 @@ public class Chest : MonoBehaviour
     #region ¿Ãµø
     public void CurveMove(Transform boxTransform, List<Transform> targetPositions)
     {
-        Vector3 startPosition = boxTransform.localPosition;
+        Vector3 gradetPosition = boxTransform.localPosition;
         int randomPosition = Random.Range(0, targetPositions.Count);
         Vector3 targetPosition = targetPositions[randomPosition].position;
-        Vector3 highPointPosition = new Vector3(startPosition.x + (targetPosition.x - startPosition.x) / 2, startPosition.y + height, startPosition.z + (targetPosition.z - startPosition.z) / 2);
+        Vector3 highPointPosition = new Vector3(gradetPosition.x + (targetPosition.x - gradetPosition.x) / 2, gradetPosition.y + height, gradetPosition.z + (targetPosition.z - gradetPosition.z) / 2);
 
-        boxTransform.DOPath(new[] { highPointPosition, startPosition, highPointPosition, targetPosition, highPointPosition, targetPosition }, 1, PathType.CubicBezier).SetEase(Ease.Linear);
+        boxTransform.DOPath(new[] { highPointPosition, gradetPosition, highPointPosition, targetPosition, highPointPosition, targetPosition }, 1, PathType.CubicBezier).SetEase(Ease.Linear);
     }
 
     public void CurveMove(Transform boxTransform, Transform targetTransform)
     {
-        Vector3 startPosition = boxTransform.localPosition;
+        Vector3 gradetPosition = boxTransform.localPosition;
         Vector3 targetPosition = targetTransform.position;
-        Vector3 highPointPosition = new Vector3(startPosition.x + (targetPosition.x - startPosition.x) / 2, startPosition.y + height, startPosition.z + (targetPosition.z - startPosition.z) / 2);
+        Vector3 highPointPosition = new Vector3(gradetPosition.x + (targetPosition.x - gradetPosition.x) / 2, gradetPosition.y + height, gradetPosition.z + (targetPosition.z - gradetPosition.z) / 2);
 
-        boxTransform.DOPath(new[] { highPointPosition, startPosition, highPointPosition, targetPosition, highPointPosition, targetPosition }, 1, PathType.CubicBezier).SetEase(Ease.Linear);
+        boxTransform.DOPath(new[] { highPointPosition, gradetPosition, highPointPosition, targetPosition, highPointPosition, targetPosition }, 1, PathType.CubicBezier).SetEase(Ease.Linear);
     }
     #endregion
 }

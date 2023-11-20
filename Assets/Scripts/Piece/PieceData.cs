@@ -67,17 +67,17 @@ public class PieceData : ScriptableObject
     {
         piece.pieceName = pieceName;
         piece.piecePortrait = piecePortrait;
-        piece.health = health[piece.grade];
-        piece.mana = mana[piece.grade];
-        piece.attackDamage = attackDamage[piece.grade];
-        piece.abilityPower = abilityPower[piece.grade];
-        piece.armor = armor[piece.grade];
-        piece.magicResist = magicResist[piece.grade];
-        piece.attackSpeed = attackSpeed[piece.grade];
-        piece.criticalChance = criticalChance[piece.grade];
-        piece.criticalDamage = criticalDamage[piece.grade];
-        piece.attackRange = attackRange[piece.grade];
-        piece.bloodBrain = bloodBrain[piece.grade];
+        piece.health = health[piece.star];
+        piece.mana = mana[piece.star];
+        piece.attackDamage = attackDamage[piece.star];
+        piece.abilityPower = abilityPower[piece.star];
+        piece.armor = armor[piece.star];
+        piece.magicResist = magicResist[piece.star];
+        piece.attackSpeed = attackSpeed[piece.star];
+        piece.criticalChance = criticalChance[piece.star];
+        piece.criticalDamage = criticalDamage[piece.star];
+        piece.attackRange = attackRange[piece.star];
+        piece.bloodBrain = bloodBrain[piece.star];
 
         piece.shield = 0;
     }

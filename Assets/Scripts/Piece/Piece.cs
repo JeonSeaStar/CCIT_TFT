@@ -11,8 +11,6 @@ public class Piece : MonoBehaviour
     public FieldManager fieldManager;
     public PieceData pieceData;
 
-    public int grade;
-
     public string pieceName;
     public Sprite piecePortrait;
     public List<Equipment> Equipments;
