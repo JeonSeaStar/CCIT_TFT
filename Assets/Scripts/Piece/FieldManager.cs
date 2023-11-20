@@ -856,15 +856,13 @@ public class FieldManager : MonoBehaviour
 
         Tile targetTile = parentPiece.currentTile;
 
-        //fusion
-        print("parentPiece: " + targetTile.gameObject.name);
-        print("firstChild: " + firstChild.currentTile.gameObject.name);
-        print("secondChild: " + secondChild.currentTile.gameObject.name);
-
         DestroyPiece(parentPiece, targetTile);
         DestroyPiece(firstChild, firstChild.currentTile);
         DestroyPiece(secondChild, secondChild.currentTile);
-        SpawnPiece(piece.pieceData, grade + 1, targetTile);
+        if (!targetTile.isReadyTile)
+            myFilePieceList.Add(SpawnPiece(piece.pieceData, grade + 1, targetTile));
+        else
+            SpawnPiece(piece.pieceData, grade + 1, targetTile);
     }
 
     Piece GetChildPiece(int kind, int grade)
@@ -901,6 +899,8 @@ public class FieldManager : MonoBehaviour
 
     public void DestroyPiece(Piece piece, Tile targetTile)
     {
+        if (!piece.currentTile.isReadyTile)
+            myFilePieceList.Remove(piece);
         targetTile.IsFull = false;
         targetTile.walkable = true;
         CheckPieceKind(piece.pieceData);
