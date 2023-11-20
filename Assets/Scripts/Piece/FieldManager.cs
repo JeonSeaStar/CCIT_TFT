@@ -328,8 +328,8 @@ public class FieldManager : MonoBehaviour
     public void RemoveBattleStartEffect(BattleStartEffect handler) { sBattleStartEffect.Remove(handler); }
 
     public delegate void CoroutineEffect(); public HashSet<CoroutineEffect> sCoroutineEffect = new HashSet<CoroutineEffect>();
-    void AddCoroutine(CoroutineEffect handler) { sCoroutineEffect.Add(handler); }
-    void RemoveCoroutine(CoroutineEffect handler) { sCoroutineEffect.Remove(handler); }
+    public void AddCoroutine(CoroutineEffect handler) { sCoroutineEffect.Add(handler); }
+    public void RemoveCoroutine(CoroutineEffect handler) { sCoroutineEffect.Remove(handler); }
 
     public BuffManager buffManager;
     void ApplyMythSynerge(PieceData.Myth value)
