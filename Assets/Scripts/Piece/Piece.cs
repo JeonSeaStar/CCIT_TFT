@@ -99,6 +99,9 @@ public class Piece : MonoBehaviour
     }
     public State pieceState;
 
+    [Header("¿Ã∆Â∆Æ")]
+    public GameObject skillEffects;
+
     void Awake()
     {
         pieceData.InitialzePiece(this);

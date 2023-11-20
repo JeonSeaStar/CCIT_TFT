@@ -36,6 +36,7 @@ public class AthenaPiece : Piece
     {
         pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
         List<Tile> _getNeigbor = pathFinding.GetNeighbor(currentTile);
+        Instantiate(skillEffects, currentTile.transform.position, Quaternion.identity);
         foreach (var _Neigbor in _getNeigbor)
         {
             Piece _targets = _Neigbor.piece;

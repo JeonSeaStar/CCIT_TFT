@@ -53,6 +53,7 @@ public class LokiPiece : Piece
             else if (firstLinePieces[i].isOwned)
             {
                 targets[i] = firstLinePieces[i];
+                Instantiate(skillEffects, targets[i].transform.position, Quaternion.identity);
             }
         }
     }

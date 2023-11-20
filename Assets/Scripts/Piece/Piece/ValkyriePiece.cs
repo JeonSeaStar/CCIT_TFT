@@ -23,14 +23,17 @@ public class ValkyriePiece : Piece
     {
         if (star == 0)
         {
+            Instantiate(skillEffects, target.transform.position, Quaternion.identity);
             target.SkillDamage(180f);
         }
         else if (star == 1)
         {
+            Instantiate(skillEffects, target.transform.position, Quaternion.identity);
             target.SkillDamage(270f);
         }
         else if (star == 2)
         {
+            Instantiate(skillEffects, target.transform.position, Quaternion.identity);
             target.SkillDamage(450f);
         }
         yield return new WaitForSeconds(attackSpeed);

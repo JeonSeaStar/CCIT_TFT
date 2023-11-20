@@ -46,6 +46,7 @@ public class JormungandPiece : Piece
     {
         skillCheckTile = target.currentTile;
         pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
+        Instantiate(skillEffects, target.currentTile.transform.position, Quaternion.identity);
         StartCoroutine(FindNeighbor(damage, time));
     }
 
@@ -65,6 +66,7 @@ public class JormungandPiece : Piece
                 }
                 else if (_targets.isOwned == false)
                 {
+                    Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
                     _targets.SkillDamage(damage);
                 }
             }

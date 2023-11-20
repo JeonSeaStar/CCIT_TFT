@@ -33,6 +33,7 @@ public class FreyaPiece : Piece
 
     void FreezeSkill(float damage, float time)
     {
+        Instantiate(skillEffects, target.transform.position, Quaternion.identity);
         target.SkillDamage(damage);
         target.SetFreeze(time); //몇 초 동안 프리즈 되는지 시간 필요해 보임
     }

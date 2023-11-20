@@ -54,6 +54,7 @@ public class ThorPiece : Piece
                 }
                 else
                 {
+                    Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
                     _targets.SkillDamage(damage);
                 }
             }
@@ -73,6 +74,7 @@ public class ThorPiece : Piece
             }
             else
             {
+                Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
                 _targets.SkillDamage(damage);
             }
         }
