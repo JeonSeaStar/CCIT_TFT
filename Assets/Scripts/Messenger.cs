@@ -158,6 +158,7 @@ public class Messenger : MonoBehaviour
                             _currentTileInformation.piece = null;
                             _currentTileInformation.IsFull = false;
                             _currentTileInformation.walkable = true;
+
                             _targetTileInformation.piece = controlPiece;
                             _targetTileInformation.IsFull = true;
                             _targetTileInformation.walkable = false;
@@ -176,6 +177,7 @@ public class Messenger : MonoBehaviour
                             _targetPieceInformation.targetTile = controlPiece.currentTile;
                             controlPiece.currentTile = controlPiece.targetTile;
                         }
+                        if(!controlPiece.currentTile.isReadyTile) controlPiece.currentTile.transform.GetChild(1).gameObject.SetActive(true);
                     }
                     else if (_currentTileInformation == _targetTileInformation) ChangeTileTransform(controlPiece, controlPiece.targetTile);
                     ResetDragState(false);

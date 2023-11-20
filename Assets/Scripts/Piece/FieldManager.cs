@@ -93,6 +93,8 @@ public class FieldManager : MonoBehaviour
     public EnemyInformationData stageInformation;
     public int currentStage;
 
+    [Header("ªÛ¡°")] public PieceShop pieceShop;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.S))
@@ -229,6 +231,7 @@ public class FieldManager : MonoBehaviour
 
         playerState.UpdateMoney(owerPlyer.gold);
         playerState.UpdateCurrentXP(owerPlyer.currentXP);
+        pieceShop.RefreshSlots();
     }
 
     int d = 0;
