@@ -44,6 +44,7 @@ public class HamsterBuff2 : BuffData
                 if (_randomTile.Count > 0)
                 {
                     GameObject _miniHamster = Instantiate(miniHamster.piecePrefab, pieceParent.transform);
+                    _miniHamster.name = "πÃ¥œ «‹Ω∫≈Õ";
                     ArenaManager.Instance.fieldManagers[0].myFilePieceList.Add(_miniHamster.GetComponent<Piece>());
                     hamsterList.Add(_miniHamster);
 
@@ -57,7 +58,7 @@ public class HamsterBuff2 : BuffData
                     spawnTile.piece.currentTile = spawnTile;
                     spawnTile.piece.targetTile = spawnTile;
                     spawnTile.piece.transform.position = new Vector3(spawnTile.transform.position.x, 0, spawnTile.transform.position.z);
-                    spawnTile.piece.StartNextBehavior();;
+                    spawnTile.piece.StartNextBehavior();
                     _randomTile.RemoveAt(_randomSpot);
                 }
             }
