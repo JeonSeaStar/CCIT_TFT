@@ -24,7 +24,6 @@ public class JormungandPiece : Piece
 
     public override IEnumerator Skill()
     {
-        base.StartSkill();
         //타겟 지정 후 타일 알아오고 범위에 있는 피스 1초당 알아오고 데미지 주기
         if (star == 0)
         {
@@ -52,6 +51,10 @@ public class JormungandPiece : Piece
 
     IEnumerator FindNeighbor(float damage, int time)
     {
+        if(pieceState == State.DANCE)
+        {
+            yield break;
+        }
         for (int i = 0; i < time; i++)
         {
             List<Tile> _getNeigbor = pathFinding.GetNeighbor(skillCheckTile);

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PoseidonPiece : Piece
 {
-    public List<Tile> tiles;
     public override IEnumerator Attack()
     {
         if (mana <= 80)
@@ -40,7 +39,7 @@ public class PoseidonPiece : Piece
 
     void DamageAllTile(float damage)
     {
-        List<Tile> _getHalf = tiles;
+        List<Tile> _getHalf = fieldManager.poseidonPieceSkillPosition;
         Instantiate(skillEffects, transform.position, Quaternion.identity);
         foreach (var _Neigbor in _getHalf)
         {

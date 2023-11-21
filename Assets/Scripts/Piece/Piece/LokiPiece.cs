@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class LokiPiece : Piece
 {
-    public Tile[] firstLineTiles;
     Piece[] firstLinePieces;
     Piece[] targets;
     int randomCount;
@@ -27,23 +26,27 @@ public class LokiPiece : Piece
     {
         if (star == 0)
         {
+            GetAdbilityTarget();
             RandomCapability(1.3f);
         }
         else if (star == 1)
         {
+            GetAdbilityTarget();
             RandomCapability(1.6f);
         }
         else if (star == 2)
         {
+            GetAdbilityTarget();
             RandomCapability(1.9f);
         }
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
 
-    void GetAdbilityTarget() //라운드 시작시 받기
+    public void GetAdbilityTarget()
     {
-        for (int i = 0; i < firstLineTiles.Length; i++)
+        List<Tile> firstLineTiles = fieldManager.lokiPieceSkillPosition;
+        for (int i = 0; i < firstLineTiles.Count; i++)
         {
             firstLinePieces[i] = firstLineTiles[i].piece;
             if (firstLinePieces[i] == null)
