@@ -3773,7 +3773,7 @@ Animator:
   m_GameObject: {fileID: 8591590293466482017}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: a4b047ba24a6f374f9bbd3a5053e2b52, type: 3}
-  m_Controller: {fileID: 9100000, guid: 02d5ec93278ea5c4cae238841be11363, type: 2}
+  m_Controller: {fileID: 9100000, guid: e477056fbf4426c4295b78d706490356, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -3870,9 +3870,14 @@ MonoBehaviour:
   enemyPieceList: []
   myPieceList: []
   animator: {fileID: 2752935125477556931}
+  basicAttackDamage: 0
+  basicShield: 0
+  basicAttackSpeed: 0
+  basicHealth: 0
   pieceState: 0
   skillEffects: {fileID: 5963301211313334225, guid: 3454883a9dea74f4192196524a9adf91,
     type: 3}
+  nextTile: {fileID: 0}
   isRabbitSynergeActiveCheck: 0
   isCatSynergeActiveCheck: 0
   bullet: {fileID: 5939978814519799539, guid: 99e60b129d4605e4eaffdce77c23affc, type: 3}

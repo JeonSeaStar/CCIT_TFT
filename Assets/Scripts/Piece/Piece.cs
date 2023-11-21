@@ -467,21 +467,29 @@ public class Piece : MonoBehaviour
         EnemyCheck();
         if (CheckEnemySurvival(enemyPieceList) && !dead && ArenaManager.Instance.roundType == ArenaManager.RoundType.Battle)
         {
-            //foreach (var enemy in enemyPieceList)
-            //    enemy.currentTile.walkable = true;
-            ArenaManager.Instance.fieldManagers[0].pathFinding.SetCandidatePath(this, enemyPieceList);
+            //ArenaManager.Instance.fieldManagers[0].pathFinding.SetCandidatePath(this, enemyPieceList);
+            ArenaManager.Instance.fieldManagers[0].pathFinding.SetTarget(this, enemyPieceList);
 
             if (target != null)
             {
                 if (isRabbitSynergeActiveCheck) { RabbitJump(); }
-                print(RangeCheck() + ", " + ArenaManager.Instance.fieldManagers[0].pathFinding.GetDistance(currentTile, target.currentTile) + ", " + currentTile + ", " + target.currentTile);
                 if (RangeCheck())
-                    AttackState();
+                {
+                    if (RangeCheck())
+                        AttackState();
+                    else
+                        StartMove();
+                }
                 else
+                {
+                    ArenaManager.Instance.fieldManagers[0].pathFinding.SetCandidatePath(this);
                     StartMove();
+                }
             }
             else
+            {
                 StartNextBehavior();
+            }
         }
         else
         {
@@ -495,7 +503,7 @@ public class Piece : MonoBehaviour
         pieceData.ResetPiece(this);
         print(name + "(이)가 승리의 춤 추는 중.");
         PieceState = State.DANCE;
-        
+
     }
 
     public bool CheckMyFileSurvival(List<Piece> myFile)
@@ -682,11 +690,11 @@ public class Piece : MonoBehaviour
 
     public virtual void DoAttack()
     {
-        if(target != null)
+        if (target != null)
         {
             print(name + "(이)가" + target.name + "에게 일반 공격을 합니다.");
             Damage(attackDamage);
-            mana += 100;
+            //mana += 100;
             //currentMana += manaRecovery;
             StartNextBehavior();
         }
