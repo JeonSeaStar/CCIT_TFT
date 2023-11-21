@@ -9,7 +9,7 @@ public class LokiPiece : Piece
     int randomCount;
     public override IEnumerator Attack()
     {
-        if (mana <= 60)
+        if (mana >= 60)
         {
             StartSkill();
             mana = 0;

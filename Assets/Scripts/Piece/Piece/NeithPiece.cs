@@ -7,7 +7,7 @@ public class NeithPiece : Piece
     [SerializeField] private GameObject bullet;
     public override IEnumerator Attack()
     {
-        if (mana <= 100 && target != null)
+        if (mana >= 100 && target != null)
         {
             StartSkill();
             mana = 0;

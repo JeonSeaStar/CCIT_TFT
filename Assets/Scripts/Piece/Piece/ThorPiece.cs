@@ -6,7 +6,7 @@ public class ThorPiece : Piece
 {
     public override IEnumerator Attack()
     {
-        if (mana <= 80 && target != null)
+        if (mana >= 80 && target != null)
         {
             StartSkill();
             mana = 0;
