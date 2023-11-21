@@ -100,6 +100,8 @@ public class Piece : MonoBehaviour
     [Header("이펙트")]
     public GameObject skillEffects;
 
+    public Tile nextTile;
+
     void Awake()
     {
         pieceData.InitialzePiece(this);
@@ -278,36 +280,39 @@ public class Piece : MonoBehaviour
     {
         PieceState = State.MOVE;
 
-        if (path.Count > 0 && canMove)
+        //if (path.Count > 0 && canMove)
+        if (nextTile != null && canMove)
         {
             canMove = false;
-            if (path[0].IsFull)
+            if (nextTile.IsFull)
             {
                 yield return new WaitForSeconds(moveSpeed);
                 //StartNextBehavior();
                 IdleState();
             }
 
-            Vector3 targetTilePos = new Vector3(path[0].transform.position.x, transform.position.y, path[0].transform.position.z);
+            Vector3 targetTilePos = new Vector3(nextTile.transform.position.x, transform.position.y, nextTile.transform.position.z);
             transform.DOMove(targetTilePos, moveSpeed).SetEase(ease);
 
-            transform.DOLookAt(path[0].transform.position, 0.1f);
+            transform.DOLookAt(nextTile.transform.position, 0.1f);
 
             currentTile.piece = null;
             currentTile.IsFull = false;
             currentTile.walkable = true;
-            currentTile = path[0];
+            currentTile = nextTile;
 
             currentTile.piece = this;
             currentTile.IsFull = true;
             currentTile.walkable = false;
 
-            path.RemoveAt(0);
+            nextTile = null;
             canMove = true;
 
             yield return new WaitForSeconds(moveSpeed);
             StartNextBehavior();
         }
+        else
+            StartNextBehavior();
     }
     #region 토끼
     public bool isRabbitSynergeActiveCheck;
@@ -461,7 +466,7 @@ public class Piece : MonoBehaviour
             if (target != null)
             {
                 if (isRabbitSynergeActiveCheck) { RabbitJump(); }
-
+                print(RangeCheck() + ", " + ArenaManager.Instance.fieldManagers[0].pathFinding.GetDistance(currentTile, target.currentTile) + ", " + currentTile + ", " + target.currentTile);
                 if (RangeCheck())
                     AttackState();
                 else
@@ -667,11 +672,18 @@ public class Piece : MonoBehaviour
 
     public virtual void DoAttack()
     {
-        print(name + "(이)가" + target.name + "에게 일반 공격을 합니다.");
-        Damage(attackDamage);
-        mana += 100;
-        //currentMana += manaRecovery;
-        StartNextBehavior();
+        if(target != null)
+        {
+            print(name + "(이)가" + target.name + "에게 일반 공격을 합니다.");
+            Damage(attackDamage);
+            mana += 100;
+            //currentMana += manaRecovery;
+            StartNextBehavior();
+        }
+        else
+        {
+            IdleState();
+        }
     }
 
     public void Dead()

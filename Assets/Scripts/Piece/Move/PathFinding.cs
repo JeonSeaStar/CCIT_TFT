@@ -293,7 +293,7 @@ public class PathFinding : MonoBehaviour
 
     public void SetPath(Piece piece, List<Tile> path)
     {
-        piece.path = path;
+        piece.nextTile = path[0];
     }
 
     public void SetCandidatePath(Piece piece, List<Piece> enemies)
@@ -313,7 +313,7 @@ public class PathFinding : MonoBehaviour
                 minCostArray = i;
         }
 
-        if(piece.candidatePath.Count > 0)
+        if (piece.candidatePath[minCostArray].path.Count > 0)
         {
             piece.target = piece.candidatePath[minCostArray].target;
             SetPath(piece, piece.candidatePath[minCostArray].path);
