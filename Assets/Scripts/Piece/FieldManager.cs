@@ -108,31 +108,6 @@ public class FieldManager : MonoBehaviour
                       System.Environment.NewLine +
                       "BurningGround 시너지 = " + mythActiveCount[PieceData.Myth.BurningGround]);
         }
-
-        if (Input.GetKeyDown(KeyCode.B) && ArenaManager.Instance.roundType != RoundType.Battle)
-        {
-            ArenaManager.Instance.roundType = RoundType.Battle;
-            foreach (var effect in sBattleStartEffect) effect(true);
-            foreach (var effect in sCoroutineEffect) effect();
-
-            Debug.Log("즉시 발동 시너지 효과 : " + sBattleStartEffect.Count);
-            Debug.Log("지연 발동 시너지 효과 : " + sCoroutineEffect.Count);
-            InitializingRound();
-        }
-
-        if (Input.GetKeyDown(KeyCode.N) && ArenaManager.Instance.roundType == RoundType.Battle)
-        {
-            ArenaManager.Instance.roundType = RoundType.Deployment;
-            foreach (var effect in sBattleStartEffect) effect(false);
-            StopAllCoroutines();
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.R) && ArenaManager.Instance.roundType == RoundType.Battle)
-        {
-            ArenaManager.Instance.roundType = RoundType.Ready;
-            //InitializingRound();
-        }
     }
 
     public void AddDPList(Piece target)
@@ -694,7 +669,6 @@ public class FieldManager : MonoBehaviour
     }
     #endregion
 
-
     public void InitializingRound()
     {
         if (DualPlayers[0].isGrab)
@@ -848,10 +822,12 @@ public class FieldManager : MonoBehaviour
 
 
         //set firstChild
-        firstChild = GetChildPiece(kind, star);
+        firstChild = GetChildPiece(kind, star); Debug.Log(firstChild.currentTile.name);
 
         //set secondChild
-        secondChild = GetChildPiece(kind, star);
+        secondChild = GetChildPiece(kind, star); Debug.Log(secondChild.currentTile.name);
+
+        Piece originPiece = OriginPiece(firstChild, secondChild, parentPiece);
 
         Tile targetTile = parentPiece.currentTile;
 
@@ -866,14 +842,21 @@ public class FieldManager : MonoBehaviour
         if (!targetTile.isReadyTile)
         {
             Piece resultPiece = SpawnPiece(piece.pieceData, star + 1, targetTile);
-            resultPiece.name += star + 1 + " Star";
+            resultPiece.name += " " + star + 1 + "Star";
+            resultPiece.buffList = originPiece.buffList;
+            resultPiece.pieceData.InitialzePiece(resultPiece);
+            for(int i = 0; i < resultPiece.buffList.Count; i++)
+            {
+                if (resultPiece.buffList[i].haveDirectEffect == true)
+                    resultPiece.pieceData.CalculateBuff(resultPiece, resultPiece.buffList[i]);
+            }
             myFilePieceList.Add(resultPiece);
             AddDPList(resultPiece);
         }
         else
         {
             Piece resultPiece = SpawnPiece(piece.pieceData, star + 1, targetTile);
-            resultPiece.name += star + 1 + " Star";
+            resultPiece.name += " " + star + 1 + "Star";
         }
     }
 
@@ -943,6 +926,15 @@ public class FieldManager : MonoBehaviour
         }
 
         return tile;
+    }
+
+    Piece OriginPiece(Piece first, Piece second, Piece parentPiece)
+    {
+        Piece piece = null;
+        if (first.currentTile.isReadyTile == true && first.currentTile.isReadyTile == true) piece = parentPiece;
+        else piece = (first.currentTile.isReadyTile == false) ? first : second;
+
+        return piece;
     }
 
     public Chest chest;

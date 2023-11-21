@@ -79,8 +79,9 @@ public class Messenger : MonoBehaviour
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, (-1) - (1 << playerMask)))
         {
             #region Piece
-            bool _isGrapPiece = hit.transform.gameObject.layer == 6;//Piece
-            if (_isGrapPiece)
+            GameObject targetPiece = hit.transform.gameObject;
+            bool _isGrapPiece = targetPiece.layer == 6;//Piece
+            if (_isGrapPiece && targetPiece.GetComponent<Piece>().isOwned == true)
             {
                 controlPiece = hit.transform.gameObject.GetComponent<Piece>();
                 FreezeRigidbody(controlPiece, _isGrapPiece);

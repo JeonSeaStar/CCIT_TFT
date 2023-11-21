@@ -36,6 +36,7 @@ public abstract class BuffData : ScriptableObject
     public float criticalDamage;
     public float attackRange;
 
+    public bool haveDirectEffect;
     public virtual void DirectEffect(Piece piece, bool isAdd) { }
 
     public virtual void BattleStartEffect(bool isAdd) { }
