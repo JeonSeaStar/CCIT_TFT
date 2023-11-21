@@ -36,4 +36,11 @@ public class Tile : MonoBehaviour
         this.gridY = gridY;
         this.gridZ = gridZ;
     }
+
+    public void InitTile()
+    {
+        IsFull = false;
+        walkable = true;
+        piece = null;
+    }
 }

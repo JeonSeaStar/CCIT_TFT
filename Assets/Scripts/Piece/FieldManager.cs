@@ -222,7 +222,6 @@ public class FieldManager : MonoBehaviour
     {
         FieldInit();
 
-
         Instance.roundType = RoundType.Deployment;
         foreach (var effect in sBattleStartEffect) effect(false);
         StopAllCoroutines();

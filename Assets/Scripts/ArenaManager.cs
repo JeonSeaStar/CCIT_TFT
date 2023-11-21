@@ -52,7 +52,6 @@ public class ArenaManager : MonoBehaviour
 
     public RoundState roundState;
     public int currentRound = 0;
-    public int currentStage = 0;
 
     public ResultPopup resultPopup;
     public enum Result { NONE, VICTORY, DEFEAT }
@@ -165,9 +164,9 @@ public class ArenaManager : MonoBehaviour
         roundType = RoundType.Ready;
         BattleResult = Result.NONE;
         fieldManagers[0].NextStage();
-        currentStage++;
+        currentRound++;
         ChangeStage(currentRound);
-        roundState.UpdateStageIcon(currentRound + 1, 0);
+        roundState.UpdateStageIcon(currentRound, 0);
     }
 
     public void StartBattle()
@@ -189,10 +188,10 @@ public class ArenaManager : MonoBehaviour
 
     private void StartGame()
     {
-        roundState.SetStage(currentStage);
+        roundState.SetStage(currentRound);
         ChangeStage(1);
-        fieldManagers[0].SpawnEnemy(currentStage);
-        roundState.UpdateStageIcon(currentStage, 0);
+        fieldManagers[0].SpawnEnemy(currentRound);
+        roundState.UpdateStageIcon(currentRound, 0);
     }
     #endregion
 

@@ -130,9 +130,6 @@ public class Piece : MonoBehaviour
 
     protected bool RangeCheck()
     {
-        //if (defaultAttackRange >= ArenaManager.Instance.fieldManagers[0].pathFinding.GetDistance(currentTile, target.currentTile))
-        //print(attackRange + ", " + ArenaManager.Instance.fieldManagers[0].pathFinding.GetDistance(currentTile, target.currentTile));
-        //print(attackRange + ", " + ArenaManager.Instance.fieldManagers[0].pathFinding.GetDistance(currentTile, target.currentTile));
         if (attackRange >= ArenaManager.Instance.fieldManagers[0].pathFinding.GetDistance(currentTile, target.currentTile))
             return true;
         else
@@ -287,7 +284,8 @@ public class Piece : MonoBehaviour
             if (path[0].IsFull)
             {
                 yield return new WaitForSeconds(moveSpeed);
-                StartNextBehavior();
+                //StartNextBehavior();
+                IdleState();
             }
 
             Vector3 targetTilePos = new Vector3(path[0].transform.position.x, transform.position.y, path[0].transform.position.z);
@@ -454,7 +452,6 @@ public class Piece : MonoBehaviour
     {
         yield return new WaitForSeconds(0);
         EnemyCheck();
-        PieceState = State.IDLE;
         if (CheckEnemySurvival(enemyPieceList) && !dead && ArenaManager.Instance.roundType == ArenaManager.RoundType.Battle)
         {
             //foreach (var enemy in enemyPieceList)
@@ -680,6 +677,7 @@ public class Piece : MonoBehaviour
     public void Dead()
     {
         StopAllCoroutines();
+        currentTile.InitTile();
         gameObject.SetActive(false);
     }
 

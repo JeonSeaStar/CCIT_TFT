@@ -313,8 +313,15 @@ public class PathFinding : MonoBehaviour
                 minCostArray = i;
         }
 
-        piece.target = piece.candidatePath[minCostArray].target;
-        SetPath(piece, piece.candidatePath[minCostArray].path);
+        if(piece.candidatePath.Count > 0)
+        {
+            piece.target = piece.candidatePath[minCostArray].target;
+            SetPath(piece, piece.candidatePath[minCostArray].path);
+        }
+        else
+        {
+            piece.IdleState();
+        }
     }
 
     public int GetClosePiece(Piece piece)
