@@ -7,7 +7,7 @@ public class SethPiece : Piece
     PathFinding pathFinding;
     public override IEnumerator Attack()
     {
-        if (mana <= 100)
+        if (mana >= 100)
         {
             StartSkill();
             mana = 0;

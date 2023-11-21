@@ -6,7 +6,7 @@ public class MummyPiece : Piece
 {
     public override IEnumerator Attack()
     {
-        if (mana <= 60)
+        if (mana >= 60)
         {
             StartSkill();
             mana = 0;

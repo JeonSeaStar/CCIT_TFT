@@ -296,14 +296,56 @@ public class PathFinding : MonoBehaviour
         piece.nextTile = path[0];
     }
 
-    public void SetCandidatePath(Piece piece, List<Piece> enemies)
+    public void SetCandidatePath(Piece piece)
+    {
+        piece.candidatePath = new List<CandidatePath>();
+        Piece enemy = piece.target;
+
+        if (!enemy.dead)
+            FindPath(piece, piece.currentTile, enemy.currentTile);
+
+        if (piece.candidatePath[0].path.Count > 0)
+        {
+            SetPath(piece, piece.candidatePath[0].path);
+        }
+    }
+
+    //public void SetCandidatePath(Piece piece, List<Piece> enemies)
+    //{
+    //    piece.candidatePath = new List<CandidatePath>();
+    //    int minCostArray = 0;
+
+    //    foreach (Piece enemy in enemies)
+    //    {
+    //        if (!enemy.dead)
+    //            FindPath(piece, piece.currentTile, enemy.currentTile);
+    //    }
+
+    //    for (int i = 0; i < piece.candidatePath.Count; i++)
+    //    {
+    //        if (piece.candidatePath[i].cost < piece.candidatePath[minCostArray].cost)
+    //            minCostArray = i;
+    //    }
+
+    //    if (piece.candidatePath[minCostArray].path.Count > 0)
+    //    {
+    //        piece.target = piece.candidatePath[minCostArray].target;
+    //        SetPath(piece, piece.candidatePath[minCostArray].path);
+    //    }
+    //    else
+    //    {
+    //        piece.IdleState();
+    //    }
+    //}
+
+    public void SetTarget(Piece piece, List<Piece> enemies)
     {
         piece.candidatePath = new List<CandidatePath>();
         int minCostArray = 0;
 
         foreach (Piece enemy in enemies)
         {
-            if(!enemy.dead)
+            if (!enemy.dead)
                 FindPath(piece, piece.currentTile, enemy.currentTile);
         }
 
@@ -316,11 +358,6 @@ public class PathFinding : MonoBehaviour
         if (piece.candidatePath[minCostArray].path.Count > 0)
         {
             piece.target = piece.candidatePath[minCostArray].target;
-            SetPath(piece, piece.candidatePath[minCostArray].path);
-        }
-        else
-        {
-            piece.IdleState();
         }
     }
 

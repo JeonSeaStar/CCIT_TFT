@@ -8,7 +8,7 @@ public class OsirisPiece : Piece
 
     public override IEnumerator Attack()
     {
-        if (mana <= 75)
+        if (mana >= 75)
         {
             StartSkill();
             mana = 0;

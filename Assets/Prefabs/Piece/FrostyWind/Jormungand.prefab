@@ -2486,7 +2486,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fieldManager: {fileID: 0}
   pieceData: {fileID: 11400000, guid: 94e478a37e8749c43b20d4e214a1f4c3, type: 2}
-  grade: 0
   pieceName: "\uC694\uB974\uBB38\uAC04\uB4DC"
   piecePortrait: {fileID: 0}
   Equipments: []
@@ -2531,9 +2530,14 @@ MonoBehaviour:
   enemyPieceList: []
   myPieceList: []
   animator: {fileID: 5300639533335894707}
+  basicAttackDamage: 0
+  basicShield: 0
+  basicAttackSpeed: 0
+  basicHealth: 0
   pieceState: 0
-  skillEffects: {fileID: 5963301211313334225, guid: 3454883a9dea74f4192196524a9adf91,
+  skillEffects: {fileID: 6073891735194678028, guid: 064c608c3a271334299e1fa22913842f,
     type: 3}
+  nextTile: {fileID: 0}
   isRabbitSynergeActiveCheck: 0
   isCatSynergeActiveCheck: 0
   skillCheckTile: {fileID: 0}
