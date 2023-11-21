@@ -29,6 +29,7 @@ public class FieldManager : MonoBehaviour
     }
     public List<PieceDPList> pieceDpList;
 
+    #region 기물 능력치 초기화
     public class PieceStatusList
     {
         public List<float> pieceHealth = new List<float>();
@@ -48,18 +49,18 @@ public class FieldManager : MonoBehaviour
         public void AddPieceStatus(Piece piece)
         {
             pieceHealth.Add(piece.health);
-            pieceMana.Add(piece.health);
-            pieceManaRecovery.Add(piece.health);
-            pieceAttackDamage.Add(piece.health);
-            pieceAbilityPower.Add(piece.health);
-            pieceArmor.Add(piece.health);
-            pieceMagicResist.Add(piece.health);
-            pieceAttackSpeed.Add(piece.health);
-            pieceCriticalChance.Add(piece.health);
-            pieceCriticalDamage.Add(piece.health);
-            pieceAttackRange.Add(piece.health);
-            pieceBloodBrain.Add(piece.health);
-            pieceMoveSpeed.Add(piece.health);
+            pieceMana.Add(piece.mana);
+            pieceManaRecovery.Add(piece.manaRecovery);
+            pieceAttackDamage.Add(piece.attackDamage);
+            pieceAbilityPower.Add(piece.abilityPower);
+            pieceArmor.Add(piece.armor);
+            pieceMagicResist.Add(piece.magicResist);
+            pieceAttackSpeed.Add(piece.attackSpeed);
+            pieceCriticalChance.Add(piece.criticalChance);
+            pieceCriticalDamage.Add(piece.criticalDamage);
+            pieceAttackRange.Add(piece.attackDamage);
+            pieceBloodBrain.Add(piece.bloodBrain);
+            pieceMoveSpeed.Add(piece.moveSpeed);
         }
         public void ClearPieceStatusList()
         {
@@ -95,6 +96,7 @@ public class FieldManager : MonoBehaviour
         }
     }
     public PieceStatusList pieceStatus = new PieceStatusList();
+    #endregion
 
     [Header("아군 전투 유닛")] public List<Piece> myFilePieceList;
     [Header("상대 전투 유닛")] public List<Piece> enemyFilePieceList;
