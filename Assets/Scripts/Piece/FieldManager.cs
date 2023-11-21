@@ -1050,10 +1050,6 @@ public class FieldManager : MonoBehaviour
     }
 
     public Chest chest;
-<<<<<<< HEAD
-    [Header("로키용 타일 위치")] public List<Tile> lokiPieceSkillPosition;
-    [Header("포세이돈 용 타일 위치")] public List<Tile> poseidonPieceSkillPosition;
-
 
     public void Reward(int currentRound, Result result)
     {
@@ -1095,8 +1091,6 @@ public class FieldManager : MonoBehaviour
     {
         owerPlayer.level += level;
         playerState.UpdateLevel(owerPlayer.level + 1);
-    }
-=======
+    }                
     [Header("로키용 타일 위치")] public Tile lokiPieceSkillPosition;
->>>>>>> 5c7216653b16742f6b20b3a03844416f932352b9
 }
