@@ -497,7 +497,6 @@ public class Piece : MonoBehaviour
             PieceState = State.IDLE;
         }
     }
-
     public void VictoryDacnce()
     {
         StopAllCoroutines();
@@ -506,18 +505,6 @@ public class Piece : MonoBehaviour
         PieceState = State.DANCE;
 
     }
-
-    public bool CheckMyFileSurvival(List<Piece> myFile)
-    {
-        foreach (Piece my in myFile)
-        {
-            if (!my.dead)
-                return true;
-        }
-
-        return false;
-    }
-
     public bool CheckEnemySurvival(List<Piece> enemies)
     {
         foreach (Piece enemy in enemies)
@@ -658,7 +645,6 @@ public class Piece : MonoBehaviour
 
     //void 
     #endregion
-
     public void StartNextBehavior()
     {
         StopAllCoroutines();
