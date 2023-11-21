@@ -70,7 +70,7 @@ public class ArenaManager : MonoBehaviour
                     foreach (var piece in fieldManagers[0].myFilePieceList)
                         piece.VictoryDacnce();
 
-                    if (currentRound != fieldManagers[0].stageInformation.enemy.Count)
+                    if (currentRound != fieldManagers[0].stageInformation.enemy.Count -1)
                         Invoke("NextRound", 3f);
                     else
                     {
@@ -79,8 +79,9 @@ public class ArenaManager : MonoBehaviour
                 }
                 else if (BattleResult == Result.DEFEAT)
                 {
-                    //Invoke("NextRound", 3f);
-                    resultPopup.ActiveResultPopup(false);
+                    fieldManagers[0].ChargeHP(fieldManagers[0].stageInformation.enemy[currentRound].defeatDamage);
+                    Invoke("NextRound", 3f);
+
                     roundState.UpdateStageIcon(currentRound, 2);
                 }
             }
@@ -162,10 +163,13 @@ public class ArenaManager : MonoBehaviour
     private void NextRound()
     {
         roundType = RoundType.Ready;
+
+        fieldManagers[0].Reward(currentRound, BattleResult);
+
         BattleResult = Result.NONE;
         fieldManagers[0].NextStage();
         currentRound++;
-        ChangeStage(currentRound);
+        ChangeStage(currentRound + 1);
         roundState.UpdateStageIcon(currentRound, 0);
     }
 
@@ -188,6 +192,10 @@ public class ArenaManager : MonoBehaviour
 
     private void StartGame()
     {
+        fieldManagers[0].ChargeGold(fieldManagers[0].owerPlayer.gold);
+        fieldManagers[0].ChargeHP(fieldManagers[0].owerPlayer.lifePoint);
+        fieldManagers[0].ChargeLevel(fieldManagers[0].owerPlayer.level);
+
         roundState.SetStage(currentRound);
         ChangeStage(1);
         fieldManagers[0].SpawnEnemy(currentRound);
@@ -212,9 +220,9 @@ public class ArenaManager : MonoBehaviour
 
         for (int i = 0; i < fieldManagers.Count; i++)
         {
-            fieldManagers[i].owerPlyer.isExpedition = false;
-            fieldManagers[i].owerPlyer.matchingInformation.pairings = false;
-            messengerList.Add(fieldManagers[i].owerPlyer);
+            fieldManagers[i].owerPlayer.isExpedition = false;
+            fieldManagers[i].owerPlayer.matchingInformation.pairings = false;
+            messengerList.Add(fieldManagers[i].owerPlayer);
         }
 
         List<Messenger> aGroup = new List<Messenger>();
@@ -283,8 +291,8 @@ public class ArenaManager : MonoBehaviour
     {
         for (int i = 0; i < fieldManagers.Count; i++)
         {
-            if (fieldManagers[i].owerPlyer.matchingInformation.myIndex == index)
-                return fieldManagers[i].owerPlyer;
+            if (fieldManagers[i].owerPlayer.matchingInformation.myIndex == index)
+                return fieldManagers[i].owerPlayer;
         }
 
         return null;
@@ -293,7 +301,7 @@ public class ArenaManager : MonoBehaviour
     private void InitMatchingHistory()
     {
         for (int i = 0; i < fieldManagers.Count; i++)
-            fieldManagers[i].owerPlyer.matchingInformation.HistoryIniti();
+            fieldManagers[i].owerPlayer.matchingInformation.HistoryIniti();
     }
 
     private void PlayerMatching(Messenger home, Messenger away)

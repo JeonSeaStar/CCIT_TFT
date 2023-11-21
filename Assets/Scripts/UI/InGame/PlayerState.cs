@@ -6,20 +6,14 @@ using TMPro;
 
 public class PlayerState : MonoBehaviour
 {
-    public TextMeshProUGUI curentXPText;
-    public TextMeshProUGUI maxXPText;
+    public TextMeshProUGUI level;
     public TextMeshProUGUI currentHPText;
     public TextMeshProUGUI currentMoneyText;
 
-    public void UpdateCurrentXP(int value)
+    public void UpdateLevel(int value)
     {
-        curentXPText.text = value.ToString();
+        level.text = value.ToString();
     }
-
-    public void UpdateMaxXP(int value)
-    {
-        maxXPText.text = value.ToString();
-    }    
 
     public void UpdateCurrentHP(int value)
     {

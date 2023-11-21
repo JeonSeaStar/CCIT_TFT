@@ -39,6 +39,7 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
         pieceData = data;
         pieceName.text = data.pieceName;
+        pieceCost.text = data.cost[data.grade, data.piecePrefab.GetComponent<Piece>().star].ToString();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -85,10 +86,16 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     void BuyPiece(PieceData pieceData)
     {
-        Tile targetTile = fieldManager.GetTile();
+        Tile targetTile = fieldManager.GetReadyTile();
 
         if(targetTile != null)
         {
+            int cost = pieceData.cost[pieceData.grade, pieceData.piecePrefab.GetComponent<Piece>().star];
+            if (fieldManager.owerPlayer.gold < cost)
+                return;
+
+            fieldManager.ChargeGold(-cost);
+
             Piece piece = fieldManager.SpawnPiece(pieceData, 0, targetTile);
             piece.isOwned = true;
             //GameObject pieceObject = Instantiate(piece.piecePrefab, targetTile.transform.position, Quaternion.Euler(-90, 180, 0));

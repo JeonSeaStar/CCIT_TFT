@@ -17,6 +17,7 @@ public class EnemyInformationData : ScriptableObject
     {
         public List<EnemyInformation> enemyInformation;
         public int gold;
+        public int defeatDamage;
     }
 
     public List<StageInformation> enemy;

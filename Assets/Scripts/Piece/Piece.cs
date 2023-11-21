@@ -199,6 +199,9 @@ public class Piece : MonoBehaviour
 
     public void Damage(float damage)
     {
+        if (target == null)
+            return;
+
         if (target.invincible)
             return;
 
