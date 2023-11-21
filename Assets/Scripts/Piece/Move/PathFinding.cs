@@ -76,7 +76,7 @@ public class PathFinding : MonoBehaviour
         int x = tile.listX;
         int y = tile.listY;
 
-        if(y % 2 == 0)
+        if (y % 2 == 0)
         {
             if (indexCheck(y + 1, x + 1))
                 if (grid[y + 1].tile[x + 1] != null)
@@ -86,7 +86,7 @@ public class PathFinding : MonoBehaviour
                     front.Add(grid[y + 1].tile[x]);
         }
 
-        if(y % 2 != 0)
+        if (y % 2 != 0)
         {
             if (indexCheck(y + 1, x))
                 if (grid[y + 1].tile[x] != null)
@@ -304,10 +304,15 @@ public class PathFinding : MonoBehaviour
         if (!enemy.dead)
             FindPath(piece, piece.currentTile, enemy.currentTile);
 
-        if (piece.candidatePath[0].path.Count > 0)
+        if(piece.candidatePath.Count > 0)
         {
-            SetPath(piece, piece.candidatePath[0].path);
+            if (piece.candidatePath[0].path.Count > 0)
+            {
+                SetPath(piece, piece.candidatePath[0].path);
+            }
         }
+        else
+            piece.StartNextBehavior();
     }
 
     //public void SetCandidatePath(Piece piece, List<Piece> enemies)
@@ -355,10 +360,10 @@ public class PathFinding : MonoBehaviour
                 minCostArray = i;
         }
 
-        if (piece.candidatePath[minCostArray].path.Count > 0)
-        {
+        if (piece.candidatePath.Count > 0)
             piece.target = piece.candidatePath[minCostArray].target;
-        }
+        else
+            piece.StartNextBehavior();
     }
 
     public int GetClosePiece(Piece piece)
@@ -378,7 +383,7 @@ public class PathFinding : MonoBehaviour
                 closePieceIndex = i;
             }
         }
-        
+
         return closePieceIndex;
     }
 }

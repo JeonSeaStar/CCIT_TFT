@@ -16,6 +16,7 @@ public class EnemyInformationData : ScriptableObject
     public class StageInformation
     {
         public List<EnemyInformation> enemyInformation;
+        public int gold;
     }
 
     public List<StageInformation> enemy;
