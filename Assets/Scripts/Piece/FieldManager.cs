@@ -94,7 +94,6 @@ public class FieldManager : MonoBehaviour
     public int currentStage;
 
     [Header("상점")] public PieceShop pieceShop;
-
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.S))
@@ -947,4 +946,6 @@ public class FieldManager : MonoBehaviour
     }
 
     public Chest chest;
+    [Header("로키용 타일 위치")] public List<Tile> lokiPieceSkillPosition;
+    [Header("포세이돈 용 타일 위치")] public List<Tile> poseidonPieceSkillPosition;
 }
