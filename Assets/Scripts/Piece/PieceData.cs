@@ -82,6 +82,36 @@ public class PieceData : ScriptableObject
         piece.shield = 0;
     }
 
+    public void ResetPiece(Piece piece)
+    {
+        piece.pieceName = pieceName;
+        piece.piecePortrait = piecePortrait;
+        piece.health = health[piece.star];
+        piece.mana = mana[piece.star];
+        piece.attackDamage = attackDamage[piece.star];
+        piece.abilityPower = abilityPower[piece.star];
+        piece.armor = armor[piece.star];
+        piece.magicResist = magicResist[piece.star];
+        piece.attackSpeed = attackSpeed[piece.star];
+        piece.criticalChance = criticalChance[piece.star];
+        piece.criticalDamage = criticalDamage[piece.star];
+        piece.attackRange = attackRange[piece.star];
+        piece.bloodBrain = bloodBrain[piece.star];
+
+        piece.shield = 0;
+        piece.stun = false;
+        piece.immune = false; //상태면역
+        piece.freeze = false;
+        piece.slow = false;
+        piece.airborne = false;
+        piece.faint = false;
+        piece.fear = false;
+        piece.invincible = false;
+        piece.charm = false; //매혹
+        piece.blind = false;
+        piece.stun = false;
+}
+
     void CalculateEquipments(Piece piece)
     {
         float health = 0;
