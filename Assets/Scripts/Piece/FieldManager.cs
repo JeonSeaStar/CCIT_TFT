@@ -1090,7 +1090,7 @@ public class FieldManager : MonoBehaviour
     public void ChargeLevel(int level)
     {
         owerPlayer.level += level;
-        playerState.UpdateLevel(owerPlayer.level + 1);
+        playerState.UpdateLevel(owerPlayer.level);
     }                
     [Header("로키용 타일 위치")] public Tile lokiPieceSkillPosition;
 }

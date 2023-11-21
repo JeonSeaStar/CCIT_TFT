@@ -12,7 +12,7 @@ public class PlayerState : MonoBehaviour
 
     public void UpdateLevel(int value)
     {
-        level.text = value.ToString();
+        level.text = value + 1.ToString();
     }
 
     public void UpdateCurrentHP(int value)
