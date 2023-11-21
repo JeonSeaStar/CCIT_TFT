@@ -6,7 +6,7 @@ public class RaPiece : Piece
 {
     public override IEnumerator Attack()
     {
-        if (mana <= 70 && target != null)
+        if (mana >= 70 && target != null)
         {
             StartSkill();
             mana = 0;

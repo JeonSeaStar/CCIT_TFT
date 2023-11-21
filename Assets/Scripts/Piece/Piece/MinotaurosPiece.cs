@@ -6,7 +6,7 @@ public class MinotaurosPiece : Piece
 {
     public override IEnumerator Attack()
     {
-        if (mana <= 100)
+        if (mana >= 100)
         {
             StartSkill();
             mana = 0;

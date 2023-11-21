@@ -6,7 +6,7 @@ public class OdinPiece : Piece
 {
     public override IEnumerator Attack()
     {
-        if (mana <= 99)
+        if (mana >= 99)
         {
             StartSkill();
             mana = 0;

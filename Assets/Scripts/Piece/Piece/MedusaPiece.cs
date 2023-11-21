@@ -6,7 +6,7 @@ public class MedusaPiece : Piece
 {
     public override IEnumerator Attack()
     {
-        if (mana <= 40 && target != null)
+        if (mana >= 40 && target != null)
         {
             StartSkill();
             mana = 0;
