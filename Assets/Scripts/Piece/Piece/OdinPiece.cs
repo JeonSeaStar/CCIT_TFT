@@ -50,32 +50,8 @@ public class OdinPiece : Piece
             else if (_targets.isOwned)
             {
                 Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
-                //ArenaManager.Instance.fieldManagers[0].AddBattleStartEffect(Test);
-                _targets.attackDamage = attackDamage * buff;
+                _targets.attackDamage = _targets.attackDamage * buff;
             }
         }
     }
-
-    //void Test(bool isAdd)
-    //{
-    //    if (!isAdd)
-    //    {
-    //        List<Piece> _allPiece = fieldManager.myFilePieceList;
-    //        foreach (var _Neigbor in _allPiece)
-    //        {
-    //            Debug.Log(_Neigbor + "이새끼 스텟 다시 내려주기");
-    //        }
-    //        ArenaManager.Instance.fieldManagers[0].RemoveBattleStartEffect(Test); // 전투 끝나고 값들 초기화 실행해 줄때
-    //        ArenaManager.Instance.fieldManagers[0].AddCoroutine(Test2); // 실행중이던 몇초동안 일어나고 있던 비동기 함수들 멈춰줄때
-    //    }
-    //}
-    //void Test2()
-    //{
-    //    ArenaManager.Instance.fieldManagers[0].StartCoroutine(Test3());
-    //}
-
-    //IEnumerator Test3()
-    //{
-    //    yield return new WaitForSeconds(12f);
-    //}
 }
