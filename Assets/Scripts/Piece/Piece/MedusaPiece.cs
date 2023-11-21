@@ -23,17 +23,17 @@ public class MedusaPiece : Piece
     {
         if (star == 0)
         {
-            target.SkillDamage(attackDamage * 1.6f);
+            Damage(attackDamage * 1.6f);
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
         }
         else if (star == 1)
         {
-            target.SkillDamage(attackDamage * 2.5f);
+            Damage(attackDamage * 2.5f);
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
         }
         else if (star == 2)
         {
-            target.SkillDamage(attackDamage * 2.6f);
+            Damage(attackDamage * 2.6f);
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
         }
 

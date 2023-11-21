@@ -68,6 +68,43 @@ public class PathFinding : MonoBehaviour
         }
     }
 
+    public List<Tile> GetFrontLine(Tile tile)
+    {
+        List<Tile> frontLine = new List<Tile>();
+
+        int x = tile.listX;
+        int y = tile.listY;
+
+        if (indexCheck(y, x))
+            if (grid[y].tile[x] != null)
+                frontLine.Add(grid[y].tile[x]);
+
+        if (indexCheck(y, x + 1))
+            if (grid[y].tile[x + 1] != null)
+                frontLine.Add(grid[y].tile[x + 1]);
+
+        if (indexCheck(y, x + 2))
+            if (grid[y].tile[x + 2] != null)
+                frontLine.Add(grid[y].tile[x + 2]);
+
+        if (indexCheck(y, x + 3))
+            if (grid[y].tile[x + 3] != null)
+                frontLine.Add(grid[y].tile[x + 3]);
+
+        if (indexCheck(y, x + 4))
+            if (grid[y].tile[x + 4] != null)
+                frontLine.Add(grid[y].tile[x + 4]);
+
+        if (indexCheck(y, x + 5))
+            if (grid[y].tile[x + 5] != null)
+                frontLine.Add(grid[y].tile[x + 5]);
+
+        if (indexCheck(y, x + 6))
+            if (grid[y].tile[x + 6] != null)
+                frontLine.Add(grid[y].tile[x + 6]);
+
+        return frontLine;
+    }
 
     public List<Tile> GetFront(Tile tile)
     {

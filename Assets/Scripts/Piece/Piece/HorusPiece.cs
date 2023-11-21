@@ -25,76 +25,29 @@ public class HorusPiece : Piece
     {
         if (star == 0)
         {
-            HorusSkill(256f);
+            ProjectionSkill(attackDamage * 1.9f);
         }
         else if (star == 1)
         {
-            HorusSkill(576f);
+            ProjectionSkill(attackDamage * 2.3f);
         }
         else if (star == 2)
         {
-            HorusSkill(1776f);
+            ProjectionSkill(attackDamage * 2.75f);
         }
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
 
-    public void HorusSkill(float damage)
+    void ProjectionSkill(float damage)
     {
-        List<Piece> Piece = fieldManager.enemyFilePieceList;
-        List<Vector3> PieceDis = new List<Vector3>();
-        for(int i = 0; i < Piece.Count; i++)
+        if (target != null)
         {
-             PieceDis.Add(Piece[i].transform.position - this.transform.position);
-        }
-        PieceDis.Sort();
-
-        count = PieceDis.Count;
-        for(int k = 0; k < count; k++)
-        {
-            if(PieceDis.Count > 0)
-            {
-                if(count <= 5)
-                {
-                    count = 4;
-                }
-                if (count == 4)
-                {
-                    GameObject centaBullet = Instantiate(bullet, transform.position, Quaternion.identity);
-                    Bullet b = centaBullet.GetComponent<NeithBullet>();
-                    b.parentPiece = this;
-                    b.damage = damage;
-                    b.Shot(PieceDis[k]);
-                }
-                else if(count == 3)
-                {
-                    GameObject centaBullet = Instantiate(bullet, transform.position, Quaternion.identity);
-                    Bullet b = centaBullet.GetComponent<NeithBullet>();
-                    b.parentPiece = this;
-                    b.damage = damage;
-                    b.Shot(PieceDis[k]);
-                }
-                else if (count == 2)
-                {
-                    GameObject centaBullet = Instantiate(bullet, transform.position, Quaternion.identity);
-                    Bullet b = centaBullet.GetComponent<NeithBullet>();
-                    b.parentPiece = this;
-                    b.damage = damage;
-                    b.Shot(PieceDis[k]);
-                }
-                else if (count == 1)
-                {
-                    GameObject centaBullet = Instantiate(bullet, transform.position, Quaternion.identity);
-                    Bullet b = centaBullet.GetComponent<NeithBullet>();
-                    b.parentPiece = this;
-                    b.damage = damage;
-                    b.Shot(PieceDis[k]);
-                }
-            }
-            else
-            {
-                return;
-            }
+            GameObject centaBullet = Instantiate(bullet, transform.position, Quaternion.identity);
+            Bullet b = centaBullet.GetComponent<HathorBullet>();
+            b.parentPiece = this;
+            b.damage = damage;
+            b.Shot(target.transform.position - transform.position);
         }
     }
 }

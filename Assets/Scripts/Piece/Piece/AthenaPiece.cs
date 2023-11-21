@@ -46,7 +46,7 @@ public class AthenaPiece : Piece
             }
             else if (_targets.isOwned == false)
             {
-                _targets.SkillDamage(damage);
+                Damage(_targets, damage);
             }
         }
     }

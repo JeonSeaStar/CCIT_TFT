@@ -1010,6 +1010,5 @@ public class FieldManager : MonoBehaviour
     }
 
     public Chest chest;
-    [Header("로키용 타일 위치")] public List<Tile> lokiPieceSkillPosition;
-    [Header("포세이돈 용 타일 위치")] public List<Tile> poseidonPieceSkillPosition;
+    [Header("로키용 타일 위치")] public Tile lokiPieceSkillPosition;
 }

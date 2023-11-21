@@ -5,14 +5,14 @@ using UnityEngine;
 public class JormungandPiece : Piece
 {
     public Tile skillCheckTile;
-    public PathFinding pathFinding;
+    PathFinding pathFinding;
     int time;
     public override IEnumerator Attack()
     {
         if (mana >= 50)
         {
-            StartSkill();
-            mana = 0;
+            StartSkill(); 
+             mana = 0;
             yield return new WaitForSeconds(attackSpeed);
             StartNextBehavior();
         }
@@ -24,7 +24,6 @@ public class JormungandPiece : Piece
 
     public override IEnumerator Skill()
     {
-        //타겟 지정 후 타일 알아오고 범위에 있는 피스 1초당 알아오고 데미지 주기
         if (star == 0)
         {
             GetLocationMultiRangeSkill(attackDamage * 0.8f, 6);
@@ -57,6 +56,7 @@ public class JormungandPiece : Piece
         }
         for (int i = 0; i < time; i++)
         {
+            Debug.Log(i);
             List<Tile> _getNeigbor = pathFinding.GetNeighbor(skillCheckTile);
             _getNeigbor.Add(skillCheckTile);
             foreach (var _Neigbor in _getNeigbor)
@@ -70,7 +70,7 @@ public class JormungandPiece : Piece
                 else if (_targets.isOwned == false)
                 {
                     Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
-                    _targets.SkillDamage(damage);
+                    Damage(_targets, damage);
                 }
             }
             yield return new WaitForSeconds(1f);
