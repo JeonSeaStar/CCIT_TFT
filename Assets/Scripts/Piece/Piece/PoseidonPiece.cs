@@ -23,34 +23,34 @@ public class PoseidonPiece : Piece
     {
         if (star == 0)
         {
-            DamageAllTile(attackDamage);
+            AllPieceDamageSkill(attackDamage);
         }
         else if (star == 1)
         {
-            DamageAllTile(attackDamage * 1.5f);
+            AllPieceDamageSkill(attackDamage * 1.5f);
         }
         else if (star == 2)
         {
-            DamageAllTile(attackDamage * 3.75f);
+            AllPieceDamageSkill(attackDamage * 3.75f);
         }
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
 
-    void DamageAllTile(float damage)
+    void AllPieceDamageSkill(float damage)
     {
-        List<Tile> _getHalf = fieldManager.poseidonPieceSkillPosition;
-        Instantiate(skillEffects, transform.position, Quaternion.identity);
-        foreach (var _Neigbor in _getHalf)
+        List<Piece> _allPiece = fieldManager.enemyFilePieceList;
+        foreach (var _Neigbor in _allPiece)
         {
             Piece _targets = _Neigbor.GetComponent<Piece>();
             if (_targets == null)
             {
                 Debug.Log("대상없음");
             }
-            else if (!_targets.isOwned)
+            else
             {
-                _targets.SkillDamage(damage);
+                Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
+                Damage(_targets, damage);
             }
         }
     }

@@ -46,7 +46,7 @@ public class SethPiece : Piece
             else if (!_targets.isOwned)
             {
                 Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
-                _targets.SkillDamage(damage);
+                Damage(_targets, damage);
             }
         }
     }

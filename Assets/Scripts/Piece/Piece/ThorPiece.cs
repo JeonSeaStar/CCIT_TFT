@@ -48,6 +48,7 @@ public class ThorPiece : Piece
         }
         for (int i = 0; i < time; i++)
         {
+            Debug.Log(i);
             List<Piece> _allPiece = fieldManager.enemyFilePieceList;
             foreach (var _Neigbor in _allPiece)
             {
@@ -59,7 +60,7 @@ public class ThorPiece : Piece
                 else
                 {
                     Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
-                    _targets.SkillDamage(damage);
+                    Damage(_targets, damage);
                 }
             }
             yield return new WaitForSeconds(1f);
@@ -79,7 +80,7 @@ public class ThorPiece : Piece
             else
             {
                 Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
-                _targets.SkillDamage(damage);
+                Damage(_targets, damage);
             }
         }
     }

@@ -33,8 +33,11 @@ public class SphinxPiece : Piece
 
     void SphinxSkill(float damage, float time)
     {
-        Instantiate(skillEffects, target.transform.position, Quaternion.identity);
-        target.SkillDamage(attackDamage * damage);
-        target.SetStun(time);
+        if(target != null)
+        {
+            Instantiate(skillEffects, target.transform.position, Quaternion.identity);
+            Damage(attackDamage * damage);
+            target.SetStun(time);
+        }
     }
 }

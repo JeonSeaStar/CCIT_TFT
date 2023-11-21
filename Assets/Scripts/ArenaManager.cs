@@ -177,6 +177,9 @@ public class ArenaManager : MonoBehaviour
     {
         roundType = RoundType.Battle;
 
+        foreach(var list in fieldManagers[0].pieceDpList)
+            fieldManagers[0].pieceStatus.AddPieceStatus(list.piece);
+
         fieldManagers[0].ActiveSynerge();
 
         foreach (var piece in fieldManagers[0].myFilePieceList)

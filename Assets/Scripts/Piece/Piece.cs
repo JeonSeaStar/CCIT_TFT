@@ -19,6 +19,7 @@ public class Piece : MonoBehaviour
     [Header("Player Stats")]
     public float health;
     public float mana;
+    public float manaRecovery;
     public float attackDamage;
     public float abilityPower;
     public float armor;
@@ -154,6 +155,8 @@ public class Piece : MonoBehaviour
             if (shieldPoint < damage)
             {
                 damage = damage - shieldPoint;
+                piece.health -= damage;
+                shieldPoint = 0;
             }
             else
             {
@@ -173,18 +176,20 @@ public class Piece : MonoBehaviour
         if (invincible)
             return;
 
-        if (shield > 0)
+        if (target.shield > 0)
         {
-            float shieldPoint = shield;
+            float shieldPoint = target.shield;
             if (shieldPoint < damage)
             {
                 damage = damage - shieldPoint;
+                target.health -= damage;
+                shieldPoint = 0;
             }
             else
             {
                 shieldPoint -= damage;
             }
-            shield = shieldPoint;
+            target.shield = shieldPoint;
         }
         else
         {
@@ -499,7 +504,6 @@ public class Piece : MonoBehaviour
             PieceState = State.IDLE;
         }
     }
-
     public void VictoryDacnce()
     {
         StopAllCoroutines();
@@ -508,18 +512,6 @@ public class Piece : MonoBehaviour
         PieceState = State.DANCE;
 
     }
-
-    public bool CheckMyFileSurvival(List<Piece> myFile)
-    {
-        foreach (Piece my in myFile)
-        {
-            if (!my.dead)
-                return true;
-        }
-
-        return false;
-    }
-
     public bool CheckEnemySurvival(List<Piece> enemies)
     {
         foreach (Piece enemy in enemies)
@@ -660,7 +652,6 @@ public class Piece : MonoBehaviour
 
     //void 
     #endregion
-
     public void StartNextBehavior()
     {
         StopAllCoroutines();
