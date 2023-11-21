@@ -42,6 +42,10 @@ public class ThorPiece : Piece
 
     IEnumerator AllPieceDamageTimeSkill(float damage, float time)
     {
+        if (pieceState == State.DANCE)
+        {
+            yield break;
+        }
         for (int i = 0; i < time; i++)
         {
             List<Piece> _allPiece = fieldManager.enemyFilePieceList;
