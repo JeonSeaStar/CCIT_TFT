@@ -55,7 +55,7 @@ public class HadesPiece : Piece
             }
             else if (!_targets.isOwned)
             {
-                _targets.SkillDamage(damage);
+                Damage(_targets, damage);
             }
         }
     }

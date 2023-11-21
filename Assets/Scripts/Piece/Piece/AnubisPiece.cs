@@ -24,17 +24,17 @@ public class AnubisPiece : Piece
         if (star == 0)
         {
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
-            target.SkillDamage(attackDamage * 1.5f);
+            Damage(attackDamage * 1.5f);
         }
         else if (star == 1)
         {
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
-            target.SkillDamage(attackDamage * 2.5f);
+            Damage(attackDamage * 2.5f);
         }
         else if (star == 2)
         {
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
-            target.SkillDamage(attackDamage * 5f);
+            Damage(attackDamage * 5f);
         }
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();

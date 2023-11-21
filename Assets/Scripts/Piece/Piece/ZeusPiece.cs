@@ -45,7 +45,7 @@ public class ZeusPiece : Piece
                 yield break; //or yield return null;
             else
             {
-                target.SkillDamage(damage);
+                Damage(damage);
                 Instantiate(skillEffects, target.transform.position, Quaternion.identity);
             }
             yield return new WaitForSeconds(1f);

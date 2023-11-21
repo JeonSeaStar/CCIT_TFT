@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LokiPiece : Piece
 {
+    PathFinding pathFinding;
     Piece[] firstLinePieces;
     Piece[] targets;
     int randomCount;
@@ -26,85 +27,65 @@ public class LokiPiece : Piece
     {
         if (star == 0)
         {
-            GetAdbilityTarget();
-            RandomCapability(1.3f);
+            GetAdbilityTarget(1.3f);
         }
         else if (star == 1)
         {
-            GetAdbilityTarget();
-            RandomCapability(1.6f);
+            GetAdbilityTarget(1.6f);
         }
         else if (star == 2)
         {
-            GetAdbilityTarget();
-            RandomCapability(1.9f);
+            GetAdbilityTarget(1.9f);
         }
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
 
-    public void GetAdbilityTarget()
+    public void GetAdbilityTarget(float percentage)
     {
-        List<Tile> firstLineTiles = fieldManager.lokiPieceSkillPosition;
-        for (int i = 0; i < firstLineTiles.Count; i++)
+        pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
+        List<Tile> _getFirstLineTiles = pathFinding.GetFrontLine(fieldManager.lokiPieceSkillPosition);
+        foreach (var _Neigbor in _getFirstLineTiles)
         {
-            firstLinePieces[i] = firstLineTiles[i].piece;
-            if (firstLinePieces[i] == null)
+            Piece _targets = _Neigbor.GetComponent<Piece>();
+            if (_targets == null)
             {
                 Debug.Log("대상없음");
             }
-            else if (firstLinePieces[i].isOwned)
+            else if (!_targets.isOwned)
             {
-                targets[i] = firstLinePieces[i];
-                Instantiate(skillEffects, targets[i].transform.position, Quaternion.identity);
+                RandomCapability(_targets, percentage);
+                Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
             }
         }
     }
 
-    void RandomCapability(float percentage)
+    void RandomCapability(Piece Target,float percentage)
     {//체력, 공격력, 공속, 꽝
         randomCount = Random.Range(0, 5);
         if (randomCount == 0)
         {
-            for (int i = 0; i < targets.Length; i++)
-            {
-                targets[i].health = targets[i].health * percentage;
-            }
+            Target.health = Target.health * percentage;
         }
         else if (randomCount == 1)
         {
-            for (int i = 0; i < targets.Length; i++)
-            {
-                targets[i].attackDamage = targets[i].attackDamage * percentage;
-            }
+            Target.attackDamage = Target.attackDamage * percentage;
         }
         else if (randomCount == 2)
         {
-            for (int i = 0; i < targets.Length; i++)
-            {
-                targets[i].attackSpeed = targets[i].attackSpeed - (percentage % 3f);
-            }
+            Target.attackSpeed = Target.attackSpeed - (percentage % 3f);
         }
         else if (randomCount == 3)
         {
-            for (int i = 0; i < targets.Length; i++)
-            {
-                targets[i].health = targets[i].health;
-            }
+            Target.health = Target.health - (attackDamage * percentage);
         }
         else if (randomCount == 4)
         {
-            for (int i = 0; i < targets.Length; i++)
-            {
-                targets[i].attackDamage = targets[i].attackDamage;
-            }
+            Target.attackDamage = Target.attackDamage - (10f * percentage);
         }
         else if (randomCount == 5)
         {
-            for (int i = 0; i < targets.Length; i++)
-            {
-                targets[i].attackSpeed = targets[i].attackSpeed;
-            }
+            Target.attackSpeed = Target.attackSpeed + ( 1f - percentage);
         }
     }
 }

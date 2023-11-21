@@ -24,17 +24,17 @@ public class DraugrPiece : Piece
         if (star == 0)
         {
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
-            target.SkillDamage(attackDamage * 1.35f);
+            Damage(attackDamage * 1.35f);
         }
         else if (star == 1)
         {
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
-            target.SkillDamage(attackDamage * 2f);
+            Damage(attackDamage * 2f);
         }
         else if (star == 2)
         {
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
-            target.SkillDamage(attackDamage * 3f);
+            Damage(attackDamage * 3f);
         }
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
