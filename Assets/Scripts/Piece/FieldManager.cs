@@ -27,8 +27,74 @@ public class FieldManager : MonoBehaviour
             this.dpTile = dpTile;
         }
     }
-
     public List<PieceDPList> pieceDpList;
+
+    public class PieceStatusList
+    {
+        public List<float> pieceHealth = new List<float>();
+        public List<float> pieceMana = new List<float>();
+        public List<float> pieceManaRecovery = new List<float>();
+        public List<float> pieceAttackDamage = new List<float>();
+        public List<float> pieceAbilityPower = new List<float>();
+        public List<float> pieceArmor = new List<float>();
+        public List<float> pieceMagicResist = new List<float>();
+        public List<float> pieceAttackSpeed = new List<float>();
+        public List<float> pieceCriticalChance = new List<float>();
+        public List<float> pieceCriticalDamage = new List<float>();
+        public List<float> pieceAttackRange = new List<float>();
+        public List<float> pieceBloodBrain = new List<float>();
+        public List<float> pieceMoveSpeed = new List<float>();
+
+        public void AddPieceStatus(Piece piece)
+        {
+            pieceHealth.Add(piece.health);
+            pieceMana.Add(piece.health);
+            pieceManaRecovery.Add(piece.health);
+            pieceAttackDamage.Add(piece.health);
+            pieceAbilityPower.Add(piece.health);
+            pieceArmor.Add(piece.health);
+            pieceMagicResist.Add(piece.health);
+            pieceAttackSpeed.Add(piece.health);
+            pieceCriticalChance.Add(piece.health);
+            pieceCriticalDamage.Add(piece.health);
+            pieceAttackRange.Add(piece.health);
+            pieceBloodBrain.Add(piece.health);
+            pieceMoveSpeed.Add(piece.health);
+        }
+        public void ClearPieceStatusList()
+        {
+            pieceHealth.Clear();
+            pieceMana.Clear();
+            pieceManaRecovery.Clear();
+            pieceAttackDamage.Clear();
+            pieceAbilityPower.Clear();
+            pieceArmor.Clear();
+            pieceMagicResist.Clear();
+            pieceAttackSpeed.Clear();
+            pieceCriticalChance.Clear();
+            pieceCriticalDamage.Clear();
+            pieceAttackRange.Clear();
+            pieceBloodBrain.Clear();
+            pieceMoveSpeed.Clear();
+        }
+        public void SetStatus(Piece piece, int index)
+        {
+            piece.health = this.pieceHealth[index];
+            piece.mana = this.pieceMana[index];
+            piece.manaRecovery = this.pieceManaRecovery[index];
+            piece.attackDamage = this.pieceAttackDamage[index];
+            piece.abilityPower = this.pieceAbilityPower[index];
+            piece.armor = this.pieceArmor[index];
+            piece.magicResist = this.pieceMagicResist[index];
+            piece.attackSpeed = this.pieceAttackSpeed[index];
+            piece.criticalChance = this.pieceCriticalChance[index];
+            piece.criticalDamage = this.pieceCriticalDamage[index];
+            piece.attackRange = this.pieceAttackRange[index];
+            piece.bloodBrain = this.pieceBloodBrain[index];
+            piece.moveSpeed = this.pieceMoveSpeed[index];
+        }
+    }
+    public PieceStatusList pieceStatus = new PieceStatusList();
 
     [Header("아군 전투 유닛")] public List<Piece> myFilePieceList;
     [Header("상대 전투 유닛")] public List<Piece> enemyFilePieceList;
@@ -195,6 +261,10 @@ public class FieldManager : MonoBehaviour
     public void NextStage()
     {
         FieldInit();
+
+        for(int i = 0; i < pieceDpList.Count; i++)
+            pieceStatus.SetStatus(pieceDpList[i].piece, i);
+        pieceStatus.ClearPieceStatusList();
 
         Instance.roundType = RoundType.Deployment;
         foreach (var effect in sBattleStartEffect) effect(false);

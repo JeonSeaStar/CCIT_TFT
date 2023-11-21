@@ -19,6 +19,7 @@ public class Piece : MonoBehaviour
     [Header("Player Stats")]
     public float health;
     public float mana;
+    public float manaRecovery;
     public float attackDamage;
     public float abilityPower;
     public float armor;
