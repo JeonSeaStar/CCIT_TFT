@@ -24,26 +24,28 @@ public class NeithPiece : Piece
     {
         if (star == 0)
         {
-            ProjectionSkill();
+            ProjectionSkill(attackDamage * 1.8f);
         }
         else if (star == 1)
         {
-            ProjectionSkill();
+            ProjectionSkill(attackDamage * 1.8f);
         }
         else if (star == 2)
         {
-            ProjectionSkill();
+            ProjectionSkill(attackDamage * 1.8f);
         }
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
 
-    void ProjectionSkill()
+    void ProjectionSkill(float damage)
     {
         if (target != null)
         {
             GameObject centaBullet = Instantiate(bullet, transform.position, Quaternion.identity);
             Bullet b = centaBullet.GetComponent<NeithBullet>();
+            b.parentPiece = this;
+            b.damage = damage;
             b.Shot(target.transform.position - transform.position);
         }
     }

@@ -19,10 +19,34 @@ public class RaPiece : Piece
         }
     }
 
-    public override IEnumerator Skill() //아직 구현 X
+    public override IEnumerator Skill()
     {
-        base.Skill();
+        if (star == 0)
+        {
+            RaSkill(attackDamage * 1f, 0.7f);
+        }
+        else if (star == 1)
+        {
+            RaSkill(attackDamage * 3f, 1.2f);
+        }
+        else if (star == 2)
+        {
+            RaSkill(attackDamage * 8f, 1.7f);
+        }
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
+    }
+
+    public void RaSkill(float damage, float time)
+    {
+        if (fieldManager.enemyFilePieceList != null)
+        {
+            for (int i = 0; i < fieldManager.enemyFilePieceList.Count; i++)
+            {
+                fieldManager.enemyFilePieceList[i].Damage(damage);
+                fieldManager.enemyFilePieceList[i].SetStun(time);
+                Instantiate(skillEffects, fieldManager.enemyFilePieceList[i].transform.position, Quaternion.identity);
+            }
+        }
     }
 }

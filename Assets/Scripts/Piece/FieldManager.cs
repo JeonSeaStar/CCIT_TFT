@@ -328,8 +328,8 @@ public class FieldManager : MonoBehaviour
     public void RemoveBattleStartEffect(BattleStartEffect handler) { sBattleStartEffect.Remove(handler); }
 
     public delegate void CoroutineEffect(); public HashSet<CoroutineEffect> sCoroutineEffect = new HashSet<CoroutineEffect>();
-    void AddCoroutine(CoroutineEffect handler) { sCoroutineEffect.Add(handler); }
-    void RemoveCoroutine(CoroutineEffect handler) { sCoroutineEffect.Remove(handler); }
+    public void AddCoroutine(CoroutineEffect handler) { sCoroutineEffect.Add(handler); }
+    public void RemoveCoroutine(CoroutineEffect handler) { sCoroutineEffect.Remove(handler); }
 
     public BuffManager buffManager;
     void ApplyMythSynerge(PieceData.Myth value)
@@ -868,11 +868,15 @@ public class FieldManager : MonoBehaviour
         if (!targetTile.isReadyTile)
         {
             Piece resultPiece = SpawnPiece(piece.pieceData, star + 1, targetTile);
+            resultPiece.name += star + 1 + " Star";
             myFilePieceList.Add(resultPiece);
             AddDPList(resultPiece);
         }
         else
-            SpawnPiece(piece.pieceData, star + 1, targetTile);
+        {
+            Piece resultPiece = SpawnPiece(piece.pieceData, star + 1, targetTile);
+            resultPiece.name += star + 1 + " Star";
+        }
     }
 
     Piece GetChildPiece(int kind, int star)
