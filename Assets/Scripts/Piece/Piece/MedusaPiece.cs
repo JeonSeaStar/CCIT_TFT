@@ -23,21 +23,27 @@ public class MedusaPiece : Piece
     {
         if (star == 0)
         {
-            Damage(attackDamage * 1.6f);
-            Instantiate(skillEffects, target.transform.position, Quaternion.identity);
+            Attackkill(attackDamage * 1.6f);
         }
         else if (star == 1)
         {
-            Damage(attackDamage * 2.5f);
-            Instantiate(skillEffects, target.transform.position, Quaternion.identity);
+            Attackkill(attackDamage * 2.5f);
         }
         else if (star == 2)
         {
-            Damage(attackDamage * 2.6f);
-            Instantiate(skillEffects, target.transform.position, Quaternion.identity);
+            Attackkill(attackDamage * 2.6f);
         }
 
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
+    }
+
+    void Attackkill(float damage)
+    {
+        if(target != null)
+        {
+            Damage(damage);
+            Instantiate(skillEffects, target.transform.position, Quaternion.identity);
+        }
     }
 }

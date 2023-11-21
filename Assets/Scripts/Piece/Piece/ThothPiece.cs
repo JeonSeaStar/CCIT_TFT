@@ -40,8 +40,11 @@ public class ThothPiece : Piece
 
     void ProjectionSkill()
     {
-        GameObject centaBullet = Instantiate(bullet, transform.position, Quaternion.identity);
-        Bullet b = centaBullet.GetComponent<ThothBullet>();
-        b.Shot(target.transform.position - transform.position);
+        if(target != null)
+        {
+            GameObject centaBullet = Instantiate(bullet, transform.position, Quaternion.identity);
+            Bullet b = centaBullet.GetComponent<ThothBullet>();
+            b.Shot(target.transform.position - transform.position);
+        }
     }
 }

@@ -39,7 +39,10 @@ public class HermesPiece : Piece
 
     void BlindSkill(float time)
     {
-        Instantiate(skillEffects, target.transform.position, Quaternion.identity);
-        target.SetBlind(time);
+        if(target != null)
+        {
+            Instantiate(skillEffects, target.transform.position, Quaternion.identity);
+            target.SetBlind(time);
+        }
     }
 }
