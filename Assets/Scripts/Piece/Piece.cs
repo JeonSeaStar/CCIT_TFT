@@ -248,6 +248,12 @@ public class Piece : MonoBehaviour
         }
     }
 
+    public void IdleState()
+    {
+        PieceState = State.IDLE;
+        StartNextBehavior();
+    }
+
     public void DeadState()
     {
         StopAllCoroutines();

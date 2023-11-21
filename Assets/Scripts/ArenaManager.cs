@@ -67,15 +67,16 @@ public class ArenaManager : MonoBehaviour
 
                 if (BattleResult == Result.VICTORY)
                 {
+                    roundState.UpdateStageIcon(currentRound, 1);
+                    foreach (var piece in fieldManagers[0].myFilePieceList)
+                        piece.VictoryDacnce();
+
                     if (currentRound != fieldManagers[0].stageInformation.enemy.Count)
                         Invoke("NextRound", 3f);
                     else
                     {
                         resultPopup.ActiveResultPopup(true);
                     }
-                    roundState.UpdateStageIcon(currentRound, 1);
-                    foreach (var piece in fieldManagers[0].myFilePieceList)
-                        piece.VictoryDacnce();
                 }
                 else if (BattleResult == Result.DEFEAT)
                 {
