@@ -73,6 +73,14 @@ public class Piece : MonoBehaviour
     public List<Piece> myPieceList = new List<Piece>();
 
     public Animator animator;
+
+    [Header("리셋상태")]
+    public float basicAttackDamage;
+    public float basicShield;
+    public float basicAttackSpeed;
+    public float basicHealth;
+
+
     public enum State
     {
         NONE,
@@ -479,8 +487,10 @@ public class Piece : MonoBehaviour
     public void VictoryDacnce()
     {
         StopAllCoroutines();
+        pieceData.ResetPiece(this);
         print(name + "(이)가 승리의 춤 추는 중.");
         PieceState = State.DANCE;
+        
     }
 
     public bool CheckMyFileSurvival(List<Piece> myFile)
