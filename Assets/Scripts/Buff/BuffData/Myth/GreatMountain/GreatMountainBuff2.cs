@@ -39,7 +39,9 @@ public class GreatMountainBuff2 : BuffData
                         spawnTile.piece.currentTile = spawnTile;
                         spawnTile.piece.targetTile = spawnTile;
                         spawnTile.piece.isOwned = true;
-                        greatMountainPiece.transform.position = new Vector3(spawnTile.transform.position.x, 0, spawnTile.transform.position.z);
+
+                        float _height = ArenaManager.Instance.fieldManagers[0].groundHeight;
+                        greatMountainPiece.transform.position = new Vector3(spawnTile.transform.position.x, _height, spawnTile.transform.position.z);
                         return;
                     }
                 }

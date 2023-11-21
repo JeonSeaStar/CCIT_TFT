@@ -57,7 +57,9 @@ public class HamsterBuff2 : BuffData
                     spawnTile.piece.isOwned = true;
                     spawnTile.piece.currentTile = spawnTile;
                     spawnTile.piece.targetTile = spawnTile;
-                    spawnTile.piece.transform.position = new Vector3(spawnTile.transform.position.x, 0, spawnTile.transform.position.z);
+
+                    float _height = ArenaManager.Instance.fieldManagers[0].groundHeight;
+                    spawnTile.piece.transform.position = new Vector3(spawnTile.transform.position.x, _height, spawnTile.transform.position.z);
                     spawnTile.piece.StartNextBehavior();
                     _randomTile.RemoveAt(_randomSpot);
                 }
