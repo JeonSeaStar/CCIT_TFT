@@ -104,14 +104,7 @@ public class PieceData : ScriptableObject
         piece.mana = mana[piece.star];
         piece.attackDamage = attackDamage[piece.star];
         piece.abilityPower = abilityPower[piece.star];
-        piece.abilityPowerCoefficient = abilityPowerCoefficient[piece.star];
-        piece.armor = armor[piece.star];
-        piece.magicResist = magicResist[piece.star];
         piece.attackSpeed = attackSpeed[piece.star];
-        piece.criticalChance = criticalChance[piece.star];
-        piece.criticalDamage = criticalDamage[piece.star];
-        piece.attackRange = attackRange[piece.star];
-        piece.bloodBrain = bloodBrain[piece.star];
 
         piece.shield = 0;
         piece.stun = false;
