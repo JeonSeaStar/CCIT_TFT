@@ -54,8 +54,8 @@ public class LokiPiece : Piece
             }
             else if (!_targets.isOwned)
             {
-                RandomCapability(_targets, percentage);
                 Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
+                RandomCapability(_targets, percentage);
             }
         }
     }

@@ -56,7 +56,6 @@ public class JormungandPiece : Piece
         }
         for (int i = 0; i < time; i++)
         {
-            Debug.Log(i);
             List<Tile> _getNeigbor = pathFinding.GetNeighbor(skillCheckTile);
             _getNeigbor.Add(skillCheckTile);
             foreach (var _Neigbor in _getNeigbor)
