@@ -6,10 +6,17 @@ using TMPro;
 public class FieldPieceStatus : MonoBehaviour
 {
     public TextMeshProUGUI currentPieceCount;
-    public TextMeshProUGUI MaxPieceCount;
+    public TextMeshProUGUI maxPieceCount;
+    public GameObject fieldPieceStatusGameObject;
 
-    public void UpdateFieldStatus()
+    public void UpdateFieldStatus(int current, int max)
     {
+        if (current == max)
+            fieldPieceStatusGameObject.SetActive(false);
+        else
+            fieldPieceStatusGameObject.SetActive(true);
 
+        currentPieceCount.text = current.ToString();
+        maxPieceCount.text = max.ToString();
     }
 }

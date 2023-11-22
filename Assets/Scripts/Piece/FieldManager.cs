@@ -110,6 +110,7 @@ public class FieldManager : MonoBehaviour
 
     public PathFinding pathFinding;
     public PlayerState playerState;
+    public FieldPieceStatus fieldPieceStatus;
 
     public List<Tile> readyTileList;
     public List<Tile> battleTileList;
@@ -186,6 +187,8 @@ public class FieldManager : MonoBehaviour
     {
         PieceDPList pieceDP = new PieceDPList(target, target.targetTile);
         pieceDpList.Add(pieceDP);
+
+        fieldPieceStatus.UpdateFieldStatus(pieceDpList.Count, owerPlayer.maxPieceCount[owerPlayer.level]);
     }
 
     public void RemoveDPList(Piece target)
@@ -195,6 +198,7 @@ public class FieldManager : MonoBehaviour
             if (pieceDpList[i].piece == target)
             {
                 pieceDpList.RemoveAt(i);
+                fieldPieceStatus.UpdateFieldStatus(pieceDpList.Count, owerPlayer.maxPieceCount[owerPlayer.level]);
                 return;
             }
         }

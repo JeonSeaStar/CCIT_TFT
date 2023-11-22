@@ -203,6 +203,8 @@ public class ArenaManager : MonoBehaviour
         ChangeStage(1);
         fieldManagers[0].SpawnEnemy(currentRound);
         roundState.UpdateStageIcon(currentRound, 0);
+
+        fieldManagers[0].fieldPieceStatus.UpdateFieldStatus(fieldManagers[0].pieceDpList.Count, fieldManagers[0].owerPlayer.maxPieceCount[fieldManagers[0].owerPlayer.level]);
     }
     #endregion
 
