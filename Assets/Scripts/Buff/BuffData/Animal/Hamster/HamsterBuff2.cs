@@ -50,6 +50,7 @@ public class HamsterBuff2 : BuffData
 
                     int _randomSpot = Random.Range(0, _randomTile.Count);
                     Tile spawnTile = pathFinding.grid[0].tile[_randomSpot].GetComponent<Tile>();
+                    spawnTile.transform.GetChild(2).gameObject.SetActive(true);
                     spawnTile.IsFull = true;
                     spawnTile.walkable = false;
                     spawnTile.piece = _miniHamster.GetComponent<Piece>();

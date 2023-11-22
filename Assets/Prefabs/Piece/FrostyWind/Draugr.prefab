@@ -1372,8 +1372,7 @@ Transform:
   m_LocalPosition: {x: -0.0018547822, y: -8.881784e-18, z: -1.0658141e-16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4472611163372288511}
+  m_Children: []
   m_Father: {fileID: 7673747664083607106}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2042,7 +2041,9 @@ MonoBehaviour:
   basicAttackSpeed: 0
   basicHealth: 0
   pieceState: 0
-  attackEffects: {fileID: 320100752268518439}
+  isEquip: 0
+  handAttackEffects: {fileID: 320100752268518439}
+  weaponAttackEffects: {fileID: 0}
   skillEffects: {fileID: 6073891735194678028, guid: 064c608c3a271334299e1fa22913842f,
     type: 3}
   nextTile: {fileID: 0}
@@ -2104,7 +2105,8 @@ Transform:
   m_LocalPosition: {x: 0.007999935, y: 0.000032936336, z: 0.000000038146972}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4472611163372288511}
   m_Father: {fileID: 7673747664289905231}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4144,7 +4146,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 7673747663122367812}
+    m_TransformParent: {fileID: 7673747663477457839}
     m_Modifications:
     - target: {fileID: 1305618844140573497, guid: ee70f238a96fd494c9054449f342122b,
         type: 3}
@@ -4153,38 +4155,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1305618844140573497, guid: ee70f238a96fd494c9054449f342122b,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.29999983
+      objectReference: {fileID: 0}
+    - target: {fileID: 1305618844140573497, guid: ee70f238a96fd494c9054449f342122b,
+        type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.022610247
       objectReference: {fileID: 0}
     - target: {fileID: 1305618844140573497, guid: ee70f238a96fd494c9054449f342122b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.00033347262
       objectReference: {fileID: 0}
     - target: {fileID: 1305618844140573497, guid: ee70f238a96fd494c9054449f342122b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.004105267
       objectReference: {fileID: 0}
     - target: {fileID: 1305618844140573497, guid: ee70f238a96fd494c9054449f342122b,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: -0.08107679
       objectReference: {fileID: 0}
     - target: {fileID: 1305618844140573497, guid: ee70f238a96fd494c9054449f342122b,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 0.11394904
       objectReference: {fileID: 0}
     - target: {fileID: 1305618844140573497, guid: ee70f238a96fd494c9054449f342122b,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.6979059
       objectReference: {fileID: 0}
     - target: {fileID: 1305618844140573497, guid: ee70f238a96fd494c9054449f342122b,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0.7024027
       objectReference: {fileID: 0}
     - target: {fileID: 1305618844140573497, guid: ee70f238a96fd494c9054449f342122b,
         type: 3}
