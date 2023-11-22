@@ -22,18 +22,7 @@ public class AresPiece : Piece
 
     public override IEnumerator Skill()
     {
-        if (star == 0)
-        {
-            ProjectionSkill(attackDamage * 2.1f);
-        }
-        else if (star == 1)
-        {
-            ProjectionSkill(attackDamage * 3f);
-        }
-        else if (star == 2)
-        {
-            ProjectionSkill(attackDamage * 4.9f);
-        }
+        ProjectionSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }

@@ -26,15 +26,15 @@ public class JormungandPiece : Piece
     {
         if (star == 0)
         {
-            GetLocationMultiRangeSkill(attackDamage * 0.8f, 6);
+            GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 6);
         }
         else if (star == 1)
         {
-            GetLocationMultiRangeSkill(attackDamage * 1.25f, 6);
+            GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 6);
         }
         else if (star == 2)
         {
-            GetLocationMultiRangeSkill(attackDamage * 4.25f, 10);
+            GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 10);
         }
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();

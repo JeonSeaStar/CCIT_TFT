@@ -23,15 +23,15 @@ public class RaPiece : Piece
     {
         if (star == 0)
         {
-            RaSkill(attackDamage * 1f, 0.7f);
+            RaSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 0.7f);
         }
         else if (star == 1)
         {
-            RaSkill(attackDamage * 3f, 1.2f);
+            RaSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 1.2f);
         }
         else if (star == 2)
         {
-            RaSkill(attackDamage * 8f, 1.7f);
+            RaSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 1.7f);
         }
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();

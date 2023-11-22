@@ -21,22 +21,14 @@ public class MinotaurosPiece : Piece
 
     public override IEnumerator Skill()
     {
-        if (star == 0)
-        {
-            this.shield = 150f;
-            Instantiate(skillEffects, this.transform.position, Quaternion.identity);
-        }
-        else if (star == 1)
-        {
-            this.shield = 250f;
-            Instantiate(skillEffects, this.transform.position, Quaternion.identity);
-        }
-        else if (star == 2)
-        {
-            this.shield = 350f;
-            Instantiate(skillEffects, this.transform.position, Quaternion.identity);
-        }
+        ShieldSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
+    }
+
+    void ShieldSkill(float shield)
+    {
+        Instantiate(skillEffects, this.transform.position, Quaternion.identity);
+        this.shield = shield;
     }
 }

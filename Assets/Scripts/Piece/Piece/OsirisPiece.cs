@@ -23,18 +23,7 @@ public class OsirisPiece : Piece
 
     public override IEnumerator Skill()
     {
-        if (star == 0)
-        {
-            FindLeastHealthPiece(120f);
-        }
-        else if (star == 1)
-        {
-            FindLeastHealthPiece(250f);
-        }
-        else if (star == 2)
-        {
-            FindLeastHealthPiece(400f);
-        }
+        FindLeastHealthPiece(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }

@@ -22,18 +22,7 @@ public class NeithPiece : Piece
 
     public override IEnumerator Skill()
     {
-        if (star == 0)
-        {
-            ProjectionSkill(attackDamage * 1.8f);
-        }
-        else if (star == 1)
-        {
-            ProjectionSkill(attackDamage * 1.8f);
-        }
-        else if (star == 2)
-        {
-            ProjectionSkill(attackDamage * 1.8f);
-        }
+        ProjectionSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }

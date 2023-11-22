@@ -21,18 +21,7 @@ public class OdinPiece : Piece
 
     public override IEnumerator Skill()
     {
-        if (star == 0)
-        {
-            AllPieceBuffSkill(1.3f);
-        }
-        else if (star == 1)
-        {
-            AllPieceBuffSkill(1.6f);
-        }
-        else if (star == 2)
-        {
-            AllPieceBuffSkill(1.99f);
-        }
+        AllPieceBuffSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
@@ -50,7 +39,7 @@ public class OdinPiece : Piece
             else if (_targets.isOwned)
             {
                 Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
-                _targets.attackDamage = _targets.attackDamage * buff;
+                _targets.attackDamage = _targets.attackDamage + buff;
             }
         }
     }

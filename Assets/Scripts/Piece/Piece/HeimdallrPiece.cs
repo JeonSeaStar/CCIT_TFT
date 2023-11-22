@@ -22,12 +22,7 @@ public class HeimdallrPiece : Piece
 
     public override IEnumerator Skill()
     {
-        if (star == 0)
-            GetLocationMultiRangeSkill(attackDamage * 1.5f);
-        else if (star == 1)
-            GetLocationMultiRangeSkill(attackDamage * 2.2f);
-        else if (star == 2)
-            GetLocationMultiRangeSkill(attackDamage * 3.5f);
+        GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }

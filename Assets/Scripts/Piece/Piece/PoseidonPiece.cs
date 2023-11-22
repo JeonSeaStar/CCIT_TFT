@@ -21,7 +21,7 @@ public class PoseidonPiece : Piece
 
     public override IEnumerator Skill()
     {
-        AllPieceDamageSkill(abilityPower * (1 + abilityPowerCoefficient / 100));
+        AllPieceDamageSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }

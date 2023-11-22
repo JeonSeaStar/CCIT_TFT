@@ -24,17 +24,17 @@ public class HadesPiece : Piece
     {
         if (star == 0)
         {
-            GetLocationMultiRangeSkill(200f);
+            GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
             this.shield = 350f;
         }
         else if (star == 1)
         {
-            GetLocationMultiRangeSkill(350f);
+            GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
             this.shield = 450f;
         }
         else if (star == 2)
         {
-            GetLocationMultiRangeSkill(500f);
+            GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
             this.shield = 600f;
         }
         yield return new WaitForSeconds(attackSpeed);
