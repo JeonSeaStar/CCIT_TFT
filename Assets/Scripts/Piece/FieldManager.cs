@@ -60,7 +60,7 @@ public class FieldManager : MonoBehaviour
             pieceAttackSpeed.Add(piece.attackSpeed);
             pieceCriticalChance.Add(piece.criticalChance);
             pieceCriticalDamage.Add(piece.criticalDamage);
-            pieceAttackRange.Add(piece.attackDamage);
+            pieceAttackRange.Add(piece.attackRange);
             pieceBloodBrain.Add(piece.bloodBrain);
             pieceMoveSpeed.Add(piece.moveSpeed);
         }

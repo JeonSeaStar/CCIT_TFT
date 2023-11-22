@@ -811,8 +811,8 @@ public class Piece : MonoBehaviour
         }
         if (_count >= _thresholds)
         {
-            if (isEquip == false) handAttackEffects.SetActive(true);
-            else if (isEquip == true) weaponAttackEffects.SetActive(false);
+            if (isEquip == false) { handAttackEffects.transform.SetParent(null); handAttackEffects.SetActive(true); }
+            else if (isEquip == true) { weaponAttackEffects.transform.SetParent(null); weaponAttackEffects.SetActive(false); }
         }
     }
     #endregion
