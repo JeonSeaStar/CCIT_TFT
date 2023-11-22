@@ -584,6 +584,85 @@ public class Piece : MonoBehaviour
     }
 
     #region 상태이상
+    public void SetDebuff(string debuff, float time, Piece target = null)
+    {
+        target = (target == null) ? this.target : target;
+        if (target.immune) { Debug.Log("상대가 상태이상 면역입니다."); return; }
+        switch (debuff)
+        {
+            case "Freeze":
+                target.freeze = true;
+                StartCoroutine(DebuffTimer(target, "Freeze", time));
+                break;
+            case "Slow":
+                target.slow = true;
+                StartCoroutine(DebuffTimer(target, "Slow", time));
+                break;
+            case "Airbone":
+                target.airborne = true;
+                StartCoroutine(DebuffTimer(target, "Airbone", time));
+                break;
+            case "Faint":
+                target.faint = true;
+                StartCoroutine(DebuffTimer(target, "Faint", time));
+                break;
+            case "Fear":
+                target.fear = true;
+                StartCoroutine(DebuffTimer(target, "Fear", time));
+                break;
+            case "Invincible":
+                target.invincible = true;
+                StartCoroutine(DebuffTimer(target, "Invincible", time));
+                break;
+            case "Charm":
+                target.charm = true;
+                StartCoroutine(DebuffTimer(target, "Charm", time));
+                break;
+            case "Blind":
+                target.blind = true;
+                StartCoroutine(DebuffTimer(target, "Blind", time));
+                break;
+            case "Stun":
+                target.stun = true;
+                StartCoroutine(DebuffTimer(target, "Stun", time));
+                break;
+        }
+    }
+
+    IEnumerator DebuffTimer(Piece target, string debuff, float time)
+    {
+        yield return new WaitForSeconds(time);
+        switch (debuff)
+        {
+            case "Freeze":
+                target.freeze = false;
+                break;
+            case "Slow":
+                target.slow = false;
+                break;
+            case "Airbone":
+                target.airborne = false;
+                break;
+            case "Faint":
+                target.faint = false;
+                break;
+            case "Fear":
+                target.fear = false;
+                break;
+            case "Invincible":
+                target.invincible = false;
+                break;
+            case "Charm":
+                target.charm = false;
+                break;
+            case "Blind":
+                target.blind = false;
+                break;
+            case "Stun":
+                target.stun = false;
+                break;
+        }
+    }
     public void SetFreeze()
     {
         freeze = true;
