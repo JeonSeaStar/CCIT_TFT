@@ -113,6 +113,8 @@ public class Piece : MonoBehaviour
     public GameObject weaponAttackEffects; // 무기 타격
     public GameObject skillEffects;
 
+    public PieceHealthBar healthbar;
+
     public Tile nextTile;
 
     void Awake()
@@ -809,10 +811,11 @@ public class Piece : MonoBehaviour
             case PieceData.Myth.HeavenGround: _thresholds = 2; break;
             case PieceData.Myth.BurningGround: _thresholds = 2; break;
         }
-        if (_count >= _thresholds)
+        if (_count >= _thresholds && pieceState == State.ATTACK)
         {
-            if (isEquip == false) { handAttackEffects.transform.SetParent(null); handAttackEffects.SetActive(true); }
-            else if (isEquip == true) { weaponAttackEffects.transform.SetParent(null); weaponAttackEffects.SetActive(false); }
+            GameObject _effect = (isEquip == true) ? weaponAttackEffects : handAttackEffects;
+            GameObject _attackEffect = Instantiate(_effect, handAttackEffects.transform.position, Quaternion.identity);
+            _attackEffect.SetActive(true); _attackEffect.transform.SetParent(null);
         }
     }
     #endregion
