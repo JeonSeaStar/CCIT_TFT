@@ -9,6 +9,7 @@ public class Messenger : MonoBehaviour
     public int level;
     public int currentXP;
     public int[] maxXP;
+    public int[] maxPieceCount;
     [Range(-30,200)] public int lifePoint = 100;
     public int gold = 0;
     [SerializeField] LayerMask playerMask; //9 - Player
