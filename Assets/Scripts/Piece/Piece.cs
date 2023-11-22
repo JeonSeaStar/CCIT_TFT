@@ -108,6 +108,9 @@ public class Piece : MonoBehaviour
     public State pieceState;
 
     [Header("이펙트")]
+    public bool isEquip; // 장비 착용 여부
+    public GameObject handAttackEffects; // 맨손 타격
+    public GameObject weaponAttackEffects; // 무기 타격
     public GameObject skillEffects;
 
     public Tile nextTile;
@@ -792,4 +795,25 @@ public class Piece : MonoBehaviour
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
+
+    #region 애니메이션 이벤트 (공격)
+    public void AttackEffect()
+    {
+        int _count = ArenaManager.Instance.fieldManagers[0].mythActiveCount[this.pieceData.myth];
+        int _thresholds = 0;
+        switch (pieceData.myth)
+        {
+            case PieceData.Myth.GreatMountain: _thresholds = 3; break;
+            case PieceData.Myth.FrostyWind: _thresholds = 3; break;
+            case PieceData.Myth.SandKingdom: _thresholds = 3; break;
+            case PieceData.Myth.HeavenGround: _thresholds = 2; break;
+            case PieceData.Myth.BurningGround: _thresholds = 2; break;
+        }
+        if (_count >= _thresholds)
+        {
+            if (isEquip == false) handAttackEffects.SetActive(true);
+            else if (isEquip == true) weaponAttackEffects.SetActive(false);
+        }
+    }
+    #endregion
 }
