@@ -22,6 +22,7 @@ public class Piece : MonoBehaviour
     public float manaRecovery;
     public float attackDamage;
     public float abilityPower;
+    public float abilityPowerCoefficient;
     public float armor;
     public float magicResist;
     public float attackSpeed;

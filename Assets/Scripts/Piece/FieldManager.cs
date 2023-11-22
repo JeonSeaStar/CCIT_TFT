@@ -29,7 +29,7 @@ public class FieldManager : MonoBehaviour
     }
     public List<PieceDPList> pieceDpList;
 
-    #region 기물 능력치 초기화
+    #region 기물 능력치
     public class PieceStatusList
     {
         public List<float> pieceHealth = new List<float>();
@@ -37,6 +37,7 @@ public class FieldManager : MonoBehaviour
         public List<float> pieceManaRecovery = new List<float>();
         public List<float> pieceAttackDamage = new List<float>();
         public List<float> pieceAbilityPower = new List<float>();
+        public List<float> pieceAbilityPowerCoefficient = new List<float>();
         public List<float> pieceArmor = new List<float>();
         public List<float> pieceMagicResist = new List<float>();
         public List<float> pieceAttackSpeed = new List<float>();
@@ -53,6 +54,7 @@ public class FieldManager : MonoBehaviour
             pieceManaRecovery.Add(piece.manaRecovery);
             pieceAttackDamage.Add(piece.attackDamage);
             pieceAbilityPower.Add(piece.abilityPower);
+            pieceAbilityPowerCoefficient.Add(piece.abilityPowerCoefficient);
             pieceArmor.Add(piece.armor);
             pieceMagicResist.Add(piece.magicResist);
             pieceAttackSpeed.Add(piece.attackSpeed);
@@ -69,6 +71,7 @@ public class FieldManager : MonoBehaviour
             pieceManaRecovery.Clear();
             pieceAttackDamage.Clear();
             pieceAbilityPower.Clear();
+            pieceAbilityPowerCoefficient.Clear();
             pieceArmor.Clear();
             pieceMagicResist.Clear();
             pieceAttackSpeed.Clear();
@@ -85,6 +88,7 @@ public class FieldManager : MonoBehaviour
             piece.manaRecovery = this.pieceManaRecovery[index];
             piece.attackDamage = this.pieceAttackDamage[index];
             piece.abilityPower = this.pieceAbilityPower[index];
+            piece.abilityPowerCoefficient = this.pieceAbilityPowerCoefficient[index];
             piece.armor = this.pieceArmor[index];
             piece.magicResist = this.pieceMagicResist[index];
             piece.attackSpeed = this.pieceAttackSpeed[index];
