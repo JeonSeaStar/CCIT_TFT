@@ -36,9 +36,8 @@ public class SphinxPiece : Piece
         if(target != null)
         {
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
-            Damage(damage);
-            target.SetStun(time);
             SetDebuff("Stun", time);
+            Damage(damage);
         }
     }
 }
