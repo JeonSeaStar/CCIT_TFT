@@ -31,7 +31,6 @@ public class AthenaPiece : Piece
     {
         pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
         List<Tile> _getNeigbor = pathFinding.GetNeighbor(currentTile);
-        Instantiate(skillEffects, currentTile.transform.position, Quaternion.identity);
         foreach (var _Neigbor in _getNeigbor)
         {
             Piece _targets = _Neigbor.piece;
@@ -41,6 +40,7 @@ public class AthenaPiece : Piece
             }
             else if (_targets.isOwned == false)
             {
+                Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
                 Damage(_targets, damage);
             }
         }

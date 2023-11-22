@@ -22,18 +22,7 @@ public class HathorPiece : Piece
 
     public override IEnumerator Skill()
     {
-        if (star == 0)
-        {
-            ProjectionSkill(attackDamage * 1.9f);
-        }
-        else if (star == 1)
-        {
-            ProjectionSkill(attackDamage * 2.3f);
-        }
-        else if (star == 2)
-        {
-            ProjectionSkill(attackDamage * 2.75f);
-        }
+        ProjectionSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }

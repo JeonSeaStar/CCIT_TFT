@@ -38,7 +38,7 @@ public class HelPiece : Piece
         StartNextBehavior();
     }
 
-    void ProjectionSkill(float damage)//미리 만들어진 총알 있기는 한데.. 사용하는지 모르겠음.. 내일 오면 물어보기!
+    void ProjectionSkill(float damage)
     {
         if (target != null)
         {

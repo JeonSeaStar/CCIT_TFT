@@ -16,25 +16,27 @@ public class HorusBullet : Bullet
 
     public override void Shot(Vector3 direction)
     {
-        StartCoroutine(ShotBullet(direction));
+        dir = direction;
     }
 
-    protected override IEnumerator ShotBullet(Vector3 direction)
+    private void Update()
     {
-        transform.Translate(direction * speed);
-        yield return new WaitForSeconds(0.1f);
-        ShotBullet(direction);
+        transform.Translate(dir * speed);
     }
 
     private void OnTriggerEnter(Collider target)
     {
-        Damage();
+
+        if (target.gameObject == parentPiece.target.gameObject)
+        {
+            Instantiate(effect, target.transform.position, Quaternion.identity);
+            Damage();
+        }
     }
 
     private void Damage() //추후 애니메이션 실행 및 이벤트로 나눠서 구현
     {
-        //parentPiece.Damage(damage);
-        StopAllCoroutines();
+        parentPiece.Damage(damage);
         Destroy(gameObject);
     }
 }
