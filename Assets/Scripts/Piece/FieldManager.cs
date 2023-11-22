@@ -10,7 +10,7 @@ public class FieldManager : MonoBehaviour
 {
     //public static FieldManager instance;
 
-    public Messenger owerPlyer;
+    public Messenger owerPlayer;
     public Messenger[] DualPlayers = new Messenger[2];
 
     public List<Transform> targetPositions = new List<Transform>();
@@ -29,7 +29,7 @@ public class FieldManager : MonoBehaviour
     }
     public List<PieceDPList> pieceDpList;
 
-    #region 기물 능력치 초기화
+    #region 기물 능력치
     public class PieceStatusList
     {
         public List<float> pieceHealth = new List<float>();
@@ -37,6 +37,7 @@ public class FieldManager : MonoBehaviour
         public List<float> pieceManaRecovery = new List<float>();
         public List<float> pieceAttackDamage = new List<float>();
         public List<float> pieceAbilityPower = new List<float>();
+        public List<float> pieceAbilityPowerCoefficient = new List<float>();
         public List<float> pieceArmor = new List<float>();
         public List<float> pieceMagicResist = new List<float>();
         public List<float> pieceAttackSpeed = new List<float>();
@@ -53,6 +54,7 @@ public class FieldManager : MonoBehaviour
             pieceManaRecovery.Add(piece.manaRecovery);
             pieceAttackDamage.Add(piece.attackDamage);
             pieceAbilityPower.Add(piece.abilityPower);
+            pieceAbilityPowerCoefficient.Add(piece.abilityPowerCoefficient);
             pieceArmor.Add(piece.armor);
             pieceMagicResist.Add(piece.magicResist);
             pieceAttackSpeed.Add(piece.attackSpeed);
@@ -69,6 +71,7 @@ public class FieldManager : MonoBehaviour
             pieceManaRecovery.Clear();
             pieceAttackDamage.Clear();
             pieceAbilityPower.Clear();
+            pieceAbilityPowerCoefficient.Clear();
             pieceArmor.Clear();
             pieceMagicResist.Clear();
             pieceAttackSpeed.Clear();
@@ -85,6 +88,7 @@ public class FieldManager : MonoBehaviour
             piece.manaRecovery = this.pieceManaRecovery[index];
             piece.attackDamage = this.pieceAttackDamage[index];
             piece.abilityPower = this.pieceAbilityPower[index];
+            piece.abilityPowerCoefficient = this.pieceAbilityPowerCoefficient[index];
             piece.armor = this.pieceArmor[index];
             piece.magicResist = this.pieceMagicResist[index];
             piece.attackSpeed = this.pieceAttackSpeed[index];
@@ -231,6 +235,15 @@ public class FieldManager : MonoBehaviour
         foreach (Piece piece in enemyFilePieceList)
             Destroy(piece.gameObject);
         enemyFilePieceList = new List<Piece>();
+
+        bool fusion = false;
+        for(int i = 0; i < myFilePieceList.Count; i++)
+        {
+            if (fusion)
+                i = 0;
+
+            fusion = FusionCheck(myFilePieceList[i]);
+        }
     }
 
     public void SpawnEnemy(int stage)
@@ -272,11 +285,11 @@ public class FieldManager : MonoBehaviour
         foreach (var effect in sBattleStartEffect) effect(false);
         StopAllCoroutines();
 
-        SpawnEnemy(currentStage);
         currentStage++;
+        SpawnEnemy(currentStage);
 
-        playerState.UpdateMoney(owerPlyer.gold);
-        playerState.UpdateCurrentXP(owerPlyer.currentXP);
+        playerState.UpdateLevel(owerPlayer.level);
+        playerState.UpdateMoney(owerPlayer.gold);
         pieceShop.RefreshSlots();
     }
 
@@ -786,10 +799,7 @@ public class FieldManager : MonoBehaviour
 
         currentPieceList[kind].count[star].count.Add(piece);
 
-        if (currentPieceList[kind].count[star].count.Count >= 3)
-        {
-            FusionPiece(piece);
-        }
+        FusionCheck(piece, kind, star);
     }
 
     public void PieceListCountDown(Piece piece)
@@ -838,8 +848,33 @@ public class FieldManager : MonoBehaviour
         return piece;
     }
 
+    void FusionCheck(Piece target, int kind, int star)
+    {
+        if (currentPieceList[kind].count[star].count.Count >= 3)
+        {
+            FusionPiece(target);
+        }
+    }
+
+    bool FusionCheck(Piece target)
+    {
+        int kind = CheckPieceKind(target.pieceData);
+        int star = target.star;
+
+        if (currentPieceList[kind].count[star].count.Count >= 3)
+        {
+            FusionPiece(target);
+            return true;
+        }
+        else
+            return false;
+    }
+
     void FusionPiece(Piece piece)
     {
+        if (Instance.roundType == RoundType.Battle)
+            return;
+
         int kind = CheckPieceKind(piece.pieceData);
         int star = piece.star;
 
@@ -917,7 +952,7 @@ public class FieldManager : MonoBehaviour
             resultPiece.name += " " + star + 1 + "Star";
             resultPiece.buffList = originPiece.buffList;
             resultPiece.pieceData.InitialzePiece(resultPiece);
-            for(int i = 0; i < resultPiece.buffList.Count; i++)
+            for (int i = 0; i < resultPiece.buffList.Count; i++)
             {
                 if (resultPiece.buffList[i].haveDirectEffect == true)
                     resultPiece.pieceData.CalculateBuff(resultPiece, resultPiece.buffList[i]);
@@ -986,6 +1021,15 @@ public class FieldManager : MonoBehaviour
         else return null;
     }
 
+    public Tile GetReadyTile()
+    {
+        Tile targetTile = null;
+
+        targetTile = TileCheck(targetTile, readyTileList);
+        if (targetTile != null) { return targetTile; }
+        else return null;
+    }
+
     Tile TileCheck(Tile tile, List<Tile> tileArray)
     {
         foreach (Tile tileObject in tileArray)
@@ -1010,5 +1054,47 @@ public class FieldManager : MonoBehaviour
     }
 
     public Chest chest;
+
+    public void Reward(int currentRound, Result result)
+    {
+        ChargeGold(RewardGold(currentRound, result));
+
+        //레벨 업
+    }
+
+    public void ChargeGold(int gold)
+    {
+        owerPlayer.gold += gold;
+        playerState.UpdateMoney(owerPlayer.gold);
+    }
+
+    public int RewardGold(int currentRound, Result result)
+    {
+        if (result == Result.VICTORY)
+            return stageInformation.enemy[currentRound].gold;
+        else if (result == Result.DEFEAT)
+        {
+            return stageInformation.enemy[currentRound].gold / 2;
+        }
+
+        return 0;
+    }
+
+    public void ChargeHP(int hp)
+    {
+        owerPlayer.lifePoint += hp;
+        playerState.UpdateCurrentHP(owerPlayer.lifePoint);
+
+        if(owerPlayer.lifePoint <= 0)
+        {
+            Instance.resultPopup.ActiveResultPopup(false);
+        }
+    }
+
+    public void ChargeLevel(int level)
+    {
+        owerPlayer.level += level;
+        playerState.UpdateLevel(owerPlayer.level);
+    }                
     [Header("로키용 타일 위치")] public Tile lokiPieceSkillPosition;
 }

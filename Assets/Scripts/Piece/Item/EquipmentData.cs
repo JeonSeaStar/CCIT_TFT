@@ -14,6 +14,7 @@ public class EquipmentData : ScriptableObject
     public bool percentMana;
     public bool percentAttackDamage;
     public bool percentAbilityPower;
+    public bool percentAbilityPowerCoefficient;
     public bool percentArmor;
     public bool percentMagicResist;
     public bool percentAttackSpeed;
@@ -25,6 +26,7 @@ public class EquipmentData : ScriptableObject
     public float mana;
     public float attackDamage;
     public float abilityPower;
+    public float abilityPowerCoefficient;
     public float armor;
     public float magicResist;
     public float attackSpeed;
@@ -44,6 +46,7 @@ public class EquipmentData : ScriptableObject
         equipment.mana = mana;
         equipment.attackDamage = attackDamage;
         equipment.abilityPower = abilityPower;
+        equipment.abilityPowerCoefficient = abilityPowerCoefficient;
         equipment.armor = armor;
         equipment.magicResist = magicResist;
         equipment.attackSpeed = attackSpeed;

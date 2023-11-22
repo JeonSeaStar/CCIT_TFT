@@ -21,18 +21,7 @@ public class PoseidonPiece : Piece
 
     public override IEnumerator Skill()
     {
-        if (star == 0)
-        {
-            AllPieceDamageSkill(attackDamage);
-        }
-        else if (star == 1)
-        {
-            AllPieceDamageSkill(attackDamage * 1.5f);
-        }
-        else if (star == 2)
-        {
-            AllPieceDamageSkill(attackDamage * 3.75f);
-        }
+        AllPieceDamageSkill(abilityPower * (1 + abilityPowerCoefficient / 100));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }

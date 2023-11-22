@@ -22,6 +22,7 @@ public class Piece : MonoBehaviour
     public float manaRecovery;
     public float attackDamage;
     public float abilityPower;
+    public float abilityPowerCoefficient;
     public float armor;
     public float magicResist;
     public float attackSpeed;
@@ -155,6 +156,8 @@ public class Piece : MonoBehaviour
             if (shieldPoint < damage)
             {
                 damage = damage - shieldPoint;
+                piece.health -= damage;
+                shieldPoint = 0;
             }
             else
             {
@@ -174,18 +177,20 @@ public class Piece : MonoBehaviour
         if (invincible)
             return;
 
-        if (shield > 0)
+        if (target.shield > 0)
         {
-            float shieldPoint = shield;
+            float shieldPoint = target.shield;
             if (shieldPoint < damage)
             {
                 damage = damage - shieldPoint;
+                target.health -= damage;
+                shieldPoint = 0;
             }
             else
             {
                 shieldPoint -= damage;
             }
-            shield = shieldPoint;
+            target.shield = shieldPoint;
         }
         else
         {
@@ -200,6 +205,9 @@ public class Piece : MonoBehaviour
 
     public void Damage(float damage)
     {
+        if (target == null)
+            return;
+
         if (target.invincible)
             return;
 

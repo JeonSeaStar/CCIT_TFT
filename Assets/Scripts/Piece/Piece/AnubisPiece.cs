@@ -23,20 +23,26 @@ public class AnubisPiece : Piece
     {
         if (star == 0)
         {
-            Instantiate(skillEffects, target.transform.position, Quaternion.identity);
-            Damage(attackDamage * 1.5f);
+            AttackSkill(attackDamage * 1.5f);
         }
         else if (star == 1)
         {
-            Instantiate(skillEffects, target.transform.position, Quaternion.identity);
-            Damage(attackDamage * 2.5f);
+            AttackSkill(attackDamage * 2.5f);
         }
         else if (star == 2)
         {
-            Instantiate(skillEffects, target.transform.position, Quaternion.identity);
-            Damage(attackDamage * 5f);
+            AttackSkill(attackDamage * 5f);
         }
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
+    }
+
+    public void AttackSkill(float damage)
+    {
+        if (target != null)
+        {
+            Instantiate(skillEffects, target.transform.position, Quaternion.identity);
+            Damage(damage);
+        }
     }
 }
