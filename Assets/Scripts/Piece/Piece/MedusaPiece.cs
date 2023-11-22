@@ -30,8 +30,8 @@ public class MedusaPiece : Piece
     {
         if(target != null)
         {
-            Damage(damage);
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
+            Damage(damage);
         }
     }
 }

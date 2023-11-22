@@ -48,6 +48,7 @@ public class HorusPiece : Piece
             b.parentPiece = this;
             b.damage = damage;
             b.Shot(target.transform.position - transform.position);
+            //오버랩 스피어 사용해서 적 탐지 하고 가까운 적 4마리 혹은 3마리 2마리 1마리 에게 공격 하기
         }
     }
 }
