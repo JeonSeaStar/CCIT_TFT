@@ -185,6 +185,11 @@ public class Messenger : MonoBehaviour
                 Tile _currentTileInformation = controlPiece.currentTile; 
                 Tile _targetTileInformation = hit.transform.gameObject.GetComponent<Tile>();
                 controlPiece.targetTile = _targetTileInformation;
+                if (fieldManager.pieceDpList.Count >= maxPieceCount[level])
+                {
+                    ResetPositionToCurrentTile(controlPiece);
+                    return;
+                }
                 if (_currentRound == ArenaManager.RoundType.Battle && controlPiece.currentTile.isReadyTile == false) ResetPositionToCurrentTile(controlPiece);
                 else
                 {
@@ -272,12 +277,12 @@ public class Messenger : MonoBehaviour
 
     private void ResetPositionToCurrentTile(Piece piece)
     {
-        controlPiece.transform.position = new Vector3(piece.currentTile.transform.position.x, 0, piece.currentTile.transform.position.z);
+        controlPiece.transform.position = new Vector3(piece.currentTile.transform.position.x, fieldManager.groundHeight, piece.currentTile.transform.position.z);
     }
 
     void ChangeTileTransform(Piece piece, Tile target)
     {
-        piece.transform.position = new Vector3(target.transform.position.x, -0.5f, target.transform.position.z);
+        piece.transform.position = new Vector3(target.transform.position.x, fieldManager.groundHeight, target.transform.position.z);
     }
     #endregion
 
