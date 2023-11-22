@@ -27,6 +27,7 @@ public class PieceData : ScriptableObject
 
     public float[] attackDamage = new float[3];    //기본 공격력
     public float[] abilityPower = new float[3];   //최종 스킬 공격력
+    public float[] abilityPowerCoefficient = new float[3];    //스킬 계수
 
     public float[] armor = new float[3];//방어력
     public float[] magicResist = new float[3];//마법 저항력
@@ -83,6 +84,7 @@ public class PieceData : ScriptableObject
         piece.mana = mana[piece.star];
         piece.attackDamage = attackDamage[piece.star];
         piece.abilityPower = abilityPower[piece.star];
+        piece.abilityPowerCoefficient = abilityPowerCoefficient[piece.star];
         piece.armor = armor[piece.star];
         piece.magicResist = magicResist[piece.star];
         piece.attackSpeed = attackSpeed[piece.star];
@@ -102,6 +104,7 @@ public class PieceData : ScriptableObject
         piece.mana = mana[piece.star];
         piece.attackDamage = attackDamage[piece.star];
         piece.abilityPower = abilityPower[piece.star];
+        piece.abilityPowerCoefficient = abilityPowerCoefficient[piece.star];
         piece.armor = armor[piece.star];
         piece.magicResist = magicResist[piece.star];
         piece.attackSpeed = attackSpeed[piece.star];
@@ -130,6 +133,7 @@ public class PieceData : ScriptableObject
         float mana = 0;
         float attackDamage = 0;
         float abilityPower = 0;
+        float abilityPowerCoefficient = 0;
         float armor = 0;
         float magicResist = 0;
         float attackSpeed = 0;
@@ -143,6 +147,7 @@ public class PieceData : ScriptableObject
             mana += CalculateStatus(piece.mana, item.mana, item.percentMana);
             attackDamage += CalculateStatus(piece.attackDamage, item.attackDamage, item.percentAttackDamage);
             abilityPower += CalculateStatus(piece.abilityPower, item.abilityPower, item.percentAbilityPower);
+            abilityPowerCoefficient += CalculateStatus(piece.abilityPowerCoefficient, item.abilityPowerCoefficient, item.percentAbilityPowerCoefficient);
             armor += CalculateStatus(piece.armor, item.armor, item.percentArmor);
             magicResist += CalculateStatus(piece.magicResist, item.magicResist, item.percentMagicResist);
             attackSpeed += CalculateStatus(piece.attackSpeed, item.attackSpeed, item.percentAttackSpeed);
@@ -158,6 +163,7 @@ public class PieceData : ScriptableObject
         float mana = 0;
         float attackDamage = 0;
         float abilityPower = 0;
+        float abilityPowerCoefficient = 0;
         float armor = 0;
         float magicResist = 0;
         float attackSpeed = 0;
@@ -171,6 +177,7 @@ public class PieceData : ScriptableObject
             mana += CalculateStatus(piece.mana, item.mana, item.percentMana);
             attackDamage += CalculateStatus(piece.attackDamage, item.attackDamage, item.percentAttackDamage);
             abilityPower += CalculateStatus(piece.abilityPower, item.abilityPower, item.percentAbilityPower);
+            abilityPowerCoefficient += CalculateStatus(piece.abilityPowerCoefficient, item.abilityPowerCoefficient, item.percentAbilityPowerCoefficient);
             armor += CalculateStatus(piece.armor, item.armor, item.percentArmor);
             magicResist += CalculateStatus(piece.magicResist, item.magicResist, item.percentMagicResist);
             attackSpeed += CalculateStatus(piece.attackSpeed, item.attackSpeed, item.percentAttackSpeed);
@@ -190,6 +197,7 @@ public class PieceData : ScriptableObject
             piece.mana += CalculateStatus(piece.pieceData.mana[_star], buffData.mana, buffData.percentMana);
             piece.attackDamage += CalculateStatus(piece.pieceData.attackDamage[_star], buffData.attackDamage, buffData.percentAttackDamage);
             piece.abilityPower += CalculateStatus(piece.pieceData.abilityPower[_star], buffData.abilityPower, buffData.percentAbilityPower);
+            piece.abilityPowerCoefficient += CalculateStatus(piece.pieceData.abilityPowerCoefficient[_star], buffData.abilityPowerCoefficient, buffData.percentAbilityPowerCoefficient);
             piece.armor += CalculateStatus(piece.pieceData.armor[_star], buffData.armor, buffData.percentArmor);
             piece.magicResist += CalculateStatus(piece.pieceData.magicResist[_star], buffData.magicResist, buffData.percentMagicResist);
             piece.attackSpeed += CalculateStatus(piece.pieceData.attackSpeed[_star], buffData.attackSpeed, buffData.percentAttackSpeed);
@@ -205,6 +213,7 @@ public class PieceData : ScriptableObject
             piece.mana -= CalculateStatus(piece.pieceData.mana[_star], buffData.mana, buffData.percentMana);
             piece.attackDamage -= CalculateStatus(piece.pieceData.attackDamage[_star], buffData.attackDamage, buffData.percentAttackDamage);
             piece.abilityPower -= CalculateStatus(piece.pieceData.abilityPower[_star], buffData.abilityPower, buffData.percentAbilityPower);
+            piece.abilityPowerCoefficient += CalculateStatus(piece.pieceData.abilityPowerCoefficient[_star], buffData.abilityPowerCoefficient, buffData.percentAbilityPowerCoefficient);
             piece.armor -= CalculateStatus(piece.pieceData.armor[_star], buffData.armor, buffData.percentArmor);
             piece.magicResist -= CalculateStatus(piece.pieceData.magicResist[_star], buffData.magicResist, buffData.percentMagicResist);
             piece.attackSpeed -= CalculateStatus(piece.pieceData.attackSpeed[_star], buffData.attackSpeed, buffData.percentAttackSpeed);

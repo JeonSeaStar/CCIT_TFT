@@ -21,22 +21,14 @@ public class SurtrPiece : Piece
 
     public override IEnumerator Skill()
     {
-        if (star == 0)
-        {
-            Instantiate(skillEffects, this.transform.position, Quaternion.identity);
-            this.shield = attackDamage * 2.5f;
-        }
-        else if (star == 1)
-        {
-            Instantiate(skillEffects, this.transform.position, Quaternion.identity);
-            this.shield = attackDamage * 3.7f;
-        }
-        else if (star == 2)
-        {
-            Instantiate(skillEffects, this.transform.position, Quaternion.identity);
-            this.shield = attackDamage * 5f;
-        }
+        ShieldSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
+    }
+
+    void ShieldSkill(float shield)
+    {
+        Instantiate(skillEffects, this.transform.position, Quaternion.identity);
+        this.shield = shield;
     }
 }

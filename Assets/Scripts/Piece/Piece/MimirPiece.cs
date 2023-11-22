@@ -23,18 +23,7 @@ public class MimirPiece : Piece
 
     public override IEnumerator Skill()
     {
-        if (star == 0)
-        {
-            FindLeastHealthPiece(150f);
-        }
-        else if (star == 1)
-        {
-            FindLeastHealthPiece(175f);
-        }
-        else if (star == 2)
-        {
-            FindLeastHealthPiece(230f);
-        }
+        FindLeastHealthPiece(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }

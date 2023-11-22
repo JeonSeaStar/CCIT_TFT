@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using System.Linq;
 using DG.Tweening;
 
 public class Messenger : MonoBehaviour
@@ -54,6 +57,10 @@ public class Messenger : MonoBehaviour
 
     public MatchingInformation matchingInformation;
 
+    [SerializeField] GraphicRaycaster graphicRaycaster;
+    [SerializeField] GameObject PieceSaleSlot;
+    PointerEventData pointerEventData;
+
     private void Awake()
     {
         fieldManager.DualPlayers[0] = this;
@@ -88,6 +95,7 @@ public class Messenger : MonoBehaviour
                 FreezeRigidbody(controlPiece, _isGrapPiece);
                 isGrab = _isGrapPiece;
                 fieldManager.ActiveHexaIndicators(_isGrapPiece);
+                PieceSaleSlot.SetActive(true);
                 return;
             }
             #endregion
@@ -140,8 +148,39 @@ public class Messenger : MonoBehaviour
         if (controlPiece != null)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            #region 기물 판매
+            if (Physics.Raycast(ray, out RaycastHit saleSlot)) 
+            {
+                pointerEventData = new PointerEventData(null);
+                pointerEventData.position = Input.mousePosition;
+                List<RaycastResult> _results = new List<RaycastResult>();
+                graphicRaycaster.Raycast(pointerEventData, _results);
+                if (_results.Count > 0 && _results[0].gameObject.name == "PieceSaleSlot")
+                {
+                    if (fieldManager.myFilePieceList.Contains(controlPiece))
+                    {
+                        fieldManager.myFilePieceList.Remove(controlPiece);
+                        fieldManager.RemoveDPList(controlPiece);
+                        var _duplicationCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == controlPiece.pieceName);
+                        if (_duplicationCheck == null) fieldManager.SynergeDecrease(controlPiece);
+                        fieldManager.CalSynerge(controlPiece);
+                    }
+                    Tile _currentTile = controlPiece.currentTile;
+                    _currentTile.IsFull = false;
+                    _currentTile.piece = null;
+                    isGrab = false;
+                    //판매하고 판매 가격 획득 추가
+                    //기물이 가지고 있던 아이템 되돌려받기 추가
+                    Destroy(controlPiece.gameObject);
+                    PieceSaleSlot.SetActive(false);
+                    return;
+                }
+            }
+            #endregion
+            #region 기물 배치
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, (-1) - (1 << 6)) && hit.transform.gameObject.layer == 7 && hit.transform.gameObject.GetComponent<Tile>().myTile)
             {
+                Debug.Log(hit.transform.gameObject.name);
                 var _currentRound = ArenaManager.Instance.roundType;
                 Tile _currentTileInformation = controlPiece.currentTile; 
                 Tile _targetTileInformation = hit.transform.gameObject.GetComponent<Tile>();
@@ -184,11 +223,13 @@ public class Messenger : MonoBehaviour
                     else if (_currentTileInformation == _targetTileInformation) ChangeTileTransform(controlPiece, controlPiece.targetTile);
                     ResetDragState(false);
                     fieldManager.ActiveHexaIndicators(false);
+                    PieceSaleSlot.SetActive(false);
                     return;
                 }
             }
             ResetPositionToCurrentTile(controlPiece);
             return;
+            #endregion
         }
         #endregion
         #region Equipment

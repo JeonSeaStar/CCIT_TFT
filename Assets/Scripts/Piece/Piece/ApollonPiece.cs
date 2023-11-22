@@ -22,12 +22,7 @@ public class ApollonPiece : Piece
 
     public override IEnumerator Skill()
     {
-        if (star == 0)
-            GetLocationMultiRangeSkill(1f);
-        else if (star == 1)
-            GetLocationMultiRangeSkill(1.5f);
-        else if (star == 2)
-            GetLocationMultiRangeSkill(2f);
+        GetLocationMultiRangeSkill(abilityPower);
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
@@ -46,7 +41,7 @@ public class ApollonPiece : Piece
             else if (!_targets.isOwned)
             {
                 Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
-                _targets.SetStun(time);
+                SetDebuff("Stun", time, _targets);
             }
         }
     }

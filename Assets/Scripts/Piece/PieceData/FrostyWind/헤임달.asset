@@ -16,23 +16,28 @@ MonoBehaviour:
   piecePortrait: {fileID: 0}
   piecePrefab: {fileID: 5108690402319953404, guid: c8d6b3c713daa5541a6fecc9d6f0c58d,
     type: 3}
+  grade: 0
   health:
   - 800
   - 1440
   - 2600
   mana:
   - 110
-  - 110
-  - 110
+  - 0
+  - 0
   manaRecovery:
-  - 0
-  - 0
-  - 0
+  - 10
+  - 10
+  - 10
   attackDamage:
   - 60
   - 85
   - 120
   abilityPower:
+  - 150
+  - 220
+  - 350
+  abilityPowerCoefficient:
   - 0
   - 0
   - 0

@@ -22,11 +22,11 @@ public class SphinxPiece : Piece
     public override IEnumerator Skill()
     {
         if (star == 0)
-            SphinxSkill(1f, 0.7f);
+            SphinxSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 0.7f);
         else if (star == 1)
-            SphinxSkill(1.5f, 1.2f);
+            SphinxSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 1.2f);
         else if (star == 2)
-            SphinxSkill(2.1f, 1.8f);
+            SphinxSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 1.8f);
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
@@ -36,8 +36,8 @@ public class SphinxPiece : Piece
         if(target != null)
         {
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
-            Damage(attackDamage * damage);
-            target.SetStun(time);
+            SetDebuff("Stun", time);
+            Damage(damage);
         }
     }
 }

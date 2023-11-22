@@ -25,15 +25,15 @@ public class HorusPiece : Piece
     {
         if (star == 0)
         {
-            ProjectionSkill(attackDamage * 1.9f);
+            ProjectionSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         }
         else if (star == 1)
         {
-            ProjectionSkill(attackDamage * 2.3f);
+            ProjectionSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         }
         else if (star == 2)
         {
-            ProjectionSkill(attackDamage * 2.75f);
+            ProjectionSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         }
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
@@ -48,6 +48,7 @@ public class HorusPiece : Piece
             b.parentPiece = this;
             b.damage = damage;
             b.Shot(target.transform.position - transform.position);
+            //오버랩 스피어 사용해서 적 탐지 하고 가까운 적 4마리 혹은 3마리 2마리 1마리 에게 공격 하기
         }
     }
 }

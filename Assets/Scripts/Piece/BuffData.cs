@@ -15,6 +15,7 @@ public abstract class BuffData : ScriptableObject
     public bool percentShield; //Ãß°¡
     public bool percentAttackDamage;
     public bool percentAbilityPower;
+    public bool percentAbilityPowerCoefficient;
     public bool percentArmor;
     public bool percentMagicResist;
     public bool percentAttackSpeed;
@@ -28,6 +29,7 @@ public abstract class BuffData : ScriptableObject
     public float shield;
     public float attackDamage;
     public float abilityPower;
+    public float abilityPowerCoefficient;
     public float armor;
     public float magicResist;
     public float attackSpeed;

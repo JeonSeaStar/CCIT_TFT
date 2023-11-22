@@ -21,19 +21,7 @@ public class MedusaPiece : Piece
 
     public override IEnumerator Skill()
     {
-        if (star == 0)
-        {
-            Attackkill(attackDamage * 1.6f);
-        }
-        else if (star == 1)
-        {
-            Attackkill(attackDamage * 2.5f);
-        }
-        else if (star == 2)
-        {
-            Attackkill(attackDamage * 2.6f);
-        }
-
+        Attackkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
@@ -42,8 +30,8 @@ public class MedusaPiece : Piece
     {
         if(target != null)
         {
-            Damage(damage);
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
+            Damage(damage);
         }
     }
 }

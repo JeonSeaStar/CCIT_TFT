@@ -21,22 +21,14 @@ public class MummyPiece : Piece
 
     public override IEnumerator Skill()
     {
-        if (star == 0)
-        {
-            Instantiate(skillEffects, this.transform.position, Quaternion.identity);
-            this.shield = 130f;
-        }
-        else if (star == 1)
-        {
-            Instantiate(skillEffects, this.transform.position, Quaternion.identity);
-            this.shield = 230f;
-        }
-        else if (star == 2)
-        {
-            Instantiate(skillEffects, this.transform.position, Quaternion.identity);
-            this.shield = 500f;
-        }
+        ShieldSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
+    }
+
+    void ShieldSkill(float shield)
+    {
+        Instantiate(skillEffects, this.transform.position, Quaternion.identity);
+        this.shield = shield;
     }
 }

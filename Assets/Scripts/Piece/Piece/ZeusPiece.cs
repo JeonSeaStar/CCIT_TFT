@@ -23,15 +23,15 @@ public class ZeusPiece : Piece
     {
         if (star == 0)
         {
-            StartCoroutine(GetLockTarget(attackDamage * 7.35f, 3f));
+            StartCoroutine(GetLockTarget(abilityPower * (1 + (abilityPowerCoefficient / 100)), 3f));
         }
         else if (star == 1)
         {
-            StartCoroutine(GetLockTarget(attackDamage * 11f, 6f));
+            StartCoroutine(GetLockTarget(abilityPower * (1 + (abilityPowerCoefficient / 100)), 6f));
         }
         else if (star == 2)
         {
-            StartCoroutine(GetLockTarget(attackDamage * 27.5f, 9f));
+            StartCoroutine(GetLockTarget(abilityPower * (1 + (abilityPowerCoefficient / 100)), 9f));
         }
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
@@ -45,8 +45,8 @@ public class ZeusPiece : Piece
                 yield break; //or yield return null;
             else
             {
-                Damage(damage);
                 Instantiate(skillEffects, target.transform.position, Quaternion.identity);
+                Damage(damage);
             }
             yield return new WaitForSeconds(1f);
         }

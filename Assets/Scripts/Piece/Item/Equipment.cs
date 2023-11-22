@@ -14,6 +14,7 @@ public class Equipment : MonoBehaviour
     public float mana;
     public float attackDamage;
     public float abilityPower;
+    public float abilityPowerCoefficient;
     public float armor;
     public float magicResist;
     public float attackSpeed;

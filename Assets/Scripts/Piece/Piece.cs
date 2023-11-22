@@ -22,6 +22,7 @@ public class Piece : MonoBehaviour
     public float manaRecovery;
     public float attackDamage;
     public float abilityPower;
+    public float abilityPowerCoefficient;
     public float armor;
     public float magicResist;
     public float attackSpeed;
@@ -107,7 +108,12 @@ public class Piece : MonoBehaviour
     public State pieceState;
 
     [Header("이펙트")]
+    public bool isEquip; // 장비 착용 여부
+    public GameObject handAttackEffects; // 맨손 타격
+    public GameObject weaponAttackEffects; // 무기 타격
     public GameObject skillEffects;
+
+    public PieceHealthBar healthbar;
 
     public Tile nextTile;
 
@@ -583,6 +589,85 @@ public class Piece : MonoBehaviour
     }
 
     #region 상태이상
+    public void SetDebuff(string debuff, float time, Piece target = null)
+    {
+        target = (target == null) ? this.target : target;
+        if (target.immune) { Debug.Log("상대가 상태이상 면역입니다."); return; }
+        switch (debuff)
+        {
+            case "Freeze":
+                target.freeze = true;
+                StartCoroutine(DebuffTimer(target, "Freeze", time));
+                break;
+            case "Slow":
+                target.slow = true;
+                StartCoroutine(DebuffTimer(target, "Slow", time));
+                break;
+            case "Airbone":
+                target.airborne = true;
+                StartCoroutine(DebuffTimer(target, "Airbone", time));
+                break;
+            case "Faint":
+                target.faint = true;
+                StartCoroutine(DebuffTimer(target, "Faint", time));
+                break;
+            case "Fear":
+                target.fear = true;
+                StartCoroutine(DebuffTimer(target, "Fear", time));
+                break;
+            case "Invincible":
+                target.invincible = true;
+                StartCoroutine(DebuffTimer(target, "Invincible", time));
+                break;
+            case "Charm":
+                target.charm = true;
+                StartCoroutine(DebuffTimer(target, "Charm", time));
+                break;
+            case "Blind":
+                target.blind = true;
+                StartCoroutine(DebuffTimer(target, "Blind", time));
+                break;
+            case "Stun":
+                target.stun = true;
+                StartCoroutine(DebuffTimer(target, "Stun", time));
+                break;
+        }
+    }
+
+    IEnumerator DebuffTimer(Piece target, string debuff, float time)
+    {
+        yield return new WaitForSeconds(time);
+        switch (debuff)
+        {
+            case "Freeze":
+                target.freeze = false;
+                break;
+            case "Slow":
+                target.slow = false;
+                break;
+            case "Airbone":
+                target.airborne = false;
+                break;
+            case "Faint":
+                target.faint = false;
+                break;
+            case "Fear":
+                target.fear = false;
+                break;
+            case "Invincible":
+                target.invincible = false;
+                break;
+            case "Charm":
+                target.charm = false;
+                break;
+            case "Blind":
+                target.blind = false;
+                break;
+            case "Stun":
+                target.stun = false;
+                break;
+        }
+    }
     public void SetFreeze()
     {
         freeze = true;
@@ -712,4 +797,26 @@ public class Piece : MonoBehaviour
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
+
+    #region 애니메이션 이벤트 (공격)
+    public void AttackEffect()
+    {
+        int _count = ArenaManager.Instance.fieldManagers[0].mythActiveCount[this.pieceData.myth];
+        int _thresholds = 0;
+        switch (pieceData.myth)
+        {
+            case PieceData.Myth.GreatMountain: _thresholds = 3; break;
+            case PieceData.Myth.FrostyWind: _thresholds = 3; break;
+            case PieceData.Myth.SandKingdom: _thresholds = 3; break;
+            case PieceData.Myth.HeavenGround: _thresholds = 2; break;
+            case PieceData.Myth.BurningGround: _thresholds = 2; break;
+        }
+        if (_count >= _thresholds && pieceState == State.ATTACK)
+        {
+            GameObject _effect = (isEquip == true) ? weaponAttackEffects : handAttackEffects;
+            GameObject _attackEffect = Instantiate(_effect, handAttackEffects.transform.position, Quaternion.identity);
+            _attackEffect.SetActive(true); _attackEffect.transform.SetParent(null);
+        }
+    }
+    #endregion
 }

@@ -23,18 +23,18 @@ public class ThorPiece : Piece
     {
         if (star == 0)
         {
-            AllPieceDamageSkill(attackDamage * 2.5f);
-            StartCoroutine(AllPieceDamageTimeSkill(attackDamage * 0.3f, 5f));
+            AllPieceDamageSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
+            StartCoroutine(AllPieceDamageTimeSkill(30f, 5f));
         }
         else if (star == 1)
         {
-            AllPieceDamageSkill(attackDamage * 3.5f);
-            StartCoroutine(AllPieceDamageTimeSkill(attackDamage * 0.6f, 10f));
+            AllPieceDamageSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
+            StartCoroutine(AllPieceDamageTimeSkill(60f, 10f));
         }
         else if (star == 2)
         {
-            AllPieceDamageSkill(attackDamage * 6f);
-            StartCoroutine(AllPieceDamageTimeSkill(attackDamage, 30f));
+            AllPieceDamageSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
+            StartCoroutine(AllPieceDamageTimeSkill(90f, 30f));
         }
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
