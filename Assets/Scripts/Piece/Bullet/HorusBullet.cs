@@ -26,8 +26,7 @@ public class HorusBullet : Bullet
 
     private void OnTriggerEnter(Collider target)
     {
-
-        if (target.gameObject == parentPiece.target.gameObject)
+        if (target.CompareTag("Enemy"))
         {
             Instantiate(effect, target.transform.position, Quaternion.identity);
             Damage();
