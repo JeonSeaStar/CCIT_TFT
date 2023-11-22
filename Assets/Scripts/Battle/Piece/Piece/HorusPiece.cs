@@ -5,7 +5,8 @@ using UnityEngine;
 public class HorusPiece : Piece
 {
     [SerializeField] private GameObject bullet;
-    int count = 0;
+    [SerializeField] private float radius;
+    [SerializeField] private LayerMask layerMask;
     public override IEnumerator Attack()
     {
         if (mana >= 70 && target != null)
@@ -23,32 +24,29 @@ public class HorusPiece : Piece
 
     public override IEnumerator Skill()
     {
-        if (star == 0)
-        {
-            ProjectionSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
-        }
-        else if (star == 1)
-        {
-            ProjectionSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
-        }
-        else if (star == 2)
-        {
-            ProjectionSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
-        }
+        FindClosestEnemy(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
 
-    void ProjectionSkill(float damage)
+    void FindClosestEnemy(float damage)
     {
-        if (target != null)
+        Collider[] col = Physics.OverlapSphere(transform.position, radius, layerMask);
+        foreach(var cols in col)
         {
-            GameObject centaBullet = Instantiate(bullet, transform.position, Quaternion.identity);
-            Bullet b = centaBullet.GetComponent<HathorBullet>();
-            b.parentPiece = this;
-            b.damage = damage;
-            b.Shot(target.transform.position - transform.position);
-            //오버랩 스피어 사용해서 적 탐지 하고 가까운 적 4마리 혹은 3마리 2마리 1마리 에게 공격 하기
+            GameObject _targets = cols.gameObject;
+            if (_targets == null)
+            {
+                return;
+            }
+            else
+            {
+                GameObject centaBullet = Instantiate(bullet, transform.position, Quaternion.identity);
+                Bullet b = centaBullet.GetComponent<HorusBullet>();
+                b.parentPiece = this;
+                b.damage = damage;
+                b.Shot(_targets.transform.position - transform.position);
+            }
         }
     }
 }
