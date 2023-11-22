@@ -38,6 +38,7 @@ public class FreyaPiece : Piece
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
             Damage(damage);
             target.SetFreeze(time); //몇 초 동안 프리즈 되는지 시간 필요해 보임
+            SetDebuff("Freeze", time, target);
         }
     }
 }

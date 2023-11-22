@@ -45,6 +45,7 @@ public class RaPiece : Piece
             {
                 fieldManager.enemyFilePieceList[i].Damage(damage);
                 fieldManager.enemyFilePieceList[i].SetStun(time);
+                SetDebuff("Stun", time, fieldManager.enemyFilePieceList[i]);
                 Instantiate(skillEffects, fieldManager.enemyFilePieceList[i].transform.position, Quaternion.identity);
             }
         }
