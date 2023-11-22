@@ -42,6 +42,7 @@ public class ApollonPiece : Piece
             {
                 Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
                 _targets.SetStun(time);
+                SetDebuff("Stun", time, _targets);
             }
         }
     }
