@@ -23,4 +23,14 @@ public class ResultPopup : MonoBehaviour
     {
         gameObject.SetActive(!gameObject.activeSelf);
     }
+
+    public void RestartStage()
+    {
+        SceneManagement.instance.LoadScene("Battle");
+    }
+
+    public void MainScene()
+    {
+        SceneManagement.instance.LoadScene("Main");
+    }
 }

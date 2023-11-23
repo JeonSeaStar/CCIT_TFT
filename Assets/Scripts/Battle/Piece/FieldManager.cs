@@ -188,7 +188,7 @@ public class FieldManager : MonoBehaviour
         PieceDPList pieceDP = new PieceDPList(target, target.targetTile);
         pieceDpList.Add(pieceDP);
 
-        fieldPieceStatus.UpdateFieldStatus(pieceDpList.Count, owerPlayer.maxPieceCount[owerPlayer.level]);
+        fieldPieceStatus.UpdateFieldStatus(myFilePieceList.Count, owerPlayer.maxPieceCount[owerPlayer.level]);
     }
 
     public void RemoveDPList(Piece target)
@@ -198,10 +198,11 @@ public class FieldManager : MonoBehaviour
             if (pieceDpList[i].piece == target)
             {
                 pieceDpList.RemoveAt(i);
-                fieldPieceStatus.UpdateFieldStatus(pieceDpList.Count, owerPlayer.maxPieceCount[owerPlayer.level]);
-                return;
+                break;
             }
         }
+
+        fieldPieceStatus.UpdateFieldStatus(myFilePieceList.Count, owerPlayer.maxPieceCount[owerPlayer.level]);
     }
 
     public void FieldInit()
@@ -969,6 +970,8 @@ public class FieldManager : MonoBehaviour
             Piece resultPiece = SpawnPiece(piece.pieceData, star + 1, targetTile);
             resultPiece.name += " " + star + 1 + "Star";
         }
+
+        fieldPieceStatus.UpdateFieldStatus(myFilePieceList.Count, owerPlayer.maxPieceCount[owerPlayer.level]);
     }
 
     Piece GetChildPiece(int kind, int star)

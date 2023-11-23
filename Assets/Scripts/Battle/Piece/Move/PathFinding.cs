@@ -258,7 +258,7 @@ public class PathFinding : MonoBehaviour
         return distance;
     }
 
-    void FindPath(Piece piece, Tile startTile, Tile targetTile)
+    void FindPath(Piece piece, Tile startTile, Tile targetTile, int distance, Piece target)
     {
         List<Tile> openTile = new List<Tile>();
         HashSet<Tile> closedTile = new HashSet<Tile>();
@@ -278,9 +278,9 @@ public class PathFinding : MonoBehaviour
             closedTile.Add(currentTile);
 
             //if (currentTile == targetTile)
-            if (GetDistance(currentTile, targetTile) == 1)
+            if (GetDistance(currentTile, targetTile) == distance)
             {
-                RetracePath(piece, startTile, currentTile, targetTile.piece);
+                RetracePath(piece, startTile, currentTile, target);
                 //RetracePath(piece, startTile, targetTile);
                 return;
             }
@@ -339,9 +339,19 @@ public class PathFinding : MonoBehaviour
         Piece enemy = piece.target;
 
         if (!enemy.dead)
-            FindPath(piece, piece.currentTile, enemy.currentTile);
+        {
+            bool canReach = false;
+            List<Tile> enemyNeighborTiles = GetNeighbor(enemy.currentTile);
+            foreach (Tile tile in enemyNeighborTiles)
+                if (!tile.IsFull)
+                    canReach = true;
 
-        if(piece.candidatePath.Count > 0)
+            if (canReach)
+                FindPath(piece, piece.currentTile, enemy.currentTile, 1, enemy);
+            else
+                FindPath(piece, piece.currentTile, GetTargetTile(piece.currentTile, enemy.currentTile), GetDistance(GetTargetTile(piece.currentTile, enemy.currentTile), enemy.currentTile), enemy);
+        }
+        if (piece.candidatePath.Count > 0)
         {
             if (piece.candidatePath[0].path.Count > 0)
             {
@@ -349,7 +359,59 @@ public class PathFinding : MonoBehaviour
             }
         }
         else
+        {
             piece.StartNextBehavior();
+        }
+    }
+
+    public Tile GetTargetTile(Tile startTile, Tile targetTile)
+    {
+        List<Tile> candidateList = new List<Tile>();
+        List<Tile> checkedTiles = new List<Tile>();
+        candidateList.Add(targetTile);
+
+        while (true)
+        {
+            for (int i = 0; i < candidateList.Count; i++)
+            {
+                if (candidateList[i].IsFull)
+                {
+                    checkedTiles.Add(candidateList[i]);
+                    candidateList.Remove(candidateList[i]);
+                }
+            }
+
+            if (candidateList.Count != 0)
+            {
+                break;
+            }
+            else
+            {
+                for (int i = 0; i < checkedTiles.Count; i++)
+                {
+                    List<Tile> neighborTiles = GetNeighbor(checkedTiles[i]);
+
+                    for (int j = 0; j < neighborTiles.Count; j++)
+                        if (!checkedTiles.Contains(neighborTiles[j]))
+                            candidateList.Add(neighborTiles[j]);
+                }
+            }
+        }
+
+
+        Tile newTargetTile = candidateList[0];
+        int minDistance = GetDistance(startTile, candidateList[0]);
+        for (int i = 1; i < candidateList.Count; i++)
+        {
+            int distance = GetDistance(startTile, candidateList[i]);
+            if (minDistance > distance)
+            {
+                minDistance = distance;
+                newTargetTile = candidateList[i];
+            }
+        }
+
+        return newTargetTile;
     }
 
     //public void SetCandidatePath(Piece piece, List<Piece> enemies)
@@ -385,10 +447,23 @@ public class PathFinding : MonoBehaviour
         piece.candidatePath = new List<CandidatePath>();
         int minCostArray = 0;
 
-        foreach (Piece enemy in enemies)
+        for (int i = 0; i < enemies.Count; i++)
         {
+            Piece enemy = enemies[i];
+
             if (!enemy.dead)
-                FindPath(piece, piece.currentTile, enemy.currentTile);
+            {
+                bool canReach = false;
+                List<Tile> enemyNeighborTiles = GetNeighbor(enemy.currentTile);
+                foreach (Tile tile in enemyNeighborTiles)
+                    if (!tile.IsFull)
+                        canReach = true;
+
+                if (canReach)
+                    FindPath(piece, piece.currentTile, enemy.currentTile, 1, enemy);
+                else
+                    FindPath(piece, piece.currentTile, GetTargetTile(piece.currentTile, enemy.currentTile), GetDistance(GetTargetTile(piece.currentTile, enemy.currentTile), enemy.currentTile) + 1, enemy);
+            }
         }
 
         for (int i = 0; i < piece.candidatePath.Count; i++)

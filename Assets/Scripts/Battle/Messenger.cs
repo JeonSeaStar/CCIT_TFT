@@ -185,11 +185,6 @@ public class Messenger : MonoBehaviour
                 Tile _currentTileInformation = controlPiece.currentTile; 
                 Tile _targetTileInformation = hit.transform.gameObject.GetComponent<Tile>();
                 controlPiece.targetTile = _targetTileInformation;
-                if (fieldManager.pieceDpList.Count >= maxPieceCount[level])
-                {
-                    ResetPositionToCurrentTile(controlPiece);
-                    return;
-                }
                 if (_currentRound == ArenaManager.RoundType.Battle && controlPiece.currentTile.isReadyTile == false) ResetPositionToCurrentTile(controlPiece);
                 else
                 {
@@ -197,6 +192,13 @@ public class Messenger : MonoBehaviour
                     {
                         if (_targetTileInformation.IsFull == false)
                         {
+                            if (!_targetTileInformation.isReadyTile && fieldManager.myFilePieceList.Count >= maxPieceCount[level])
+                            {
+                                fieldManager.fieldPieceStatus.UpdateFieldStatus(fieldManager.myFilePieceList.Count, fieldManager.owerPlayer.maxPieceCount[fieldManager.owerPlayer.level]);
+                                ResetPositionToCurrentTile(controlPiece);
+                                return;
+                            }
+
                             controlPiece.SetPiece(controlPiece);
                             ChangeTileTransform(controlPiece, controlPiece.targetTile);
                             controlPiece.currentTile = controlPiece.targetTile;
@@ -229,9 +231,12 @@ public class Messenger : MonoBehaviour
                     ResetDragState(false);
                     fieldManager.ActiveHexaIndicators(false);
                     PieceSaleSlot.SetActive(false);
+
+                    fieldManager.fieldPieceStatus.UpdateFieldStatus(fieldManager.myFilePieceList.Count, fieldManager.owerPlayer.maxPieceCount[fieldManager.owerPlayer.level]);
                     return;
                 }
             }
+            fieldManager.fieldPieceStatus.UpdateFieldStatus(fieldManager.myFilePieceList.Count, fieldManager.owerPlayer.maxPieceCount[fieldManager.owerPlayer.level]);
             ResetPositionToCurrentTile(controlPiece);
             return;
             #endregion

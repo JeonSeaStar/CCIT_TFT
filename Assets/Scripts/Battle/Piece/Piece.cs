@@ -367,14 +367,18 @@ public class Piece : MonoBehaviour
                                              new Vector3(targetTilePos.x, targetTilePos.y, targetTilePos.z) };
                         GetComponent<Rigidbody>().DOPath(Jumppath, 2, PathType.CatmullRom, PathMode.Full3D).SetEase(rabbitEase); //점프구간
 
-                        currentTile.piece = null;
-                        currentTile.IsFull = false;
-                        currentTile.walkable = true;
-                        currentTile = _neighbor[i];
 
-                        currentTile.piece = this;
-                        currentTile.IsFull = true;
-                        currentTile.walkable = false;
+                        if(currentTile != _neighbor[i])
+                        {
+                            currentTile.piece = null;
+                            currentTile.IsFull = false;
+                            currentTile.walkable = true;
+                            currentTile = _neighbor[i];
+
+                            currentTile.piece = this;
+                            currentTile.IsFull = true;
+                            currentTile.walkable = false;
+                        }
                         break;
                     }
                 }

@@ -10,18 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 47dbc1b9740874d4aa64202f2ad67066, type: 3}
-  m_Name: RangePieceData
+  m_Name: Obstacle
   m_EditorClassIdentifier: 
-  pieceName: "\uD14C\uC2A4\uD2B8 \uC6D0\uAC70\uB9AC \uAE30\uBB3C"
-  piecePortrait: {fileID: 21300000, guid: 9aebd705574f9e642aef1e5f59b3e4d8, type: 3}
-  piecePrefab: {fileID: 7741907443964315201, guid: d0ec62ab445ca72439d03b5e9932eedf,
+  pieceName: "\uC7A5\uC560\uBB3C"
+  piecePortrait: {fileID: 0}
+  piecePrefab: {fileID: 1021939061762973774, guid: 8002d0651ea8306408ad18d6aaddf358,
     type: 3}
+  grade: 0
   health:
-  - 100
+  - 0
   - 0
   - 0
   mana:
-  - 10
+  - 0
   - 0
   - 0
   manaRecovery:
@@ -29,19 +30,23 @@ MonoBehaviour:
   - 0
   - 0
   attackDamage:
-  - 10
+  - 0
   - 0
   - 0
   abilityPower:
-  - 5
+  - 0
+  - 0
+  - 0
+  abilityPowerCoefficient:
+  - 0
   - 0
   - 0
   armor:
-  - 5
+  - 0
   - 0
   - 0
   magicResist:
-  - 5
+  - 0
   - 0
   - 0
   attackSpeed:
@@ -56,13 +61,13 @@ MonoBehaviour:
   - 0
   - 0
   - 0
-  attackRange: 010000000000000000000000
+  attackRange: 000000000000000000000000
   bloodBrain:
   - 0
   - 0
   - 0
   moveSpeed:
-  - 1
+  - 0
   - 0
   - 0
   buff: {fileID: 0}
