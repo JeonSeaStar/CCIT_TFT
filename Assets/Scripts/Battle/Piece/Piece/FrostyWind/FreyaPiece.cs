@@ -36,7 +36,7 @@ public class FreyaPiece : Piece
         if(target != null)
         {
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
-            SetDebuff("Freeze", time, target);
+            SetDebuff("Freeze", time);
             Damage(damage);
         }
     }

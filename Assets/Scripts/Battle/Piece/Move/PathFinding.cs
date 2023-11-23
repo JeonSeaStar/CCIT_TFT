@@ -161,6 +161,10 @@ public class PathFinding : MonoBehaviour
         int x = tile.listX;
         int y = tile.listY;
 
+        if (indexCheck(y, x))
+            if (grid[y].tile[x + 1] != null)
+                StrangeSide.Add(grid[y].tile[x]);
+
         if (indexCheck(y, x + 1))
             if (grid[y].tile[x + 1] != null)
                 StrangeSide.Add(grid[y].tile[x + 1]);

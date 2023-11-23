@@ -484,7 +484,7 @@ public class Piece : MonoBehaviour
     public void VictoryDacnce()
     {
         StopAllCoroutines();
-        pieceData.ResetPiece(this);
+        //pieceData.ResetPiece(this);
         print(name + "(ÀÌ)°¡ ½Â¸®ÀÇ Ãã Ãß´Â Áß.");
         PieceState = State.DANCE;
 

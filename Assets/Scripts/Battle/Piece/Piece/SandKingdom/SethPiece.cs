@@ -30,10 +30,10 @@ public class SethPiece : Piece
     void GetLocationMultiRangeSkill(float damage)
     {
         pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
-        List<Tile> _getNeigbor = pathFinding.GetStrangeSide(targetTile);
+        List<Tile> _getNeigbor = pathFinding.GetStrangeSide(target.currentTile);
         foreach (var _Neigbor in _getNeigbor)
         {
-            Piece _targets = _Neigbor.GetComponent<Piece>();
+            Piece _targets = _Neigbor.piece;
             if (_targets == null)
             {
                 Debug.Log("대상없음");
