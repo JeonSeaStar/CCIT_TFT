@@ -27,8 +27,11 @@ public class HelBullet : Bullet
 
     private void OnTriggerEnter(Collider target)
     {
-        Instantiate(effect, target.transform.position, Quaternion.identity);
-        Damage();
+        //if(target.CompareTag("Enemy"))
+        {
+            Instantiate(effect, target.transform.position, Quaternion.identity);
+            Damage();
+        }
     }
 
     private void Damage() //추후 애니메이션 실행 및 이벤트로 나눠서 구현

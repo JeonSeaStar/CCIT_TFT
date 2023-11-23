@@ -177,37 +177,6 @@ public class Piece : MonoBehaviour
         if (piece.health <= 0) piece.DeadState();
     }
 
-    public void SkillDamage(float damage)
-    {
-        if (invincible)
-            return;
-
-        if (target.shield > 0)
-        {
-            float shieldPoint = target.shield;
-            if (shieldPoint < damage)
-            {
-                damage = damage - shieldPoint;
-                target.health -= damage;
-                shieldPoint = 0;
-            }
-            else
-            {
-                shieldPoint -= damage;
-            }
-            target.shield = shieldPoint;
-        }
-        else
-        {
-            health -= damage;
-        }
-
-        if (health <= 0)
-        {
-            DeadState();
-        }
-    }
-
     public void Damage(float damage)
     {
         if (target == null)
@@ -222,6 +191,8 @@ public class Piece : MonoBehaviour
             if (shieldPoint < damage)
             {
                 damage = damage - shieldPoint;
+                target.health -= damage;
+                shieldPoint = 0;
             }
             else
             {
@@ -517,7 +488,7 @@ public class Piece : MonoBehaviour
     public void VictoryDacnce()
     {
         StopAllCoroutines();
-        pieceData.ResetPiece(this);
+        //pieceData.ResetPiece(this);
         print(name + "(ÀÌ)°¡ ½Â¸®ÀÇ Ãã Ãß´Â Áß.");
         PieceState = State.DANCE;
 
