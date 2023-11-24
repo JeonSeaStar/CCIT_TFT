@@ -31,8 +31,9 @@ public class Piece : MonoBehaviour
     public float attackRange;
     public float bloodBrain;
 
-    public float shield; //임시값
-    public float currentShield; //임시값
+    public float shield;
+    [HideInInspector] public float maxHealth;
+    [HideInInspector] public float maxMana;
 
     public bool dead;
 
@@ -123,6 +124,17 @@ public class Piece : MonoBehaviour
         pieceName = pieceData.pieceName;
         fieldManager = ArenaManager.Instance.fieldManagers[0];
         PieceState = State.IDLE;
+
+        maxHealth = health;
+
+        //healthbar.maxHealth = health;
+        //healthbar.maxMana = mana;
+    }
+
+    private void Update()
+    {
+        //healthbar.InitHealthbar(maxHealth, health, shield);
+        //healthbar.InitManabar(maxMana, mana);
     }
 
     public void Owned()

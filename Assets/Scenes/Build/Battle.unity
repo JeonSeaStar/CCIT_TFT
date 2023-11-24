@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1733871, g: 0.21673916, b: 0.29880822, a: 1}
+  m_IndirectSpecularColor: {r: 0.17338678, g: 0.21673864, b: 0.29880753, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9300,7 +9300,6 @@ RectTransform:
   - {fileID: 83093050}
   - {fileID: 1204962247}
   - {fileID: 586279970}
-  - {fileID: 5694444297247465109}
   m_Father: {fileID: 605217635}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11235,6 +11234,7 @@ RectTransform:
   - {fileID: 1243581395}
   - {fileID: 362841726}
   - {fileID: 326748132}
+  - {fileID: 5694444297247465109}
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -23162,14 +23162,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1251039873}
-  m_LocalRotation: {x: 0.3819386, y: -0, z: -0, w: 0.9241877}
-  m_LocalPosition: {x: 4.5, y: 26.9, z: -20.7}
+  m_LocalRotation: {x: 0.38836038, y: -0, z: -0, w: 0.9215076}
+  m_LocalPosition: {x: 4.13, y: 21.13, z: -17.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 44.908, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45.705, y: 0, z: 0}
 --- !u!114 &1251039877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32133,6 +32133,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1371259064}
     m_Modifications:
+    - target: {fileID: 1515803984, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1994693040836722, guid: cc0b6d4b15530d942bffb81f838c93fc, type: 3}
       propertyPath: m_Name
       value: Tile [ 0 , 0 ]
@@ -37364,7 +37368,7 @@ MonoBehaviour:
     matchingHistroy: 
     pairings: 0
   graphicRaycaster: {fileID: 605217632}
-  PieceSaleSlot: {fileID: 5694444297247465108}
+  pieceSaleSlot: {fileID: 5694444297247465108}
 --- !u!54 &3469287837247737725
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -37466,12 +37470,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 487481405}
-  m_RootOrder: 5
+  m_Father: {fileID: 605217635}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -116, y: -764.318}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 500, y: 500}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &5694444297247465110
