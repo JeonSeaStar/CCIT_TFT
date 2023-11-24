@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class FenrirPiece : Piece
 {
-    PathFinding pathFinding;
+    public TriggerCheckSkill fenrirSkill;
+
     public override IEnumerator Attack()
     {
         if (mana >= 80)
@@ -29,20 +30,8 @@ public class FenrirPiece : Piece
 
     void GetLocationMultiRangeSkill(float damage)
     {
-        pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
-        List<Tile> _getNeigbor = pathFinding.GetFront(currentTile);
-        foreach (var _Neigbor in _getNeigbor)
-        {
-            Piece _targets = _Neigbor.piece;
-            if (_targets == null)
-            {
-                Debug.Log("대상없음");
-            }
-            else if (!_targets.isOwned)
-            {
-                Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
-                Damage(_targets, damage);
-            }
-        }
+        Instantiate(skillEffects, transform.position, Quaternion.identity);
+        fenrirSkill.gameObject.SetActive(true);
+        fenrirSkill.damage = damage;
     }
 }
