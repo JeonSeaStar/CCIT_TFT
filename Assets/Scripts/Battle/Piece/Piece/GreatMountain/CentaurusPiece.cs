@@ -31,7 +31,9 @@ public class CentaurusPiece : Piece
     {
         if (target != null)
         {
+            Quaternion rot = transform.rotation;
             GameObject centaBullet = Instantiate(bullet, transform.position, Quaternion.identity);
+            Instantiate(skillEffects, transform.position, rot);
             Bullet b = centaBullet.GetComponent<CentaurusBullet>();
             b.parentPiece = this;
             b.damage = damage;

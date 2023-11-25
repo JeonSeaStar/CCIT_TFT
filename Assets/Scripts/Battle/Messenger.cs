@@ -58,12 +58,13 @@ public class Messenger : MonoBehaviour
     public MatchingInformation matchingInformation;
 
     [SerializeField] GraphicRaycaster graphicRaycaster;
-    [SerializeField] GameObject PieceSaleSlot;
+    [SerializeField] GameObject pieceSaleSlot;
     PointerEventData pointerEventData;
 
     private void Awake()
     {
         fieldManager.DualPlayers[0] = this;
+        pieceSaleSlot.GetComponent<Image>().sprite = Resources.Load<Sprite>("Unit HpBar/1Star Background");
     }
 
     void Update()
@@ -95,7 +96,7 @@ public class Messenger : MonoBehaviour
                 FreezeRigidbody(controlPiece, _isGrapPiece);
                 isGrab = _isGrapPiece;
                 fieldManager.ActiveHexaIndicators(_isGrapPiece);
-                PieceSaleSlot.SetActive(true);
+                pieceSaleSlot.SetActive(true);
                 return;
             }
             #endregion
@@ -172,7 +173,7 @@ public class Messenger : MonoBehaviour
                     //판매하고 판매 가격 획득 추가
                     //기물이 가지고 있던 아이템 되돌려받기 추가
                     Destroy(controlPiece.gameObject);
-                    PieceSaleSlot.SetActive(false);
+                    pieceSaleSlot.SetActive(false);
                     return;
                 }
             }
@@ -230,7 +231,7 @@ public class Messenger : MonoBehaviour
                     else if (_currentTileInformation == _targetTileInformation) ChangeTileTransform(controlPiece, controlPiece.targetTile);
                     ResetDragState(false);
                     fieldManager.ActiveHexaIndicators(false);
-                    PieceSaleSlot.SetActive(false);
+                    pieceSaleSlot.SetActive(false);
 
                     fieldManager.fieldPieceStatus.UpdateFieldStatus(fieldManager.myFilePieceList.Count, fieldManager.owerPlayer.maxPieceCount[fieldManager.owerPlayer.level]);
                     return;
