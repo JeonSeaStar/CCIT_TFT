@@ -6,7 +6,7 @@ public class JormungandPiece : Piece
 {
     public Tile skillCheckTile;
     PathFinding pathFinding;
-    int time;
+
     public override IEnumerator Attack()
     {
         if (mana >= 50)

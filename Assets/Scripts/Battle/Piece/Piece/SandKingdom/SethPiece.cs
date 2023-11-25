@@ -29,6 +29,8 @@ public class SethPiece : Piece
 
     void GetLocationMultiRangeSkill(float damage)
     {
+        Quaternion rot = transform.rotation;
+        Instantiate(skillEffects, transform.position, rot);
         pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
         List<Tile> _getNeigbor = pathFinding.GetStrangeSide(target.currentTile);
         foreach (var _Neigbor in _getNeigbor)
@@ -40,7 +42,6 @@ public class SethPiece : Piece
             }
             else if (!_targets.isOwned)
             {
-                Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
                 Damage(_targets, damage);
             }
         }
