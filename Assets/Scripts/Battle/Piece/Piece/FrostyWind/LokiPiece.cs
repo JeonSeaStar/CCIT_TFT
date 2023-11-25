@@ -5,8 +5,6 @@ using UnityEngine;
 public class LokiPiece : Piece
 {
     PathFinding pathFinding;
-    Piece[] firstLinePieces;
-    Piece[] targets;
     int randomCount;
     public override IEnumerator Attack()
     {
@@ -52,7 +50,7 @@ public class LokiPiece : Piece
             {
                 Debug.Log("대상없음");
             }
-            else if (!_targets.isOwned)
+            else if (_targets.isOwned)
             {
                 Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
                 RandomCapability(_targets, percentage);

@@ -30,7 +30,8 @@ public class FenrirPiece : Piece
 
     void GetLocationMultiRangeSkill(float damage)
     {
-        Instantiate(skillEffects, transform.position, Quaternion.identity);
+        Quaternion rot = transform.rotation;
+        Instantiate(skillEffects, transform.position, rot);
         fenrirSkill.gameObject.SetActive(true);
         fenrirSkill.damage = damage;
     }
