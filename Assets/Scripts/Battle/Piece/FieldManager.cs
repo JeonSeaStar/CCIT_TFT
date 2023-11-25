@@ -366,7 +366,7 @@ public class FieldManager : MonoBehaviour
         {
             ApplySynerge(_plusMyth, _plusAnimal, _plusUnited);
 
-            SynergeBoard.instance.SynergeCountUpdate(_plusMyth, _plusAnimal, _plusUnited, true);
+            SynergeBoard.instance.SynergeCountUpdate(_plusMyth, _plusAnimal, _plusUnited);
         }
         else if (minus != null) //Change Piece
         {
@@ -376,8 +376,8 @@ public class FieldManager : MonoBehaviour
             ApplySynerge(_plusMyth, _plusAnimal, _plusUnited);
             ApplySynerge(_minusMyth, _minusAnimal, _minusUnited);
 
-            SynergeBoard.instance.SynergeCountUpdate(_plusMyth, _plusAnimal, _plusUnited, true);
-            SynergeBoard.instance.SynergeCountUpdate(_minusMyth, _minusAnimal, _minusUnited, false);
+            SynergeBoard.instance.SynergeCountUpdate(_plusMyth, _plusAnimal, _plusUnited);
+            SynergeBoard.instance.SynergeCountUpdate(_minusMyth, _minusAnimal, _minusUnited);
         }
     }
 

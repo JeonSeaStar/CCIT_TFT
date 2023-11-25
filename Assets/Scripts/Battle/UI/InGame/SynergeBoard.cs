@@ -15,7 +15,7 @@ public class SynergeBoard : MonoBehaviour
     //    target.gameObject.SetActive(active);
     //}
     #endregion
-
+    [SerializeField] private FieldManager fieldManager;
     public static SynergeBoard instance;
     private void Awake()
     {
@@ -24,7 +24,7 @@ public class SynergeBoard : MonoBehaviour
         SortingSynergeItem();
         ChangeItemValue();
 
-        for(int i = 0; i < synergeItemGameObjects.Count; i++)
+        for (int i = 0; i < synergeItemGameObjects.Count; i++)
         {
             foreach (var item in synergeItemGameObjects[i].csf)
             {
@@ -36,6 +36,7 @@ public class SynergeBoard : MonoBehaviour
             synergeItemGameObjects[i].hlg.Reverse();
             foreach (var item in synergeItemGameObjects[i].hlg)
             {
+                LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)item.transform);
                 item.enabled = false;
                 item.enabled = true;
             }
@@ -49,8 +50,9 @@ public class SynergeBoard : MonoBehaviour
 
     private int GetSynergeGrade(SynergeItem target)
     {
-        if (target.currentValue >= target.maxValue[target.grade + 1])
-            target.grade++;
+        if (target.currentValue >= target.maxValue[target.grade])
+            if (target.grade < target.maxValue.Count())
+                target.grade++;
 
         return target.grade;
     }
@@ -92,14 +94,34 @@ public class SynergeBoard : MonoBehaviour
             foreach (SynergeItem item in currentGradeSynergeItems)
                 sortingSynergeItem.Add(item);
 
-            foreach (SynergeItem item in synergeItems)
-            {
-                if (!sortingSynergeItem.Contains(item))
-                {
-                    sortingSynergeItem.Add(item);
-                }
-            }
+            //foreach (SynergeItem item in synergeItems)
+            //{
+            //    if (!sortingSynergeItem.Contains(item) && item.currentValue > 0)
+            //    {
+            //        sortingSynergeItem.Add(item);
+            //    }
+            //}
+
+            //foreach (SynergeItem item in synergeItems)
+            //{
+            //    if (!sortingSynergeItem.Contains(item))
+            //    {
+            //        sortingSynergeItem.Add(item);
+            //    }
+            //}
         }
+        List<SynergeItem> otherSynergeItems = new List<SynergeItem>();
+
+        foreach (SynergeItem item in synergeItems)
+            if (!sortingSynergeItem.Contains(item))
+                otherSynergeItems.Add(item);
+
+        IEnumerable<SynergeItem> Temp2 = otherSynergeItems.OrderBy(item => item.synergeOutputName);
+        otherSynergeItems = Temp2.ToList();
+
+        foreach (SynergeItem item in otherSynergeItems)
+            if (!sortingSynergeItem.Contains(item))
+                sortingSynergeItem.Add(item);
 
         synergeItems = sortingSynergeItem;
     }
@@ -125,29 +147,38 @@ public class SynergeBoard : MonoBehaviour
         return null;
     }
 
-    private void SynergeCountChange(string synergeName, bool b)
+    private void SynergeCountChange(PieceData.Myth myth, PieceData.Animal animal, PieceData.United united)
     {
-        if (synergeName == "None")
-            return;
+        SynergeItem mythTarget = GetSynergeItem(myth.ToString());
+        SynergeItem animalTarget = GetSynergeItem(animal.ToString());
+        SynergeItem unitedTarget = GetSynergeItem(united.ToString());
 
-        SynergeItem target = GetSynergeItem(synergeName);
+        if (myth != PieceData.Myth.None)
+        {
+            mythTarget.currentValue = fieldManager.mythActiveCount[myth];
+            SynergeGradeChange(mythTarget);
+            SortingSynergeItem();
+        }
+        if (animal != PieceData.Animal.None)
+        {
+            animalTarget.currentValue = fieldManager.animalActiveCount[animal];
+            SynergeGradeChange(animalTarget);
+            SortingSynergeItem();
+        }
+        //if (united != PieceData.United.None)
+        //{
+        //    unitedTarget.currentValue = fieldManager.unitedActiveCount[united];
+        //    SynergeGradeChange(unitedTarget);
+        //}
 
-        if (b)
-            target.currentValue++;
-        else
-            target.currentValue--;
-
-        SynergeGradeChange(target);
         SortingSynergeItem();
-
         ChangeItemValue();
     }
 
-    public void SynergeCountUpdate(PieceData.Myth myth, PieceData.Animal animal, PieceData.United united, bool b)
+    public void SynergeCountUpdate(PieceData.Myth myth, PieceData.Animal animal, PieceData.United united)
     {
-        SynergeCountChange(myth.ToString(), b);
-        SynergeCountChange(animal.ToString(), b);
-        //SynergeCountChange(united.ToString(), b);
+        SynergeCountChange(myth, animal, united);
+        SortingSynergeItem();
     }
 
     private void ChangeItemValue()
@@ -158,19 +189,22 @@ public class SynergeBoard : MonoBehaviour
             {
                 if (GetSynergeGrade(synergeItems[i]) == 0)
                 {
+                    synergeItemGameObjects[i].synergeIconImage.color = new Vector4(255, 255, 255, 255);
                     synergeItemGameObjects[i].synergeIconImage.sprite = synergeItems[i].synergeIcon[0];
-
-                    print(synergeItemGameObjects[i].name + ", " + synergeItems[i].synergeOutputName);
                 }
                 else
+                {
+                    synergeItemGameObjects[i].synergeIconImage.color = new Vector4(255, 255, 255, 255);
                     synergeItemGameObjects[i].synergeIconImage.sprite = synergeItems[i].synergeIcon[1];
+                }
                 synergeItemGameObjects[i].synergeNameText.text = synergeItems[i].synergeOutputName;
                 synergeItemGameObjects[i].currentValueText.text = synergeItems[i].currentValue.ToString();
-                synergeItemGameObjects[i].maxValueText.text = synergeItems[i].maxValue[GetSynergeGrade(synergeItems[i]) + 1].ToString();
+                synergeItemGameObjects[i].maxValueText.text = synergeItems[i].maxValue[GetSynergeGrade(synergeItems[i])].ToString();
                 synergeItemGameObjects[i].synergeGradeImage.sprite = synergeGrade[GetSynergeGrade(synergeItems[i])];
             }
             else
             {
+                synergeItemGameObjects[i].synergeIconImage.color = new Vector4(255, 255, 255, 0);
                 synergeItemGameObjects[i].synergeIconImage.sprite = null;
                 synergeItemGameObjects[i].synergeNameText.text = "πÃ»∞º∫";
                 synergeItemGameObjects[i].currentValueText.text = "0";
@@ -188,6 +222,7 @@ public class SynergeBoard : MonoBehaviour
             synergeItemGameObjects[i].hlg.Reverse();
             foreach (var item in synergeItemGameObjects[i].hlg)
             {
+                LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)item.transform);
                 item.enabled = false;
                 item.enabled = true;
             }
