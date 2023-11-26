@@ -10,6 +10,7 @@ public class PieceData : ScriptableObject
     public GameObject piecePrefab;
 
     public int grade;
+    public int star;
 
 
     [HideInInspector]
@@ -39,6 +40,10 @@ public class PieceData : ScriptableObject
     public float[] bloodBrain = new float[3];      //흡협률
     public float[] moveSpeed = new float[3];     //이동속도
     public Buff buff;
+
+    public Sprite skilSprite;
+    public string skillName;
+    [TextArea] public string skillExplain;
 
     //토끼 전용 고정 데미지 수치 파라티터 추가 필요 Ex) JumpDemage
     //스킬 지속 시간 파라미터 추가 필요

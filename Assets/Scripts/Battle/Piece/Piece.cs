@@ -83,7 +83,6 @@ public class Piece : MonoBehaviour
     public float basicAttackSpeed;
     public float basicHealth;
 
-
     public enum State
     {
         NONE,

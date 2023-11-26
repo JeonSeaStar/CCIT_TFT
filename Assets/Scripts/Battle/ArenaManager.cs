@@ -66,7 +66,7 @@ public class ArenaManager : MonoBehaviour
 
                 if (BattleResult == Result.VICTORY)
                 {
-                    roundState.UpdateStageIcon(currentRound, 1);
+                    roundState.UpdateStageIcon(currentRound, 1, fieldManagers[0].stageInformation.enemy[currentRound].roundType);
                     foreach (var piece in fieldManagers[0].myFilePieceList)
                         piece.VictoryDacnce();
 
@@ -82,7 +82,7 @@ public class ArenaManager : MonoBehaviour
                     fieldManagers[0].ChargeHP(fieldManagers[0].stageInformation.enemy[currentRound].defeatDamage);
                     Invoke("NextRound", 3f);
 
-                    roundState.UpdateStageIcon(currentRound, 2);
+                    roundState.UpdateStageIcon(currentRound, 2, fieldManagers[0].stageInformation.enemy[currentRound].roundType);
                 }
             }
         }
@@ -170,7 +170,7 @@ public class ArenaManager : MonoBehaviour
         fieldManagers[0].NextStage();
         currentRound++;
         ChangeStage(currentRound + 1);
-        roundState.UpdateStageIcon(currentRound, 0);
+        roundState.UpdateStageIcon(currentRound, 3, fieldManagers[0].stageInformation.enemy[currentRound].roundType);
     }
 
     public void StartBattle()
@@ -202,7 +202,8 @@ public class ArenaManager : MonoBehaviour
         roundState.SetStage(currentRound);
         ChangeStage(1);
         fieldManagers[0].SpawnEnemy(currentRound);
-        roundState.UpdateStageIcon(currentRound, 0);
+        roundState.InitRoundIcon();
+        roundState.UpdateStageIcon(currentRound, 3, fieldManagers[0].stageInformation.enemy[currentRound].roundType);
 
         fieldManagers[0].fieldPieceStatus.UpdateFieldStatus(fieldManagers[0].myFilePieceList.Count, fieldManagers[0].owerPlayer.maxPieceCount[fieldManagers[0].owerPlayer.level]);
     }

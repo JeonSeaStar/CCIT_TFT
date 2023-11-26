@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PieceShop : MonoBehaviour
 {
+    public FieldManager fieldManager;
+    public List<Sprite> cardSprites;
     public PieceBuySlot[] slots = new PieceBuySlot[5];
 
     [System.Serializable]
@@ -29,15 +32,29 @@ public class PieceShop : MonoBehaviour
 
     private void Awake()
     {
-        RefreshSlots();
+        InitSlot();
     }
 
-    public void RefreshSlots()
+    public void InitSlot()
     {
         foreach (var slot in slots)
         {
             //여기 줄에 기물 데이터 넣어주기
-            GetPieceTier(0, slot);
+            GetPieceTier(fieldManager.owerPlayer.level, slot);
+        }
+    }
+
+    public void RefreshSlots()
+    {
+        if (fieldManager.owerPlayer.gold < 0)
+            return;
+
+        fieldManager.ChargeGold(-1);
+
+        foreach (var slot in slots)
+        {
+            //여기 줄에 기물 데이터 넣어주기
+            GetPieceTier(fieldManager.owerPlayer.level, slot);
         }
     }
 

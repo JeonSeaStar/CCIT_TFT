@@ -8,12 +8,13 @@ using DG.Tweening;
 
 public class Messenger : MonoBehaviour
 {
+    public PieceInformation pieceInformationUI;
     public List<BuffData> buffDatas = new List<BuffData>();
     public int level;
     public int currentXP;
     public int[] maxXP;
     public int[] maxPieceCount;
-    [Range(-30,200)] public int lifePoint = 100;
+    [Range(-30, 200)] public int lifePoint = 100;
     public int gold = 0;
     [SerializeField] LayerMask playerMask; //9 - Player
     [SerializeField] LayerMask groundMask; //8 - Plane
@@ -25,7 +26,7 @@ public class Messenger : MonoBehaviour
     public bool isDrag = false;
     public bool isExpedition;
 
-    [SerializeField] int[] damagePerPiece = new int[] { 2, 4, 6, 8, 10, 11, 12, 13, 14, 15};
+    [SerializeField] int[] damagePerPiece = new int[] { 2, 4, 6, 8, 10, 11, 12, 13, 14, 15 };
     [SerializeField] int[] damagePerRound = new int[] { 0, 1, 2, 3, 4, 6, 9, 15 };
 
     [SerializeField] Piece controlPiece;
@@ -52,6 +53,9 @@ public class Messenger : MonoBehaviour
         }
     }
 
+    [SerializeField] private GameObject targetPiece;
+    private Ray ray;
+    private RaycastHit hit;
     [SerializeField] GameObject chargingParticle;
     [SerializeField] GameObject AttackParticle;
 
@@ -72,44 +76,79 @@ public class Messenger : MonoBehaviour
         if (ArenaManager.Instance.roundType == ArenaManager.RoundType.Deployment || ArenaManager.Instance.roundType == ArenaManager.RoundType.Battle)
         {
             if (Input.GetMouseButtonDown(0) && owned) Targeting();
-            if (Input.GetMouseButton(0) && isGrab && !isDrag &&owned) Dragging();
-            if (Input.GetMouseButtonUp(0) && isGrab && owned) EndDrag();
+            if (Input.GetMouseButton(0) && isGrab && !isDrag && owned) Dragging();
+            if (Input.GetMouseButtonUp(0))
+            {
+                StopAllCoroutines();
+                if (timer <= grabTime)
+                {
+                    if (targetPiece.GetComponent<Piece>() != null)
+                        pieceInformationUI.OpenPieceInformation(targetPiece.GetComponent<Piece>());
+                }
+                timer = 0;
+
+                if (isGrab && owned)
+                    EndDrag();
+            }
         }
 
         if (Input.GetMouseButton(0) && owned && !isGrab)
             Aim();
     }
 
+    [SerializeField] private float timer = 0;
+    [SerializeField] private float grabTime;
+    bool timeOver;
+    private IEnumerator ClickTimer()
+    {
+        yield return new WaitForSeconds(0.01f);
+        timer += 0.01f;
+
+        if (timer > grabTime)
+        {
+            Targeting(ray, hit);
+            StopAllCoroutines();
+        }
+        else
+            StartCoroutine(ClickTimer());
+    }
+
     #region SelectPiece
     void Targeting()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
+        StartCoroutine(ClickTimer());
+
+        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, (-1) - (1 << playerMask)))
         {
-            #region Piece
-            GameObject targetPiece = hit.transform.gameObject;
-            bool _isGrapPiece = targetPiece.layer == 6;//Piece
-            if (_isGrapPiece && targetPiece.GetComponent<Piece>().isOwned == true)
-            {
-                controlPiece = hit.transform.gameObject.GetComponent<Piece>();
-                FreezeRigidbody(controlPiece, _isGrapPiece);
-                isGrab = _isGrapPiece;
-                fieldManager.ActiveHexaIndicators(_isGrapPiece);
-                pieceSaleSlot.SetActive(true);
-                return;
-            }
-            #endregion
-            # region Equipment
-            bool _isGrapEquipment = hit.transform.gameObject.layer == 10;
-            if (_isGrapEquipment)
-            {
-                controlEquipment = hit.transform.gameObject.GetComponent<Equipment>();
-                isGrab = _isGrapEquipment;
-                return;
-            }
-            #endregion
+            targetPiece = hit.transform.gameObject;
         }
+    }
+
+    void Targeting(Ray ray, RaycastHit hit)
+    {
+        #region Piece
+        bool _isGrapPiece = targetPiece.layer == 6;//Piece
+        if (_isGrapPiece && targetPiece.GetComponent<Piece>().isOwned == true)
+        {
+            controlPiece = hit.transform.gameObject.GetComponent<Piece>();
+            FreezeRigidbody(controlPiece, _isGrapPiece);
+            isGrab = _isGrapPiece;
+            fieldManager.ActiveHexaIndicators(_isGrapPiece);
+            pieceSaleSlot.SetActive(true);
+            return;
+        }
+        #endregion
+        #region Equipment
+        bool _isGrapEquipment = hit.transform.gameObject.layer == 10;
+        if (_isGrapEquipment)
+        {
+            controlEquipment = hit.transform.gameObject.GetComponent<Equipment>();
+            isGrab = _isGrapEquipment;
+            return;
+        }
+        #endregion
     }
 
     void Dragging()
@@ -121,7 +160,7 @@ public class Messenger : MonoBehaviour
         _objPos.y = 0;
 
         #region Piece
-        if (controlPiece == null) controlPiece = _controlObject.GetComponent< Piece >();
+        if (controlPiece == null) controlPiece = _controlObject.GetComponent<Piece>();
         else if (controlPiece != null)
         {
             if (ArenaManager.Instance.roundType == ArenaManager.RoundType.Battle && controlPiece.currentTile.isReadyTile)
@@ -132,7 +171,7 @@ public class Messenger : MonoBehaviour
         }
         #endregion
         #region
-        if (controlEquipment == null) controlEquipment = _controlObject.GetComponent< Equipment >();
+        if (controlEquipment == null) controlEquipment = _controlObject.GetComponent<Equipment>();
         else if (controlEquipment != null)
         {
             controlEquipment.transform.position = _objPos;
@@ -143,6 +182,7 @@ public class Messenger : MonoBehaviour
     void EndDrag()
     {
         if (isDrag) { ResetDragState(!isDrag); return; }
+
         object _controlObject = (controlPiece != null) ? controlPiece : controlEquipment;
         #region Piece
         controlPiece = _controlObject as Piece;
@@ -150,7 +190,7 @@ public class Messenger : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             #region 기물 판매
-            if (Physics.Raycast(ray, out RaycastHit saleSlot)) 
+            if (Physics.Raycast(ray, out RaycastHit saleSlot))
             {
                 pointerEventData = new PointerEventData(null);
                 pointerEventData.position = Input.mousePosition;
@@ -183,7 +223,7 @@ public class Messenger : MonoBehaviour
             {
                 Debug.Log(hit.transform.gameObject.name);
                 var _currentRound = ArenaManager.Instance.roundType;
-                Tile _currentTileInformation = controlPiece.currentTile; 
+                Tile _currentTileInformation = controlPiece.currentTile;
                 Tile _targetTileInformation = hit.transform.gameObject.GetComponent<Tile>();
                 controlPiece.targetTile = _targetTileInformation;
                 if (_currentRound == ArenaManager.RoundType.Battle && controlPiece.currentTile.isReadyTile == false) ResetPositionToCurrentTile(controlPiece);
@@ -226,7 +266,7 @@ public class Messenger : MonoBehaviour
                             _targetPieceInformation.targetTile = controlPiece.currentTile;
                             controlPiece.currentTile = controlPiece.targetTile;
                         }
-                        if(!controlPiece.currentTile.isReadyTile) controlPiece.currentTile.transform.GetChild(1).gameObject.SetActive(true);
+                        if (!controlPiece.currentTile.isReadyTile) controlPiece.currentTile.transform.GetChild(1).gameObject.SetActive(true);
                     }
                     else if (_currentTileInformation == _targetTileInformation) ChangeTileTransform(controlPiece, controlPiece.targetTile);
                     ResetDragState(false);
@@ -275,7 +315,7 @@ public class Messenger : MonoBehaviour
         ControlEquipment = null;
     }
 
-    void FreezeRigidbody(Piece piece,bool isFreeze)
+    void FreezeRigidbody(Piece piece, bool isFreeze)
     {
         if (isFreeze) { piece.transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation; }
         else if (!isFreeze) piece.transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
@@ -328,7 +368,7 @@ public class Messenger : MonoBehaviour
     int MessengerDamage()
     {
         int activePiece = 0;
-        foreach(var piece in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
+        foreach (var piece in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
         {
             if (!piece.dead)
                 activePiece++;

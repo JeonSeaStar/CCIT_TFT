@@ -8,13 +8,20 @@ public class ResultPopup : MonoBehaviour
 {
     public TextMeshProUGUI resultText;
     public string[] result;
+    public Color[] resultColor;
 
     public void ActiveResultPopup(bool b)
     {
         if (b)
+        {
+            resultText.color = resultColor[0];
             resultText.text = result[0];
+        }
         else
+        {
+            resultText.color = resultColor[1];
             resultText.text = result[1];
+        }
 
         Invoke("ActivePopup", 3f);
     }

@@ -295,7 +295,7 @@ public class FieldManager : MonoBehaviour
 
         playerState.UpdateLevel(owerPlayer.level);
         playerState.UpdateMoney(owerPlayer.gold);
-        pieceShop.RefreshSlots();
+        pieceShop.InitSlot();
     }
 
     int d = 0;

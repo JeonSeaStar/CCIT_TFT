@@ -7,8 +7,10 @@ using TMPro;
 
 public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
+    public PieceShop pieceShop;
     public FieldManager fieldManager;
     public PieceData pieceData;
+    public Image cardImage;
     public Color[] slotColour = new Color[3];
     public Image slotHighlight;
     public Sprite boughtSlot;
@@ -38,6 +40,7 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         slotHighlight.color = slotColour[0];
 
         pieceData = data;
+        cardImage.sprite = pieceShop.cardSprites[pieceData.grade];
         pieceName.text = data.pieceName;
         pieceCost.text = data.cost[data.grade, data.piecePrefab.GetComponent<Piece>().star].ToString();
     }

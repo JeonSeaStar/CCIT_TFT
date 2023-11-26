@@ -15,6 +15,7 @@ public class EnemyInformationData : ScriptableObject
     [System.Serializable]
     public class StageInformation
     {
+        public string roundType;
         public List<EnemyInformation> enemyInformation;
         public int gold;
         public int defeatDamage;
