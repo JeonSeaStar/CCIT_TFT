@@ -6,20 +6,42 @@ public class TriggerCheckSkill : MonoBehaviour
 {
     public float damage;
     public GameObject effect;
-
-    private void OnTriggerEnter(Collider other)
+    public BoxCollider boxCollider;
+    public LayerMask layerMask;
+    private void OnEnable()
     {
-        Piece test = other.GetComponent<Piece>();
-        if (test == null)
+        Collider[] targets = Physics.OverlapBox(boxCollider.transform.position, boxCollider.size /2, Quaternion.identity, layerMask);
+        foreach(var cals in targets)
         {
-            gameObject.SetActive(false);
-            return;
-        }
-        else if(!test.isOwned)
-        {
-            Instantiate(effect, test.transform.position, Quaternion.identity);
-            test.Damage(test, damage);
-            gameObject.SetActive(false);
+            GameObject _targets = cals.gameObject;
+            if(_targets == null)
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+            else
+            {
+                Piece target = _targets.GetComponent<Piece>();
+                if(target == null)
+                {
+                    gameObject.SetActive(false);
+                    return;
+                }
+                else
+                {
+                    if (!target.isOwned)
+                    {
+                        Instantiate(effect, target.transform.position, Quaternion.identity);
+                        target.Damage(target, damage);
+                        gameObject.SetActive(false);
+                    }
+                    else
+                    {
+                        gameObject.SetActive(false);
+                        return;
+                    }
+                }
+            }
         }
     }
 }

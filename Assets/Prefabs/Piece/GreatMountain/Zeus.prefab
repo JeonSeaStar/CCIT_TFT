@@ -3006,7 +3006,8 @@ MonoBehaviour:
   attackRange: 0
   bloodBrain: 0
   shield: 0
-  currentShield: 0
+  maxHealth: 0
+  maxMana: 0
   dead: 0
   owner: 
   isOwned: 0
@@ -3042,11 +3043,14 @@ MonoBehaviour:
   isEquip: 0
   handAttackEffects: {fileID: 3377277121630279623}
   weaponAttackEffects: {fileID: 0}
-  skillEffects: {fileID: 6073891735194678028, guid: 064c608c3a271334299e1fa22913842f,
+  skillEffects: {fileID: 7371566048278776159, guid: 5cddf4ddeda31b44f9a9d540a1b82378,
     type: 3}
+  healthbar: {fileID: 0}
   nextTile: {fileID: 0}
   isRabbitSynergeActiveCheck: 0
   isCatSynergeActiveCheck: 0
+  zeusBullet: {fileID: 9112725619113431927, guid: 8427f5b1256cb9a4a9ddfd6056e325a2,
+    type: 3}
 --- !u!1 &2018659079779597595
 GameObject:
   m_ObjectHideFlags: 0
