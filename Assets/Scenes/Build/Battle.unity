@@ -16166,12 +16166,12 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 6c6cb93e92b8e5a439feaeb7185d3261, type: 3}
     - {fileID: 21300000, guid: 2e09712de0bf00e4c8dd3e27428289c4, type: 3}
     - {fileID: 21300000, guid: 96a6590ab45f3a04da62cccff19b52e3, type: 3}
-  roundInfoPopup: {fileID: 1981248506}
-  stagePopupText: {fileID: 18418174}
-  roundPopupText: {fileID: 30859409}
-  victoryReward: {fileID: 1889327172}
-  defeatReward: {fileID: 1197901482}
-  animator: {fileID: 819390667}
+  roundInfoPopup: {fileID: 0}
+  stagePopupText: {fileID: 0}
+  roundPopupText: {fileID: 0}
+  victoryReward: {fileID: 0}
+  defeatReward: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!95 &819390667
 Animator:
   serializedVersion: 4
@@ -32387,7 +32387,7 @@ MonoBehaviour:
     - count: []
     - count: []
   chest: {fileID: 1940834295}
-  lokiPieceSkillPosition: {fileID: 0}
+  lokiPieceSkillPosition: {fileID: 1082562709}
 --- !u!4 &1886702830
 Transform:
   m_ObjectHideFlags: 0
@@ -38252,7 +38252,7 @@ MonoBehaviour:
   level: 0
   currentXP: 0
   maxXP: 
-  levelUpCost: 0a0000000b0000000c0000000d0000000e000000
+  levelUpCost: 
   maxPieceCount: 0f00000014000000190000001e00000023000000
   lifePoint: 100
   gold: 50
