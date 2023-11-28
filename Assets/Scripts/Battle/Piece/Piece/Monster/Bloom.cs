@@ -22,7 +22,7 @@ public class Bloom : Piece
 
     public override IEnumerator Skill()
     {
-        for(int i =0; i < 6; i++)
+        for(int i = 0; i < 6; i++)
         {
             ProjectionSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         }
