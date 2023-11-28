@@ -117,6 +117,11 @@ public class PieceShop : MonoBehaviour
         {
             fieldManager.owerPlayer.gold -= fieldManager.owerPlayer.levelUpCost[fieldManager.owerPlayer.level];
             fieldManager.owerPlayer.level++;
+
+            fieldManager.playerState.UpdateLevel(fieldManager.owerPlayer.level);
+            fieldManager.playerState.UpdateMoney(fieldManager.owerPlayer.gold);
+
+            fieldManager.fieldPieceStatus.UpdateFieldStatus(fieldManager.myFilePieceList.Count, fieldManager.owerPlayer.maxPieceCount[fieldManager.owerPlayer.level]);
         }
     }
 }

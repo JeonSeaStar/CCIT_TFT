@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17338678, g: 0.21673864, b: 0.29880753, a: 1}
+  m_IndirectSpecularColor: {r: 0.1733871, g: 0.21673916, b: 0.29880822, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1331,7 +1331,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 487481406}
         m_TargetAssemblyTypeName: PieceShop, Assembly-CSharp
-        m_MethodName: RefreshSlots
+        m_MethodName: LevelUpButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8357,9 +8357,9 @@ RectTransform:
   m_Father: {fileID: 1919358567}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 903, y: -50}
   m_SizeDelta: {x: 230, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &427305680
@@ -9597,7 +9597,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &487481405
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9646,6 +9646,11 @@ MonoBehaviour:
   - {fileID: 1336978079}
   - {fileID: 427305677}
   percentageByLevel:
+  - tier: 3c000000190000000a00000005000000
+  - tier: 3c000000190000000a00000005000000
+  - tier: 3c000000190000000a00000005000000
+  - tier: 3c000000190000000a00000005000000
+  - tier: 3c000000190000000a00000005000000
   - tier: 3c000000190000000a00000005000000
   testList:
   - testCountList:
@@ -16166,12 +16171,12 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 6c6cb93e92b8e5a439feaeb7185d3261, type: 3}
     - {fileID: 21300000, guid: 2e09712de0bf00e4c8dd3e27428289c4, type: 3}
     - {fileID: 21300000, guid: 96a6590ab45f3a04da62cccff19b52e3, type: 3}
-  roundInfoPopup: {fileID: 0}
-  stagePopupText: {fileID: 0}
-  roundPopupText: {fileID: 0}
-  victoryReward: {fileID: 0}
-  defeatReward: {fileID: 0}
-  animator: {fileID: 0}
+  roundInfoPopup: {fileID: 787942620}
+  stagePopupText: {fileID: 18418174}
+  roundPopupText: {fileID: 30859409}
+  victoryReward: {fileID: 1889327172}
+  defeatReward: {fileID: 1197901482}
+  animator: {fileID: 819390667}
 --- !u!95 &819390667
 Animator:
   serializedVersion: 4
@@ -19535,9 +19540,9 @@ RectTransform:
   m_Father: {fileID: 1919358567}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 177, y: -50}
   m_SizeDelta: {x: 230, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1006729017
@@ -25040,9 +25045,9 @@ RectTransform:
   m_Father: {fileID: 1919358567}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 661, y: -50}
   m_SizeDelta: {x: 230, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1336978078
@@ -36347,9 +36352,9 @@ RectTransform:
   m_Father: {fileID: 1919358567}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 419, y: -50}
   m_SizeDelta: {x: 230, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2073969756
@@ -38252,7 +38257,7 @@ MonoBehaviour:
   level: 0
   currentXP: 0
   maxXP: 
-  levelUpCost: 
+  levelUpCost: 0100000002000000030000000400000005000000
   maxPieceCount: 0f00000014000000190000001e00000023000000
   lifePoint: 100
   gold: 50
