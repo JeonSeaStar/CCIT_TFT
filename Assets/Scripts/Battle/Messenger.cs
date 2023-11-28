@@ -13,6 +13,7 @@ public class Messenger : MonoBehaviour
     public int level;
     public int currentXP;
     public int[] maxXP;
+    public int[] levelUpCost;
     public int[] maxPieceCount;
     [Range(-30, 200)] public int lifePoint = 100;
     public int gold = 0;
@@ -75,7 +76,12 @@ public class Messenger : MonoBehaviour
     {
         if (ArenaManager.Instance.roundType == ArenaManager.RoundType.Deployment || ArenaManager.Instance.roundType == ArenaManager.RoundType.Battle)
         {
-            if (Input.GetMouseButtonDown(0) && owned) Targeting();
+            if (Input.GetMouseButtonDown(0))
+            {
+                pieceInformationUI.ClosePieceInformation();
+                if (owned)
+                Targeting();
+            }
             if (Input.GetMouseButton(0) && isGrab && !isDrag && owned) Dragging();
             if (Input.GetMouseButtonUp(0))
             {

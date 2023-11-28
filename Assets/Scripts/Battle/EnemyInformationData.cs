@@ -18,6 +18,7 @@ public class EnemyInformationData : ScriptableObject
         public string roundType;
         public List<EnemyInformation> enemyInformation;
         public int gold;
+        public int defeatGold;
         public int defeatDamage;
     }
 

@@ -110,4 +110,13 @@ public class PieceShop : MonoBehaviour
         }
         return 1;
     }
+
+    public void LevelUpButton()
+    {
+        if(fieldManager.owerPlayer.gold >= fieldManager.owerPlayer.levelUpCost[fieldManager.owerPlayer.level])
+        {
+            fieldManager.owerPlayer.gold -= fieldManager.owerPlayer.levelUpCost[fieldManager.owerPlayer.level];
+            fieldManager.owerPlayer.level++;
+        }
+    }
 }

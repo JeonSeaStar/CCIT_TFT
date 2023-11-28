@@ -19,4 +19,11 @@ public class FieldPieceStatus : MonoBehaviour
         currentPieceCount.text = current.ToString();
         maxPieceCount.text = max.ToString();
     }
+
+    public void ActiveFieldStatus()
+    {
+        if (ArenaManager.Instance.roundType == ArenaManager.RoundType.Battle)
+            fieldPieceStatusGameObject.SetActive(false);
+        else fieldPieceStatusGameObject.SetActive(true);
+    }
 }
