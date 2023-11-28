@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SethPiece : Piece
 {
+    [SerializeField] private GameObject sethSkill;
+    [SerializeField] private SethSkill skill;
     public override IEnumerator Attack()
     {
         if (mana >= 100)
@@ -28,19 +30,14 @@ public class SethPiece : Piece
 
     void GetLocationMultiRangeSkill(float damage)
     {
-        Quaternion rot = transform.rotation;
-        Instantiate(skillEffects, transform.position, rot);
-        //foreach (var _Neigbor in _getNeigbor)
-        //{
-        //    Piece _targets = _Neigbor.piece;
-        //    if (_targets == null)
-        //    {
-        //        Debug.Log("대상없음");
-        //    }
-        //    else if (!_targets.isOwned)
-        //    {
-        //        Damage(_targets, damage);
-        //    }
-        //}
+        if (target != null)
+        {
+            Quaternion rot = transform.rotation;
+            Instantiate(skillEffects, transform.position, rot);
+            Instantiate(sethSkill, target.transform.position, Quaternion.identity);
+            skill.par = this;
+            skill.damage = damage;
+            
+        }
     }
 }
