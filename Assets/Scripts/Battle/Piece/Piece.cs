@@ -126,9 +126,10 @@ public class Piece : MonoBehaviour
         fieldManager = ArenaManager.Instance.fieldManagers[0];
         PieceState = State.IDLE;
 
-        maxHealth = health;
+        //maxHealth = health;
 
-        //healthbar.maxHealth = health;
+        maxHealth = health;
+        maxMana = mana;
         //healthbar.maxMana = mana;
     }
 
