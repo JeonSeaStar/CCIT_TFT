@@ -25,6 +25,7 @@ public class PieceHealthBar : MonoBehaviour
         healthbarSprite.fillAmount = _health;
         if (_shield + _health <= 1)
         {
+            extraShieldbarSprite.fillAmount = 0;
             shieldbarSprite.fillAmount = _shield + _health;
         }
         else if (_shield + _health > 1)
