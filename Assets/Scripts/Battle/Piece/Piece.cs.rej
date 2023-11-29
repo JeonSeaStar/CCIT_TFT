@@ -1,0 +1,28 @@
+diff a/Assets/Scripts/Piece/Piece.cs b/Assets/Scripts/Piece/Piece.cs	(rejected hunks)
+@@ -51,7 +51,7 @@
+     private void Start()
+     {
+         // �ʱ�ȭ ���� �� Start ���� �־��ּ���.
+-        fieldManager = ArenaManager.instance.fm[0];
++        fieldManager = ArenaManager.instance.fm[0]; 
+     }
+ 
+     public void Owned()
+@@ -97,9 +97,17 @@
+     {
+         print(name + "(��)�� ü���� 0 ���ϰ� �Ǿ� ���.");
+         dead = true;
++        SpawnRandomBox();
+         gameObject.SetActive(false);
+     }
+ 
++    void SpawnRandomBox()
++    {
++        GameObject box = Instantiate(randomBoxObject, transform.position, Quaternion.identity);
++        RandomBox randomBox = box.GetComponent<RandomBox>();
++        randomBox.CurveMove(fieldManager.targetPositions);
++    }
++
+     //�̵�
+     public void Move()
+     {
