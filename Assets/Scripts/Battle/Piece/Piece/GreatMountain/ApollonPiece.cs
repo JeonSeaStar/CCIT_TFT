@@ -36,7 +36,7 @@ public class ApollonPiece : Piece
             Piece _targets = _Neigbor.piece;
             if (_targets == null)
             {
-                Debug.Log("대상 없음");
+                //Debug.Log("대상 없음");
             }
             else if (!_targets.isOwned)
             {

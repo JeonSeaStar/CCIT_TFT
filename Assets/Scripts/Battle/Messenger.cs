@@ -231,7 +231,6 @@ public class Messenger : MonoBehaviour
             #region 기물 배치
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, (-1) - (1 << 6)) && hit.transform.gameObject.layer == 7 && hit.transform.gameObject.GetComponent<Tile>().myTile)
             {
-                Debug.Log(hit.transform.gameObject.name);
                 var _currentRound = ArenaManager.Instance.roundType;
                 Tile _currentTileInformation = controlPiece.currentTile;
                 Tile _targetTileInformation = hit.transform.gameObject.GetComponent<Tile>();
