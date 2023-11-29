@@ -115,6 +115,9 @@ public class PieceShop : MonoBehaviour
 
     public void LevelUpButton()
     {
+        if (fieldManager.owerPlayer.level == fieldManager.owerPlayer.levelUpCost.Length - 1)
+            return;
+
         if(fieldManager.owerPlayer.gold >= fieldManager.owerPlayer.levelUpCost[fieldManager.owerPlayer.level])
         {
             fieldManager.owerPlayer.gold -= fieldManager.owerPlayer.levelUpCost[fieldManager.owerPlayer.level];

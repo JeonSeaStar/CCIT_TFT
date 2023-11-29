@@ -264,8 +264,8 @@ public class Piece : MonoBehaviour
         {
             GameObject damageTextGameObject = Instantiate(damageText, transform.position, Quaternion.identity, healthbar.transform);
             damageTextGameObject.transform.localRotation = Quaternion.identity;
-            TextMeshProUGUI effect = damageTextGameObject.GetComponent<TextMeshProUGUI>();
-            effect.text = damage.ToString();
+            DamageTextEffect effect = damageTextGameObject.GetComponent<DamageTextEffect>();
+            effect.text.text = damage.ToString();
         }
     }
 

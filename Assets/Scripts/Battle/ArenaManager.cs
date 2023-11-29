@@ -176,6 +176,9 @@ public class ArenaManager : MonoBehaviour
 
     public void StartBattle()
     {
+        if (roundType == RoundType.Battle)
+            return;
+
         roundType = RoundType.Battle;
         fieldManagers[0].fieldPieceStatus.ActiveFieldStatus();
 
@@ -183,6 +186,14 @@ public class ArenaManager : MonoBehaviour
             fieldManagers[0].pieceStatus.AddPieceStatus(list.piece);
 
         fieldManagers[0].ActiveSynerge();
+
+        if(fieldManagers[0].myFilePieceList.Count == 0)
+        {
+            if (fieldManagers[0].enemyFilePieceList.Count == 0)
+                BattleResult = Result.VICTORY;
+            else
+                BattleResult = Result.DEFEAT;
+        }
 
         foreach (var piece in fieldManagers[0].myFilePieceList)
             piece.StartNextBehavior();
