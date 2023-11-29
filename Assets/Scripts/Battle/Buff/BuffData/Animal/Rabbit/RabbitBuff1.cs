@@ -18,7 +18,6 @@ public class RabbitBuff1 : BuffData
 
         while (true)
         {
-            //List<Piece> _rabbitPiece = new List<Piece>();
             foreach (var _rabbit in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
             {
                 if (_rabbit.pieceData.animal == PieceData.Animal.Rabbit && _rabbit.gameObject.activeSelf == true)
