@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 400000}
   - component: {fileID: 9600000}
-  - component: {fileID: 11400008}
-  - component: {fileID: 11400006}
   m_Layer: 0
   m_Name: ray
   m_TagString: Untagged
@@ -142,35 +140,6 @@ TrailRenderer:
   m_MinVertexDistance: 10
   m_Autodestruct: 1
   m_Emitting: 1
---- !u!114 &11400008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dcb928077a95e2448177ed3f09f32f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  amplitude: {x: 1, y: 1}
-  turbulence: {x: 0, y: 0}
-  xAxis: 1
-  yAxis: 0
---- !u!114 &11400006
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28b6e814fa85e434eb0bf9e6c9f4d164, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  time: 1
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,8 +165,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100002}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -45.4, y: 0, z: 8.8}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -213,9 +182,9 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100002}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 2
   simulationSpeed: 1
-  stopAction: 0
+  stopAction: 2
   cullingMode: 3
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}

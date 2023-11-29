@@ -135,8 +135,8 @@ public class Piece : MonoBehaviour
 
     private void Update()
     {
-        healthbar.InitHealthbar(maxHealth, health, shield);
-        healthbar.InitManabar(maxMana, mana);
+        //healthbar.InitHealthbar(maxHealth, health, shield);
+        //healthbar.InitManabar(maxMana, mana);
     }
 
     public void Owned()
