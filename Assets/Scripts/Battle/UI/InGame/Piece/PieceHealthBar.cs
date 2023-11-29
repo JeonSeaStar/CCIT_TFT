@@ -19,11 +19,17 @@ public class PieceHealthBar : MonoBehaviour
     public void InitHealthbar(float maxHealth, float currentHealth, float shield)
     {
         float _shield = shield / maxHealth;
-        healthbarSprite.fillAmount = currentHealth / maxHealth;
+        float _health = currentHealth / maxHealth;
 
-        if (_shield + healthbarSprite.fillAmount <= 1)
+        healthbarSprite.fillAmount = _health;
+        Debug.Log(_shield + _health);
+        if (_shield + _health <= 1)
         {
             shieldbarSprite.fillAmount = _shield + healthbarSprite.fillAmount;
+        }
+        else
+        {
+            shieldbarSprite.fillOrigin = 1;
         }
     }
 
@@ -40,7 +46,7 @@ public class PieceHealthBar : MonoBehaviour
     private void Update()
     {
         transform.LookAt(transform.position + cam.transform.rotation * Vector3.back, cam.transform .rotation * Vector3.up);
-
+       
         if (healthbarSprite.fillAmount != healthEaseBarSprite.fillAmount)
         {
             healthEaseBarSprite.fillAmount = Mathf.Lerp(healthEaseBarSprite.fillAmount, healthbarSprite.fillAmount, lerpSpeed);
