@@ -128,14 +128,15 @@ public class Piece : MonoBehaviour
 
         //maxHealth = health;
 
-        maxHealth = health + 300;
+        maxHealth = health;
+        maxMana = mana;
         //healthbar.maxMana = mana;
     }
 
     private void Update()
     {
         healthbar.InitHealthbar(maxHealth, health, shield);
-        //healthbar.InitManabar(maxMana, mana);
+        healthbar.InitManabar(maxMana, mana);
     }
 
     public void Owned()

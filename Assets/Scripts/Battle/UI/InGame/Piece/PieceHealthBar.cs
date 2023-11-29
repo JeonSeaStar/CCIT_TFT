@@ -11,6 +11,7 @@ public class PieceHealthBar : MonoBehaviour
     [SerializeField] Image healthEaseBarSprite;
     [SerializeField] Image manabarSprite;
     [SerializeField] Image shieldbarSprite;
+    [SerializeField] Image extraShieldbarSprite;
 
     [SerializeField] float lerpSpeed = 0.05f;
     public float maxHealth = 0;
@@ -22,15 +23,15 @@ public class PieceHealthBar : MonoBehaviour
         float _health = currentHealth / maxHealth;
 
         healthbarSprite.fillAmount = _health;
-        Debug.Log(_shield + _health);
         if (_shield + _health <= 1)
         {
-            shieldbarSprite.fillAmount = _shield + healthbarSprite.fillAmount;
+            shieldbarSprite.fillAmount = _shield + _health;
         }
-        else
+        else if (_shield + _health > 1)
         {
-            shieldbarSprite.fillOrigin = 1;
+            extraShieldbarSprite.fillAmount = (_shield + _health) - 1;
         }
+
     }
 
     public void InitManabar(float maxMana, float currentMana)
