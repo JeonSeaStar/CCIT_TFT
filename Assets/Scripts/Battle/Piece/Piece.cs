@@ -271,6 +271,8 @@ public class Piece : MonoBehaviour
 
     public void IdleState()
     {
+        if (health < 0)
+            return;
         PieceState = State.IDLE;
         StartNextBehavior();
     }
@@ -528,7 +530,7 @@ public class Piece : MonoBehaviour
 
     public IEnumerator NextBehavior()
     {
-        yield return new WaitForSeconds(0);
+        yield return new WaitUntil(() => health > 0);
         EnemyCheck();
         if (CheckEnemySurvival(enemyPieceList) && !dead && ArenaManager.Instance.roundType == ArenaManager.RoundType.Battle)
         {

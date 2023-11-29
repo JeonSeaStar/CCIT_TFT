@@ -214,11 +214,10 @@ public class ArenaManager : MonoBehaviour
         fieldManagers[0].ChargeLevel(fieldManagers[0].owerPlayer.level);
 
         roundState.SetStage(currentRound);
-        ChangeStage(1);
+        ChangeStage(currentRound);
         fieldManagers[0].SpawnEnemy(currentRound);
         roundState.InitRoundIcon();
         roundState.UpdateStageIcon(currentRound, 3, fieldManagers[0].stageInformation.enemy[currentRound].roundType);
-        roundState.OnRoundPopup(1, 1);
 
         fieldManagers[0].fieldPieceStatus.UpdateFieldStatus(fieldManagers[0].myFilePieceList.Count, fieldManagers[0].owerPlayer.maxPieceCount[fieldManagers[0].owerPlayer.level]);
     }
