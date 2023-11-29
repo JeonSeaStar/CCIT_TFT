@@ -264,13 +264,15 @@ public class Piece : MonoBehaviour
         {
             GameObject damageTextGameObject = Instantiate(damageText, transform.position, Quaternion.identity, healthbar.transform);
             damageTextGameObject.transform.localRotation = Quaternion.identity;
-            TextMeshProUGUI effect = damageTextGameObject.GetComponent<TextMeshProUGUI>();
-            effect.text = damage.ToString();
+            DamageTextEffect effect = damageTextGameObject.GetComponent<DamageTextEffect>();
+            effect.text.text = damage.ToString();
         }
     }
 
     public void IdleState()
     {
+        if (health < 0)
+            return;
         PieceState = State.IDLE;
         StartNextBehavior();
     }
@@ -485,7 +487,7 @@ public class Piece : MonoBehaviour
 
     public IEnumerator NextBehavior()
     {
-        yield return new WaitForSeconds(0);
+        yield return new WaitUntil(() => health > 0);
         EnemyCheck();
         if (CheckEnemySurvival(enemyPieceList) && !dead && ArenaManager.Instance.roundType == ArenaManager.RoundType.Battle)
         {

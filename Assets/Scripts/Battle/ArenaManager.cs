@@ -176,6 +176,9 @@ public class ArenaManager : MonoBehaviour
 
     public void StartBattle()
     {
+        if (roundType == RoundType.Battle)
+            return;
+
         roundType = RoundType.Battle;
         fieldManagers[0].fieldPieceStatus.ActiveFieldStatus();
 
@@ -183,6 +186,14 @@ public class ArenaManager : MonoBehaviour
             fieldManagers[0].pieceStatus.AddPieceStatus(list.piece);
 
         fieldManagers[0].ActiveSynerge();
+
+        if(fieldManagers[0].myFilePieceList.Count == 0)
+        {
+            if (fieldManagers[0].enemyFilePieceList.Count == 0)
+                BattleResult = Result.VICTORY;
+            else
+                BattleResult = Result.DEFEAT;
+        }
 
         foreach (var piece in fieldManagers[0].myFilePieceList)
             piece.StartNextBehavior();
@@ -203,11 +214,10 @@ public class ArenaManager : MonoBehaviour
         fieldManagers[0].ChargeLevel(fieldManagers[0].owerPlayer.level);
 
         roundState.SetStage(currentRound);
-        ChangeStage(1);
+        ChangeStage(currentRound);
         fieldManagers[0].SpawnEnemy(currentRound);
         roundState.InitRoundIcon();
         roundState.UpdateStageIcon(currentRound, 3, fieldManagers[0].stageInformation.enemy[currentRound].roundType);
-        roundState.OnRoundPopup(1, 1);
 
         fieldManagers[0].fieldPieceStatus.UpdateFieldStatus(fieldManagers[0].myFilePieceList.Count, fieldManagers[0].owerPlayer.maxPieceCount[fieldManagers[0].owerPlayer.level]);
     }

@@ -5,10 +5,9 @@ using TMPro;
 public class DamageTextEffect : MonoBehaviour
 {
     [SerializeField] private float destroyTime;
-    [SerializeField] private Animator animator;
     [SerializeField] private Vector3 offset;
     [SerializeField] private Vector3 offset2;
-    [SerializeField] private TextMeshProUGUI text;
+    public TextMeshProUGUI text;
     [SerializeField] private float t;
 
     void Start()
