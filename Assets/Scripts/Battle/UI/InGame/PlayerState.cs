@@ -9,6 +9,7 @@ public class PlayerState : MonoBehaviour
     public TextMeshProUGUI level;
     public TextMeshProUGUI currentHPText;
     public TextMeshProUGUI currentMoneyText;
+    public PieceShop pieceShop;
 
     public void UpdateLevel(int value)
     {
@@ -23,5 +24,7 @@ public class PlayerState : MonoBehaviour
     public void UpdateMoney(int value)
     {
         currentMoneyText.text = value.ToString();
+        pieceShop.DeactiveLevelUp();
+        pieceShop.DeactiveRefresh();
     }
 }
