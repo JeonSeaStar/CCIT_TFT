@@ -6,6 +6,7 @@ using TMPro;
 
 public class RoundState : MonoBehaviour
 {
+    [Header("라운드 정보 바")]
     public FieldManager fieldManager;
 
     public TextMeshProUGUI stageText;
@@ -13,6 +14,14 @@ public class RoundState : MonoBehaviour
 
     public List<Image> roundIconImages;
     public List<RoundSprites> roundSprites;
+
+    [Header("라운드 정보 팝업")]
+    public GameObject roundInfoPopup;
+    public TextMeshProUGUI stagePopupText;
+    public TextMeshProUGUI roundPopupText;
+    public TextMeshProUGUI victoryReward;
+    public TextMeshProUGUI defeatReward;
+    public Animator animator;
 
     public void NextRound(int round)
     {
@@ -44,6 +53,26 @@ public class RoundState : MonoBehaviour
         }
 
         return null;
+    }
+
+    public void OnRoundPopup(int currentStage, int currentRound)
+    {
+        UpdateRoundPopup(currentStage, currentRound);
+
+        animator.SetTrigger("OpenPopup");
+    }
+
+    public void OffRoundPopup()
+    {
+        animator.SetTrigger("ClosePopup");
+    }
+
+    private void UpdateRoundPopup(int currentStage, int currentRound)
+    {
+        stagePopupText.text = currentStage.ToString();
+        roundPopupText.text = currentRound.ToString();
+        victoryReward.text = fieldManager.stageInformation.enemy[currentRound].gold.ToString();
+        defeatReward.text = fieldManager.stageInformation.enemy[currentRound].defeatGold.ToString();
     }
 }
 

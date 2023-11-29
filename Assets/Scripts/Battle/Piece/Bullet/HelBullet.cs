@@ -29,8 +29,16 @@ public class HelBullet : Bullet
     {
         //if(target.CompareTag("Enemy"))
         {
-            Instantiate(effect, target.transform.position, Quaternion.identity);
-            Damage();
+            Piece _target = target.GetComponent<Piece>();
+            if(_target == null)
+            {
+                return;
+            }
+            else if(!_target.isOwned)
+            {
+                Instantiate(effect, target.transform.position, Quaternion.identity);
+                parentPiece.Damage(_target, damage);
+            }
         }
     }
 

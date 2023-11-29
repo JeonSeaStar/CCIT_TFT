@@ -163,6 +163,7 @@ public class ArenaManager : MonoBehaviour
     private void NextRound()
     {
         roundType = RoundType.Ready;
+        fieldManagers[0].fieldPieceStatus.ActiveFieldStatus();
 
         fieldManagers[0].Reward(currentRound, BattleResult);
 
@@ -176,8 +177,9 @@ public class ArenaManager : MonoBehaviour
     public void StartBattle()
     {
         roundType = RoundType.Battle;
+        fieldManagers[0].fieldPieceStatus.ActiveFieldStatus();
 
-        foreach(var list in fieldManagers[0].pieceDpList)
+        foreach (var list in fieldManagers[0].pieceDpList)
             fieldManagers[0].pieceStatus.AddPieceStatus(list.piece);
 
         fieldManagers[0].ActiveSynerge();
@@ -191,6 +193,7 @@ public class ArenaManager : MonoBehaviour
     private void ChangeStage(int round)
     {
         roundState.NextRound(round);
+        roundState.OnRoundPopup(1, round);
     }
 
     private void StartGame()
@@ -204,6 +207,7 @@ public class ArenaManager : MonoBehaviour
         fieldManagers[0].SpawnEnemy(currentRound);
         roundState.InitRoundIcon();
         roundState.UpdateStageIcon(currentRound, 3, fieldManagers[0].stageInformation.enemy[currentRound].roundType);
+        roundState.OnRoundPopup(1, 1);
 
         fieldManagers[0].fieldPieceStatus.UpdateFieldStatus(fieldManagers[0].myFilePieceList.Count, fieldManagers[0].owerPlayer.maxPieceCount[fieldManagers[0].owerPlayer.level]);
     }

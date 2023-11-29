@@ -312,7 +312,7 @@ public class FieldManager : MonoBehaviour
 
     public void ActiveHexaIndicators(bool isactive)
     {
-        if (ArenaManager.Instance.roundType == RoundType.Deployment)
+        if (Instance.roundType == RoundType.Deployment)
         {
             for (int i = 0; i < readyZoneHexaIndicators.Length; i++)
             {
@@ -323,7 +323,7 @@ public class FieldManager : MonoBehaviour
                 battleFieldHexaIndicators[i].SetActive(isactive);
             }
         }
-        if (ArenaManager.Instance.roundType == RoundType.Battle)
+        if (Instance.roundType == RoundType.Battle)
         {
             for (int i = 0; i < readyZoneHexaIndicators.Length; i++)
             {

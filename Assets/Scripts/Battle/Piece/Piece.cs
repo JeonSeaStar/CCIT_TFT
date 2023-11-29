@@ -5,6 +5,7 @@ using DG.Tweening;
 using System.Linq;
 using Newtonsoft.Json.Bson;
 using System;
+using TMPro;
 
 public class Piece : MonoBehaviour
 {
@@ -114,6 +115,7 @@ public class Piece : MonoBehaviour
     public GameObject skillEffects;
 
     public PieceHealthBar healthbar;
+    public GameObject damageText;
 
     public Tile nextTile;
 
@@ -166,6 +168,8 @@ public class Piece : MonoBehaviour
 
     public void Damage(Piece piece, float damage)
     {
+        piece.OnDamageText(damage);
+
         if (shield > 0)
         {
             float shieldPoint = piece.shield;
@@ -192,6 +196,8 @@ public class Piece : MonoBehaviour
     {
         if (target == null)
             return;
+
+        target.OnDamageText(damage);
 
         if (target.invincible)
             return;
@@ -248,6 +254,17 @@ public class Piece : MonoBehaviour
 
             target.DeadState();
             target = null;
+        }
+    }
+
+    private void OnDamageText(float damage)
+    {
+        if(damageText != null)
+        {
+            GameObject damageTextGameObject = Instantiate(damageText, transform.position, Quaternion.identity, healthbar.transform);
+            damageTextGameObject.transform.localRotation = Quaternion.identity;
+            TextMeshProUGUI effect = damageTextGameObject.GetComponent<TextMeshProUGUI>();
+            effect.text = damage.ToString();
         }
     }
 
