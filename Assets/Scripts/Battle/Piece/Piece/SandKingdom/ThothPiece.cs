@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ThothPiece : Piece
 {
-    [SerializeField] private GameObject bullet;
+    PathFinding pathFinding;
     public override IEnumerator Attack()
     {
         if (mana >= 100 && target != null)
@@ -31,11 +31,21 @@ public class ThothPiece : Piece
     {
         if(target != null)
         {
-            GameObject centaBullet = Instantiate(bullet, transform.position, Quaternion.identity);
-            Bullet b = centaBullet.GetComponent<ThothBullet>();
-            b.parentPiece = this;
-            b.damage = damage;
-            b.Shot(target.transform.position - transform.position);
+            Instantiate(skillEffects, target.transform.position, Quaternion.identity);
+            pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
+            List<Tile> _getNeigbor = pathFinding.GetSide(currentTile);
+            foreach (var _Neigbor in _getNeigbor)
+            {
+                Piece _targets = _Neigbor.piece;
+                if (_targets == null)
+                {
+                    Debug.Log("대상없음");
+                }
+                else if (!_targets.isOwned)
+                {
+                    Damage(_targets, damage);
+                }
+            }
         }
     }
 }
