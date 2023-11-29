@@ -33,7 +33,7 @@ public class ZeusPiece : Piece
         if (target != null)
         {
             Quaternion rot = transform.rotation;
-            //Instantiate(skillEffects, transform.position, rot);
+            //dInstantiate(skillEffects, transform.position, rot);
             GameObject centaBullet = Instantiate(zeusBullet, transform.position, Quaternion.identity);
             Bullet b = centaBullet.GetComponent<ZeusBullet>();
             b.parentPiece = this;

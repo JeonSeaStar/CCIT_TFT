@@ -32,6 +32,7 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     bool bought;
     public TextMeshProUGUI pieceName;
     public TextMeshProUGUI pieceCost;
+    public GameObject DeactivePanel;
 
     public void InitSlot(PieceData data)
     {
@@ -43,6 +44,8 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         cardImage.sprite = pieceShop.cardSprites[pieceData.grade];
         pieceName.text = data.pieceName;
         pieceCost.text = data.cost[data.grade, data.piecePrefab.GetComponent<Piece>().star].ToString();
+
+        DeactiveSlot(data);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -112,18 +115,6 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         }
     }
 
-    Tile GetTile()
-    {
-        Tile targetTile = null;
-
-        targetTile = TileCheck(targetTile, fieldManager.readyTileList);
-        if(targetTile != null) { return targetTile; }
-
-        targetTile = TileCheck(targetTile, fieldManager.battleTileList);
-        if (targetTile != null) { return targetTile; }
-        else return null;
-    }
-
     Tile TileCheck(Tile tile, List<Tile> tileArray)
     {
         foreach (Tile tileObject in tileArray)
@@ -136,5 +127,13 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         }
 
         return tile;
+    }
+
+    private void DeactiveSlot(PieceData data)
+    {
+        if (data.cost[data.grade, data.piecePrefab.GetComponent<Piece>().star] > fieldManager.owerPlayer.gold)
+            DeactivePanel.SetActive(true);
+        else
+            DeactivePanel.SetActive(false);
     }
 }
