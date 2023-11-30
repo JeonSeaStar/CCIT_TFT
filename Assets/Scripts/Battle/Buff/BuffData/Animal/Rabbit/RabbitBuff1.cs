@@ -22,7 +22,6 @@ public class RabbitBuff1 : BuffData
             {
                 if (_rabbit.pieceData.animal == PieceData.Animal.Rabbit && _rabbit.gameObject.activeSelf == true)
                 {
-                    Debug.Log(_rabbit.pieceName);
                     _rabbit.isRabbitSynergeActiveCheck = true;
                 }
             }
