@@ -13,8 +13,9 @@ public class SceneManagement : MonoBehaviour
         instance = this;
     }
 
-    public void LoadScene(string scene)
+    public void LoadScene(string sceneName)
     {
-        SceneManager.LoadScene(scene);
+        LoadingScene.nextScene = sceneName;
+        SceneManager.LoadScene("LoadingScene");
     }
 }
