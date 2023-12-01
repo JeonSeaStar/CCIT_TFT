@@ -40,6 +40,7 @@ public class PieceInformation : MonoBehaviour
 
     public void InitPieceInformation(Piece target)
     {
+        pieceImage.sprite = target.pieceData.piecePortrait;
         pieceName.text = target.pieceName;
         currentHP.text = target.health.ToString();
         maxHP.text = target.maxHealth.ToString();

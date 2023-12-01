@@ -270,7 +270,10 @@ public class Piece : MonoBehaviour
     public void IdleState()
     {
         if (health < 0)
-            return;
+        {
+            Dead(); return;
+        }
+
         PieceState = State.IDLE;
         StartNextBehavior();
     }
@@ -470,6 +473,11 @@ public class Piece : MonoBehaviour
     }
     public void VictoryDacnce()
     {
+        if (health < 0)
+        {
+            Dead(); return;
+        }
+
         StopAllCoroutines();
         //pieceData.ResetPiece(this);
         print(name + "(ÀÌ)°¡ ½Â¸®ÀÇ Ãã Ãß´Â Áß.");
