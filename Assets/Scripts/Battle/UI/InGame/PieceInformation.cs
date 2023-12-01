@@ -20,6 +20,7 @@ public class PieceInformation : MonoBehaviour
     public TextMeshProUGUI attackDamage;
     public TextMeshProUGUI abilityPower;
     public TextMeshProUGUI attackSpeed;
+    public TextMeshProUGUI attackRange;
     public Image hpFill;
     public Image mpFill;
 
@@ -52,6 +53,7 @@ public class PieceInformation : MonoBehaviour
         attackDamage.text = target.attackDamage.ToString();
         abilityPower.text = target.abilityPower.ToString();
         attackSpeed.text = target.attackSpeed.ToString();
+        attackRange.text = target.attackRange.ToString();
 
         float currentHealth = (float)target.health;
         float maxHealth = (float)target.maxHealth;

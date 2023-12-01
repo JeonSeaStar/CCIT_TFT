@@ -170,7 +170,7 @@ public class ArenaManager : MonoBehaviour
         BattleResult = Result.NONE;
         fieldManagers[0].NextStage();
         currentRound++;
-        ChangeStage(currentRound + 1);
+        ChangeStage(currentRound);
         roundState.UpdateStageIcon(currentRound, 3, fieldManagers[0].stageInformation.enemy[currentRound].roundType);
     }
 
