@@ -702,6 +702,37 @@ Transform:
   m_Father: {fileID: 5281825441136411623}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1742124251728703136
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 86028492955220971}
+  m_Layer: 6
+  m_Name: SynergeEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &86028492955220971
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742124251728703136}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3038744671303615647}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1811427679248833863
 GameObject:
   m_ObjectHideFlags: 0
@@ -1345,6 +1376,7 @@ Transform:
   - {fileID: 2555844484275801356}
   - {fileID: 565262256930763582}
   - {fileID: 9195243636708132650}
+  - {fileID: 86028492955220971}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1473,6 +1505,7 @@ MonoBehaviour:
     type: 3}
   nextTile: {fileID: 0}
   isRabbitSynergeActiveCheck: 0
+  rabbitEffect: {fileID: 0}
   isCatSynergeActiveCheck: 0
 --- !u!1 &3247849012085790455
 GameObject:

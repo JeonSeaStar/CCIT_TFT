@@ -2504,6 +2504,7 @@ Transform:
   - {fileID: 7682526094574682249}
   - {fileID: 7260638473178571227}
   - {fileID: 4431025492445703932}
+  - {fileID: 1193600844957143955}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2632,8 +2633,8 @@ MonoBehaviour:
     type: 3}
   nextTile: {fileID: 0}
   isRabbitSynergeActiveCheck: 0
+  rabbitEffect: {fileID: 0}
   isCatSynergeActiveCheck: 0
-  Effects: {fileID: 0}
 --- !u!1 &5723500311548718494
 GameObject:
   m_ObjectHideFlags: 0
@@ -3375,6 +3376,37 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.21548441, y: -0.05125249, z: 0.000000014901161}
     m_Extent: {x: 0.3179886, y: 0.19938397, z: 0.24640709}
   m_DirtyAABB: 0
+--- !u!1 &7551392626800012925
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1193600844957143955}
+  m_Layer: 6
+  m_Name: SynergeEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1193600844957143955
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7551392626800012925}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4305826672673611547}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7603536211537385297
 GameObject:
   m_ObjectHideFlags: 0
