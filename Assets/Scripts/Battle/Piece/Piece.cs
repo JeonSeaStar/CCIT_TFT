@@ -135,8 +135,8 @@ public class Piece : MonoBehaviour
 
     private void Update()
     {
-        //healthbar.InitHealthbar(maxHealth, health, shield);
-        //healthbar.InitManabar(maxMana, mana);
+        healthbar.InitHealthbar(maxHealth, health, shield);
+        healthbar.InitManabar(maxMana, mana);
     }
 
     public void Owned()
@@ -264,15 +264,24 @@ public class Piece : MonoBehaviour
         {
             GameObject damageTextGameObject = Instantiate(damageText, transform.position, Quaternion.identity, healthbar.transform);
             damageTextGameObject.transform.localRotation = Quaternion.identity;
-            TextMeshProUGUI effect = damageTextGameObject.GetComponent<TextMeshProUGUI>();
-            effect.text = damage.ToString();
+            DamageTextEffect effect = damageTextGameObject.GetComponent<DamageTextEffect>();
+            effect.text.text = damage.ToString();
         }
     }
 
     public void IdleState()
     {
+        if (health < 0)
+            return;
         PieceState = State.IDLE;
         StartNextBehavior();
+    }
+
+    public void IdleState(float time)
+    {
+        StopAllCoroutines();
+        PieceState = State.IDLE;
+        Invoke("StartNextBehavior", time);
     }
 
     public void DeadState()
@@ -342,97 +351,40 @@ public class Piece : MonoBehaviour
     {
         List<Tile> _neighbor = new List<Tile>();
         int _distance = ArenaManager.Instance.fieldManagers[0].pathFinding.GetDistance(currentTile, target.currentTile);
-        Debug.Log(_distance);
-        if (_distance <= attackRange)
+
+        if (_distance <= 4)
         {
-            _neighbor = ArenaManager.Instance.fieldManagers[0].pathFinding.GetNeighbor(currentTile);
-            Vector3[] Jumppath ={ new Vector3(transform.position.x,transform.position.y,transform.position.z),
-                                     new Vector3(transform.position.x,transform.position.y + 3f, transform.position.z),
-                                     new Vector3(transform.position.x, transform.position.y, transform.position.z) };
-            GetComponent<Rigidbody>().DOPath(Jumppath, 2, PathType.CatmullRom, PathMode.Full3D); //점프구간
-        }
-        else
-        {
-            if (ArenaManager.Instance.fieldManagers[0].pathFinding.GetDistance(currentTile, target.currentTile) <= 4)
+            _neighbor = ArenaManager.Instance.fieldManagers[0].pathFinding.GetNeighbor(target.currentTile);
+            for (int i = 0; i < _neighbor.Count; i++)
             {
-                _neighbor = ArenaManager.Instance.fieldManagers[0].pathFinding.GetNeighbor(target.currentTile);
-                for (int i = 0; i < _neighbor.Count; i++)
+                if (_neighbor[i].IsFull == false)
                 {
-                    if (_neighbor[i].IsFull == false)
-                    {
-                        Vector3 targetTilePos = new Vector3(_neighbor[i].transform.position.x, 0, _neighbor[i].transform.position.z);
-                        Vector3 hpos = transform.position + ((targetTilePos - transform.position) / 2);
-                        Vector3[] Jumppath = { new Vector3(transform.position.x, transform.position.y, transform.position.z),
+                    invincible = true;
+                    target = null;
+                    IdleState(2f);
+                    Vector3 targetTilePos = new Vector3(_neighbor[i].transform.position.x, fieldManager.groundHeight, _neighbor[i].transform.position.z);
+                    Vector3 hpos = transform.position + ((targetTilePos - transform.position) / 2);
+                    Vector3[] Jumppath = { new Vector3(transform.position.x, transform.position.y, transform.position.z),
                                              new Vector3(hpos.x, hpos.y + 5f, hpos.z),
-                                             new Vector3(targetTilePos.x, targetTilePos.y, targetTilePos.z) };
-                        GetComponent<Rigidbody>().DOPath(Jumppath, 2, PathType.CatmullRom, PathMode.Full3D).SetEase(rabbitEase); //점프구간
+                                             new Vector3(targetTilePos.x, fieldManager.groundHeight, targetTilePos.z) };
+                    GetComponent<Rigidbody>().DOPath(Jumppath, 2, PathType.CatmullRom, PathMode.Full3D).SetEase(rabbitEase); ; //점프구간
 
+                    if (currentTile != _neighbor[i])
+                    {
+                        currentTile.piece = null;
+                        currentTile.IsFull = false;
+                        currentTile.walkable = true;
+                        currentTile = _neighbor[i];
 
-                        if(currentTile != _neighbor[i])
-                        {
-                            currentTile.piece = null;
-                            currentTile.IsFull = false;
-                            currentTile.walkable = true;
-                            currentTile = _neighbor[i];
-
-                            currentTile.piece = this;
-                            currentTile.IsFull = true;
-                            currentTile.walkable = false;
-                        }
-                        break;
+                        currentTile.piece = this;
+                        currentTile.IsFull = true;
+                        currentTile.walkable = false;
                     }
+                    isRabbitSynergeActiveCheck = false;
+                    break;
                 }
             }
-            else
-            {
-                NextBehavior();
-            }
         }
-
-        isRabbitSynergeActiveCheck = false;
-
-
-
-        //var _distance = ArenaManager.Instance.fieldManagers[0].pathFinding.GetDistance(currentTile, target.currentTile);
-        //Debug.Log(_distance);
-        //List<Tile> _neighbor = new List<Tile>();
-        //if (attackRange >= _distance) //제자리 점프
-        //{
-        //    _neighbor = ArenaManager.Instance.fieldManagers[0].pathFinding.GetNeighbor(currentTile);
-        //    Vector3[] Jumppath ={ new Vector3(transform.position.x,transform.position.y,transform.position.z),
-        //                             new Vector3(transform.position.x,transform.position.y + 3f, transform.position.z),
-        //                             new Vector3(transform.position.x, transform.position.y, transform.position.z) };
-        //    GetComponent<Rigidbody>().DOPath(Jumppath, 2, PathType.CatmullRom, PathMode.Full3D); //점프구간
-        //}
-        //else
-        //{
-        //    if (_distance <= 4)
-        //    {
-        //        _neighbor = ArenaManager.Instance.fieldManagers[0].pathFinding.GetNeighbor(target.currentTile);
-        //        foreach(var _neighborTile in _neighbor)
-        //        {
-        //            if (_neighborTile.IsFull == false)
-        //            {
-        //                Vector3 targetTilePos = new Vector3(path[0].transform.position.x, 1, path[0].transform.position.z);
-        //                Vector3 hpos = transform.position + ((targetTilePos - transform.position) / 2);
-        //                Vector3[] Jumppath = { new Vector3(transform.position.x, transform.position.y, transform.position.z),
-        //                                         new Vector3(hpos.x, hpos.y + 3f, hpos.z),
-        //                                         new Vector3(targetTilePos.x, targetTilePos.y, targetTilePos.z) };
-        //                GetComponent<Rigidbody>().DOPath(Jumppath, 2, PathType.CatmullRom, PathMode.Full3D); //점프구간
-
-        //                currentTile.piece = null;
-        //                currentTile.IsFull = false;
-        //                currentTile = _neighborTile;
-
-        //                currentTile.piece = this;
-        //                currentTile.IsFull = true;
-        //            }
-        //        }
-        //    }
-        //    else { Move(); return; } 
-        //}
-        //isRabbitSynergeActiveCheck = false;
-        //StartCoroutine(RabbitSplashDamage(_neighbor, 2));
     }
 
     IEnumerator RabbitSplashDamage(List<Tile> neighbor, int time)
@@ -481,7 +433,7 @@ public class Piece : MonoBehaviour
 
     public IEnumerator NextBehavior()
     {
-        yield return new WaitForSeconds(0);
+        yield return new WaitUntil(() => health > 0);
         EnemyCheck();
         if (CheckEnemySurvival(enemyPieceList) && !dead && ArenaManager.Instance.roundType == ArenaManager.RoundType.Battle)
         {
@@ -490,18 +442,21 @@ public class Piece : MonoBehaviour
 
             if (target != null)
             {
-                if (isRabbitSynergeActiveCheck) { RabbitJump(); }
-                if (RangeCheck())
+                if (isRabbitSynergeActiveCheck) RabbitJump();
+                if (target != null)
                 {
                     if (RangeCheck())
-                        AttackState();
+                    {
+                        if (RangeCheck())
+                            AttackState();
+                        else
+                            StartMove();
+                    }
                     else
+                    {
+                        ArenaManager.Instance.fieldManagers[0].pathFinding.SetCandidatePath(this);
                         StartMove();
-                }
-                else
-                {
-                    ArenaManager.Instance.fieldManagers[0].pathFinding.SetCandidatePath(this);
-                    StartMove();
+                    }
                 }
             }
             else
@@ -744,7 +699,7 @@ public class Piece : MonoBehaviour
     public void StartNextBehavior()
     {
         StopAllCoroutines();
-        StartCoroutine(NextBehavior());
+        if (gameObject.activeSelf) StartCoroutine(NextBehavior());
     }
 
     public void StartMove()
@@ -775,7 +730,7 @@ public class Piece : MonoBehaviour
     {
         if (target != null)
         {
-            print(name + "(이)가" + target.name + "에게 일반 공격을 합니다.");
+            //print(name + "(이)가" + target.name + "에게 일반 공격을 합니다.");
             Damage(attackDamage);
             //mana += 100;
             //currentMana += manaRecovery;

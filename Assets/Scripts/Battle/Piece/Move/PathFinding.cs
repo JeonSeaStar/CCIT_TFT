@@ -106,6 +106,36 @@ public class PathFinding : MonoBehaviour
         return frontLine;
     }
 
+    public List<Tile> GetSide(Tile tile)
+    {
+        List<Tile> side = new List<Tile>();
+
+        int x = tile.listX;
+        int y = tile.listY;
+
+        if (y % 2 == 0)
+        {
+            if (indexCheck(y, x + 1))
+                if (grid[y].tile[x + 1] != null)
+                    side.Add(grid[y].tile[x + 1]);
+            if (indexCheck(y, x - 1))
+                if (grid[y].tile[x - 1] != null)
+                    side.Add(grid[y].tile[x - 1]);
+        }
+
+        if (y % 2 != 0)
+        {
+            if (indexCheck(y, x + 1))
+                if (grid[y].tile[x + 1] != null)
+                    side.Add(grid[y].tile[x + 1]);
+            if (indexCheck(y, x - 1))
+                if (grid[y].tile[x - 1] != null)
+                    side.Add(grid[y].tile[x - 1]);
+        }
+
+        return side;
+    }
+
     public List<Tile> GetNeighbor(Tile tile)
     {
         List<Tile> neighbor = new List<Tile>();
@@ -266,7 +296,7 @@ public class PathFinding : MonoBehaviour
     {
         piece.candidatePath = new List<CandidatePath>();
         Piece enemy = piece.target;
-
+        Debug.Log(enemy.name);
         if (!enemy.dead)
         {
             bool canReach = false;

@@ -29,6 +29,8 @@ public class PieceShop : MonoBehaviour
         public List<TestPieceCount> testCountList;
     }
     public List<TestPieceCountList> testList;
+    public GameObject LevelUpButtonDeactive;
+    public GameObject RefreshButtonDeactive;
 
     private void Awake()
     {
@@ -46,7 +48,7 @@ public class PieceShop : MonoBehaviour
 
     public void RefreshSlots()
     {
-        if (fieldManager.owerPlayer.gold < 0)
+        if (fieldManager.owerPlayer.gold <= 0)
             return;
 
         fieldManager.ChargeGold(-1);
@@ -113,6 +115,9 @@ public class PieceShop : MonoBehaviour
 
     public void LevelUpButton()
     {
+        if (fieldManager.owerPlayer.level == fieldManager.owerPlayer.levelUpCost.Length - 1)
+            return;
+
         if(fieldManager.owerPlayer.gold >= fieldManager.owerPlayer.levelUpCost[fieldManager.owerPlayer.level])
         {
             fieldManager.owerPlayer.gold -= fieldManager.owerPlayer.levelUpCost[fieldManager.owerPlayer.level];
@@ -123,5 +128,21 @@ public class PieceShop : MonoBehaviour
 
             fieldManager.fieldPieceStatus.UpdateFieldStatus(fieldManager.myFilePieceList.Count, fieldManager.owerPlayer.maxPieceCount[fieldManager.owerPlayer.level]);
         }
+    }
+
+    public void DeactiveRefresh()
+    {
+        if (fieldManager.owerPlayer.gold <= 0)
+            RefreshButtonDeactive.SetActive(true);
+        else
+            RefreshButtonDeactive.SetActive(false);
+    }
+
+    public void DeactiveLevelUp()
+    {
+        if (fieldManager.owerPlayer.gold < fieldManager.owerPlayer.levelUpCost[fieldManager.owerPlayer.level])
+            LevelUpButtonDeactive.SetActive(true);
+        else
+            LevelUpButtonDeactive.SetActive(false);
     }
 }

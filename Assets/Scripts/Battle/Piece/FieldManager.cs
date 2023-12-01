@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using static ArenaManager;
 
 public class FieldManager : MonoBehaviour
@@ -957,11 +958,14 @@ public class FieldManager : MonoBehaviour
             resultPiece.name += " " + star + 1 + "Star";
             resultPiece.buffList = originPiece.buffList;
             resultPiece.pieceData.InitialzePiece(resultPiece);
+            string framePath = string.Format("UI_Resources/Unit HpBar/{0}Star Frame", resultPiece.star);
+            resultPiece.healthbar.gameObject.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(framePath);
             for (int i = 0; i < resultPiece.buffList.Count; i++)
             {
                 if (resultPiece.buffList[i].haveDirectEffect == true)
                     resultPiece.pieceData.CalculateBuff(resultPiece, resultPiece.buffList[i]);
             }
+            resultPiece.currentTile.gameObject.transform.GetChild(3).gameObject.SetActive(true);
             myFilePieceList.Add(resultPiece);
             AddDPList(resultPiece);
         }
@@ -969,6 +973,9 @@ public class FieldManager : MonoBehaviour
         {
             Piece resultPiece = SpawnPiece(piece.pieceData, star + 1, targetTile);
             resultPiece.name += " " + star + 1 + "Star";
+            string framePath = string.Format("UI_Resources/Unit HpBar_UI/{0}Star Frame", resultPiece.star);
+            resultPiece.healthbar.gameObject.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(framePath);
+            resultPiece.currentTile.gameObject.transform.GetChild(1).gameObject.SetActive(true);
         }
 
         fieldPieceStatus.UpdateFieldStatus(myFilePieceList.Count, owerPlayer.maxPieceCount[owerPlayer.level]);
