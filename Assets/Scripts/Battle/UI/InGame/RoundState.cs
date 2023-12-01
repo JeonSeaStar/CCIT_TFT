@@ -70,7 +70,7 @@ public class RoundState : MonoBehaviour
     private void UpdateRoundPopup(int currentStage, int currentRound)
     {
         stagePopupText.text = currentStage.ToString();
-        roundPopupText.text = currentRound.ToString();
+        roundPopupText.text = (currentRound + 1).ToString();
         victoryReward.text = fieldManager.stageInformation.enemy[currentRound].gold.ToString();
         defeatReward.text = fieldManager.stageInformation.enemy[currentRound].defeatGold.ToString();
     }
