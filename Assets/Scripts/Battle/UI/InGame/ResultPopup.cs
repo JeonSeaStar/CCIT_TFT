@@ -33,11 +33,11 @@ public class ResultPopup : MonoBehaviour
 
     public void RestartStage()
     {
-        SceneManagement.instance.LoadScene("Battle");
+        SceneManagement.instance.SceneSwitching(false, "Battle");
     }
 
     public void MainScene()
     {
-        SceneManagement.instance.LoadScene("Main");
+        SceneManagement.instance.SceneSwitching(false, "Main");
     }
 }
