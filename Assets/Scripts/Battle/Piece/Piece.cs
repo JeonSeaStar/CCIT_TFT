@@ -366,7 +366,7 @@ public class Piece : MonoBehaviour
                     //invincible = true;
                     target = null;
                     IdleState(2f);
-                    GameObject effect = Instantiate(rabbitSynergeEffect, transform.position, Quaternion.identity);
+                    GameObject effect = Instantiate(rabbitSynergeEffect, transform.position, Quaternion.Euler(-90, 0, 0));
                     effect.SetActive(true); effect.transform.SetParent(null);
                     Vector3 targetTilePos = new Vector3(_neighbor[i].transform.position.x, fieldManager.groundHeight, _neighbor[i].transform.position.z);
                     Vector3 hpos = transform.position + ((targetTilePos - transform.position) / 2);
@@ -402,7 +402,7 @@ public class Piece : MonoBehaviour
         if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[0])) { splashDamage = 10; pieceData.CalculateBuff(this, _buff.rabbitBuff[0]); }
         else if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[1])) { splashDamage = 15; pieceData.CalculateBuff(this, _buff.rabbitBuff[1]); }
         else if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[2])) { splashDamage = 20; pieceData.CalculateBuff(this, _buff.rabbitBuff[2]); }
-        GameObject effect = Instantiate(rabbitSynergeEffect,transform.position, Quaternion.identity);
+        GameObject effect = Instantiate(rabbitSynergeEffect,transform.position, Quaternion.Euler(-90,0,0));
         effect.SetActive(true); effect.transform.SetParent(null);
         Invoke("RsetRabbitStatus", 3);
         foreach (var tile in neighbor)
