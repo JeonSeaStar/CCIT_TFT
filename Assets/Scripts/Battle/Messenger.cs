@@ -113,7 +113,7 @@ public class Messenger : MonoBehaviour
         yield return new WaitForSeconds(0.01f);
         timer += 0.01f;
 
-        if (timer > grabTime)
+        if (timer > grabTime && controlPiece == null)
         {
             Targeting(ray, hit);
             StopAllCoroutines();
@@ -222,10 +222,13 @@ public class Messenger : MonoBehaviour
                     _currentTile.piece = null;
                     isGrab = false;
                     //판매하고 판매 가격 획득 추가
+                    gold += controlPiece.pieceData.cost[controlPiece.pieceData.grade, controlPiece.star];
+                    fieldManager.playerState.UpdateMoney(gold);
                     //기물이 가지고 있던 아이템 되돌려받기 추가
                     Destroy(controlPiece.gameObject);
                     behindSaleZone.SetActive(true);
                     pieceSaleSlot.SetActive(false);
+                    fieldManager.ActiveHexaIndicators(false);
                     return;
                 }
             }
@@ -291,6 +294,10 @@ public class Messenger : MonoBehaviour
             }
             fieldManager.fieldPieceStatus.UpdateFieldStatus(fieldManager.myFilePieceList.Count, fieldManager.owerPlayer.maxPieceCount[fieldManager.owerPlayer.level]);
             ResetPositionToCurrentTile(controlPiece);
+            fieldManager.ActiveHexaIndicators(false);
+            behindSaleZone.SetActive(true);
+            pieceSaleSlot.SetActive(false);
+            ResetDragState(false);
             return;
             #endregion
         }

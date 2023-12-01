@@ -241,11 +241,12 @@ public class Piece : MonoBehaviour
             #region ∞ÌæÁ¿Ã ±‚π∞ Ω√≥ ¡ˆ »Æ¿Œ
             if (isCatSynergeActiveCheck)
             {
-                int _r = (ArenaManager.Instance.fieldManagers[0].animalActiveCount[PieceData.Animal.Cat] >= 4) ? UnityEngine.Random.Range(0, 3) : UnityEngine.Random.Range(0, 2);
+                int _r = (fieldManager.animalActiveCount[PieceData.Animal.Cat] >= 4) ? UnityEngine.Random.Range(0, 3) : UnityEngine.Random.Range(0, 2);
                 if (_r == 0)
                 {
                     int _gold = UnityEngine.Random.Range(2, 6);
-                    ArenaManager.Instance.fieldManagers[0].DualPlayers[0].gold += _gold;
+                    fieldManager.DualPlayers[0].gold += _gold;
+                    fieldManager.playerState.UpdateMoney(fieldManager.DualPlayers[0].gold);
                     Debug.Log(_gold + " ∏∏≈≠ ∞ÒµÂ∏¶ »πµÊ«’¥œ¥Ÿ.");
                 }
             }
@@ -349,7 +350,7 @@ public class Piece : MonoBehaviour
     #region ≈‰≥¢
     [Header("≈‰≥¢")]
     [HideInInspector]public bool isRabbitSynergeActiveCheck;
-    [SerializeField] GameObject rabbitEffect;
+    [SerializeField] GameObject rabbitSynergeEffect;
     public void RabbitJump()
     {
         List<Tile> _neighbor = new List<Tile>();
@@ -365,6 +366,8 @@ public class Piece : MonoBehaviour
                     //invincible = true;
                     target = null;
                     IdleState(2f);
+                    GameObject effect = Instantiate(rabbitSynergeEffect, transform.position, Quaternion.identity);
+                    effect.SetActive(true); effect.transform.SetParent(null);
                     Vector3 targetTilePos = new Vector3(_neighbor[i].transform.position.x, fieldManager.groundHeight, _neighbor[i].transform.position.z);
                     Vector3 hpos = transform.position + ((targetTilePos - transform.position) / 2);
                     Vector3[] Jumppath = { new Vector3(transform.position.x, transform.position.y, transform.position.z),
@@ -399,7 +402,8 @@ public class Piece : MonoBehaviour
         if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[0])) { splashDamage = 10; pieceData.CalculateBuff(this, _buff.rabbitBuff[0]); }
         else if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[1])) { splashDamage = 15; pieceData.CalculateBuff(this, _buff.rabbitBuff[1]); }
         else if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[2])) { splashDamage = 20; pieceData.CalculateBuff(this, _buff.rabbitBuff[2]); }
-        rabbitEffect.SetActive(true); rabbitEffect.transform.SetParent(null);
+        GameObject effect = Instantiate(rabbitSynergeEffect,transform.position, Quaternion.identity);
+        effect.SetActive(true); effect.transform.SetParent(null);
         Invoke("RsetRabbitStatus", 3);
         foreach (var tile in neighbor)
         {
