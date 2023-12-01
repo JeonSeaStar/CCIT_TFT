@@ -144,8 +144,6 @@ public class Piece : MonoBehaviour
         isOwned = true;
     }
 
-    public delegate void OnceAttackEffect();
-    OnceAttackEffect onceAttackEffect;
     public void AttackState()
     {
         transform.DOLookAt(target.transform.position, 0.1f);
@@ -359,7 +357,7 @@ public class Piece : MonoBehaviour
             {
                 if (_neighbor[i].IsFull == false)
                 {
-                    invincible = true;
+                    //invincible = true;
                     target = null;
                     IdleState(2f);
                     Vector3 targetTilePos = new Vector3(_neighbor[i].transform.position.x, fieldManager.groundHeight, _neighbor[i].transform.position.z);
@@ -380,6 +378,7 @@ public class Piece : MonoBehaviour
                         currentTile.IsFull = true;
                         currentTile.walkable = false;
                     }
+                    StartCoroutine(RabbitSplashDamage(fieldManager.pathFinding.GetNeighbor(currentTile),1.5f));
                     isRabbitSynergeActiveCheck = false;
                     break;
                 }
@@ -387,7 +386,7 @@ public class Piece : MonoBehaviour
         }
     }
 
-    IEnumerator RabbitSplashDamage(List<Tile> neighbor, int time)
+    IEnumerator RabbitSplashDamage(List<Tile> neighbor, float time)
     {
         yield return new WaitForSeconds(time);
         int splashDamage = 0;

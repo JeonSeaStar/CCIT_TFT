@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Linq;
 using DG.Tweening;
+using TMPro;
 
 public class Messenger : MonoBehaviour
 {
@@ -64,6 +65,7 @@ public class Messenger : MonoBehaviour
 
     [SerializeField] GraphicRaycaster graphicRaycaster;
     [SerializeField] GameObject pieceSaleSlot;
+    [SerializeField] TextMeshProUGUI pieceSaleGoldText;
     PointerEventData pointerEventData;
 
     public GameObject behindSaleZone;
@@ -71,7 +73,6 @@ public class Messenger : MonoBehaviour
     private void Awake()
     {
         fieldManager.DualPlayers[0] = this;
-        //pieceSaleSlot.GetComponent<Image>().sprite = Resources.Load<Sprite>("UI_Resources/Unit HpBar/1Star Background");
     }
 
     void Update()
@@ -141,6 +142,7 @@ public class Messenger : MonoBehaviour
         if (_isGrapPiece && targetPiece.GetComponent<Piece>().isOwned == true)
         {
             controlPiece = hit.transform.gameObject.GetComponent<Piece>();
+            pieceSaleGoldText.text = controlPiece.pieceData.cost[controlPiece.pieceData.grade, controlPiece.star].ToString();
             FreezeRigidbody(controlPiece, _isGrapPiece);
             isGrab = _isGrapPiece;
             fieldManager.ActiveHexaIndicators(_isGrapPiece);
