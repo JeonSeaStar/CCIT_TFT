@@ -296,7 +296,7 @@ public class PathFinding : MonoBehaviour
     {
         piece.candidatePath = new List<CandidatePath>();
         Piece enemy = piece.target;
-
+        Debug.Log(enemy.name);
         if (!enemy.dead)
         {
             bool canReach = false;

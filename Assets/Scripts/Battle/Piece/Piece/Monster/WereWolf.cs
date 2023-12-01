@@ -37,7 +37,6 @@ public class WereWolf : Piece
     {
         if (target != null)
         {
-            Instantiate(skillEffects, target.transform.position, Quaternion.identity);
             Damage(damage);
         }
     }
