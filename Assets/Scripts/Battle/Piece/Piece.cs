@@ -223,7 +223,7 @@ public class Piece : MonoBehaviour
 
         if (target.health <= 0)
         {
-            //#region 악마 기물 시너지 확인
+            #region 악마 기물 시너지 확인
             //var _burningPiece = ArenaManager.Instance.fieldManagers[0].buffManager.mythBuff[0];
             //if (buffList.Contains(_burningPiece.burningGroundBuff[0]) || buffList.Contains(_burningPiece.burningGroundBuff[1]))
             //{
@@ -237,7 +237,7 @@ public class Piece : MonoBehaviour
             //        target.SetCharm();
             //    }
             //}
-            //#endregion
+            #endregion
             #region 고양이 기물 시너지 확인
             if (isCatSynergeActiveCheck)
             {
@@ -347,7 +347,9 @@ public class Piece : MonoBehaviour
             StartNextBehavior();
     }
     #region 토끼
-    public bool isRabbitSynergeActiveCheck;
+    [Header("토끼")]
+    [HideInInspector]public bool isRabbitSynergeActiveCheck;
+    [SerializeField] GameObject rabbitEffect;
     public void RabbitJump()
     {
         List<Tile> _neighbor = new List<Tile>();
@@ -397,7 +399,7 @@ public class Piece : MonoBehaviour
         if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[0])) { splashDamage = 10; pieceData.CalculateBuff(this, _buff.rabbitBuff[0]); }
         else if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[1])) { splashDamage = 15; pieceData.CalculateBuff(this, _buff.rabbitBuff[1]); }
         else if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[2])) { splashDamage = 20; pieceData.CalculateBuff(this, _buff.rabbitBuff[2]); }
-
+        rabbitEffect.SetActive(true); rabbitEffect.transform.SetParent(null);
         Invoke("RsetRabbitStatus", 3);
         foreach (var tile in neighbor)
         {
