@@ -11,6 +11,7 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public FieldManager fieldManager;
     public PieceData pieceData;
     public Image cardImage;
+    public Image pieceImage;
     public Color[] slotColour = new Color[3];
     public Image slotHighlight;
     public Sprite boughtSlot;
@@ -42,6 +43,7 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
         pieceData = data;
         cardImage.sprite = pieceShop.cardSprites[pieceData.grade];
+        pieceImage.sprite = pieceData.piecePortrait;
         pieceName.text = data.pieceName;
         pieceCost.text = data.cost[data.grade, data.piecePrefab.GetComponent<Piece>().star].ToString();
 
