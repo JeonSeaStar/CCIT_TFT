@@ -29,7 +29,7 @@ public class NeithBullet : Bullet
 
         if (target.gameObject == parentPiece.target.gameObject)
         {
-            Instantiate(effect, target.transform.position, Quaternion.identity);
+            Instantiate(effect, new Vector3(target.transform.position.x, target.transform.position.y + 0.8f, target.transform.position.z), Quaternion.identity);
             Damage();
         }
     }

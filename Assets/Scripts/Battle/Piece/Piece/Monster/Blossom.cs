@@ -30,8 +30,9 @@ public class Blossom : Piece
     }
     void GetLocationMultiRangeSkill(Tile tiles, float damage)
     {
+        SkillState();
         pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
-        Instantiate(skillEffects, transform.position, Quaternion.identity);
+        Instantiate(skillEffects, new Vector3(transform.position.x, transform.position.y + 2.5f, transform.position.z), Quaternion.identity);
         List<Tile> _getNeigbor = pathFinding.GetNeighbor(tiles);
         foreach (var _Neigbor in _getNeigbor)
         {

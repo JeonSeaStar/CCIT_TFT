@@ -31,7 +31,7 @@ public class ThothPiece : Piece
     {
         if(target != null)
         {
-            Instantiate(skillEffects, target.transform.position, Quaternion.identity);
+            Instantiate(skillEffects, new Vector3(target.transform.position.x, target.transform.position.y + 0.8f, target.transform.position.z), Quaternion.identity);
             pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
             List<Tile> _getNeigbor = pathFinding.GetSide(currentTile);
             foreach (var _Neigbor in _getNeigbor)

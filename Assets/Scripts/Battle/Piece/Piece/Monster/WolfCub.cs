@@ -28,6 +28,7 @@ public class WolfCub : Piece
 
     void ShieldSkill(float shield)
     {
+        SkillState();
         Instantiate(skillEffects, this.transform.position, Quaternion.identity);
         this.shield = shield;
     }
