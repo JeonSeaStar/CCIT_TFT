@@ -738,10 +738,11 @@ public class Piece : MonoBehaviour
     {
         if (target != null)
         {
+            invincible = false;
             //print(name + "(이)가" + target.name + "에게 일반 공격을 합니다.");
             Damage(attackDamage);
             //mana += 100;
-            //currentMana += manaRecovery;
+            mana += manaRecovery;
             StartNextBehavior();
         }
         else
@@ -785,5 +786,13 @@ public class Piece : MonoBehaviour
             _attackEffect.SetActive(true); _attackEffect.transform.SetParent(null);
         }
     }
+    #endregion
+
+    #region 피스데이터 설명 부분
+    void UpdateText()
+    {
+        //
+    }
+
     #endregion
 }
