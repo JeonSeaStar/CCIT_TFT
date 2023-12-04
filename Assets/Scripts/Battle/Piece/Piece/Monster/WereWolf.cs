@@ -25,6 +25,7 @@ public class WereWolf : Piece
 
     public override IEnumerator Skill()
     {
+        Instantiate(skillEffects, target.transform.position, Quaternion.identity);
         Damage(1500f);
         GetLocationMultiRangeSkill(700f);
         yield return new WaitForSeconds(attackSpeed);
@@ -33,7 +34,7 @@ public class WereWolf : Piece
 
     void GetLocationMultiRangeSkill(float damage)
     {
-        Instantiate(skillEffects, transform.position, Quaternion.identity);
+        SkillState();
         pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
         List<Tile> _getNeigbor = pathFinding.GetNeighbor(currentTile);
         foreach (var _Neigbor in _getNeigbor)

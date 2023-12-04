@@ -122,15 +122,11 @@ public class Piece : MonoBehaviour
     void Awake()
     {
         pieceData.InitialzePiece(this);
-        pieceName = pieceData.pieceName;
         fieldManager = ArenaManager.Instance.fieldManagers[0];
         PieceState = State.IDLE;
 
-        //maxHealth = health;
-
         maxHealth = health;
         maxMana = mana;
-        //healthbar.maxMana = mana;
     }
 
     private void Update()

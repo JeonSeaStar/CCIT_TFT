@@ -955,6 +955,8 @@ public class FieldManager : MonoBehaviour
         if (!targetTile.isReadyTile)
         {
             Piece resultPiece = SpawnPiece(piece.pieceData, star + 1, targetTile);
+            resultPiece.maxHealth = resultPiece.pieceData.health[resultPiece.star];
+            //아이템으로 인한 MAX_HP의 상승분을 여기에 구현
             resultPiece.name += " " + star + 1 + "Star";
             resultPiece.buffList = originPiece.buffList;
             resultPiece.pieceData.InitialzePiece(resultPiece);

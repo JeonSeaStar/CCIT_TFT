@@ -28,6 +28,7 @@ public class Bud : Piece
 
     void HealSkill(float heal)
     {
+        SkillState();
         Instantiate(skillEffects, transform.position, Quaternion.identity);
         health += heal;
     }

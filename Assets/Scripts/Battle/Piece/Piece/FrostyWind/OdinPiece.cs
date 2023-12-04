@@ -38,7 +38,7 @@ public class OdinPiece : Piece
             }
             else if (_targets.isOwned)
             {
-                Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
+                Instantiate(skillEffects, new Vector3(_targets.transform.position.x, _targets.transform.position.y + 1.5f, _targets.transform.position.z), Quaternion.identity);
                 _targets.attackDamage = _targets.attackDamage + buff;
             }
         }
