@@ -3,17 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class LoadingScene : MonoBehaviour
 {
-    [SerializeField]
-    Image progressBar;
+    [SerializeField] private Image progressBar;
+    [SerializeField] private string[] textArray;
+    [SerializeField] private GameObject textPrefab;
 
     public static LoadingScene instant;
     public static string nextScene;
 
     private void Start()
     {
+        StartTextAnime();
+
         StartLoadScene();
     }
 
@@ -51,5 +55,24 @@ public class LoadingScene : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void StartTextAnime()
+    {
+        GameObject text = Instantiate(textPrefab, new Vector3(1300, -225, 0), Quaternion.identity);
+        text.GetComponent<TextMeshProUGUI>().text = GetText();
+        text.GetComponent<Animator>().SetTrigger("Start");
+    }
+
+    public void NextText()
+    {
+        StartTextAnime();
+    }
+
+    public string GetText()
+    {
+        int i = Random.Range(0, textArray.Length);
+
+        return textArray[i];
     }
 }
