@@ -249,20 +249,14 @@ public class Messenger : MonoBehaviour
                         {
                             if (!_targetTileInformation.isReadyTile && fieldManager.myFilePieceList.Count >= maxPieceCount[level])
                             {
-<<<<<<< HEAD
                                 if(_currentTileInformation.isReadyTile)
                                 {
                                     fieldManager.fieldPieceStatus.UpdateFieldStatus(fieldManager.myFilePieceList.Count, fieldManager.owerPlayer.maxPieceCount[fieldManager.owerPlayer.level]);
                                     ResetPositionToCurrentTile(controlPiece);
+                                    behindSaleZone.SetActive(true);
+                                    pieceSaleSlot.SetActive(false);
                                     return;
                                 }
-=======
-                                fieldManager.fieldPieceStatus.UpdateFieldStatus(fieldManager.myFilePieceList.Count, fieldManager.owerPlayer.maxPieceCount[fieldManager.owerPlayer.level]);
-                                ResetPositionToCurrentTile(controlPiece);
-                                behindSaleZone.SetActive(true);
-                                pieceSaleSlot.SetActive(false);
-                                return;
->>>>>>> 4a3233ab14be1be5a7382351a359303e944d877e
                             }
 
                             controlPiece.SetPiece(controlPiece);
