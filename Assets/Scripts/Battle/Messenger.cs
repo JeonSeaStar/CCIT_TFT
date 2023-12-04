@@ -142,6 +142,7 @@ public class Messenger : MonoBehaviour
         if (_isGrapPiece && targetPiece.GetComponent<Piece>().isOwned == true)
         {
             controlPiece = hit.transform.gameObject.GetComponent<Piece>();
+            if (ArenaManager.Instance.roundType == ArenaManager.RoundType.Battle && controlPiece.currentTile.isReadyTile == false) return;
             pieceSaleGoldText.text = controlPiece.pieceData.cost[controlPiece.pieceData.grade, controlPiece.star].ToString();
             FreezeRigidbody(controlPiece, _isGrapPiece);
             isGrab = _isGrapPiece;
@@ -201,7 +202,7 @@ public class Messenger : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             #region 기물 판매
-            if (Physics.Raycast(ray, out RaycastHit saleSlot))
+            if (Physics.Raycast(ray, out RaycastHit saleSlot, Mathf.Infinity, (-1) - (1 << 6)))
             {
                 pointerEventData = new PointerEventData(null);
                 pointerEventData.position = Input.mousePosition;
@@ -221,7 +222,6 @@ public class Messenger : MonoBehaviour
                     _currentTile.IsFull = false;
                     _currentTile.piece = null;
                     isGrab = false;
-                    //판매하고 판매 가격 획득 추가
                     gold += controlPiece.pieceData.cost[controlPiece.pieceData.grade, controlPiece.star];
                     fieldManager.playerState.UpdateMoney(gold);
                     //기물이 가지고 있던 아이템 되돌려받기 추가
@@ -249,12 +249,20 @@ public class Messenger : MonoBehaviour
                         {
                             if (!_targetTileInformation.isReadyTile && fieldManager.myFilePieceList.Count >= maxPieceCount[level])
                             {
+<<<<<<< HEAD
                                 if(_currentTileInformation.isReadyTile)
                                 {
                                     fieldManager.fieldPieceStatus.UpdateFieldStatus(fieldManager.myFilePieceList.Count, fieldManager.owerPlayer.maxPieceCount[fieldManager.owerPlayer.level]);
                                     ResetPositionToCurrentTile(controlPiece);
                                     return;
                                 }
+=======
+                                fieldManager.fieldPieceStatus.UpdateFieldStatus(fieldManager.myFilePieceList.Count, fieldManager.owerPlayer.maxPieceCount[fieldManager.owerPlayer.level]);
+                                ResetPositionToCurrentTile(controlPiece);
+                                behindSaleZone.SetActive(true);
+                                pieceSaleSlot.SetActive(false);
+                                return;
+>>>>>>> 4a3233ab14be1be5a7382351a359303e944d877e
                             }
 
                             controlPiece.SetPiece(controlPiece);

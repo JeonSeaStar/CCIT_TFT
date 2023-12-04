@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bloom : Piece
 {
     [SerializeField] private GameObject bloomBullet;
+    [SerializeField] private Transform effectPos;
     public override IEnumerator Attack()
     {
         if (mana >= 80 && target != null)
@@ -22,6 +23,7 @@ public class Bloom : Piece
 
     public override IEnumerator Skill()
     {
+        Instantiate(skillEffects, effectPos.position, Quaternion.identity);
         for(int i = 0; i < 6; i++)
         {
             ProjectionSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
