@@ -14,8 +14,6 @@ public class PieceHealthBar : MonoBehaviour
     [SerializeField] Image extraShieldbarSprite;
 
     [SerializeField] float lerpSpeed = 0.05f;
-    public float maxHealth = 0;
-    public float maxMana = 0;
 
     public void InitHealthbar(float maxHealth, float currentHealth, float shield)
     {
