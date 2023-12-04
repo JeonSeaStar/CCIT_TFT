@@ -191,8 +191,8 @@ Canvas:
   m_GameObject: {fileID: 31214067}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 317581257}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -201,7 +201,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!224 &31214071
 RectTransform:
@@ -1289,7 +1289,7 @@ GameObject:
   - component: {fileID: 317581256}
   - component: {fileID: 317581259}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: MainCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4999,6 +4999,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 336982977}
     m_Modifications:
+    - target: {fileID: 7098567261114292340, guid: b4c7c603e6a6a0b4d93aea128739bdca,
+        type: 3}
+      propertyPath: m_CameraType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7098567261114292342, guid: b4c7c603e6a6a0b4d93aea128739bdca,
         type: 3}
       propertyPath: m_RootOrder

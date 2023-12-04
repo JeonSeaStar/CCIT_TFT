@@ -12,11 +12,6 @@ public class TapEffect : MonoBehaviour
     [SerializeField] private RectTransform rt;
     [SerializeField] private GameObject tapEffect;
 
-    private void Awake()
-    {
-        CameraStack();
-    }
-
     private void Update()
     {
         if(Input.GetMouseButtonDown(0))
