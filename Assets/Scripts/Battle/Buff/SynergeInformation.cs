@@ -12,8 +12,8 @@ public class SynergeInformation : MonoBehaviour
     [SerializeField] TextMeshProUGUI synergeExplanation;
     [SerializeField] GameObject synergeActiveParent;
 
-    [SerializeField] MythSynergeInformation mythSynergeInformation = new MythSynergeInformation();
-    [SerializeField] AnimalSynergeInformation animalSynergeInformation = new AnimalSynergeInformation();
+    [SerializeField] List<MythSynergeInformation> mythSynergeInformation = new List<MythSynergeInformation>();
+    [SerializeField] List<AnimalSynergeInformation> animalSynergeInformation = new List<AnimalSynergeInformation>();
 
     public void Test()
     {
@@ -24,17 +24,21 @@ public class SynergeInformation : MonoBehaviour
 [System.Serializable]
 public class MythSynergeInformation
 {
-    public string[] mythSynergeName;
-    public string[] mythSynergeExplanation;
+    public string mythSynergeName;
+    public string mythSynergeExplanation;
     public int activeCount;
+
+    public List<string> synergeActiveExplanations = new List<string>();
 }
 
 [System.Serializable]
 public class AnimalSynergeInformation
 {
-    public string[] animalSynergeName;
-    public string[] animalSynergeExplanation;
+    public string animalSynergeName;
+    public string animalSynergeExplanation;
     public int activeCount;
+
+    public List<string> synergeActiveExplanations = new List<string>();
 }
 
 //[System.Serializable]
