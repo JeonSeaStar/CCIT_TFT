@@ -25,10 +25,7 @@ public class Bloom : Piece
     {
         SkillState();
         Instantiate(skillEffects, effectPos.position, Quaternion.identity);
-        for(int i = 0; i < 6; i++)
-        {
-            ProjectionSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
-        }
+        ProjectionSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)) * 6);
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
