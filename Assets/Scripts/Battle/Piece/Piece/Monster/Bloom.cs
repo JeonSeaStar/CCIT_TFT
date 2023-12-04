@@ -23,6 +23,7 @@ public class Bloom : Piece
 
     public override IEnumerator Skill()
     {
+        SkillState();
         Instantiate(skillEffects, effectPos.position, Quaternion.identity);
         for(int i = 0; i < 6; i++)
         {
@@ -34,9 +35,10 @@ public class Bloom : Piece
 
     void ProjectionSkill(float damage)
     {
+
         if (target != null)
         {
-            GameObject centaBullet = Instantiate(bloomBullet, transform.position, Quaternion.identity);
+            GameObject centaBullet = Instantiate(bloomBullet, new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z), Quaternion.identity);
             Bullet b = centaBullet.GetComponent<BloomBullet>();
             b.parentPiece = this;
             b.damage = damage;
