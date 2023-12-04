@@ -20,20 +20,20 @@ MonoBehaviour:
   star: 0
   health:
   - 650
-  - 1100
-  - 2100
+  - 1300
+  - 2600
   mana:
   - 100
-  - 0
-  - 0
+  - 100
+  - 100
   manaRecovery:
   - 10
   - 10
   - 10
   attackDamage:
   - 60
-  - 90
-  - 130
+  - 120
+  - 240
   abilityPower:
   - 180
   - 270
@@ -43,11 +43,11 @@ MonoBehaviour:
   - 0
   - 0
   armor:
-  - 40
-  - 40
-  - 40
+  - 0
+  - 0
+  - 0
   magicResist:
-  - 5
+  - 0
   - 0
   - 0
   attackSpeed:
@@ -73,8 +73,9 @@ MonoBehaviour:
   - 1
   buff: {fileID: 0}
   skilSprite: {fileID: 0}
-  skillName: 
-  skillExplain: 
+  skillName: "\uB3CC\uB824\uCC28\uAE30"
+  skillExplain: "\uC804\uBC29 2\uAC1C\uC758 \uD0C0\uC77C\uC5D0 00\uC758 \uD53C\uD574\uB97C
+    \uC785\uD788\uB294 \uBC1C\uCC28\uAE30\uB97C \uD569\uB2C8\uB2E4."
   myth: 0
   animal: 0
   united: 4
