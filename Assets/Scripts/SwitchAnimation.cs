@@ -8,15 +8,21 @@ public class SwitchAnimation : MonoBehaviour
 
     private void Awake()
     {
+        SceneManagement.instance.switchAnimation = this;
+
+        if (!SceneManagement.instance.first)
+        {
+            gameObject.SetActive(false);
+            SceneManagement.instance.first = true;
+        }
+
         if (SceneManagement.instance.changeScene)
             SceneSwitching(true, null);
-        else
-            sceneSwitchAnimator.SetTrigger("Init");
     }
 
     private void Start()
     {
-        SceneManagement.instance.switchAnimation = this;
+
     }
 
     public void SceneSwitching(bool b, string sceneName)
@@ -28,6 +34,7 @@ public class SwitchAnimation : MonoBehaviour
         }
         else
         {
+            gameObject.SetActive(true);
             sceneSwitchAnimator.SetTrigger("Close");
             SceneManagement.instance.changeScene = true;
             LoadingScene.nextScene = sceneName;

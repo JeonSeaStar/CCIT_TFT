@@ -18,7 +18,7 @@ public class ArenaManager : MonoBehaviour
                     GameObject _arena = new GameObject();
                     _arena.name = "ArenaManager";
                     instance = _arena.AddComponent<ArenaManager>();
-                    DontDestroyOnLoad(_arena);
+                    //DontDestroyOnLoad(_arena);
                 }
             }
             return instance;
@@ -67,8 +67,6 @@ public class ArenaManager : MonoBehaviour
                 if (BattleResult == Result.VICTORY)
                 {
                     roundState.UpdateStageIcon(currentRound, 1, fieldManagers[0].stageInformation.enemy[currentRound].roundType);
-                    foreach (var piece in fieldManagers[0].myFilePieceList)
-                        piece.VictoryDacnce();
 
                     if (currentRound != fieldManagers[0].stageInformation.enemy.Count -1)
                         Invoke("NextRound", 3f);
@@ -76,6 +74,9 @@ public class ArenaManager : MonoBehaviour
                     {
                         resultPopup.ActiveResultPopup(true);
                     }
+
+                    foreach (var piece in fieldManagers[0].myFilePieceList)
+                        piece.VictoryDacnce();
                 }
                 else if (BattleResult == Result.DEFEAT)
                 {
@@ -94,7 +95,7 @@ public class ArenaManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            //DontDestroyOnLoad(this.gameObject);
         }
 
         StartGame();

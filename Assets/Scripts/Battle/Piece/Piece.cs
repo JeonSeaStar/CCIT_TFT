@@ -485,8 +485,7 @@ public class Piece : MonoBehaviour
         }
 
         StopAllCoroutines();
-        //pieceData.ResetPiece(this);
-        print(name + "(ÀÌ)°¡ ½Â¸®ÀÇ Ãã Ãß´Â Áß.");
+
         PieceState = State.DANCE;
 
     }

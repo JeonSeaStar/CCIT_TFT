@@ -7,7 +7,7 @@ public class SceneManagement : MonoBehaviour
 {
     public static SceneManagement instance;
     public SwitchAnimation switchAnimation;
-    private bool first;
+    public bool first;
     public bool changeScene;
 
     private void Awake()
