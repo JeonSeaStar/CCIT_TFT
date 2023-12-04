@@ -87,6 +87,7 @@ public class PieceData : ScriptableObject
         piece.piecePortrait = piecePortrait;
         piece.health = health[piece.star];
         piece.mana = mana[piece.star];
+        piece.manaRecovery = manaRecovery[piece.star];
         piece.attackDamage = attackDamage[piece.star];
         piece.abilityPower = abilityPower[piece.star];
         piece.abilityPowerCoefficient = abilityPowerCoefficient[piece.star];
