@@ -5,10 +5,7 @@ using UnityEngine;
 public class Blossom : Piece
 {
     PathFinding pathFinding;
-    [SerializeField] private Piece[] targets;
-
-    [SerializeField] private GameObject beforeEffect;
-    [SerializeField] private GameObject afterEffect;
+    [SerializeField] private GameObject hitEffect;
     public override IEnumerator Attack()
     {
         if (mana >= 150)
@@ -26,43 +23,15 @@ public class Blossom : Piece
 
     public override IEnumerator Skill()
     {
-        FindTargetThree(500f);
+        Damage(1500f);
+        GetLocationMultiRangeSkill(currentTile, 700f);
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
-
-    void FindTargetThree(float damage) //·£´ý ¼¼¸¶¸® ¹Þ¾Æ¾ßµÊ
-    {
-        if (fieldManager.myFilePieceList.Count > 3)
-        {
-            for(int i = 0; i < 3; i++)
-            {
-                targets[i] = fieldManager.myFilePieceList[i];
-                Instantiate(beforeEffect, targets[i].currentTile.transform.position, Quaternion.identity);
-                Instantiate(skillEffects, targets[i].transform.position, Quaternion.identity);
-                Damage(targets[i], damage);
-                GetLocationMultiRangeSkill(targets[i].currentTile, 200f);
-            }
-        }
-        else if(fieldManager.myFilePieceList.Count > 2)
-        {
-            for (int i = 0; i < 2; i++)
-            {
-                targets[i] = fieldManager.myFilePieceList[i];
-                Instantiate(skillEffects, targets[i].transform.position, Quaternion.identity);
-                Damage(targets[i], damage);
-                GetLocationMultiRangeSkill(targets[i].currentTile, 200f);
-            }
-        }
-        else
-        {
-            return;
-        }
-    }
-
     void GetLocationMultiRangeSkill(Tile tiles, float damage)
     {
         pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
+        Instantiate(skillEffects, transform.position, Quaternion.identity);
         List<Tile> _getNeigbor = pathFinding.GetNeighbor(tiles);
         foreach (var _Neigbor in _getNeigbor)
         {
@@ -73,7 +42,7 @@ public class Blossom : Piece
             }
             else if (_targets.isOwned)
             {
-                Instantiate(afterEffect, _targets.transform.position, Quaternion.identity);
+                Instantiate(hitEffect, _targets.transform.position, Quaternion.identity);
                 Damage(_targets, damage);
             }
         }
