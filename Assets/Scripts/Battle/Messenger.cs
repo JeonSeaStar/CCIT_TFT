@@ -83,7 +83,7 @@ public class Messenger : MonoBehaviour
             {
                 pieceInformationUI.ClosePieceInformation();
                 if (owned)
-                Targeting();
+                    Targeting();
             }
             if (Input.GetMouseButton(0) && isGrab && !isDrag && owned) Dragging();
             if (Input.GetMouseButtonUp(0))
@@ -249,9 +249,12 @@ public class Messenger : MonoBehaviour
                         {
                             if (!_targetTileInformation.isReadyTile && fieldManager.myFilePieceList.Count >= maxPieceCount[level])
                             {
-                                fieldManager.fieldPieceStatus.UpdateFieldStatus(fieldManager.myFilePieceList.Count, fieldManager.owerPlayer.maxPieceCount[fieldManager.owerPlayer.level]);
-                                ResetPositionToCurrentTile(controlPiece);
-                                return;
+                                if(_currentTileInformation.isReadyTile)
+                                {
+                                    fieldManager.fieldPieceStatus.UpdateFieldStatus(fieldManager.myFilePieceList.Count, fieldManager.owerPlayer.maxPieceCount[fieldManager.owerPlayer.level]);
+                                    ResetPositionToCurrentTile(controlPiece);
+                                    return;
+                                }
                             }
 
                             controlPiece.SetPiece(controlPiece);
