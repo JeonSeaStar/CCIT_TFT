@@ -7,6 +7,7 @@ public class SceneManagement : MonoBehaviour
 {
     public static SceneManagement instance;
     public SwitchAnimation switchAnimation;
+    public TapEffect tapEffect;
     public bool first;
     public bool changeScene;
 
@@ -14,6 +15,13 @@ public class SceneManagement : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
         instance = this;
+
+        SceneManager.sceneLoaded += LoadedsceneEvent;
+    }
+
+    private void LoadedsceneEvent(Scene scene, LoadSceneMode mode)
+    {
+        tapEffect.CameraStack();
     }
 
     public void SceneSwitching(bool b, string sceneName)
