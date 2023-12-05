@@ -55,7 +55,7 @@ public class PieceShop : MonoBehaviour
             return;
 
         fieldManager.ChargeGold(-1);
-
+        SoundManager.instance.Play("UI/Eff_Gold_Pos", SoundManager.Sound.Effect);
         foreach (var slot in slots)
         {
             //여기 줄에 기물 데이터 넣어주기
@@ -69,9 +69,15 @@ public class PieceShop : MonoBehaviour
         gameObject.SetActive(active);
 
         if (active)
+        {
             text.text = "상점\n닫기";
+            SoundManager.instance.Play("UI/Eff_Button_Positive", SoundManager.Sound.Effect);
+        }
         else
+        {
             text.text = "상점\n열기";
+            SoundManager.instance.Play("UI/Eff_Button_Nagative", SoundManager.Sound.Effect);
+        }
     }
 
     void SetSlot(PieceBuySlot slot, PieceData pieceData)
