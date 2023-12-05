@@ -50,6 +50,7 @@ public class Piece : MonoBehaviour
 
 
     bool canMove = true;
+    float preAttackDamage;
     [Header("이동 DoTween")] public Ease ease;
     [Header("토끼 DoTween")] public Ease rabbitEase;
 
@@ -128,6 +129,7 @@ public class Piece : MonoBehaviour
         maxHealth = health;
         maxMana = mana;
         mana = pieceData.currentMana;
+        preAttackDamage = attackDamage;
     }
 
     private void Update()
@@ -256,7 +258,7 @@ public class Piece : MonoBehaviour
 
     private void OnDamageText(float damage)
     {
-        if(damageText != null)
+        if (damageText != null)
         {
             GameObject damageTextGameObject = Instantiate(damageText, transform.position, Quaternion.identity, healthbar.transform);
             damageTextGameObject.transform.localRotation = Quaternion.identity;
@@ -346,7 +348,7 @@ public class Piece : MonoBehaviour
     }
     #region 토끼
     [Header("토끼")]
-    [HideInInspector]public bool isRabbitSynergeActiveCheck;
+    [HideInInspector] public bool isRabbitSynergeActiveCheck;
     [SerializeField] GameObject rabbitSynergeEffect;
     public void RabbitJump()
     {
@@ -383,7 +385,7 @@ public class Piece : MonoBehaviour
                         currentTile.IsFull = true;
                         currentTile.walkable = false;
                     }
-                    StartCoroutine(RabbitSplashDamage(fieldManager.pathFinding.GetNeighbor(currentTile),1.5f));
+                    StartCoroutine(RabbitSplashDamage(fieldManager.pathFinding.GetNeighbor(currentTile), 1.5f));
                     isRabbitSynergeActiveCheck = false;
                     break;
                 }
@@ -399,7 +401,7 @@ public class Piece : MonoBehaviour
         if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[0])) { splashDamage = 10; pieceData.CalculateBuff(this, _buff.rabbitBuff[0]); }
         else if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[1])) { splashDamage = 15; pieceData.CalculateBuff(this, _buff.rabbitBuff[1]); }
         else if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[2])) { splashDamage = 20; pieceData.CalculateBuff(this, _buff.rabbitBuff[2]); }
-        GameObject effect = Instantiate(rabbitSynergeEffect,transform.position, Quaternion.Euler(-90,0,0));
+        GameObject effect = Instantiate(rabbitSynergeEffect, transform.position, Quaternion.Euler(-90, 0, 0));
         effect.SetActive(true); effect.transform.SetParent(null);
         Invoke("RsetRabbitStatus", 3);
         foreach (var tile in neighbor)
@@ -636,15 +638,6 @@ public class Piece : MonoBehaviour
                 break;
         }
     }
-    public void SetFreeze()
-    {
-        freeze = true;
-        //가려던 위치로 바로 이동후 프리징 걸리기
-    }
-    public void SetFreeze(float time)
-    {
-        freeze = true;
-    }
 
     public void SetImmune()
     {
@@ -680,27 +673,42 @@ public class Piece : MonoBehaviour
     {
         charm = true;
     }
+    public void SetFreeze(float time)
+    {
+        freeze = true;
+        IdleState(time);
+        Invoke("FreezeClear", time);
+    }
+    public void FreezeClear()
+    {
+        freeze = false;
+        if (gameObject.activeSelf) StartCoroutine(NextBehavior());
+    }
 
     public void SetBlind(float time)
     {
         blind = true;
+        attackDamage = 0;
         Invoke("BlindClear", time);
     }
 
     void BlindClear()
     {
         blind = false;
+        attackDamage = preAttackDamage;
     }
 
     public void SetStun(float time)
     {
         stun = true;
+        IdleState(time);
         Invoke("StunClear", time);
     }
 
     void StunClear()
     {
         stun = false;
+        if (gameObject.activeSelf) StartCoroutine(NextBehavior());
     }
 
     //void 
@@ -737,6 +745,11 @@ public class Piece : MonoBehaviour
 
     public virtual void DoAttack()
     {
+        if (stun || freeze)
+        {
+            pieceState = State.IDLE;
+            return;
+        }
         if (target != null)
         {
             invincible = false;

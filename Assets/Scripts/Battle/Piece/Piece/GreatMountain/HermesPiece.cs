@@ -42,7 +42,7 @@ public class HermesPiece : Piece
         if(target != null)
         {
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
-            //target.SetBlind(time);
+            target.SetBlind(time);
             SetDebuff("Blind", time);
         }
     }

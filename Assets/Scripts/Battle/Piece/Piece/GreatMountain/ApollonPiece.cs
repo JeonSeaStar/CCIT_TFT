@@ -41,6 +41,7 @@ public class ApollonPiece : Piece
             else if (!_targets.isOwned)
             {
                 Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
+                target.SetStun(time);
                 SetDebuff("Stun", time, _targets);
             }
         }
