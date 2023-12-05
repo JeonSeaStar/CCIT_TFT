@@ -6,7 +6,7 @@ public class DraugrPiece : Piece
 {
     public override IEnumerator Attack()
     {
-        if (mana >= 60 && target != null)
+        if (mana >= maxMana && target != null)
         {
             StartSkill();
             mana = 0;

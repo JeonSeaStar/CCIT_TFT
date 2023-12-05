@@ -6,7 +6,7 @@ public class SphinxPiece : Piece
 {
     public override IEnumerator Attack()
     {
-        if (mana >= 80 && target != null)
+        if (mana >= maxMana && target != null)
         {
             StartSkill();
             mana = 0;

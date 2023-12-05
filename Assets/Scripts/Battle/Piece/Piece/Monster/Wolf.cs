@@ -6,7 +6,7 @@ public class Wolf : Piece
 {
     public override IEnumerator Attack()
     {
-        if (mana >= 60)
+        if (mana >= pieceData.mana[star])
         {
             StartSkill();
             mana = 0;

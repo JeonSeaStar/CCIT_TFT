@@ -6,7 +6,7 @@ public class AnubisPiece : Piece
 {
     public override IEnumerator Attack()
     {
-        if (mana >= 150 && target != null)
+        if (mana >= maxMana && target != null)
         {
             StartSkill();
             mana = 0;

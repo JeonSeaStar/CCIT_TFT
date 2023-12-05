@@ -9,7 +9,7 @@ public class JormungandPiece : Piece
 
     public override IEnumerator Attack()
     {
-        if (mana >= 50)
+        if (mana >= maxMana)
         {
             StartSkill(); 
              mana = 0;

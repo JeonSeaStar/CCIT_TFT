@@ -7,7 +7,7 @@ public class HeimdallrPiece : Piece
     PathFinding pathFinding;
     public override IEnumerator Attack()
     {
-        if (mana >= 110)
+        if (mana >= maxMana)
         {
             StartSkill();
             mana = 0;

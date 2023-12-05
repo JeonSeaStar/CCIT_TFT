@@ -6,7 +6,7 @@ public class PoseidonPiece : Piece
 {
     public override IEnumerator Attack()
     {
-        if (mana >= 80)
+        if (mana >= maxMana)
         {
             StartSkill();
             mana = 0;

@@ -7,7 +7,7 @@ public class GriffinPiece : Piece
     public TriggerCheckSkill griffinSkill;
     public override IEnumerator Attack()
     {
-        if (mana >= 100)
+        if (mana >= maxMana)
         {
             StartSkill();
             mana = 0;

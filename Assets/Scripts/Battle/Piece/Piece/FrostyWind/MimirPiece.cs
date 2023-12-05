@@ -8,7 +8,7 @@ public class MimirPiece : Piece
 
     public override IEnumerator Attack()
     {
-        if (mana >= 90)
+        if (mana >= maxMana)
         {
             StartSkill();
             mana = 0;

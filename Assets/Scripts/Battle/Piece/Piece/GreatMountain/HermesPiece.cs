@@ -6,7 +6,7 @@ public class HermesPiece : Piece
 {
     public override IEnumerator Attack()
     {
-        if (mana >= 75 && target != null)
+        if (mana >= maxMana && target != null)
         {
             StartSkill();
             mana = 0;
@@ -42,7 +42,7 @@ public class HermesPiece : Piece
         if(target != null)
         {
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
-            target.SetBlind(time);
+            //target.SetBlind(time);
             SetDebuff("Blind", time);
         }
     }

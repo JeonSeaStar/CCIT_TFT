@@ -7,7 +7,7 @@ public class CentaurusPiece : Piece
     [SerializeField] private GameObject bullet;
     public override IEnumerator Attack()
     {
-        if (mana >= 100 && target != null)
+        if (mana >= maxMana && target != null)
         {
             StartSkill();
             mana = 0;
