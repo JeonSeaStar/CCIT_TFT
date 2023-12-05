@@ -17,6 +17,7 @@ public class Bloom : Piece
         }
         else
         {
+            SoundManager.instance.Play("Nepenthes_Seris/S_Attack_Bloom", SoundManager.Sound.Effect);
             DoAttack();
         }
     }
@@ -32,9 +33,9 @@ public class Bloom : Piece
 
     void ProjectionSkill(float damage)
     {
-
         if (target != null)
         {
+            SoundManager.instance.Play("Nepenthes_Seris/S_Skil_Bloom", SoundManager.Sound.Effect);
             GameObject centaBullet = Instantiate(bloomBullet, new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z), Quaternion.identity);
             Bullet b = centaBullet.GetComponent<BloomBullet>();
             b.parentPiece = this;
@@ -42,8 +43,15 @@ public class Bloom : Piece
             b.Shot(target.transform.position - transform.position);
         }
     }
+
     public override void SkillUpdateText()
     {
         pieceData.skillExplain = string.Format("현재 공격 대상에게 각 {0}의 피해를 입히는 씨앗을 쏩니다.", (abilityPower * (1 + (abilityPowerCoefficient / 100)) * 6));
+    }
+
+    public override void Dead()
+    {
+        SoundManager.instance.Play("Nepenthes_Seris/S_Death_Bloom", SoundManager.Sound.Effect);
+        base.Dead();
     }
 }

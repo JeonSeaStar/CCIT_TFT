@@ -17,6 +17,7 @@ public class Blossom : Piece
         }
         else
         {
+            SoundManager.instance.Play("Nepenthes_Seris/S_Attack_Blossom", SoundManager.Sound.Effect);
             DoAttack();
         }
     }
@@ -30,6 +31,7 @@ public class Blossom : Piece
     }
     void GetLocationMultiRangeSkill(Tile tiles, float damage)
     {
+        SoundManager.instance.Play("Nepenthes_Seris/S_Skill_Blossom", SoundManager.Sound.Effect);
         SkillState();
         pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
         Instantiate(skillEffects, new Vector3(transform.position.x, transform.position.y + 2.5f, transform.position.z), Quaternion.identity);
@@ -48,8 +50,15 @@ public class Blossom : Piece
             }
         }
     }
+
     public override void SkillUpdateText()
     {
         pieceData.skillExplain = string.Format("가운데 적에게 {0}의 피해를 입히고, 주변 적들에게 {1}의 피해를 입힙니다.", 1500, 700);
+    }
+
+    public override void Dead()
+    {
+        SoundManager.instance.Play("Nepenthes_Seris/S_Death_Blossom", SoundManager.Sound.Effect);
+        base.Dead();
     }
 }

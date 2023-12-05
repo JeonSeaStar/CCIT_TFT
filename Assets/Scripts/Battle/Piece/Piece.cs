@@ -768,7 +768,7 @@ public class Piece : MonoBehaviour
         }
     }
 
-    public void Dead()
+    public virtual void Dead()
     {
         StopAllCoroutines();
         currentTile.InitTile();
