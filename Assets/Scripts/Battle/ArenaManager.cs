@@ -216,9 +216,9 @@ public class ArenaManager : MonoBehaviour
 
     private void StartGame()
     {
-        fieldManagers[0].ChargeGold(fieldManagers[0].owerPlayer.gold);
-        fieldManagers[0].ChargeHP(fieldManagers[0].owerPlayer.lifePoint);
-        fieldManagers[0].ChargeLevel(fieldManagers[0].owerPlayer.level);
+        fieldManagers[0].ChangeGold(fieldManagers[0].owerPlayer.gold);
+        fieldManagers[0].ChangeHP(fieldManagers[0].owerPlayer.lifePoint);
+        fieldManagers[0].ChangeLevel(fieldManagers[0].owerPlayer.level);
 
         roundState.SetStage(currentRound);
         ChangeStage(currentRound);

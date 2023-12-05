@@ -1446,7 +1446,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 484338126}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 5.98, y: 6.11, z: -5.54}
+  m_LocalPosition: {x: 5.98, y: 6.11, z: 3.56}
   m_LocalScale: {x: 8.8489, y: 8.8489, z: 8.8489}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2325,7 +2325,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2115721543}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 4.95, y: 5.91, z: 2.76}
+  m_LocalPosition: {x: 4.95, y: 5.91, z: 8.62}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14621,8 +14621,6 @@ MonoBehaviour:
   shieldbarSprite: {fileID: 8518524942996648532}
   extraShieldbarSprite: {fileID: 0}
   lerpSpeed: 0.05
-  maxHealth: 0
-  maxMana: 0
 --- !u!1 &641310911922186959
 GameObject:
   m_ObjectHideFlags: 0
@@ -29542,6 +29540,7 @@ MonoBehaviour:
     type: 3}
   nextTile: {fileID: 0}
   isRabbitSynergeActiveCheck: 0
+  rabbitSynergeEffect: {fileID: 0}
   isCatSynergeActiveCheck: 0
 --- !u!95 &4751238673395072921
 Animator:
@@ -29600,7 +29599,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4751238673395072901}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.98, y: 4.67, z: -5.08}
+  m_LocalPosition: {x: 5, y: 5, z: 5}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:

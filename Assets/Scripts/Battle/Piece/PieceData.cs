@@ -12,7 +12,6 @@ public class PieceData : ScriptableObject
     public int grade;
     public int star;
 
-
     [HideInInspector]
     public int[,] cost =
     {
