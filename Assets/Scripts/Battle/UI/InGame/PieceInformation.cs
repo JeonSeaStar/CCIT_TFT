@@ -6,6 +6,7 @@ using TMPro;
 
 public class PieceInformation : MonoBehaviour
 {
+    public Piece piece;
     public Image pieceImage;
     public Image skillImage;
     public TextMeshProUGUI pieceName;
@@ -28,6 +29,29 @@ public class PieceInformation : MonoBehaviour
     public List<AnimalData> animalDatas;
     public List<UnitedData> unitedDatas;
 
+    [SerializeField] float lerpSpeed = 0.05f;
+
+    public void Update()
+    {
+        if (currentHP.text != piece.health.ToString())
+        {
+            currentHP.text = piece.health.ToString();
+            hpFill.fillAmount = piece.health / piece.pieceData.health[piece.star];
+        }
+
+        if(hpFill.fillAmount != piece.health / piece.pieceData.health[piece.star])
+            hpFill.fillAmount = Mathf.Lerp(hpFill.fillAmount, piece.health / piece.pieceData.health[piece.star], lerpSpeed);
+
+        if (currentMP.text != piece.mana.ToString())
+        {
+            currentMP.text = piece.mana.ToString();
+            mpFill.fillAmount = piece.mana / piece.pieceData.mana[piece.star];
+        }
+
+        if (mpFill.fillAmount != piece.mana / piece.pieceData.mana[piece.star])
+            mpFill.fillAmount = Mathf.Lerp(mpFill.fillAmount, piece.health / piece.pieceData.health[piece.star], lerpSpeed);
+    }
+
     public void OpenPieceInformation(Piece target)
     {
         gameObject.SetActive(true);
@@ -41,6 +65,7 @@ public class PieceInformation : MonoBehaviour
 
     public void InitPieceInformation(Piece target)
     {
+        piece = target;
         pieceImage.sprite = target.pieceData.piecePortrait;
         pieceName.text = target.pieceName;
         currentHP.text = target.health.ToString();
