@@ -32,10 +32,12 @@ public class PieceShop : MonoBehaviour
     public List<TestPieceCountList> testList;
     public GameObject LevelUpButtonDeactive;
     public GameObject RefreshButtonDeactive;
+    public TextMeshProUGUI levelUpCost;
 
     private void Awake()
     {
         InitSlot();
+        levelUpCost.text = fieldManager.owerPlayer.levelUpCost[fieldManager.owerPlayer.level].ToString();
     }
 
     public void InitSlot()
@@ -135,6 +137,8 @@ public class PieceShop : MonoBehaviour
 
             fieldManager.fieldPieceStatus.UpdateFieldStatus(fieldManager.myFilePieceList.Count, fieldManager.owerPlayer.maxPieceCount[fieldManager.owerPlayer.level]);
         }
+
+        levelUpCost.text = fieldManager.owerPlayer.levelUpCost[fieldManager.owerPlayer.level].ToString();
     }
 
     public void DeactiveRefresh()
