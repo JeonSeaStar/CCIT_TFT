@@ -17,6 +17,7 @@ public class Bloom : Piece
         }
         else
         {
+            SoundManager.instance.Play("Nepenthes_Seris/S_Attack_Bloom", SoundManager.Sound.Effect);
             DoAttack();
         }
     }
@@ -32,9 +33,9 @@ public class Bloom : Piece
 
     void ProjectionSkill(float damage)
     {
-
         if (target != null)
         {
+            SoundManager.instance.Play("Nepenthes_Seris/S_Skil_Bloom", SoundManager.Sound.Effect);
             GameObject centaBullet = Instantiate(bloomBullet, new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z), Quaternion.identity);
             Bullet b = centaBullet.GetComponent<BloomBullet>();
             b.parentPiece = this;

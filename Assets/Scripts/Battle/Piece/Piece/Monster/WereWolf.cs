@@ -19,6 +19,7 @@ public class WereWolf : Piece
         }
         else
         {
+            SoundManager.instance.Play("Wolf_Series/S_Attack_Wolf", SoundManager.Sound.Effect);
             DoAttack();
         }
     }
@@ -34,6 +35,7 @@ public class WereWolf : Piece
 
     void GetLocationMultiRangeSkill(float damage)
     {
+        SoundManager.instance.Play("Wolf_Series/S_Skill_Were_Wolf", SoundManager.Sound.Effect);
         SkillState();
         pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
         List<Tile> _getNeigbor = pathFinding.GetNeighbor(currentTile);
