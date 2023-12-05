@@ -406,7 +406,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8017019}
   - component: {fileID: 8017018}
-  - component: {fileID: 8017017}
   - component: {fileID: 8017016}
   m_Layer: 0
   m_Name: UICamera
@@ -448,14 +447,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!81 &8017017
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8017015}
-  m_Enabled: 1
 --- !u!20 &8017018
 Camera:
   m_ObjectHideFlags: 0
@@ -9715,6 +9706,7 @@ MonoBehaviour:
   - {fileID: 2073969757}
   - {fileID: 1336978079}
   - {fileID: 427305677}
+  text: {fileID: 666104522}
   percentageByLevel:
   - tier: 3c000000190000000a00000005000000
   - tier: 3c000000190000000a00000005000000
@@ -15511,10 +15503,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: af6539f7f95520143b655152d825160c, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -23301,6 +23293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4069272c84ff0c04da6690140f6e6814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  piece: {fileID: 0}
   pieceImage: {fileID: 1589324322}
   skillImage: {fileID: 557457768}
   pieceName: {fileID: 1715978570}
@@ -23354,6 +23347,7 @@ MonoBehaviour:
       type: 3}
     synergeName: "\uD1A0\uB07C"
   unitedDatas: []
+  lerpSpeed: 1
 --- !u!1 &1243581394
 GameObject:
   m_ObjectHideFlags: 0
@@ -28750,7 +28744,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4.3449993, y: 1.0400001}
+  m_AnchoredPosition: {x: 4.3449993, y: 4.5}
   m_SizeDelta: {x: 42.29, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1567577462
@@ -36979,10 +36973,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 791b9823550d90f458b0a5ec37a8d9a7, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0

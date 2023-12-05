@@ -81,7 +81,13 @@ public class ArenaManager : MonoBehaviour
                 else if (BattleResult == Result.DEFEAT)
                 {
                     fieldManagers[0].ChargeHP(fieldManagers[0].stageInformation.enemy[currentRound].defeatDamage);
-                    Invoke("NextRound", 3f);
+
+                    if (currentRound != fieldManagers[0].stageInformation.enemy.Count - 1)
+                        Invoke("NextRound", 3f);
+                    else
+                    {
+                        resultPopup.ActiveResultPopup(false);
+                    }
 
                     roundState.UpdateStageIcon(currentRound, 2, fieldManagers[0].stageInformation.enemy[currentRound].roundType);
                 }
