@@ -31,4 +31,8 @@ public class MummyPiece : Piece
         Instantiate(skillEffects, this.transform.position, Quaternion.identity);
         this.shield = shield;
     }
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("자신에게 붕대를 급하게 묶어 {0}의 보호막을 얻습니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)));
+    }
 }

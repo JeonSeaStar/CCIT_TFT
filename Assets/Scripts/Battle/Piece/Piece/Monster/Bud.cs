@@ -32,4 +32,8 @@ public class Bud : Piece
         Instantiate(skillEffects, transform.position, Quaternion.identity);
         health += heal;
     }
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("꽃가루를 뿌려 자신의 체력을 {0}만큼 회복시킵니다.", 200);
+    }
 }

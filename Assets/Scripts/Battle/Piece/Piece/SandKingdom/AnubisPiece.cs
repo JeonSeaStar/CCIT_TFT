@@ -34,4 +34,8 @@ public class AnubisPiece : Piece
             Damage(damage);
         }
     }
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("현재 대상에게 {0}의 피해를 주는 내려치기를 시전합니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)));
+    }
 }

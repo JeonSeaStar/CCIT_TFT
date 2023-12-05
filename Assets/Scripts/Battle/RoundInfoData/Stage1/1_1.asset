@@ -21,9 +21,9 @@ MonoBehaviour:
     - piece: {fileID: 5568246091413712801, guid: c39bfd73268db8c429b43f10f08b5875,
         type: 3}
       spawnTile: {x: 9, y: 6}
-    gold: 10
-    defeatGold: 0
-    defeatDamage: -30
+    gold: 20
+    defeatGold: 10
+    defeatDamage: -4
   - roundType: Wolf
     enemyInformation:
     - piece: {fileID: 5359796614626933570, guid: 6c8cdd2a54dd4d14ea270d6a725aa92e,
@@ -35,9 +35,9 @@ MonoBehaviour:
     - piece: {fileID: 2656276158085307247, guid: f042f164223ff8b498c27719e5802b2e,
         type: 3}
       spawnTile: {x: 5, y: 3}
-    gold: 20
-    defeatGold: 0
-    defeatDamage: -30
+    gold: 30
+    defeatGold: 15
+    defeatDamage: -6
   - roundType: Plant
     enemyInformation:
     - piece: {fileID: 2656276158085307247, guid: f042f164223ff8b498c27719e5802b2e,
@@ -52,9 +52,9 @@ MonoBehaviour:
     - piece: {fileID: 5359796614626933570, guid: 6c8cdd2a54dd4d14ea270d6a725aa92e,
         type: 3}
       spawnTile: {x: 5, y: 5}
-    gold: 30
-    defeatGold: 0
-    defeatDamage: -30
+    gold: 40
+    defeatGold: 20
+    defeatDamage: -8
   - roundType: Plant
     enemyInformation:
     - piece: {fileID: 7673747663442985565, guid: 5c36ec5b7c00991459e4cb5d7b76c0a9,
@@ -69,9 +69,9 @@ MonoBehaviour:
     - piece: {fileID: 7673747663442985565, guid: 5c36ec5b7c00991459e4cb5d7b76c0a9,
         type: 3}
       spawnTile: {x: 5, y: 5}
-    gold: 40
-    defeatGold: 0
-    defeatDamage: -30
+    gold: 30
+    defeatGold: 15
+    defeatDamage: -10
   - roundType: Plant
     enemyInformation:
     - piece: {fileID: 7673747663442985565, guid: 5c36ec5b7c00991459e4cb5d7b76c0a9,
@@ -87,8 +87,8 @@ MonoBehaviour:
         type: 3}
       spawnTile: {x: 5, y: 5}
     gold: 50
-    defeatGold: 0
-    defeatDamage: -30
+    defeatGold: 25
+    defeatDamage: -14
   - roundType: Dragon
     enemyInformation:
     - piece: {fileID: 7673747663442985565, guid: 5c36ec5b7c00991459e4cb5d7b76c0a9,
@@ -106,6 +106,6 @@ MonoBehaviour:
     - piece: {fileID: 7673747663442985565, guid: 5c36ec5b7c00991459e4cb5d7b76c0a9,
         type: 3}
       spawnTile: {x: 5, y: 4}
-    gold: 60
+    gold: 0
     defeatGold: 0
     defeatDamage: -30

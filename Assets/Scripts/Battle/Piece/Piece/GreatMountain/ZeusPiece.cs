@@ -41,4 +41,8 @@ public class ZeusPiece : Piece
             b.Shot(target.transform.position - transform.position);
         }
     }
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("현재 대상에게 {0}의 피해를 입히는 번개를 방출합니다. 번개를 방출하는 동안에는 움직일 수 없습니다.", (abilityPower * (1 + (abilityPowerCoefficient / 100))));
+    }
 }

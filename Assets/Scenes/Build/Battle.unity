@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17338678, g: 0.21673864, b: 0.29880753, a: 1}
+  m_IndirectSpecularColor: {r: 0.1733871, g: 0.21673916, b: 0.29880822, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9706,13 +9706,14 @@ MonoBehaviour:
   - {fileID: 2073969757}
   - {fileID: 1336978079}
   - {fileID: 427305677}
+  text: {fileID: 666104522}
   percentageByLevel:
-  - tier: 3c000000190000000a00000005000000
-  - tier: 3c000000190000000a00000005000000
-  - tier: 3c000000190000000a00000005000000
-  - tier: 3c000000190000000a00000005000000
-  - tier: 3c000000190000000a00000005000000
-  - tier: 3c000000190000000a00000005000000
+  - tier: 4b000000190000000000000000000000
+  - tier: 370000001e0000000f00000000000000
+  - tier: 2d000000210000001400000002000000
+  - tier: 19000000280000001e00000005000000
+  - tier: 140000001e000000260000000c000000
+  - tier: 0f000000190000002a00000012000000
   testList:
   - testCountList:
     - count: 15
@@ -9786,6 +9787,7 @@ MonoBehaviour:
       piecedata: {fileID: 11400000, guid: 7f0ba4f68a5f98d4c8f2898ec782a4d0, type: 2}
   LevelUpButtonDeactive: {fileID: 390576168}
   RefreshButtonDeactive: {fileID: 118889327}
+  levelUpCost: {fileID: 358906980}
 --- !u!222 &487481408
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15502,10 +15504,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: af6539f7f95520143b655152d825160c, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -23292,6 +23294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4069272c84ff0c04da6690140f6e6814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  piece: {fileID: 0}
   pieceImage: {fileID: 1589324322}
   skillImage: {fileID: 557457768}
   pieceName: {fileID: 1715978570}
@@ -23345,6 +23348,7 @@ MonoBehaviour:
       type: 3}
     synergeName: "\uD1A0\uB07C"
   unitedDatas: []
+  lerpSpeed: 1
 --- !u!1 &1243581394
 GameObject:
   m_ObjectHideFlags: 0
@@ -28741,7 +28745,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4.3449993, y: 1.0400001}
+  m_AnchoredPosition: {x: 4.3449993, y: 4.5}
   m_SizeDelta: {x: 42.29, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1567577462
@@ -34227,8 +34231,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -138, y: -46}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 89.39, y: -46}
+  m_SizeDelta: {x: 654.78, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1922676967
 MonoBehaviour:
@@ -34250,7 +34254,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC2A4\uD0AC\uC124\uBA85\uC2A4\uD0AC\uC124\uBA85\uC2A4\uD0AC\uC124\uBA85\uC2A4\uD0AC\uC124\uBA85\n\uC2A4\uD0AC\uC124\uBA85\uC2A4\uD0AC\uC124\uBA85\uC2A4\uD0AC\uC124\uBA85\uC2A4\uD0AC\uC124\uBA85"
+  m_text: "\uC2A4\uD0AC\uC124\uBA85\uC2A4\uD0AC\uC124\uBA85\uC2A4\uD0AC\uC124\uBA85\uC2A4\uD0AC\uC124\uBA85\uC2A4\uD0AC\uC124\uBA85\uC2A4\uD0AC\uC124\uBA85\uC2A4\uD0AC\uC124\uBA85\uC2A4\uD0AC\uC124\uBA85\uC2A4\uD0AC\uC124\uBA85\uC2A4\uD0AC\uC124\uBA85\uC2A4\uD0AC\uC124\uBA85\uC2A4\uD0AC\uC124\uBA85\uC2A4\uD0AC\uC124\uBA85\uC2A4\uD0AC\uC124\uBA85\uC2A4\uD0AC\uC124\uBA85\uC2A4\uD0AC\uC124\uBA85\uC2A4\uD0AC\uC124\uBA85\uC2A4\uD0AC\uC124\uBA85\uC2A4\uD0AC\uC124\uBA85\uC2A4\uD0AC\uC124\uBA85\uC2A4\uD0AC\uC124\uBA85\uC2A4\uD0AC\uC124\uBA85\uC2A4\uD0AC\uC124\uBA85\uC2A4\uD0AC\uC124\uBA85"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fdddbf5c399d4a141a666d3702dca0b0, type: 2}
   m_sharedMaterial: {fileID: 7325745072812021170, guid: fdddbf5c399d4a141a666d3702dca0b0,
@@ -34294,7 +34298,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 0
+  m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -36970,10 +36974,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 791b9823550d90f458b0a5ec37a8d9a7, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -39403,7 +39407,7 @@ Transform:
   m_GameObject: {fileID: 919132149456788068}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -2.12, y: -0.73, z: -0.49}
-  m_LocalScale: {x: -6.7839203, y: -6.7839203, z: -6.7839203}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -39445,10 +39449,10 @@ MonoBehaviour:
   level: 0
   currentXP: 0
   maxXP: 
-  levelUpCost: 0100000002000000030000000400000005000000
-  maxPieceCount: 0f00000014000000190000001e00000023000000
-  lifePoint: 100
-  gold: 50
+  levelUpCost: 0a0000000c0000000f000000110000001400000019000000
+  maxPieceCount: 0300000004000000050000000600000007000000
+  lifePoint: 30
+  gold: 20
   playerMask:
     serializedVersion: 2
     m_Bits: 0
@@ -39462,8 +39466,6 @@ MonoBehaviour:
   isGrab: 0
   isDrag: 0
   isExpedition: 0
-  damagePerPiece: 
-  damagePerRound: 
   controlPiece: {fileID: 0}
   controlEquipment: {fileID: 0}
   targetPiece: {fileID: 0}

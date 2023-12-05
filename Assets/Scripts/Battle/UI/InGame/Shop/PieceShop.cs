@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class PieceShop : MonoBehaviour
 {
     public FieldManager fieldManager;
     public List<Sprite> cardSprites;
     public PieceBuySlot[] slots = new PieceBuySlot[5];
+    public TextMeshProUGUI text;
 
     [System.Serializable]
     public class PiecePercents
@@ -31,10 +32,12 @@ public class PieceShop : MonoBehaviour
     public List<TestPieceCountList> testList;
     public GameObject LevelUpButtonDeactive;
     public GameObject RefreshButtonDeactive;
+    public TextMeshProUGUI levelUpCost;
 
     private void Awake()
     {
         InitSlot();
+        levelUpCost.text = fieldManager.owerPlayer.levelUpCost[fieldManager.owerPlayer.level].ToString();
     }
 
     public void InitSlot()
@@ -62,7 +65,13 @@ public class PieceShop : MonoBehaviour
 
     public void ShopSwitch()
     {
-        gameObject.SetActive(!gameObject.activeSelf);
+        bool active = !gameObject.activeSelf;
+        gameObject.SetActive(active);
+
+        if (active)
+            text.text = "상점\n닫기";
+        else
+            text.text = "상점\n열기";
     }
 
     void SetSlot(PieceBuySlot slot, PieceData pieceData)
@@ -128,6 +137,8 @@ public class PieceShop : MonoBehaviour
 
             fieldManager.fieldPieceStatus.UpdateFieldStatus(fieldManager.myFilePieceList.Count, fieldManager.owerPlayer.maxPieceCount[fieldManager.owerPlayer.level]);
         }
+
+        levelUpCost.text = fieldManager.owerPlayer.levelUpCost[fieldManager.owerPlayer.level].ToString();
     }
 
     public void DeactiveRefresh()

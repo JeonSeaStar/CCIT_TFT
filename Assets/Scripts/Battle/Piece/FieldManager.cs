@@ -1089,13 +1089,18 @@ public class FieldManager : MonoBehaviour
         playerState.UpdateMoney(owerPlayer.gold);
     }
 
+    public void ChangeGold(int gold)
+    {
+        playerState.UpdateMoney(owerPlayer.gold);
+    }
+
     public int RewardGold(int currentRound, Result result)
     {
         if (result == Result.VICTORY)
             return stageInformation.enemy[currentRound].gold;
         else if (result == Result.DEFEAT)
         {
-            return stageInformation.enemy[currentRound].gold / 2;
+            return stageInformation.enemy[currentRound].defeatGold;
         }
 
         return 0;
@@ -1112,10 +1117,26 @@ public class FieldManager : MonoBehaviour
         }
     }
 
+    public void ChangeHP(int hp)
+    {
+        playerState.UpdateCurrentHP(owerPlayer.lifePoint);
+
+        if (owerPlayer.lifePoint <= 0)
+        {
+            Instance.resultPopup.ActiveResultPopup(false);
+        }
+    }
+
     public void ChargeLevel(int level)
     {
         owerPlayer.level += level;
         playerState.UpdateLevel(owerPlayer.level);
-    }                
+    }
+
+    public void ChangeLevel(int level)
+    {
+        playerState.UpdateLevel(owerPlayer.level);
+    }
+
     [Header("로키용 타일 위치")] public Tile lokiPieceSkillPosition;
 }

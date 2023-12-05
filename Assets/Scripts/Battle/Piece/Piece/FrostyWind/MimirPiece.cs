@@ -43,4 +43,8 @@ public class MimirPiece : Piece
             }
         }
     }
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("현재 체력이 가장 낮은 아군 기물의 체력을 {0}만큼 회복시킵니다.", (abilityPower * (1 + (abilityPowerCoefficient / 100))));
+    }
 }
