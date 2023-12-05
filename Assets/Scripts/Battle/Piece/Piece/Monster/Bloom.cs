@@ -43,8 +43,15 @@ public class Bloom : Piece
             b.Shot(target.transform.position - transform.position);
         }
     }
+
     public override void SkillUpdateText()
     {
         pieceData.skillExplain = string.Format("현재 공격 대상에게 각 {0}의 피해를 입히는 씨앗을 쏩니다.", (abilityPower * (1 + (abilityPowerCoefficient / 100)) * 6));
+    }
+
+    public override void Dead()
+    {
+        SoundManager.instance.Play("Nepenthes_Seris/S_Death_Bloom", SoundManager.Sound.Effect);
+        base.Dead();
     }
 }

@@ -50,8 +50,15 @@ public class Blossom : Piece
             }
         }
     }
+
     public override void SkillUpdateText()
     {
         pieceData.skillExplain = string.Format("가운데 적에게 {0}의 피해를 입히고, 주변 적들에게 {1}의 피해를 입힙니다.", 1500, 700);
+    }
+
+    public override void Dead()
+    {
+        SoundManager.instance.Play("Nepenthes_Seris/S_Death_Blossom", SoundManager.Sound.Effect);
+        base.Dead();
     }
 }
