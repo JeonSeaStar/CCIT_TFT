@@ -70,6 +70,7 @@ public class Messenger : MonoBehaviour
     private void Awake()
     {
         fieldManager.DualPlayers[0] = this;
+        SoundManager.instance.Play("BGM/Bgm_Battle_Default", SoundManager.Sound.Effect);
     }
 
     void Update()
@@ -218,7 +219,8 @@ public class Messenger : MonoBehaviour
                     Tile _currentTile = controlPiece.currentTile;
                     _currentTile.IsFull = false;
                     _currentTile.piece = null;
-                    isGrab = false;
+                    isGrab = false; 
+                    SoundManager.instance.Play("UI/Eff_Gold_Pos", SoundManager.Sound.Effect);
                     gold += controlPiece.pieceData.cost[controlPiece.pieceData.grade, controlPiece.star];
                     fieldManager.playerState.UpdateMoney(gold);
                     //기물이 가지고 있던 아이템 되돌려받기 추가

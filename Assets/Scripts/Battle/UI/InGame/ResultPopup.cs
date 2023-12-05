@@ -14,11 +14,15 @@ public class ResultPopup : MonoBehaviour
     {
         if (b)
         {
+            SoundManager.instance.Clear();
+            SoundManager.instance.Play("UI/Eff_Win", SoundManager.Sound.Bgm);
             resultText.color = resultColor[0];
             resultText.text = result[0];
         }
         else
         {
+            SoundManager.instance.Clear();
+            SoundManager.instance.Play("UI/Eff_Lose", SoundManager.Sound.Bgm);
             resultText.color = resultColor[1];
             resultText.text = result[1];
         }
@@ -33,11 +37,13 @@ public class ResultPopup : MonoBehaviour
 
     public void RestartStage()
     {
+        SoundManager.instance.Clear();
         SceneManagement.instance.SceneSwitching(false, "Battle");
     }
 
     public void MainScene()
     {
+        SoundManager.instance.Clear();
         SceneManagement.instance.SceneSwitching(false, "Main");
     }
 }

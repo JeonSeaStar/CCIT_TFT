@@ -508,6 +508,7 @@ public class Piece : MonoBehaviour
 
     public void SetPiece(Piece currentPiece, bool isControlPiece = false)
     {
+        SoundManager.instance.Play("UI/Set", SoundManager.Sound.Effect);
         if (currentPiece.currentTile.isReadyTile == true && currentPiece.targetTile.isReadyTile == false)
         {
             var _duplicationCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
@@ -532,6 +533,7 @@ public class Piece : MonoBehaviour
 
     public void SetPiece(Piece currentPiece, Piece targetPiece, bool isControlPiece = false)
     {
+        SoundManager.instance.Play("UI/Set", SoundManager.Sound.Effect);
         if (currentPiece.currentTile.isReadyTile == true && targetPiece.currentTile.isReadyTile == true) return;
         else if (currentPiece.currentTile.isReadyTile == false && targetPiece.currentTile.isReadyTile == false) return;
         else if (currentPiece.currentTile.isReadyTile == true && targetPiece.currentTile.isReadyTile == false)
@@ -685,18 +687,21 @@ public class Piece : MonoBehaviour
     public void SetFreeze(float time)
     {
         freeze = true;
+        freezeEffect.SetActive(true);
         IdleState(time);
         Invoke("FreezeClear", time);
     }
     public void FreezeClear()
     {
         freeze = false;
+        freezeEffect.SetActive(false);
         if (gameObject.activeSelf) StartCoroutine(NextBehavior());
     }
 
     public void SetBlind(float time)
     {
         blind = true;
+        blindEffect.SetActive(true);
         attackDamage = 0;
         Invoke("BlindClear", time);
     }
@@ -704,12 +709,14 @@ public class Piece : MonoBehaviour
     void BlindClear()
     {
         blind = false;
+        blindEffect.SetActive(false);
         attackDamage = preAttackDamage;
     }
 
     public void SetStun(float time)
     {
         stun = true;
+        stunEffect.SetActive(true);
         IdleState(time);
         Invoke("StunClear", time);
     }
@@ -717,6 +724,7 @@ public class Piece : MonoBehaviour
     void StunClear()
     {
         stun = false;
+        stunEffect.SetActive(false);
         if (gameObject.activeSelf) StartCoroutine(NextBehavior());
     }
 
@@ -761,6 +769,19 @@ public class Piece : MonoBehaviour
         }
         if (target != null)
         {
+            int randomCount = UnityEngine.Random.Range(0, 2);
+            if (randomCount == 0)
+            {
+                SoundManager.instance.Play("CommonPiece/Game_Punch_1", SoundManager.Sound.Effect);
+            }
+            else if(randomCount == 1)
+            {
+                SoundManager.instance.Play("CommonPiece/Game_Punch_3", SoundManager.Sound.Effect);
+            }
+            else if(randomCount == 2)
+            {
+                SoundManager.instance.Play("CommonPiece/Game_Punch_4", SoundManager.Sound.Effect);
+            }
             invincible = false;
             //print(name + "(이)가" + target.name + "에게 일반 공격을 합니다.");
             Damage(attackDamage);
@@ -776,6 +797,7 @@ public class Piece : MonoBehaviour
 
     public virtual void Dead()
     {
+        SoundManager.instance.Play("CommonPiece/Piece_Dead", SoundManager.Sound.Effect);
         StopAllCoroutines();
         currentTile.InitTile();
         gameObject.SetActive(false);

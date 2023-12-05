@@ -108,7 +108,7 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             piece.isOwned = true;
             //GameObject pieceObject = Instantiate(piece.piecePrefab, targetTile.transform.position, Quaternion.Euler(-90, 180, 0));
             //targetTile.isFull = true;
-
+            SoundManager.instance.Play("UI/Eff_Gold_Pos", SoundManager.Sound.Effect);
             Bought = true;
         }
         else

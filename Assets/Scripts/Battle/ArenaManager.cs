@@ -78,6 +78,7 @@ public class ArenaManager : MonoBehaviour
                     else
                     {
                         resultPopup.ActiveResultPopup(true);
+                        SoundManager.instance.Play("UI/Eff_Win", SoundManager.Sound.Effect);
                     }
 
                     foreach (var piece in fieldManagers[0].myFilePieceList)
@@ -97,6 +98,7 @@ public class ArenaManager : MonoBehaviour
                     else
                     {
                         resultPopup.ActiveResultPopup(false);
+                        SoundManager.instance.Play("UI/Eff_Lose", SoundManager.Sound.Effect);
                     }
 
                     roundState.UpdateStageIcon(currentRound, 2, fieldManagers[0].stageInformation.enemy[currentRound].roundType);
@@ -172,9 +174,15 @@ public class ArenaManager : MonoBehaviour
             if (i == pieceList.Count - 1 && pieceList[i].dead)
             {
                 if (pieceList[i].isOwned)
+                {
+                    SoundManager.instance.Play("UI/Round_Lose", SoundManager.Sound.Effect);
                     BattleResult = Result.DEFEAT;
+                }
                 else
+                {
+                    SoundManager.instance.Play("UI/Round_Win", SoundManager.Sound.Effect);
                     BattleResult = Result.VICTORY;
+                }
             }
         }
     }
@@ -186,6 +194,10 @@ public class ArenaManager : MonoBehaviour
 
     public void NextRound()
     {
+        if (currentRound == 5)
+        {
+            SoundManager.instance.Play("BGM/Bgm_Battle_Boss", SoundManager.Sound.Effect);
+        }
         roundType = RoundType.Ready;
         fieldManagers[0].fieldPieceStatus.ActiveFieldStatus();
 
@@ -196,6 +208,7 @@ public class ArenaManager : MonoBehaviour
         currentRound++;
         ChangeStage(currentRound);
         roundState.UpdateStageIcon(currentRound, 3, fieldManagers[0].stageInformation.enemy[currentRound].roundType);
+        
     }
 
     public void StartBattle()
@@ -204,6 +217,7 @@ public class ArenaManager : MonoBehaviour
             return;
 
         roundType = RoundType.Battle;
+        SoundManager.instance.Play("UI/Eff_Button_Positive", SoundManager.Sound.Effect);
         fieldManagers[0].fieldPieceStatus.ActiveFieldStatus();
 
         foreach (var list in fieldManagers[0].pieceDpList)
@@ -214,9 +228,15 @@ public class ArenaManager : MonoBehaviour
         if (fieldManagers[0].myFilePieceList.Count == 0)
         {
             if (fieldManagers[0].enemyFilePieceList.Count == 0)
+            {
+                SoundManager.instance.Play("UI/Round_Win", SoundManager.Sound.Effect);
                 BattleResult = Result.VICTORY;
+            }
             else
+            {
+                SoundManager.instance.Play("UI/Round_Lose", SoundManager.Sound.Effect);
                 BattleResult = Result.DEFEAT;
+            }
         }
 
         foreach (var piece in fieldManagers[0].myFilePieceList)

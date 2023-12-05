@@ -11,6 +11,7 @@ public class StageSelect : MonoBehaviour
 
     public void SceneSwitching()
     {
+        SoundManager.instance.Play("UI/Eff_Main_to_Ingame", SoundManager.Sound.Effect);
         SceneManagement.instance.SceneSwitching(false, "Battle");
     }
 }

@@ -46,6 +46,20 @@ public class SoundManager : MonoBehaviour
 
             _audioSources[(int)Sound.Bgm].loop = true;
         }
+        else
+        {
+            string[] soundNames = System.Enum.GetNames(typeof(Sound));
+            for (int i = 0; i < soundNames.Length - 1; i++)
+            {
+                GameObject go = new GameObject { name = soundNames[i] };
+                _audioSources[i] = go.AddComponent<AudioSource>();
+                go.transform.parent = root.transform;
+            }
+            _audioSources[(int)Sound.Bgm].spatialBlend = 1f;
+            _audioSources[(int)Sound.Effect].spatialBlend = 1f;
+
+            _audioSources[(int)Sound.Bgm].loop = true;
+        }
     }
 
     public void Clear()
