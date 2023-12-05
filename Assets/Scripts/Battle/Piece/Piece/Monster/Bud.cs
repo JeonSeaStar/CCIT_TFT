@@ -6,7 +6,7 @@ public class Bud : Piece
 {
     public override IEnumerator Attack()
     {
-        if (mana >= 70 && target != null)
+        if (mana >= pieceData.mana[star] && target != null)
         {
             StartSkill();
             mana = 0;

@@ -7,7 +7,7 @@ public class ApollonPiece : Piece
     PathFinding pathFinding;
     public override IEnumerator Attack()
     {
-        if (mana >= 120)
+        if (mana >= maxMana)
         {
             StartSkill();
             mana = 0;

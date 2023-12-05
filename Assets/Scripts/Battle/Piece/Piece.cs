@@ -127,6 +127,7 @@ public class Piece : MonoBehaviour
 
         maxHealth = health;
         maxMana = mana;
+        mana = pieceData.currentMana;
     }
 
     private void Update()
@@ -524,7 +525,7 @@ public class Piece : MonoBehaviour
         else if (currentPiece.currentTile.isReadyTile == false && targetPiece.currentTile.isReadyTile == false) return;
         else if (currentPiece.currentTile.isReadyTile == true && targetPiece.currentTile.isReadyTile == false)
         {
-            currentPiece.pieceData.InitialzePiece(targetPiece);
+            currentPiece.pieceData.InitialzePiece(currentPiece);
             fieldManager.RemoveDPList(currentPiece);
             fieldManager.myFilePieceList.Remove(targetPiece);
             targetPiece.buffList.Clear();

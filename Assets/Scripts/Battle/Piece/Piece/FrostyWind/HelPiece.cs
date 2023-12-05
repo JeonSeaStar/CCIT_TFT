@@ -7,7 +7,7 @@ public class HelPiece : Piece
     [SerializeField] private GameObject helBullet;
     public override IEnumerator Attack()
     {
-        if (mana >= 90 && target != null)
+        if (mana >= maxMana && target != null)
         {
             StartSkill();
             mana = 0;

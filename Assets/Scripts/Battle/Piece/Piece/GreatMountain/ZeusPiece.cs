@@ -8,7 +8,7 @@ public class ZeusPiece : Piece
 
     public override IEnumerator Attack()
     {
-        if (mana >= 60)
+        if (mana >= maxMana)
         {
             StartSkill();
             mana = 0;

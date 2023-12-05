@@ -8,7 +8,7 @@ public class Blossom : Piece
     [SerializeField] private GameObject hitEffect;
     public override IEnumerator Attack()
     {
-        if (mana >= 150)
+        if (mana >= pieceData.mana[star])
         {
             StartSkill();
             mana = 0;

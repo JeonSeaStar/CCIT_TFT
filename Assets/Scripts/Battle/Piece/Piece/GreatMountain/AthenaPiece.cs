@@ -7,7 +7,7 @@ public class AthenaPiece : Piece
     PathFinding pathFinding;
     public override IEnumerator Attack()
     {
-        if (mana >= 100)
+        if (mana >= maxMana)
         {
             StartSkill();
             mana = 0;

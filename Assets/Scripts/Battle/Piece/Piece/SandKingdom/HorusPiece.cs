@@ -9,7 +9,7 @@ public class HorusPiece : Piece
     [SerializeField] private LayerMask layerMask;
     public override IEnumerator Attack()
     {
-        if (mana >= 70 && target != null)
+        if (mana >= maxMana && target != null)
         {
             StartSkill();
             mana = 0;

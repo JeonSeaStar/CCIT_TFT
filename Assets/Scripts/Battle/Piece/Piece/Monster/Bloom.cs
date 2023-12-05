@@ -8,7 +8,7 @@ public class Bloom : Piece
     [SerializeField] private Transform effectPos;
     public override IEnumerator Attack()
     {
-        if (mana >= 80 && target != null)
+        if (mana >= pieceData.mana[star] && target != null)
         {
             StartSkill();
             mana = 0;
