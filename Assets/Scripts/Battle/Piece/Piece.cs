@@ -509,7 +509,9 @@ public class Piece : MonoBehaviour
         } // Set Ready -> Battle
         else if (currentPiece.currentTile.isReadyTile == false && currentPiece.targetTile.isReadyTile == true)
         {
-            currentPiece.pieceData.InitialzePiece(currentPiece);
+            currentPiece.pieceData.InitialzePiece(currentPiece); currentPiece.mana = currentPiece.pieceData.currentMana;
+            Debug.Log(currentPiece.health);
+            Debug.Log(currentPiece.maxHealth);
             fieldManager.RemoveDPList(currentPiece);
             fieldManager.myFilePieceList.Remove(currentPiece);
             currentPiece.buffList.Clear();
@@ -525,7 +527,7 @@ public class Piece : MonoBehaviour
         else if (currentPiece.currentTile.isReadyTile == false && targetPiece.currentTile.isReadyTile == false) return;
         else if (currentPiece.currentTile.isReadyTile == true && targetPiece.currentTile.isReadyTile == false)
         {
-            currentPiece.pieceData.InitialzePiece(currentPiece);
+            currentPiece.pieceData.InitialzePiece(currentPiece); currentPiece.mana = currentPiece.pieceData.currentMana;
             fieldManager.RemoveDPList(currentPiece);
             fieldManager.myFilePieceList.Remove(targetPiece);
             targetPiece.buffList.Clear();
@@ -541,7 +543,7 @@ public class Piece : MonoBehaviour
         }  // Change Ready -> Battle
         else if (currentPiece.currentTile.isReadyTile == false && targetPiece.currentTile.isReadyTile == true)
         {
-            currentPiece.pieceData.InitialzePiece(currentPiece);
+            currentPiece.pieceData.InitialzePiece(currentPiece); currentPiece.mana = currentPiece.pieceData.currentMana;
             fieldManager.RemoveDPList(currentPiece);
             fieldManager.myFilePieceList.Remove(currentPiece);
             currentPiece.buffList.Clear();

@@ -234,7 +234,8 @@ public class FieldManager : MonoBehaviour
             dp.piece.transform.position = new Vector3(dp.dpTile.transform.position.x, groundHeight, dp.dpTile.transform.position.z);
 
             dp.piece.gameObject.SetActive(true);
-            dp.piece.pieceData.InitialzePiece(dp.piece);
+            dp.piece.pieceData.InitialzePiece(dp.piece); 
+            dp.piece.mana = dp.piece.mana = dp.piece.pieceData.currentMana;
             dp.piece.PieceState = Piece.State.IDLE;
         }
 
@@ -271,7 +272,7 @@ public class FieldManager : MonoBehaviour
 
             enemyPiece.currentTile = targetTile;
             enemyPiece.targetTile = targetTile;
-            enemyPiece.pieceData.InitialzePiece(enemyPiece);
+            enemyPiece.pieceData.InitialzePiece(enemyPiece); enemyPiece.mana = enemyPiece.pieceData.currentMana;
 
             enemyGameObject.transform.position = new Vector3(targetTile.transform.position.x, -0.5f, targetTile.transform.position.z);
 
@@ -935,10 +936,10 @@ public class FieldManager : MonoBehaviour
 
 
         //set firstChild
-        firstChild = GetChildPiece(kind, star); Debug.Log(firstChild.currentTile.name);
+        firstChild = GetChildPiece(kind, star); 
 
         //set secondChild
-        secondChild = GetChildPiece(kind, star); Debug.Log(secondChild.currentTile.name);
+        secondChild = GetChildPiece(kind, star); 
 
         Piece originPiece = OriginPiece(firstChild, secondChild, parentPiece);
 
@@ -958,8 +959,9 @@ public class FieldManager : MonoBehaviour
             resultPiece.maxHealth = resultPiece.pieceData.health[resultPiece.star];
             //아이템으로 인한 MAX_HP의 상승분을 여기에 구현
             resultPiece.name += " " + star + 1 + "Star";
+            resultPiece.healthbar.FusionStarAnim(star);
             resultPiece.buffList = originPiece.buffList;
-            resultPiece.pieceData.InitialzePiece(resultPiece);
+            resultPiece.pieceData.InitialzePiece(resultPiece); resultPiece.mana = resultPiece.pieceData.currentMana;
             string framePath = string.Format("UI_Resources/Unit HpBar_UI/{0}Star Frame", resultPiece.star);
             resultPiece.healthbar.gameObject.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(framePath);
             for (int i = 0; i < resultPiece.buffList.Count; i++)
@@ -974,7 +976,10 @@ public class FieldManager : MonoBehaviour
         else
         {
             Piece resultPiece = SpawnPiece(piece.pieceData, star + 1, targetTile);
+            resultPiece.maxHealth = resultPiece.pieceData.health[resultPiece.star];
             resultPiece.name += " " + star + 1 + "Star";
+            resultPiece.healthbar.FusionStarAnim(star);
+            resultPiece.pieceData.InitialzePiece(resultPiece); resultPiece.mana = resultPiece.pieceData.currentMana;
             string framePath = string.Format("UI_Resources/Unit HpBar_UI/{0}Star Frame", resultPiece.star);
             resultPiece.healthbar.gameObject.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(framePath);
             resultPiece.currentTile.gameObject.transform.GetChild(1).gameObject.SetActive(true);
