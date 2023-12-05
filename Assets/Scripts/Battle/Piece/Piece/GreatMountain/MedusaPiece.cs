@@ -34,4 +34,8 @@ public class MedusaPiece : Piece
             Damage(damage);
         }
     }
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("현재 대상에게 {0}의 피해를 입히는 독니를 발사합니다.", (abilityPower * (1 + (abilityPowerCoefficient / 100))));
+    }
 }

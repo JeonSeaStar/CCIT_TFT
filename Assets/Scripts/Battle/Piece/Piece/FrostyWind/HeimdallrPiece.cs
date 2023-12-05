@@ -46,4 +46,8 @@ public class HeimdallrPiece : Piece
 
         }
     }
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("뿔피리를 불어 주변 1칸 범위의 아군 기물들의 체력을 {0}만큼 회복시킵니다.", (abilityPower * (1 + (abilityPowerCoefficient / 100))));
+    }
 }

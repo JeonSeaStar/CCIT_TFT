@@ -41,4 +41,13 @@ public class SphinxPiece : Piece
             Damage(damage);
         }
     }
+    public override void SkillUpdateText()
+    {
+        if (star == 0)
+            pieceData.skillExplain = string.Format("현재 대상에게 펀치를 날려 {0}의 피해를 입히고 {1}초 동안 기절시킵니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)), 0.7);
+        else if (star == 1)
+            pieceData.skillExplain = string.Format("현재 대상에게 펀치를 날려 {0}의 피해를 입히고 {1}초 동안 기절시킵니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)), 1.2);
+        else if (star == 2)
+            pieceData.skillExplain = string.Format("현재 대상에게 펀치를 날려 {0}의 피해를 입히고 {1}초 동안 기절시킵니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)), 1.8);
+    }
 }

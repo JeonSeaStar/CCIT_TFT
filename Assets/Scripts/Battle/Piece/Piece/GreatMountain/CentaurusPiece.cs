@@ -40,4 +40,8 @@ public class CentaurusPiece : Piece
             b.Shot(target.transform.position - transform.position);
         }
     }
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("현재 대상에게 {0}의 피해를 입히는 화살을 쏩니다.", (abilityPower * (1 + (abilityPowerCoefficient / 100))));
+    }
 }

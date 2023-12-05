@@ -130,6 +130,7 @@ public class Piece : MonoBehaviour
         maxMana = mana;
         mana = pieceData.currentMana;
         preAttackDamage = attackDamage;
+        SkillUpdateText();
     }
 
     private void Update()
@@ -803,10 +804,7 @@ public class Piece : MonoBehaviour
     #endregion
 
     #region 피스데이터 설명 부분
-    void UpdateText()
-    {
-        //
-    }
+    public virtual void SkillUpdateText() { }
 
     #endregion
 }

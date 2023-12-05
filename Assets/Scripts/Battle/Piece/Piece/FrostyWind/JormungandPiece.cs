@@ -75,4 +75,14 @@ public class JormungandPiece : Piece
             yield return new WaitForSeconds(1f);
         }
     }
+    public override void SkillUpdateText()
+    {
+        if (star == 0)
+            pieceData.skillExplain = string.Format("강력한 산성독을 내뱉어 {0}초 동안 {1}의 피해를 주는 산성지대를 생성합니다.", 6 ,(abilityPower * (1 + (abilityPowerCoefficient / 100))));
+        else if (star == 1)
+            pieceData.skillExplain = string.Format("강력한 산성독을 내뱉어 {0}초 동안 {1}의 피해를 주는 산성지대를 생성합니다.", 6 ,(abilityPower * (1 + (abilityPowerCoefficient / 100))));
+        else if (star == 2)
+            pieceData.skillExplain = string.Format("강력한 산성독을 내뱉어 {0}초 동안 {1}의 피해를 주는 산성지대를 생성합니다.", 10 ,(abilityPower * (1 + (abilityPowerCoefficient / 100))));
+        
+    }
 }

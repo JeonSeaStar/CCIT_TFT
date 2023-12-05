@@ -43,4 +43,8 @@ public class OsirisPiece : Piece
             }
         }
     }
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("현재 대상을 기준으로 직선 범위에 {0}의 피해를 주는 휩쓸기를 시전합니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)));
+    }
 }

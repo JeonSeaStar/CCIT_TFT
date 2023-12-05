@@ -38,4 +38,8 @@ public class HelPiece : Piece
             b.Shot(target.transform.position - transform.position);
         }
     }
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("현재 대상을 관통하며, 적중한 적에게 {0}의 피해를 입히는  강력한 창을 던집니다.", (abilityPower * (1 + (abilityPowerCoefficient / 100))));
+    }
 }

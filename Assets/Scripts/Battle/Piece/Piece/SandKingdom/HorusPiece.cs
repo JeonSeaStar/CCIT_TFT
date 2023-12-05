@@ -49,4 +49,13 @@ public class HorusPiece : Piece
             }
         }
     }
+    public override void SkillUpdateText()
+    {
+        if (star == 0)
+            pieceData.skillExplain = string.Format("가장 가까운 적 4명에게 {0}의 피해를 입히는 모래 탄환을 {1}개 발사합니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)), 4);
+        else if (star == 1)
+            pieceData.skillExplain = string.Format("가장 가까운 적 4명에게 {0}의 피해를 입히는 모래 탄환을 {1}개 발사합니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)), 5);
+        else if (star == 2)
+            pieceData.skillExplain = string.Format("가장 가까운 적 4명에게 {0}의 피해를 입히는 모래 탄환을 {1}개 발사합니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)), 6);
+    }
 }

@@ -50,4 +50,20 @@ public class RaPiece : Piece
             }
         }
     }
+    public override void SkillUpdateText()
+    {
+        if(star == 0)
+        {
+            pieceData.skillExplain = string.Format("모든 적에게 {0}의 피해를 주고 {1}초 동안 기절시킵니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)), 0.7f);
+        }
+        else if (star == 1)
+        {
+            pieceData.skillExplain = string.Format("모든 적에게 {0}의 피해를 주고 {1}초 동안 기절시킵니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)), 1.2f);
+        }
+        else if (star == 2)
+        {
+            pieceData.skillExplain = string.Format("모든 적에게 {0}의 피해를 주고 {1}초 동안 기절시킵니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)), 1.7f);
+        }
+        
+    }
 }

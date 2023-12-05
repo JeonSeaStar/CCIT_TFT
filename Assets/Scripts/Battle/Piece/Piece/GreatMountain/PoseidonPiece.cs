@@ -43,4 +43,8 @@ public class PoseidonPiece : Piece
             }
         }
     }
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("전방을 향해 {0}의 피해를 입히는 파도를 부릅니다.", (abilityPower * (1 + (abilityPowerCoefficient / 100))));
+    }
 }

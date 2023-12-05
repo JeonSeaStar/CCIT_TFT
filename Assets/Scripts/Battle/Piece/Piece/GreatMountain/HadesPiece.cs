@@ -59,4 +59,13 @@ public class HadesPiece : Piece
             }
         }
     }
+    public override void SkillUpdateText()
+    {
+        if (star == 0)
+            pieceData.skillExplain = string.Format("주변 적들에게 {0}의 피해를 입히고 {1}의 피해를 흡수하는 보호막을 얻습니다.", (abilityPower * (1 + (abilityPowerCoefficient / 100))), 350);
+        else if (star == 1)
+            pieceData.skillExplain = string.Format("주변 적들에게 {0}의 피해를 입히고 {1}의 피해를 흡수하는 보호막을 얻습니다.", (abilityPower * (1 + (abilityPowerCoefficient / 100))), 450);
+        else if (star == 2)
+            pieceData.skillExplain = string.Format("주변 적들에게 {0}의 피해를 입히고 {1}의 피해를 흡수하는 보호막을 얻습니다.", (abilityPower * (1 + (abilityPowerCoefficient / 100))), 600);
+    }
 }
