@@ -42,6 +42,7 @@ public class JormungandPiece : Piece
 
     public void GetLocationMultiRangeSkill(float damage, int time)
     {
+        SoundManager.instance.Play("FrostyWind/S_Jormungand", SoundManager.Sound.Effect);
         skillCheckTile = target.currentTile;
         pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
         Instantiate(skillEffects, target.currentTile.transform.position, Quaternion.identity);

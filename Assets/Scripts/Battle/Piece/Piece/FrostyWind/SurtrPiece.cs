@@ -28,6 +28,7 @@ public class SurtrPiece : Piece
 
     void ShieldSkill(float shield)
     {
+        SoundManager.instance.Play("FrostyWind/S_Surtr", SoundManager.Sound.Effect);
         Instantiate(skillEffects, this.transform.position, Quaternion.identity);
         this.shield = shield;
     }

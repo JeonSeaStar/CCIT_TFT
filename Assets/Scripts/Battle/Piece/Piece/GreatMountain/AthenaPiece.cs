@@ -29,6 +29,7 @@ public class AthenaPiece : Piece
 
     void GetLocationMultiRangeSkill(float damage)
     {
+        SoundManager.instance.Play("GreatMountain/S_Athena", SoundManager.Sound.Effect);
         pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
         List<Tile> _getNeigbor = pathFinding.GetNeighbor(currentTile);
         foreach (var _Neigbor in _getNeigbor)

@@ -28,6 +28,7 @@ public class PoseidonPiece : Piece
 
     void AllPieceDamageSkill(float damage)
     {
+        SoundManager.instance.Play("GreatMountain/S_Poseidon", SoundManager.Sound.Effect);
         List<Piece> _allPiece = fieldManager.enemyFilePieceList;
         foreach (var _Neigbor in _allPiece)
         {

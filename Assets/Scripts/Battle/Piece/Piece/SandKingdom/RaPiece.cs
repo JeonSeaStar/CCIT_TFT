@@ -39,6 +39,7 @@ public class RaPiece : Piece
 
     public void RaSkill(float damage, float time)
     {
+        SoundManager.instance.Play("SandKingdom/S_Ra_01", SoundManager.Sound.Effect);
         if (fieldManager.enemyFilePieceList != null)
         {
             for (int i = 0; i < fieldManager.enemyFilePieceList.Count; i++)
@@ -46,10 +47,17 @@ public class RaPiece : Piece
                 Instantiate(skillEffects, fieldManager.enemyFilePieceList[i].transform.position, Quaternion.identity);
                 fieldManager.enemyFilePieceList[i].SetStun(time);
                 SetDebuff("Stun", time, fieldManager.enemyFilePieceList[i]);
+                Invoke("AfterSound", 0.5f);
                 Damage(fieldManager.enemyFilePieceList[i], damage);
             }
         }
     }
+
+    public void AfterSound()
+    {
+        SoundManager.instance.Play("SandKingdom/S_Ra_02", SoundManager.Sound.Effect);
+    }
+
     public override void SkillUpdateText()
     {
         if(star == 0)

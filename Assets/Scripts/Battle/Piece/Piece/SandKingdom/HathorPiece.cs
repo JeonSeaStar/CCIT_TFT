@@ -31,6 +31,7 @@ public class HathorPiece : Piece
     {
         if (target != null)
         {
+            SoundManager.instance.Play("SandKingdom/S_Hathor", SoundManager.Sound.Effect);
             GameObject centaBullet = Instantiate(bullet, transform.position, Quaternion.identity);
             Bullet b = centaBullet.GetComponent<HathorBullet>();
             b.parentPiece = this;

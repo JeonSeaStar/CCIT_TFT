@@ -32,6 +32,7 @@ public class OsirisPiece : Piece
     {
         if (fieldManager.myFilePieceList != null)
         {
+            SoundManager.instance.Play("SandKingdom/S_Osiris", SoundManager.Sound.Effect);
             for (int i = 0; i < fieldManager.myFilePieceList.Count; i++)
             {
                 if (pieceHealth > fieldManager.myFilePieceList[i].health)

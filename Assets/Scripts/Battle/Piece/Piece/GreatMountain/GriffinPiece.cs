@@ -29,6 +29,7 @@ public class GriffinPiece : Piece
 
     void GetLocationMultiRangeSkill(float damage)
     {
+        SoundManager.instance.Play("GreatMountain/S_Griffin", SoundManager.Sound.Effect);
         Quaternion rotation = transform.rotation;
         Instantiate(skillEffects, transform.position, rotation);
         griffinSkill.gameObject.SetActive(true);

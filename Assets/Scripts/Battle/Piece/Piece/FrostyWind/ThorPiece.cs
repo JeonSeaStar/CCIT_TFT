@@ -69,6 +69,7 @@ public class ThorPiece : Piece
 
     void AllPieceDamageSkill(float damage)
     {
+        SoundManager.instance.Play("FrostyWind/S_Thor", SoundManager.Sound.Effect);
         List<Piece> _allPiece = fieldManager.enemyFilePieceList;
         foreach (var _Neigbor in _allPiece)
         {

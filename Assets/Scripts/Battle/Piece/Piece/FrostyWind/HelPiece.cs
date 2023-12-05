@@ -31,6 +31,7 @@ public class HelPiece : Piece
     {
         if (target != null)
         {
+            SoundManager.instance.Play("FrostyWind/S_Hel", SoundManager.Sound.Effect);
             GameObject centaBullet = Instantiate(helBullet, transform.position, Quaternion.identity);
             Bullet b = centaBullet.GetComponent<HelBullet>();
             b.parentPiece = this;

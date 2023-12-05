@@ -120,6 +120,12 @@ public class Piece : MonoBehaviour
 
     public Tile nextTile;
 
+
+    [Header("상태이상 이펙트")]
+    public GameObject freezeEffect;
+    public GameObject stunEffect;
+    public GameObject blindEffect;
+
     void Awake()
     {
         pieceData.InitialzePiece(this);

@@ -31,6 +31,7 @@ public class NeithPiece : Piece
     {
         if (target != null)
         {
+            SoundManager.instance.Play("SandKingdom/S_Neith", SoundManager.Sound.Effect);
             GameObject centaBullet = Instantiate(bullet, transform.position, Quaternion.identity);
             Bullet b = centaBullet.GetComponent<NeithBullet>();
             b.parentPiece = this;

@@ -31,6 +31,7 @@ public class AresPiece : Piece
     {
         if (target != null)
         {
+            SoundManager.instance.Play("GreatMountain/S_Ares", SoundManager.Sound.Effect);
             GameObject centaBullet = Instantiate(bullet, transform.position, Quaternion.identity);
             Bullet b = centaBullet.GetComponent<AresBullet>();
             b.parentPiece = this;

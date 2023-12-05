@@ -41,6 +41,7 @@ public class HermesPiece : Piece
     {
         if(target != null)
         {
+            SoundManager.instance.Play("GreatMountain/S_Hermes", SoundManager.Sound.Effect);
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
             target.SetBlind(time);
             SetDebuff("Blind", time);

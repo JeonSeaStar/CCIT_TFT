@@ -28,6 +28,7 @@ public class MummyPiece : Piece
 
     void ShieldSkill(float shield)
     {
+        SoundManager.instance.Play("SandKingdom/S_Mummy", SoundManager.Sound.Effect);
         Instantiate(skillEffects, this.transform.position, Quaternion.identity);
         this.shield = shield;
     }

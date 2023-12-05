@@ -29,6 +29,7 @@ public class HeimdallrPiece : Piece
 
     void GetLocationMultiRangeSkill(float heal)
     {
+        SoundManager.instance.Play("FrostyWind/S_Heimdallr", SoundManager.Sound.Effect);
         pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
         List<Tile> _getNeigbor = pathFinding.GetNeighbor(currentTile);
         foreach (var _Neigbor in _getNeigbor)

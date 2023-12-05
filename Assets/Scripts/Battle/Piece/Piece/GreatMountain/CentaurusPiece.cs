@@ -31,6 +31,7 @@ public class CentaurusPiece : Piece
     {
         if (target != null)
         {
+            SoundManager.instance.Play("GreatMountain/S_Centaurus", SoundManager.Sound.Effect);
             Quaternion rot = transform.rotation;
             GameObject centaBullet = Instantiate(bullet, transform.position, Quaternion.identity);
             //Instantiate(skillEffects, transform.position, rot);

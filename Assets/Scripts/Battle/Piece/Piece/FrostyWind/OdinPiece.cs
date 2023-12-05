@@ -28,6 +28,7 @@ public class OdinPiece : Piece
 
     void AllPieceBuffSkill(float buff)
     {
+        SoundManager.instance.Play("FrostyWind/S_Odin", SoundManager.Sound.Effect);
         List<Piece> _allPiece = fieldManager.myFilePieceList;
         foreach (var _Neigbor in _allPiece)
         {

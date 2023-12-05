@@ -32,6 +32,7 @@ public class ZeusPiece : Piece
     {
         if (target != null)
         {
+            SoundManager.instance.Play("GreatMountain/S_Zeus", SoundManager.Sound.Effect);
             Quaternion rot = transform.rotation;
             //dInstantiate(skillEffects, transform.position, rot);
             GameObject centaBullet = Instantiate(zeusBullet, transform.position, Quaternion.identity);

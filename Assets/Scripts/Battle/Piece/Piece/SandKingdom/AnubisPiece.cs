@@ -30,6 +30,7 @@ public class AnubisPiece : Piece
     {
         if (target != null)
         {
+            SoundManager.instance.Play("SandKingdom/S_Anubis", SoundManager.Sound.Effect);
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
             Damage(damage);
         }

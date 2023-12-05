@@ -30,6 +30,7 @@ public class DraugrPiece : Piece
     {
         if (target != null)
         {
+            SoundManager.instance.Play("FrostyWind/S_Drauger", SoundManager.Sound.Effect);
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
             Damage(damage);
         }

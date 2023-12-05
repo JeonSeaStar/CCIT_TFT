@@ -28,6 +28,7 @@ public class MinotaurosPiece : Piece
 
     void ShieldSkill(float shield)
     {
+        SoundManager.instance.Play("GreatMountain/S_Minotauros", SoundManager.Sound.Effect);
         Instantiate(skillEffects, this.transform.position, Quaternion.identity);
         this.shield = shield;
     }

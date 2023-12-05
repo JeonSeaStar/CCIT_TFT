@@ -29,6 +29,7 @@ public class ApollonPiece : Piece
 
     void GetLocationMultiRangeSkill(float time)
     {
+        SoundManager.instance.Play("GreatMountain/S_Apollon", SoundManager.Sound.Effect);
         pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
         List<Tile> _getNeigbor = pathFinding.GetNeighbor(currentTile);
         foreach (var _Neigbor in _getNeigbor)

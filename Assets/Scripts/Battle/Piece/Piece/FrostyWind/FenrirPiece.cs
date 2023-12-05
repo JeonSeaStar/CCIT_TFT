@@ -30,6 +30,7 @@ public class FenrirPiece : Piece
 
     void GetLocationMultiRangeSkill(float damage)
     {
+        SoundManager.instance.Play("FrostyWind/S_Fenrir", SoundManager.Sound.Effect);
         Quaternion rot = transform.rotation;
         Instantiate(skillEffects, transform.position, rot);
         fenrirSkill.gameObject.SetActive(true);

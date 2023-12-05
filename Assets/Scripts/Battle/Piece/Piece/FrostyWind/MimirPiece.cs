@@ -23,6 +23,7 @@ public class MimirPiece : Piece
 
     public override IEnumerator Skill()
     {
+        SoundManager.instance.Play("FrostyWind/S_Mimir", SoundManager.Sound.Effect);
         FindLeastHealthPiece(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();

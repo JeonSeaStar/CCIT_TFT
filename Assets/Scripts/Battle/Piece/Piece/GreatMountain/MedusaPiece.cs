@@ -30,6 +30,7 @@ public class MedusaPiece : Piece
     {
         if(target != null)
         {
+            SoundManager.instance.Play("GreatMountain/S_Medusa", SoundManager.Sound.Effect);
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
             Damage(damage);
         }

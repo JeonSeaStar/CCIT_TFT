@@ -35,6 +35,7 @@ public class FreyaPiece : Piece
     {
         if(target != null)
         {
+            SoundManager.instance.Play("FrostyWind/S_Freya", SoundManager.Sound.Effect);
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
             target.SetFreeze(time);
             SetDebuff("Freeze", time);

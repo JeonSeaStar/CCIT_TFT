@@ -41,6 +41,7 @@ public class LokiPiece : Piece
 
     public void GetAdbilityTarget(float percentage)
     {
+        SoundManager.instance.Play("FrostyWind/S_Loki", SoundManager.Sound.Effect);
         pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
         List<Tile> _getFirstLineTiles = pathFinding.GetFrontLine(fieldManager.lokiPieceSkillPosition);
         foreach (var _Neigbor in _getFirstLineTiles)

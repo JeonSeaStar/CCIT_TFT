@@ -31,6 +31,10 @@ public class HorusPiece : Piece
 
     void FindClosestEnemy(float damage)
     {
+        SoundManager.instance.Play("SandKingdom/Sound_for_Horus_01", SoundManager.Sound.Effect);
+        SoundManager.instance.Play("SandKingdom/Sound_for_Horus_02", SoundManager.Sound.Effect);
+        SoundManager.instance.Play("SandKingdom/Sound_for_Horus_03", SoundManager.Sound.Effect);
+        SoundManager.instance.Play("SandKingdom/Sound_for_Horus_04", SoundManager.Sound.Effect);
         Collider[] col = Physics.OverlapSphere(transform.position, radius, layerMask);
         foreach(var cols in col)
         {

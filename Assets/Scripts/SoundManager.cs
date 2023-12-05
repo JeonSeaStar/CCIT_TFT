@@ -26,6 +26,7 @@ public class SoundManager : MonoBehaviour
 
     public AudioSource[] _audioSources = new AudioSource[(int)Sound.MaxCount];
     Dictionary<string, AudioClip> _audioClips = new Dictionary<string, AudioClip>();
+    //오디오 믹서 생기면 볼륨 조절 가능하게 만들면 됨
 
     public void Init()
     {
@@ -70,12 +71,14 @@ public class SoundManager : MonoBehaviour
 
             audioSource.pitch = pitch;
             audioSource.clip = audioClip;
+            //audioSource.volume =
             audioSource.Play();
         }
         else // Effect 효과음 재생
         {
             AudioSource audioSource = _audioSources[(int)Sound.Effect];
             audioSource.pitch = pitch;
+            //audioSource.volume =
             audioSource.PlayOneShot(audioClip);
         }
     }
