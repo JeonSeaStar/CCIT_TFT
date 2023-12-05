@@ -24,6 +24,7 @@ public class PieceData : ScriptableObject
 
     public float[] health = new float[3];          //체력
     public float[] mana = new float[3];            //마나
+    public float currentMana;                      //현재 마나
     public float[] manaRecovery = new float[3];    //마나 회복력
 
     public float[] attackDamage = new float[3];    //기본 공격력

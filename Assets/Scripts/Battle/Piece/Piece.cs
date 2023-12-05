@@ -127,6 +127,7 @@ public class Piece : MonoBehaviour
 
         maxHealth = health;
         maxMana = mana;
+        mana = pieceData.currentMana;
     }
 
     private void Update()
