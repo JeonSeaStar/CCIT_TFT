@@ -34,4 +34,8 @@ public class GriffinPiece : Piece
         griffinSkill.gameObject.SetActive(true);
         griffinSkill.damage = damage;
     }
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("전방 2개의 타일에 {0}의 피해를 입히는 발차기를 합니다.", (abilityPower * (1 + (abilityPowerCoefficient / 100))));
+    }
 }

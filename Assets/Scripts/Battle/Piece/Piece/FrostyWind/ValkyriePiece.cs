@@ -34,4 +34,8 @@ public class ValkyriePiece : Piece
             Damage(damage);
         }
     }
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("현재 대상 방향으로 창을 내질러 2칸 범위에 {0}의 피해를 입힙니다. ", (abilityPower * (1 + (abilityPowerCoefficient / 100))));
+    }
 }

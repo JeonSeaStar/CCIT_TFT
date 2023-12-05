@@ -38,4 +38,9 @@ public class HathorPiece : Piece
             b.Shot(target.transform.position - transform.position);
         }
     }
+    public override void SkillUpdateText()
+    {
+
+        pieceData.skillExplain = string.Format("현재 대상에게 강력한 화살을 쏘아 {0}의 피해를 입힙니다. ", abilityPower * (1 + (abilityPowerCoefficient / 100)));
+    }
 }

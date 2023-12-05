@@ -43,4 +43,8 @@ public class OdinPiece : Piece
             }
         }
     }
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("18가지 비술 중 하나를 사용해 모든 아군 기물의 공격력을 {0}만큼 증가시킵니다.", (abilityPower * (1 + (abilityPowerCoefficient / 100))));
+    }
 }

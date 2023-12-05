@@ -41,9 +41,14 @@ public class ApollonPiece : Piece
             else if (!_targets.isOwned)
             {
                 Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
+                target.SetStun(time);
                 SetDebuff("Stun", time, _targets);
             }
         }
+    }
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("인접한 1칸 범위의 적 기물들을 {0}초 동안 기절 상태로 만드는 곡을 연주합니다.", abilityPower);
     }
 }
 

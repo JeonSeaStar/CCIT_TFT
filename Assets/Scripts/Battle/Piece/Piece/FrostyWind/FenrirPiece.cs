@@ -35,4 +35,8 @@ public class FenrirPiece : Piece
         fenrirSkill.gameObject.SetActive(true);
         fenrirSkill.damage = damage;
     }
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("전방 2개의 적에게 {0}의 피해를 입히는 할퀴기를 합니다.", (abilityPower * (1 + (abilityPowerCoefficient / 100))));
+    }
 }
