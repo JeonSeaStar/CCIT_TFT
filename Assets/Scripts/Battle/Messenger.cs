@@ -70,6 +70,7 @@ public class Messenger : MonoBehaviour
     private void Awake()
     {
         fieldManager.DualPlayers[0] = this;
+        SoundManager.instance.Play("BGM/Bgm_Battle_Default", SoundManager.Sound.Effect);
     }
 
     void Update()
