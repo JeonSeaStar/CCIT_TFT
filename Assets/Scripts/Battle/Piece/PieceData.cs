@@ -83,8 +83,6 @@ public class PieceData : ScriptableObject
 
     public void InitialzePiece(Piece piece)
     {
-        Debug.Log(piece.star);
-        Debug.Log(health[piece.star]);
         piece.pieceName = pieceName;
         piece.piecePortrait = piecePortrait;
         piece.health = health[piece.star];

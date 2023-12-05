@@ -112,6 +112,7 @@ public class FieldManager : MonoBehaviour
     public PathFinding pathFinding;
     public PlayerState playerState;
     public FieldPieceStatus fieldPieceStatus;
+    public MapChanger mapChanger;
 
     public List<Tile> readyTileList;
     public List<Tile> battleTileList;
@@ -284,7 +285,7 @@ public class FieldManager : MonoBehaviour
     {
         FieldInit();
 
-        for(int i = 0; i < pieceDpList.Count; i++)
+        for (int i = 0; i < pieceDpList.Count; i++)
             pieceStatus.SetStatus(pieceDpList[i].piece, i);
         pieceStatus.ClearPieceStatusList();
 
@@ -294,6 +295,7 @@ public class FieldManager : MonoBehaviour
 
         currentStage++;
         SpawnEnemy(currentStage);
+        ChangeMap(currentStage);
 
         playerState.UpdateLevel(owerPlayer.level);
         playerState.UpdateMoney(owerPlayer.gold);
@@ -1139,4 +1141,9 @@ public class FieldManager : MonoBehaviour
     }
 
     [Header("로키용 타일 위치")] public Tile lokiPieceSkillPosition;
+
+    public void ChangeMap(int round)
+    {
+        mapChanger.ChangeMap(stageInformation.enemy[round].mapType);
+    }
 }

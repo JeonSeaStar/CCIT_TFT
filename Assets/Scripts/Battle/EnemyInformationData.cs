@@ -15,6 +15,7 @@ public class EnemyInformationData : ScriptableObject
     [System.Serializable]
     public class StageInformation
     {
+        public MapType mapType;
         public string roundType;
         public List<EnemyInformation> enemyInformation;
         public int gold;
@@ -23,4 +24,6 @@ public class EnemyInformationData : ScriptableObject
     }
 
     public List<StageInformation> enemy;
+
+    public enum MapType { FORESTDAY, FORESTNIGHT, TEMPLEDAY, TEMPLEEVENING}
 }

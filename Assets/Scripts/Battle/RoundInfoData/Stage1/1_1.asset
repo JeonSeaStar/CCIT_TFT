@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: 1_1
   m_EditorClassIdentifier: 
   enemy:
-  - roundType: Wolf
+  - mapType: 0
+    roundType: Wolf
     enemyInformation:
     - piece: {fileID: 5568246091413712801, guid: c39bfd73268db8c429b43f10f08b5875,
         type: 3}
@@ -24,7 +25,8 @@ MonoBehaviour:
     gold: 20
     defeatGold: 10
     defeatDamage: -4
-  - roundType: Wolf
+  - mapType: 0
+    roundType: Wolf
     enemyInformation:
     - piece: {fileID: 5359796614626933570, guid: 6c8cdd2a54dd4d14ea270d6a725aa92e,
         type: 3}
@@ -38,7 +40,8 @@ MonoBehaviour:
     gold: 30
     defeatGold: 15
     defeatDamage: -6
-  - roundType: Plant
+  - mapType: 0
+    roundType: Plant
     enemyInformation:
     - piece: {fileID: 2656276158085307247, guid: f042f164223ff8b498c27719e5802b2e,
         type: 3}
@@ -55,7 +58,8 @@ MonoBehaviour:
     gold: 40
     defeatGold: 20
     defeatDamage: -8
-  - roundType: Plant
+  - mapType: 1
+    roundType: Plant
     enemyInformation:
     - piece: {fileID: 7673747663442985565, guid: 5c36ec5b7c00991459e4cb5d7b76c0a9,
         type: 3}
@@ -72,7 +76,8 @@ MonoBehaviour:
     gold: 30
     defeatGold: 15
     defeatDamage: -10
-  - roundType: Plant
+  - mapType: 1
+    roundType: Plant
     enemyInformation:
     - piece: {fileID: 7673747663442985565, guid: 5c36ec5b7c00991459e4cb5d7b76c0a9,
         type: 3}
@@ -89,7 +94,8 @@ MonoBehaviour:
     gold: 50
     defeatGold: 25
     defeatDamage: -14
-  - roundType: Dragon
+  - mapType: 1
+    roundType: Dragon
     enemyInformation:
     - piece: {fileID: 7673747663442985565, guid: 5c36ec5b7c00991459e4cb5d7b76c0a9,
         type: 3}

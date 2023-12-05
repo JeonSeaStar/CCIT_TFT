@@ -68,8 +68,13 @@ public class ArenaManager : MonoBehaviour
                 {
                     roundState.UpdateStageIcon(currentRound, 1, fieldManagers[0].stageInformation.enemy[currentRound].roundType);
 
-                    if (currentRound != fieldManagers[0].stageInformation.enemy.Count -1)
-                        Invoke("NextRound", 3f);
+                    if (currentRound != fieldManagers[0].stageInformation.enemy.Count - 1)
+                    {
+                        if (fieldManagers[0].stageInformation.enemy[currentRound].mapType != fieldManagers[0].stageInformation.enemy[currentRound + 1].mapType)
+                            Invoke("Fade", 3f);
+                        else
+                            Invoke("NextRound", 3f);
+                    }
                     else
                     {
                         resultPopup.ActiveResultPopup(true);
@@ -83,7 +88,12 @@ public class ArenaManager : MonoBehaviour
                     fieldManagers[0].ChargeHP(fieldManagers[0].stageInformation.enemy[currentRound].defeatDamage);
 
                     if (currentRound != fieldManagers[0].stageInformation.enemy.Count - 1)
-                        Invoke("NextRound", 3f);
+                    {
+                        if (fieldManagers[0].stageInformation.enemy[currentRound].mapType != fieldManagers[0].stageInformation.enemy[currentRound + 1].mapType)
+                            Invoke("Fade", 3f);
+                        else
+                            Invoke("NextRound", 3f);
+                    }
                     else
                     {
                         resultPopup.ActiveResultPopup(false);
@@ -96,6 +106,8 @@ public class ArenaManager : MonoBehaviour
     }
     public Result battleResult;
 
+    public MapChanger mapChanger;
+
     private void Awake()
     {
         if (instance == null)
@@ -104,7 +116,7 @@ public class ArenaManager : MonoBehaviour
             //DontDestroyOnLoad(this.gameObject);
         }
 
-        StartGame();
+        StartCoroutine(StartGame());
         //StartCoroutine(CalRoundTime(3));
     }
     #region 라운드(타이머식)
@@ -167,7 +179,12 @@ public class ArenaManager : MonoBehaviour
         }
     }
 
-    private void NextRound()
+    public void Fade()
+    {
+        mapChanger.animator.SetTrigger("MapChange");
+    }
+
+    public void NextRound()
     {
         roundType = RoundType.Ready;
         fieldManagers[0].fieldPieceStatus.ActiveFieldStatus();
@@ -194,7 +211,7 @@ public class ArenaManager : MonoBehaviour
 
         fieldManagers[0].ActiveSynerge();
 
-        if(fieldManagers[0].myFilePieceList.Count == 0)
+        if (fieldManagers[0].myFilePieceList.Count == 0)
         {
             if (fieldManagers[0].enemyFilePieceList.Count == 0)
                 BattleResult = Result.VICTORY;
@@ -214,13 +231,15 @@ public class ArenaManager : MonoBehaviour
         roundState.OnRoundPopup(1, round);
     }
 
-    private void StartGame()
+    private IEnumerator StartGame()
     {
+        fieldManagers[0].ChangeMap(currentRound);
         fieldManagers[0].ChangeGold(fieldManagers[0].owerPlayer.gold);
         fieldManagers[0].ChangeHP(fieldManagers[0].owerPlayer.lifePoint);
         fieldManagers[0].ChangeLevel(fieldManagers[0].owerPlayer.level);
 
         roundState.SetStage(currentRound);
+        yield return new WaitForSeconds(1f);
         ChangeStage(currentRound);
         fieldManagers[0].SpawnEnemy(currentRound);
         roundState.InitRoundIcon();
