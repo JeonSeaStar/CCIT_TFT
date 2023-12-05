@@ -11,6 +11,7 @@ public class Option : MonoBehaviour
     public void OptionSwitch()
     {
         gameObject.SetActive(!gameObject.activeSelf);
+        SoundManager.instance.Play("UI/Eff_Button_Positive", SoundManager.Sound.Effect);
     }
 
     public void ChangeFill(int i)
