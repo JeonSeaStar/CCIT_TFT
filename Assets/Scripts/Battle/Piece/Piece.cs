@@ -533,7 +533,7 @@ public class Piece : MonoBehaviour
 
     public void SetPiece(Piece currentPiece, Piece targetPiece, bool isControlPiece = false)
     {
-        SoundManager.instance.Play("UI/Eff_Set", SoundManager.Sound.Effect);
+        SoundManager.instance.Play("UI/Eff_Piece_Set", SoundManager.Sound.Effect);
         if (currentPiece.currentTile.isReadyTile == true && targetPiece.currentTile.isReadyTile == true) return;
         else if (currentPiece.currentTile.isReadyTile == false && targetPiece.currentTile.isReadyTile == false) return;
         else if (currentPiece.currentTile.isReadyTile == true && targetPiece.currentTile.isReadyTile == false)
