@@ -20,7 +20,7 @@ public class PieceData : ScriptableObject
         { 2, 5, 17},
         { 3, 8, 26},
         { 4, 11, 35 }
-    };
+    }; //등급 //몇성
 
     public float[] health = new float[3];          //체력
     public float[] mana = new float[3];            //마나

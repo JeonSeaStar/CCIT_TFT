@@ -958,7 +958,7 @@ public class FieldManager : MonoBehaviour
             resultPiece.name += " " + star + 1 + "Star";
             resultPiece.buffList = originPiece.buffList;
             resultPiece.pieceData.InitialzePiece(resultPiece);
-            string framePath = string.Format("UI_Resources/Unit HpBar/{0}Star Frame", resultPiece.star);
+            string framePath = string.Format("UI_Resources/Unit HpBar_UI/{0}Star Frame", resultPiece.star);
             resultPiece.healthbar.gameObject.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(framePath);
             for (int i = 0; i < resultPiece.buffList.Count; i++)
             {

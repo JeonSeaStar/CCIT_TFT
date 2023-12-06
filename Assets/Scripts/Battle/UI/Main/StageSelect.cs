@@ -9,8 +9,8 @@ public class StageSelect : MonoBehaviour
         gameObject.SetActive(!gameObject.activeSelf);
     }
 
-    public void SelectStage()
+    public void SceneSwitching()
     {
-        SceneManagement.instance.LoadScene("Battle");
+        SceneManagement.instance.SceneSwitching(false, "Battle");
     }
 }

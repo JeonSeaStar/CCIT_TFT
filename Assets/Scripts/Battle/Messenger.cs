@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Linq;
 using DG.Tweening;
+using TMPro;
 
 public class Messenger : MonoBehaviour
 {
@@ -64,6 +65,7 @@ public class Messenger : MonoBehaviour
 
     [SerializeField] GraphicRaycaster graphicRaycaster;
     [SerializeField] GameObject pieceSaleSlot;
+    [SerializeField] TextMeshProUGUI pieceSaleGoldText;
     PointerEventData pointerEventData;
 
     public GameObject behindSaleZone;
@@ -71,7 +73,6 @@ public class Messenger : MonoBehaviour
     private void Awake()
     {
         fieldManager.DualPlayers[0] = this;
-        //pieceSaleSlot.GetComponent<Image>().sprite = Resources.Load<Sprite>("UI_Resources/Unit HpBar/1Star Background");
     }
 
     void Update()
@@ -112,7 +113,7 @@ public class Messenger : MonoBehaviour
         yield return new WaitForSeconds(0.01f);
         timer += 0.01f;
 
-        if (timer > grabTime)
+        if (timer > grabTime && controlPiece == null)
         {
             Targeting(ray, hit);
             StopAllCoroutines();
@@ -141,6 +142,7 @@ public class Messenger : MonoBehaviour
         if (_isGrapPiece && targetPiece.GetComponent<Piece>().isOwned == true)
         {
             controlPiece = hit.transform.gameObject.GetComponent<Piece>();
+            pieceSaleGoldText.text = controlPiece.pieceData.cost[controlPiece.pieceData.grade, controlPiece.star].ToString();
             FreezeRigidbody(controlPiece, _isGrapPiece);
             isGrab = _isGrapPiece;
             fieldManager.ActiveHexaIndicators(_isGrapPiece);
@@ -166,7 +168,7 @@ public class Messenger : MonoBehaviour
         float _distance = Camera.main.WorldToScreenPoint(_controlObject.transform.position).z;
         Vector3 _mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, _distance);
         Vector3 _objPos = Camera.main.ScreenToWorldPoint(_mousePos);
-        _objPos.y = 0;
+        _objPos.y = 1.5f; //원래0
 
         #region Piece
         if (controlPiece == null) controlPiece = _controlObject.GetComponent<Piece>();
@@ -220,10 +222,13 @@ public class Messenger : MonoBehaviour
                     _currentTile.piece = null;
                     isGrab = false;
                     //판매하고 판매 가격 획득 추가
+                    gold += controlPiece.pieceData.cost[controlPiece.pieceData.grade, controlPiece.star];
+                    fieldManager.playerState.UpdateMoney(gold);
                     //기물이 가지고 있던 아이템 되돌려받기 추가
                     Destroy(controlPiece.gameObject);
                     behindSaleZone.SetActive(true);
                     pieceSaleSlot.SetActive(false);
+                    fieldManager.ActiveHexaIndicators(false);
                     return;
                 }
             }
@@ -289,6 +294,10 @@ public class Messenger : MonoBehaviour
             }
             fieldManager.fieldPieceStatus.UpdateFieldStatus(fieldManager.myFilePieceList.Count, fieldManager.owerPlayer.maxPieceCount[fieldManager.owerPlayer.level]);
             ResetPositionToCurrentTile(controlPiece);
+            fieldManager.ActiveHexaIndicators(false);
+            behindSaleZone.SetActive(true);
+            pieceSaleSlot.SetActive(false);
+            ResetDragState(false);
             return;
             #endregion
         }

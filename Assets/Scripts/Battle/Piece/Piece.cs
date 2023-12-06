@@ -144,8 +144,6 @@ public class Piece : MonoBehaviour
         isOwned = true;
     }
 
-    public delegate void OnceAttackEffect();
-    OnceAttackEffect onceAttackEffect;
     public void AttackState()
     {
         transform.DOLookAt(target.transform.position, 0.1f);
@@ -225,7 +223,7 @@ public class Piece : MonoBehaviour
 
         if (target.health <= 0)
         {
-            //#region 악마 기물 시너지 확인
+            #region 악마 기물 시너지 확인
             //var _burningPiece = ArenaManager.Instance.fieldManagers[0].buffManager.mythBuff[0];
             //if (buffList.Contains(_burningPiece.burningGroundBuff[0]) || buffList.Contains(_burningPiece.burningGroundBuff[1]))
             //{
@@ -239,15 +237,16 @@ public class Piece : MonoBehaviour
             //        target.SetCharm();
             //    }
             //}
-            //#endregion
+            #endregion
             #region 고양이 기물 시너지 확인
             if (isCatSynergeActiveCheck)
             {
-                int _r = (ArenaManager.Instance.fieldManagers[0].animalActiveCount[PieceData.Animal.Cat] >= 4) ? UnityEngine.Random.Range(0, 3) : UnityEngine.Random.Range(0, 2);
+                int _r = (fieldManager.animalActiveCount[PieceData.Animal.Cat] >= 4) ? UnityEngine.Random.Range(0, 3) : UnityEngine.Random.Range(0, 2);
                 if (_r == 0)
                 {
                     int _gold = UnityEngine.Random.Range(2, 6);
-                    ArenaManager.Instance.fieldManagers[0].DualPlayers[0].gold += _gold;
+                    fieldManager.DualPlayers[0].gold += _gold;
+                    fieldManager.playerState.UpdateMoney(fieldManager.DualPlayers[0].gold);
                     Debug.Log(_gold + " 만큼 골드를 획득합니다.");
                 }
             }
@@ -272,7 +271,10 @@ public class Piece : MonoBehaviour
     public void IdleState()
     {
         if (health < 0)
-            return;
+        {
+            Dead(); return;
+        }
+
         PieceState = State.IDLE;
         StartNextBehavior();
     }
@@ -346,7 +348,9 @@ public class Piece : MonoBehaviour
             StartNextBehavior();
     }
     #region 토끼
-    public bool isRabbitSynergeActiveCheck;
+    [Header("토끼")]
+    [HideInInspector]public bool isRabbitSynergeActiveCheck;
+    [SerializeField] GameObject rabbitSynergeEffect;
     public void RabbitJump()
     {
         List<Tile> _neighbor = new List<Tile>();
@@ -359,9 +363,11 @@ public class Piece : MonoBehaviour
             {
                 if (_neighbor[i].IsFull == false)
                 {
-                    invincible = true;
+                    //invincible = true;
                     target = null;
                     IdleState(2f);
+                    GameObject effect = Instantiate(rabbitSynergeEffect, transform.position, Quaternion.Euler(-90, 0, 0));
+                    effect.SetActive(true); effect.transform.SetParent(null);
                     Vector3 targetTilePos = new Vector3(_neighbor[i].transform.position.x, fieldManager.groundHeight, _neighbor[i].transform.position.z);
                     Vector3 hpos = transform.position + ((targetTilePos - transform.position) / 2);
                     Vector3[] Jumppath = { new Vector3(transform.position.x, transform.position.y, transform.position.z),
@@ -380,6 +386,7 @@ public class Piece : MonoBehaviour
                         currentTile.IsFull = true;
                         currentTile.walkable = false;
                     }
+                    StartCoroutine(RabbitSplashDamage(fieldManager.pathFinding.GetNeighbor(currentTile),1.5f));
                     isRabbitSynergeActiveCheck = false;
                     break;
                 }
@@ -387,7 +394,7 @@ public class Piece : MonoBehaviour
         }
     }
 
-    IEnumerator RabbitSplashDamage(List<Tile> neighbor, int time)
+    IEnumerator RabbitSplashDamage(List<Tile> neighbor, float time)
     {
         yield return new WaitForSeconds(time);
         int splashDamage = 0;
@@ -395,7 +402,8 @@ public class Piece : MonoBehaviour
         if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[0])) { splashDamage = 10; pieceData.CalculateBuff(this, _buff.rabbitBuff[0]); }
         else if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[1])) { splashDamage = 15; pieceData.CalculateBuff(this, _buff.rabbitBuff[1]); }
         else if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[2])) { splashDamage = 20; pieceData.CalculateBuff(this, _buff.rabbitBuff[2]); }
-
+        GameObject effect = Instantiate(rabbitSynergeEffect,transform.position, Quaternion.Euler(-90,0,0));
+        effect.SetActive(true); effect.transform.SetParent(null);
         Invoke("RsetRabbitStatus", 3);
         foreach (var tile in neighbor)
         {
@@ -471,6 +479,11 @@ public class Piece : MonoBehaviour
     }
     public void VictoryDacnce()
     {
+        if (health < 0)
+        {
+            Dead(); return;
+        }
+
         StopAllCoroutines();
         //pieceData.ResetPiece(this);
         print(name + "(이)가 승리의 춤 추는 중.");
