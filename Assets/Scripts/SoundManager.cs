@@ -14,7 +14,7 @@ public class SoundManager : MonoBehaviour
 
     private void Start()
     {
-        Init();
+        //Init();
         Play("BGM/Bgm_Intro");
     }
 
