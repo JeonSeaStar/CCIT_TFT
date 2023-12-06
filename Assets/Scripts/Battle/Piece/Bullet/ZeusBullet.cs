@@ -8,7 +8,6 @@ public class ZeusBullet : Bullet
     {
         SetDamage(damage);
         Invoke("DestroyBullet", 4f);
-        Invoke("NextMove", 1f);
     }
 
     protected override void SetDamage(float damage)
@@ -39,7 +38,6 @@ public class ZeusBullet : Bullet
             {
                 Instantiate(effect, new Vector3(target.transform.position.x, target.transform.position.y + 0.8f, target.transform.position.z), Quaternion.identity);
                 parentPiece.Damage(_target, damage);
-                NextMove();
             }
         }
     }
@@ -52,10 +50,5 @@ public class ZeusBullet : Bullet
     void DestroyBullet()
     {
         Destroy(gameObject);
-    }
-
-    void NextMove()
-    {
-        parentPiece.StartNextBehavior();
     }
 }

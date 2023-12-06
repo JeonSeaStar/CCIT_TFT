@@ -35,6 +35,7 @@ public class SphinxPiece : Piece
     {
         if(target != null)
         {
+            SkillState();
             SoundManager.instance.Play("SandKingdom/S_Spinx", SoundManager.Sound.Effect);
             Instantiate(skillEffects, new Vector3(target.transform.position.x, target.transform.position.y + 0.8f, target.transform.position.z), Quaternion.identity);
             target.SetStun(time);

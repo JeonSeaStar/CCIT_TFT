@@ -24,16 +24,19 @@ public class HadesPiece : Piece
     {
         if (star == 0)
         {
+            SkillState();
             GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
             this.shield = 350f;
         }
         else if (star == 1)
         {
+            SkillState();
             GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
             this.shield = 450f;
         }
         else if (star == 2)
         {
+            SkillState();
             GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
             this.shield = 600f;
         }

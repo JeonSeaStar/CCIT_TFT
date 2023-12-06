@@ -23,14 +23,17 @@ public class RaPiece : Piece
     {
         if (star == 0)
         {
+            SkillState();
             RaSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 0.7f);
         }
         else if (star == 1)
         {
+            SkillState();
             RaSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 1.2f);
         }
         else if (star == 2)
         {
+            SkillState();
             RaSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 1.7f);
         }
         yield return new WaitForSeconds(attackSpeed);

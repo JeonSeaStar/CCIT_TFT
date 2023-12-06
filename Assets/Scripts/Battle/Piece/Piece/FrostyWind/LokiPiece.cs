@@ -25,14 +25,17 @@ public class LokiPiece : Piece
     {
         if (star == 0)
         {
+            SkillState();
             GetAdbilityTarget(1.3f);
         }
         else if (star == 1)
         {
+            SkillState();
             GetAdbilityTarget(1.6f);
         }
         else if (star == 2)
         {
+            SkillState();
             GetAdbilityTarget(1.9f);
         }
         yield return new WaitForSeconds(attackSpeed);
