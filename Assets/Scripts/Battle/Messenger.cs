@@ -252,7 +252,7 @@ public class Messenger : MonoBehaviour
                     {
                         if (_targetTileInformation.IsFull == false)
                         {
-                            if (!_targetTileInformation.isReadyTile && fieldManager.myFilePieceList.Count >= maxPieceCount[level])
+                            if (!_targetTileInformation.isReadyTile && (fieldManager.myFilePieceList.Count >= maxPieceCount[level] || ArenaManager.Instance.roundType == ArenaManager.RoundType.Battle))
                             {
                                 if(_currentTileInformation.isReadyTile)
                                 {
