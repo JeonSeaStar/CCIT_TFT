@@ -32,5 +32,7 @@ public class SceneManagement : MonoBehaviour
     public void LoadScene()
     {
         SceneManager.LoadScene("Loading");
+        SoundManager.instance.Clear();
+        SoundManager.instance.Play("UI/Bgm_Loading", SoundManager.Sound.Bgm);
     }
 }
