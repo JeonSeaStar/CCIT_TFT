@@ -15,6 +15,7 @@ public class SynergeBoard : MonoBehaviour
     //    target.gameObject.SetActive(active);
     //}
     #endregion
+    [SerializeField] GameObject canvas;
     [SerializeField] private FieldManager fieldManager;
     public static SynergeBoard instance;
     private void Awake()
@@ -51,8 +52,17 @@ public class SynergeBoard : MonoBehaviour
     private int GetSynergeGrade(SynergeItem target)
     {
         if (target.currentValue >= target.maxValue[target.grade])
+        {
             if (target.grade < target.maxValue.Count())
-                target.grade++;
+            {
+                ++target.grade;
+            }
+        }
+
+        if(target.grade > 0 && target.currentValue < target.maxValue[target.grade - 1])
+        {
+            --target.grade;
+        }
 
         return target.grade;
     }
@@ -124,6 +134,9 @@ public class SynergeBoard : MonoBehaviour
                 sortingSynergeItem.Add(item);
 
         synergeItems = sortingSynergeItem;
+
+        //canvas.gameObject.SetActive(false);
+        //canvas.gameObject.SetActive(true);
     }
 
     private void SynergeGradeChange(SynergeItem target)

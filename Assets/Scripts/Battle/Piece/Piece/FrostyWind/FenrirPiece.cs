@@ -8,7 +8,7 @@ public class FenrirPiece : Piece
 
     public override IEnumerator Attack()
     {
-        if (mana >= 80)
+        if (mana >= maxMana)
         {
             StartSkill();
             mana = 0;
@@ -30,9 +30,14 @@ public class FenrirPiece : Piece
 
     void GetLocationMultiRangeSkill(float damage)
     {
+        SoundManager.instance.Play("FrostyWind/S_Fenrir", SoundManager.Sound.Effect);
         Quaternion rot = transform.rotation;
         Instantiate(skillEffects, transform.position, rot);
         fenrirSkill.gameObject.SetActive(true);
         fenrirSkill.damage = damage;
+    }
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("전방 2개의 적에게 {0}의 피해를 입히는 할퀴기를 합니다.", (abilityPower * (1 + (abilityPowerCoefficient / 100))));
     }
 }

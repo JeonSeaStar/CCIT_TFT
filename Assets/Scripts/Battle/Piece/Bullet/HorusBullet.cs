@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HorusBullet : Bullet
 {
+    public GameObject effect2;
     private void Start()
     {
         SetDamage(damage);
@@ -28,7 +29,7 @@ public class HorusBullet : Bullet
     {
         if (target.CompareTag("Enemy"))
         {
-            Instantiate(effect, target.transform.position, Quaternion.identity);
+            Instantiate(effect, new Vector3(target.transform.position.x, target.transform.position.y + 0.8f, target.transform.position.z), Quaternion.identity);
             Damage();
         }
     }

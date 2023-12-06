@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pieceName: "\uC6E8\uC5B4\uC6B8\uD504"
   piecePortrait: {fileID: 0}
-  piecePrefab: {fileID: 0}
+  piecePrefab: {fileID: 1191085898539961372, guid: 3ed3f163990baf84ebfefc239b51fa76,
+    type: 3}
   grade: 0
   star: 0
   health:
@@ -25,14 +26,15 @@ MonoBehaviour:
   - 100
   - 100
   - 100
+  currentMana: 0
   manaRecovery:
-  - 0
-  - 0
-  - 0
+  - 10
+  - 10
+  - 10
   attackDamage:
-  - 0
-  - 0
-  - 0
+  - 100
+  - 100
+  - 100
   abilityPower:
   - 200
   - 200
@@ -61,7 +63,7 @@ MonoBehaviour:
   - 0
   - 0
   - 0
-  attackRange: 000000000000000000000000
+  attackRange: 010000000100000001000000
   bloodBrain:
   - 0
   - 0

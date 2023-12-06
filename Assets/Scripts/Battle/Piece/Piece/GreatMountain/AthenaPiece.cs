@@ -7,7 +7,7 @@ public class AthenaPiece : Piece
     PathFinding pathFinding;
     public override IEnumerator Attack()
     {
-        if (mana >= 100)
+        if (mana >= maxMana)
         {
             StartSkill();
             mana = 0;
@@ -29,6 +29,7 @@ public class AthenaPiece : Piece
 
     void GetLocationMultiRangeSkill(float damage)
     {
+        SoundManager.instance.Play("GreatMountain/S_Athena", SoundManager.Sound.Effect);
         pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
         List<Tile> _getNeigbor = pathFinding.GetNeighbor(currentTile);
         foreach (var _Neigbor in _getNeigbor)
@@ -44,5 +45,9 @@ public class AthenaPiece : Piece
                 Damage(_targets, damage);
             }
         }
+    }
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("적이 가장 많은 지역을 강타해 적들에게 {0}의 피해를 입힙니다.", (abilityPower * (1 + (abilityPowerCoefficient / 100))));
     }
 }

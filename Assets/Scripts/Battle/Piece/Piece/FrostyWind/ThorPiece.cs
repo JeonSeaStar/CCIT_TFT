@@ -6,7 +6,7 @@ public class ThorPiece : Piece
 {
     public override IEnumerator Attack()
     {
-        if (mana >= 80 && target != null)
+        if (mana >= maxMana && target != null)
         {
             StartSkill();
             mana = 0;
@@ -69,6 +69,7 @@ public class ThorPiece : Piece
 
     void AllPieceDamageSkill(float damage)
     {
+        SoundManager.instance.Play("FrostyWind/S_Thor", SoundManager.Sound.Effect);
         List<Piece> _allPiece = fieldManager.enemyFilePieceList;
         foreach (var _Neigbor in _allPiece)
         {
@@ -83,5 +84,14 @@ public class ThorPiece : Piece
                 Damage(_targets, damage);
             }
         }
+    }
+    public override void SkillUpdateText()
+    {
+        if (star == 0)
+            pieceData.skillExplain = string.Format("묠니르로 벼락을 불러와 모든 적에게 {0}의 피해를 입히고, {1}초 동안 {2}의 피해를 입히는 전류지대를 생성합니다.", (abilityPower * (1 + (abilityPowerCoefficient / 100))), 5, 30);
+        if (star == 1)
+            pieceData.skillExplain = string.Format("묠니르로 벼락을 불러와 모든 적에게 {0}의 피해를 입히고, {1}초 동안 {2}의 피해를 입히는 전류지대를 생성합니다.", (abilityPower * (1 + (abilityPowerCoefficient / 100))), 10, 60);
+        if (star == 2)
+            pieceData.skillExplain = string.Format("묠니르로 벼락을 불러와 모든 적에게 {0}의 피해를 입히고, {1}초 동안 {2}의 피해를 입히는 전류지대를 생성합니다.", (abilityPower * (1 + (abilityPowerCoefficient / 100))), 999, 100);
     }
 }

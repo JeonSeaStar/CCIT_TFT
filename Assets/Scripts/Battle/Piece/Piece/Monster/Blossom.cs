@@ -5,13 +5,10 @@ using UnityEngine;
 public class Blossom : Piece
 {
     PathFinding pathFinding;
-    [SerializeField] private Piece[] targets;
-
-    [SerializeField] private GameObject beforeEffect;
-    [SerializeField] private GameObject afterEffect;
+    [SerializeField] private GameObject hitEffect;
     public override IEnumerator Attack()
     {
-        if (mana >= 150)
+        if (mana >= pieceData.mana[star])
         {
             StartSkill();
             mana = 0;
@@ -24,45 +21,42 @@ public class Blossom : Piece
         }
     }
 
-    public override IEnumerator Skill()
+    public override void DoAttack()
     {
-        FindTargetThree(500f);
-        yield return new WaitForSeconds(attackSpeed);
-        StartNextBehavior();
-    }
-
-    void FindTargetThree(float damage) //랜덤 세마리 받아야됨
-    {
-        if (fieldManager.myFilePieceList.Count > 3)
+        if (stun || freeze)
         {
-            for(int i = 0; i < 3; i++)
-            {
-                targets[i] = fieldManager.myFilePieceList[i];
-                Instantiate(beforeEffect, targets[i].currentTile.transform.position, Quaternion.identity);
-                Instantiate(skillEffects, targets[i].transform.position, Quaternion.identity);
-                Damage(targets[i], damage);
-                GetLocationMultiRangeSkill(targets[i].currentTile, 200f);
-            }
+            pieceState = State.IDLE;
+            return;
         }
-        else if(fieldManager.myFilePieceList.Count > 2)
+        if (target != null)
         {
-            for (int i = 0; i < 2; i++)
-            {
-                targets[i] = fieldManager.myFilePieceList[i];
-                Instantiate(skillEffects, targets[i].transform.position, Quaternion.identity);
-                Damage(targets[i], damage);
-                GetLocationMultiRangeSkill(targets[i].currentTile, 200f);
-            }
+            invincible = false;
+            SoundManager.instance.Play("Nepenthes_Seris/S_Attack_Blossom", SoundManager.Sound.Effect);
+            //print(name + "(이)가" + target.name + "에게 일반 공격을 합니다.");
+            Damage(attackDamage);
+            //mana += 100;
+            mana += manaRecovery;
+            StartNextBehavior();
         }
         else
         {
-            return;
+            IdleState();
         }
     }
 
+    public override IEnumerator Skill()
+    {
+        Damage(1500f);
+        GetLocationMultiRangeSkill(currentTile, 700f);
+        yield return new WaitForSeconds(attackSpeed);
+        StartNextBehavior();
+    }
     void GetLocationMultiRangeSkill(Tile tiles, float damage)
     {
+        SoundManager.instance.Play("Nepenthes_Seris/S_Skill_Blossom", SoundManager.Sound.Effect);
+        SkillState();
         pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
+        Instantiate(skillEffects, new Vector3(transform.position.x, transform.position.y + 2.5f, transform.position.z), Quaternion.identity);
         List<Tile> _getNeigbor = pathFinding.GetNeighbor(tiles);
         foreach (var _Neigbor in _getNeigbor)
         {
@@ -73,9 +67,22 @@ public class Blossom : Piece
             }
             else if (_targets.isOwned)
             {
-                Instantiate(afterEffect, _targets.transform.position, Quaternion.identity);
+                Instantiate(hitEffect, _targets.transform.position, Quaternion.identity);
                 Damage(_targets, damage);
             }
         }
+    }
+
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("가운데 적에게 {0}의 피해를 입히고, 주변 적들에게 {1}의 피해를 입힙니다.", 1500, 700);
+    }
+
+    public override void Dead()
+    {
+        SoundManager.instance.Play("Nepenthes_Seris/S_Death_Blossom", SoundManager.Sound.Effect);
+        StopAllCoroutines();
+        currentTile.InitTile();
+        gameObject.SetActive(false);
     }
 }

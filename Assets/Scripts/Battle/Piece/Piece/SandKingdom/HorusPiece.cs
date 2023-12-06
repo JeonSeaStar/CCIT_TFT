@@ -9,7 +9,7 @@ public class HorusPiece : Piece
     [SerializeField] private LayerMask layerMask;
     public override IEnumerator Attack()
     {
-        if (mana >= 70 && target != null)
+        if (mana >= maxMana && target != null)
         {
             StartSkill();
             mana = 0;
@@ -31,6 +31,10 @@ public class HorusPiece : Piece
 
     void FindClosestEnemy(float damage)
     {
+        SoundManager.instance.Play("SandKingdom/Sound_for_Horus_01", SoundManager.Sound.Effect);
+        SoundManager.instance.Play("SandKingdom/Sound_for_Horus_02", SoundManager.Sound.Effect);
+        SoundManager.instance.Play("SandKingdom/Sound_for_Horus_03", SoundManager.Sound.Effect);
+        SoundManager.instance.Play("SandKingdom/Sound_for_Horus_04", SoundManager.Sound.Effect);
         Collider[] col = Physics.OverlapSphere(transform.position, radius, layerMask);
         foreach(var cols in col)
         {
@@ -48,5 +52,14 @@ public class HorusPiece : Piece
                 b.Shot(_targets.transform.position - transform.position);
             }
         }
+    }
+    public override void SkillUpdateText()
+    {
+        if (star == 0)
+            pieceData.skillExplain = string.Format("가장 가까운 적 4명에게 {0}의 피해를 입히는 모래 탄환을 {1}개 발사합니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)), 4);
+        else if (star == 1)
+            pieceData.skillExplain = string.Format("가장 가까운 적 4명에게 {0}의 피해를 입히는 모래 탄환을 {1}개 발사합니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)), 5);
+        else if (star == 2)
+            pieceData.skillExplain = string.Format("가장 가까운 적 4명에게 {0}의 피해를 입히는 모래 탄환을 {1}개 발사합니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)), 6);
     }
 }

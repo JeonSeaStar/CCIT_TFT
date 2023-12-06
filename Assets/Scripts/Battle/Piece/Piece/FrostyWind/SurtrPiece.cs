@@ -6,7 +6,7 @@ public class SurtrPiece : Piece
 {
     public override IEnumerator Attack()
     {
-        if (mana >= 100 && target != null)
+        if (mana >= maxMana && target != null)
         {
             StartSkill();
             mana = 0;
@@ -28,7 +28,12 @@ public class SurtrPiece : Piece
 
     void ShieldSkill(float shield)
     {
+        SoundManager.instance.Play("FrostyWind/S_Surtr", SoundManager.Sound.Effect);
         Instantiate(skillEffects, this.transform.position, Quaternion.identity);
         this.shield = shield;
+    }
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("{0}의 피해를 흡수하는 보호막을 얻는 주술을 시전합니다.", (abilityPower * (1 + (abilityPowerCoefficient / 100))));
     }
 }

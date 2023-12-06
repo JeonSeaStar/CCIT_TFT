@@ -13,41 +13,42 @@ MonoBehaviour:
   m_Name: "\uCF04\uD0C0\uC6B0\uB85C\uC2A4"
   m_EditorClassIdentifier: 
   pieceName: "\uCF04\uD0C0\uC6B0\uB85C\uC2A4"
-  piecePortrait: {fileID: 21300000, guid: 22ca07cbe9e69bd448c741a0b7fe28fd, type: 3}
+  piecePortrait: {fileID: 21300000, guid: d47ea118c7e07c14da3c1214d0db4f01, type: 3}
   piecePrefab: {fileID: 4135474388317958880, guid: 4cb5febf6d04c344d99839a63923219c,
     type: 3}
   grade: 0
   star: 0
   health:
   - 500
-  - 900
-  - 1500
+  - 1000
+  - 2000
   mana:
   - 100
-  - 0
-  - 0
+  - 100
+  - 100
+  currentMana: 30
   manaRecovery:
   - 10
   - 10
   - 10
   attackDamage:
   - 40
-  - 60
-  - 90
+  - 80
+  - 160
   abilityPower:
-  - 190
-  - 230
-  - 275
+  - 250
+  - 400
+  - 600
   abilityPowerCoefficient:
   - 0
   - 0
   - 0
   armor:
-  - 25
-  - 25
-  - 25
+  - 0
+  - 0
+  - 0
   magicResist:
-  - 5
+  - 0
   - 0
   - 0
   attackSpeed:
@@ -72,9 +73,11 @@ MonoBehaviour:
   - 1
   - 1
   buff: {fileID: 0}
-  skilSprite: {fileID: 0}
-  skillName: 
-  skillExplain: 
+  skilSprite: {fileID: 21300000, guid: a125165b3de0b6a499e346c443cfa972, type: 3}
+  skillName: "\uC77C\uC810 \uB3CC\uD30C"
+  skillExplain: "\uD604\uC7AC \uB300\uC0C1\uC744 \uAD00\uD1B5\uD558\uBA70, \uC801\uC911\uD55C
+    \uC801\uC5D0\uAC8C 00\uC758 \uD53C\uD574\uB97C \uC785\uD788\uB294 \uD654\uC0AC\uC744
+    \uC3E9\uB2C8\uB2E4."
   myth: 0
   animal: 0
   united: 4

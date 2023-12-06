@@ -6,7 +6,7 @@ public class MedusaPiece : Piece
 {
     public override IEnumerator Attack()
     {
-        if (mana >= 40 && target != null)
+        if (mana >= maxMana && target != null)
         {
             StartSkill();
             mana = 0;
@@ -30,8 +30,13 @@ public class MedusaPiece : Piece
     {
         if(target != null)
         {
+            SoundManager.instance.Play("GreatMountain/S_Medusa", SoundManager.Sound.Effect);
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
             Damage(damage);
         }
+    }
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("현재 대상에게 {0}의 피해를 입히는 독니를 발사합니다.", (abilityPower * (1 + (abilityPowerCoefficient / 100))));
     }
 }

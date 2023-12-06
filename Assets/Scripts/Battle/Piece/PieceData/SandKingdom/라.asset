@@ -13,27 +13,28 @@ MonoBehaviour:
   m_Name: "\uB77C"
   m_EditorClassIdentifier: 
   pieceName: "\uB77C"
-  piecePortrait: {fileID: 21300000, guid: 22ca07cbe9e69bd448c741a0b7fe28fd, type: 3}
+  piecePortrait: {fileID: 21300000, guid: ef6946e5ede7a6a498117bd7013c7fb2, type: 3}
   piecePrefab: {fileID: 473505928406014371, guid: 55dadf1c11f55f3428f31980603b1110,
     type: 3}
   grade: 3
   star: 0
   health:
   - 1300
-  - 2300
-  - 4000
+  - 2600
+  - 5200
   mana:
   - 70
-  - 0
-  - 0
+  - 70
+  - 70
+  currentMana: 0
   manaRecovery:
   - 10
   - 10
   - 10
   attackDamage:
   - 70
-  - 120
-  - 160
+  - 140
+  - 280
   abilityPower:
   - 100
   - 300
@@ -43,9 +44,9 @@ MonoBehaviour:
   - 0
   - 0
   armor:
-  - 45
-  - 45
-  - 45
+  - 0
+  - 0
+  - 0
   magicResist:
   - 0
   - 0
@@ -72,8 +73,8 @@ MonoBehaviour:
   - 1
   - 1
   buff: {fileID: 0}
-  skilSprite: {fileID: 0}
-  skillName: 
+  skilSprite: {fileID: 21300000, guid: e704dab7225fe154dbf4b81c87c2f37a, type: 3}
+  skillName: "\uC0AC\uB9C9\uC758 \uD0DC\uC591"
   skillExplain: 
   myth: 2
   animal: 0

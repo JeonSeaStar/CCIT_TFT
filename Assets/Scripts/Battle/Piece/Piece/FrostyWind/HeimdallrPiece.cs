@@ -7,7 +7,7 @@ public class HeimdallrPiece : Piece
     PathFinding pathFinding;
     public override IEnumerator Attack()
     {
-        if (mana >= 110)
+        if (mana >= maxMana)
         {
             StartSkill();
             mana = 0;
@@ -29,6 +29,7 @@ public class HeimdallrPiece : Piece
 
     void GetLocationMultiRangeSkill(float heal)
     {
+        SoundManager.instance.Play("FrostyWind/S_Heimdallr", SoundManager.Sound.Effect);
         pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
         List<Tile> _getNeigbor = pathFinding.GetNeighbor(currentTile);
         foreach (var _Neigbor in _getNeigbor)
@@ -45,5 +46,9 @@ public class HeimdallrPiece : Piece
             }
 
         }
+    }
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("뿔피리를 불어 주변 1칸 범위의 아군 기물들의 체력을 {0}만큼 회복시킵니다.", (abilityPower * (1 + (abilityPowerCoefficient / 100))));
     }
 }

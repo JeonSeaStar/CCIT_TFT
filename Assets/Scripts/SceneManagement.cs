@@ -6,44 +6,33 @@ using UnityEngine.SceneManagement;
 public class SceneManagement : MonoBehaviour
 {
     public static SceneManagement instance;
-    public Animator sceneSwitchAnimator;
-    private bool first;
+    public SwitchAnimation switchAnimation;
+    public TapEffect tapEffect;
+    public bool first;
+    public bool changeScene;
 
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
         instance = this;
 
-        SceneManager.sceneLoaded += LoadedSceneEvent;
+        SceneManager.sceneLoaded += LoadedsceneEvent;
     }
 
-    private void LoadedSceneEvent(Scene scene, LoadSceneMode mode)
+    private void LoadedsceneEvent(Scene scene, LoadSceneMode mode)
     {
-        if (SceneManager.GetActiveScene().name == "Loading")
-        {
-            sceneSwitchAnimator.SetTrigger("Common");
-        }
-        else
-        {
-            if (first)
-                SceneSwitching(true, null);
-            first = true;
-        }
+        tapEffect.CameraStack();
     }
 
     public void SceneSwitching(bool b, string sceneName)
     {
-        if (b)
-            sceneSwitchAnimator.SetTrigger("Open");
-        else
-        {
-            sceneSwitchAnimator.SetTrigger("Close");
-            LoadingScene.nextScene = sceneName;
-        }
+        switchAnimation.SceneSwitching(b, sceneName);
     }
 
     public void LoadScene()
     {
         SceneManager.LoadScene("Loading");
+        SoundManager.instance.Clear();
+        SoundManager.instance.Play("UI/Bgm_Loading", SoundManager.Sound.Bgm);
     }
 }

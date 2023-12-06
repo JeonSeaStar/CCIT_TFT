@@ -6,7 +6,7 @@ public class PoseidonPiece : Piece
 {
     public override IEnumerator Attack()
     {
-        if (mana >= 80)
+        if (mana >= maxMana)
         {
             StartSkill();
             mana = 0;
@@ -28,6 +28,7 @@ public class PoseidonPiece : Piece
 
     void AllPieceDamageSkill(float damage)
     {
+        SoundManager.instance.Play("GreatMountain/S_Poseidon", SoundManager.Sound.Effect);
         List<Piece> _allPiece = fieldManager.enemyFilePieceList;
         foreach (var _Neigbor in _allPiece)
         {
@@ -42,5 +43,9 @@ public class PoseidonPiece : Piece
                 Damage(_targets, damage);
             }
         }
+    }
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("전방을 향해 {0}의 피해를 입히는 파도를 부릅니다.", (abilityPower * (1 + (abilityPowerCoefficient / 100))));
     }
 }

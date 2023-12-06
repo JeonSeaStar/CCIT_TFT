@@ -6,7 +6,7 @@ public class AnubisPiece : Piece
 {
     public override IEnumerator Attack()
     {
-        if (mana >= 150 && target != null)
+        if (mana >= maxMana && target != null)
         {
             StartSkill();
             mana = 0;
@@ -30,8 +30,13 @@ public class AnubisPiece : Piece
     {
         if (target != null)
         {
+            SoundManager.instance.Play("SandKingdom/S_Anubis", SoundManager.Sound.Effect);
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
             Damage(damage);
         }
+    }
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("현재 대상에게 {0}의 피해를 주는 내려치기를 시전합니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)));
     }
 }

@@ -25,7 +25,7 @@ public class RoundState : MonoBehaviour
 
     public void NextRound(int round)
     {
-        roundText.text = round.ToString();
+        roundText.text = (round + 1).ToString();
     }
 
     public void SetStage(int stage)

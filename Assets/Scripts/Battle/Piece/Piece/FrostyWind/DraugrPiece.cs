@@ -6,7 +6,7 @@ public class DraugrPiece : Piece
 {
     public override IEnumerator Attack()
     {
-        if (mana >= 60 && target != null)
+        if (mana >= maxMana && target != null)
         {
             StartSkill();
             mana = 0;
@@ -30,8 +30,14 @@ public class DraugrPiece : Piece
     {
         if (target != null)
         {
+            SoundManager.instance.Play("FrostyWind/S_Drauger", SoundManager.Sound.Effect);
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
             Damage(damage);
         }
+    }
+
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("현재 대상에게 {0}의 피해를 주는 세로 베기를 시전합니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)));
     }
 }

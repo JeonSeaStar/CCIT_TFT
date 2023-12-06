@@ -8,7 +8,7 @@ public class MimirPiece : Piece
 
     public override IEnumerator Attack()
     {
-        if (mana >= 90)
+        if (mana >= maxMana)
         {
             StartSkill();
             mana = 0;
@@ -23,6 +23,7 @@ public class MimirPiece : Piece
 
     public override IEnumerator Skill()
     {
+        SoundManager.instance.Play("FrostyWind/S_Mimir", SoundManager.Sound.Effect);
         FindLeastHealthPiece(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
@@ -42,5 +43,9 @@ public class MimirPiece : Piece
                 fieldManager.myFilePieceList[i].health += heal;
             }
         }
+    }
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("현재 체력이 가장 낮은 아군 기물의 체력을 {0}만큼 회복시킵니다.", (abilityPower * (1 + (abilityPowerCoefficient / 100))));
     }
 }

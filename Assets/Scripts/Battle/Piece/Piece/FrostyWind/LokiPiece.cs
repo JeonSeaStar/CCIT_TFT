@@ -8,7 +8,7 @@ public class LokiPiece : Piece
     int randomCount;
     public override IEnumerator Attack()
     {
-        if (mana >= 60)
+        if (mana >= maxMana)
         {
             StartSkill();
             mana = 0;
@@ -41,6 +41,7 @@ public class LokiPiece : Piece
 
     public void GetAdbilityTarget(float percentage)
     {
+        SoundManager.instance.Play("FrostyWind/S_Loki", SoundManager.Sound.Effect);
         pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
         List<Tile> _getFirstLineTiles = pathFinding.GetFrontLine(fieldManager.lokiPieceSkillPosition);
         foreach (var _Neigbor in _getFirstLineTiles)
@@ -85,5 +86,14 @@ public class LokiPiece : Piece
         {
             Target.attackSpeed = Target.attackSpeed + ( 1f - percentage);
         }
+    }
+    public override void SkillUpdateText()
+    {
+        if (star == 0)
+            pieceData.skillExplain = string.Format("자신을 제외한 전열에 존재하는 모든 아군 기물의 무작위 능력치를 증가시키는 주술을 사용합니다. 공격력, 스킬증폭: {0}, 체력: {1}, 공격속도: {2}", 1.3 * attackDamage, 1.3 * health, 1.3 / 100);
+        else if (star == 1)
+            pieceData.skillExplain = string.Format("자신을 제외한 전열에 존재하는 모든 아군 기물의 무작위 능력치를 증가시키는 주술을 사용합니다. 공격력, 스킬증폭: {0}, 체력: {1}, 공격속도: {2}", 1.6 * attackDamage, 1.6 * health, 1.6 / 100);
+        else if (star == 2)
+            pieceData.skillExplain = string.Format("자신을 제외한 전열에 존재하는 모든 아군 기물의 무작위 능력치를 증가시키는 주술을 사용합니다. 공격력, 스킬증폭: {0}, 체력: {1}, 공격속도: {2}", 1.9 * attackDamage, 1.9 * health, 1.9 / 100);
     }
 }

@@ -6,7 +6,7 @@ public class ValkyriePiece : Piece
 {
     public override IEnumerator Attack()
     {
-        if (mana >= 100 && target != null)
+        if (mana >= maxMana && target != null)
         {
             StartSkill();
             mana = 0;
@@ -30,8 +30,13 @@ public class ValkyriePiece : Piece
     {
         if (target != null)
         {
-            Instantiate(skillEffects, target.transform.position, Quaternion.identity);
+            SoundManager.instance.Play("FrostyWind/S_Valkyre", SoundManager.Sound.Effect);
+            Instantiate(skillEffects, new Vector3(target.transform.position.x, target.transform.position.y + 0.8f, target.transform.position.z), Quaternion.identity);
             Damage(damage);
         }
+    }
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("현재 대상 방향으로 창을 내질러 2칸 범위에 {0}의 피해를 입힙니다. ", (abilityPower * (1 + (abilityPowerCoefficient / 100))));
     }
 }

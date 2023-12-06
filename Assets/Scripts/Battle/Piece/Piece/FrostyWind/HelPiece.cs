@@ -7,7 +7,7 @@ public class HelPiece : Piece
     [SerializeField] private GameObject helBullet;
     public override IEnumerator Attack()
     {
-        if (mana >= 90 && target != null)
+        if (mana >= maxMana && target != null)
         {
             StartSkill();
             mana = 0;
@@ -31,11 +31,16 @@ public class HelPiece : Piece
     {
         if (target != null)
         {
+            SoundManager.instance.Play("FrostyWind/S_Hel", SoundManager.Sound.Effect);
             GameObject centaBullet = Instantiate(helBullet, transform.position, Quaternion.identity);
             Bullet b = centaBullet.GetComponent<HelBullet>();
             b.parentPiece = this;
             b.damage = damage;
             b.Shot(target.transform.position - transform.position);
         }
+    }
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("현재 대상을 관통하며, 적중한 적에게 {0}의 피해를 입히는  강력한 창을 던집니다.", (abilityPower * (1 + (abilityPowerCoefficient / 100))));
     }
 }

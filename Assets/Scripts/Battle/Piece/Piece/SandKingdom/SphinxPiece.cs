@@ -6,7 +6,7 @@ public class SphinxPiece : Piece
 {
     public override IEnumerator Attack()
     {
-        if (mana >= 80 && target != null)
+        if (mana >= maxMana && target != null)
         {
             StartSkill();
             mana = 0;
@@ -35,9 +35,20 @@ public class SphinxPiece : Piece
     {
         if(target != null)
         {
-            Instantiate(skillEffects, target.transform.position, Quaternion.identity);
+            SoundManager.instance.Play("SandKingdom/S_Spinx", SoundManager.Sound.Effect);
+            Instantiate(skillEffects, new Vector3(target.transform.position.x, target.transform.position.y + 0.8f, target.transform.position.z), Quaternion.identity);
+            target.SetStun(time);
             SetDebuff("Stun", time);
             Damage(damage);
         }
+    }
+    public override void SkillUpdateText()
+    {
+        if (star == 0)
+            pieceData.skillExplain = string.Format("현재 대상에게 펀치를 날려 {0}의 피해를 입히고 {1}초 동안 기절시킵니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)), 0.7);
+        else if (star == 1)
+            pieceData.skillExplain = string.Format("현재 대상에게 펀치를 날려 {0}의 피해를 입히고 {1}초 동안 기절시킵니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)), 1.2);
+        else if (star == 2)
+            pieceData.skillExplain = string.Format("현재 대상에게 펀치를 날려 {0}의 피해를 입히고 {1}초 동안 기절시킵니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)), 1.8);
     }
 }

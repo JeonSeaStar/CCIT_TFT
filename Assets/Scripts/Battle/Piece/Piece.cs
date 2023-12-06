@@ -50,6 +50,7 @@ public class Piece : MonoBehaviour
 
 
     bool canMove = true;
+    float preAttackDamage;
     [Header("이동 DoTween")] public Ease ease;
     [Header("토끼 DoTween")] public Ease rabbitEase;
 
@@ -119,18 +120,23 @@ public class Piece : MonoBehaviour
 
     public Tile nextTile;
 
+
+    [Header("상태이상 이펙트")]
+    public GameObject freezeEffect;
+    public GameObject stunEffect;
+    public GameObject blindEffect;
+
     void Awake()
     {
         pieceData.InitialzePiece(this);
-        pieceName = pieceData.pieceName;
         fieldManager = ArenaManager.Instance.fieldManagers[0];
         PieceState = State.IDLE;
 
-        //maxHealth = health;
-
         maxHealth = health;
         maxMana = mana;
-        //healthbar.maxMana = mana;
+        mana = pieceData.currentMana;
+        preAttackDamage = attackDamage;
+        SkillUpdateText();
     }
 
     private void Update()
@@ -259,7 +265,7 @@ public class Piece : MonoBehaviour
 
     private void OnDamageText(float damage)
     {
-        if(damageText != null)
+        if (damageText != null)
         {
             GameObject damageTextGameObject = Instantiate(damageText, transform.position, Quaternion.identity, healthbar.transform);
             damageTextGameObject.transform.localRotation = Quaternion.identity;
@@ -349,7 +355,7 @@ public class Piece : MonoBehaviour
     }
     #region 토끼
     [Header("토끼")]
-    [HideInInspector]public bool isRabbitSynergeActiveCheck;
+    [HideInInspector] public bool isRabbitSynergeActiveCheck;
     [SerializeField] GameObject rabbitSynergeEffect;
     public void RabbitJump()
     {
@@ -386,7 +392,7 @@ public class Piece : MonoBehaviour
                         currentTile.IsFull = true;
                         currentTile.walkable = false;
                     }
-                    StartCoroutine(RabbitSplashDamage(fieldManager.pathFinding.GetNeighbor(currentTile),1.5f));
+                    StartCoroutine(RabbitSplashDamage(fieldManager.pathFinding.GetNeighbor(currentTile), 1.5f));
                     isRabbitSynergeActiveCheck = false;
                     break;
                 }
@@ -402,7 +408,7 @@ public class Piece : MonoBehaviour
         if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[0])) { splashDamage = 10; pieceData.CalculateBuff(this, _buff.rabbitBuff[0]); }
         else if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[1])) { splashDamage = 15; pieceData.CalculateBuff(this, _buff.rabbitBuff[1]); }
         else if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[2])) { splashDamage = 20; pieceData.CalculateBuff(this, _buff.rabbitBuff[2]); }
-        GameObject effect = Instantiate(rabbitSynergeEffect,transform.position, Quaternion.Euler(-90,0,0));
+        GameObject effect = Instantiate(rabbitSynergeEffect, transform.position, Quaternion.Euler(-90, 0, 0));
         effect.SetActive(true); effect.transform.SetParent(null);
         Invoke("RsetRabbitStatus", 3);
         foreach (var tile in neighbor)
@@ -485,8 +491,7 @@ public class Piece : MonoBehaviour
         }
 
         StopAllCoroutines();
-        //pieceData.ResetPiece(this);
-        print(name + "(이)가 승리의 춤 추는 중.");
+
         PieceState = State.DANCE;
 
     }
@@ -503,6 +508,7 @@ public class Piece : MonoBehaviour
 
     public void SetPiece(Piece currentPiece, bool isControlPiece = false)
     {
+        SoundManager.instance.Play("UI/Set", SoundManager.Sound.Effect);
         if (currentPiece.currentTile.isReadyTile == true && currentPiece.targetTile.isReadyTile == false)
         {
             var _duplicationCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
@@ -513,7 +519,9 @@ public class Piece : MonoBehaviour
         } // Set Ready -> Battle
         else if (currentPiece.currentTile.isReadyTile == false && currentPiece.targetTile.isReadyTile == true)
         {
-            currentPiece.pieceData.InitialzePiece(currentPiece);
+            currentPiece.pieceData.InitialzePiece(currentPiece); currentPiece.mana = currentPiece.pieceData.currentMana;
+            Debug.Log(currentPiece.health);
+            Debug.Log(currentPiece.maxHealth);
             fieldManager.RemoveDPList(currentPiece);
             fieldManager.myFilePieceList.Remove(currentPiece);
             currentPiece.buffList.Clear();
@@ -525,11 +533,12 @@ public class Piece : MonoBehaviour
 
     public void SetPiece(Piece currentPiece, Piece targetPiece, bool isControlPiece = false)
     {
+        SoundManager.instance.Play("UI/Set", SoundManager.Sound.Effect);
         if (currentPiece.currentTile.isReadyTile == true && targetPiece.currentTile.isReadyTile == true) return;
         else if (currentPiece.currentTile.isReadyTile == false && targetPiece.currentTile.isReadyTile == false) return;
         else if (currentPiece.currentTile.isReadyTile == true && targetPiece.currentTile.isReadyTile == false)
         {
-            currentPiece.pieceData.InitialzePiece(targetPiece);
+            currentPiece.pieceData.InitialzePiece(currentPiece); currentPiece.mana = currentPiece.pieceData.currentMana;
             fieldManager.RemoveDPList(currentPiece);
             fieldManager.myFilePieceList.Remove(targetPiece);
             targetPiece.buffList.Clear();
@@ -545,7 +554,7 @@ public class Piece : MonoBehaviour
         }  // Change Ready -> Battle
         else if (currentPiece.currentTile.isReadyTile == false && targetPiece.currentTile.isReadyTile == true)
         {
-            currentPiece.pieceData.InitialzePiece(currentPiece);
+            currentPiece.pieceData.InitialzePiece(currentPiece); currentPiece.mana = currentPiece.pieceData.currentMana;
             fieldManager.RemoveDPList(currentPiece);
             fieldManager.myFilePieceList.Remove(currentPiece);
             currentPiece.buffList.Clear();
@@ -640,15 +649,6 @@ public class Piece : MonoBehaviour
                 break;
         }
     }
-    public void SetFreeze()
-    {
-        freeze = true;
-        //가려던 위치로 바로 이동후 프리징 걸리기
-    }
-    public void SetFreeze(float time)
-    {
-        freeze = true;
-    }
 
     public void SetImmune()
     {
@@ -684,27 +684,48 @@ public class Piece : MonoBehaviour
     {
         charm = true;
     }
+    public void SetFreeze(float time)
+    {
+        freeze = true;
+        freezeEffect.SetActive(true);
+        IdleState(time);
+        Invoke("FreezeClear", time);
+    }
+    public void FreezeClear()
+    {
+        freeze = false;
+        freezeEffect.SetActive(false);
+        if (gameObject.activeSelf) StartCoroutine(NextBehavior());
+    }
 
     public void SetBlind(float time)
     {
         blind = true;
+        blindEffect.SetActive(true);
+        attackDamage = 0;
         Invoke("BlindClear", time);
     }
 
     void BlindClear()
     {
         blind = false;
+        blindEffect.SetActive(false);
+        attackDamage = preAttackDamage;
     }
 
     public void SetStun(float time)
     {
         stun = true;
+        stunEffect.SetActive(true);
+        IdleState(time);
         Invoke("StunClear", time);
     }
 
     void StunClear()
     {
         stun = false;
+        stunEffect.SetActive(false);
+        if (gameObject.activeSelf) StartCoroutine(NextBehavior());
     }
 
     //void 
@@ -741,12 +762,31 @@ public class Piece : MonoBehaviour
 
     public virtual void DoAttack()
     {
+        if (stun || freeze)
+        {
+            pieceState = State.IDLE;
+            return;
+        }
         if (target != null)
         {
+            int randomCount = UnityEngine.Random.Range(0, 2);
+            if (randomCount == 0)
+            {
+                SoundManager.instance.Play("CommonPiece/Game_Punch_1", SoundManager.Sound.Effect);
+            }
+            else if(randomCount == 1)
+            {
+                SoundManager.instance.Play("CommonPiece/Game_Punch_3", SoundManager.Sound.Effect);
+            }
+            else if(randomCount == 2)
+            {
+                SoundManager.instance.Play("CommonPiece/Game_Punch_4", SoundManager.Sound.Effect);
+            }
+            invincible = false;
             //print(name + "(이)가" + target.name + "에게 일반 공격을 합니다.");
             Damage(attackDamage);
             //mana += 100;
-            //currentMana += manaRecovery;
+            mana += manaRecovery;
             StartNextBehavior();
         }
         else
@@ -755,8 +795,9 @@ public class Piece : MonoBehaviour
         }
     }
 
-    public void Dead()
+    public virtual void Dead()
     {
+        SoundManager.instance.Play("CommonPiece/Piece_Dead", SoundManager.Sound.Effect);
         StopAllCoroutines();
         currentTile.InitTile();
         gameObject.SetActive(false);
@@ -790,5 +831,10 @@ public class Piece : MonoBehaviour
             _attackEffect.SetActive(true); _attackEffect.transform.SetParent(null);
         }
     }
+    #endregion
+
+    #region 피스데이터 설명 부분
+    public virtual void SkillUpdateText() { }
+
     #endregion
 }

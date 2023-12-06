@@ -330,7 +330,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 32
+    m_Bits: 4023
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -459,8 +459,8 @@ Canvas:
   m_GameObject: {fileID: 475954745}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 217447587}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -469,7 +469,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!224 &475954749
 RectTransform:
@@ -508,6 +508,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   progressBar: {fileID: 171261660}
+  textArray:
+  - "\uC0AC\uC6A9\uC790 \uAE30\uB2E4\uB9AC\uAC8C \uD558\uB294 \uC911..."
+  - "\uC2F8\uC6C0\uD310 5\uCD08 \uC804\u2026"
+  - "\uB2A6\uC7A0\uC790\uB294 \uD1A0\uB07C \uAE68\uC6B0\uB294 \uC911..."
+  - "\uB85C\uB529 \uD654\uBA74 \uB2EB\uB294 \uC911..."
+  - "\uC5B8\uC81C \uB2E4 \uB420\uC9C0 \uB208\uCE58\uAC8C\uC784 \uD558\uB294 \uC911..."
+  - "\uC804\uC7A5\uC5D0 \uB098\uBB34 \uC2EC\uB294 \uC911..."
+  - "\uACE0\uC591\uB3D9 \uB9DB\uC9D1 \uCD94\uCC9C\uBC1B\uB294 \uC911\u2026"
+  - "\uC2E4\uC2DC\uAC04\uC73C\uB85C \uCF54\uB4DC \uC218\uC815\uD558\uB294 \uC911\u2026"
+  - "\uBC84\uADF8 \uD130\uC9C0\uAE30 10\uCD08\uC804\u2026"
+  - "\uBB34\uAE30 \uC190\uC9C8\uD558\uB294 \uC911\u2026"
+  textPrefab: {fileID: 4683991824810348773, guid: a9462a0c4b07a024c9374212a40a6f34,
+    type: 3}
 --- !u!1 &631803372
 GameObject:
   m_ObjectHideFlags: 0
@@ -525,7 +538,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &631803373
 RectTransform:
   m_ObjectHideFlags: 0
@@ -543,8 +556,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -225}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -8, y: -225}
+  m_SizeDelta: {x: 1080, y: 125.5874}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &631803374
 MonoBehaviour:
@@ -767,21 +780,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 95237879886335624, guid: d667180625ddb1448965d80cee1f6bc1,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: ca0e06bdd5462904bbe404886636ad85, type: 2}
-    - target: {fileID: 137355686966187942, guid: d667180625ddb1448965d80cee1f6bc1,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: b04f78933178eee4799384cb7189c790, type: 2}
-    - target: {fileID: 137557153652444700, guid: d667180625ddb1448965d80cee1f6bc1,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: b04f78933178eee4799384cb7189c790, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d667180625ddb1448965d80cee1f6bc1, type: 3}
 --- !u!1 &1384053927

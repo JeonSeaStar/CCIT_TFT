@@ -6,7 +6,7 @@ public class MummyPiece : Piece
 {
     public override IEnumerator Attack()
     {
-        if (mana >= 60)
+        if (mana >= maxMana)
         {
             StartSkill();
             mana = 0;
@@ -28,7 +28,12 @@ public class MummyPiece : Piece
 
     void ShieldSkill(float shield)
     {
+        SoundManager.instance.Play("SandKingdom/S_Mummy", SoundManager.Sound.Effect);
         Instantiate(skillEffects, this.transform.position, Quaternion.identity);
         this.shield = shield;
+    }
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("자신에게 붕대를 급하게 묶어 {0}의 보호막을 얻습니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)));
     }
 }

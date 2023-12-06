@@ -7,7 +7,7 @@ public class NeithPiece : Piece
     [SerializeField] private GameObject bullet;
     public override IEnumerator Attack()
     {
-        if (mana >= 100 && target != null)
+        if (mana >= maxMana && target != null)
         {
             StartSkill();
             mana = 0;
@@ -31,11 +31,16 @@ public class NeithPiece : Piece
     {
         if (target != null)
         {
+            SoundManager.instance.Play("SandKingdom/S_Neith", SoundManager.Sound.Effect);
             GameObject centaBullet = Instantiate(bullet, transform.position, Quaternion.identity);
             Bullet b = centaBullet.GetComponent<NeithBullet>();
             b.parentPiece = this;
             b.damage = damage;
             b.Shot(target.transform.position - transform.position);
         }
+    }
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("현재 대상에게 강력한 화살을 쏘아 {0}의 피해를 입힙니다. ", (abilityPower * (1 + (abilityPowerCoefficient / 100))));
     }
 }

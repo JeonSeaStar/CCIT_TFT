@@ -7,7 +7,7 @@ public class AresPiece : Piece
     [SerializeField] private GameObject bullet;
     public override IEnumerator Attack()
     {
-        if (mana >= 100 && target != null)
+        if (mana >= maxMana && target != null)
         {
             StartSkill();
             mana = 0;
@@ -31,11 +31,16 @@ public class AresPiece : Piece
     {
         if (target != null)
         {
+            SoundManager.instance.Play("GreatMountain/S_Ares", SoundManager.Sound.Effect);
             GameObject centaBullet = Instantiate(bullet, transform.position, Quaternion.identity);
             Bullet b = centaBullet.GetComponent<AresBullet>();
             b.parentPiece = this;
             b.damage = damage;
             b.Shot(target.transform.position - transform.position);
         }
+    }
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("현재 대상에게 {0}의 피해를 입히는 창을 던집니다.", (abilityPower * (1 + (abilityPowerCoefficient / 100))));
     }
 }

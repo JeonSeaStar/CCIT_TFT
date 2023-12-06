@@ -7,7 +7,7 @@ public class HelBullet : Bullet
     private void Start()
     {
         SetDamage(damage);
-        Invoke("DestroyBullet", 4f);
+        Invoke("DestroyBullet", 2f);
     }
 
     protected override void SetDamage(float damage)
@@ -36,7 +36,7 @@ public class HelBullet : Bullet
             }
             else if(!_target.isOwned)
             {
-                Instantiate(effect, target.transform.position, Quaternion.identity);
+                Instantiate(effect, new Vector3(target.transform.position.x, target.transform.position.y + 0.8f, target.transform.position.z), Quaternion.identity);
                 parentPiece.Damage(_target, damage);
             }
         }

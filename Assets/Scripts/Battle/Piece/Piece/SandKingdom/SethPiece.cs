@@ -8,7 +8,7 @@ public class SethPiece : Piece
     [SerializeField] private SethSkill skill;
     public override IEnumerator Attack()
     {
-        if (mana >= 100)
+        if (mana >= maxMana)
         {
             StartSkill();
             mana = 0;
@@ -23,6 +23,7 @@ public class SethPiece : Piece
 
     public override IEnumerator Skill()
     {
+        SoundManager.instance.Play("SandKingdom/S_Seth", SoundManager.Sound.Effect);
         GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
@@ -39,5 +40,9 @@ public class SethPiece : Piece
             skill.damage = damage;
             
         }
+    }
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("현재 대상을 기준으로 직선 범위에 {0}의 피해를 주는 휩쓸기를 시전합니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)));
     }
 }

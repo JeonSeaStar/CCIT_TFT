@@ -28,9 +28,6 @@ public class Messenger : MonoBehaviour
     public bool isDrag = false;
     public bool isExpedition;
 
-    [SerializeField] int[] damagePerPiece = new int[] { 2, 4, 6, 8, 10, 11, 12, 13, 14, 15 };
-    [SerializeField] int[] damagePerRound = new int[] { 0, 1, 2, 3, 4, 6, 9, 15 };
-
     [SerializeField] Piece controlPiece;
     public Piece ControlPiece
     {
@@ -73,6 +70,8 @@ public class Messenger : MonoBehaviour
     private void Awake()
     {
         fieldManager.DualPlayers[0] = this;
+        SoundManager.instance.Clear();
+        SoundManager.instance.Play("BGM/Bgm_Battle_Default", SoundManager.Sound.Effect);
     }
 
     void Update()
@@ -83,7 +82,7 @@ public class Messenger : MonoBehaviour
             {
                 pieceInformationUI.ClosePieceInformation();
                 if (owned)
-                Targeting();
+                    Targeting();
             }
             if (Input.GetMouseButton(0) && isGrab && !isDrag && owned) Dragging();
             if (Input.GetMouseButtonUp(0))
@@ -142,6 +141,7 @@ public class Messenger : MonoBehaviour
         if (_isGrapPiece && targetPiece.GetComponent<Piece>().isOwned == true)
         {
             controlPiece = hit.transform.gameObject.GetComponent<Piece>();
+            if (ArenaManager.Instance.roundType == ArenaManager.RoundType.Battle && controlPiece.currentTile.isReadyTile == false) return;
             pieceSaleGoldText.text = controlPiece.pieceData.cost[controlPiece.pieceData.grade, controlPiece.star].ToString();
             FreezeRigidbody(controlPiece, _isGrapPiece);
             isGrab = _isGrapPiece;
@@ -201,7 +201,7 @@ public class Messenger : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             #region 기물 판매
-            if (Physics.Raycast(ray, out RaycastHit saleSlot))
+            if (Physics.Raycast(ray, out RaycastHit saleSlot, Mathf.Infinity, (-1) - (1 << 6)))
             {
                 pointerEventData = new PointerEventData(null);
                 pointerEventData.position = Input.mousePosition;
@@ -220,8 +220,8 @@ public class Messenger : MonoBehaviour
                     Tile _currentTile = controlPiece.currentTile;
                     _currentTile.IsFull = false;
                     _currentTile.piece = null;
-                    isGrab = false;
-                    //판매하고 판매 가격 획득 추가
+                    isGrab = false; 
+                    SoundManager.instance.Play("UI/Eff_Gold_Pos", SoundManager.Sound.Effect);
                     gold += controlPiece.pieceData.cost[controlPiece.pieceData.grade, controlPiece.star];
                     fieldManager.playerState.UpdateMoney(gold);
                     //기물이 가지고 있던 아이템 되돌려받기 추가
@@ -249,9 +249,14 @@ public class Messenger : MonoBehaviour
                         {
                             if (!_targetTileInformation.isReadyTile && fieldManager.myFilePieceList.Count >= maxPieceCount[level])
                             {
-                                fieldManager.fieldPieceStatus.UpdateFieldStatus(fieldManager.myFilePieceList.Count, fieldManager.owerPlayer.maxPieceCount[fieldManager.owerPlayer.level]);
-                                ResetPositionToCurrentTile(controlPiece);
-                                return;
+                                if(_currentTileInformation.isReadyTile)
+                                {
+                                    fieldManager.fieldPieceStatus.UpdateFieldStatus(fieldManager.myFilePieceList.Count, fieldManager.owerPlayer.maxPieceCount[fieldManager.owerPlayer.level]);
+                                    ResetPositionToCurrentTile(controlPiece);
+                                    behindSaleZone.SetActive(true);
+                                    pieceSaleSlot.SetActive(false);
+                                    return;
+                                }
                             }
 
                             controlPiece.SetPiece(controlPiece);
@@ -382,20 +387,6 @@ public class Messenger : MonoBehaviour
         //        transform.Rotate(90, transform.rotation.y, transform.rotation.z);
         //    }
         //}
-    }
-
-    int MessengerDamage()
-    {
-        int activePiece = 0;
-        foreach (var piece in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
-        {
-            if (!piece.dead)
-                activePiece++;
-        }
-
-        int damage = damagePerPiece[activePiece] + damagePerRound[ArenaManager.Instance.currentRound];
-
-        return damage;
     }
 
     void spawnChargingParticle()

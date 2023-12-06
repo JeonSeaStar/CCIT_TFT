@@ -6,7 +6,7 @@ public class HermesPiece : Piece
 {
     public override IEnumerator Attack()
     {
-        if (mana >= 75 && target != null)
+        if (mana >= maxMana && target != null)
         {
             StartSkill();
             mana = 0;
@@ -41,9 +41,25 @@ public class HermesPiece : Piece
     {
         if(target != null)
         {
+            SoundManager.instance.Play("GreatMountain/S_Hermes", SoundManager.Sound.Effect);
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
             target.SetBlind(time);
             SetDebuff("Blind", time);
+        }
+    }
+    public override void SkillUpdateText()
+    {
+        if (star == 0)
+        {
+            pieceData.skillExplain = string.Format("현재 대상을 {0}초 동안 실명 상태로 만듭니다.", 1.5);
+        }
+        else if (star == 1)
+        {
+            pieceData.skillExplain = string.Format("현재 대상을 {0}초 동안 실명 상태로 만듭니다.", 2);
+        }
+        else if (star == 2)
+        {
+            pieceData.skillExplain = string.Format("현재 대상을 {0}초 동안 실명 상태로 만듭니다.", 2.5);
         }
     }
 }

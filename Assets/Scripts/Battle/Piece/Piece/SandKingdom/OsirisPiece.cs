@@ -8,7 +8,7 @@ public class OsirisPiece : Piece
 
     public override IEnumerator Attack()
     {
-        if (mana >= 75)
+        if (mana >= maxMana)
         {
             StartSkill();
             mana = 0;
@@ -32,6 +32,7 @@ public class OsirisPiece : Piece
     {
         if (fieldManager.myFilePieceList != null)
         {
+            SoundManager.instance.Play("SandKingdom/S_Osiris", SoundManager.Sound.Effect);
             for (int i = 0; i < fieldManager.myFilePieceList.Count; i++)
             {
                 if (pieceHealth > fieldManager.myFilePieceList[i].health)
@@ -42,5 +43,9 @@ public class OsirisPiece : Piece
                 fieldManager.myFilePieceList[i].health += heal;
             }
         }
+    }
+    public override void SkillUpdateText()
+    {
+        pieceData.skillExplain = string.Format("현재 대상을 기준으로 직선 범위에 {0}의 피해를 주는 휩쓸기를 시전합니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)));
     }
 }

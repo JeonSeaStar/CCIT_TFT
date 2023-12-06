@@ -29,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 3455707455103660706}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5735704305464047156}
   m_Father: {fileID: 0}
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 5855bc7c9821f9a46b0738f98a5a6f22, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -131,6 +131,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2566324421767111215, guid: 50e5645a0e809a04a8ec211c126126de,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2566324421767111215, guid: 50e5645a0e809a04a8ec211c126126de,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2566324421767111215, guid: 50e5645a0e809a04a8ec211c126126de,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2566324421767111215, guid: 50e5645a0e809a04a8ec211c126126de,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -179,10 +194,55 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2566324421767111215, guid: 50e5645a0e809a04a8ec211c126126de,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4085568780043524148, guid: 50e5645a0e809a04a8ec211c126126de,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4085568780043524148, guid: 50e5645a0e809a04a8ec211c126126de,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4085568780043524148, guid: 50e5645a0e809a04a8ec211c126126de,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4085568780043524148, guid: 50e5645a0e809a04a8ec211c126126de,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4139141995373055389, guid: 50e5645a0e809a04a8ec211c126126de,
         type: 3}
       propertyPath: m_Name
       value: Skill_For_Hathor
+      objectReference: {fileID: 0}
+    - target: {fileID: 5390091540465888068, guid: 50e5645a0e809a04a8ec211c126126de,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5390091540465888068, guid: 50e5645a0e809a04a8ec211c126126de,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5390091540465888068, guid: 50e5645a0e809a04a8ec211c126126de,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5390091540465888068, guid: 50e5645a0e809a04a8ec211c126126de,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50e5645a0e809a04a8ec211c126126de, type: 3}
