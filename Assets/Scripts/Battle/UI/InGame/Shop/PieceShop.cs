@@ -38,6 +38,8 @@ public class PieceShop : MonoBehaviour
     {
         InitSlot();
         levelUpCost.text = fieldManager.owerPlayer.levelUpCost[fieldManager.owerPlayer.level].ToString();
+        gameObject.SetActive(true);
+        gameObject.SetActive(false);
     }
 
     public void InitSlot()
