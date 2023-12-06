@@ -30,7 +30,7 @@ public class RoundState : MonoBehaviour
 
     public void SetStage(int stage)
     {
-        stageText.text = stage.ToString();
+        stageText.text = (stage + 1).ToString();
     }
 
     public void InitRoundIcon()
