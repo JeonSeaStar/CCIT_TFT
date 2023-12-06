@@ -258,7 +258,6 @@ public class Messenger : MonoBehaviour
                                 {
                                     fieldManager.fieldPieceStatus.UpdateFieldStatus(fieldManager.myFilePieceList.Count, fieldManager.owerPlayer.maxPieceCount[fieldManager.owerPlayer.level]);
                                     ResetPositionToCurrentTile(controlPiece);
-                                    ResetDragState(false);
                                     behindSaleZone.SetActive(true);
                                     pieceSaleSlot.SetActive(false);
                                     return;
