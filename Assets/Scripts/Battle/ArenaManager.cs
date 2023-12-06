@@ -175,12 +175,12 @@ public class ArenaManager : MonoBehaviour
             {
                 if (pieceList[i].isOwned)
                 {
-                    SoundManager.instance.Play("UI/Round_Lose", SoundManager.Sound.Effect);
+                    SoundManager.instance.Play("UI/Eff_Round_Lose", SoundManager.Sound.Effect);
                     BattleResult = Result.DEFEAT;
                 }
                 else
                 {
-                    SoundManager.instance.Play("UI/Round_Win", SoundManager.Sound.Effect);
+                    SoundManager.instance.Play("UI/Eff_Round_Win", SoundManager.Sound.Effect);
                     BattleResult = Result.VICTORY;
                 }
             }
@@ -229,12 +229,12 @@ public class ArenaManager : MonoBehaviour
         {
             if (fieldManagers[0].enemyFilePieceList.Count == 0)
             {
-                SoundManager.instance.Play("UI/Round_Win", SoundManager.Sound.Effect);
+                SoundManager.instance.Play("UI/Eff_Round_Win", SoundManager.Sound.Effect);
                 BattleResult = Result.VICTORY;
             }
             else
             {
-                SoundManager.instance.Play("UI/Round_Lose", SoundManager.Sound.Effect);
+                SoundManager.instance.Play("UI/Eff_Round_Lose", SoundManager.Sound.Effect);
                 BattleResult = Result.DEFEAT;
             }
         }
