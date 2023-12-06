@@ -22,6 +22,7 @@ public class HadesPiece : Piece
 
     public override IEnumerator Skill()
     {
+        SkillState();
         if (star == 0)
         {
             GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));

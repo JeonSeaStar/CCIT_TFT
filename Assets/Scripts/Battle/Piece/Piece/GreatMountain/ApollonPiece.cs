@@ -22,6 +22,7 @@ public class ApollonPiece : Piece
 
     public override IEnumerator Skill()
     {
+        SkillState();
         GetLocationMultiRangeSkill(abilityPower);
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();

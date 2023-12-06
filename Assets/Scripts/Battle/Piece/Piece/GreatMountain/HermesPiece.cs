@@ -21,6 +21,7 @@ public class HermesPiece : Piece
 
     public override IEnumerator Skill()
     {
+        SkillState();
         if (star == 0)
         {
             BlindSkill(1.5f);

@@ -21,6 +21,7 @@ public class ThorPiece : Piece
 
     public override IEnumerator Skill()
     {
+        SkillState();
         if (star == 0)
         {
             AllPieceDamageSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
