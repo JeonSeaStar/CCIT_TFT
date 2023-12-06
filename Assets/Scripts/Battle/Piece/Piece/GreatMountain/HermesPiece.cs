@@ -42,8 +42,11 @@ public class HermesPiece : Piece
 
     void BlindSkill(float time)
     {
-        if(target != null)
+        if (dead)
+            return;
+        if (target != null)
         {
+            SkillState();
             SoundManager.instance.Play("GreatMountain/S_Hermes", SoundManager.Sound.Effect);
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
             target.SetBlind(time);

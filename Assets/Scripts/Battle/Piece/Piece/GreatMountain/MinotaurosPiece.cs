@@ -21,7 +21,6 @@ public class MinotaurosPiece : Piece
 
     public override IEnumerator Skill()
     {
-        SkillState();
         ShieldSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
@@ -29,6 +28,9 @@ public class MinotaurosPiece : Piece
 
     void ShieldSkill(float shield)
     {
+        if (dead)
+            return; 
+        SkillState();
         SoundManager.instance.Play("GreatMountain/S_Minotauros", SoundManager.Sound.Effect);
         Instantiate(skillEffects, this.transform.position, Quaternion.identity);
         this.shield = shield;

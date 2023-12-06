@@ -22,7 +22,6 @@ public class AresPiece : Piece
 
     public override IEnumerator Skill()
     {
-        SkillState();
         ProjectionSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
@@ -30,8 +29,11 @@ public class AresPiece : Piece
 
     void ProjectionSkill(float damage)
     {
+        if (dead)
+            return;
         if (target != null)
         {
+            SkillState();
             SoundManager.instance.Play("GreatMountain/S_Ares", SoundManager.Sound.Effect);
             GameObject centaBullet = Instantiate(bullet, transform.position, Quaternion.identity);
             Bullet b = centaBullet.GetComponent<AresBullet>();

@@ -22,7 +22,6 @@ public class AthenaPiece : Piece
 
     public override IEnumerator Skill()
     {
-        SkillState();
         GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
@@ -30,6 +29,9 @@ public class AthenaPiece : Piece
 
     void GetLocationMultiRangeSkill(float damage)
     {
+        if (dead)
+            return;
+        SkillState();
         SoundManager.instance.Play("GreatMountain/S_Athena", SoundManager.Sound.Effect);
         pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
         List<Tile> _getNeigbor = pathFinding.GetNeighbor(currentTile);

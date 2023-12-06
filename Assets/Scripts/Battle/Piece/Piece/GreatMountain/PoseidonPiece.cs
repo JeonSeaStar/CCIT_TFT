@@ -21,7 +21,6 @@ public class PoseidonPiece : Piece
 
     public override IEnumerator Skill()
     {
-        SkillState();
         AllPieceDamageSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
@@ -29,6 +28,9 @@ public class PoseidonPiece : Piece
 
     void AllPieceDamageSkill(float damage)
     {
+        if (dead)
+            return;           
+        SkillState();
         SoundManager.instance.Play("GreatMountain/S_Poseidon", SoundManager.Sound.Effect);
         List<Piece> _allPiece = fieldManager.enemyFilePieceList;
         foreach (var _Neigbor in _allPiece)

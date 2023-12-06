@@ -22,7 +22,6 @@ public class HeimdallrPiece : Piece
 
     public override IEnumerator Skill()
     {
-        SkillState();
         GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
@@ -30,6 +29,9 @@ public class HeimdallrPiece : Piece
 
     void GetLocationMultiRangeSkill(float heal)
     {
+        if (dead)
+            return;
+        SkillState();
         SoundManager.instance.Play("FrostyWind/S_Heimdallr", SoundManager.Sound.Effect);
         pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
         List<Tile> _getNeigbor = pathFinding.GetNeighbor(currentTile);

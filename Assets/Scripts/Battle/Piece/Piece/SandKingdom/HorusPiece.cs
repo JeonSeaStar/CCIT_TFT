@@ -24,7 +24,6 @@ public class HorusPiece : Piece
 
     public override IEnumerator Skill()
     {
-        SkillState();
         FindClosestEnemy(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
@@ -32,6 +31,9 @@ public class HorusPiece : Piece
 
     void FindClosestEnemy(float damage)
     {
+        if (dead)
+            return;
+        SkillState();
         SoundManager.instance.Play("SandKingdom/Sound_for_Horus_01", SoundManager.Sound.Effect);
         SoundManager.instance.Play("SandKingdom/Sound_for_Horus_02", SoundManager.Sound.Effect);
         SoundManager.instance.Play("SandKingdom/Sound_for_Horus_03", SoundManager.Sound.Effect);
