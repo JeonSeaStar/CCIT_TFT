@@ -75,7 +75,7 @@ public class Messenger : MonoBehaviour
 
     private void Start()
     {
-        SoundManager.instance.Play("BGM/Bgm_Battle_Default", SoundManager.Sound.Effect);
+        SoundManager.instance.Play("BGM/Bgm_Battle_Default", SoundManager.Sound.Bgm);
     }
 
     void Update()

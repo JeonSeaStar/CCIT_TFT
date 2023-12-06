@@ -508,7 +508,7 @@ public class Piece : MonoBehaviour
 
     public void SetPiece(Piece currentPiece, bool isControlPiece = false)
     {
-        SoundManager.instance.Play("UI/Eff_Set", SoundManager.Sound.Effect);
+        SoundManager.instance.Play("UI/Eff_Piece_Set", SoundManager.Sound.Effect);
         if (currentPiece.currentTile.isReadyTile == true && currentPiece.targetTile.isReadyTile == false)
         {
             var _duplicationCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == currentPiece.pieceName);
