@@ -7,7 +7,6 @@ public class AresBullet : Bullet
     private void Start()
     {
         SetDamage(damage);
-        Invoke("NextMove", 1f);
     }
 
     protected override void SetDamage(float damage)
@@ -32,7 +31,6 @@ public class AresBullet : Bullet
         {
             Instantiate(effect, new Vector3(target.transform.position.x, target.transform.position.y + 0.8f, target.transform.position.z), Quaternion.identity);
             Damage();
-            NextMove();
         }
     }
 
@@ -40,9 +38,5 @@ public class AresBullet : Bullet
     {
         parentPiece.Damage(damage);
         Destroy(gameObject);
-    }
-    void NextMove()
-    {
-        parentPiece.StartNextBehavior();
     }
 }

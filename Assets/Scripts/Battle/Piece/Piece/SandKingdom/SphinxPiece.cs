@@ -21,6 +21,7 @@ public class SphinxPiece : Piece
 
     public override IEnumerator Skill()
     {
+        SkillState();
         if (star == 0)
             SphinxSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 0.7f);
         else if (star == 1)

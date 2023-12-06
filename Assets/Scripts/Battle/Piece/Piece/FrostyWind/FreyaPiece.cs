@@ -21,6 +21,7 @@ public class FreyaPiece : Piece
 
     public override IEnumerator Skill()
     {
+        SkillState();
         if (star == 0)
             FreezeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 1f);
         else if (star == 1)
