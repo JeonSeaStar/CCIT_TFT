@@ -176,12 +176,12 @@ public class ArenaManager : MonoBehaviour
                 if (pieceList[i].isOwned)
                 {
                     SoundManager.instance.Play("UI/Eff_Round_Lose", SoundManager.Sound.Effect);
-                    BattleResult = Result.DEFEAT;
+                    if (BattleResult == Result.NONE) BattleResult = Result.DEFEAT;
                 }
                 else
                 {
                     SoundManager.instance.Play("UI/Eff_Round_Win", SoundManager.Sound.Effect);
-                    BattleResult = Result.VICTORY;
+                    if (BattleResult == Result.NONE) BattleResult = Result.VICTORY;
                 }
             }
         }
