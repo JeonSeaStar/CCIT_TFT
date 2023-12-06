@@ -53,6 +53,8 @@ public class Blossom : Piece
     }
     void GetLocationMultiRangeSkill(Tile tiles, float damage)
     {
+        if (dead)
+            return;
         SoundManager.instance.Play("Nepenthes_Seris/S_Skill_Blossom", SoundManager.Sound.Effect);
         SkillState();
         pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;

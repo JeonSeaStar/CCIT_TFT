@@ -23,7 +23,6 @@ public class FenrirPiece : Piece
 
     public override IEnumerator Skill()
     {
-        SkillState();
         GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
@@ -31,6 +30,9 @@ public class FenrirPiece : Piece
 
     void GetLocationMultiRangeSkill(float damage)
     {
+        if (dead)
+            return;
+        SkillState();
         SoundManager.instance.Play("FrostyWind/S_Fenrir", SoundManager.Sound.Effect);
         Quaternion rot = transform.rotation;
         Instantiate(skillEffects, transform.position, rot);

@@ -48,15 +48,17 @@ public class WereWolf : Piece
 
     public override IEnumerator Skill()
     {
+        GetLocationMultiRangeSkill(700f);
         Instantiate(skillEffects, target.transform.position, Quaternion.identity);
         Damage(1500f);
-        GetLocationMultiRangeSkill(700f);
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
 
     void GetLocationMultiRangeSkill(float damage)
     {
+        if (dead)
+            return;
         SoundManager.instance.Play("Wolf_Series/S_Skill_Were_Wolf", SoundManager.Sound.Effect);
         SkillState();
         pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;

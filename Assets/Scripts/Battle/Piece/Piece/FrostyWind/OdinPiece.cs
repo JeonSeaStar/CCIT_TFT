@@ -21,7 +21,6 @@ public class OdinPiece : Piece
 
     public override IEnumerator Skill()
     {
-        SkillState();
         AllPieceBuffSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
@@ -29,6 +28,9 @@ public class OdinPiece : Piece
 
     void AllPieceBuffSkill(float buff)
     {
+        if (dead)
+            return;
+        SkillState();
         SoundManager.instance.Play("FrostyWind/S_Odin", SoundManager.Sound.Effect);
         List<Piece> _allPiece = fieldManager.myFilePieceList;
         foreach (var _Neigbor in _allPiece)

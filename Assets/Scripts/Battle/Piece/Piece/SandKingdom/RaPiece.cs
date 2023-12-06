@@ -23,17 +23,14 @@ public class RaPiece : Piece
     {
         if (star == 0)
         {
-            SkillState();
             RaSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 0.7f);
         }
         else if (star == 1)
         {
-            SkillState();
             RaSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 1.2f);
         }
         else if (star == 2)
         {
-            SkillState();
             RaSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 1.7f);
         }
         yield return new WaitForSeconds(attackSpeed);
@@ -42,8 +39,11 @@ public class RaPiece : Piece
 
     public void RaSkill(float damage, float time)
     {
+        if (dead)
+            return;
         if (fieldManager.enemyFilePieceList != null)
         {
+            SkillState();
             SoundManager.instance.Play("SandKingdom/S_Ra_01", SoundManager.Sound.Effect);
             for (int i = 0; i < fieldManager.enemyFilePieceList.Count; i++)
             {

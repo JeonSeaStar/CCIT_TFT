@@ -22,7 +22,6 @@ public class ApollonPiece : Piece
 
     public override IEnumerator Skill()
     {
-        SkillState();
         GetLocationMultiRangeSkill(abilityPower);
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
@@ -30,6 +29,9 @@ public class ApollonPiece : Piece
 
     void GetLocationMultiRangeSkill(float time)
     {
+        if (dead)
+            return;
+        SkillState();
         SoundManager.instance.Play("GreatMountain/S_Apollon", SoundManager.Sound.Effect);
         pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
         List<Tile> _getNeigbor = pathFinding.GetNeighbor(currentTile);

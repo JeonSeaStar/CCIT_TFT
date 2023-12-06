@@ -22,7 +22,6 @@ public class CentaurusPiece : Piece
 
     public override IEnumerator Skill()
     {
-        SkillState();
         ProjectionSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
@@ -30,8 +29,11 @@ public class CentaurusPiece : Piece
 
     void ProjectionSkill(float damage)
     {
+        if (dead)
+            return;
         if (target != null)
         {
+            SkillState();
             SoundManager.instance.Play("GreatMountain/S_Centaurus", SoundManager.Sound.Effect);
             Quaternion rot = transform.rotation;
             GameObject centaBullet = Instantiate(bullet, transform.position, Quaternion.identity);

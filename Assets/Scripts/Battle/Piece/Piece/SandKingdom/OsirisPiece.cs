@@ -23,7 +23,6 @@ public class OsirisPiece : Piece
 
     public override IEnumerator Skill()
     {
-        SkillState();
         FindLeastHealthPiece(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
@@ -31,8 +30,11 @@ public class OsirisPiece : Piece
 
     public void FindLeastHealthPiece(float heal)
     {
+        if (dead)
+            return;
         if (fieldManager.myFilePieceList != null)
         {
+            SkillState();
             SoundManager.instance.Play("SandKingdom/S_Osiris", SoundManager.Sound.Effect);
             for (int i = 0; i < fieldManager.myFilePieceList.Count; i++)
             {

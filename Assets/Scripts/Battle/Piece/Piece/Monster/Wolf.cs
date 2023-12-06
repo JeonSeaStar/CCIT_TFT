@@ -51,6 +51,8 @@ public class Wolf : Piece
 
     void ShieldSkill(float shield)
     {
+        if (dead)
+            return;
         SoundManager.instance.Play("Wolf_Series/S_Skill_Wolf", SoundManager.Sound.Effect);
         SkillState();
         Instantiate(skillEffects, this.transform.position, Quaternion.identity);

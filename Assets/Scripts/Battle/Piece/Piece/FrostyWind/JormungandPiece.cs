@@ -26,17 +26,14 @@ public class JormungandPiece : Piece
     {
         if (star == 0)
         {
-            SkillState();
             GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 6);
         }
         else if (star == 1)
         {
-            SkillState();
             GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 6);
         }
         else if (star == 2)
         {
-            SkillState();
             GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 10);
         }
         yield return new WaitForSeconds(attackSpeed);
@@ -45,6 +42,9 @@ public class JormungandPiece : Piece
 
     public void GetLocationMultiRangeSkill(float damage, int time)
     {
+        if (dead)
+            return;
+        SkillState();
         SoundManager.instance.Play("FrostyWind/S_Jormungand", SoundManager.Sound.Effect);
         skillCheckTile = target.currentTile;
         pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
