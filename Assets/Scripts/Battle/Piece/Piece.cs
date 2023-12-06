@@ -539,7 +539,7 @@ public class Piece : MonoBehaviour
         else if (currentPiece.currentTile.isReadyTile == true && targetPiece.currentTile.isReadyTile == false)
         {
             currentPiece.pieceData.InitialzePiece(currentPiece); currentPiece.mana = currentPiece.pieceData.currentMana;
-            fieldManager.RemoveDPList(currentPiece);
+            fieldManager.RemoveDPList(targetPiece);
             fieldManager.myFilePieceList.Remove(targetPiece);
             targetPiece.buffList.Clear();
             var _duplicationTargetCheck = fieldManager.myFilePieceList.FirstOrDefault(listPiece => listPiece.pieceName == targetPiece.pieceName);
