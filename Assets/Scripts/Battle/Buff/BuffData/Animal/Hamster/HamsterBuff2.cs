@@ -30,10 +30,14 @@ public class HamsterBuff2 : BuffData
     IEnumerator Hamster()
     {
         pieceParent = GameObject.Find("Pieces");
-        pathFinding = GameObject.Find("PathFinding").GetComponent<PathFinding>();
+        pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
         while (true)
         {
             yield return new WaitForSeconds(4f);
+
+            var _battleResult = ArenaManager.Instance.BattleResult;
+            if (_battleResult != ArenaManager.Result.VICTORY || _battleResult != ArenaManager.Result.DEFEAT) break;
+
             List<Tile> _randomTile = new List<Tile>();
             for (int i = 0; i < pathFinding.grid[0].tile.Count; i++)
             {
