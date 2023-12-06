@@ -162,4 +162,10 @@ public class PieceShop : MonoBehaviour
         else
             LevelUpButtonDeactive.SetActive(false);
     }
+
+    public void DeactiveSlots()
+    {
+        foreach (var slot in slots)
+            slot.DeactiveSlot(slot.pieceData);
+    }
 }

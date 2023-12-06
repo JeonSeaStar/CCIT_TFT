@@ -131,7 +131,7 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         return tile;
     }
 
-    private void DeactiveSlot(PieceData data)
+    public void DeactiveSlot(PieceData data)
     {
         if (data.cost[data.grade, data.piecePrefab.GetComponent<Piece>().star] > fieldManager.owerPlayer.gold)
             DeactivePanel.SetActive(true);

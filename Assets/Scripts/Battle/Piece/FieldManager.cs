@@ -847,6 +847,7 @@ public class FieldManager : MonoBehaviour
         piece.isOwned = true;
         targetTile.IsFull = true;
         targetTile.walkable = false;
+        targetTile.piece = piece;
 
         //나중에 지울 거
         piece.pieceData = pieceData;
@@ -1089,6 +1090,7 @@ public class FieldManager : MonoBehaviour
 
     public void ChargeGold(int gold)
     {
+        pieceShop.DeactiveSlots();
         owerPlayer.gold += gold;
         playerState.UpdateMoney(owerPlayer.gold);
     }

@@ -222,8 +222,9 @@ public class Messenger : MonoBehaviour
                     _currentTile.piece = null;
                     isGrab = false; 
                     SoundManager.instance.Play("UI/Eff_Gold_Pos", SoundManager.Sound.Effect);
-                    gold += controlPiece.pieceData.cost[controlPiece.pieceData.grade, controlPiece.star];
-                    fieldManager.playerState.UpdateMoney(gold);
+                    //gold += controlPiece.pieceData.cost[controlPiece.pieceData.grade, controlPiece.star];
+                    fieldManager.ChargeGold(controlPiece.pieceData.cost[controlPiece.pieceData.grade, controlPiece.star]);
+                    //fieldManager.playerState.UpdateMoney(gold);
                     //기물이 가지고 있던 아이템 되돌려받기 추가
                     Destroy(controlPiece.gameObject);
                     behindSaleZone.SetActive(true);
