@@ -962,7 +962,7 @@ public class FieldManager : MonoBehaviour
             //아이템으로 인한 MAX_HP의 상승분을 여기에 구현
             resultPiece.name += " " + star + 1 + "Star";
             resultPiece.healthbar.FusionStarAnim(star);
-            SoundManager.instance.Play("UI/Upgrade", SoundManager.Sound.Effect);
+            SoundManager.instance.Play("UI/Eff_Upgrade", SoundManager.Sound.Effect);
             resultPiece.buffList = originPiece.buffList;
             resultPiece.pieceData.InitialzePiece(resultPiece); resultPiece.mana = resultPiece.pieceData.currentMana;
             string framePath = string.Format("UI_Resources/Unit HpBar_UI/{0}Star Frame", resultPiece.star);
@@ -982,7 +982,7 @@ public class FieldManager : MonoBehaviour
             resultPiece.maxHealth = resultPiece.pieceData.health[resultPiece.star];
             resultPiece.name += " " + star + 1 + "Star";
             resultPiece.healthbar.FusionStarAnim(star);
-            SoundManager.instance.Play("UI/Upgrade", SoundManager.Sound.Effect);
+            SoundManager.instance.Play("UI/Eff_Upgrade", SoundManager.Sound.Effect);
             resultPiece.pieceData.InitialzePiece(resultPiece); resultPiece.mana = resultPiece.pieceData.currentMana;
             string framePath = string.Format("UI_Resources/Unit HpBar_UI/{0}Star Frame", resultPiece.star);
             resultPiece.healthbar.gameObject.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(framePath);
@@ -1133,7 +1133,7 @@ public class FieldManager : MonoBehaviour
 
     public void ChargeLevel(int level)
     {
-        SoundManager.instance.Play("UI/LevelUp", SoundManager.Sound.Effect);
+        SoundManager.instance.Play("UI/Eff_LevelUp", SoundManager.Sound.Effect);
         owerPlayer.level += level;
         playerState.UpdateLevel(owerPlayer.level);
     }
