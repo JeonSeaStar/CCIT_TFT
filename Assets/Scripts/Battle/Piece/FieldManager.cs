@@ -1090,8 +1090,8 @@ public class FieldManager : MonoBehaviour
 
     public void ChargeGold(int gold)
     {
-        owerPlayer.gold += gold;
         pieceShop.DeactiveSlots();
+        owerPlayer.gold += gold;
         playerState.UpdateMoney(owerPlayer.gold);
     }
 
