@@ -21,7 +21,6 @@ public class AnubisPiece : Piece
 
     public override IEnumerator Skill()
     {
-        SkillState();
         AttackSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();

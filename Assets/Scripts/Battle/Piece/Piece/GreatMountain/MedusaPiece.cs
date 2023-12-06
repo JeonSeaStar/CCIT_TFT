@@ -21,7 +21,6 @@ public class MedusaPiece : Piece
 
     public override IEnumerator Skill()
     {
-        SkillState();
         Attackkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();

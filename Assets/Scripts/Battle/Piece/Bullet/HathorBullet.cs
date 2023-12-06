@@ -7,6 +7,7 @@ public class HathorBullet : Bullet
     private void Start()
     {
         SetDamage(damage);
+        Invoke("NextMove", 1f);
     }
 
     protected override void SetDamage(float damage)
@@ -31,6 +32,7 @@ public class HathorBullet : Bullet
         {
             Instantiate(effect, new Vector3(target.transform.position.x, target.transform.position.y + 0.8f, target.transform.position.z), Quaternion.identity);
             Damage();
+            NextMove();
         }
     }
 
@@ -38,5 +40,9 @@ public class HathorBullet : Bullet
     {
         parentPiece.Damage(damage);
         Destroy(gameObject);
+    }
+    void NextMove()
+    {
+        parentPiece.StartNextBehavior();
     }
 }

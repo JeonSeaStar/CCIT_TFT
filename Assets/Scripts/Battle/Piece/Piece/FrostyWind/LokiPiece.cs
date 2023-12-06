@@ -23,7 +23,6 @@ public class LokiPiece : Piece
 
     public override IEnumerator Skill()
     {
-        SkillState();
         if (star == 0)
         {
             GetAdbilityTarget(1.3f);

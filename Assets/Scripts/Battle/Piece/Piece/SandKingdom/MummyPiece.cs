@@ -21,7 +21,6 @@ public class MummyPiece : Piece
 
     public override IEnumerator Skill()
     {
-        SkillState();
         ShieldSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
