@@ -15,6 +15,7 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         Init();
+        Play("BGM/Bgm_Intro");
     }
 
     public enum Sound
