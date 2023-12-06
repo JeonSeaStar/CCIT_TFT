@@ -39,9 +39,9 @@ public class RaPiece : Piece
 
     public void RaSkill(float damage, float time)
     {
-        SoundManager.instance.Play("SandKingdom/S_Ra_01", SoundManager.Sound.Effect);
         if (fieldManager.enemyFilePieceList != null)
         {
+            SoundManager.instance.Play("SandKingdom/S_Ra_01", SoundManager.Sound.Effect);
             for (int i = 0; i < fieldManager.enemyFilePieceList.Count; i++)
             {
                 Instantiate(skillEffects, fieldManager.enemyFilePieceList[i].transform.position, Quaternion.identity);
