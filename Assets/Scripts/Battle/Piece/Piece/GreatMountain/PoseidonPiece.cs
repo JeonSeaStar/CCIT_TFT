@@ -29,7 +29,6 @@ public class PoseidonPiece : Piece
     void AllPieceDamageSkill(float damage)
     {
         SoundManager.instance.Play("GreatMountain/S_Poseidon", SoundManager.Sound.Effect);
-        Instantiate(skillEffects, target.transform.position, Quaternion.identity);
         List<Piece> _allPiece = fieldManager.enemyFilePieceList;
         foreach (var _Neigbor in _allPiece)
         {
@@ -40,6 +39,7 @@ public class PoseidonPiece : Piece
             }
             else
             {
+                Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
                 Damage(_targets, damage);
             }
         }
