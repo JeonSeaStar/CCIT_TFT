@@ -43,4 +43,9 @@ public class Tile : MonoBehaviour
         walkable = true;
         piece = null;
     }
+
+    public void Test()
+    {
+        Debug.Log(2525);
+    }
 }

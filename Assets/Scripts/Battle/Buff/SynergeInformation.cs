@@ -15,10 +15,6 @@ public class SynergeInformation : MonoBehaviour
     [SerializeField] List<MythSynergeInformation> mythSynergeInformation = new List<MythSynergeInformation>();
     [SerializeField] List<AnimalSynergeInformation> animalSynergeInformation = new List<AnimalSynergeInformation>();
 
-    public void Test()
-    {
-        Debug.Log(25);
-    }
 }
 
 [System.Serializable]
@@ -41,9 +37,9 @@ public class AnimalSynergeInformation
     public List<string> synergeActiveExplanations = new List<string>();
 }
 
-//[System.Serializable]
-//public class UnitedSynergeInformation
-//{
-//    public string[] mythSynergeName;
-//    public string[] mythSynergeExplanation;
-//}
+[System.Serializable]
+public class UnitedSynergeInformation
+{
+    public string[] mythSynergeName;
+    public string[] mythSynergeExplanation;
+}
