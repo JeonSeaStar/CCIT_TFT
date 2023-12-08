@@ -25,17 +25,14 @@ public class LokiPiece : Piece
     {
         if (star == 0)
         {
-            SkillState();
             GetAdbilityTarget(1.3f);
         }
         else if (star == 1)
         {
-            SkillState();
             GetAdbilityTarget(1.6f);
         }
         else if (star == 2)
         {
-            SkillState();
             GetAdbilityTarget(1.9f);
         }
         yield return new WaitForSeconds(attackSpeed);
@@ -44,6 +41,9 @@ public class LokiPiece : Piece
 
     public void GetAdbilityTarget(float percentage)
     {
+        if (dead)
+            return;
+        SkillState();
         SoundManager.instance.Play("FrostyWind/S_Loki", SoundManager.Sound.Effect);
         pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
         List<Tile> _getFirstLineTiles = pathFinding.GetFrontLine(fieldManager.lokiPieceSkillPosition);

@@ -22,7 +22,6 @@ public class ThothPiece : Piece
 
     public override IEnumerator Skill()
     {
-        SkillState();
         ProjectionSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
@@ -32,6 +31,9 @@ public class ThothPiece : Piece
     {
         if (target != null)
         {
+            if (dead)
+                return;
+            SkillState();
             SoundManager.instance.Play("SandKingdom/S_Thoth", SoundManager.Sound.Effect);
             Instantiate(skillEffects, new Vector3(target.transform.position.x, target.transform.position.y + 0.8f, target.transform.position.z), Quaternion.identity);
             pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;

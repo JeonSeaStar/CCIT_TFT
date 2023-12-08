@@ -21,7 +21,6 @@ public class MummyPiece : Piece
 
     public override IEnumerator Skill()
     {
-        SkillState();
         ShieldSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
@@ -29,6 +28,9 @@ public class MummyPiece : Piece
 
     void ShieldSkill(float shield)
     {
+        if (dead)
+            return;
+        SkillState();
         SoundManager.instance.Play("SandKingdom/S_Mummy", SoundManager.Sound.Effect);
         Instantiate(skillEffects, this.transform.position, Quaternion.identity);
         this.shield = shield;

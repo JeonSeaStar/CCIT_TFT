@@ -26,8 +26,9 @@ public class HathorBullet : Bullet
 
     private void OnTriggerEnter(Collider target)
     {
-
-        if(target.gameObject == parentPiece.target.gameObject)
+        if (target.gameObject == null)
+            return;
+        if (target.gameObject == parentPiece.target.gameObject)
         {
             Instantiate(effect, new Vector3(target.transform.position.x, target.transform.position.y + 0.8f, target.transform.position.z), Quaternion.identity);
             Damage();

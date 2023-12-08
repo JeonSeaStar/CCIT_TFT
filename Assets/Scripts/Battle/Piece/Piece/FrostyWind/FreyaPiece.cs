@@ -33,7 +33,9 @@ public class FreyaPiece : Piece
 
     void FreezeSkill(float damage, float time)
     {
-        if(target != null)
+        if (dead)
+            return;
+        if (target != null)
         {
             SkillState();
             SoundManager.instance.Play("FrostyWind/S_Freya", SoundManager.Sound.Effect);

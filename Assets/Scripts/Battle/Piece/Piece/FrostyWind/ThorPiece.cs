@@ -23,19 +23,16 @@ public class ThorPiece : Piece
     {
         if (star == 0)
         {
-            SkillState();
             AllPieceDamageSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
             StartCoroutine(AllPieceDamageTimeSkill(30f, 5f));
         }
         else if (star == 1)
         {
-            SkillState();
             AllPieceDamageSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
             StartCoroutine(AllPieceDamageTimeSkill(60f, 10f));
         }
         else if (star == 2)
         {
-            SkillState();
             AllPieceDamageSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
             StartCoroutine(AllPieceDamageTimeSkill(90f, 30f));
         }
@@ -72,6 +69,9 @@ public class ThorPiece : Piece
 
     void AllPieceDamageSkill(float damage)
     {
+        if (dead)
+            return;
+        SkillState();
         SoundManager.instance.Play("FrostyWind/S_Thor", SoundManager.Sound.Effect);
         List<Piece> _allPiece = fieldManager.enemyFilePieceList;
         foreach (var _Neigbor in _allPiece)

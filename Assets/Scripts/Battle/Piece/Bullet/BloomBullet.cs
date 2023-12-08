@@ -26,7 +26,8 @@ public class BloomBullet : Bullet
 
     private void OnTriggerEnter(Collider target)
     {
-
+        if (target.gameObject == null)
+            return;
         if (target.gameObject == parentPiece.target.gameObject)
         {
             Instantiate(effect, target.transform.position, Quaternion.identity);

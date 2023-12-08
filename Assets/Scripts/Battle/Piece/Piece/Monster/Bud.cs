@@ -51,6 +51,8 @@ public class Bud : Piece
 
     void HealSkill(float heal)
     {
+        if (dead)
+            return;
         SoundManager.instance.Play("Nepenthes_Seris/S_Skill_Bud", SoundManager.Sound.Effect);
         SkillState();
         Instantiate(skillEffects, transform.position, Quaternion.identity);

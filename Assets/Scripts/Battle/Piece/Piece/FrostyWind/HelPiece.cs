@@ -30,8 +30,11 @@ public class HelPiece : Piece
 
     void ProjectionSkill(float damage)
     {
+        if (dead)
+            return;
         if (target != null)
         {
+            SkillState();
             SoundManager.instance.Play("FrostyWind/S_Hel", SoundManager.Sound.Effect);
             GameObject centaBullet = Instantiate(helBullet, transform.position, Quaternion.identity);
             Bullet b = centaBullet.GetComponent<HelBullet>();

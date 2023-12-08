@@ -21,7 +21,6 @@ public class AnubisPiece : Piece
 
     public override IEnumerator Skill()
     {
-        SkillState();
         AttackSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
@@ -29,8 +28,11 @@ public class AnubisPiece : Piece
 
     public void AttackSkill(float damage)
     {
+        if (dead)
+            return;
         if (target != null)
         {
+            SkillState();
             SoundManager.instance.Play("SandKingdom/S_Anubis", SoundManager.Sound.Effect);
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
             Damage(damage);

@@ -22,7 +22,6 @@ public class GriffinPiece : Piece
 
     public override IEnumerator Skill()
     {
-        SkillState();
         GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
@@ -30,6 +29,9 @@ public class GriffinPiece : Piece
 
     void GetLocationMultiRangeSkill(float damage)
     {
+        if (dead)
+            return;
+        SkillState();
         SoundManager.instance.Play("GreatMountain/S_Griffin", SoundManager.Sound.Effect);
         Quaternion rotation = transform.rotation;
         Instantiate(skillEffects, transform.position, rotation);

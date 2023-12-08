@@ -23,7 +23,6 @@ public class SethPiece : Piece
 
     public override IEnumerator Skill()
     {
-        SkillState();
         SoundManager.instance.Play("SandKingdom/S_Seth", SoundManager.Sound.Effect);
         GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
@@ -34,6 +33,9 @@ public class SethPiece : Piece
     {
         if (target != null)
         {
+            if (dead)
+                return;
+            SkillState();
             Quaternion rot = transform.rotation;
             Instantiate(skillEffects, transform.position, rot);
             Instantiate(sethSkill, target.transform.position, Quaternion.identity);

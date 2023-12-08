@@ -29,8 +29,11 @@ public class MedusaPiece : Piece
 
     void Attackkill(float damage)
     {
-        if(target != null)
+        if (dead)
+            return;
+        if (target != null)
         {
+            SkillState();
             SoundManager.instance.Play("GreatMountain/S_Medusa", SoundManager.Sound.Effect);
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
             Damage(damage);
