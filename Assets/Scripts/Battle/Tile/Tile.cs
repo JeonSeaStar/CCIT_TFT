@@ -30,6 +30,8 @@ public class Tile : MonoBehaviour
     public bool walkable = true;
     public bool myTile = false;
 
+    public GameObject tileSelectEffect;
+
     public Tile(int gridX, int gridY, int gridZ)
     {
         this.gridX = gridX;
@@ -44,8 +46,8 @@ public class Tile : MonoBehaviour
         piece = null;
     }
 
-    public void Test()
+    public void ActiveTileEffect(bool isActive)
     {
-        Debug.Log(2525);
+        tileSelectEffect.SetActive(isActive);
     }
 }
