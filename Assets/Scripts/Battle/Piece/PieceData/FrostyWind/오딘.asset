@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47dbc1b9740874d4aa64202f2ad67066, type: 3}
+  m_Name: "\uC624\uB518"
+  m_EditorClassIdentifier: 
+  pieceName: "\uC624\uB518"
+  piecePortrait: {fileID: 21300000, guid: 92af00ed3a3de7b44b145e16fcf1fe64, type: 3}
+  piecePrefab: {fileID: 8782879786062961533, guid: adc23ee09b9392347b60623f1ec7de55,
+    type: 3}
+  grade: 3
+  star: 0
+  health:
+  - 1300
+  - 2600
+  - 5200
+  mana:
+  - 99
+  - 99
+  - 99
+  currentMana: 9
+  manaRecovery:
+  - 10
+  - 10
+  - 10
+  attackDamage:
+  - 65
+  - 130
+  - 260
+  abilityPower:
+  - 30
+  - 60
+  - 99
+  abilityPowerCoefficient:
+  - 0
+  - 0
+  - 0
+  armor:
+  - 0
+  - 0
+  - 0
+  magicResist:
+  - 0
+  - 0
+  - 0
+  attackSpeed:
+  - 0.8
+  - 0.8
+  - 0.8
+  criticalChance:
+  - 20
+  - 20
+  - 20
+  criticalDamage:
+  - 20
+  - 20
+  - 20
+  attackRange: 010000000100000001000000
+  bloodBrain:
+  - 0
+  - 0
+  - 0
+  moveSpeed:
+  - 1
+  - 1
+  - 1
+  buff: {fileID: 0}
+  skilSprite: {fileID: 21300000, guid: 6f7606a57dd780544844772673ba0691, type: 3}
+  skillName: "18\uAC00\uC9C0 \uBE44\uC220"
+  skillExplain: "18\uAC00\uC9C0 \uBE44\uC220 \uC911 \uD558\uB098\uB97C \uC0AC\uC6A9\uD574
+    \uBAA8\uB4E0 \uC544\uAD70 \uAE30\uBB3C\uC758 \uACF5\uACA9\uB825\uC744 00\uB9CC\uD07C
+    \uC99D\uAC00\uC2DC\uD0B5\uB2C8\uB2E4."
+  myth: 1
+  animal: 4
+  united: 0
