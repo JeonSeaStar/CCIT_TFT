@@ -39,7 +39,6 @@ public class PieceData : ScriptableObject
     public int[] attackRange = new int[3];       //°ø°İ¹üÀ§
     public float[] bloodBrain = new float[3];      //ÈíÇù·ü
     public float[] moveSpeed = new float[3];     //ÀÌµ¿¼Óµµ
-    public Buff buff;
 
     public Sprite skilSprite;
     public string skillName;

@@ -966,7 +966,7 @@ public class FieldManager : MonoBehaviour
             SoundManager.instance.Play("UI/Eff_Upgrade", SoundManager.Sound.Effect);
             resultPiece.buffList = originPiece.buffList;
             resultPiece.pieceData.InitialzePiece(resultPiece); resultPiece.mana = resultPiece.pieceData.currentMana;
-            string framePath = string.Format("UI_Resources/Unit HpBar_UI/{0}Star Frame", resultPiece.star);
+            string framePath = string.Format("Sprites/Unit HpBar_UI/{0}Star Frame", resultPiece.star);
             resultPiece.healthbar.gameObject.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(framePath);
             for (int i = 0; i < resultPiece.buffList.Count; i++)
             {
@@ -985,7 +985,7 @@ public class FieldManager : MonoBehaviour
             resultPiece.healthbar.FusionStarAnim(star);
             SoundManager.instance.Play("UI/Eff_Upgrade", SoundManager.Sound.Effect);
             resultPiece.pieceData.InitialzePiece(resultPiece); resultPiece.mana = resultPiece.pieceData.currentMana;
-            string framePath = string.Format("UI_Resources/Unit HpBar_UI/{0}Star Frame", resultPiece.star);
+            string framePath = string.Format("Sprites/Unit HpBar_UI/{0}Star Frame", resultPiece.star);
             resultPiece.healthbar.gameObject.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(framePath);
             resultPiece.currentTile.gameObject.transform.GetChild(1).gameObject.SetActive(true);
         }

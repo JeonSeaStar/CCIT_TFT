@@ -47,7 +47,7 @@ public class FrostyWindBuff1 : BuffData
                     if (enemy.immune != true) 
                     {
                         //enemy.SetFreeze();
-                        enemy.SetDebuff("Freeze", 3, enemy);
+                        enemy.SetFreeze(3);
                         Debug.Log("서리바람이 " + enemy.gameObject.name + "을 빙결시킵니다."); 
                     }
                     enemyList.Remove(enemy);
