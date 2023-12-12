@@ -608,45 +608,64 @@ public class Piece : MonoBehaviour
     public void SetFreeze(float time)
     {
         freeze = true;
-        freezeEffect.SetActive(true);
-        IdleState(time);
-        Invoke("FreezeClear", time);
+        if (gameObject.activeSelf)
+        {
+            freezeEffect.SetActive(true);
+            IdleState(time);
+            Invoke("FreezeClear", time);
+        }
     }
     public void FreezeClear()
     {
         freeze = false;
-        freezeEffect.SetActive(false);
-        if (gameObject.activeSelf) StartCoroutine(NextBehavior());
+        if (gameObject.activeSelf)
+        {
+            freezeEffect.SetActive(false);
+            StartCoroutine(NextBehavior());
+        }
     }
 
     public void SetBlind(float time)
     {
         blind = true;
-        blindEffect.SetActive(true);
-        attackDamage = 0;
-        Invoke("BlindClear", time);
+        if (gameObject.activeSelf)
+        {
+            blindEffect.SetActive(true);
+            attackDamage = 0;
+            Invoke("BlindClear", time);
+        }
     }
 
     void BlindClear()
     {
         blind = false;
-        blindEffect.SetActive(false);
-        attackDamage = preAttackDamage;
+        if (gameObject.activeSelf)
+        {
+            blindEffect.SetActive(false);
+            attackDamage = preAttackDamage;
+        }
     }
 
     public void SetStun(float time)
     {
         stun = true;
-        stunEffect.SetActive(true);
-        IdleState(time);
-        Invoke("StunClear", time);
+        if (gameObject.activeSelf)
+        {
+            stunEffect.SetActive(true);
+            IdleState(time);
+            Invoke("StunClear", time);
+        }
     }
 
     void StunClear()
     {
         stun = false;
         stunEffect.SetActive(false);
-        if (gameObject.activeSelf) StartCoroutine(NextBehavior());
+        if (gameObject.activeSelf)
+        {
+            stunEffect.SetActive(false);
+            StartCoroutine(NextBehavior());
+        }
     }
 
     //void 
