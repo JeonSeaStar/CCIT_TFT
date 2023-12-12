@@ -40,6 +40,18 @@ public class Messenger : MonoBehaviour
         }
     }
 
+    [SerializeField] Tile controlTile;
+    public Tile ControlTile
+    {
+        get { return controlTile; }
+        set
+        {
+            if (controlTile == value) return;
+
+            controlTile = value;
+        }
+    }
+
     [SerializeField] Equipment controlEquipment;
     public Equipment ControlEquipment
     {
@@ -172,17 +184,26 @@ public class Messenger : MonoBehaviour
         float _distance = Camera.main.WorldToScreenPoint(_controlObject.transform.position).z;
         Vector3 _mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, _distance);
         Vector3 _objPos = Camera.main.ScreenToWorldPoint(_mousePos);
-        _objPos.y = 1.5f; //¿ø·¡0
+        _objPos.x += 1f;
+        _objPos.y = 1.5f;
+        _objPos.z += 1f; 
 
         #region Piece
         if (controlPiece == null) controlPiece = _controlObject.GetComponent<Piece>();
         else if (controlPiece != null)
         {
-            if (ArenaManager.Instance.roundType == ArenaManager.RoundType.Battle && controlPiece.currentTile.isReadyTile)
+            controlPiece.transform.position = _objPos; 
+            
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, (-1) - (1 << 6)) && hit.transform.gameObject.layer == 7)
             {
-                controlPiece.transform.gameObject.transform.position = _objPos; return;
+                if (hit.transform.gameObject.GetComponent<Tile>().myTile && ControlTile != hit.transform.GetComponent<Tile>()) ControlTile = hit.transform.GetComponent<Tile>();
             }
-            else controlPiece.transform.position = _objPos; return;
+            return;
+            //if (ArenaManager.Instance.roundType == ArenaManager.RoundType.Battle && controlPiece.currentTile.isReadyTile)
+            //{
+            //    controlPiece.transform.gameObject.transform.position = _objPos; return;
+            //}
+            //else controlPiece.transform.position = _objPos; return;
         }
         #endregion
         #region

@@ -41,7 +41,6 @@ public class SphinxPiece : Piece
             SoundManager.instance.Play("SandKingdom/S_Spinx", SoundManager.Sound.Effect);
             Instantiate(skillEffects, new Vector3(target.transform.position.x, target.transform.position.y + 0.8f, target.transform.position.z), Quaternion.identity);
             target.SetStun(time);
-            SetDebuff("Stun", time);
             Damage(damage);
         }
     }

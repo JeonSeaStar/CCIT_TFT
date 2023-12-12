@@ -78,7 +78,7 @@ public class ArenaManager : MonoBehaviour
                     else
                     {
                         resultPopup.ActiveResultPopup(true);
-                        SoundManager.instance.Play("UI/Eff_Win", SoundManager.Sound.Effect);
+                        SoundManager.instance.Play("UI/Eff_Round_Win", SoundManager.Sound.Effect);
                     }
 
                     foreach (var piece in fieldManagers[0].myFilePieceList)
@@ -98,7 +98,7 @@ public class ArenaManager : MonoBehaviour
                     else
                     {
                         resultPopup.ActiveResultPopup(false);
-                        SoundManager.instance.Play("UI/Eff_Lose", SoundManager.Sound.Effect);
+                        SoundManager.instance.Play("UI/Eff_Round_Lose", SoundManager.Sound.Effect);
                     }
 
                     roundState.UpdateStageIcon(currentRound, 2, fieldManagers[0].stageInformation.enemy[currentRound].roundType);

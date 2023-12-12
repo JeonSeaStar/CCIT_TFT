@@ -18,7 +18,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &8495173726921258331
 Transform:
@@ -124,9 +124,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8495173726921258331}
     m_Modifications:
+    - target: {fileID: 100000, guid: 5aed69264a3e2b240b5ed825972be476, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 5aed69264a3e2b240b5ed825972be476, type: 3}
       propertyPath: m_Name
       value: Skill_for_Cen0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 5aed69264a3e2b240b5ed825972be476, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 5aed69264a3e2b240b5ed825972be476, type: 3}
       propertyPath: m_RootOrder

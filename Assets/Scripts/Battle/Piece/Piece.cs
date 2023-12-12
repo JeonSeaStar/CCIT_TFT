@@ -570,85 +570,6 @@ public class Piece : MonoBehaviour
     }
 
     #region 상태이상
-    public void SetDebuff(string debuff, float time, Piece target = null)
-    {
-        target = (target == null) ? this.target : target;
-        if (target.immune) { Debug.Log("상대가 상태이상 면역입니다."); return; }
-        switch (debuff)
-        {
-            case "Freeze":
-                target.freeze = true;
-                StartCoroutine(DebuffTimer(target, "Freeze", time));
-                break;
-            case "Slow":
-                target.slow = true;
-                StartCoroutine(DebuffTimer(target, "Slow", time));
-                break;
-            case "Airbone":
-                target.airborne = true;
-                StartCoroutine(DebuffTimer(target, "Airbone", time));
-                break;
-            case "Faint":
-                target.faint = true;
-                StartCoroutine(DebuffTimer(target, "Faint", time));
-                break;
-            case "Fear":
-                target.fear = true;
-                StartCoroutine(DebuffTimer(target, "Fear", time));
-                break;
-            case "Invincible":
-                target.invincible = true;
-                StartCoroutine(DebuffTimer(target, "Invincible", time));
-                break;
-            case "Charm":
-                target.charm = true;
-                StartCoroutine(DebuffTimer(target, "Charm", time));
-                break;
-            case "Blind":
-                target.blind = true;
-                StartCoroutine(DebuffTimer(target, "Blind", time));
-                break;
-            case "Stun":
-                target.stun = true;
-                StartCoroutine(DebuffTimer(target, "Stun", time));
-                break;
-        }
-    }
-
-    IEnumerator DebuffTimer(Piece target, string debuff, float time)
-    {
-        yield return new WaitForSeconds(time);
-        switch (debuff)
-        {
-            case "Freeze":
-                target.freeze = false;
-                break;
-            case "Slow":
-                target.slow = false;
-                break;
-            case "Airbone":
-                target.airborne = false;
-                break;
-            case "Faint":
-                target.faint = false;
-                break;
-            case "Fear":
-                target.fear = false;
-                break;
-            case "Invincible":
-                target.invincible = false;
-                break;
-            case "Charm":
-                target.charm = false;
-                break;
-            case "Blind":
-                target.blind = false;
-                break;
-            case "Stun":
-                target.stun = false;
-                break;
-        }
-    }
 
     public void SetImmune()
     {
@@ -687,45 +608,64 @@ public class Piece : MonoBehaviour
     public void SetFreeze(float time)
     {
         freeze = true;
-        freezeEffect.SetActive(true);
-        IdleState(time);
-        Invoke("FreezeClear", time);
+        if (gameObject.activeSelf)
+        {
+            freezeEffect.SetActive(true);
+            IdleState(time);
+            Invoke("FreezeClear", time);
+        }
     }
     public void FreezeClear()
     {
         freeze = false;
-        freezeEffect.SetActive(false);
-        if (gameObject.activeSelf) StartCoroutine(NextBehavior());
+        if (gameObject.activeSelf)
+        {
+            freezeEffect.SetActive(false);
+            StartCoroutine(NextBehavior());
+        }
     }
 
     public void SetBlind(float time)
     {
         blind = true;
-        blindEffect.SetActive(true);
-        attackDamage = 0;
-        Invoke("BlindClear", time);
+        if (gameObject.activeSelf)
+        {
+            blindEffect.SetActive(true);
+            attackDamage = 0;
+            Invoke("BlindClear", time);
+        }
     }
 
     void BlindClear()
     {
         blind = false;
-        blindEffect.SetActive(false);
-        attackDamage = preAttackDamage;
+        if (gameObject.activeSelf)
+        {
+            blindEffect.SetActive(false);
+            attackDamage = preAttackDamage;
+        }
     }
 
     public void SetStun(float time)
     {
         stun = true;
-        stunEffect.SetActive(true);
-        IdleState(time);
-        Invoke("StunClear", time);
+        if (gameObject.activeSelf)
+        {
+            stunEffect.SetActive(true);
+            IdleState(time);
+            Invoke("StunClear", time);
+        }
     }
 
     void StunClear()
     {
         stun = false;
         stunEffect.SetActive(false);
-        if (gameObject.activeSelf) StartCoroutine(NextBehavior());
+        if (gameObject.activeSelf)
+        {
+            stunEffect.SetActive(false);
+            StartCoroutine(NextBehavior());
+        }
     }
 
     //void 
