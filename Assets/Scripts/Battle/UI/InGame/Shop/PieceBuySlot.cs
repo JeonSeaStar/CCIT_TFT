@@ -16,7 +16,7 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public Image slotHighlight;
     public Sprite boughtSlot;
     float colourT;
-    bool Bought
+    public bool Bought
     {
         get { return bought; }
         set
@@ -110,6 +110,8 @@ public class PieceBuySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             //targetTile.isFull = true;
             SoundManager.instance.Play("UI/Eff_Gold_Pos", SoundManager.Sound.Effect);
             Bought = true;
+
+            pieceShop.DeactiveSlots();
         }
         else
         {

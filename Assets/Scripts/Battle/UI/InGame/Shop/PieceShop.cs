@@ -133,7 +133,7 @@ public class PieceShop : MonoBehaviour
         if (fieldManager.owerPlayer.level == fieldManager.owerPlayer.levelUpCost.Length - 1)
             return;
 
-        if(fieldManager.owerPlayer.gold >= fieldManager.owerPlayer.levelUpCost[fieldManager.owerPlayer.level])
+        if (fieldManager.owerPlayer.gold >= fieldManager.owerPlayer.levelUpCost[fieldManager.owerPlayer.level])
         {
             fieldManager.owerPlayer.gold -= fieldManager.owerPlayer.levelUpCost[fieldManager.owerPlayer.level];
             fieldManager.owerPlayer.level++;
@@ -166,6 +166,7 @@ public class PieceShop : MonoBehaviour
     public void DeactiveSlots()
     {
         foreach (var slot in slots)
-            slot.DeactiveSlot(slot.pieceData);
+            if (!slot.Bought)
+                slot.DeactiveSlot(slot.pieceData);
     }
 }
