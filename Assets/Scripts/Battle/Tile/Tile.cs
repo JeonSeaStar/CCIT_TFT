@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Tile : MonoBehaviour
+public class Tile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public bool IsFull
     {
@@ -31,6 +32,19 @@ public class Tile : MonoBehaviour
     public bool myTile = false;
 
     public GameObject tileSelectEffect;
+    public SpriteRenderer spriteRenderer;
+    public Color originColor;
+    public Color selectedColor;
+
+    private void Awake()
+    {
+        if (myTile)
+        {
+            originColor = spriteRenderer.color;
+            selectedColor = spriteRenderer.color;
+            selectedColor.a += 245;
+        }
+    }
 
     public Tile(int gridX, int gridY, int gridZ)
     {
@@ -46,8 +60,21 @@ public class Tile : MonoBehaviour
         piece = null;
     }
 
-    public void ActiveTileEffect(bool isActive)
+    public void OnPointerEnter(PointerEventData eventData)
     {
-        tileSelectEffect.SetActive(isActive);
+        if (myTile)
+        {
+            tileSelectEffect.SetActive(true);
+            spriteRenderer.color = selectedColor;
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (myTile)
+        {
+            tileSelectEffect.SetActive(false);
+            spriteRenderer.color = originColor;
+        }
     }
 }

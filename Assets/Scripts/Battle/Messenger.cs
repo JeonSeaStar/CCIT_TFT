@@ -184,7 +184,9 @@ public class Messenger : MonoBehaviour
         float _distance = Camera.main.WorldToScreenPoint(_controlObject.transform.position).z;
         Vector3 _mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, _distance);
         Vector3 _objPos = Camera.main.ScreenToWorldPoint(_mousePos);
-        _objPos.y = 1.5f; //¿ø·¡0
+        _objPos.x += 1f;
+        _objPos.y = 1.5f;
+        _objPos.z += 1f; 
 
         #region Piece
         if (controlPiece == null) controlPiece = _controlObject.GetComponent<Piece>();

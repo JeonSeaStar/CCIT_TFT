@@ -213,6 +213,10 @@ MonoBehaviour:
   hCost: 0
   walkable: 0
   myTile: 1
+  tileSelectEffect: {fileID: 171462097090917352}
+  spriteRenderer: {fileID: 1515803986}
+  originColor: {r: 0, g: 0, b: 0, a: 0}
+  selectedColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1001 &664204961
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -292,6 +296,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92edf3fc35520e84cbc3f15e20b66fa4, type: 3}
+--- !u!1 &171462097090917352 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 171462096496280905, guid: 92edf3fc35520e84cbc3f15e20b66fa4,
+    type: 3}
+  m_PrefabInstance: {fileID: 664204961}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &660612368509462866 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 660612367862374387, guid: 92edf3fc35520e84cbc3f15e20b66fa4,
