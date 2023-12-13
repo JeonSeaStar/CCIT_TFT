@@ -46,7 +46,7 @@ public class LokiPiece : Piece
         SkillState();
         SoundManager.instance.Play("FrostyWind/S_Loki", SoundManager.Sound.Effect);
         pathFinding = FieldManager.Instance.pathFinding;
-        List<Tile> _getFirstLineTiles = pathFinding.GetFrontLine(fieldManager.lokiPieceSkillPosition);
+        List<Tile> _getFirstLineTiles = pathFinding.GetFrontLine(pathFinding.grid[4].tile[0]);
         foreach (var _Neigbor in _getFirstLineTiles)
         {
             Piece _targets = _Neigbor.GetComponent<Piece>();
