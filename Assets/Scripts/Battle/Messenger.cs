@@ -92,7 +92,7 @@ public class Messenger : MonoBehaviour
 
     void Update()
     {
-        if (ArenaManager.Instance.roundType == ArenaManager.RoundType.Deployment || ArenaManager.Instance.roundType == ArenaManager.RoundType.Battle)
+        if (FieldManager.Instance.roundType == FieldManager.RoundType.Deployment || FieldManager.Instance.roundType == FieldManager.RoundType.Battle)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -157,7 +157,7 @@ public class Messenger : MonoBehaviour
         if (_isGrapPiece && targetPiece.GetComponent<Piece>().isOwned == true)
         {
             controlPiece = hit.transform.gameObject.GetComponent<Piece>();
-            if (ArenaManager.Instance.roundType == ArenaManager.RoundType.Battle && controlPiece.currentTile.isReadyTile == false) return;
+            if (FieldManager.Instance.roundType == FieldManager.RoundType.Battle && controlPiece.currentTile.isReadyTile == false) return;
             pieceSaleGoldText.text = controlPiece.pieceData.cost[controlPiece.pieceData.grade, controlPiece.star].ToString();
             FreezeRigidbody(controlPiece, _isGrapPiece);
             isGrab = _isGrapPiece;
@@ -199,7 +199,7 @@ public class Messenger : MonoBehaviour
                 if (hit.transform.gameObject.GetComponent<Tile>().myTile && ControlTile != hit.transform.GetComponent<Tile>()) ControlTile = hit.transform.GetComponent<Tile>();
             }
             return;
-            //if (ArenaManager.Instance.roundType == ArenaManager.RoundType.Battle && controlPiece.currentTile.isReadyTile)
+            //if (FieldManager.Instance.roundType == FieldManager.RoundType.Battle && controlPiece.currentTile.isReadyTile)
             //{
             //    controlPiece.transform.gameObject.transform.position = _objPos; return;
             //}
@@ -262,11 +262,11 @@ public class Messenger : MonoBehaviour
             #region 기물 배치
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, (-1) - (1 << 6)) && hit.transform.gameObject.layer == 7 && hit.transform.gameObject.GetComponent<Tile>().myTile)
             {
-                var _currentRound = ArenaManager.Instance.roundType;
+                var _currentRound = FieldManager.Instance.roundType;
                 Tile _currentTileInformation = controlPiece.currentTile;
                 Tile _targetTileInformation = hit.transform.gameObject.GetComponent<Tile>();
                 controlPiece.targetTile = _targetTileInformation;
-                if (_currentRound == ArenaManager.RoundType.Battle && controlPiece.currentTile.isReadyTile == false) ResetPositionToCurrentTile(controlPiece);
+                if (_currentRound == FieldManager.RoundType.Battle && controlPiece.currentTile.isReadyTile == false) ResetPositionToCurrentTile(controlPiece);
                 else
                 {
                     if (_currentTileInformation != _targetTileInformation)
@@ -345,7 +345,7 @@ public class Messenger : MonoBehaviour
                     //
                     if (controlEquipment.targetPiece != null)
                     {
-                        ArenaManager.Instance.fieldManagers[0].chest.AddEquipment(controlEquipment.targetPiece, controlEquipment);
+                        FieldManager.Instance.chest.AddEquipment(controlEquipment.targetPiece, controlEquipment);
                         print(111);
                     }
                 }
@@ -417,7 +417,7 @@ public class Messenger : MonoBehaviour
 
     void spawnChargingParticle()
     {
-        foreach (var piece in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
+        foreach (var piece in FieldManager.Instance.myFilePieceList)
         {
             if (!piece.dead)
             {

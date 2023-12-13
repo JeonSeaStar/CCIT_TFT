@@ -47,7 +47,7 @@ public class JormungandPiece : Piece
         SkillState();
         SoundManager.instance.Play("FrostyWind/S_Jormungand", SoundManager.Sound.Effect);
         skillCheckTile = target.currentTile;
-        pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
+        pathFinding = FieldManager.Instance.pathFinding;
         Instantiate(skillEffects, target.currentTile.transform.position, Quaternion.identity);
         StartCoroutine(FindNeighbor(damage, time));
     }

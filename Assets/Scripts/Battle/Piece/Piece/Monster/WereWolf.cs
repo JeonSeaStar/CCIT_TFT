@@ -61,7 +61,7 @@ public class WereWolf : Piece
             return;
         SoundManager.instance.Play("Wolf_Series/S_Skill_Were_Wolf", SoundManager.Sound.Effect);
         SkillState();
-        pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
+        pathFinding = FieldManager.Instance.pathFinding;
         List<Tile> _getNeigbor = pathFinding.GetNeighbor(currentTile);
         foreach (var _Neigbor in _getNeigbor)
         {

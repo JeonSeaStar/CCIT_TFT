@@ -15,14 +15,14 @@ public class GreatMountainBuff2 : BuffData
     public override void BattleStartEffect(bool isAdd)
     {
         pieceParent = GameObject.Find("Pieces");
-        pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
+        pathFinding = FieldManager.Instance.pathFinding;
         if (isAdd)
         {
             int _count = greatMountainPieceData2.Count;
             int _randomCount = Random.Range(0, _count);
             greatMountainPiece = Instantiate(greatMountainPieceData2[_randomCount].piecePrefab, pieceParent.transform);
             greatMountainPiece.name = "그리스 시너지 생성 기물";
-            ArenaManager.Instance.fieldManagers[0].myFilePieceList.Add(greatMountainPiece.GetComponent<Piece>());
+            FieldManager.Instance.myFilePieceList.Add(greatMountainPiece.GetComponent<Piece>());
 
             for (int i = 3; i < 7; i++)
             {
@@ -40,7 +40,7 @@ public class GreatMountainBuff2 : BuffData
                         spawnTile.piece.targetTile = spawnTile;
                         spawnTile.piece.isOwned = true;
 
-                        float _height = ArenaManager.Instance.fieldManagers[0].groundHeight;
+                        float _height = FieldManager.Instance.groundHeight;
                         greatMountainPiece.transform.position = new Vector3(spawnTile.transform.position.x, _height, spawnTile.transform.position.z);
                         return;
                     }
@@ -49,7 +49,7 @@ public class GreatMountainBuff2 : BuffData
         }
         else if (!isAdd)
         {
-            ArenaManager.Instance.fieldManagers[0].myFilePieceList.Remove(greatMountainPiece.GetComponent<Piece>());
+            FieldManager.Instance.myFilePieceList.Remove(greatMountainPiece.GetComponent<Piece>());
             greatMountainPiece.GetComponent<Piece>().currentTile.IsFull = false;
             greatMountainPiece.GetComponent<Piece>().currentTile.walkable = true;
 

@@ -32,6 +32,6 @@ public class MapChanger : MonoBehaviour
 
     public void MapChangeEvent()
     {
-        ArenaManager.Instance.NextRound();
+        FieldManager.Instance.NextRound();
     }
 }

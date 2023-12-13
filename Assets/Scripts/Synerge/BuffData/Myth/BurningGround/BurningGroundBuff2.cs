@@ -23,10 +23,10 @@ public class BurningGroundBuff2 : BuffData
 
     public override void BattleStartEffect(bool isAdd)
     {
-        if (isAdd) ArenaManager.Instance.fieldManagers[0].AddBattleStartEffect(BattleStartEffect);
+        if (isAdd) FieldManager.Instance.AddBattleStartEffect(BattleStartEffect);
         else if (!isAdd)
         {
-            foreach (var _piece in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
+            foreach (var _piece in FieldManager.Instance.myFilePieceList)
             {
                 if (_piece.pieceData.myth == PieceData.Myth.BurningGround && burningGroungPiece.ContainsKey(_piece))
                 {
@@ -38,7 +38,7 @@ public class BurningGroundBuff2 : BuffData
                 }
             }
             burningGroungPiece.Clear();
-            ArenaManager.Instance.fieldManagers[0].RemoveBattleStartEffect(BattleStartEffect);
+            FieldManager.Instance.RemoveBattleStartEffect(BattleStartEffect);
         }
     }
 }

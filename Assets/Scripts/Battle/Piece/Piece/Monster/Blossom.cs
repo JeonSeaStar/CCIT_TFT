@@ -57,7 +57,7 @@ public class Blossom : Piece
             return;
         SoundManager.instance.Play("Nepenthes_Seris/S_Skill_Blossom", SoundManager.Sound.Effect);
         SkillState();
-        pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
+        pathFinding = FieldManager.Instance.pathFinding;
         Instantiate(skillEffects, new Vector3(transform.position.x, transform.position.y + 2.5f, transform.position.z), Quaternion.identity);
         List<Tile> _getNeigbor = pathFinding.GetNeighbor(tiles);
         foreach (var _Neigbor in _getNeigbor)

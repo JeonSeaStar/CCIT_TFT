@@ -16,7 +16,7 @@ public class HamsterBuff1 : BuffData
         {
             foreach (var _hamster in hamsterList)
             {
-                ArenaManager.Instance.fieldManagers[0].myFilePieceList.Remove(_hamster.GetComponent<Piece>());
+                FieldManager.Instance.myFilePieceList.Remove(_hamster.GetComponent<Piece>());
                 Destroy(_hamster);
             }
             hamsterList.Clear();
@@ -25,19 +25,19 @@ public class HamsterBuff1 : BuffData
 
     public override void CoroutineEffect()
     {
-        ArenaManager.Instance.fieldManagers[0].StartCoroutine(Hamster());
+        FieldManager.Instance.StartCoroutine(Hamster());
     }
     
     IEnumerator Hamster()
     {
         pieceParent = GameObject.Find("Pieces");
-        pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
+        pathFinding = FieldManager.Instance.pathFinding;
         while (true)
         {
             yield return new WaitForSeconds(5f);
 
-            var _battleResult = ArenaManager.Instance.BattleResult;
-            if (_battleResult != ArenaManager.Result.VICTORY || _battleResult != ArenaManager.Result.DEFEAT) break;
+            var _battleResult = FieldManager.Instance.BattleResult;
+            if (_battleResult != FieldManager.Result.VICTORY || _battleResult != FieldManager.Result.DEFEAT) break;
 
             //빈 타일 찾고
             List<Tile> _randomTile = new List<Tile>();
@@ -51,7 +51,7 @@ public class HamsterBuff1 : BuffData
                 //생성
                 GameObject _miniHamster = Instantiate(miniHamster.piecePrefab, pieceParent.transform);
                 _miniHamster.name = "미니 햄스터";
-                ArenaManager.Instance.fieldManagers[0].myFilePieceList.Add(_miniHamster.GetComponent<Piece>());
+                FieldManager.Instance.myFilePieceList.Add(_miniHamster.GetComponent<Piece>());
                 hamsterList.Add(_miniHamster);
 
                 //위치 정해주고
@@ -67,7 +67,7 @@ public class HamsterBuff1 : BuffData
                 spawnTile.piece.currentTile = spawnTile;
                 spawnTile.piece.targetTile = spawnTile;
 
-                float _height = ArenaManager.Instance.fieldManagers[0].groundHeight;
+                float _height = FieldManager.Instance.groundHeight;
                 spawnTile.piece.transform.position = new Vector3(spawnTile.transform.position.x, _height, spawnTile.transform.position.z);
                 spawnTile.piece.StartNextBehavior();
             }

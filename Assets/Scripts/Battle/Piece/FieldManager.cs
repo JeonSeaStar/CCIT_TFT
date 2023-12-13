@@ -2,14 +2,31 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using static ArenaManager;
 
 public class FieldManager : MonoBehaviour
 {
     //public static FieldManager instance;
+    private static FieldManager instance;
+    public static FieldManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<FieldManager>();
+                if (instance == null)
+                {
+                    GameObject _arena = new GameObject();
+                    _arena.name = "ArenaManager";
+                    instance = _arena.AddComponent<FieldManager>();
+                    //DontDestroyOnLoad(_arena);
+                }
+            }
+            return instance;
+        }
+    }
 
     public Messenger owerPlayer;
     public Messenger[] DualPlayers = new Messenger[2];
@@ -151,22 +168,92 @@ public class FieldManager : MonoBehaviour
         { PieceData.United.Creature          ,0 }
     };
 
-    //[System.Serializable]
-    //public class EnemyInformation
-    //{
-    //    public GameObject piece;
-    //    public Vector2 spawnTile;
-    //}
+    public enum RoundType
+    {
+        None = -1,
+        Deployment,     //배치
+        Ready,          //대기
+        Battle,         //전투
+        Event,
+        Overtime,
+        Duel,           //None
+        Dead,
+        Max
+    };
+    public RoundType roundType = RoundType.None;
 
-    //[System.Serializable]
-    //public class StageInformation
-    //{
-    //    public List<EnemyInformation> enemyInformation;
-    //}
+    public RoundState roundState;
+    public int currentRound = 0;
 
-    //public List<StageInformation> stageInformation;
+    public ResultPopup resultPopup;
+    public enum Result { NONE, VICTORY, DEFEAT }
+    public Result BattleResult
+    {
+        get { return battleResult; }
+        set
+        {
+            if (BattleResult != value)
+            {
+                battleResult = value;
+
+                if (BattleResult == Result.VICTORY)
+                {
+                    roundState.UpdateStageIcon(currentRound, 1, stageInformation.enemy[currentRound].roundType);
+
+                    if (currentRound != stageInformation.enemy.Count - 1)
+                    {
+                        if (stageInformation.enemy[currentRound].mapType != stageInformation.enemy[currentRound + 1].mapType)
+                            Invoke("Fade", 3f);
+                        else
+                            Invoke("NextRound", 3f);
+                    }
+                    else
+                    {
+                        resultPopup.ActiveResultPopup(true);
+                        SoundManager.instance.Play("UI/Eff_Round_Win", SoundManager.Sound.Effect);
+                    }
+
+                    foreach (var piece in myFilePieceList)
+                        piece.VictoryDacnce();
+                }
+                else if (BattleResult == Result.DEFEAT)
+                {
+                    ChargeHP(stageInformation.enemy[currentRound].defeatDamage);
+
+                    if (currentRound != stageInformation.enemy.Count - 1)
+                    {
+                        if (stageInformation.enemy[currentRound].mapType != stageInformation.enemy[currentRound + 1].mapType)
+                            Invoke("Fade", 3f);
+                        else
+                            Invoke("NextRound", 3f);
+                    }
+                    else
+                    {
+                        resultPopup.ActiveResultPopup(false);
+                        SoundManager.instance.Play("UI/Eff_Round_Lose", SoundManager.Sound.Effect);
+                    }
+
+                    roundState.UpdateStageIcon(currentRound, 2, stageInformation.enemy[currentRound].roundType);
+                }
+            }
+        }
+    }
+    public Result battleResult;
+
     public EnemyInformationData stageInformation;
     public int currentStage;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            //DontDestroyOnLoad(this.gameObject);
+        }
+
+        StartCoroutine(StartGame());
+        //StartCoroutine(CalRoundTime(3));
+    }
 
     [Header("상점")] public PieceShop pieceShop;
     void Update()
@@ -289,7 +376,7 @@ public class FieldManager : MonoBehaviour
             pieceStatus.SetStatus(pieceDpList[i].piece, i);
         pieceStatus.ClearPieceStatusList();
 
-        Instance.roundType = RoundType.Deployment;
+        roundType = RoundType.Deployment;
         foreach (var effect in sBattleStartEffect) effect(false);
         StopAllCoroutines();
 
@@ -301,6 +388,112 @@ public class FieldManager : MonoBehaviour
         playerState.UpdateMoney(owerPlayer.gold);
         pieceShop.InitSlot();
     }
+
+    #region 라운드(버튼식)
+    public void BattleEndCheck(List<Piece> pieceList)
+    {
+        for (int i = 0; i < pieceList.Count; i++)
+        {
+            if (!pieceList[i].dead)
+                return;
+
+            if (i == pieceList.Count - 1 && pieceList[i].dead)
+            {
+                if (pieceList[i].isOwned)
+                {
+                    SoundManager.instance.Play("UI/Eff_Round_Lose", SoundManager.Sound.Effect);
+                    if (BattleResult == Result.NONE) BattleResult = Result.DEFEAT;
+                }
+                else
+                {
+                    SoundManager.instance.Play("UI/Eff_Round_Win", SoundManager.Sound.Effect);
+                    if (BattleResult == Result.NONE) BattleResult = Result.VICTORY;
+                }
+            }
+        }
+    }
+
+    public void Fade()
+    {
+        mapChanger.animator.SetTrigger("MapChange");
+    }
+
+    public void NextRound()
+    {
+        if (currentRound == 5)
+        {
+            SoundManager.instance.Play("BGM/Bgm_Battle_Boss", SoundManager.Sound.Effect);
+        }
+        roundType = RoundType.Ready;
+        fieldPieceStatus.ActiveFieldStatus();
+
+        Reward(currentRound, BattleResult);
+
+        BattleResult = Result.NONE;
+        NextStage();
+        currentRound++;
+        ChangeStage(currentRound);
+        roundState.UpdateStageIcon(currentRound, 3, stageInformation.enemy[currentRound].roundType);
+
+    }
+
+    public void StartBattle()
+    {
+        if (roundType == RoundType.Battle)
+            return;
+
+        roundType = RoundType.Battle;
+        SoundManager.instance.Play("UI/Eff_Button_Positive", SoundManager.Sound.Effect);
+        fieldPieceStatus.ActiveFieldStatus();
+
+        foreach (var list in pieceDpList)
+            pieceStatus.AddPieceStatus(list.piece);
+
+        ActiveSynerge();
+
+        if (myFilePieceList.Count == 0)
+        {
+            if (enemyFilePieceList.Count == 0)
+            {
+                SoundManager.instance.Play("UI/Eff_Round_Win", SoundManager.Sound.Effect);
+                BattleResult = Result.VICTORY;
+            }
+            else
+            {
+                SoundManager.instance.Play("UI/Eff_Round_Lose", SoundManager.Sound.Effect);
+                BattleResult = Result.DEFEAT;
+            }
+        }
+
+        foreach (var piece in myFilePieceList)
+            piece.StartNextBehavior();
+        foreach (var piece in enemyFilePieceList)
+            piece.StartNextBehavior();
+    }
+
+    private void ChangeStage(int round)
+    {
+        roundState.NextRound(round);
+        roundState.OnRoundPopup(1, round);
+    }
+
+    private IEnumerator StartGame()
+    {
+        ChangeMap(currentRound);
+        ChangeGold(owerPlayer.gold);
+        ChangeHP(owerPlayer.lifePoint);
+        ChangeLevel(owerPlayer.level);
+
+        roundState.SetStage(currentRound);
+        yield return new WaitForSeconds(1f);
+        ChangeStage(currentRound);
+        SpawnEnemy(currentRound);
+        roundState.InitRoundIcon();
+        roundState.UpdateStageIcon(currentRound, 3, stageInformation.enemy[currentRound].roundType);
+
+        fieldPieceStatus.UpdateFieldStatus(myFilePieceList.Count, owerPlayer.maxPieceCount[owerPlayer.level]);
+    }
+    #endregion
 
     int d = 0;
 
@@ -316,7 +509,7 @@ public class FieldManager : MonoBehaviour
 
     public void ActiveHexaIndicators(bool isactive)
     {
-        if (Instance.roundType == RoundType.Deployment)
+        if (roundType == RoundType.Deployment)
         {
             for (int i = 0; i < readyZoneHexaIndicators.Length; i++)
             {
@@ -327,7 +520,7 @@ public class FieldManager : MonoBehaviour
                 battleFieldHexaIndicators[i].SetActive(isactive);
             }
         }
-        if (Instance.roundType == RoundType.Battle)
+        if (roundType == RoundType.Battle)
         {
             for (int i = 0; i < readyZoneHexaIndicators.Length; i++)
             {
@@ -336,10 +529,6 @@ public class FieldManager : MonoBehaviour
         }
     }
 
-    void LifeAttack(Messenger defeatedPlayer)
-    {
-
-    }
     #region Calculate Synerge
     public void SynergeIncrease(Piece piece)
     {
@@ -882,7 +1071,7 @@ public class FieldManager : MonoBehaviour
 
     void FusionPiece(Piece piece)
     {
-        if (Instance.roundType == RoundType.Battle)
+        if (roundType == RoundType.Battle)
             return;
 
         int kind = CheckPieceKind(piece.pieceData);
@@ -1119,7 +1308,7 @@ public class FieldManager : MonoBehaviour
 
         if(owerPlayer.lifePoint <= 0)
         {
-            Instance.resultPopup.ActiveResultPopup(false);
+            resultPopup.ActiveResultPopup(false);
         }
     }
 
@@ -1129,7 +1318,7 @@ public class FieldManager : MonoBehaviour
 
         if (owerPlayer.lifePoint <= 0)
         {
-            Instance.resultPopup.ActiveResultPopup(false);
+            resultPopup.ActiveResultPopup(false);
         }
     }
 

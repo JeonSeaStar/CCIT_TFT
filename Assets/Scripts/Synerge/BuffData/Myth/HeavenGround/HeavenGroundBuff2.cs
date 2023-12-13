@@ -12,18 +12,18 @@ public class HeavenGroundBuff2 : BuffData
 
     public override void CoroutineEffect()
     {
-        ArenaManager.Instance.fieldManagers[0].StartCoroutine(HeavenGround());
+        FieldManager.Instance.StartCoroutine(HeavenGround());
     }
 
     PathFinding pathFinding;
     IEnumerator HeavenGround()
     {
-        pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
+        pathFinding = FieldManager.Instance.pathFinding;
         while (true)
         {
             yield return new WaitForSeconds(1f);
             List<Piece> heavenGroundPieces = new List<Piece>();
-            foreach (var piece in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
+            foreach (var piece in FieldManager.Instance.myFilePieceList)
             {
                 if (piece.pieceData.myth == PieceData.Myth.HeavenGround && piece.gameObject.activeSelf == true)
                     heavenGroundPieces.Add(piece);

@@ -11,14 +11,14 @@ public class FrostyWindBuff3 : BuffData
         if (isAdd == false)
         {
             windCool = 3;
-            ArenaManager.Instance.fieldManagers[0].buffManager.frostyWind.SetActive(false);
+            FieldManager.Instance.buffManager.frostyWind.SetActive(false);
         }
     }
     public override void CoroutineEffect()
     {
         frostyWindPiece.Clear();
-        ArenaManager.Instance.fieldManagers[0].StartCoroutine(FrostyWind());
-        ArenaManager.Instance.fieldManagers[0].StartCoroutine(FrostyWindBuff());
+        FieldManager.Instance.StartCoroutine(FrostyWind());
+        FieldManager.Instance.StartCoroutine(FrostyWindBuff());
     }
     int windCool = 3;
     IEnumerator FrostyWind()
@@ -30,13 +30,13 @@ public class FrostyWindBuff3 : BuffData
             windCool = 6;
             int _count = Random.Range(1, 4);
             List<Piece> enemyList = new List<Piece>();
-            foreach (var _activePiece in ArenaManager.Instance.fieldManagers[0].enemyFilePieceList)
+            foreach (var _activePiece in FieldManager.Instance.enemyFilePieceList)
             {
                 if (_activePiece.gameObject.activeSelf == true) enemyList.Add(_activePiece);
             }
 
-            ArenaManager.Instance.fieldManagers[0].buffManager.frostyWind.SetActive(true);
-            ArenaManager.Instance.fieldManagers[0].Invoke("DeActiveFrostyWind", 1f);
+            FieldManager.Instance.buffManager.frostyWind.SetActive(true);
+            FieldManager.Instance.Invoke("DeActiveFrostyWind", 1f);
             for (int i = 0; i < _count; i++)
             {
                 if (enemyList.Count == 0) break;
@@ -56,7 +56,7 @@ public class FrostyWindBuff3 : BuffData
 
     IEnumerator FrostyWindBuff()
     {
-        foreach (var _frostyWind in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
+        foreach (var _frostyWind in FieldManager.Instance.myFilePieceList)
         {
             if (_frostyWind.pieceData.myth == PieceData.Myth.FrostyWind) frostyWindPiece.Add(_frostyWind);
         }
@@ -78,6 +78,6 @@ public class FrostyWindBuff3 : BuffData
     }
     void DeActiveFrostyWind()
     {
-        ArenaManager.Instance.fieldManagers[0].buffManager.frostyWind.SetActive(false);
+        FieldManager.Instance.buffManager.frostyWind.SetActive(false);
     }
 }

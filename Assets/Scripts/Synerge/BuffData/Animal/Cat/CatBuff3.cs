@@ -7,14 +7,14 @@ public class CatBuff3 : BuffData
 {
     public override void CoroutineEffect()
     {
-        ArenaManager.Instance.fieldManagers[0].StartCoroutine(Cat());
+        FieldManager.Instance.StartCoroutine(Cat());
     }
 
     IEnumerator Cat()
     {
         yield return new WaitForSeconds(3f);
 
-        foreach(var cat in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
+        foreach(var cat in FieldManager.Instance.myFilePieceList)
         {
             if(cat.pieceData.animal == PieceData.Animal.Cat && cat.gameObject.activeSelf == true)
             {

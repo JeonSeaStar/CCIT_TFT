@@ -12,7 +12,7 @@ public class FaddistBuff2 : BuffData
     {
         if (isAdd == true)
         {
-            foreach (var _faddist in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
+            foreach (var _faddist in FieldManager.Instance.myFilePieceList)
             {
                 if (_faddist.pieceData.united == PieceData.United.Faddist)
                 {

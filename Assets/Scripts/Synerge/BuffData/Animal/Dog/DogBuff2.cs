@@ -19,7 +19,7 @@ public class DogBuff2 : BuffData
             if (isOnce == false)
             {
                 List<Piece> dogs = new List<Piece>();
-                foreach (var dog in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
+                foreach (var dog in FieldManager.Instance.myFilePieceList)
                 {
                     if (dog.pieceData.animal == PieceData.Animal.Dog) dogs.Add(dog);
                 }
@@ -28,7 +28,7 @@ public class DogBuff2 : BuffData
                 if (dogs[0].star == dogs[1].star) // 등급 우선순위
                 {
                     dogs.Clear();
-                    foreach (var dog in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
+                    foreach (var dog in FieldManager.Instance.myFilePieceList)
                     {
                         if (dog.star == dogs[0].star) dogs.Add(dog);
                     }
@@ -37,7 +37,7 @@ public class DogBuff2 : BuffData
                     if (dogs[0].Equipments.Count == dogs[1].Equipments.Count) // 아이템 소지
                     {
                         dogs.Clear();
-                        foreach (var dog in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
+                        foreach (var dog in FieldManager.Instance.myFilePieceList)
                         {
                             if (dog.Equipments.Count == dogs[0].Equipments.Count) dogs.Add(dog);
                         }
@@ -46,7 +46,7 @@ public class DogBuff2 : BuffData
                         if (dogs[0].attackDamage == dogs[1].attackDamage) // 공격력
                         {
                             dogs.Clear();
-                            foreach (var dog in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
+                            foreach (var dog in FieldManager.Instance.myFilePieceList)
                             {
                                 if (dog.attackDamage == dogs[0].Equipments.Count) dogs.Add(dog);
                             }
@@ -63,7 +63,7 @@ public class DogBuff2 : BuffData
                 isOnce = true;
             }
 
-            if (endCount == ArenaManager.Instance.fieldManagers[0].animalActiveCount[PieceData.Animal.Dog])
+            if (endCount == FieldManager.Instance.animalActiveCount[PieceData.Animal.Dog])
             {
                 endCount = 0;
                 isOnce = false;
@@ -81,7 +81,7 @@ public class DogBuff2 : BuffData
     Piece rightPiece;
     public override void BattleStartEffect(bool isAdd)
     {
-        pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
+        pathFinding = FieldManager.Instance.pathFinding;
 
         if (isAdd)
         {

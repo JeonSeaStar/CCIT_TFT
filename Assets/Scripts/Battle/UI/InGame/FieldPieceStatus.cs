@@ -22,7 +22,7 @@ public class FieldPieceStatus : MonoBehaviour
 
     public void ActiveFieldStatus()
     {
-        if (ArenaManager.Instance.roundType == ArenaManager.RoundType.Battle)
+        if (FieldManager.Instance.roundType == FieldManager.RoundType.Battle)
             fieldPieceStatusGameObject.SetActive(false);
         else fieldPieceStatusGameObject.SetActive(true);
     }

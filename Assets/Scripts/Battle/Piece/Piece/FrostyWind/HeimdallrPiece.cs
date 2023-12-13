@@ -33,7 +33,7 @@ public class HeimdallrPiece : Piece
             return;
         SkillState();
         SoundManager.instance.Play("FrostyWind/S_Heimdallr", SoundManager.Sound.Effect);
-        pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
+        pathFinding = FieldManager.Instance.pathFinding;
         List<Tile> _getNeigbor = pathFinding.GetNeighbor(currentTile);
         foreach (var _Neigbor in _getNeigbor)
         {

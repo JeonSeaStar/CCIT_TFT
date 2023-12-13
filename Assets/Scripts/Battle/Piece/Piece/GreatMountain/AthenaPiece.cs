@@ -33,7 +33,7 @@ public class AthenaPiece : Piece
             return;
         SkillState();
         SoundManager.instance.Play("GreatMountain/S_Athena", SoundManager.Sound.Effect);
-        pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
+        pathFinding = FieldManager.Instance.pathFinding;
         List<Tile> _getNeigbor = pathFinding.GetNeighbor(currentTile);
         foreach (var _Neigbor in _getNeigbor)
         {

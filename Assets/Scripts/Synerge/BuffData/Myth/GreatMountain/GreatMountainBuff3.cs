@@ -15,14 +15,14 @@ public class GreatMountainBuff3 : BuffData
     public override void BattleStartEffect(bool isAdd)
     {
         pieceParent = GameObject.Find("Pieces");
-        pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
+        pathFinding = FieldManager.Instance.pathFinding;
         if (isAdd)
         {
             int _count = gods.Count;
             int _randomCount = Random.Range(0, _count);
             god = Instantiate(gods[_randomCount].piecePrefab, pieceParent.transform);
             god.name = "그리스 시너지 생성 기물";
-            ArenaManager.Instance.fieldManagers[0].myFilePieceList.Add(god.GetComponent<Piece>());
+            FieldManager.Instance.myFilePieceList.Add(god.GetComponent<Piece>());
 
             for (int i = 3; i < 7; i++)
             {
@@ -40,7 +40,7 @@ public class GreatMountainBuff3 : BuffData
                         spawnTile.piece.targetTile = spawnTile;
                         spawnTile.piece.isOwned = true;
 
-                        float _height = ArenaManager.Instance.fieldManagers[0].groundHeight;
+                        float _height = FieldManager.Instance.groundHeight;
                         god.transform.position = new Vector3(spawnTile.transform.position.x, _height, spawnTile.transform.position.z);
                         return;
                     }
@@ -49,7 +49,7 @@ public class GreatMountainBuff3 : BuffData
         }
         else if (!isAdd)
         {
-            ArenaManager.Instance.fieldManagers[0].myFilePieceList.Remove(god.GetComponent<Piece>());
+            FieldManager.Instance.myFilePieceList.Remove(god.GetComponent<Piece>());
             god.GetComponent<Piece>().currentTile.IsFull = false;
             god.GetComponent<Piece>().currentTile.walkable = true;
 

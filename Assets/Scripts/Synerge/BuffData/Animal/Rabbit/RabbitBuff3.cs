@@ -7,17 +7,17 @@ public class RabbitBuff3 : BuffData
 {
     public override void CoroutineEffect()
     {
-        ArenaManager.Instance.fieldManagers[0].StartCoroutine(Rabbit());
+        FieldManager.Instance.StartCoroutine(Rabbit());
     }
 
     PathFinding pathFinding;
     IEnumerator Rabbit()
     {
-        pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
+        pathFinding = FieldManager.Instance.pathFinding;
 
         while (true)
         {
-            foreach (var _rabbit in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
+            foreach (var _rabbit in FieldManager.Instance.myFilePieceList)
             {
                 if (_rabbit.pieceData.animal == PieceData.Animal.Rabbit && _rabbit.gameObject.activeSelf == true)
                 {

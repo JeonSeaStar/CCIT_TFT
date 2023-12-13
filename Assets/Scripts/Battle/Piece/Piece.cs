@@ -129,7 +129,7 @@ public class Piece : MonoBehaviour
     void Awake()
     {
         pieceData.InitialzePiece(this);
-        fieldManager = ArenaManager.Instance.fieldManagers[0];
+        fieldManager = FieldManager.Instance;
         PieceState = State.IDLE;
 
         maxHealth = health;
@@ -165,7 +165,7 @@ public class Piece : MonoBehaviour
 
     protected bool RangeCheck()
     {
-        if (attackRange >= ArenaManager.Instance.fieldManagers[0].pathFinding.GetDistance(currentTile, target.currentTile))
+        if (attackRange >= FieldManager.Instance.pathFinding.GetDistance(currentTile, target.currentTile))
             return true;
         else
             return false;
@@ -230,10 +230,10 @@ public class Piece : MonoBehaviour
         if (target.health <= 0)
         {
             #region 악마 기물 시너지 확인
-            //var _burningPiece = ArenaManager.Instance.fieldManagers[0].buffManager.mythBuff[0];
+            //var _burningPiece = FieldManager.Instance.buffManager.mythBuff[0];
             //if (buffList.Contains(_burningPiece.burningGroundBuff[0]) || buffList.Contains(_burningPiece.burningGroundBuff[1]))
             //{
-            //    var _buff = (ArenaManager.Instance.fieldManagers[0].mythActiveCount[PieceData.Myth.BurningGround] >= 4) ? _burningPiece.burningGroundBuff[1] : _burningPiece.burningGroundBuff[0];
+            //    var _buff = (FieldManager.Instance.mythActiveCount[PieceData.Myth.BurningGround] >= 4) ? _burningPiece.burningGroundBuff[1] : _burningPiece.burningGroundBuff[0];
             //    _buff.DirectEffect(this, true);
             //    _buff.BattleStartEffect(true);
 
@@ -303,15 +303,15 @@ public class Piece : MonoBehaviour
         currentTile.IsFull = false;
         currentTile.walkable = true;
 
-        ArenaManager.Instance.BattleEndCheck(myPieceList);
+        FieldManager.Instance.BattleEndCheck(myPieceList);
     }
 
     void SpawnRandomBox()
     {
         GameObject box = Instantiate(randomBoxObject, transform.position, Quaternion.identity);
         RandomBox randomBox = box.GetComponent<RandomBox>();
-        ArenaManager.Instance.fieldManagers[0].chest.CurveMove(randomBox.transform, fieldManager.targetPositions);
-        ArenaManager.Instance.fieldManagers[0].chest.SetBoxContents(randomBox, 0);
+        FieldManager.Instance.chest.CurveMove(randomBox.transform, fieldManager.targetPositions);
+        FieldManager.Instance.chest.SetBoxContents(randomBox, 0);
     }
 
     //이동
@@ -360,11 +360,11 @@ public class Piece : MonoBehaviour
     public void RabbitJump()
     {
         List<Tile> _neighbor = new List<Tile>();
-        int _distance = ArenaManager.Instance.fieldManagers[0].pathFinding.GetDistance(currentTile, target.currentTile);
+        int _distance = FieldManager.Instance.pathFinding.GetDistance(currentTile, target.currentTile);
 
         if (_distance <= 4)
         {
-            _neighbor = ArenaManager.Instance.fieldManagers[0].pathFinding.GetNeighbor(target.currentTile);
+            _neighbor = FieldManager.Instance.pathFinding.GetNeighbor(target.currentTile);
             for (int i = 0; i < _neighbor.Count; i++)
             {
                 if (_neighbor[i].IsFull == false)
@@ -404,10 +404,10 @@ public class Piece : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         int splashDamage = 0;
-        var _buff = ArenaManager.Instance.fieldManagers[0].buffManager.animalBuff[0];
-        if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[0])) { splashDamage = 10; pieceData.CalculateBuff(this, _buff.rabbitBuff[0]); }
-        else if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[1])) { splashDamage = 15; pieceData.CalculateBuff(this, _buff.rabbitBuff[1]); }
-        else if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[2])) { splashDamage = 20; pieceData.CalculateBuff(this, _buff.rabbitBuff[2]); }
+        var _buff = FieldManager.Instance.buffManager.animalBuff[0];
+        if (FieldManager.Instance.DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[0])) { splashDamage = 10; pieceData.CalculateBuff(this, _buff.rabbitBuff[0]); }
+        else if (FieldManager.Instance.DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[1])) { splashDamage = 15; pieceData.CalculateBuff(this, _buff.rabbitBuff[1]); }
+        else if (FieldManager.Instance.DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[2])) { splashDamage = 20; pieceData.CalculateBuff(this, _buff.rabbitBuff[2]); }
         GameObject effect = Instantiate(rabbitSynergeEffect, transform.position, Quaternion.Euler(-90, 0, 0));
         effect.SetActive(true); effect.transform.SetParent(null);
         Invoke("RsetRabbitStatus", 3);
@@ -419,9 +419,9 @@ public class Piece : MonoBehaviour
 
     void RsetRabbitStatus()
     {
-        if (ArenaManager.Instance.roundType != ArenaManager.RoundType.Battle) return;
+        if (FieldManager.Instance.roundType != FieldManager.RoundType.Battle) return;
 
-        var _rabbitCount = ArenaManager.Instance.fieldManagers[0].animalActiveCount[PieceData.Animal.Rabbit];
+        var _rabbitCount = FieldManager.Instance.animalActiveCount[PieceData.Animal.Rabbit];
         int _activeCount = _rabbitCount / 3;
         this.attackSpeed -= pieceData.attackSpeed[star] * 0.1f * _activeCount;
         this.moveSpeed -= pieceData.moveSpeed[star] * 0.1f * _activeCount;
@@ -449,10 +449,10 @@ public class Piece : MonoBehaviour
     {
         yield return new WaitUntil(() => health > 0);
         EnemyCheck();
-        if (CheckEnemySurvival(enemyPieceList) && !dead && ArenaManager.Instance.roundType == ArenaManager.RoundType.Battle)
+        if (CheckEnemySurvival(enemyPieceList) && !dead && FieldManager.Instance.roundType == FieldManager.RoundType.Battle)
         {
-            //ArenaManager.Instance.fieldManagers[0].pathFinding.SetCandidatePath(this, enemyPieceList);
-            ArenaManager.Instance.fieldManagers[0].pathFinding.SetTarget(this, enemyPieceList);
+            //FieldManager.Instance.pathFinding.SetCandidatePath(this, enemyPieceList);
+            FieldManager.Instance.pathFinding.SetTarget(this, enemyPieceList);
 
             if (target != null)
             {
@@ -468,7 +468,7 @@ public class Piece : MonoBehaviour
                     }
                     else
                     {
-                        ArenaManager.Instance.fieldManagers[0].pathFinding.SetCandidatePath(this);
+                        FieldManager.Instance.pathFinding.SetCandidatePath(this);
                         StartMove();
                     }
                 }
@@ -754,7 +754,7 @@ public class Piece : MonoBehaviour
     #region 애니메이션 이벤트 (공격)
     public void AttackEffect()
     {
-        int _count = ArenaManager.Instance.fieldManagers[0].mythActiveCount[this.pieceData.myth];
+        int _count = FieldManager.Instance.mythActiveCount[this.pieceData.myth];
         int _thresholds = 0;
         switch (pieceData.myth)
         {

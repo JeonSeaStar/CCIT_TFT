@@ -36,7 +36,7 @@ public class ThothPiece : Piece
             SkillState();
             SoundManager.instance.Play("SandKingdom/S_Thoth", SoundManager.Sound.Effect);
             Instantiate(skillEffects, new Vector3(target.transform.position.x, target.transform.position.y + 0.8f, target.transform.position.z), Quaternion.identity);
-            pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
+            pathFinding = FieldManager.Instance.pathFinding;
             List<Tile> _getNeigbor = pathFinding.GetSide(currentTile);
             foreach (var _Neigbor in _getNeigbor)
             {

@@ -16,7 +16,7 @@ public class HamsterBuff3 : BuffData
         {
             foreach (var _hamster in hamsterList)
             {
-                ArenaManager.Instance.fieldManagers[0].myFilePieceList.Remove(_hamster.GetComponent<Piece>());
+                FieldManager.Instance.myFilePieceList.Remove(_hamster.GetComponent<Piece>());
                 Destroy(_hamster);
             }
             hamsterList.Clear();
@@ -25,18 +25,18 @@ public class HamsterBuff3 : BuffData
 
     public override void CoroutineEffect()
     {
-        ArenaManager.Instance.fieldManagers[0].StartCoroutine(Hamster());
+        FieldManager.Instance.StartCoroutine(Hamster());
     }
     IEnumerator Hamster()
     {
         pieceParent = GameObject.Find("Pieces");
-        pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
+        pathFinding = FieldManager.Instance.pathFinding;
         while (true)
         {
             yield return new WaitForSeconds(2f);
 
-            var _battleResult = ArenaManager.Instance.BattleResult;
-            if (_battleResult != ArenaManager.Result.VICTORY || _battleResult != ArenaManager.Result.DEFEAT) break;
+            var _battleResult = FieldManager.Instance.BattleResult;
+            if (_battleResult != FieldManager.Result.VICTORY || _battleResult != FieldManager.Result.DEFEAT) break;
 
             List<Tile> _randomTile = new List<Tile>();
             for (int i = 0; i < pathFinding.grid[0].tile.Count; i++)
@@ -49,7 +49,7 @@ public class HamsterBuff3 : BuffData
                 {
                     GameObject _miniHamster = Instantiate(miniHamster.piecePrefab, pieceParent.transform);
                     _miniHamster.name = "¹Ì´Ï ÇÜ½ºÅÍ";
-                    ArenaManager.Instance.fieldManagers[0].myFilePieceList.Add(_miniHamster.GetComponent<Piece>());
+                    FieldManager.Instance.myFilePieceList.Add(_miniHamster.GetComponent<Piece>());
                     hamsterList.Add(_miniHamster);
 
                     int _randomSpot = Random.Range(0, _randomTile.Count);
@@ -63,7 +63,7 @@ public class HamsterBuff3 : BuffData
                     spawnTile.piece.currentTile = spawnTile;
                     spawnTile.piece.targetTile = spawnTile;
 
-                    float _height = ArenaManager.Instance.fieldManagers[0].groundHeight;
+                    float _height = FieldManager.Instance.groundHeight;
                     spawnTile.piece.transform.position = new Vector3(spawnTile.transform.position.x, _height, spawnTile.transform.position.z);
                     spawnTile.piece.StartNextBehavior();
                     _randomTile.RemoveAt(_randomSpot);

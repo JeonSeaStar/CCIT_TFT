@@ -6,8 +6,8 @@ using UnityEngine;
 public class SandKingdomBuff3 : BuffData
 {
     public override void DirectEffect(Piece piece, bool isAdd) => piece.pieceData.CalculateBuff(piece, this, isAdd);
-    public override void BattleStartEffect(bool isAdd) => ArenaManager.Instance.fieldManagers[0].buffManager.sandKingdomWind.SetActive(isAdd);
-    public override void CoroutineEffect() => ArenaManager.Instance.fieldManagers[0].StartCoroutine(SandKingdom());
+    public override void BattleStartEffect(bool isAdd) => FieldManager.Instance.buffManager.sandKingdomWind.SetActive(isAdd);
+    public override void CoroutineEffect() => FieldManager.Instance.StartCoroutine(SandKingdom());
 
     IEnumerator SandKingdom()
     {
@@ -15,7 +15,7 @@ public class SandKingdomBuff3 : BuffData
         {
             yield return new WaitForSeconds(0.5f);
 
-            foreach (var enemy in ArenaManager.Instance.fieldManagers[0].enemyFilePieceList)
+            foreach (var enemy in FieldManager.Instance.enemyFilePieceList)
             {
                 if (enemy.gameObject.activeSelf == true)
                 {

@@ -9,7 +9,7 @@ public class WarMachineBuff2 : BuffData
     Equipment warMachineEquipment4;
     public override void DirectEffect(Piece piece, bool isAdd)
     {
-        var _fieldManger = ArenaManager.Instance.fieldManagers[0];
+        var _fieldManger = FieldManager.Instance;
         var _buffManager = _fieldManger.buffManager;
 
         if (isAdd == true)

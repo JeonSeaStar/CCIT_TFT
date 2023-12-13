@@ -7,18 +7,18 @@ public class UnderWorldBuff2 : BuffData
 {
     public override void CoroutineEffect()
     {
-        ArenaManager.Instance.fieldManagers[0].StartCoroutine(UnderWorld());
+        FieldManager.Instance.StartCoroutine(UnderWorld());
     }
 
     IEnumerator UnderWorld()
     {
-        int _enemyCount = ArenaManager.Instance.fieldManagers[0].enemyFilePieceList.Count;
-        Piece enemy = ArenaManager.Instance.fieldManagers[0].enemyFilePieceList[Random.Range(0, _enemyCount)];
+        int _enemyCount = FieldManager.Instance.enemyFilePieceList.Count;
+        Piece enemy = FieldManager.Instance.enemyFilePieceList[Random.Range(0, _enemyCount)];
         enemy.pieceData.CalculateBuff(enemy, this);
 
         yield return new WaitForSeconds(20f);
 
-        if (enemy.gameObject.activeSelf == true && ArenaManager.Instance.roundType == ArenaManager.RoundType.Battle)
+        if (enemy.gameObject.activeSelf == true && FieldManager.Instance.roundType == FieldManager.RoundType.Battle)
             enemy.Dead();
         enemy.pieceData.CalculateBuff(enemy, this, false);
     }
