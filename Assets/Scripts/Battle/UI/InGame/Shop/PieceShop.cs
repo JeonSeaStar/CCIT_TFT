@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 public class PieceShop : MonoBehaviour
 {
@@ -71,11 +72,13 @@ public class PieceShop : MonoBehaviour
         if (active)
         {
             text.text = "상점\n닫기";
+            Camera.main.transform.DOMove(new Vector3(4.5f, 20, -30), 0.5f);
             SoundManager.instance.Play("UI/Eff_Button_Positive", SoundManager.Sound.Effect);
         }
         else
         {
             text.text = "상점\n열기";
+            Camera.main.transform.DOMove(new Vector3(4.5f, 20, -22), 0.5f);
             SoundManager.instance.Play("UI/Eff_Button_Nagative", SoundManager.Sound.Effect);
         }
     }
