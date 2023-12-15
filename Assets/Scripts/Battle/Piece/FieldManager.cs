@@ -1205,7 +1205,7 @@ public class FieldManager : MonoBehaviour
         resultPiece.name += " " +  resultPiece.star + "Star";
         resultPiece.maxHealth = resultPiece.pieceData.health[resultPiece.star];
         resultPiece.mana = resultPiece.pieceData.currentMana;
-        resultPiece.healthbar.FusionStarAnim(resultPiece.star);
+        resultPiece.healthbar.FusionStarAnim(resultPiece.star - 1);
         string framePath = string.Format("Sprites/Unit HpBar_UI/{0}Star Frame", resultPiece.star);
         resultPiece.healthbar.gameObject.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(framePath);
         SoundManager.instance.Play("UI/Eff_Upgrade", SoundManager.Sound.Effect);
@@ -1217,7 +1217,6 @@ public class FieldManager : MonoBehaviour
                 if (resultPiece.buffList[i].haveDirectEffect == true)
                     resultPiece.pieceData.CalculateBuff(resultPiece, resultPiece.buffList[i]);
             }
-            //resultPiece.currentTile.gameObject.transform.GetChild(3).gameObject.SetActive(true);
             myFilePieceList.Add(resultPiece);
             AddDPList(resultPiece);
         }
