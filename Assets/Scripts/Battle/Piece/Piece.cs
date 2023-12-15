@@ -250,10 +250,27 @@ public class Piece : MonoBehaviour
                 int _r = (fieldManager.animalActiveCount[PieceData.Animal.Cat] >= 4) ? UnityEngine.Random.Range(0, 3) : UnityEngine.Random.Range(0, 2);
                 if (_r == 0)
                 {
-                    int _gold = UnityEngine.Random.Range(2, 6);
-                    fieldManager.owerPlayer.gold += _gold;
-                    fieldManager.playerState.UpdateMoney(fieldManager.owerPlayer.gold);
-                    Debug.Log(_gold + " ∏∏≈≠ ∞ÒµÂ∏¶ »πµÊ«’¥œ¥Ÿ.");
+                    //Vector3 position = this.transform.position;
+                    //position.y += 1;
+                    //float positionRangeX = UnityEngine.Random.Range(position.x - 1, position.x + 1);
+                    //float positionRangeZ = UnityEngine.Random.Range(position.z - 1, position.z + 1);
+                    //Vector3 coinDropPosition = new Vector3(positionRangeX, fieldManager.groundHeight, positionRangeZ);
+                    //Vector3 hpos = transform.position + ((coinDropPosition - position) / 2);
+                    //GameObject _coin = Instantiate(catCoin, position, Quaternion.identity);
+                    //Vector3[] Jumppath = { position,
+                    //                         new Vector3(hpos.x, hpos.y + 5f, hpos.z),
+                    //                         coinDropPosition };
+                    //_coin.transform.DOPath(Jumppath, 2, PathType.CatmullRom, PathMode.Full3D);
+                    //Debug.Log("ƒ⁄¿Œ »πµÊ");
+
+
+
+
+                    //int _gold = UnityEngine.Random.Range(2, 6);
+                    //fieldManager.owerPlayer.gold += _gold;
+                    //fieldManager.playerState.UpdateMoney(fieldManager.owerPlayer.gold); 
+                    /* ø‰∞… CatCoin*/
+                    //Debug.Log(_gold + " ∏∏≈≠ ∞ÒµÂ∏¶ »πµÊ«’¥œ¥Ÿ.");
                 }
             }
             #endregion
@@ -369,7 +386,7 @@ public class Piece : MonoBehaviour
             {
                 if (_neighbor[i].IsFull == false)
                 {
-                    //invincible = true;
+                    invincible = true;
                     target = null;
                     IdleState(2f);
                     GameObject effect = Instantiate(rabbitSynergeEffect, transform.position, Quaternion.Euler(-90, 0, 0));
@@ -379,7 +396,7 @@ public class Piece : MonoBehaviour
                     Vector3[] Jumppath = { new Vector3(transform.position.x, transform.position.y, transform.position.z),
                                              new Vector3(hpos.x, hpos.y + 5f, hpos.z),
                                              new Vector3(targetTilePos.x, fieldManager.groundHeight, targetTilePos.z) };
-                    GetComponent<Rigidbody>().DOPath(Jumppath, 2, PathType.CatmullRom, PathMode.Full3D).SetEase(rabbitEase); ; //¡°«¡±∏∞£
+                    GetComponent<Rigidbody>().DOPath(Jumppath, 2, PathType.CatmullRom, PathMode.Full3D).SetEase(rabbitEase); //¡°«¡±∏∞£
 
                     if (currentTile != _neighbor[i])
                     {
@@ -427,7 +444,7 @@ public class Piece : MonoBehaviour
     #endregion
     #region ∞ÌæÁ¿Ã
     public bool isCatSynergeActiveCheck;
-    public GameObject catCoinObject;
+    public GameObject catCoin;
     #endregion
 
     void EnemyCheck()
