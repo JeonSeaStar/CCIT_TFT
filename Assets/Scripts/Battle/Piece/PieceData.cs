@@ -43,10 +43,6 @@ public class PieceData : ScriptableObject
     public Sprite skilSprite;
     public string skillName;
     [TextArea] public string skillExplain;
-
-    //토끼 전용 고정 데미지 수치 파라티터 추가 필요 Ex) JumpDemage
-    //스킬 지속 시간 파라미터 추가 필요
-
     public enum Myth //기믹과 환경 요소 변화
     {
         None = -1,

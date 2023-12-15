@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class FieldManager : MonoBehaviour
 {
-    //public static FieldManager instance;
     private static FieldManager instance;
     public static FieldManager Instance
     {
@@ -29,7 +28,6 @@ public class FieldManager : MonoBehaviour
     }
 
     public Messenger owerPlayer;
-    public Messenger[] DualPlayers = new Messenger[2];
 
     public List<Transform> targetPositions = new List<Transform>();
 
@@ -174,9 +172,6 @@ public class FieldManager : MonoBehaviour
         Deployment,     //배치
         Ready,          //대기
         Battle,         //전투
-        Event,
-        Overtime,
-        Duel,           //None
         Dead,
         Max
     };
@@ -256,22 +251,6 @@ public class FieldManager : MonoBehaviour
     }
 
     [Header("상점")] public PieceShop pieceShop;
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            Debug.Log("GreatMountain시너지 = " + mythActiveCount[PieceData.Myth.GreatMountain] +
-                      System.Environment.NewLine +
-                      "FrostyWind시너지 = " + mythActiveCount[PieceData.Myth.FrostyWind] +
-                      System.Environment.NewLine +
-                      "SandKingdom 시너지 = " + mythActiveCount[PieceData.Myth.SandKingdom] +
-                      System.Environment.NewLine +
-                      "HeavenGround 시너지 = " + mythActiveCount[PieceData.Myth.HeavenGround] +
-                      System.Environment.NewLine +
-                      "BurningGround 시너지 = " + mythActiveCount[PieceData.Myth.BurningGround]);
-        }
-    }
-
     public void AddDPList(Piece target)
     {
         PieceDPList pieceDP = new PieceDPList(target, target.targetTile);
@@ -689,7 +668,7 @@ public class FieldManager : MonoBehaviour
                                     break;
                             }
                         }
-                        if (i > 0 && DualPlayers[0].buffDatas.Contains(buffList[i - 1])) DualPlayers[0].buffDatas.Remove(buffList[i - 1]);
+                        if (i > 0 && owerPlayer.buffDatas.Contains(buffList[i - 1])) owerPlayer.buffDatas.Remove(buffList[i - 1]);
 
                         if (!piece.buffList.Contains(buffList[i]))
                         {
@@ -717,7 +696,7 @@ public class FieldManager : MonoBehaviour
                                     break;
                             }
                         }
-                        if (!DualPlayers[0].buffDatas.Contains(buffList[i])) DualPlayers[0].buffDatas.Add(buffList[i]);
+                        if (!owerPlayer.buffDatas.Contains(buffList[i])) owerPlayer.buffDatas.Add(buffList[i]);
                     }
                 }
             }
@@ -751,7 +730,7 @@ public class FieldManager : MonoBehaviour
                                 break;
                         }
                     }
-                    if (DualPlayers[0].buffDatas.Contains(buffList[i])) DualPlayers[0].buffDatas.Remove(buffList[i]);
+                    if (owerPlayer.buffDatas.Contains(buffList[i])) owerPlayer.buffDatas.Remove(buffList[i]);
                 }
             }
         }
@@ -792,7 +771,7 @@ public class FieldManager : MonoBehaviour
                                     break;
                             }
                         }
-                        if (i > 0 && DualPlayers[0].buffDatas.Contains(buffList[i - 1])) DualPlayers[0].buffDatas.Remove(buffList[i - 1]);
+                        if (i > 0 && owerPlayer.buffDatas.Contains(buffList[i - 1])) owerPlayer.buffDatas.Remove(buffList[i - 1]);
                         //Add
                         if (!piece.buffList.Contains(buffList[i]))
                         {
@@ -819,7 +798,7 @@ public class FieldManager : MonoBehaviour
                                     break;
                             }
                         }
-                        if (!DualPlayers[0].buffDatas.Contains(buffList[i])) DualPlayers[0].buffDatas.Add(buffList[i]);
+                        if (!owerPlayer.buffDatas.Contains(buffList[i])) owerPlayer.buffDatas.Add(buffList[i]);
                     }
                 }
             }
@@ -852,7 +831,7 @@ public class FieldManager : MonoBehaviour
                                 break;
                         }
                     }
-                    if (DualPlayers[0].buffDatas.Contains(buffList[i])) DualPlayers[0].buffDatas.Remove(buffList[i]);
+                    if (owerPlayer.buffDatas.Contains(buffList[i])) owerPlayer.buffDatas.Remove(buffList[i]);
                 }
             }
         }
@@ -946,18 +925,18 @@ public class FieldManager : MonoBehaviour
         foreach (var effect in sBattleStartEffect) effect(true);
         foreach (var effect in sCoroutineEffect) effect();
 
-        Debug.Log("즉시 발동 시너지 효과 : " + sBattleStartEffect.Count);
-        Debug.Log("지연 발동 시너지 효과 : " + sCoroutineEffect.Count);
+        //Debug.Log("즉시 발동 시너지 효과 : " + sBattleStartEffect.Count);
+        //Debug.Log("지연 발동 시너지 효과 : " + sCoroutineEffect.Count);
         InitializingRound();
     }
     #endregion
 
     public void InitializingRound()
     {
-        if (DualPlayers[0].isGrab)
+        if (owerPlayer.isGrab)
         {
-            DualPlayers[0].isDrag = true;
-            object _controlObject = (DualPlayers[0].ControlPiece != null) ? DualPlayers[0].ControlPiece : DualPlayers[0].ControlEquipment;
+            owerPlayer.isDrag = true;
+            object _controlObject = (owerPlayer.ControlPiece != null) ? owerPlayer.ControlPiece : owerPlayer.ControlEquipment;
 
             Piece _pieceControl = _controlObject as Piece;
             if (_pieceControl != null)
@@ -1148,35 +1127,41 @@ public class FieldManager : MonoBehaviour
         if (!targetTile.isReadyTile)
         {
             Piece resultPiece = SpawnPiece(piece.pieceData, star + 1, targetTile);
-            resultPiece.maxHealth = resultPiece.pieceData.health[resultPiece.star];
-            //아이템으로 인한 MAX_HP의 상승분을 여기에 구현
-            resultPiece.name += " " + star + 1 + "Star";
-            resultPiece.healthbar.FusionStarAnim(star);
-            SoundManager.instance.Play("UI/Eff_Upgrade", SoundManager.Sound.Effect);
-            resultPiece.buffList = originPiece.buffList;
-            resultPiece.pieceData.InitialzePiece(resultPiece); resultPiece.mana = resultPiece.pieceData.currentMana;
-            string framePath = string.Format("Sprites/Unit HpBar_UI/{0}Star Frame", resultPiece.star);
-            resultPiece.healthbar.gameObject.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(framePath);
-            for (int i = 0; i < resultPiece.buffList.Count; i++)
-            {
-                if (resultPiece.buffList[i].haveDirectEffect == true)
-                    resultPiece.pieceData.CalculateBuff(resultPiece, resultPiece.buffList[i]);
-            }
-            resultPiece.currentTile.gameObject.transform.GetChild(3).gameObject.SetActive(true);
-            myFilePieceList.Add(resultPiece);
-            AddDPList(resultPiece);
+            #region 나중에 문제 없으면 지울 예정입니다!
+            //resultPiece.maxHealth = resultPiece.pieceData.health[resultPiece.star];
+            ////아이템으로 인한 MAX_HP의 상승분을 여기에 구현
+            //resultPiece.name += " " + star + 1 + "Star";
+            //resultPiece.healthbar.FusionStarAnim(star);
+            //SoundManager.instance.Play("UI/Eff_Upgrade", SoundManager.Sound.Effect);
+            //resultPiece.buffList = originPiece.buffList;
+            //resultPiece.pieceData.InitialzePiece(resultPiece); resultPiece.mana = resultPiece.pieceData.currentMana;
+            //string framePath = string.Format("Sprites/Unit HpBar_UI/{0}Star Frame", resultPiece.star);
+            //resultPiece.healthbar.gameObject.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(framePath);
+            //for (int i = 0; i < resultPiece.buffList.Count; i++)
+            //{
+            //    if (resultPiece.buffList[i].haveDirectEffect == true)
+            //        resultPiece.pieceData.CalculateBuff(resultPiece, resultPiece.buffList[i]);
+            //}
+            //resultPiece.currentTile.gameObject.transform.GetChild(3).gameObject.SetActive(true);
+            //myFilePieceList.Add(resultPiece);
+            //AddDPList(resultPiece);
+            #endregion
+            FusionPieceInit(resultPiece, originPiece);
         }
         else
         {
             Piece resultPiece = SpawnPiece(piece.pieceData, star + 1, targetTile);
-            resultPiece.maxHealth = resultPiece.pieceData.health[resultPiece.star];
-            resultPiece.name += " " + star + 1 + "Star";
-            resultPiece.healthbar.FusionStarAnim(star);
-            SoundManager.instance.Play("UI/Eff_Upgrade", SoundManager.Sound.Effect);
-            resultPiece.pieceData.InitialzePiece(resultPiece); resultPiece.mana = resultPiece.pieceData.currentMana;
-            string framePath = string.Format("Sprites/Unit HpBar_UI/{0}Star Frame", resultPiece.star);
-            resultPiece.healthbar.gameObject.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(framePath);
-            resultPiece.currentTile.gameObject.transform.GetChild(1).gameObject.SetActive(true);
+            #region 나중에 문제 없으면 지울 예정입니다!
+            //resultPiece.maxHealth = resultPiece.pieceData.health[resultPiece.star];
+            //resultPiece.name += " " + star + 1 + "Star";
+            //resultPiece.healthbar.FusionStarAnim(star);
+            //SoundManager.instance.Play("UI/Eff_Upgrade", SoundManager.Sound.Effect);
+            //resultPiece.pieceData.InitialzePiece(resultPiece); resultPiece.mana = resultPiece.pieceData.currentMana;
+            //string framePath = string.Format("Sprites/Unit HpBar_UI/{0}Star Frame", resultPiece.star);
+            //resultPiece.healthbar.gameObject.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(framePath);
+            //resultPiece.currentTile.gameObject.transform.GetChild(1).gameObject.SetActive(true);
+            #endregion
+            FusionPieceInit(resultPiece);
         }
 
         fieldPieceStatus.UpdateFieldStatus(myFilePieceList.Count, owerPlayer.maxPieceCount[owerPlayer.level]);
@@ -1212,6 +1197,32 @@ public class FieldManager : MonoBehaviour
         }
         currentPieceList[kind].count[star].count.Remove(childPiece);
         return childPiece;
+    }
+
+    void FusionPieceInit(Piece resultPiece, Piece originPiece = null)
+    {
+        resultPiece.pieceData.InitialzePiece(resultPiece);
+        resultPiece.name += " " +  resultPiece.star + "Star";
+        resultPiece.maxHealth = resultPiece.pieceData.health[resultPiece.star];
+        resultPiece.mana = resultPiece.pieceData.currentMana;
+        resultPiece.healthbar.FusionStarAnim(resultPiece.star);
+        string framePath = string.Format("Sprites/Unit HpBar_UI/{0}Star Frame", resultPiece.star);
+        resultPiece.healthbar.gameObject.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(framePath);
+        SoundManager.instance.Play("UI/Eff_Upgrade", SoundManager.Sound.Effect);
+        if (originPiece != null) 
+        { 
+            resultPiece.buffList = originPiece.buffList;
+            for (int i = 0; i < resultPiece.buffList.Count; i++)
+            {
+                if (resultPiece.buffList[i].haveDirectEffect == true)
+                    resultPiece.pieceData.CalculateBuff(resultPiece, resultPiece.buffList[i]);
+            }
+            resultPiece.currentTile.gameObject.transform.GetChild(3).gameObject.SetActive(true);
+            myFilePieceList.Add(resultPiece);
+            AddDPList(resultPiece);
+            return;
+        }
+        resultPiece.currentTile.gameObject.transform.GetChild(1).gameObject.SetActive(true);
     }
 
     public void DestroyPiece(Piece piece, Tile targetTile)
@@ -1340,4 +1351,6 @@ public class FieldManager : MonoBehaviour
     {
         mapChanger.ChangeMap(stageInformation.enemy[round].mapType);
     }
+
+
 }

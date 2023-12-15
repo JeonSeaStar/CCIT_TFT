@@ -81,7 +81,6 @@ public class Messenger : MonoBehaviour
 
     private void Awake()
     {
-        fieldManager.DualPlayers[0] = this;
         SoundManager.instance.Clear();
     }
 

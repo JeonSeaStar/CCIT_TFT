@@ -251,8 +251,8 @@ public class Piece : MonoBehaviour
                 if (_r == 0)
                 {
                     int _gold = UnityEngine.Random.Range(2, 6);
-                    fieldManager.DualPlayers[0].gold += _gold;
-                    fieldManager.playerState.UpdateMoney(fieldManager.DualPlayers[0].gold);
+                    fieldManager.owerPlayer.gold += _gold;
+                    fieldManager.playerState.UpdateMoney(fieldManager.owerPlayer.gold);
                     Debug.Log(_gold + " ∏∏≈≠ ∞ÒµÂ∏¶ »πµÊ«’¥œ¥Ÿ.");
                 }
             }
@@ -355,7 +355,7 @@ public class Piece : MonoBehaviour
     }
     #region ≈‰≥¢
     [Header("≈‰≥¢")]
-    [HideInInspector] public bool isRabbitSynergeActiveCheck;
+    public bool isRabbitSynergeActiveCheck;
     [SerializeField] GameObject rabbitSynergeEffect;
     public void RabbitJump()
     {
@@ -399,15 +399,14 @@ public class Piece : MonoBehaviour
             }
         }
     }
-
     IEnumerator RabbitSplashDamage(List<Tile> neighbor, float time)
     {
         yield return new WaitForSeconds(time);
         int splashDamage = 0;
         var _buff = FieldManager.Instance.buffManager.animalBuff[0];
-        if (FieldManager.Instance.DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[0])) { splashDamage = 10; pieceData.CalculateBuff(this, _buff.rabbitBuff[0]); }
-        else if (FieldManager.Instance.DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[1])) { splashDamage = 15; pieceData.CalculateBuff(this, _buff.rabbitBuff[1]); }
-        else if (FieldManager.Instance.DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[2])) { splashDamage = 20; pieceData.CalculateBuff(this, _buff.rabbitBuff[2]); }
+        if (FieldManager.Instance.owerPlayer.buffDatas.Contains(_buff.rabbitBuff[0])) { splashDamage = 10; pieceData.CalculateBuff(this, _buff.rabbitBuff[0]); }
+        else if (FieldManager.Instance.owerPlayer.buffDatas.Contains(_buff.rabbitBuff[1])) { splashDamage = 15; pieceData.CalculateBuff(this, _buff.rabbitBuff[1]); }
+        else if (FieldManager.Instance.owerPlayer.buffDatas.Contains(_buff.rabbitBuff[2])) { splashDamage = 20; pieceData.CalculateBuff(this, _buff.rabbitBuff[2]); }
         GameObject effect = Instantiate(rabbitSynergeEffect, transform.position, Quaternion.Euler(-90, 0, 0));
         effect.SetActive(true); effect.transform.SetParent(null);
         Invoke("RsetRabbitStatus", 3);
@@ -416,7 +415,6 @@ public class Piece : MonoBehaviour
             if (tile.IsFull && !tile.piece.isOwned) Damage(tile.piece, splashDamage);
         }
     }
-
     void RsetRabbitStatus()
     {
         if (FieldManager.Instance.roundType != FieldManager.RoundType.Battle) return;
@@ -428,7 +426,8 @@ public class Piece : MonoBehaviour
     }
     #endregion
     #region ∞ÌæÁ¿Ã
-    [HideInInspector] public bool isCatSynergeActiveCheck;
+    public bool isCatSynergeActiveCheck;
+    public GameObject catCoinObject;
     #endregion
 
     void EnemyCheck()
