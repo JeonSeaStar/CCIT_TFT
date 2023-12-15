@@ -137,6 +137,9 @@ public class Piece : MonoBehaviour
         mana = pieceData.currentMana;
         preAttackDamage = attackDamage;
         SkillUpdateText();
+
+        gameObject.AddComponent<AudioSource>().clip = fieldManager.owerPlayer.kk[0];
+        gameObject.GetComponent<AudioSource>().Play();
     }
 
     private void Update()

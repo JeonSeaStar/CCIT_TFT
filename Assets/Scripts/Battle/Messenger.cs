@@ -149,6 +149,8 @@ public class Messenger : MonoBehaviour
         }
     }
 
+    public List<AudioClip> kk;
+
     void Targeting(Ray ray, RaycastHit hit)
     {
         #region Piece
@@ -163,6 +165,11 @@ public class Messenger : MonoBehaviour
             fieldManager.ActiveHexaIndicators(_isGrapPiece);
             behindSaleZone.SetActive(false);
             pieceSaleSlot.SetActive(true);
+
+            controlPiece.gameObject.AddComponent<AudioSource>();
+            int i = Random.Range(0, kk.Count);
+            controlPiece.gameObject.GetComponent<AudioSource>().clip = kk[i];
+            controlPiece.gameObject.GetComponent<AudioSource>().Play();
             return;
         }
         #endregion
