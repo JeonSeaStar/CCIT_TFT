@@ -519,8 +519,6 @@ public class Piece : MonoBehaviour
         else if (currentPiece.currentTile.isReadyTile == false && currentPiece.targetTile.isReadyTile == true)
         {
             currentPiece.pieceData.InitialzePiece(currentPiece); currentPiece.mana = currentPiece.pieceData.currentMana;
-            Debug.Log(currentPiece.health);
-            Debug.Log(currentPiece.maxHealth);
             fieldManager.RemoveDPList(currentPiece);
             fieldManager.myFilePieceList.Remove(currentPiece);
             currentPiece.buffList.Clear();

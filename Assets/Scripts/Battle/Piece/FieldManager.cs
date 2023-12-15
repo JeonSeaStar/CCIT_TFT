@@ -18,7 +18,7 @@ public class FieldManager : MonoBehaviour
                 if (instance == null)
                 {
                     GameObject _arena = new GameObject();
-                    _arena.name = "ArenaManager";
+                    _arena.name = "FieldManager";
                     instance = _arena.AddComponent<FieldManager>();
                     //DontDestroyOnLoad(_arena);
                 }
@@ -1217,12 +1217,11 @@ public class FieldManager : MonoBehaviour
                 if (resultPiece.buffList[i].haveDirectEffect == true)
                     resultPiece.pieceData.CalculateBuff(resultPiece, resultPiece.buffList[i]);
             }
-            resultPiece.currentTile.gameObject.transform.GetChild(3).gameObject.SetActive(true);
+            //resultPiece.currentTile.gameObject.transform.GetChild(3).gameObject.SetActive(true);
             myFilePieceList.Add(resultPiece);
             AddDPList(resultPiece);
-            return;
         }
-        resultPiece.currentTile.gameObject.transform.GetChild(1).gameObject.SetActive(true);
+        TileManager.Instance.ActiveFusionEffect(resultPiece.currentTile.gameObject);
     }
 
     public void DestroyPiece(Piece piece, Tile targetTile)

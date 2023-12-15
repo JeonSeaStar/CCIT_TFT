@@ -54,7 +54,7 @@ public class HamsterBuff3 : BuffData
 
                     int _randomSpot = Random.Range(0, _randomTile.Count);
                     Tile spawnTile = pathFinding.grid[0].tile[_randomSpot].GetComponent<Tile>();
-                    spawnTile.transform.GetChild(2).gameObject.SetActive(true);
+                    //spawnTile.transform.GetChild(2).gameObject.SetActive(true);
                     spawnTile.IsFull = true;
                     spawnTile.walkable = false;
                     spawnTile.piece = _miniHamster.GetComponent<Piece>();
@@ -62,6 +62,7 @@ public class HamsterBuff3 : BuffData
                     spawnTile.piece.isOwned = true;
                     spawnTile.piece.currentTile = spawnTile;
                     spawnTile.piece.targetTile = spawnTile;
+                    TileManager.Instance.ActiveHamsterSpawnEffect(spawnTile.gameObject);
 
                     float _height = FieldManager.Instance.groundHeight;
                     spawnTile.piece.transform.position = new Vector3(spawnTile.transform.position.x, _height, spawnTile.transform.position.z);

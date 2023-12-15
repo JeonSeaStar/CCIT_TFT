@@ -31,6 +31,7 @@ public class Tile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public bool walkable = true;
     public bool myTile = false;
 
+    public GameObject tileEffectPosition;
     public GameObject tileSelectEffect;
     public SpriteRenderer spriteRenderer;
     public Color originColor;

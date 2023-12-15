@@ -248,8 +248,6 @@ public class Messenger : MonoBehaviour
                     SoundManager.instance.Play("UI/Eff_Gold_Pos", SoundManager.Sound.Effect);
                     //gold += controlPiece.pieceData.cost[controlPiece.pieceData.grade, controlPiece.star];
                     fieldManager.ChargeGold(controlPiece.pieceData.cost[controlPiece.pieceData.grade, controlPiece.star]);
-                    //fieldManager.playerState.UpdateMoney(gold);
-                    //기물이 가지고 있던 아이템 되돌려받기 추가
                     Destroy(controlPiece.gameObject);
                     behindSaleZone.SetActive(true);
                     pieceSaleSlot.SetActive(false);
@@ -310,7 +308,7 @@ public class Messenger : MonoBehaviour
                             _targetPieceInformation.targetTile = controlPiece.currentTile;
                             controlPiece.currentTile = controlPiece.targetTile;
                         }
-                        if (!controlPiece.currentTile.isReadyTile) controlPiece.currentTile.transform.GetChild(1).gameObject.SetActive(true);
+                        if (!controlPiece.currentTile.isReadyTile) TileManager.Instance.ActiveSetEffect(controlPiece.currentTile.gameObject);
                     }
                     else if (_currentTileInformation == _targetTileInformation) ChangeTileTransform(controlPiece, controlPiece.targetTile);
                     ResetDragState(false);
