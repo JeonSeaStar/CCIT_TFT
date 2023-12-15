@@ -26,9 +26,6 @@ public class TileManager : MonoBehaviour
 
     [Header("기물 배치 파티클")]public GameObject setPieceEffect;
     [Header("기물 합성 파티클")]public GameObject fusionPieceEffect;
-
-
-    [Space(10f)]
     [Header("햄스터 배치 파티클")]public GameObject hamsterSpawnEffect;
 
     private void Awake()
