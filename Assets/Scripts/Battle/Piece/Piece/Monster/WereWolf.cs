@@ -34,9 +34,7 @@ public class WereWolf : Piece
         {
             invincible = false;
             SoundManager.instance.Play("Wolf_Series/S_Attack_Were_Wolf", SoundManager.Sound.Effect);
-            //print(name + "(이)가" + target.name + "에게 일반 공격을 합니다.");
             Damage(attackDamage);
-            //mana += 100;
             mana += manaRecovery;
             StartNextBehavior();
         }
