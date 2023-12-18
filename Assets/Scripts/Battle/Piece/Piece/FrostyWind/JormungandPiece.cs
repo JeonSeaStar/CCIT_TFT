@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class JormungandPiece : Piece
 {
-    public Tile skillCheckTile;
+    Tile skillCheckTile;
     PathFinding pathFinding;
 
     public override IEnumerator Attack()
