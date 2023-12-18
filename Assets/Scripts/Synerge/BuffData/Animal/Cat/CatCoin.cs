@@ -1,18 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class CatCoin : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] float radius;
+    [SerializeField] float moveSpeed;
+
+    private void Start()
     {
-        
+        FieldManager.Instance.catcoin.Add(this);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void MoveCoin()
     {
-        
+        Vector3 targetPosition = FieldManager.Instance.readyTileList[2].transform.position;
+        targetPosition.y += 0.5f;
+        transform.DOMove(targetPosition, moveSpeed);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "ReadyTile")
+        {
+            Debug.Log(other.name);
+        }
     }
 }

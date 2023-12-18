@@ -253,18 +253,18 @@ public class Piece : MonoBehaviour
                 int _r = (fieldManager.animalActiveCount[PieceData.Animal.Cat] >= 4) ? UnityEngine.Random.Range(0, 3) : UnityEngine.Random.Range(0, 2);
                 if (_r == 0)
                 {
-                    //Vector3 position = this.transform.position;
-                    //position.y += 1;
-                    //float positionRangeX = UnityEngine.Random.Range(position.x - 1, position.x + 1);
-                    //float positionRangeZ = UnityEngine.Random.Range(position.z - 1, position.z + 1);
-                    //Vector3 coinDropPosition = new Vector3(positionRangeX, fieldManager.groundHeight, positionRangeZ);
-                    //Vector3 hpos = transform.position + ((coinDropPosition - position) / 2);
-                    //GameObject _coin = Instantiate(catCoin, position, Quaternion.identity);
-                    //Vector3[] Jumppath = { position,
-                    //                         new Vector3(hpos.x, hpos.y + 5f, hpos.z),
-                    //                         coinDropPosition };
-                    //_coin.transform.DOPath(Jumppath, 2, PathType.CatmullRom, PathMode.Full3D);
-                    //Debug.Log("ÄÚÀÎ È¹µæ");
+                    Vector3 position = this.transform.position;
+                    position.y += 1;
+                    float positionRangeX = UnityEngine.Random.Range(position.x - 1, position.x + 1);
+                    float positionRangeZ = UnityEngine.Random.Range(position.z - 1, position.z + 1);
+                    Vector3 coinDropPosition = new Vector3(positionRangeX, fieldManager.groundHeight + 0.5f, positionRangeZ);
+                    Vector3 hpos = transform.position + ((coinDropPosition - position) / 2);
+                    GameObject _coin = Instantiate(catCoin, position, Quaternion.identity);
+                    Vector3[] Jumppath = { position,
+                                             new Vector3(hpos.x, hpos.y + 5f, hpos.z),
+                                             coinDropPosition };
+                    _coin.transform.DOPath(Jumppath, 2, PathType.CatmullRom, PathMode.Full3D);
+                    Debug.Log("ÄÚÀÎ È¹µæ");
 
 
 

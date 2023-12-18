@@ -134,6 +134,7 @@ public class FieldManager : MonoBehaviour
 
     public GameObject[] readyZoneHexaIndicators;
     public GameObject[] battleFieldHexaIndicators;
+    [SerializeField] public List<CatCoin> catcoin;
 
     public bool grab = false;
 
@@ -354,6 +355,8 @@ public class FieldManager : MonoBehaviour
         for (int i = 0; i < pieceDpList.Count; i++)
             pieceStatus.SetStatus(pieceDpList[i].piece, i);
         pieceStatus.ClearPieceStatusList();
+
+        foreach (var coins in catcoin) coins.MoveCoin();
 
         roundType = RoundType.Deployment;
         foreach (var effect in sBattleStartEffect) effect(false);
