@@ -31,7 +31,7 @@ public class Blossom : Piece
         if (target != null)
         {
             invincible = false;
-            SoundManager.instance.Play("Nepenthes_Seris/S_Attack_Blossom", SoundManager.Sound.Effect);
+            SoundManager.instance.Play("Nepenthes_Series/S_Attack_Blossom", SoundManager.Sound.Effect);
             //print(name + "(이)가" + target.name + "에게 일반 공격을 합니다.");
             Damage(attackDamage);
             //mana += 100;
@@ -55,7 +55,7 @@ public class Blossom : Piece
     {
         if (dead)
             return;
-        SoundManager.instance.Play("Nepenthes_Seris/S_Skill_Blossom", SoundManager.Sound.Effect);
+        SoundManager.instance.Play("Nepenthes_Series/S_Skill_Blossom", SoundManager.Sound.Effect);
         SkillState();
         pathFinding = FieldManager.Instance.pathFinding;
         Instantiate(skillEffects, new Vector3(transform.position.x, transform.position.y + 2.5f, transform.position.z), Quaternion.identity);
@@ -82,7 +82,7 @@ public class Blossom : Piece
 
     public override void Dead()
     {
-        SoundManager.instance.Play("Nepenthes_Seris/S_Death_Blossom", SoundManager.Sound.Effect);
+        SoundManager.instance.Play("Nepenthes_Series/S_Death_Blossom", SoundManager.Sound.Effect);
         StopAllCoroutines();
         currentTile.InitTile();
         gameObject.SetActive(false);

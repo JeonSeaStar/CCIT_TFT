@@ -31,7 +31,7 @@ public class Bloom : Piece
         if (target != null)
         {
             invincible = false;
-            SoundManager.instance.Play("Nepenthes_Seris/S_Attack_Bloom", SoundManager.Sound.Effect);
+            SoundManager.instance.Play("Nepenthes_Series/S_Attack_Bloom", SoundManager.Sound.Effect);
             //print(name + "(이)가" + target.name + "에게 일반 공격을 합니다.");
             Damage(attackDamage);
             //mana += 100;
@@ -59,7 +59,7 @@ public class Bloom : Piece
         if (target != null)
         {
             SkillState();
-            SoundManager.instance.Play("Nepenthes_Seris/S_Skil_Bloom", SoundManager.Sound.Effect);
+            SoundManager.instance.Play("Nepenthes_Series/S_Skil_Bloom", SoundManager.Sound.Effect);
             GameObject centaBullet = Instantiate(bloomBullet, new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z), Quaternion.identity);
             Bullet b = centaBullet.GetComponent<BloomBullet>();
             b.parentPiece = this;
@@ -75,7 +75,7 @@ public class Bloom : Piece
 
     public override void Dead()
     {
-        SoundManager.instance.Play("Nepenthes_Seris/S_Death_Bloom", SoundManager.Sound.Effect);
+        SoundManager.instance.Play("Nepenthes_Series/S_Death_Bloom", SoundManager.Sound.Effect);
         StopAllCoroutines();
         currentTile.InitTile();
         gameObject.SetActive(false);
