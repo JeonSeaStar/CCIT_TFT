@@ -239,6 +239,8 @@ public class FieldManager : MonoBehaviour
     public EnemyInformationData stageInformation;
     public int currentStage;
 
+    public Camera uiCamera;
+
     private void Awake()
     {
         if (instance == null)

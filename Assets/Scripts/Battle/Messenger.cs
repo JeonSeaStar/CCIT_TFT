@@ -79,8 +79,6 @@ public class Messenger : MonoBehaviour
 
     public GameObject behindSaleZone;
 
-    public GameObject tt;
-
     private void Awake()
     {
         SoundManager.instance.Clear();
@@ -89,13 +87,6 @@ public class Messenger : MonoBehaviour
     private void Start()
     {
         SoundManager.instance.Play("BGM/Bgm_Battle_Default", SoundManager.Sound.Bgm);
-
-        Vector3 goldPosition = Camera.main.WorldToScreenPoint(FieldManager.Instance.playerState.currentMoneyText.transform.position);
-        //Vector3 goldPosition2 = Camera.main.WorldToScreenPoint(FieldManager.Instance.playerState.currentMoneyText.rectTransform.position);
-        Vector3 goldPosition2 = Camera.main.WorldToScreenPoint(tt.transform.position);
-        //goldPosition.z = 0;
-        Debug.Log(goldPosition);
-        Debug.Log(goldPosition2);
     } 
 
     void Update()
