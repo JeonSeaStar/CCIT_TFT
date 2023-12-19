@@ -12,63 +12,64 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47dbc1b9740874d4aa64202f2ad67066, type: 3}
   m_Name: Shell
   m_EditorClassIdentifier: 
-  pieceName: 
+  pieceName: "\uB465\uAE00\uAC8C"
   piecePortrait: {fileID: 0}
-  piecePrefab: {fileID: 0}
+  piecePrefab: {fileID: 5005484666466118429, guid: b64072f02d3c70945a36d63f1dda232e,
+    type: 3}
   grade: 0
   star: 0
   health:
-  - 0
+  - 1000
   - 0
   - 0
   mana:
+  - 100
   - 0
   - 0
-  - 0
-  currentMana: 0
+  currentMana: 100
   manaRecovery:
-  - 0
+  - 30
   - 0
   - 0
   attackDamage:
-  - 0
+  - 5
   - 0
   - 0
   abilityPower:
-  - 0
+  - 5
   - 0
   - 0
   abilityPowerCoefficient:
-  - 0
+  - 5
   - 0
   - 0
   armor:
-  - 0
+  - 5
   - 0
   - 0
   magicResist:
-  - 0
+  - 5
   - 0
   - 0
   attackSpeed:
-  - 0
+  - 1
   - 0
   - 0
   criticalChance:
-  - 0
+  - 1
   - 0
   - 0
   criticalDamage:
+  - 1
   - 0
   - 0
-  - 0
-  attackRange: 000000000000000000000000
+  attackRange: 010000000000000000000000
   bloodBrain:
   - 0
   - 0
   - 0
   moveSpeed:
-  - 0
+  - 1
   - 0
   - 0
   skilSprite: {fileID: 0}

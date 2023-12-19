@@ -136,6 +136,97 @@ public class PathFinding : MonoBehaviour
         return side;
     }
 
+    public List<Tile> WideGetNeighbor(Tile tile)
+    {
+        List<Tile> neighbor = new List<Tile>();
+
+        int x = tile.listX;
+        int y = tile.listY;
+
+        if (y % 2 == 0)
+        {
+            if (indexCheck(y + 1, x + 1))
+                if (grid[y + 1].tile[x + 1] != null)
+                    neighbor.Add(grid[y + 1].tile[x + 1]);
+            if (indexCheck(y, x + 1))
+                if (grid[y].tile[x + 1] != null)
+                    neighbor.Add(grid[y].tile[x + 1]);
+            if (indexCheck(y - 1, x + 1))
+                if (grid[y - 1].tile[x + 1] != null)
+                    neighbor.Add(grid[y - 1].tile[x + 1]);
+            if (indexCheck(y - 1, x))
+                if (grid[y - 1].tile[x] != null)
+                    neighbor.Add(grid[y - 1].tile[x]);
+            if (indexCheck(y, x - 1))
+                if (grid[y].tile[x - 1] != null)
+                    neighbor.Add(grid[y].tile[x - 1]);
+            if (indexCheck(y + 1, x))
+                if (grid[y + 1].tile[x] != null)
+                    neighbor.Add(grid[y + 1].tile[x]);
+
+            if (indexCheck(y + 2, x + 2))
+                if (grid[y + 2].tile[x + 2] != null)
+                    neighbor.Add(grid[y + 2].tile[x + 2]);
+            if (indexCheck(y, x + 2))
+                if (grid[y].tile[x + 2] != null)
+                    neighbor.Add(grid[y].tile[x + 2]);
+            if (indexCheck(y - 2, x + 2))
+                if (grid[y - 2].tile[x + 2] != null)
+                    neighbor.Add(grid[y - 2].tile[x + 2]);
+            if (indexCheck(y - 2, x))
+                if (grid[y - 2].tile[x] != null)
+                    neighbor.Add(grid[y - 2].tile[x]);
+            if (indexCheck(y, x - 2))
+                if (grid[y].tile[x - 2] != null)
+                    neighbor.Add(grid[y].tile[x - 2]);
+            if (indexCheck(y + 2, x))
+                if (grid[y + 2].tile[x] != null)
+                    neighbor.Add(grid[y + 2].tile[x]);
+        }
+
+        if (y % 2 != 0)
+        {
+            if (indexCheck(y + 1, x))
+                if (grid[y + 1].tile[x] != null)
+                    neighbor.Add(grid[y + 1].tile[x]);
+            if (indexCheck(y, x + 1))
+                if (grid[y].tile[x + 1] != null)
+                    neighbor.Add(grid[y].tile[x + 1]);
+            if (indexCheck(y - 1, x))
+                if (grid[y - 1].tile[x] != null)
+                    neighbor.Add(grid[y - 1].tile[x]);
+            if (indexCheck(y - 1, x - 1))
+                if (grid[y - 1].tile[x - 1] != null)
+                    neighbor.Add(grid[y - 1].tile[x - 1]);
+            if (indexCheck(y, x - 1))
+                if (grid[y].tile[x - 1] != null)
+                    neighbor.Add(grid[y].tile[x - 1]);
+            if (indexCheck(y + 1, x - 1))
+                if (grid[y + 1].tile[x - 1] != null)
+                    neighbor.Add(grid[y + 1].tile[x - 1]);
+
+            if (indexCheck(y + 2, x))
+                if (grid[y + 2].tile[x] != null)
+                    neighbor.Add(grid[y + 2].tile[x]);
+            if (indexCheck(y, x + 2))
+                if (grid[y].tile[x + 2] != null)
+                    neighbor.Add(grid[y].tile[x + 2]);
+            if (indexCheck(y - 2, x))
+                if (grid[y - 2].tile[x] != null)
+                    neighbor.Add(grid[y - 2].tile[x]);
+            if (indexCheck(y - 2, x - 2))
+                if (grid[y - 2].tile[x - 2] != null)
+                    neighbor.Add(grid[y - 2].tile[x - 2]);
+            if (indexCheck(y, x - 2))
+                if (grid[y].tile[x - 2] != null)
+                    neighbor.Add(grid[y].tile[x - 2]);
+            if (indexCheck(y + 2, x - 2))
+                if (grid[y + 2].tile[x - 2] != null)
+                    neighbor.Add(grid[y + 2].tile[x - 2]);
+        }
+
+        return neighbor;
+    }
     public List<Tile> GetNeighbor(Tile tile)
     {
         List<Tile> neighbor = new List<Tile>();

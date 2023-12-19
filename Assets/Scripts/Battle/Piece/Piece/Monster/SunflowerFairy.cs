@@ -44,7 +44,7 @@ public class SunflowerFairy : Piece
 
     public override IEnumerator Skill()
     {
-        GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 5);
+        GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 1);
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
@@ -61,7 +61,6 @@ public class SunflowerFairy : Piece
         StartCoroutine(FindNeighbor(damage, time));
     }
 
-    //2칸이라고 했는데 이건 내일 이야기 해봐야 함
     IEnumerator FindNeighbor(float damage, int time)
     {
         if (pieceState == State.DANCE)
@@ -70,7 +69,7 @@ public class SunflowerFairy : Piece
         }
         for (int i = 0; i < time; i++)
         {
-            List<Tile> _getNeigbor = pathFinding.GetNeighbor(skillCheckTile);
+            List<Tile> _getNeigbor = pathFinding.WideGetNeighbor(skillCheckTile);
             _getNeigbor.Add(skillCheckTile);
             foreach (var _Neigbor in _getNeigbor)
             {
@@ -91,7 +90,7 @@ public class SunflowerFairy : Piece
     }
     public override void SkillUpdateText()
     {
-        pieceData.skillExplain = string.Format("{0}초 동안 회전 공격을 시전해 주변 1칸 범위 내 모든 적에게 초당 {1}의 피해를 입힙니다.", 5, abilityPower * (1 + (abilityPowerCoefficient / 100)));
+        pieceData.skillExplain = string.Format("주변2칸 범위에 꽃가루를 뿌려 {0}초 동안 초 마다 {1}의 피해를 줍니다.", 1, abilityPower * (1 + (abilityPowerCoefficient / 100)));
     }
 
     public override void Dead()
