@@ -253,7 +253,7 @@ public class Piece : MonoBehaviour
                 int _r = (fieldManager.animalActiveCount[PieceData.Animal.Cat] >= 4) ? UnityEngine.Random.Range(0, 3) : UnityEngine.Random.Range(0, 2);
                 if (_r == 0)
                 {
-                    Vector3 position = this.transform.position;
+                    Vector3 position = target.transform.position;
                     position.y += 1;
                     float positionRangeX = UnityEngine.Random.Range(position.x - 1, position.x + 1);
                     float positionRangeZ = UnityEngine.Random.Range(position.z - 1, position.z + 1);
@@ -265,15 +265,6 @@ public class Piece : MonoBehaviour
                                              coinDropPosition };
                     _coin.transform.DOPath(Jumppath, 2, PathType.CatmullRom, PathMode.Full3D);
                     Debug.Log("ƒ⁄¿Œ »πµÊ");
-
-
-
-
-                    //int _gold = UnityEngine.Random.Range(2, 6);
-                    //fieldManager.owerPlayer.gold += _gold;
-                    //fieldManager.playerState.UpdateMoney(fieldManager.owerPlayer.gold); 
-                    /* ø‰∞… CatCoin*/
-                    //Debug.Log(_gold + " ∏∏≈≠ ∞ÒµÂ∏¶ »πµÊ«’¥œ¥Ÿ.");
                 }
             }
             #endregion

@@ -22,21 +22,18 @@ public class CatCoin : MonoBehaviour
     {
         if (other.tag == "ReadyTile")
         {
-            //gameObject.AddComponent<RectTransform>();
-            //RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
-            //rectTransform.anchorMin = Vector2.one;
-            //rectTransform.anchorMax = Vector2.one;
-            //gameObject.transform.parent = FieldManager.Instance.pieceShop.gameObject.transform.parent;
+            Vector3 goldPosition = FieldManager.Instance.uiCamera.WorldToScreenPoint(FieldManager.Instance.playerState.currentMoneyText.transform.position);
 
-            //transform.position = Vector3.MoveTowards(transform.position, FieldManager.Instance.pieceShop.text.transform.position, Time.deltaTime * 7.5f);
-            Vector3 goldPosition = Camera.main.WorldToScreenPoint(FieldManager.Instance.playerState.currentMoneyText.transform.position);
-            Vector3 goldPosition2 = Camera.main.ScreenToWorldPoint(goldPosition);
-            //goldPosition.z = 0;
-            //Debug.Log(goldPosition2);
-            //Vector3 translatePosition = Camera.main.ScreenToWorldPoint(goldPosition);
-            //Vector3 translatePosit2ion = Camera.main.ScreenToViewportPoint(goldPosition); Debug.Log(translatePosit2ion);
-            //transform.DOMove(translatePosition, 10f);
-            //transform.DOScale(Vector3.zero, 1f);
+            Ray ray = Camera.main.ScreenPointToRay(goldPosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
+            {
+                int _gold = Random.Range(2, 6);
+                FieldManager.Instance.owerPlayer.gold += _gold;
+                FieldManager.Instance.playerState.UpdateMoney(FieldManager.Instance.owerPlayer.gold);
+
+                transform.DOMove(hit.point, 0.5f);
+                transform.DOScale(Vector3.zero, 0.5f);
+            }
         }
     }
 }
