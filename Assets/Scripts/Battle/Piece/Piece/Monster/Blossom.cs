@@ -32,9 +32,7 @@ public class Blossom : Piece
         {
             invincible = false;
             SoundManager.instance.Play("Nepenthes_Series/S_Attack_Blossom", SoundManager.Sound.Effect);
-            //print(name + "(이)가" + target.name + "에게 일반 공격을 합니다.");
             Damage(attackDamage);
-            //mana += 100;
             mana += manaRecovery;
             StartNextBehavior();
         }
