@@ -8,37 +8,78 @@ public class TriggerCheckSkill : MonoBehaviour
     public GameObject effect;
     public BoxCollider boxCollider;
     public LayerMask layerMask;
+    public bool ownerPiece;
+
     private void OnEnable()
     {
-        Collider[] targets = Physics.OverlapBox(boxCollider.transform.position, boxCollider.size /2, Quaternion.identity, layerMask);
-        foreach(var cals in targets)
+        if(ownerPiece)
         {
-            GameObject _targets = cals.gameObject;
-            if(_targets == null)
+            Collider[] targets = Physics.OverlapBox(boxCollider.transform.position, boxCollider.size / 2, Quaternion.identity, layerMask);
+            foreach (var cals in targets)
             {
-                gameObject.SetActive(false);
-                return;
-            }
-            else
-            {
-                Piece target = _targets.GetComponent<Piece>();
-                if(target == null)
+                GameObject _targets = cals.gameObject;
+                if (_targets == null)
                 {
                     gameObject.SetActive(false);
                     return;
                 }
                 else
                 {
-                    if (!target.isOwned)
-                    {
-                        Instantiate(effect, target.transform.position, Quaternion.identity);
-                        target.Damage(target, damage);
-                        gameObject.SetActive(false);
-                    }
-                    else
+                    Piece target = _targets.GetComponent<Piece>();
+                    if (target == null)
                     {
                         gameObject.SetActive(false);
                         return;
+                    }
+                    else
+                    {
+                        if (!target.isOwned)
+                        {
+                            Instantiate(effect, target.transform.position, Quaternion.identity);
+                            target.Damage(target, damage);
+                            gameObject.SetActive(false);
+                        }
+                        else
+                        {
+                            gameObject.SetActive(false);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            Collider[] targets = Physics.OverlapBox(boxCollider.transform.position, boxCollider.size / 2, Quaternion.identity, layerMask);
+            foreach (var cals in targets)
+            {
+                GameObject _targets = cals.gameObject;
+                if (_targets == null)
+                {
+                    gameObject.SetActive(false);
+                    return;
+                }
+                else
+                {
+                    Piece target = _targets.GetComponent<Piece>();
+                    if (target == null)
+                    {
+                        gameObject.SetActive(false);
+                        return;
+                    }
+                    else
+                    {
+                        if (target.isOwned)
+                        {
+                            Instantiate(effect, target.transform.position, Quaternion.identity);
+                            target.Damage(target, damage);
+                            gameObject.SetActive(false);
+                        }
+                        else
+                        {
+                            gameObject.SetActive(false);
+                            return;
+                        }
                     }
                 }
             }

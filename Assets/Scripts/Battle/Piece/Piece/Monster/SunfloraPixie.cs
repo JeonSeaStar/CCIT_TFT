@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class SunfloraPixie : Piece
 {
-    [SerializeField] private GameObject bullet;
-    [SerializeField] private float radius;
-    [SerializeField] private LayerMask layerMask;
     public override IEnumerator Attack()
     {
         if (mana >= maxMana && target != null)
@@ -22,40 +19,52 @@ public class SunfloraPixie : Piece
         }
     }
 
+    public override void DoAttack()
+    {
+        if (stun || freeze)
+        {
+            pieceState = State.IDLE;
+            return;
+        }
+        if (target != null)
+        {
+            invincible = false;
+            SoundManager.instance.Play("Wolf_Series/S_Attack_Wolf_Cub", SoundManager.Sound.Effect);
+            Damage(attackDamage);
+            mana += manaRecovery;
+            StartNextBehavior();
+        }
+        else
+            IdleState();
+    }
+
     public override IEnumerator Skill()
     {
-        FindClosestEnemy(abilityPower * (1 + (abilityPowerCoefficient / 100)));
+        AllEnemyDamge(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
 
-    void FindClosestEnemy(float damage)
+    void AllEnemyDamge(float damage)
     {
         if (dead)
             return;
-        SkillState();
-        SoundManager.instance.Play("SandKingdom/Sound_for_Horus_01", SoundManager.Sound.Effect);
-        Collider[] col = Physics.OverlapSphere(transform.position, radius, layerMask);
-        foreach (var cols in col)
+        if (fieldManager.myFilePieceList.Count > 0)
         {
-            GameObject _targets = cols.gameObject;
-            if (_targets == null)
+            SkillState();
+            SoundManager.instance.Play("SandKingdom/Sound_for_Horus_01", SoundManager.Sound.Effect);
+            foreach(var _targets in fieldManager.myFilePieceList)
             {
-                return;
-            }
-            else
-            {
-                GameObject centaBullet = Instantiate(bullet, transform.position, Quaternion.identity);
-                Bullet b = centaBullet.GetComponent<SunfloraPixieBullet>();
-                b.parentPiece = this;
-                b.damage = damage;
-                b.Shot(_targets.transform.position - transform.position);
+                Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
+                Damage(_targets,damage);
             }
         }
+        else
+            return;
     }
     public override void SkillUpdateText()
     {
-        pieceData.skillExplain = string.Format("가장 가까운 적 4명에게 {0}의 피해를 입히는 모래 탄환을 {1}개 발사합니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)), 4);
+        pieceData.skillExplain = string.Format("1초동안 정신 집중한 뒤 모든 적에게 {0}의 피해를 주는 빛의 심판을 내립니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)), 4);
     }
 
     public override void Dead()

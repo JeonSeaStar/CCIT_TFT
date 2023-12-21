@@ -63,10 +63,6 @@ public class SunflowerFairy : Piece
 
     IEnumerator FindNeighbor(float damage, int time)
     {
-        if (pieceState == State.DANCE)
-        {
-            yield break;
-        }
         for (int i = 0; i < time; i++)
         {
             List<Tile> _getNeigbor = pathFinding.WideGetNeighbor(skillCheckTile);

@@ -67,12 +67,15 @@ public class Piece : MonoBehaviour
     public bool freeze;
     public bool slow;
     public bool airborne;
-    public bool faint;
-    public bool fear;
     public bool invincible;
-    public bool charm; //∏≈»§
     public bool blind;
     public bool stun;
+    public bool tickDamage;
+    float parentTickDamage;
+    float tickTime = 1f;
+    public bool fear;
+    public bool faint;
+    public bool charm;
 
     public List<Piece> enemyPieceList = new List<Piece>();
     public List<Piece> myPieceList = new List<Piece>();
@@ -125,6 +128,7 @@ public class Piece : MonoBehaviour
     public GameObject freezeEffect;
     public GameObject stunEffect;
     public GameObject blindEffect;
+    public GameObject tickDamageEffect;
 
     void Awake()
     {
@@ -146,6 +150,15 @@ public class Piece : MonoBehaviour
     {
         healthbar.InitHealthbar(maxHealth, health, shield);
         healthbar.InitManabar(maxMana, mana);
+        if (tickDamage)
+        {
+            tickTime -= Time.deltaTime;
+            if(tickTime <= 0)
+            {
+                health -= parentTickDamage;
+                tickTime = 1;
+            }
+        }
     }
 
     public void Owned()
@@ -589,19 +602,9 @@ public class Piece : MonoBehaviour
         slow = true;
     }
 
-    public void SetFaint()
-    {
-        faint = true;
-    }
-
     public void SetAirborne()
     {
         airborne = true;
-    }
-
-    public void SetFear()
-    {
-        fear = true;
     }
 
     public void SetInvincible()
@@ -609,10 +612,26 @@ public class Piece : MonoBehaviour
         invincible = true;
     }
 
-    public void SetCharm()
+    public void SetTickDamage(float damage, float time)
     {
-        charm = true;
+        tickDamage = true;
+        if(gameObject.activeSelf)
+        {
+            tickDamageEffect.SetActive(true);
+            parentTickDamage = damage;
+            Invoke("TickDamageClear", time);
+        }
     }
+
+    public void TickDamageClear()
+    {
+        tickDamage = false;
+        if (gameObject.activeSelf)
+        {
+            tickDamageEffect.SetActive(false);
+        }
+    }
+
     public void SetFreeze(float time)
     {
         freeze = true;
