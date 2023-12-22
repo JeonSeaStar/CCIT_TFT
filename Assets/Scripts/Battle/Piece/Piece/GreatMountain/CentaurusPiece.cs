@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CentaurusPiece : Piece
 {
-    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject centaurusBullet;
     public override IEnumerator Attack()
     {
         if (mana >= maxMana && target != null)
@@ -35,13 +35,11 @@ public class CentaurusPiece : Piece
         {
             SkillState();
             SoundManager.instance.Play("GreatMountain/S_Centaurus", SoundManager.Sound.Effect);
-            Quaternion rot = transform.rotation;
-            GameObject centaBullet = Instantiate(bullet, transform.position, Quaternion.identity);
-            //Instantiate(skillEffects, transform.position, rot);
-            Bullet b = centaBullet.GetComponent<CentaurusBullet>();
-            b.parentPiece = this;
-            b.damage = damage;
-            b.Shot(target.transform.position - transform.position);
+            GameObject _bullet = Instantiate(centaurusBullet, transform.position, Quaternion.identity);
+            Bullet bullet = _bullet.GetComponent<CentaurusBullet>();
+            bullet.parentPiece = this;
+            bullet.damage = damage;
+            bullet.Shot(target.transform.position - transform.position);
         }
     }
     public override void SkillUpdateText()

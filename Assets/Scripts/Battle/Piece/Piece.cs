@@ -151,14 +151,7 @@ public class Piece : MonoBehaviour
         healthbar.InitHealthbar(maxHealth, health, shield);
         healthbar.InitManabar(maxMana, mana);
         if (tickDamage)
-        {
-            tickTime -= Time.deltaTime;
-            if(tickTime <= 0)
-            {
-                health -= parentTickDamage;
-                tickTime = 1;
-            }
-        }
+            TickDamageTimer();
     }
 
     public void Owned()
@@ -620,6 +613,16 @@ public class Piece : MonoBehaviour
             tickDamageEffect.SetActive(true);
             parentTickDamage = damage;
             Invoke("TickDamageClear", time);
+        }
+    }
+
+    public void TickDamageTimer() // == 변경 필요 이펙트 어떻게 처리 할지
+    {
+        tickTime -= Time.deltaTime;
+        if (tickTime <= 0)
+        {
+            health -= parentTickDamage;
+            tickTime = 1;
         }
     }
 

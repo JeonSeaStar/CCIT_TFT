@@ -31,7 +31,6 @@ public class PoseidonPiece : Piece
         if (dead)
             return;           
         SkillState();
-        SoundManager.instance.Play("GreatMountain/S_Poseidon", SoundManager.Sound.Effect);
         List<Piece> _allPiece = fieldManager.enemyFilePieceList;
         foreach (var _Neigbor in _allPiece)
         {
@@ -42,11 +41,13 @@ public class PoseidonPiece : Piece
             }
             else
             {
+                SoundManager.instance.Play("GreatMountain/S_Poseidon", SoundManager.Sound.Effect);
                 Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
                 Damage(_targets, damage);
             }
         }
     }
+
     public override void SkillUpdateText()
     {
         pieceData.skillExplain = string.Format("전방을 향해 {0}의 피해를 입히는 파도를 부릅니다.", (abilityPower * (1 + (abilityPowerCoefficient / 100))));

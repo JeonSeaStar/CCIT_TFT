@@ -24,29 +24,27 @@ public class HadesPiece : Piece
     {
         if (star == 0)
         {
-            GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
-            this.shield = 350f;
+            GetLocationMultiRangeSkillAndShield(abilityPower * (1 + (abilityPowerCoefficient / 100)), 350f);
         }
         else if (star == 1)
         {
-            GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
-            this.shield = 450f;
+            GetLocationMultiRangeSkillAndShield(abilityPower * (1 + (abilityPowerCoefficient / 100)), 450f);
         }
         else if (star == 2)
         {
-            GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
-            this.shield = 600f;
+            GetLocationMultiRangeSkillAndShield(abilityPower * (1 + (abilityPowerCoefficient / 100)), 600f);
         }
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
 
-    void GetLocationMultiRangeSkill(float damage)
+    void GetLocationMultiRangeSkillAndShield(float damage, float shield)
     {
         if (dead)
             return;
         SkillState();
         SoundManager.instance.Play("GreatMountain/S_Hades", SoundManager.Sound.Effect);
+        this.shield = shield;
         pathFinding = FieldManager.Instance.pathFinding;
         List<Tile> _getNeigbor = pathFinding.GetNeighbor(currentTile);
         foreach (var _Neigbor in _getNeigbor)

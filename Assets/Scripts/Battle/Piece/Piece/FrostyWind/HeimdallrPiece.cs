@@ -22,12 +22,12 @@ public class HeimdallrPiece : Piece
 
     public override IEnumerator Skill()
     {
-        GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
+        GetMultiHealSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
 
-    void GetLocationMultiRangeSkill(float heal)
+    void GetMultiHealSkill(float heal)
     {
         if (dead)
             return;
@@ -47,7 +47,6 @@ public class HeimdallrPiece : Piece
                 Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
                 _targets.health += heal;
             }
-
         }
     }
     public override void SkillUpdateText()

@@ -26,7 +26,7 @@ public class ValkyriePiece : Piece
         StartNextBehavior();
     }
 
-    public void AttackSkill(float damage)
+    public void AttackSkill(float damage) //발키리 변경 필요
     {
         if (dead)
             return;

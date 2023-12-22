@@ -29,7 +29,7 @@ public class SethPiece : Piece
         StartNextBehavior();
     }
 
-    void GetLocationMultiRangeSkill(float damage)
+    void GetLocationMultiRangeSkill(float damage) //세트 변경 필요 = tirggercheckSkill 사용하도록 변경
     {
         if (target != null)
         {

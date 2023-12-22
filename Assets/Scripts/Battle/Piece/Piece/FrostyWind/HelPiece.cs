@@ -36,11 +36,11 @@ public class HelPiece : Piece
         {
             SkillState();
             SoundManager.instance.Play("FrostyWind/S_Hel", SoundManager.Sound.Effect);
-            GameObject centaBullet = Instantiate(helBullet, transform.position, Quaternion.identity);
-            Bullet b = centaBullet.GetComponent<HelBullet>();
-            b.parentPiece = this;
-            b.damage = damage;
-            b.Shot(target.transform.position - transform.position);
+            GameObject _bullet = Instantiate(helBullet, transform.position, Quaternion.identity);
+            Bullet bullet = _bullet.GetComponent<HelBullet>();
+            bullet.parentPiece = this;
+            bullet.damage = damage;
+            bullet.Shot(target.transform.position - transform.position);
         }
     }
     public override void SkillUpdateText()
