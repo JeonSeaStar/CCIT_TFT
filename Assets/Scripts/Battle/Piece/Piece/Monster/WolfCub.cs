@@ -42,7 +42,7 @@ public class WolfCub : Piece
 
     public override IEnumerator Skill()
     {
-        ShieldSkill(300f);
+        ShieldSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
@@ -59,7 +59,7 @@ public class WolfCub : Piece
 
     public override void SkillUpdateText()
     {
-        pieceData.skillExplain = string.Format("{0}의 피해를 흡수하는 보호막을 얻습니다.", 300);
+        pieceData.skillExplain = string.Format("{0}의 피해를 흡수하는 보호막을 얻습니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)));
     }
 
     public override void Dead()

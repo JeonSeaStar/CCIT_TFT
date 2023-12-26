@@ -71,6 +71,7 @@ public class SnowBomb : Piece
             }
         }
         health = 0;
+        DeadState();
     }
 
     public override void SkillUpdateText()

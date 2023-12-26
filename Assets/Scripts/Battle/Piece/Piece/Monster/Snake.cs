@@ -39,7 +39,12 @@ public class Snake : Piece
 
     public override IEnumerator Skill()
     {
-        BlindSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)),1);
+        if(star == 0)
+            BlindSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 1.3f);
+        else if(star == 1)
+            BlindSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 1.5f);
+        else if(star == 2)          
+            BlindSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 1.8f);
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
@@ -60,7 +65,12 @@ public class Snake : Piece
 
     public override void SkillUpdateText()
     {
-        pieceData.skillExplain = string.Format("이번 전투동안 모든 아군의 공격력을 {0} 만큼 증가시킵니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)));
+        if (star == 0)
+            pieceData.skillExplain = string.Format("현재 공격 대상에게 산성 침을 뱉어 {0}의 피해를 입히고 {1}초 동안 실명시킵니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)), 1.3);
+        else if (star == 1)
+            pieceData.skillExplain = string.Format("현재 공격 대상에게 산성 침을 뱉어 {0}의 피해를 입히고 {1}초 동안 실명시킵니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)), 1.5);
+        else if (star == 2)
+            pieceData.skillExplain = string.Format("현재 공격 대상에게 산성 침을 뱉어 {0}의 피해를 입히고 {1}초 동안 실명시킵니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)), 1.8);
     }
 
     public override void Dead()

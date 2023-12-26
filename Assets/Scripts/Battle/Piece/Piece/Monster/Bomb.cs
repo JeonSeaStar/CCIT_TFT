@@ -70,6 +70,7 @@ public class Bomb : Piece
             }
         }
         health = 0;
+        DeadState();
     }
 
     public override void SkillUpdateText()

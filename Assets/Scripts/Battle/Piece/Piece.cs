@@ -605,11 +605,18 @@ public class Piece : MonoBehaviour
         invincible = true;
     }
 
-    public void SetTickDamage(float damage, float time)
+    public void SetTickDamage(GameObject tickEffect,float damage, float time)
     {
+        if (!gameObject.activeSelf)
+            return;
         tickDamage = true;
         if(gameObject.activeSelf)
         {
+            tickDamageEffect = tickEffect;
+            if (tickDamageEffect == null)
+            {
+                tickDamageEffect.SetActive(false);
+            }
             tickDamageEffect.SetActive(true);
             parentTickDamage = damage;
             Invoke("TickDamageClear", time);
@@ -618,6 +625,8 @@ public class Piece : MonoBehaviour
 
     public void TickDamageTimer() // == 변경 필요 이펙트 어떻게 처리 할지
     {
+        if (!gameObject.activeSelf)
+            return;
         tickTime -= Time.deltaTime;
         if (tickTime <= 0)
         {
@@ -628,6 +637,8 @@ public class Piece : MonoBehaviour
 
     public void TickDamageClear()
     {
+        if (!gameObject.activeSelf)
+            return;
         tickDamage = false;
         if (gameObject.activeSelf)
         {

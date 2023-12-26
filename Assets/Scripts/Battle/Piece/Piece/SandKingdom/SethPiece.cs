@@ -24,12 +24,12 @@ public class SethPiece : Piece
     public override IEnumerator Skill()
     {
         SoundManager.instance.Play("SandKingdom/S_Seth", SoundManager.Sound.Effect);
-        GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
+        GetTargetRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
 
-    void GetLocationMultiRangeSkill(float damage) //세트 변경 필요 = tirggercheckSkill 사용하도록 변경
+    void GetTargetRangeSkill(float damage) //세트는 대상의 위치에서 스킬을 사용
     {
         if (target != null)
         {

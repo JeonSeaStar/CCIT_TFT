@@ -58,17 +58,17 @@ public class Bloom : Piece
         {
             SkillState();
             SoundManager.instance.Play("Nepenthes_Series/S_Skil_Bloom", SoundManager.Sound.Effect);
-            GameObject centaBullet = Instantiate(bloomBullet, new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z), Quaternion.identity);
-            Bullet b = centaBullet.GetComponent<BloomBullet>();
-            b.parentPiece = this;
-            b.damage = damage;
-            b.Shot(target.transform.position - transform.position);
+            GameObject bullet = Instantiate(bloomBullet, new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z), Quaternion.identity);
+            Bullet _bullet = bullet.GetComponent<BloomBullet>();
+            _bullet.parentPiece = this;
+            _bullet.damage = damage;
+            _bullet.Shot(target.transform.position - transform.position);
         }
     }
 
     public override void SkillUpdateText()
     {
-        pieceData.skillExplain = string.Format("현재 공격 대상에게 각 {0}의 피해를 입히는 씨앗을 쏩니다.", (abilityPower * (1 + (abilityPowerCoefficient / 100)) * 6));
+        pieceData.skillExplain = string.Format("이펜데스가 현재 공격 대상에게 {0}의 피해를 입히는 씨앗을 2개씩 3번 쏩니다.", (abilityPower * (1 + (abilityPowerCoefficient / 100))));
     }
 
     public override void Dead()
