@@ -42,12 +42,17 @@ public class Spike : Piece
 
     public override IEnumerator Skill()
     {
-        AttackSkill(500f ,abilityPower * (1 + (abilityPowerCoefficient / 100)));
+        if(star == 0)
+            DamageAndHealSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 500);
+        else if(star == 1)
+            DamageAndHealSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 580);
+        else if(star == 2)
+            DamageAndHealSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 670);
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
 
-    public void AttackSkill(float heal,float damage)
+    public void DamageAndHealSkill(float heal,float damage)
     {
         if (dead)
             return;
@@ -79,7 +84,12 @@ public class Spike : Piece
 
     public override void SkillUpdateText()
     {
-        pieceData.skillExplain = string.Format("껍질 속에 숨어 {0}의 체력을 회복하고 인접1칸 적에게 {0}의 피해를 입힙니다.", 500f, abilityPower * (1 + (abilityPowerCoefficient / 100)), 1);
+        if (star == 0)
+            pieceData.skillExplain = string.Format("껍질 속에 숨어 {0}의 체력을 회복하고 인접1칸 적에게 {0}의 피해를 입힙니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)), 500);
+        else if (star == 1)
+            pieceData.skillExplain = string.Format("껍질 속에 숨어 {0}의 체력을 회복하고 인접1칸 적에게 {0}의 피해를 입힙니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)), 580);
+        else if (star == 2)
+            pieceData.skillExplain = string.Format("껍질 속에 숨어 {0}의 체력을 회복하고 인접1칸 적에게 {0}의 피해를 입힙니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)), 670);
     }
 
     public override void Dead()

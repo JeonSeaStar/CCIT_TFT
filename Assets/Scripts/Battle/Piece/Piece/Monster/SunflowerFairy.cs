@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SunflowerFairy : Piece
 {
-    Tile skillCheckTile;
     PathFinding pathFinding;
+    public GameObject tickEffect;
     public override IEnumerator Attack()
     {
         if (mana >= pieceData.mana[star] && target != null)
@@ -44,49 +44,49 @@ public class SunflowerFairy : Piece
 
     public override IEnumerator Skill()
     {
-        GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 1);
+        if (star == 0)
+            GetMultiTickDamageSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 4);
+        else if (star == 1)
+            GetMultiTickDamageSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 5);
+        else if (star == 2)
+            GetMultiTickDamageSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 5);
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
 
-    public void GetLocationMultiRangeSkill(float damage, int time)
+    public void GetMultiTickDamageSkill(float tickDamage, int time)
     {
         if (dead)
             return;
         SkillState();
         SoundManager.instance.Play("FrostyWind/S_Jormungand", SoundManager.Sound.Effect);
-        skillCheckTile = target.currentTile;
         pathFinding = FieldManager.Instance.pathFinding;
-        Instantiate(skillEffects, target.currentTile.transform.position, Quaternion.identity);
-        StartCoroutine(FindNeighbor(damage, time));
-    }
-
-    IEnumerator FindNeighbor(float damage, int time)
-    {
-        for (int i = 0; i < time; i++)
+        List<Tile> _getNeigbor = pathFinding.WideGetNeighbor(target.currentTile);
+        _getNeigbor.Add(target.currentTile);
+        foreach (var _Neigbor in _getNeigbor)
         {
-            List<Tile> _getNeigbor = pathFinding.WideGetNeighbor(skillCheckTile);
-            _getNeigbor.Add(skillCheckTile);
-            foreach (var _Neigbor in _getNeigbor)
-            {
-                Piece _targets = _Neigbor.piece;
+            Piece _targets = _Neigbor.piece;
 
-                if (_targets == null)
-                {
-                    Debug.Log("대상없음");
-                }
-                else if (_targets.isOwned == true)
-                {
-                    Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
-                    Damage(_targets, damage);
-                }
+            if (_targets == null)
+            {
+                Debug.Log("대상없음");
             }
-            yield return new WaitForSeconds(1f);
+            else if (_targets.isOwned == true)
+            {
+                Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
+                _targets.SetTickDamage(tickEffect, tickDamage, time);
+            }
         }
     }
+
     public override void SkillUpdateText()
     {
-        pieceData.skillExplain = string.Format("주변2칸 범위에 꽃가루를 뿌려 {0}초 동안 초 마다 {1}의 피해를 줍니다.", 1, abilityPower * (1 + (abilityPowerCoefficient / 100)));
+        if (star == 0)
+            pieceData.skillExplain = string.Format("주변2칸 범위에 꽃가루를 뿌려 {0}초 동안 초 마다 {1}의 피해를 줍니다.", 4, abilityPower * (1 + (abilityPowerCoefficient / 100)));
+        else if (star == 1)
+            pieceData.skillExplain = string.Format("주변2칸 범위에 꽃가루를 뿌려 {0}초 동안 초 마다 {1}의 피해를 줍니다.", 5, abilityPower * (1 + (abilityPowerCoefficient / 100)));
+        else if (star == 2)
+            pieceData.skillExplain = string.Format("주변2칸 범위에 꽃가루를 뿌려 {0}초 동안 초 마다 {1}의 피해를 줍니다.", 5, abilityPower * (1 + (abilityPowerCoefficient / 100)));
     }
 
     public override void Dead()

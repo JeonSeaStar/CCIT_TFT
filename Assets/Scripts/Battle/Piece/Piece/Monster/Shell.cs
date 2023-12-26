@@ -40,12 +40,17 @@ public class Shell : Piece
 
     public override IEnumerator Skill()
     {
-        AttackSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 1);
+        if(star == 0)
+            DamageAndStundSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 1.5f);
+        else if(star ==1)
+            DamageAndStundSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 2f);
+        else if(star == 2)
+            DamageAndStundSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 2.5f);
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
 
-    public void AttackSkill(float damage, float time)
+    public void DamageAndStundSkill(float damage, float time)
     {
         if (dead)
             return;
@@ -61,7 +66,12 @@ public class Shell : Piece
 
     public override void SkillUpdateText()
     {
-        pieceData.skillExplain = string.Format("현재 공격대상에게 빠르게 굴러가 {0}의 피해를 입히고 {1}초 동안 기절시킵니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)), 1);
+        if (star == 0)
+            pieceData.skillExplain = string.Format("현재 공격대상에게 빠르게 굴러가 {0}의 피해를 입히고 {1}초 동안 기절시킵니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)), 1.5);
+        else if (star == 1)
+            pieceData.skillExplain = string.Format("현재 공격대상에게 빠르게 굴러가 {0}의 피해를 입히고 {1}초 동안 기절시킵니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)), 2);
+        else if (star == 2)
+            pieceData.skillExplain = string.Format("현재 공격대상에게 빠르게 굴러가 {0}의 피해를 입히고 {1}초 동안 기절시킵니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)), 2.5);
     }
 
     public override void Dead()

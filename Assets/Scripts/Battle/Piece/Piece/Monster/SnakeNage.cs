@@ -5,6 +5,7 @@ using UnityEngine;
 public class SnakeNage : Piece
 {
     public TriggerCheckSkill snakeNageSkill;
+    public GameObject tickEffect;
     public override IEnumerator Attack()
     {
         if (mana >= maxMana && target != null)
@@ -42,14 +43,14 @@ public class SnakeNage : Piece
             IdleState();
     }
 
-    public override IEnumerator Skill()
+    public override IEnumerator Skill() //순식간에 끝날 수 있음 - 변경 필요 할 수 있음
     {
-        GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
+        GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 100f, 5);
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
 
-    void GetLocationMultiRangeSkill(float damage)
+    void GetLocationMultiRangeSkill(float damage, float tickDamage, float time)
     {
         if (dead)
             return;
@@ -59,6 +60,10 @@ public class SnakeNage : Piece
         Instantiate(skillEffects, transform.position, rotation);
         snakeNageSkill.gameObject.SetActive(true);
         snakeNageSkill.damage = damage;
+        snakeNageSkill.isTickTrue = true;
+        snakeNageSkill.tickDamage = tickDamage;
+        snakeNageSkill.tickEffect = tickEffect;
+        snakeNageSkill.time = time;
     }
 
     public override void SkillUpdateText()

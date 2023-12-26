@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ValkyriePiece : Piece
 {
+    public TriggerCheckSkill valkyrieSkill;
     public override IEnumerator Attack()
     {
         if (mana >= maxMana && target != null)
@@ -21,22 +22,21 @@ public class ValkyriePiece : Piece
 
     public override IEnumerator Skill()
     {
-        AttackSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
+        TwoTileSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
 
-    public void AttackSkill(float damage) //발키리 변경 필요
+    public void TwoTileSkill(float damage) //발키리 변경 필요
     {
         if (dead)
             return;
-        if (target != null)
-        {
-            SkillState();
-            SoundManager.instance.Play("FrostyWind/S_Valkyre", SoundManager.Sound.Effect);
-            Instantiate(skillEffects, new Vector3(target.transform.position.x, target.transform.position.y + 0.8f, target.transform.position.z), Quaternion.identity);
-            Damage(damage);
-        }
+        SkillState();
+        SoundManager.instance.Play("FrostyWind/S_Valkyre", SoundManager.Sound.Effect);
+        Quaternion rotation = transform.rotation;
+        Instantiate(skillEffects, transform.position, rotation);
+        valkyrieSkill.gameObject.SetActive(true);
+        valkyrieSkill.damage = damage;
     }
     public override void SkillUpdateText()
     {

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ThorPiece : Piece
 {
+    public GameObject tickEffect;
+
     public override IEnumerator Attack()
     {
         if (mana >= maxMana && target != null)
@@ -23,54 +25,27 @@ public class ThorPiece : Piece
     {
         if (star == 0)
         {
-            AllPieceDamageSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
-            StartCoroutine(AllPieceDamageTimeSkill(30f, 5f));
+            AllPieceDamageSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), (abilityPower * (1 + (abilityPowerCoefficient / 100))) * 0.3f, 5);
         }
         else if (star == 1)
         {
-            AllPieceDamageSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
-            StartCoroutine(AllPieceDamageTimeSkill(60f, 10f));
+            AllPieceDamageSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), (abilityPower * (1 + (abilityPowerCoefficient / 100))) * 0.6f, 10);
         }
         else if (star == 2)
         {
-            AllPieceDamageSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
-            StartCoroutine(AllPieceDamageTimeSkill(90f, 30f));
+            AllPieceDamageSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), (abilityPower * (1 + (abilityPowerCoefficient / 100))) * 1f, 20);
         }
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
 
-    IEnumerator AllPieceDamageTimeSkill(float damage, float time)
-    {
-        if (pieceState == State.DANCE)
-        {
-            yield break;
-        }
-        for (int i = 0; i < time; i++)
-        {
-            Debug.Log(i);
-            List<Piece> _allPiece = fieldManager.enemyFilePieceList;
-            foreach (var _Neigbor in _allPiece)
-            {
-                Piece _targets = _Neigbor.GetComponent<Piece>();
-                if (_targets == null)
-                {
-                    Debug.Log("대상없음");
-                }
-                else
-                {
-                    Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
-                    Damage(_targets, damage);
-                }
-            }
-            yield return new WaitForSeconds(1f);
-        }
-    }
-
-    void AllPieceDamageSkill(float damage)
+    void AllPieceDamageSkill(float damage, float tickDamage, float time)
     {
         if (dead)
+            return; 
+        if (pieceState == State.DANCE)
             return;
+
         SkillState();
         SoundManager.instance.Play("FrostyWind/S_Thor", SoundManager.Sound.Effect);
         List<Piece> _allPiece = fieldManager.enemyFilePieceList;
@@ -85,6 +60,7 @@ public class ThorPiece : Piece
             {
                 Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
                 Damage(_targets, damage);
+                SetTickDamage(tickEffect, tickDamage, time);
             }
         }
     }

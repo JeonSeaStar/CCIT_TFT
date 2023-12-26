@@ -42,7 +42,12 @@ public class HermitKing : Piece
 
     public override IEnumerator Skill()
     {
-        AttackSpeedUp(4, 0.2f);
+        if(star == 0)
+            AttackSpeedUp(4, abilityPower);
+        else if(star == 1)
+            AttackSpeedUp(5, abilityPower);
+        else if(star ==2)
+            AttackSpeedUp(5, abilityPower);
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
@@ -80,7 +85,12 @@ public class HermitKing : Piece
 
     public override void SkillUpdateText()
     {
-        pieceData.skillExplain = string.Format("{0}초 동안 자신의 공격속도를 {1}으로 고정시킵니다.", 4, 0.2f);
+        if (star == 0)
+            pieceData.skillExplain = string.Format("{0}초 동안 자신의 공격속도를 {1}으로 고정시킵니다.", 4, abilityPower);
+        else if (star == 1)
+            pieceData.skillExplain = string.Format("{0}초 동안 자신의 공격속도를 {1}으로 고정시킵니다.", 5, abilityPower);
+        else if (star == 2)
+            pieceData.skillExplain = string.Format("{0}초 동안 자신의 공격속도를 {1}으로 고정시킵니다.", 6, abilityPower);
     }
 
     public override void Dead()

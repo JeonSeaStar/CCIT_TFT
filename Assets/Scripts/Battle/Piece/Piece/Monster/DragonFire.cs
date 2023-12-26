@@ -42,13 +42,13 @@ public class DragonFire : Piece
     {
         for(int i = 0; i < 3; i++)
         {
-            AttackSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
+            DamageMultiSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         }
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
 
-    public void AttackSkill(float damage)
+    public void DamageMultiSkill(float damage) // -- 변경 필요할 수 있음
     {
         if (dead)
             return;

@@ -64,7 +64,7 @@ public class SunfloraPixie : Piece
     }
     public override void SkillUpdateText()
     {
-        pieceData.skillExplain = string.Format("1초동안 정신 집중한 뒤 모든 적에게 {0}의 피해를 주는 빛의 심판을 내립니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)), 4);
+        pieceData.skillExplain = string.Format("1초동안 정신 집중한 뒤 모든 적에게 {0}의 피해를 주는 빛의 심판을 내립니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)));
     }
 
     public override void Dead()

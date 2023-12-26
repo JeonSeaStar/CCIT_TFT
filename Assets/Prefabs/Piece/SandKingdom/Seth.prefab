@@ -433,12 +433,13 @@ MonoBehaviour:
   freeze: 0
   slow: 0
   airborne: 0
-  faint: 0
-  fear: 0
   invincible: 0
-  charm: 0
   blind: 0
   stun: 0
+  tickDamage: 0
+  fear: 0
+  faint: 0
+  charm: 0
   enemyPieceList: []
   myPieceList: []
   animator: {fileID: 6179193641715597695}
@@ -459,6 +460,7 @@ MonoBehaviour:
   freezeEffect: {fileID: 4131707993246067163}
   stunEffect: {fileID: 2308287933514897295}
   blindEffect: {fileID: 6021478861606821784}
+  tickDamageEffect: {fileID: 0}
   isRabbitSynergeActiveCheck: 0
   rabbitSynergeEffect: {fileID: 0}
   isCatSynergeActiveCheck: 0
