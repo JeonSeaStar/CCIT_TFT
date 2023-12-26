@@ -49,7 +49,9 @@ public class HamsterBuff2 : BuffData
                 {
                     GameObject _miniHamster = Instantiate(miniHamster.piecePrefab, pieceParent.transform);
                     _miniHamster.name = "πÃ¥œ «‹Ω∫≈Õ";
-                    FieldManager.Instance.myFilePieceList.Add(_miniHamster.GetComponent<Piece>());
+                    var _miniPiece = _miniHamster.GetComponent<Piece>();
+                    AugmentManager.Instance.HamsterAugmentCheck(_miniPiece);
+                    FieldManager.Instance.myFilePieceList.Add(_miniPiece);
                     hamsterList.Add(_miniHamster);
 
                     int _randomSpot = Random.Range(0, _randomTile.Count);

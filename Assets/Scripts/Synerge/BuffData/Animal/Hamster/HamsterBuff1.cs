@@ -51,7 +51,9 @@ public class HamsterBuff1 : BuffData
                 //생성
                 GameObject _miniHamster = Instantiate(miniHamster.piecePrefab, pieceParent.transform);
                 _miniHamster.name = "미니 햄스터";
-                FieldManager.Instance.myFilePieceList.Add(_miniHamster.GetComponent<Piece>());
+                var _miniPiece = _miniHamster.GetComponent<Piece>();
+                AugmentManager.Instance.HamsterAugmentCheck(_miniPiece);
+                FieldManager.Instance.myFilePieceList.Add(_miniPiece);
                 hamsterList.Add(_miniHamster);
 
                 //위치 정해주고
