@@ -319,6 +319,11 @@ public class Piece : MonoBehaviour
         currentTile.piece = null;
         currentTile.IsFull = false;
         currentTile.walkable = true;
+        if (isOwned == true && AugmentManager.Instance.lifeInsurance_augment)
+        {
+            FieldManager.Instance.owerPlayer.gold += 2;
+            FieldManager.Instance.playerState.UpdateMoney(FieldManager.Instance.owerPlayer.gold);
+        }
 
         FieldManager.Instance.BattleEndCheck(myPieceList);
     }
