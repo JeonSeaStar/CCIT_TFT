@@ -5,7 +5,6 @@ using UnityEngine;
 public class Spike : Piece
 {
     PathFinding pathFinding;
-    public GameObject healEffect;
     public override IEnumerator Attack()
     {
         if (mana >= maxMana && target != null)
@@ -60,7 +59,6 @@ public class Spike : Piece
         {
             SkillState();
             SoundManager.instance.Play("FrostyWind/S_Drauger", SoundManager.Sound.Effect);
-            Instantiate(healEffect, transform.position, Quaternion.identity);
             health = health + heal;
 
             pathFinding = FieldManager.Instance.pathFinding;
@@ -74,7 +72,7 @@ public class Spike : Piece
                 }
                 else if (_targets.isOwned)
                 {
-                    Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
+                    Instantiate(skillEffects, transform.position, Quaternion.identity);
                     Damage(_targets, damage);
                 }
 
