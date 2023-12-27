@@ -72,9 +72,9 @@ public class AugmentManager : MonoBehaviour
     {
         if (currentStage == 1 || currentStage == 3)
         {
-            //AugmentInfo(firstAugmentName, firstAugmentField, augmentInformationList[0]);
-            //AugmentInfo(secondAugmentName, secondAugmentField, augmentInformationList[1]);
-            //AugmentInfo(thirdAugmentName, thirdAugmentField, augmentInformationList[2]);
+            AugmentInfo(firstAugmentName, firstAugmentField, augmentInformationList[0]);
+            AugmentInfo(secondAugmentName, secondAugmentField, augmentInformationList[1]);
+            AugmentInfo(thirdAugmentName, thirdAugmentField, augmentInformationList[2]);
 
             foreach (var btn in augmentBtns)
             {
