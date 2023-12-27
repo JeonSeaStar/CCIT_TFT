@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class OsirisPiece : Piece
 {
-    Piece target;
 
     public override IEnumerator Attack()
     {

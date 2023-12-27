@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HathorPiece : Piece
 {
-    [SerializeField] private GameObject bullets;
+    [SerializeField] private GameObject Hathorbullet;
     public override IEnumerator Attack()
     {
         if (mana >= maxMana && target != null)
@@ -35,7 +35,7 @@ public class HathorPiece : Piece
         {
             SkillState();
             SoundManager.instance.Play("SandKingdom/S_Hathor", SoundManager.Sound.Effect);
-            GameObject _bullet = Instantiate(bullets, transform.position, Quaternion.identity);
+            GameObject _bullet = Instantiate(Hathorbullet, transform.position, Quaternion.identity);
             Bullet bullet = _bullet.GetComponent<HathorBullet>();
             bullet.parentPiece = this;
             bullet.damage = damage;
