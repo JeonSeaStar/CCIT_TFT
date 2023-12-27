@@ -85,13 +85,11 @@ public class AugmentManager : MonoBehaviour
             augmentPanel.SetActive(true);
         }
     }
-
     void AugmentInfo(TextMeshProUGUI augmentName, TextMeshProUGUI augmentField, AugmentInformation augmentInformation)
     {
         augmentName.text = augmentInformation.augmentName;
         augmentField.text = augmentInformation.augmentField;
     }
-
     public void AugmentCheck(Piece piece)
     {
         int star = piece.star;
@@ -116,6 +114,21 @@ public class AugmentManager : MonoBehaviour
     }
 
     #region Immediately
+    public void LevelUp() => FieldManager.Instance.pieceShop.LevelUpButton();
+    public void GoldPocket() 
+    {
+        FieldManager.Instance.owerPlayer.gold += 30;
+        FieldManager.Instance.playerState.UpdateMoney(FieldManager.Instance.owerPlayer.gold);
+    }
+
+    public void AddSpace()
+    {
+        for(int i = 0; i < FieldManager.Instance.owerPlayer.maxPieceCount.Length;i++)
+        {
+            FieldManager.Instance.owerPlayer.maxPieceCount[i] += 1;
+        }
+    }
+
     public void AddHealth() => health_augment = true;
     public void AddAttack() => attackPower_augment = true;
     public void AddAbilityPower() => abilityPower_augment = true;
@@ -138,7 +151,6 @@ public class AugmentManager : MonoBehaviour
         }
         FieldManager.Instance.AddBattleStartEffect(AddProtectionFunc);
     }
-
     public void StunWind()
     {
         void AddStunWindFunc(bool isAdd)
@@ -151,6 +163,65 @@ public class AugmentManager : MonoBehaviour
     #endregion
 
     #region Coroutine
-    
+    public void ManaCycle()
+    {
+        IEnumerator ManaCycleAugment()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(5f);
+                foreach(var piecelist in FieldManager.Instance.pieceDpList)
+                {
+                    if (piecelist.piece.isOwned == true) piecelist.piece.mana += 30;
+                }
+            }
+        }
+        FieldManager.Instance.StartCoroutine(ManaCycleAugment());
+    }
+    public void HealthRecovery()
+    {
+        IEnumerator HealthRecoveryAugment()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(1f);
+                foreach (var piecelist in FieldManager.Instance.pieceDpList)
+                {
+                    if (piecelist.piece.isOwned == true)
+                    {
+                        if (piecelist.piece.health + 20 > piecelist.piece.maxHealth) piecelist.piece.health = piecelist.piece.maxHealth;
+                        else piecelist.piece.health += 20;
+                    }
+                }
+            }
+        }
+        FieldManager.Instance.StartCoroutine(HealthRecoveryAugment());
+    }
+
+    public void ShortBattle()
+    {
+        IEnumerator ShortBattleAugment()
+        {
+            foreach(var pieceList in FieldManager.Instance.pieceDpList)
+            {
+                int _star = pieceList.piece.star;
+                pieceList.piece.maxHealth = pieceList.piece.health + pieceList.piece.pieceData.health[_star];
+                pieceList.piece.health = pieceList.piece.maxHealth;
+                pieceList.piece.attackDamage = pieceList.piece.attackDamage + pieceList.piece.pieceData.attackDamage[_star];
+                pieceList.piece.attackSpeed = pieceList.piece.attackSpeed + pieceList.piece.pieceData.attackSpeed[_star];
+            }
+
+            yield return new WaitForSeconds(15f);
+
+            if (FieldManager.Instance.BattleResult != FieldManager.Result.VICTORY || FieldManager.Instance.BattleResult != FieldManager.Result.DEFEAT)
+            {
+                foreach (var pieceList in FieldManager.Instance.pieceDpList)
+                {
+                    pieceList.piece.DeadState();
+                }
+            }
+        }
+        FieldManager.Instance.StartCoroutine(ShortBattleAugment());
+    }
     #endregion
 }

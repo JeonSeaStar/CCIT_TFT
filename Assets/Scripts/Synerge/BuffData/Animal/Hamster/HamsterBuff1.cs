@@ -37,7 +37,7 @@ public class HamsterBuff1 : BuffData
             yield return new WaitForSeconds(5f);
 
             var _battleResult = FieldManager.Instance.BattleResult;
-            if (_battleResult != FieldManager.Result.VICTORY || _battleResult != FieldManager.Result.DEFEAT) break;
+            if (_battleResult == FieldManager.Result.VICTORY || _battleResult == FieldManager.Result.DEFEAT) break;
 
             //∫Û ≈∏¿œ √£∞Ì
             List<Tile> _randomTile = new List<Tile>();

@@ -36,7 +36,7 @@ public class HamsterBuff2 : BuffData
             yield return new WaitForSeconds(4f);
 
             var _battleResult = FieldManager.Instance.BattleResult;
-            if (_battleResult != FieldManager.Result.VICTORY || _battleResult != FieldManager.Result.DEFEAT) break;
+            if (_battleResult == FieldManager.Result.VICTORY || _battleResult == FieldManager.Result.DEFEAT) break;
 
             List<Tile> _randomTile = new List<Tile>();
             for (int i = 0; i < pathFinding.grid[0].tile.Count; i++)
