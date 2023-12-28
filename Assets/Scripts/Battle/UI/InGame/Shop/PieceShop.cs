@@ -34,6 +34,7 @@ public class PieceShop : MonoBehaviour
     public GameObject LevelUpButtonDeactive;
     public GameObject RefreshButtonDeactive;
     public TextMeshProUGUI levelUpCost;
+    public TextMeshProUGUI[] percentTexts;
 
     private void Awake()
     {
@@ -48,6 +49,8 @@ public class PieceShop : MonoBehaviour
             //여기 줄에 기물 데이터 넣어주기
             GetPieceTier(fieldManager.owerPlayer.level, slot);
         }
+
+        PiecePercent();
     }
 
     public void RefreshSlots()
@@ -71,13 +74,11 @@ public class PieceShop : MonoBehaviour
 
         if (active)
         {
-            text.text = "상점\n닫기";
             Camera.main.transform.DOMove(new Vector3(4.5f, 20, -30), 0.5f);
             SoundManager.instance.Play("UI/Eff_Button_Positive", SoundManager.Sound.Effect);
         }
         else
         {
-            text.text = "상점\n열기";
             Camera.main.transform.DOMove(new Vector3(4.5f, 20, -22), 0.5f);
             SoundManager.instance.Play("UI/Eff_Button_Nagative", SoundManager.Sound.Effect);
         }
@@ -145,6 +146,8 @@ public class PieceShop : MonoBehaviour
             fieldManager.playerState.UpdateMoney(fieldManager.owerPlayer.gold);
 
             fieldManager.fieldPieceStatus.UpdateFieldStatus(fieldManager.myFilePieceList.Count, fieldManager.owerPlayer.maxPieceCount[fieldManager.owerPlayer.level]);
+
+            PiecePercent();
         }
 
         levelUpCost.text = fieldManager.owerPlayer.levelUpCost[fieldManager.owerPlayer.level].ToString();
@@ -171,5 +174,13 @@ public class PieceShop : MonoBehaviour
         foreach (var slot in slots)
             if (!slot.Bought)
                 slot.DeactiveSlot(slot.pieceData);
+    }
+
+    public void PiecePercent()
+    {
+        for(int i = 0; i < percentTexts.Length; i++)
+        {
+            percentTexts[i].text = percentageByLevel[fieldManager.owerPlayer.level].tier[i].ToString() + "%";
+        }
     }
 }

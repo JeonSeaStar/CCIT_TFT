@@ -15,7 +15,6 @@ public class PieceInformation : MonoBehaviour
     public TextMeshProUGUI currentMP;
     public TextMeshProUGUI maxMP;
     public List<SynergeDisplay> synerges;
-    public TextMeshProUGUI price;
     public TextMeshProUGUI skillName;
     public TextMeshProUGUI skillExplain;
     public TextMeshProUGUI attackDamage;
@@ -30,6 +29,7 @@ public class PieceInformation : MonoBehaviour
     public List<UnitedData> unitedDatas;
 
     [SerializeField] float lerpSpeed = 0.05f;
+    [SerializeField] RectTransform rectTransform;
 
     public void Update()
     {
@@ -39,7 +39,7 @@ public class PieceInformation : MonoBehaviour
             hpFill.fillAmount = piece.health / piece.pieceData.health[piece.star];
         }
 
-        if(hpFill.fillAmount != piece.health / piece.pieceData.health[piece.star])
+        if (hpFill.fillAmount != piece.health / piece.pieceData.health[piece.star])
             hpFill.fillAmount = Mathf.Lerp(hpFill.fillAmount, piece.health / piece.pieceData.health[piece.star], lerpSpeed);
 
         if (currentMP.text != piece.mana.ToString())
@@ -50,10 +50,14 @@ public class PieceInformation : MonoBehaviour
 
         if (mpFill.fillAmount != piece.mana / piece.pieceData.mana[piece.star])
             mpFill.fillAmount = Mathf.Lerp(mpFill.fillAmount, piece.health / piece.pieceData.health[piece.star], lerpSpeed);
+
+        if (gameObject.activeSelf)
+            SetPosition(piece.gameObject);
     }
 
     public void OpenPieceInformation(Piece target)
     {
+        SetPosition(target.gameObject);
         gameObject.SetActive(true);
         InitPieceInformation(target);
     }
@@ -73,7 +77,6 @@ public class PieceInformation : MonoBehaviour
         maxHP.text = target.maxHealth.ToString();
         currentMP.text = target.mana.ToString();
         maxMP.text = target.maxMana.ToString();
-        price.text = target.pieceData.cost[target.pieceData.grade, target.star].ToString();
         skillName.text = target.pieceData.skillName;
         skillExplain.text = target.pieceData.skillExplain;
         attackDamage.text = target.attackDamage.ToString();
@@ -141,6 +144,35 @@ public class PieceInformation : MonoBehaviour
     public float GetFillValue(float currentValue, float maxValue)
     {
         return currentValue / maxValue;
+    }
+
+    public void SetPosition(GameObject target)
+    {
+        Vector2 mousePosition = Input.mousePosition;
+        float width = Screen.width / 2;
+        float height = Screen.height / 2;
+
+        Vector2 targetPosition = Camera.main.WorldToScreenPoint(target.transform.position);
+        bool right = false;
+        bool up = false;
+
+        if (width > targetPosition.x)
+            right = true;
+
+        if (height > targetPosition.y)
+            up = true;
+
+        if (right)
+            targetPosition = new Vector2(targetPosition.x + 300 - width, targetPosition.y);
+        else
+            targetPosition = new Vector2(targetPosition.x - 300 - width, targetPosition.y);
+
+        if (up)
+            targetPosition = new Vector2(targetPosition.x, targetPosition.y + 250 - height);
+        else
+            targetPosition = new Vector2(targetPosition.x, targetPosition.y - 250 - height);
+
+        rectTransform.localPosition = targetPosition;
     }
 }
 

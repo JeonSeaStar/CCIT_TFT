@@ -16,7 +16,8 @@ public class Messenger : MonoBehaviour
     public int[] maxXP;
     public int[] levelUpCost;
     public int[] maxPieceCount;
-    [Range(-30, 200)] public int lifePoint = 100;
+    [Range(-30, 200)] public int maxLifePoint = 30;
+    [Range(-30, 200)] public int lifePoint = 30;
     public int gold = 0;
     [SerializeField] LayerMask playerMask; //9 - Player
     [SerializeField] LayerMask groundMask; //8 - Plane
