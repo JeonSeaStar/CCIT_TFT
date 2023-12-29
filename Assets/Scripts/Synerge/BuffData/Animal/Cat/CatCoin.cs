@@ -28,8 +28,7 @@ public class CatCoin : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
             {
                 int _gold = Random.Range(2, 6);
-                FieldManager.Instance.owerPlayer.gold += _gold;
-                FieldManager.Instance.playerState.UpdateMoney(FieldManager.Instance.owerPlayer.gold);
+                FieldManager.Instance.ChargeGold(_gold);
 
                 transform.DOMove(hit.point, 0.5f);
                 transform.DOScale(Vector3.zero, 0.5f);
