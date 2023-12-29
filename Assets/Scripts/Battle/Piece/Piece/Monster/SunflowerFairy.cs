@@ -5,7 +5,6 @@ using UnityEngine;
 public class SunflowerFairy : Piece
 {
     PathFinding pathFinding;
-    public GameObject tickEffect;
     public override IEnumerator Attack()
     {
         if (mana >= pieceData.mana[star] && target != null)
@@ -74,7 +73,7 @@ public class SunflowerFairy : Piece
             else if (_targets.isOwned == true)
             {
                 Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
-                _targets.SetTickDamage(tickEffect, tickDamage, time);
+                _targets.SetTickDamage(tickDamage, time);
             }
         }
     }

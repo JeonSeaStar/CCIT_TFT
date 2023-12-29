@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HorusPiece : Piece
 {
-    [SerializeField] private GameObject bullets;
+    [SerializeField] private GameObject horusBullet;
     [SerializeField] private float radius;
     [SerializeField] private LayerMask layerMask;
     public override IEnumerator Attack()
@@ -45,7 +45,7 @@ public class HorusPiece : Piece
             else
             {
                 PlaySound();
-                GameObject _bullet = Instantiate(bullets, transform.position, Quaternion.identity);
+                GameObject _bullet = Instantiate(horusBullet, transform.position, Quaternion.identity);
                 Bullet bullet = _bullet.GetComponent<HorusBullet>();
                 bullet.parentPiece = this;
                 bullet.damage = damage;

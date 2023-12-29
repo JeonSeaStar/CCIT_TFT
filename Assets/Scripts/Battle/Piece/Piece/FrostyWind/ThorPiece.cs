@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ThorPiece : Piece
 {
-    public GameObject tickEffect;
 
     public override IEnumerator Attack()
     {
@@ -60,7 +59,7 @@ public class ThorPiece : Piece
             {
                 Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
                 Damage(_targets, damage);
-                SetTickDamage(tickEffect, tickDamage, time);
+                SetTickDamage(tickDamage, time);
             }
         }
     }

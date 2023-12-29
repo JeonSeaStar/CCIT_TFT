@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class JormungandPiece : Piece
 {
-    Tile skillCheckTile;
     PathFinding pathFinding;
-    public GameObject tickEffect;
     public override IEnumerator Attack()
     {
         if (mana >= maxMana)
@@ -49,10 +47,9 @@ public class JormungandPiece : Piece
         
         SkillState();
         SoundManager.instance.Play("FrostyWind/S_Jormungand", SoundManager.Sound.Effect);
-        skillCheckTile = target.currentTile;
         pathFinding = FieldManager.Instance.pathFinding;
-        List<Tile> _getNeigbor = pathFinding.GetNeighbor(skillCheckTile);
-        _getNeigbor.Add(skillCheckTile);
+        List<Tile> _getNeigbor = pathFinding.GetNeighbor(target.currentTile);
+        _getNeigbor.Add(target.currentTile);
         foreach (var _Neigbor in _getNeigbor)
         {
             Piece _targets = _Neigbor.piece;
@@ -65,7 +62,7 @@ public class JormungandPiece : Piece
             {
                 Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
                 Damage(_targets, damage);
-                SetTickDamage(tickEffect, tickDamage, time);
+                _targets.SetTickDamage(tickDamage, time);
             }
         }
     }

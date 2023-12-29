@@ -5,7 +5,6 @@ using UnityEngine;
 public class TrainingDummy : Piece
 {
     PathFinding pathFinding;
-    public GameObject tickEffect;
     public override IEnumerator Attack()
     {
         if (mana >= pieceData.mana[star] && target != null)
@@ -70,7 +69,7 @@ public class TrainingDummy : Piece
             {
                 Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
                 Damage(_targets, damage);
-                _targets.SetTickDamage(tickEffect, tickDamage, time);
+                _targets.SetTickDamage(tickDamage, time);
             }
         }
     }
