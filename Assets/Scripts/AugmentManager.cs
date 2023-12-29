@@ -81,10 +81,29 @@ public class AugmentManager : MonoBehaviour
             AugmentInfo(secondAugmentName, secondAugmentField, augmentInformationList[1]);
             AugmentInfo(thirdAugmentName, thirdAugmentField, augmentInformationList[2]);
 
-            foreach (var btn in augmentBtns)
+            void RemoveAugmentList()
             {
-                //btn.onClick.AddListener(delegate { Test(ref health_augment); });
-                //btn.onClick.AddListener(delegate { Test(ref health_augment); });
+                for (int i = 0; i < 3; i++)
+                {
+                    Debug.Log(augmentInformationList[i].augmentName);
+                    //augmentInformationList.RemoveAt(i);
+                }
+            }
+
+            void RemoveAllListeners()
+            {
+                for (int i = 0; i < 3; i++)
+                    augmentBtns[i].onClick.RemoveAllListeners();
+            }
+
+
+            for(int i = 0; i < augmentBtns.Length;i++)
+            {
+                Debug.Log(augmentInformationList[i].augmentName);
+                augmentBtns[i].onClick.AddListener(() => augmentInformationList[i].func.Invoke());
+                augmentBtns[i].onClick.AddListener(RemoveAugmentList);
+                //augmentBtns[i].onClick.AddListener(() => augmentPanel.SetActive(false));
+                //augmentBtns[i].onClick.AddListener(() => RemoveAllListeners());
             }
 
             augmentPanel.SetActive(true);
@@ -125,14 +144,14 @@ public class AugmentManager : MonoBehaviour
     {
         int _health = FieldManager.Instance.owerPlayer.lifePoint;
         int _point = _health - 1;
-
+        FieldManager.Instance.owerPlayer.lifePoint = 1;
         FieldManager.Instance.owerPlayer.gold += _point;
         FieldManager.Instance.playerState.UpdateMoney(FieldManager.Instance.owerPlayer.gold);
     }
     public void GoldPocket() 
     {
         FieldManager.Instance.owerPlayer.gold += 30;
-        FieldManager.Instance.playerState.UpdateMoney(FieldManager.Instance.owerPlayer.gold);
+        FieldManager.Instance.playerState.UpdateMoney(FieldManager.Instance.owerPlayer.gold); Debug.Log(23);
     }
     public void AddSpace()
     {
@@ -140,8 +159,8 @@ public class AugmentManager : MonoBehaviour
         {
             FieldManager.Instance.owerPlayer.maxPieceCount[i] += 1;
         }
+        Debug.Log(23);
     }
-
     public void BonusRoll()
     {
         void CheckBonusRoll()
@@ -149,7 +168,7 @@ public class AugmentManager : MonoBehaviour
             if (refreshGold.text == "0")
             {
                 FieldManager.Instance.owerPlayer.gold += 1;
-                FieldManager.Instance.playerState.UpdateMoney(FieldManager.Instance.owerPlayer.gold);
+                FieldManager.Instance.playerState.UpdateMoney(FieldManager.Instance.owerPlayer.gold); Debug.Log(23);
             }
         }
         void SetBonusRollEvent()
@@ -161,7 +180,7 @@ public class AugmentManager : MonoBehaviour
             }
         }
         refreshBtn.onClick.AddListener(CheckBonusRoll);
-        refreshBtn.onClick.AddListener(SetBonusRollEvent);
+        refreshBtn.onClick.AddListener(SetBonusRollEvent); Debug.Log(23);
     }
 
     public void AddHealth() => health_augment = true;
@@ -184,7 +203,7 @@ public class AugmentManager : MonoBehaviour
             if (isAdd == true)
                 foreach (var piecelist in FieldManager.Instance.pieceDpList) { piecelist.piece.shield += 500f; }
         }
-        FieldManager.Instance.AddBattleStartEffect(AddProtectionFunc);
+        FieldManager.Instance.AddBattleStartEffect(AddProtectionFunc); Debug.Log(23);
     }
     public void StunWind()
     {
@@ -193,7 +212,7 @@ public class AugmentManager : MonoBehaviour
             if (isAdd == true)
                 foreach (var piece in FieldManager.Instance.enemyFilePieceList) { piece.SetStun(3f); }
         }
-        FieldManager.Instance.AddBattleStartEffect(AddStunWindFunc);
+        FieldManager.Instance.AddBattleStartEffect(AddStunWindFunc); Debug.Log(23);
     }
     #endregion
 
@@ -215,7 +234,7 @@ public class AugmentManager : MonoBehaviour
                 }
             }
         }
-        FieldManager.Instance.StartCoroutine(ManaCycleAugment());
+        FieldManager.Instance.StartCoroutine(ManaCycleAugment()); Debug.Log(23);
     }
     public void HealthRecovery()
     {
@@ -234,7 +253,7 @@ public class AugmentManager : MonoBehaviour
                 }
             }
         }
-        FieldManager.Instance.StartCoroutine(HealthRecoveryAugment());
+        FieldManager.Instance.StartCoroutine(HealthRecoveryAugment()); Debug.Log(23);
     }
 
     public void ShortBattle()
@@ -260,7 +279,7 @@ public class AugmentManager : MonoBehaviour
                 }
             }
         }
-        FieldManager.Instance.StartCoroutine(ShortBattleAugment());
+        FieldManager.Instance.StartCoroutine(ShortBattleAugment()); Debug.Log(23);
     }
     #endregion
 
