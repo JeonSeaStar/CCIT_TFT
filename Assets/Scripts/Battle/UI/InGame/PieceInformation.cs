@@ -148,7 +148,6 @@ public class PieceInformation : MonoBehaviour
 
     public void SetPosition(GameObject target)
     {
-        Vector2 mousePosition = Input.mousePosition;
         float width = Screen.width / 2;
         float height = Screen.height / 2;
 
@@ -162,15 +161,15 @@ public class PieceInformation : MonoBehaviour
         if (height > targetPosition.y)
             up = true;
 
-        if (right)
-            targetPosition = new Vector2(targetPosition.x + 300 - width, targetPosition.y);
-        else
-            targetPosition = new Vector2(targetPosition.x - 300 - width, targetPosition.y);
+        targetPosition = right ? new Vector2(targetPosition.x + 300 - width, targetPosition.y) : new Vector2(targetPosition.x - 300 - width, targetPosition.y);
+        targetPosition = up ? new Vector2(targetPosition.x, targetPosition.y + 250 - height) : new Vector2(targetPosition.x, targetPosition.y - 250 - height);
 
-        if (up)
-            targetPosition = new Vector2(targetPosition.x, targetPosition.y + 250 - height);
-        else
-            targetPosition = new Vector2(targetPosition.x, targetPosition.y - 250 - height);
+
+        if (targetPosition.x + 300 > width)
+            targetPosition = new Vector2(targetPosition.x - (targetPosition.x + 300 - width + 50), targetPosition.y);
+
+        if (targetPosition.x - 300 < -width)
+            targetPosition = new Vector2(targetPosition.x + (targetPosition.x - 300 + width + 50), targetPosition.y);
 
         rectTransform.localPosition = targetPosition;
     }

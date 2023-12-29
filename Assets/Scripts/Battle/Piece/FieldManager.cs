@@ -410,7 +410,6 @@ public class FieldManager : MonoBehaviour
             SoundManager.instance.Play("BGM/Bgm_Battle_Boss", SoundManager.Sound.Effect);
         }
         roundType = RoundType.Ready;
-        fieldPieceStatus.ActiveFieldStatus();
 
         Reward(currentRound, BattleResult);
 
@@ -429,7 +428,6 @@ public class FieldManager : MonoBehaviour
 
         roundType = RoundType.Battle;
         SoundManager.instance.Play("UI/Eff_Button_Positive", SoundManager.Sound.Effect);
-        fieldPieceStatus.ActiveFieldStatus();
 
         foreach (var list in pieceDpList)
             pieceStatus.AddPieceStatus(list.piece);

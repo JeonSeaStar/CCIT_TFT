@@ -11,19 +11,7 @@ public class FieldPieceStatus : MonoBehaviour
 
     public void UpdateFieldStatus(int current, int max)
     {
-        if (current == max)
-            fieldPieceStatusGameObject.SetActive(false);
-        else
-            fieldPieceStatusGameObject.SetActive(true);
-
         currentPieceCount.text = current.ToString();
         maxPieceCount.text = max.ToString();
-    }
-
-    public void ActiveFieldStatus()
-    {
-        if (FieldManager.Instance.roundType == FieldManager.RoundType.Battle)
-            fieldPieceStatusGameObject.SetActive(false);
-        else fieldPieceStatusGameObject.SetActive(true);
     }
 }
