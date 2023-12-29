@@ -8,7 +8,6 @@ public class TriggerCheckSkill : MonoBehaviour
     public GameObject effect;
     public BoxCollider boxCollider;
     public LayerMask layerMask;
-    [HideInInspector] public GameObject tickEffect;
     [HideInInspector] public float tickDamage;
     [HideInInspector] public float time;
     [HideInInspector] public bool isTickTrue = false;
@@ -37,7 +36,7 @@ public class TriggerCheckSkill : MonoBehaviour
                     Instantiate(effect, target.transform.position, Quaternion.identity);
                     target.Damage(target, damage);
                     if (isTickTrue)
-                        target.SetTickDamage(tickEffect, tickDamage, time);
+                        target.SetTickDamage(tickDamage, time);
                     gameObject.SetActive(false);
                 }
             }

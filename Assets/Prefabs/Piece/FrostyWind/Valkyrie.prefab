@@ -116,7 +116,9 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 2048
-  ownerPiece: 0
+  tickDamage: 0
+  time: 0
+  isTickTrue: 0
 --- !u!1 &6808706567885542637
 GameObject:
   m_ObjectHideFlags: 0
@@ -1927,6 +1929,7 @@ MonoBehaviour:
   rabbitSynergeEffect: {fileID: 6847090502222619764}
   isCatSynergeActiveCheck: 0
   catCoin: {fileID: 0}
+  valkyrieSkill: {fileID: 3380197659524088700}
 --- !u!65 &6860574682910372307
 BoxCollider:
   m_ObjectHideFlags: 0

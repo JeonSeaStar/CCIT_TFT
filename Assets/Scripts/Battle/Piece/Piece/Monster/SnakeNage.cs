@@ -5,7 +5,6 @@ using UnityEngine;
 public class SnakeNage : Piece
 {
     public TriggerCheckSkill snakeNageSkill;
-    public GameObject tickEffect;
     public override IEnumerator Attack()
     {
         if (mana >= maxMana && target != null)
@@ -62,7 +61,6 @@ public class SnakeNage : Piece
         snakeNageSkill.damage = damage;
         snakeNageSkill.isTickTrue = true;
         snakeNageSkill.tickDamage = tickDamage;
-        snakeNageSkill.tickEffect = tickEffect;
         snakeNageSkill.time = time;
     }
 

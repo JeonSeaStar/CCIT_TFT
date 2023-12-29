@@ -1836,12 +1836,13 @@ MonoBehaviour:
   freeze: 0
   slow: 0
   airborne: 0
-  faint: 0
-  fear: 0
   invincible: 0
-  charm: 0
   blind: 0
   stun: 0
+  tickDamage: 0
+  fear: 0
+  faint: 0
+  charm: 0
   enemyPieceList: []
   myPieceList: []
   animator: {fileID: 9013333695334338423}
@@ -1862,11 +1863,13 @@ MonoBehaviour:
   freezeEffect: {fileID: 3940711810955732305}
   stunEffect: {fileID: 4660894567247969976}
   blindEffect: {fileID: 3938189988247693250}
+  tickDamageEffect: {fileID: 0}
   isRabbitSynergeActiveCheck: 0
   rabbitSynergeEffect: {fileID: 3127618030526080851}
   isCatSynergeActiveCheck: 0
   catCoin: {fileID: 0}
-  bullet: {fileID: 6362441749917897697, guid: 27b341a93104f7447b6845d5a396ab42, type: 3}
+  horusBullet: {fileID: 6362441749917897697, guid: 27b341a93104f7447b6845d5a396ab42,
+    type: 3}
   radius: 10
   layerMask:
     serializedVersion: 2

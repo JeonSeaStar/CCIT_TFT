@@ -5,7 +5,6 @@ using UnityEngine;
 public class PoisonBomb : Piece
 {
     PathFinding pathFinding;
-    public GameObject tickEffect;
     public override IEnumerator Attack()
     {
         if (mana >= maxMana && target != null)
@@ -67,7 +66,7 @@ public class PoisonBomb : Piece
             }
             else if (_targets.isOwned)
             {
-                _targets.SetTickDamage(tickEffect, tickDamage, time);
+                _targets.SetTickDamage(tickDamage, time);
                 Damage(_targets, damage);
             }
         }

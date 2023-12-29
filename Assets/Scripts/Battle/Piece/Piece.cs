@@ -610,18 +610,13 @@ public class Piece : MonoBehaviour
         invincible = true;
     }
 
-    public void SetTickDamage(GameObject tickEffect,float damage, float time)
+    public void SetTickDamage(float damage, float time)
     {
         if (!gameObject.activeSelf)
             return;
         tickDamage = true;
         if(gameObject.activeSelf)
         {
-            tickDamageEffect = tickEffect;
-            if (tickDamageEffect == null)
-            {
-                tickDamageEffect.SetActive(false);
-            }
             tickDamageEffect.SetActive(true);
             parentTickDamage = damage;
             Invoke("TickDamageClear", time);
