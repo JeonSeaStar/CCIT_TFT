@@ -141,6 +141,7 @@ public class Piece : MonoBehaviour
         mana = pieceData.currentMana;
         preAttackDamage = attackDamage;
         SkillUpdateText();
+        AugmentManager.Instance.AugmentCheck(this);
 
         gameObject.AddComponent<AudioSource>().clip = fieldManager.owerPlayer.kk[0];
         gameObject.GetComponent<AudioSource>().Play();
@@ -321,8 +322,7 @@ public class Piece : MonoBehaviour
         currentTile.walkable = true;
         if (isOwned == true && AugmentManager.Instance.lifeInsurance_augment)
         {
-            FieldManager.Instance.owerPlayer.gold += 2;
-            FieldManager.Instance.playerState.UpdateMoney(FieldManager.Instance.owerPlayer.gold);
+            FieldManager.Instance.ChargeGold(2);
         }
 
         FieldManager.Instance.BattleEndCheck(myPieceList);

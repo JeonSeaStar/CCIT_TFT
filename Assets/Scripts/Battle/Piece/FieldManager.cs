@@ -365,7 +365,7 @@ public class FieldManager : MonoBehaviour
         StopAllCoroutines();
 
         currentStage++;
-        //AugmentManager.Instance.CheckAugmentRound(currentStage);
+        AugmentManager.Instance.CheckAugmentRound(currentStage);
         SpawnEnemy(currentStage);
         ChangeMap(currentStage);
 
@@ -1208,6 +1208,7 @@ public class FieldManager : MonoBehaviour
     void FusionPieceInit(Piece resultPiece, Piece originPiece = null)
     {
         resultPiece.pieceData.InitialzePiece(resultPiece);
+        AugmentManager.Instance.AugmentCheck(resultPiece);
         resultPiece.name += " " +  resultPiece.star + "Star";
         resultPiece.maxHealth = resultPiece.pieceData.health[resultPiece.star];
         resultPiece.mana = resultPiece.pieceData.currentMana;

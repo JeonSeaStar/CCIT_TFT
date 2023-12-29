@@ -85,8 +85,7 @@ public class AugmentManager : MonoBehaviour
             {
                 for (int i = 0; i < 3; i++)
                 {
-                    Debug.Log(augmentInformationList[i].augmentName);
-                    //augmentInformationList.RemoveAt(i);
+                    augmentInformationList.Remove(augmentInformationList[0]);
                 }
             }
 
@@ -96,16 +95,14 @@ public class AugmentManager : MonoBehaviour
                     augmentBtns[i].onClick.RemoveAllListeners();
             }
 
-
             for(int i = 0; i < augmentBtns.Length;i++)
             {
-                Debug.Log(augmentInformationList[i].augmentName);
-                augmentBtns[i].onClick.AddListener(() => augmentInformationList[i].func.Invoke());
-                augmentBtns[i].onClick.AddListener(RemoveAugmentList);
-                //augmentBtns[i].onClick.AddListener(() => augmentPanel.SetActive(false));
-                //augmentBtns[i].onClick.AddListener(() => RemoveAllListeners());
+                int index = i;
+                augmentBtns[i].onClick.AddListener(() => augmentInformationList[index].func.Invoke());
+                augmentBtns[i].onClick.AddListener(() => RemoveAugmentList());
+                augmentBtns[i].onClick.AddListener(() => augmentPanel.SetActive(false));
+                augmentBtns[i].onClick.AddListener(() => RemoveAllListeners());
             }
-
             augmentPanel.SetActive(true);
         }
     }
@@ -143,44 +140,31 @@ public class AugmentManager : MonoBehaviour
     public void TightropeWalk()
     {
         int _health = FieldManager.Instance.owerPlayer.lifePoint;
-        int _point = _health - 1;
-        FieldManager.Instance.owerPlayer.lifePoint = 1;
-        FieldManager.Instance.owerPlayer.gold += _point;
-        FieldManager.Instance.playerState.UpdateMoney(FieldManager.Instance.owerPlayer.gold);
+        int _point = (_health - 1) * 10;
+        FieldManager.Instance.ChargeGold(-(_health - 1));
+        FieldManager.Instance.ChargeGold(_point);
     }
-    public void GoldPocket() 
-    {
-        FieldManager.Instance.owerPlayer.gold += 30;
-        FieldManager.Instance.playerState.UpdateMoney(FieldManager.Instance.owerPlayer.gold); Debug.Log(23);
-    }
+    public void GoldPocket() => FieldManager.Instance.ChargeGold(30);
     public void AddSpace()
     {
         for(int i = 0; i < FieldManager.Instance.owerPlayer.maxPieceCount.Length;i++)
         {
             FieldManager.Instance.owerPlayer.maxPieceCount[i] += 1;
         }
-        Debug.Log(23);
     }
     public void BonusRoll()
     {
         void CheckBonusRoll()
         {
-            if (refreshGold.text == "0")
-            {
-                FieldManager.Instance.owerPlayer.gold += 1;
-                FieldManager.Instance.playerState.UpdateMoney(FieldManager.Instance.owerPlayer.gold); Debug.Log(23);
-            }
+            if (refreshGold.text == "0") FieldManager.Instance.ChargeGold(1);
         }
         void SetBonusRollEvent()
         {
             int ran = UnityEngine.Random.Range(0, 99);
-            if (ran < 35)
-            {
-                refreshGold.text = "0";
-            }
+            if (ran < 35) refreshGold.text = "0";
         }
         refreshBtn.onClick.AddListener(CheckBonusRoll);
-        refreshBtn.onClick.AddListener(SetBonusRollEvent); Debug.Log(23);
+        refreshBtn.onClick.AddListener(SetBonusRollEvent);
     }
 
     public void AddHealth() => health_augment = true;
@@ -203,7 +187,7 @@ public class AugmentManager : MonoBehaviour
             if (isAdd == true)
                 foreach (var piecelist in FieldManager.Instance.pieceDpList) { piecelist.piece.shield += 500f; }
         }
-        FieldManager.Instance.AddBattleStartEffect(AddProtectionFunc); Debug.Log(23);
+        FieldManager.Instance.AddBattleStartEffect(AddProtectionFunc);
     }
     public void StunWind()
     {
@@ -212,12 +196,14 @@ public class AugmentManager : MonoBehaviour
             if (isAdd == true)
                 foreach (var piece in FieldManager.Instance.enemyFilePieceList) { piece.SetStun(3f); }
         }
-        FieldManager.Instance.AddBattleStartEffect(AddStunWindFunc); Debug.Log(23);
+        FieldManager.Instance.AddBattleStartEffect(AddStunWindFunc);
     }
     #endregion
 
     #region Coroutine
-    public void ManaCycle()
+
+    public void AddManaCycleEffect() => FieldManager.Instance.AddCoroutine(ManaCycle);
+    void ManaCycle()
     {
         IEnumerator ManaCycleAugment()
         {
@@ -234,9 +220,10 @@ public class AugmentManager : MonoBehaviour
                 }
             }
         }
-        FieldManager.Instance.StartCoroutine(ManaCycleAugment()); Debug.Log(23);
+        FieldManager.Instance.StartCoroutine(ManaCycleAugment());
     }
-    public void HealthRecovery()
+    public void AddHealthRecoveryEffect() => FieldManager.Instance.AddCoroutine(HealthRecovery);
+    void HealthRecovery()
     {
         IEnumerator HealthRecoveryAugment()
         {
@@ -253,10 +240,10 @@ public class AugmentManager : MonoBehaviour
                 }
             }
         }
-        FieldManager.Instance.StartCoroutine(HealthRecoveryAugment()); Debug.Log(23);
+        FieldManager.Instance.StartCoroutine(HealthRecoveryAugment());
     }
-
-    public void ShortBattle()
+    public void AddShortBattleEffect() => FieldManager.Instance.AddCoroutine(ShortBattle);
+    void ShortBattle()
     {
         IEnumerator ShortBattleAugment()
         {
@@ -279,7 +266,7 @@ public class AugmentManager : MonoBehaviour
                 }
             }
         }
-        FieldManager.Instance.StartCoroutine(ShortBattleAugment()); Debug.Log(23);
+        FieldManager.Instance.StartCoroutine(ShortBattleAugment());
     }
     #endregion
 
