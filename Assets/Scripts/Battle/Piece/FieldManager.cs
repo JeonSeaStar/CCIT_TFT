@@ -365,7 +365,7 @@ public class FieldManager : MonoBehaviour
         StopAllCoroutines();
 
         currentStage++;
-        //AugmentManager.Instance.CheckAugmentRound(currentStage);
+        AugmentManager.Instance.CheckAugmentRound(currentStage);
         SpawnEnemy(currentStage);
         ChangeMap(currentStage);
 

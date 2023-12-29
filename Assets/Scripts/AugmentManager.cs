@@ -51,6 +51,9 @@ public class AugmentManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI thirdAugmentName;
     [SerializeField] TextMeshProUGUI thirdAugmentField;
 
+    [SerializeField] Button refreshBtn;
+    [SerializeField] TextMeshProUGUI refreshGold;
+
     [Header("증강 체크")]
     [SerializeField] bool health_augment;
     [SerializeField] bool attackPower_augment;
@@ -66,6 +69,8 @@ public class AugmentManager : MonoBehaviour
     private void Awake()
     {
         if (instance == null) instance = this;
+
+        Shuffle(augmentInformationList);
     }
 
     public void CheckAugmentRound(int currentStage)
@@ -115,18 +120,48 @@ public class AugmentManager : MonoBehaviour
 
     #region Immediately
     public void LevelUp() => FieldManager.Instance.pieceShop.LevelUpButton();
+
+    public void TightropeWalk()
+    {
+        int _health = FieldManager.Instance.owerPlayer.lifePoint;
+        int _point = _health - 1;
+
+        FieldManager.Instance.owerPlayer.gold += _point;
+        FieldManager.Instance.playerState.UpdateMoney(FieldManager.Instance.owerPlayer.gold);
+    }
     public void GoldPocket() 
     {
         FieldManager.Instance.owerPlayer.gold += 30;
         FieldManager.Instance.playerState.UpdateMoney(FieldManager.Instance.owerPlayer.gold);
     }
-
     public void AddSpace()
     {
         for(int i = 0; i < FieldManager.Instance.owerPlayer.maxPieceCount.Length;i++)
         {
             FieldManager.Instance.owerPlayer.maxPieceCount[i] += 1;
         }
+    }
+
+    public void BonusRoll()
+    {
+        void CheckBonusRoll()
+        {
+            if (refreshGold.text == "0")
+            {
+                FieldManager.Instance.owerPlayer.gold += 1;
+                FieldManager.Instance.playerState.UpdateMoney(FieldManager.Instance.owerPlayer.gold);
+            }
+        }
+        void SetBonusRollEvent()
+        {
+            int ran = UnityEngine.Random.Range(0, 99);
+            if (ran < 35)
+            {
+                refreshGold.text = "0";
+            }
+        }
+        refreshBtn.onClick.AddListener(CheckBonusRoll);
+        refreshBtn.onClick.AddListener(SetBonusRollEvent);
     }
 
     public void AddHealth() => health_augment = true;
@@ -172,7 +207,11 @@ public class AugmentManager : MonoBehaviour
                 yield return new WaitForSeconds(5f);
                 foreach(var piecelist in FieldManager.Instance.pieceDpList)
                 {
-                    if (piecelist.piece.isOwned == true) piecelist.piece.mana += 30;
+                    if (piecelist.piece.isOwned == true)
+                    {
+                        if (piecelist.piece.maxMana < piecelist.piece.mana + 30) piecelist.piece.mana = piecelist.piece.maxMana;
+                        else piecelist.piece.mana += 30;
+                    }
                 }
             }
         }
@@ -224,4 +263,19 @@ public class AugmentManager : MonoBehaviour
         FieldManager.Instance.StartCoroutine(ShortBattleAugment());
     }
     #endregion
+
+    void Shuffle<T>(List<T> list)
+    {
+        System.Random random = new System.Random();
+
+        int n = list.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = random.Next(n + 1);
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
+    }
 }
