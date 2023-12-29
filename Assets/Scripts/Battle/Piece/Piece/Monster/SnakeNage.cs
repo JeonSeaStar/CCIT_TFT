@@ -32,7 +32,7 @@ public class SnakeNage : Piece
             invincible = false;
             for(int i = 0; i < 2; i++)
             {
-                SoundManager.instance.Play("Wolf_Series/S_Attack_Wolf_Cub", SoundManager.Sound.Effect);
+                SoundManager.instance.Play("Snake_Series/S_Attack_Wolf_Cub", SoundManager.Sound.Effect);
                 Damage(attackDamage);
                 mana += manaRecovery;
             }
@@ -54,7 +54,7 @@ public class SnakeNage : Piece
         if (dead)
             return;
         SkillState();
-        SoundManager.instance.Play("GreatMountain/S_Griffin", SoundManager.Sound.Effect);
+        SoundManager.instance.Play("Snake_Series/S_Griffin", SoundManager.Sound.Effect);
         Quaternion rotation = transform.rotation;
         Instantiate(skillEffects, transform.position, rotation);
         snakeNageSkill.gameObject.SetActive(true);
@@ -71,7 +71,7 @@ public class SnakeNage : Piece
 
     public override void Dead()
     {
-        SoundManager.instance.Play("Wolf_Series/S_Death_Were_Wolf", SoundManager.Sound.Effect);
+        SoundManager.instance.Play("Snake_Series/S_Death_Were_Wolf", SoundManager.Sound.Effect);
         StopAllCoroutines();
         currentTile.InitTile();
         gameObject.SetActive(false);

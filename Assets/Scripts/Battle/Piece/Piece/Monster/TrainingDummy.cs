@@ -30,7 +30,7 @@ public class TrainingDummy : Piece
         if (target != null)
         {
             invincible = false;
-            SoundManager.instance.Play("Wolf_Series/S_Attack_Were_Wolf", SoundManager.Sound.Effect);
+            SoundManager.instance.Play("Dummy_Series/S_Attack_Were_Wolf", SoundManager.Sound.Effect);
             Damage(attackDamage);
             mana += manaRecovery;
             StartNextBehavior();
@@ -53,7 +53,7 @@ public class TrainingDummy : Piece
         if (dead)
             return;
         SkillState();
-        SoundManager.instance.Play("FrostyWind/S_Jormungand", SoundManager.Sound.Effect);
+        SoundManager.instance.Play("Dummy_Series/S_Jormungand", SoundManager.Sound.Effect);
         pathFinding = FieldManager.Instance.pathFinding;
         List<Tile> _getNeigbor = pathFinding.GetNeighbor(target.currentTile);
         _getNeigbor.Add(target.currentTile);
@@ -82,7 +82,7 @@ public class TrainingDummy : Piece
 
     public override void Dead()
     {
-        SoundManager.instance.Play("Wolf_Series/S_Death_Were_Wolf", SoundManager.Sound.Effect);
+        SoundManager.instance.Play("Dummy_Series/S_Death_Were_Wolf", SoundManager.Sound.Effect);
         StopAllCoroutines();
         currentTile.InitTile();
         gameObject.SetActive(false);

@@ -29,7 +29,7 @@ public class DragonInferno : Piece
         if (target != null)
         {
             invincible = false;
-            SoundManager.instance.Play("Wolf_Series/S_Attack_Wolf_Cub", SoundManager.Sound.Effect);
+            SoundManager.instance.Play("Dragon_Series/S_Attack_Wolf_Cub", SoundManager.Sound.Effect);
             Damage(attackDamage);
             mana += manaRecovery;
             StartNextBehavior();
@@ -52,7 +52,7 @@ public class DragonInferno : Piece
         if (fieldManager.myFilePieceList.Count > 0)
         {
             SkillState();
-            SoundManager.instance.Play("SandKingdom/Sound_for_Horus_01", SoundManager.Sound.Effect);
+            SoundManager.instance.Play("Dragon_Series/Sound_for_Horus_01", SoundManager.Sound.Effect);
             foreach (var _targets in fieldManager.myFilePieceList)
             {
                 Instantiate(skillEffects, transform.position, Quaternion.identity);
@@ -69,7 +69,7 @@ public class DragonInferno : Piece
 
     public override void Dead()
     {
-        SoundManager.instance.Play("Wolf_Series/S_Death_Were_Wolf", SoundManager.Sound.Effect);
+        SoundManager.instance.Play("Dragon_Series/S_Death_Were_Wolf", SoundManager.Sound.Effect);
         StopAllCoroutines();
         currentTile.InitTile();
         gameObject.SetActive(false);
