@@ -12,9 +12,6 @@ public class AugmentInformation
     public string augmentName;
     [TextArea] public string augmentField;
 
-    public enum AugmentType { None, Immediately, BattleStart, Coroutine };
-    public AugmentType augmentType = AugmentType.None;
-
     [Space(10)]
     public UnityEvent func;
 }
@@ -69,7 +66,6 @@ public class AugmentManager : MonoBehaviour
     private void Awake()
     {
         if (instance == null) instance = this;
-
         Shuffle(augmentInformationList);
     }
 
@@ -128,7 +124,6 @@ public class AugmentManager : MonoBehaviour
         if (giantPower_augment) piece.attackDamage += piece.pieceData.health[star] * 0.02f;
         if (rollerHamster_augment) piece.attackSpeed += piece.pieceData.attackSpeed[star];
     }
-
     public void HamsterAugmentCheck(Piece piece) // For the miniHamster
     {
         if (rollerHamster_augment) piece.attackSpeed += piece.pieceData.attackSpeed[0];
@@ -201,7 +196,6 @@ public class AugmentManager : MonoBehaviour
     #endregion
 
     #region Coroutine
-
     public void AddManaCycleEffect() => FieldManager.Instance.AddCoroutine(ManaCycle);
     void ManaCycle()
     {
