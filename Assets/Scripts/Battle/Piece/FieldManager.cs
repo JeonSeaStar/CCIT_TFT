@@ -462,6 +462,7 @@ public class FieldManager : MonoBehaviour
 
     private IEnumerator StartGame()
     {
+        stageInformation = GameManager.instance.selectedStage;
         ChangeMap(currentRound);
         ChangeGold(owerPlayer.gold);
         ChangeHP(owerPlayer.lifePoint);

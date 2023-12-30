@@ -5,6 +5,20 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyInformationData", menuName = "Scriptable Object/Enemy Information Data", order = int.MaxValue)]
 public class EnemyInformationData : ScriptableObject
 {
+    public enum EnemyImage
+    {
+        BUD, BLOOM, BLOSSOM,
+        BOBM, POISIONBOBM, SNOWBOMB,
+        DRAGONSPARK, DRAGONFIRE, DRAGONINFERNO,
+        SNAKE, SNAKELET, SNAKENAGA,
+        SHELL, SPIKE, HERMITKING,
+        SUNBLOSSOM, SUNFLOWER, SUNFLORAPIXIE,
+        WOLFPUP, WOLF, WEREWOLF,
+        TARGETDUMMY, PRACTICEDUMMY, TRAININGDUMMY
+    }
+
+    public EnemyImage[] enemyImage = new EnemyImage[3];
+
     [System.Serializable]
     public class EnemyInformation
     {
