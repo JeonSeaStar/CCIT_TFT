@@ -167,9 +167,8 @@ public class PieceInformation : MonoBehaviour
 
         if (targetPosition.x + 300 > width)
             targetPosition = new Vector2(targetPosition.x - (targetPosition.x + 300 - width + 50), targetPosition.y);
-
-        if (targetPosition.x - 300 < -width)
-            targetPosition = new Vector2(targetPosition.x + (targetPosition.x - 300 + width + 50), targetPosition.y);
+        else if (targetPosition.x - 300 < -width)
+            targetPosition = new Vector2(targetPosition.x - (-width - targetPosition.x - 300 - 50), targetPosition.y);
 
         rectTransform.localPosition = targetPosition;
     }
