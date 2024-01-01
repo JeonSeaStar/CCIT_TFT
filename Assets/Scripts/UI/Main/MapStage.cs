@@ -18,12 +18,12 @@ public class MapStage : MonoBehaviour
     {
         if(gameObject.activeSelf)
         {
-            fadeGameObject.DOAnchorPos(new Vector3(0, 2830, 0), activeSpeed);
+            fadeGameObject.DOAnchorPos(new Vector3(0, 3253, 0), activeSpeed);
             Invoke("CloseMap", activeSpeed / 3);
         }
         else
         {
-            fadeGameObject.DOAnchorPos(new Vector3(0, -2830, 0), activeSpeed);
+            fadeGameObject.DOAnchorPos(new Vector3(0, -3253, 0), activeSpeed);
             Invoke("OpenMap", activeSpeed / 3);
         }
     }
