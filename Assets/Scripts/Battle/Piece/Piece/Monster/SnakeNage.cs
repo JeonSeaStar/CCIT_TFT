@@ -5,6 +5,7 @@ using UnityEngine;
 public class SnakeNage : Piece
 {
     public TriggerCheckSkill snakeNageSkill;
+    public Transform effectPos; 
     public override IEnumerator Attack()
     {
         if (mana >= maxMana && target != null)
@@ -32,7 +33,7 @@ public class SnakeNage : Piece
             invincible = false;
             for(int i = 0; i < 2; i++)
             {
-                SoundManager.instance.Play("Snake_Series/S_Attack_Wolf_Cub", SoundManager.Sound.Effect);
+                SoundManager.instance.Play("Snake_Series/S_Attack_SnakeNaga", SoundManager.Sound.Effect);
                 Damage(attackDamage);
                 mana += manaRecovery;
             }
@@ -54,9 +55,9 @@ public class SnakeNage : Piece
         if (dead)
             return;
         SkillState();
-        SoundManager.instance.Play("Snake_Series/S_Griffin", SoundManager.Sound.Effect);
-        Quaternion rotation = transform.rotation;
-        Instantiate(skillEffects, transform.position, rotation);
+        SoundManager.instance.Play("Snake_Series/S_Skill_SnakeNaga", SoundManager.Sound.Effect);
+        //Quaternion rotation = transform.rotation;
+        Instantiate(skillEffects, effectPos.transform.position, Quaternion.identity);
         snakeNageSkill.gameObject.SetActive(true);
         snakeNageSkill.damage = damage;
         snakeNageSkill.isTickTrue = true;
@@ -71,7 +72,7 @@ public class SnakeNage : Piece
 
     public override void Dead()
     {
-        SoundManager.instance.Play("Snake_Series/S_Death_Were_Wolf", SoundManager.Sound.Effect);
+        SoundManager.instance.Play("Snake_Series/S_Death_SnakeNaga", SoundManager.Sound.Effect);
         StopAllCoroutines();
         currentTile.InitTile();
         gameObject.SetActive(false);

@@ -29,7 +29,7 @@ public class TargetDummy : Piece
         if (target != null)
         {
             invincible = false;
-            SoundManager.instance.Play("Dummy_Series/S_Attack_Were_Wolf", SoundManager.Sound.Effect);
+            SoundManager.instance.Play("Dummy_Series/S_Attack_TargetDummy", SoundManager.Sound.Effect);
             Damage(attackDamage);
             mana += manaRecovery;
             StartNextBehavior();
@@ -54,7 +54,7 @@ public class TargetDummy : Piece
         if (target != null)
         {
             SkillState();
-            SoundManager.instance.Play("Dummy_Series/S_Skil_Bloom", SoundManager.Sound.Effect);
+            SoundManager.instance.Play("Dummy_Series/S_Skill_TargetDummy", SoundManager.Sound.Effect);
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
             target.health = target.health + heal;
         }
@@ -67,7 +67,7 @@ public class TargetDummy : Piece
 
     public override void Dead()
     {
-        SoundManager.instance.Play("Dummy_Series/S_Death_Were_Wolf", SoundManager.Sound.Effect);
+        SoundManager.instance.Play("Dummy_Series/S_Death_TargetDummy", SoundManager.Sound.Effect);
         StopAllCoroutines();
         currentTile.InitTile();
         gameObject.SetActive(false);

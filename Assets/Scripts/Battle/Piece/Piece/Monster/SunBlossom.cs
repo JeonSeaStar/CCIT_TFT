@@ -31,7 +31,7 @@ public class SunBlossom : Piece
         if (target != null)
         {
             invincible = false;
-            SoundManager.instance.Play("Sunflower_Series/S_Attack_Bloom", SoundManager.Sound.Effect);
+            SoundManager.instance.Play("Sunflower_Series/S_Attack_SunBlossom", SoundManager.Sound.Effect);
             Damage(attackDamage);
             mana += manaRecovery;
             StartNextBehavior();
@@ -57,7 +57,7 @@ public class SunBlossom : Piece
         if (target != null)
         {
             SkillState();
-            SoundManager.instance.Play("Sunflower_Series/S_Skil_Bloom", SoundManager.Sound.Effect);
+            SoundManager.instance.Play("Sunflower_Series/S_Skill_SunBlossom", SoundManager.Sound.Effect);
             GameObject _bullet = Instantiate(bloomBullet, new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z), Quaternion.identity);
             Bullet bullet = _bullet.GetComponent<SunBlossomBullet>();
             bullet.parentPiece = this;
@@ -73,7 +73,7 @@ public class SunBlossom : Piece
 
     public override void Dead()
     {
-        SoundManager.instance.Play("Sunflower_Series/S_Death_Bloom", SoundManager.Sound.Effect);
+        SoundManager.instance.Play("Sunflower_Series/S_Death_SunBlossom", SoundManager.Sound.Effect);
         StopAllCoroutines();
         currentTile.InitTile();
         gameObject.SetActive(false);

@@ -30,7 +30,7 @@ public class SunflowerFairy : Piece
         if (target != null)
         {
             invincible = false;
-            SoundManager.instance.Play("Sunflower_Series/S_Attack_Were_Wolf", SoundManager.Sound.Effect);
+            SoundManager.instance.Play("Sunflower_Series/S_Attack_SunFlowerFairy", SoundManager.Sound.Effect);
             Damage(attackDamage);
             mana += manaRecovery;
             StartNextBehavior();
@@ -58,7 +58,7 @@ public class SunflowerFairy : Piece
         if (dead)
             return;
         SkillState();
-        SoundManager.instance.Play("Sunflower_Series/S_Jormungand", SoundManager.Sound.Effect);
+        SoundManager.instance.Play("Sunflower_Series/S_Skill_SunFlowerFairy", SoundManager.Sound.Effect);
         pathFinding = FieldManager.Instance.pathFinding;
         List<Tile> _getNeigbor = pathFinding.WideGetNeighbor(target.currentTile);
         _getNeigbor.Add(target.currentTile);
@@ -90,7 +90,7 @@ public class SunflowerFairy : Piece
 
     public override void Dead()
     {
-        SoundManager.instance.Play("Sunflower_Series/S_Death_Were_Wolf", SoundManager.Sound.Effect);
+        SoundManager.instance.Play("Sunflower_Series/S_Death_SunFlowerFairy", SoundManager.Sound.Effect);
         StopAllCoroutines();
         currentTile.InitTile();
         gameObject.SetActive(false);

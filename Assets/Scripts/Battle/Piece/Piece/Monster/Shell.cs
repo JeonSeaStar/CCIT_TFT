@@ -29,7 +29,7 @@ public class Shell : Piece
         if (target != null)
         {
             invincible = false;
-            SoundManager.instance.Play("Shell_Series/S_Attack_Wolf_Cub", SoundManager.Sound.Effect);
+            SoundManager.instance.Play("Shell_Series/S_Attack_Shell", SoundManager.Sound.Effect);
             Damage(attackDamage);
             mana += manaRecovery;
             StartNextBehavior();
@@ -57,7 +57,7 @@ public class Shell : Piece
         if (target != null)
         {
             SkillState();
-            SoundManager.instance.Play("Shell_Series/S_Drauger", SoundManager.Sound.Effect);
+            SoundManager.instance.Play("Shell_Series/S_Skill_Shell", SoundManager.Sound.Effect);
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
             target.SetStun(time);
             Damage(damage);
@@ -76,7 +76,7 @@ public class Shell : Piece
 
     public override void Dead()
     {
-        SoundManager.instance.Play("Shell_Series/S_Death_Were_Wolf", SoundManager.Sound.Effect);
+        SoundManager.instance.Play("Shell_Series/S_Death_Shell", SoundManager.Sound.Effect);
         StopAllCoroutines();
         currentTile.InitTile();
         gameObject.SetActive(false);

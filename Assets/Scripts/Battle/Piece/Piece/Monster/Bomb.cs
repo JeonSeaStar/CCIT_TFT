@@ -30,7 +30,7 @@ public class Bomb : Piece
         if (target != null)
         {
             invincible = false;
-            SoundManager.instance.Play("Bomb_Series/S_Attack_Wolf_Cub", SoundManager.Sound.Effect);
+            SoundManager.instance.Play("Bomb_Series/S_Attack_Bomb", SoundManager.Sound.Effect);
             Damage(attackDamage);
             mana += manaRecovery;
             StartNextBehavior();
@@ -51,7 +51,7 @@ public class Bomb : Piece
         if (dead)
             return;
         SkillState();
-        SoundManager.instance.Play("Bomb_Series/S_Jormungand", SoundManager.Sound.Effect);
+        SoundManager.instance.Play("Bomb_Series/S_Skill_Bomb", SoundManager.Sound.Effect);
         pathFinding = FieldManager.Instance.pathFinding;
         Instantiate(skillEffects, transform.position, Quaternion.identity);
         List<Tile> _getNeigbor = pathFinding.WideGetNeighbor(currentTile);
@@ -80,7 +80,7 @@ public class Bomb : Piece
 
     public override void Dead()
     {
-        SoundManager.instance.Play("Bomb_Series/S_Death_Were_Wolf", SoundManager.Sound.Effect);
+        SoundManager.instance.Play("Bomb_Series/S_Death_Bomb", SoundManager.Sound.Effect);
         StopAllCoroutines();
         currentTile.InitTile();
         gameObject.SetActive(false);

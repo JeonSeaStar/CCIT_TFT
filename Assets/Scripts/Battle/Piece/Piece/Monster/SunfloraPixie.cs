@@ -29,7 +29,7 @@ public class SunfloraPixie : Piece
         if (target != null)
         {
             invincible = false;
-            SoundManager.instance.Play("Sunflower_Series/S_Attack_Wolf_Cub", SoundManager.Sound.Effect);
+            SoundManager.instance.Play("Sunflower_Series/S_Attack_SunFloraPixie", SoundManager.Sound.Effect);
             Damage(attackDamage);
             mana += manaRecovery;
             StartNextBehavior();
@@ -52,7 +52,7 @@ public class SunfloraPixie : Piece
         if (fieldManager.myFilePieceList.Count > 0)
         {
             SkillState();
-            SoundManager.instance.Play("Sunflower_Series/Sound_for_Horus_01", SoundManager.Sound.Effect);
+            SoundManager.instance.Play("Sunflower_Series/S_Skill_SunFloraPixie", SoundManager.Sound.Effect);
             foreach(var _targets in fieldManager.myFilePieceList)
             {
                 Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
@@ -69,7 +69,7 @@ public class SunfloraPixie : Piece
 
     public override void Dead()
     {
-        SoundManager.instance.Play("Sunflower_Series/S_Death_Were_Wolf", SoundManager.Sound.Effect);
+        SoundManager.instance.Play("Sunflower_Series/S_Death_SunFloraPixie", SoundManager.Sound.Effect);
         StopAllCoroutines();
         currentTile.InitTile();
         gameObject.SetActive(false);

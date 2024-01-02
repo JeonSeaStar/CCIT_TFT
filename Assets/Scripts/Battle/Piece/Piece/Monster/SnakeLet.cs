@@ -29,7 +29,7 @@ public class SnakeLet : Piece
         if (target != null)
         {
             invincible = false;
-            SoundManager.instance.Play("Snake_Series/S_Attack_Wolf_Cub", SoundManager.Sound.Effect);
+            SoundManager.instance.Play("Snake_Series/S_Attack_SnakeLet", SoundManager.Sound.Effect);
             Damage(attackDamage);
             mana += manaRecovery;
             StartNextBehavior();
@@ -52,7 +52,7 @@ public class SnakeLet : Piece
         if (target != null)
         {
             SkillState();
-            SoundManager.instance.Play("Snake_Series/S_Drauger", SoundManager.Sound.Effect);
+            SoundManager.instance.Play("Snake_Series/S_Skill_SnakeLet", SoundManager.Sound.Effect);
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
             if (fieldManager.enemyFilePieceList.Count > 0)
             {
@@ -73,7 +73,7 @@ public class SnakeLet : Piece
 
     public override void Dead()
     {
-        SoundManager.instance.Play("Snake_Series/S_Death_Were_Wolf", SoundManager.Sound.Effect);
+        SoundManager.instance.Play("Snake_Series/S_Death_SnakeLet", SoundManager.Sound.Effect);
         StopAllCoroutines();
         currentTile.InitTile();
         gameObject.SetActive(false);
