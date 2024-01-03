@@ -23,6 +23,8 @@ public class EnemyInformationData : ScriptableObject
     public class EnemyInformation
     {
         public GameObject piece;
+        [Range(0, 2)]
+        public int star;
         public Vector2 spawnTile;
     }
 

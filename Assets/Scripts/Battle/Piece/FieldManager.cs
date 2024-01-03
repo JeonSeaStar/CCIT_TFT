@@ -340,6 +340,7 @@ public class FieldManager : MonoBehaviour
             targetTile.IsFull = true;
             targetTile.walkable = false;
 
+            enemyPiece.star = stageInformation.enemy[stage].enemyInformation[i].star;
             enemyPiece.currentTile = targetTile;
             enemyPiece.targetTile = targetTile;
             enemyPiece.pieceData.InitialzePiece(enemyPiece); enemyPiece.mana = enemyPiece.pieceData.currentMana;

@@ -143,6 +143,9 @@ public class Piece : MonoBehaviour
         SkillUpdateText();
         AugmentManager.Instance.AugmentCheck(this);
 
+        if(pieceData.name == "≈‰∏£")
+        gameObject.AddComponent<AudioSource>().clip = fieldManager.owerPlayer.kk[3];
+        else
         gameObject.AddComponent<AudioSource>().clip = fieldManager.owerPlayer.kk[0];
         gameObject.GetComponent<AudioSource>().Play();
     }
