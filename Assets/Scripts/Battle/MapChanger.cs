@@ -17,14 +17,20 @@ public class MapChanger : MonoBehaviour
     {
         switch (mapType)
         {
-            case EnemyInformationData.MapType.FORESTDAY:
+            case EnemyInformationData.MapType.SNOW:
                 return maps[0];
-            case EnemyInformationData.MapType.FORESTNIGHT:
+            case EnemyInformationData.MapType.DESERT:
                 return maps[1];
-            case EnemyInformationData.MapType.TEMPLEDAY:
+            case EnemyInformationData.MapType.BEACH:
                 return maps[2];
-            case EnemyInformationData.MapType.TEMPLEEVENING:
+            case EnemyInformationData.MapType.FORESTDAY:
                 return maps[3];
+            case EnemyInformationData.MapType.FORESTNIGHT:
+                return maps[4];
+            case EnemyInformationData.MapType.GATE:
+                return maps[5];
+            case EnemyInformationData.MapType.TEMPLE:
+                return maps[6];
             default:
                 return null;
         }
