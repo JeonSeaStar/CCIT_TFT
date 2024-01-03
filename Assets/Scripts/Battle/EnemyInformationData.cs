@@ -39,5 +39,5 @@ public class EnemyInformationData : ScriptableObject
 
     public List<StageInformation> enemy;
 
-    public enum MapType { FORESTDAY, FORESTNIGHT, TEMPLEDAY, TEMPLEEVENING}
+    public enum MapType { SNOW, DESERT, BEACH, FORESTDAY, FORESTNIGHT, GATE, TEMPLE}
 }
