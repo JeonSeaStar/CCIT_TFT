@@ -66,7 +66,7 @@ public class AugmentManager : MonoBehaviour
     private void Awake()
     {
         if (instance == null) instance = this;
-        Shuffle(augmentInformationList);
+        //Shuffle(augmentInformationList);
     }
 
     public void CheckAugmentRound(int currentStage)

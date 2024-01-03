@@ -42,6 +42,9 @@ public class BuffManager : MonoBehaviour
     public GameObject frogRain;
     public GameObject frogThunder;
 
+    public GameObject thunder1;
+    public GameObject thunder2;
+
     [Header("서리바람 시너지 환경 요소")]
     public GameObject frostyWind;
 
