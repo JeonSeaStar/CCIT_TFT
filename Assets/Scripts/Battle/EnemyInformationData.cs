@@ -29,11 +29,19 @@ public class EnemyInformationData : ScriptableObject
     }
 
     [System.Serializable]
+    public class ObstacleInformation
+    {
+        public GameObject Obstacle;
+        public Vector2 spawnTile;
+    }
+
+    [System.Serializable]
     public class StageInformation
     {
         public MapType mapType;
         public string roundType;
         public List<EnemyInformation> enemyInformation;
+        public List<ObstacleInformation> obstacleInformation;
         public int gold;
         public int defeatGold;
         public int defeatDamage;

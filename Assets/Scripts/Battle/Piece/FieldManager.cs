@@ -323,6 +323,27 @@ public class FieldManager : MonoBehaviour
         }
     }
 
+    public void SpawnObstacle(int stage)
+    {
+        if (stageInformation.enemy[stage].obstacleInformation.Count <= 0)
+            return;
+        for (int i = 0; i < stageInformation.enemy[stage].obstacleInformation.Count; i++)
+        {
+            int tileX = ((int)stageInformation.enemy[stage].obstacleInformation[i].spawnTile.x);
+            int tileY = ((int)stageInformation.enemy[stage].obstacleInformation[i].spawnTile.y);
+
+            GameObject obstacleGameObject = Instantiate(stageInformation.enemy[stage].enemyInformation[i].piece, Vector3.zero, Quaternion.identity);
+            obstacleGameObject.transform.parent = enemyParent;
+
+            Tile obstacleTile = pathFinding.grid[tileX].tile[tileY];
+
+            obstacleTile.IsFull = true;
+            obstacleTile.walkable = false;
+
+            obstacleGameObject.transform.position = new Vector3(obstacleTile.transform.position.x, -0.5f, obstacleTile.transform.position.z);
+        }
+    }
+
     public void SpawnEnemy(int stage)
     {
         for (int i = 0; i < stageInformation.enemy[stage].enemyInformation.Count; i++)
@@ -368,6 +389,7 @@ public class FieldManager : MonoBehaviour
         currentStage++;
         AugmentManager.Instance.CheckAugmentRound(currentStage);
         SpawnEnemy(currentStage);
+        SpawnObstacle(currentStage);
         ChangeMap(currentStage);
 
         playerState.UpdateLevel(owerPlayer.level);
@@ -474,6 +496,7 @@ public class FieldManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         ChangeStage(currentRound);
         SpawnEnemy(currentRound);
+        SpawnObstacle(currentRound);
         roundState.InitRoundIcon();
         roundState.UpdateStageIcon(currentRound, 3, stageInformation.enemy[currentRound].roundType);
 
