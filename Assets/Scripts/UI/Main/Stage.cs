@@ -32,7 +32,7 @@ public class Stage : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        GameManager.instance.selectedStage = data;
+        GameManager.Instance.selectedStage = data;
         SetEnemyImage();
         map.StageSeletPopupActive();
     }
