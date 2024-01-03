@@ -70,7 +70,7 @@ public class PieceInformation : MonoBehaviour
     public void InitPieceInformation(Piece target)
     {
         piece = target;
-        pieceImage.sprite = target.pieceData.piecePortrait;
+        pieceImage.sprite = target.pieceData.pieceFace;
         skillImage.sprite = target.pieceData.skilSprite;
         pieceName.text = target.pieceName;
         currentHP.text = target.health.ToString();
