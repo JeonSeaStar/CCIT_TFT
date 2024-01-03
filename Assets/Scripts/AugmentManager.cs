@@ -66,7 +66,7 @@ public class AugmentManager : MonoBehaviour
     private void Awake()
     {
         if (instance == null) instance = this;
-        Shuffle(augmentInformationList);
+        //Shuffle(augmentInformationList);
     }
 
     public void CheckAugmentRound(int currentStage)
@@ -149,16 +149,14 @@ public class AugmentManager : MonoBehaviour
     }
     public void BonusRoll()
     {
-        void CheckBonusRoll()
-        {
-            if (refreshGold.text == "0") FieldManager.Instance.ChargeGold(1);
-        }
         void SetBonusRollEvent()
         {
+            if (refreshGold.text == "0") FieldManager.Instance.ChargeGold(1);
+
             int ran = UnityEngine.Random.Range(0, 99);
             if (ran < 35) refreshGold.text = "0";
+            else refreshGold.text = "1";
         }
-        refreshBtn.onClick.AddListener(CheckBonusRoll);
         refreshBtn.onClick.AddListener(SetBonusRollEvent);
     }
 
