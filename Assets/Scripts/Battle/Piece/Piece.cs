@@ -779,6 +779,17 @@ public class Piece : MonoBehaviour
         }
     }
 
+    public void PandoraDamage()
+    {
+        foreach (var enemy in FieldManager.Instance.enemyFilePieceList)
+        {
+            if (enemy.gameObject.activeSelf == true)
+            {
+                enemy.Damage(enemy, 150);
+            }
+        }
+    }
+
     public virtual void Dead()
     {
         SoundManager.instance.Play("CommonPiece/Piece_Dead", SoundManager.Sound.Effect);
