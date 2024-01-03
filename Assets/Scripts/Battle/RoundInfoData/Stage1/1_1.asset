@@ -12,19 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cac4b5dc65858d4787e4086277ca960, type: 3}
   m_Name: 1_1
   m_EditorClassIdentifier: 
+  enemyImage: 000000000000000000000000
   enemy:
   - mapType: 0
     roundType: Wolf
     enemyInformation:
     - piece: {fileID: 5568246091413712801, guid: c39bfd73268db8c429b43f10f08b5875,
         type: 3}
+      star: 2
       spawnTile: {x: 9, y: 0}
     - piece: {fileID: 5568246091413712801, guid: c39bfd73268db8c429b43f10f08b5875,
         type: 3}
+      star: 1
       spawnTile: {x: 9, y: 3}
     - piece: {fileID: 5568246091413712801, guid: c39bfd73268db8c429b43f10f08b5875,
         type: 3}
+      star: 0
       spawnTile: {x: 9, y: 6}
+    obstacles: []
     gold: 20
     defeatGold: 10
     defeatDamage: -4
@@ -33,16 +38,21 @@ MonoBehaviour:
     enemyInformation:
     - piece: {fileID: 5568246091413712801, guid: c39bfd73268db8c429b43f10f08b5875,
         type: 3}
+      star: 0
       spawnTile: {x: 6, y: 2}
     - piece: {fileID: 5568246091413712801, guid: c39bfd73268db8c429b43f10f08b5875,
         type: 3}
+      star: 0
       spawnTile: {x: 6, y: 4}
     - piece: {fileID: 6498289672768376821, guid: 0b4714cdd31fc5a479bd775910ab4f47,
         type: 3}
+      star: 0
       spawnTile: {x: 8, y: 4}
     - piece: {fileID: 6498289672768376821, guid: 0b4714cdd31fc5a479bd775910ab4f47,
         type: 3}
+      star: 0
       spawnTile: {x: 8, y: 6}
+    obstacles: []
     gold: 30
     defeatGold: 15
     defeatDamage: -6
@@ -51,16 +61,21 @@ MonoBehaviour:
     enemyInformation:
     - piece: {fileID: 6498289672768376821, guid: 0b4714cdd31fc5a479bd775910ab4f47,
         type: 3}
+      star: 0
       spawnTile: {x: 5, y: 1}
     - piece: {fileID: 6498289672768376821, guid: 0b4714cdd31fc5a479bd775910ab4f47,
         type: 3}
+      star: 0
       spawnTile: {x: 5, y: 5}
     - piece: {fileID: 6498289672768376821, guid: 0b4714cdd31fc5a479bd775910ab4f47,
         type: 3}
+      star: 0
       spawnTile: {x: 5, y: 3}
     - piece: {fileID: 3549245243394385113, guid: 6d0799b2baddefa4684cd5cafc64f83c,
         type: 3}
+      star: 0
       spawnTile: {x: 6, y: 3}
+    obstacles: []
     gold: 40
     defeatGold: 20
     defeatDamage: -8
@@ -69,16 +84,21 @@ MonoBehaviour:
     enemyInformation:
     - piece: {fileID: 2656276158085307247, guid: f042f164223ff8b498c27719e5802b2e,
         type: 3}
+      star: 0
       spawnTile: {x: 5, y: 1}
     - piece: {fileID: 2656276158085307247, guid: f042f164223ff8b498c27719e5802b2e,
         type: 3}
+      star: 0
       spawnTile: {x: 5, y: 5}
     - piece: {fileID: 5568246091413712801, guid: c39bfd73268db8c429b43f10f08b5875,
         type: 3}
+      star: 0
       spawnTile: {x: 6, y: 2}
     - piece: {fileID: 5568246091413712801, guid: c39bfd73268db8c429b43f10f08b5875,
         type: 3}
+      star: 0
       spawnTile: {x: 6, y: 5}
+    obstacles: []
     gold: 30
     defeatGold: 15
     defeatDamage: -10
@@ -87,19 +107,25 @@ MonoBehaviour:
     enemyInformation:
     - piece: {fileID: 5359796614626933570, guid: 6c8cdd2a54dd4d14ea270d6a725aa92e,
         type: 3}
+      star: 0
       spawnTile: {x: 6, y: 5}
     - piece: {fileID: 5359796614626933570, guid: 6c8cdd2a54dd4d14ea270d6a725aa92e,
         type: 3}
+      star: 0
       spawnTile: {x: 6, y: 2}
     - piece: {fileID: 5359796614626933570, guid: 6c8cdd2a54dd4d14ea270d6a725aa92e,
         type: 3}
+      star: 0
       spawnTile: {x: 6, y: 0}
     - piece: {fileID: 6498289672768376821, guid: 0b4714cdd31fc5a479bd775910ab4f47,
         type: 3}
+      star: 0
       spawnTile: {x: 7, y: 2}
     - piece: {fileID: 6498289672768376821, guid: 0b4714cdd31fc5a479bd775910ab4f47,
         type: 3}
+      star: 0
       spawnTile: {x: 7, y: 5}
+    obstacles: []
     gold: 50
     defeatGold: 25
     defeatDamage: -14
@@ -108,19 +134,25 @@ MonoBehaviour:
     enemyInformation:
     - piece: {fileID: 5359796614626933570, guid: 6c8cdd2a54dd4d14ea270d6a725aa92e,
         type: 3}
+      star: 0
       spawnTile: {x: 7, y: 1}
     - piece: {fileID: 5359796614626933570, guid: 6c8cdd2a54dd4d14ea270d6a725aa92e,
         type: 3}
+      star: 0
       spawnTile: {x: 7, y: 3}
     - piece: {fileID: 5359796614626933570, guid: 6c8cdd2a54dd4d14ea270d6a725aa92e,
         type: 3}
+      star: 0
       spawnTile: {x: 7, y: 5}
     - piece: {fileID: 5359796614626933570, guid: 6c8cdd2a54dd4d14ea270d6a725aa92e,
         type: 3}
+      star: 0
       spawnTile: {x: 5, y: 2}
     - piece: {fileID: 1191085898539961372, guid: 3ed3f163990baf84ebfefc239b51fa76,
         type: 3}
+      star: 0
       spawnTile: {x: 5, y: 4}
+    obstacles: []
     gold: 0
     defeatGold: 0
     defeatDamage: -30

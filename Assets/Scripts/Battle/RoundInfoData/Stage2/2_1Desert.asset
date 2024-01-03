@@ -1,0 +1,180 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cac4b5dc65858d4787e4086277ca960, type: 3}
+  m_Name: 2_1Desert
+  m_EditorClassIdentifier: 
+  enemyImage: 0f0000001000000009000000
+  enemy:
+  - mapType: 1
+    roundType: DesertSunBlossom
+    enemyInformation:
+    - piece: {fileID: 8470325436380855677, guid: 41285d69526f9aa49aa1aad6b0ddd57f,
+        type: 3}
+      star: 0
+      spawnTile: {x: 6, y: 8}
+    - piece: {fileID: 8470325436380855677, guid: 41285d69526f9aa49aa1aad6b0ddd57f,
+        type: 3}
+      star: 0
+      spawnTile: {x: 6, y: 7}
+    - piece: {fileID: 8470325436380855677, guid: 41285d69526f9aa49aa1aad6b0ddd57f,
+        type: 3}
+      star: 0
+      spawnTile: {x: 0, y: 7}
+    - piece: {fileID: 8470325436380855677, guid: 41285d69526f9aa49aa1aad6b0ddd57f,
+        type: 3}
+      star: 0
+      spawnTile: {x: 0, y: 6}
+    gold: 15
+    defeatGold: 10
+    defeatDamage: 2
+  - mapType: 1
+    roundType: DesertSunBlossom
+    enemyInformation:
+    - piece: {fileID: 8470325436380855677, guid: 41285d69526f9aa49aa1aad6b0ddd57f,
+        type: 3}
+      star: 0
+      spawnTile: {x: 0, y: 5}
+    - piece: {fileID: 8470325436380855677, guid: 41285d69526f9aa49aa1aad6b0ddd57f,
+        type: 3}
+      star: 0
+      spawnTile: {x: 2, y: 8}
+    - piece: {fileID: 8470325436380855677, guid: 41285d69526f9aa49aa1aad6b0ddd57f,
+        type: 3}
+      star: 0
+      spawnTile: {x: 4, y: 9}
+    - piece: {fileID: 8470325436380855677, guid: 41285d69526f9aa49aa1aad6b0ddd57f,
+        type: 3}
+      star: 0
+      spawnTile: {x: 5, y: 6}
+    - piece: {fileID: 8470325436380855677, guid: 41285d69526f9aa49aa1aad6b0ddd57f,
+        type: 3}
+      star: 0
+      spawnTile: {x: 6, y: 6}
+    gold: 20
+    defeatGold: 13
+    defeatDamage: 3
+  - mapType: 1
+    roundType: DesertSunBlossom
+    enemyInformation:
+    - piece: {fileID: 8470325436380855677, guid: 41285d69526f9aa49aa1aad6b0ddd57f,
+        type: 3}
+      star: 0
+      spawnTile: {x: 3, y: 9}
+    - piece: {fileID: 8470325436380855677, guid: 41285d69526f9aa49aa1aad6b0ddd57f,
+        type: 3}
+      star: 0
+      spawnTile: {x: 4, y: 9}
+    - piece: {fileID: 8470325436380855677, guid: 41285d69526f9aa49aa1aad6b0ddd57f,
+        type: 3}
+      star: 0
+      spawnTile: {x: 1, y: 7}
+    - piece: {fileID: 8470325436380855677, guid: 41285d69526f9aa49aa1aad6b0ddd57f,
+        type: 3}
+      star: 0
+      spawnTile: {x: 6, y: 7}
+    - piece: {fileID: 8470325436380855677, guid: 41285d69526f9aa49aa1aad6b0ddd57f,
+        type: 3}
+      star: 0
+      spawnTile: {x: 0, y: 6}
+    - piece: {fileID: 8470325436380855677, guid: 41285d69526f9aa49aa1aad6b0ddd57f,
+        type: 3}
+      star: 0
+      spawnTile: {x: 6, y: 6}
+    gold: 25
+    defeatGold: 17
+    defeatDamage: 4
+  - mapType: 1
+    roundType: DesertSunBlossom
+    enemyInformation:
+    - piece: {fileID: 4275794300741702948, guid: ff8eaf20dbe9b5642991aad76a89d59c,
+        type: 3}
+      star: 0
+      spawnTile: {x: 2, y: 9}
+    - piece: {fileID: 4275794300741702948, guid: ff8eaf20dbe9b5642991aad76a89d59c,
+        type: 3}
+      star: 0
+      spawnTile: {x: 6, y: 9}
+    - piece: {fileID: 4275794300741702948, guid: ff8eaf20dbe9b5642991aad76a89d59c,
+        type: 3}
+      star: 0
+      spawnTile: {x: 0, y: 7}
+    - piece: {fileID: 4275794300741702948, guid: ff8eaf20dbe9b5642991aad76a89d59c,
+        type: 3}
+      star: 0
+      spawnTile: {x: 6, y: 6}
+    gold: 30
+    defeatGold: 20
+    defeatDamage: 4
+  - mapType: 1
+    roundType: DesertSunBlossom
+    enemyInformation:
+    - piece: {fileID: 4275794300741702948, guid: ff8eaf20dbe9b5642991aad76a89d59c,
+        type: 3}
+      star: 0
+      spawnTile: {x: 3, y: 9}
+    - piece: {fileID: 4275794300741702948, guid: ff8eaf20dbe9b5642991aad76a89d59c,
+        type: 3}
+      star: 0
+      spawnTile: {x: 4, y: 9}
+    - piece: {fileID: 4275794300741702948, guid: ff8eaf20dbe9b5642991aad76a89d59c,
+        type: 3}
+      star: 0
+      spawnTile: {x: 0, y: 7}
+    - piece: {fileID: 4275794300741702948, guid: ff8eaf20dbe9b5642991aad76a89d59c,
+        type: 3}
+      star: 0
+      spawnTile: {x: 6, y: 7}
+    - piece: {fileID: 4275794300741702948, guid: ff8eaf20dbe9b5642991aad76a89d59c,
+        type: 3}
+      star: 0
+      spawnTile: {x: 2, y: 6}
+    - piece: {fileID: 4275794300741702948, guid: ff8eaf20dbe9b5642991aad76a89d59c,
+        type: 3}
+      star: 0
+      spawnTile: {x: 3, y: 6}
+    gold: 35
+    defeatGold: 23
+    defeatDamage: 5
+  - mapType: 1
+    roundType: DesertSunBlossom
+    enemyInformation:
+    - piece: {fileID: 4275794300741702948, guid: ff8eaf20dbe9b5642991aad76a89d59c,
+        type: 3}
+      star: 0
+      spawnTile: {x: 0, y: 9}
+    - piece: {fileID: 4275794300741702948, guid: ff8eaf20dbe9b5642991aad76a89d59c,
+        type: 3}
+      star: 0
+      spawnTile: {x: 5, y: 9}
+    - piece: {fileID: 1513622243035136479, guid: 54cfba0516227c643a53c06972fe8640,
+        type: 3}
+      star: 1
+      spawnTile: {x: 2, y: 8}
+    - piece: {fileID: 8470325436380855677, guid: 41285d69526f9aa49aa1aad6b0ddd57f,
+        type: 3}
+      star: 0
+      spawnTile: {x: 0, y: 7}
+    - piece: {fileID: 8470325436380855677, guid: 41285d69526f9aa49aa1aad6b0ddd57f,
+        type: 3}
+      star: 0
+      spawnTile: {x: 6, y: 7}
+    - piece: {fileID: 8470325436380855677, guid: 41285d69526f9aa49aa1aad6b0ddd57f,
+        type: 3}
+      star: 0
+      spawnTile: {x: 1, y: 6}
+    - piece: {fileID: 8470325436380855677, guid: 41285d69526f9aa49aa1aad6b0ddd57f,
+        type: 3}
+      star: 0
+      spawnTile: {x: 5, y: 6}
+    gold: 0
+    defeatGold: 0
+    defeatDamage: 10
