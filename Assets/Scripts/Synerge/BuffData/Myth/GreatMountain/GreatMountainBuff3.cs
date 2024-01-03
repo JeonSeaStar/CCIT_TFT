@@ -79,6 +79,7 @@ public class GreatMountainBuff3 : BuffData
                     else if (ranTile == 1) FieldManager.Instance.buffManager.thunder2.SetActive(true);
 
                     HashSet<Tile> tiles = new HashSet<Tile>();
+                    tiles.Add(tile);
 
                     foreach(var t in pathFinding.WideGetNeighbor(tile))
                     {
@@ -98,29 +99,75 @@ public class GreatMountainBuff3 : BuffData
                         if (tttt.piece != null)
                         {
                             //tttt.piece.Damage(pathFinding.GetDistance(tile, tttt));
-                            if (pathFinding.GetDistance(tile, tttt) == 0)
-                            {
-
-                            }
+                            if (pathFinding.GetDistance(tile, tttt) == 0) tttt.piece.Damage(500);
+                            else if (pathFinding.GetDistance(tile, tttt) == 1) tttt.piece.Damage(300);
+                            else if (pathFinding.GetDistance(tile, tttt) == 2) tttt.piece.Damage(150);
+                            else if (pathFinding.GetDistance(tile, tttt) == 3) tttt.piece.Damage(50);
                         }
                     }
                 }
-            }
-            else
-            {
 
+                FieldManager.Instance.StartCoroutine(Thunder());
             }
         }
         else if (_randomCount == 2)
         {
             if (isAdd)
             {
+                IEnumerator Fire()
+                {
+                    List<Tile> tiles = new List<Tile>();
+                    for (int i = 4; i < pathFinding.grid.Count; i++)
+                    {
+                        for (int j = 0; j < pathFinding.grid[i].tile.Count; j++)
+                            tiles.Add(pathFinding.grid[i].tile[j]);
+                    }
+                    Shuffle(tiles);
 
+                    for (int i = 0; i < 7; i++)
+                    {
+                        GameObject fire = Instantiate(FieldManager.Instance.buffManager.thunder1);
+                        fire.transform.position = tiles[i].transform.position;
+                        fire.SetActive(true);
+                        if (tiles[i].piece != null) tiles[i].piece.Damage(Random.Range(75, 301));
+                    }
+                    yield return new WaitForSeconds(8f);
+                }
+                FieldManager.Instance.StartCoroutine(Fire());
             }
-            else
+        }
+        else if (_randomCount == 3)
+        {
+            if (isAdd)
             {
+                IEnumerator Water()
+                {
+                    //여기서 홍수 켜주고
+                    for(int i = 0; i < 6; i++)
+                    {
+                        foreach (var piece in FieldManager.Instance.enemyFilePieceList)
+                            piece.Damage(100);
+                        yield return new WaitForSeconds(0.5f);
+                    }
+                }
 
+                FieldManager.Instance.StartCoroutine(Water());
             }
+        }
+    }
+
+    void Shuffle<T>(List<T> list)
+    {
+        System.Random random = new System.Random();
+
+        int n = list.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = random.Next(n + 1);
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
         }
     }
 }
