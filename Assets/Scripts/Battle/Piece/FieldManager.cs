@@ -355,7 +355,7 @@ public class FieldManager : MonoBehaviour
             enemyGameObject.transform.parent = enemyParent;
 
             Piece enemyPiece = enemyGameObject.GetComponent<Piece>();
-            Tile targetTile = pathFinding.grid[tileX].tile[tileY];
+            Tile targetTile = pathFinding.grid[tileY].tile[tileX];
 
             targetTile.piece = enemyPiece;
             targetTile.IsFull = true;
