@@ -6,6 +6,7 @@ using UnityEngine;
 public class PieceData : ScriptableObject
 {
     public string pieceName;
+    public Sprite pieceFace;
     public Sprite piecePortrait;
     public GameObject piecePrefab;
 

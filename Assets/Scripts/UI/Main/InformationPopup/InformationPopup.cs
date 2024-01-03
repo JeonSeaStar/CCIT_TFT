@@ -84,7 +84,7 @@ public class InformationPopup : MonoBehaviour
         for (int i = 0; i < currentSynergePiece.Count; i++)
         {
             PieceElement element = Instantiate(pieceElementPrefab, pieceElementParent).GetComponent<PieceElement>();
-            element.pieceFace.sprite = currentSynergePiece[i].piecePortrait;
+            element.pieceFace.sprite = currentSynergePiece[i].pieceFace;
             element.pieceName.text = currentSynergePiece[i].pieceName;
             element.pieceHp.text = currentSynergePiece[i].health[2].ToString() + "/" + currentSynergePiece[i].health[2].ToString();
             element.pieceMp.text = currentSynergePiece[i].mana[2].ToString() + "/" + currentSynergePiece[i].mana[2].ToString();

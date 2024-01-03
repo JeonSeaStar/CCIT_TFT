@@ -304,7 +304,7 @@ public class FieldManager : MonoBehaviour
             dp.piece.transform.position = new Vector3(dp.dpTile.transform.position.x, groundHeight, dp.dpTile.transform.position.z);
 
             dp.piece.gameObject.SetActive(true);
-            dp.piece.pieceData.InitialzePiece(dp.piece); 
+            dp.piece.pieceData.InitialzePiece(dp.piece);
             dp.piece.mana = dp.piece.mana = dp.piece.pieceData.currentMana;
             dp.piece.PieceState = Piece.State.IDLE;
         }
@@ -314,7 +314,7 @@ public class FieldManager : MonoBehaviour
         enemyFilePieceList = new List<Piece>();
 
         bool fusion = false;
-        for(int i = 0; i < myFilePieceList.Count; i++)
+        for (int i = 0; i < myFilePieceList.Count; i++)
         {
             if (fusion)
                 i = 0;
@@ -462,7 +462,8 @@ public class FieldManager : MonoBehaviour
 
     private IEnumerator StartGame()
     {
-        stageInformation = GameManager.instance.selectedStage;
+        if (stageInformation == null)
+            stageInformation = GameManager.Instance.selectedStage;
         ChangeMap(currentRound);
         ChangeGold(owerPlayer.gold);
         ChangeHP(owerPlayer.lifePoint);
@@ -1112,10 +1113,10 @@ public class FieldManager : MonoBehaviour
 
 
         //set firstChild
-        firstChild = GetChildPiece(kind, star); 
+        firstChild = GetChildPiece(kind, star);
 
         //set secondChild
-        secondChild = GetChildPiece(kind, star); 
+        secondChild = GetChildPiece(kind, star);
 
         Piece originPiece = OriginPiece(firstChild, secondChild, parentPiece);
 
@@ -1208,15 +1209,15 @@ public class FieldManager : MonoBehaviour
     {
         resultPiece.pieceData.InitialzePiece(resultPiece);
         AugmentManager.Instance.AugmentCheck(resultPiece);
-        resultPiece.name += " " +  resultPiece.star + "Star";
+        resultPiece.name += " " + resultPiece.star + "Star";
         resultPiece.maxHealth = resultPiece.pieceData.health[resultPiece.star];
         resultPiece.mana = resultPiece.pieceData.currentMana;
         resultPiece.healthbar.FusionStarAnim(resultPiece.star - 1);
         string framePath = string.Format("Sprites/Unit HpBar_UI/{0}Star Frame", resultPiece.star);
         resultPiece.healthbar.gameObject.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(framePath);
         SoundManager.instance.Play("UI/Eff_Upgrade", SoundManager.Sound.Effect);
-        if (originPiece != null) 
-        { 
+        if (originPiece != null)
+        {
             resultPiece.buffList = originPiece.buffList;
             for (int i = 0; i < resultPiece.buffList.Count; i++)
             {
@@ -1321,7 +1322,7 @@ public class FieldManager : MonoBehaviour
         owerPlayer.lifePoint += hp;
         playerState.UpdateCurrentHP(owerPlayer.lifePoint);
 
-        if(owerPlayer.lifePoint <= 0)
+        if (owerPlayer.lifePoint <= 0)
         {
             resultPopup.ActiveResultPopup(false);
         }
