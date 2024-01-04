@@ -32,6 +32,7 @@ public class CatCoin : MonoBehaviour
 
                 transform.DOMove(hit.point, 0.5f);
                 transform.DOScale(Vector3.zero, 0.5f);
+                FieldManager.Instance.catcoin.Remove(this);
                 Destroy(this.gameObject, 0.5f);
             }
         }
