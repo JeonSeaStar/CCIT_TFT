@@ -146,6 +146,7 @@ public class AugmentManager : MonoBehaviour
         {
             FieldManager.Instance.owerPlayer.maxPieceCount[i] += 1;
         }
+        FieldManager.Instance.fieldPieceStatus.UpdateFieldStatus(FieldManager.Instance.myFilePieceList.Count, FieldManager.Instance.owerPlayer.maxPieceCount[FieldManager.Instance.owerPlayer.level]);
     }
     public void BonusRoll()
     {

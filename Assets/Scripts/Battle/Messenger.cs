@@ -189,7 +189,7 @@ public class Messenger : MonoBehaviour
         Vector3 _objPos = Camera.main.ScreenToWorldPoint(_mousePos);
         _objPos.x += 1f;
         _objPos.y = 1.5f;
-        _objPos.z += 1f; 
+        _objPos.z += 1f;
 
         #region Piece
         if (controlPiece == null) controlPiece = _controlObject.GetComponent<Piece>();

@@ -204,7 +204,7 @@ public class FieldManager : MonoBehaviour
                         else
                             Invoke("NextRound", 3f);
                     }
-                    else
+                    else if (currentRound == stageInformation.enemy.Count - 1)
                     {
                         resultPopup.ActiveResultPopup(true);
                         SoundManager.instance.Play("UI/Eff_Round_Win", SoundManager.Sound.Effect);
@@ -224,7 +224,7 @@ public class FieldManager : MonoBehaviour
                         else
                             Invoke("NextRound", 3f);
                     }
-                    else
+                    else if(currentRound == stageInformation.enemy.Count - 1)
                     {
                         resultPopup.ActiveResultPopup(false);
                         SoundManager.instance.Play("UI/Eff_Round_Lose", SoundManager.Sound.Effect);
