@@ -167,15 +167,6 @@ public class Messenger : MonoBehaviour
             behindSaleZone.SetActive(false);
             pieceSaleSlot.SetActive(true);
 
-            controlPiece.gameObject.AddComponent<AudioSource>();
-            if(controlPiece.pieceData.pieceName != "≈‰∏£")
-            {
-                int i = Random.Range(0, 3);
-                controlPiece.gameObject.GetComponent<AudioSource>().clip = kk[i];
-            }
-            else
-                controlPiece.gameObject.GetComponent<AudioSource>().clip = kk[3];
-            controlPiece.gameObject.GetComponent<AudioSource>().Play();
             return;
         }
         #endregion

@@ -18,9 +18,9 @@ public class MapChanger : MonoBehaviour
         switch (mapType)
         {
             case EnemyInformationData.MapType.SNOW:
-                return maps[0];
-            case EnemyInformationData.MapType.DESERT:
                 return maps[1];
+            case EnemyInformationData.MapType.DESERT:
+                return maps[0];
             case EnemyInformationData.MapType.BEACH:
                 return maps[2];
             case EnemyInformationData.MapType.FORESTDAY:
