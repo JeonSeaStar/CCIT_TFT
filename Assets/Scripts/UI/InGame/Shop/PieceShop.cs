@@ -75,12 +75,12 @@ public class PieceShop : MonoBehaviour
 
         if (active)
         {
-            Camera.main.transform.DOMove(new Vector3(4.5f, 20, -30), 0.5f);
+            Camera.main.transform.DOMove(new Vector3(4.5f, 24.5f, -34), 0.5f);
             SoundManager.instance.Play("UI/Eff_Button_Positive", SoundManager.Sound.Effect);
         }
         else
         {
-            Camera.main.transform.DOMove(new Vector3(4.5f, 20, -22), 0.5f);
+            Camera.main.transform.DOMove(new Vector3(4.5f, 24.5f, -25.5f), 0.5f);
             SoundManager.instance.Play("UI/Eff_Button_Nagative", SoundManager.Sound.Effect);
         }
     }
