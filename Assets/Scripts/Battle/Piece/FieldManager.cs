@@ -335,7 +335,7 @@ public class FieldManager : MonoBehaviour
             GameObject obstacleGameObject = Instantiate(stageInformation.enemy[stage].enemyInformation[i].piece, Vector3.zero, Quaternion.identity);
             obstacleGameObject.transform.parent = enemyParent;
 
-            Tile obstacleTile = pathFinding.grid[tileX].tile[tileY];
+            Tile obstacleTile = pathFinding.grid[tileY].tile[tileX];
 
             obstacleTile.IsFull = true;
             obstacleTile.walkable = false;
