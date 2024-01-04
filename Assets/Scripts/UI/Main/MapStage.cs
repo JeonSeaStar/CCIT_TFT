@@ -134,8 +134,8 @@ public class MapStage : MonoBehaviour
         }
     }
 
-    public void StageSeletPopupActive()
+    public void StageSeletPopupActive(string s)
     {
-        StageSelectPopup.StageSelectSwitch();
+        StageSelectPopup.StageSelectSwitch(s);
     }
 }

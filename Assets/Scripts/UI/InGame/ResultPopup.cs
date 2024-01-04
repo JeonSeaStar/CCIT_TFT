@@ -36,7 +36,7 @@ public class ResultPopup : MonoBehaviour
 
     private void ActivePopup()
     {
-        gameObject.SetActive(!gameObject.activeSelf);
+        gameObject.SetActive(true);
     }
 
     public void RestartStage()
