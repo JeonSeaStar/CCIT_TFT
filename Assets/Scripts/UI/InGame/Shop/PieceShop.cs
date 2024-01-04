@@ -39,6 +39,7 @@ public class PieceShop : MonoBehaviour
     private void Awake()
     {
         InitSlot();
+        gameObject.SetActive(false);
         levelUpCost.text = fieldManager.owerPlayer.levelUpCost[fieldManager.owerPlayer.level].ToString();
     }
 
