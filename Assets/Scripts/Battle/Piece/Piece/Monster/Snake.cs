@@ -59,7 +59,8 @@ public class Snake : Piece
             SoundManager.instance.Play("Snake_Series/S_Skill_Snake", SoundManager.Sound.Effect);
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
             Damage(damage);
-            target.SetBlind(time);
+            if(target != null)
+                target.SetBlind(time);
         }
     }
 
