@@ -332,7 +332,7 @@ public class FieldManager : MonoBehaviour
             int tileX = ((int)stageInformation.enemy[stage].obstacleInformation[i].spawnTile.x);
             int tileY = ((int)stageInformation.enemy[stage].obstacleInformation[i].spawnTile.y);
 
-            GameObject obstacleGameObject = Instantiate(stageInformation.enemy[stage].enemyInformation[i].piece, Vector3.zero, Quaternion.identity);
+            GameObject obstacleGameObject = Instantiate(stageInformation.enemy[stage].obstacleInformation[i].Obstacle, Vector3.zero, Quaternion.identity);
             obstacleGameObject.transform.parent = enemyParent;
 
             Tile obstacleTile = pathFinding.grid[tileY].tile[tileX];
