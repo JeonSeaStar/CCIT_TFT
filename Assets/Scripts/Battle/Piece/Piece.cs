@@ -142,12 +142,6 @@ public class Piece : MonoBehaviour
         preAttackDamage = attackDamage;
         SkillUpdateText();
         AugmentManager.Instance.AugmentCheck(this);
-
-        if(pieceData.name == "≈‰∏£")
-        gameObject.AddComponent<AudioSource>().clip = fieldManager.owerPlayer.kk[3];
-        else
-        gameObject.AddComponent<AudioSource>().clip = fieldManager.owerPlayer.kk[0];
-        gameObject.GetComponent<AudioSource>().Play();
     }
 
     private void Update()
