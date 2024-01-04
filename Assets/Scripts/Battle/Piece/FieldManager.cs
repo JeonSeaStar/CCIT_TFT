@@ -120,6 +120,7 @@ public class FieldManager : MonoBehaviour
 
     [Header("아군 전투 유닛")] public List<Piece> myFilePieceList;
     [Header("상대 전투 유닛")] public List<Piece> enemyFilePieceList;
+    [Header("장애물")] public List<GameObject> obstacleList;
     [Header("아이템 소지 목록")] public List<Equipment> myEquipmentList;
     [Header("아군 기물")] public Transform pieceParent;
     [Header("상대 기물")] public Transform enemyParent;
@@ -313,6 +314,10 @@ public class FieldManager : MonoBehaviour
             Destroy(piece.gameObject);
         enemyFilePieceList = new List<Piece>();
 
+        foreach (GameObject obstacle in obstacleList)
+            Destroy(obstacle);
+        obstacleList = new List<GameObject>();
+
         bool fusion = false;
         for (int i = 0; i < myFilePieceList.Count; i++)
         {
@@ -341,6 +346,8 @@ public class FieldManager : MonoBehaviour
             obstacleTile.walkable = false;
 
             obstacleGameObject.transform.position = new Vector3(obstacleTile.transform.position.x, -0.5f, obstacleTile.transform.position.z);
+
+            obstacleList.Add(obstacleGameObject);
         }
     }
 
