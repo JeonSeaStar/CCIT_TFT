@@ -27,7 +27,7 @@ public class ValkyriePiece : Piece
         StartNextBehavior();
     }
 
-    public void TwoTileSkill(float damage) //발키리 변경 필요
+    public void TwoTileSkill(float damage)
     {
         if (dead)
             return;
@@ -35,7 +35,8 @@ public class ValkyriePiece : Piece
         SoundManager.instance.Play("FrostyWind/S_Valkyre", SoundManager.Sound.Effect);
         Quaternion rotation = transform.rotation;
         Instantiate(skillEffects, transform.position, rotation);
-        valkyrieSkill.gameObject.SetActive(true);
+        if (!dead)
+            valkyrieSkill.gameObject.SetActive(true);
         valkyrieSkill.damage = damage;
     }
     public override void SkillUpdateText()
