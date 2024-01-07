@@ -437,7 +437,7 @@ public class FieldManager : MonoBehaviour
     {
         if (currentRound == 5)
         {
-            SoundManager.instance.Play("BGM/Bgm_Battle_Boss", SoundManager.Sound.Effect);
+            //SoundManager.instance.Play("BGM/Bgm_Battle_Boss", SoundManager.Sound.Effect);
         }
         roundType = RoundType.Ready;
 
