@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47dbc1b9740874d4aa64202f2ad67066, type: 3}
+  m_Name: DragonSpark
+  m_EditorClassIdentifier: 
+  pieceName: "\uD574\uCE28\uB9C1"
+  pieceFace: {fileID: 0}
+  piecePortrait: {fileID: 21300000, guid: 60b25feaa9645454184fc9bdb226a637, type: 3}
+  piecePrefab: {fileID: 7446066669265736037, guid: 03574eddaf35c9d49a405c2152f6fc5c,
+    type: 3}
+  grade: 0
+  star: 0
+  health:
+  - 300
+  - 700
+  - 800
+  mana:
+  - 60
+  - 60
+  - 60
+  currentMana: 10
+  manaRecovery:
+  - 10
+  - 10
+  - 10
+  attackDamage:
+  - 81
+  - 105
+  - 136
+  abilityPower:
+  - 350
+  - 450
+  - 550
+  abilityPowerCoefficient:
+  - 0
+  - 0
+  - 0
+  armor:
+  - 0
+  - 0
+  - 0
+  magicResist:
+  - 0
+  - 0
+  - 0
+  attackSpeed:
+  - 0.8
+  - 0.8
+  - 0.8
+  criticalChance:
+  - 20
+  - 20
+  - 20
+  criticalDamage:
+  - 130
+  - 130
+  - 130
+  attackRange: 010000000100000001000000
+  bloodBrain:
+  - 0
+  - 0
+  - 0
+  moveSpeed:
+  - 1
+  - 1
+  - 1
+  skilSprite: {fileID: 0}
+  skillName: "\uBAB8\uD1B5\uBC15\uCE58\uAE30"
+  skillExplain: 
+  myth: -1
+  animal: -1
+  united: 0

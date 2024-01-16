@@ -23,21 +23,21 @@ public class RaPiece : Piece
     {
         if (star == 0)
         {
-            RaSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 0.7f);
+            AllPieceStunAndDamageSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 0.7f);
         }
         else if (star == 1)
         {
-            RaSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 1.2f);
+            AllPieceStunAndDamageSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 1.2f);
         }
         else if (star == 2)
         {
-            RaSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 1.7f);
+            AllPieceStunAndDamageSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 1.7f);
         }
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
 
-    public void RaSkill(float damage, float time)
+    public void AllPieceStunAndDamageSkill(float damage, float time)
     {
         if (dead)
             return;
@@ -49,7 +49,6 @@ public class RaPiece : Piece
             {
                 Instantiate(skillEffects, fieldManager.enemyFilePieceList[i].transform.position, Quaternion.identity);
                 fieldManager.enemyFilePieceList[i].SetStun(time);
-                SetDebuff("Stun", time, fieldManager.enemyFilePieceList[i]);
                 Invoke("AfterSound", 0.5f);
                 Damage(fieldManager.enemyFilePieceList[i], damage);
             }

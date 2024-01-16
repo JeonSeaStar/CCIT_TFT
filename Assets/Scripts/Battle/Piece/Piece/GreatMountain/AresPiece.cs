@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AresPiece : Piece
 {
-    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject AresBullet;
     public override IEnumerator Attack()
     {
         if (mana >= maxMana && target != null)
@@ -35,11 +35,11 @@ public class AresPiece : Piece
         {
             SkillState();
             SoundManager.instance.Play("GreatMountain/S_Ares", SoundManager.Sound.Effect);
-            GameObject centaBullet = Instantiate(bullet, transform.position, Quaternion.identity);
-            Bullet b = centaBullet.GetComponent<AresBullet>();
-            b.parentPiece = this;
-            b.damage = damage;
-            b.Shot(target.transform.position - transform.position);
+            GameObject _bullet = Instantiate(AresBullet, transform.position, Quaternion.identity);
+            Bullet bullet = _bullet.GetComponent<AresBullet>();
+            bullet.parentPiece = this;
+            bullet.damage = damage;
+            bullet.Shot(target.transform.position - transform.position);
         }
     }
     public override void SkillUpdateText()

@@ -2,17 +2,32 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using static ArenaManager;
 
 public class FieldManager : MonoBehaviour
 {
-    //public static FieldManager instance;
+    private static FieldManager instance;
+    public static FieldManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<FieldManager>();
+                if (instance == null)
+                {
+                    GameObject _arena = new GameObject();
+                    _arena.name = "FieldManager";
+                    instance = _arena.AddComponent<FieldManager>();
+                    //DontDestroyOnLoad(_arena);
+                }
+            }
+            return instance;
+        }
+    }
 
     public Messenger owerPlayer;
-    public Messenger[] DualPlayers = new Messenger[2];
 
     public List<Transform> targetPositions = new List<Transform>();
 
@@ -105,6 +120,7 @@ public class FieldManager : MonoBehaviour
 
     [Header("아군 전투 유닛")] public List<Piece> myFilePieceList;
     [Header("상대 전투 유닛")] public List<Piece> enemyFilePieceList;
+    [Header("장애물")] public List<GameObject> obstacleList;
     [Header("아이템 소지 목록")] public List<Equipment> myEquipmentList;
     [Header("아군 기물")] public Transform pieceParent;
     [Header("상대 기물")] public Transform enemyParent;
@@ -119,6 +135,7 @@ public class FieldManager : MonoBehaviour
 
     public GameObject[] readyZoneHexaIndicators;
     public GameObject[] battleFieldHexaIndicators;
+    [SerializeField] public List<CatCoin> catcoin;
 
     public bool grab = false;
 
@@ -151,40 +168,93 @@ public class FieldManager : MonoBehaviour
         { PieceData.United.Creature          ,0 }
     };
 
-    //[System.Serializable]
-    //public class EnemyInformation
-    //{
-    //    public GameObject piece;
-    //    public Vector2 spawnTile;
-    //}
+    public enum RoundType
+    {
+        None = -1,
+        Deployment,     //배치
+        Ready,          //대기
+        Battle,         //전투
+        Dead,
+        Max
+    };
+    public RoundType roundType = RoundType.None;
 
-    //[System.Serializable]
-    //public class StageInformation
-    //{
-    //    public List<EnemyInformation> enemyInformation;
-    //}
+    public RoundState roundState;
+    public int currentRound = 0;
 
-    //public List<StageInformation> stageInformation;
+    public ResultPopup resultPopup;
+    public enum Result { NONE, VICTORY, DEFEAT }
+    public Result BattleResult
+    {
+        get { return battleResult; }
+        set
+        {
+            if (BattleResult != value)
+            {
+                battleResult = value;
+
+                if (BattleResult == Result.VICTORY)
+                {
+                    roundState.UpdateStageIcon(currentRound, 1, stageInformation.enemy[currentRound].roundType);
+
+                    if (currentRound != stageInformation.enemy.Count - 1)
+                    {
+                        if (stageInformation.enemy[currentRound].mapType != stageInformation.enemy[currentRound + 1].mapType)
+                            Invoke("Fade", 3f);
+                        else
+                            Invoke("NextRound", 3f);
+                    }
+                    else if (currentRound == stageInformation.enemy.Count - 1)
+                    {
+                        resultPopup.ActiveResultPopup(true);
+                        SoundManager.instance.Play("UI/Eff_Round_Win", SoundManager.Sound.Effect);
+                    }
+
+                    foreach (var piece in myFilePieceList)
+                        piece.VictoryDacnce();
+                }
+                else if (BattleResult == Result.DEFEAT)
+                {
+                    ChargeHP(stageInformation.enemy[currentRound].defeatDamage);
+
+                    if (currentRound != stageInformation.enemy.Count - 1)
+                    {
+                        if (stageInformation.enemy[currentRound].mapType != stageInformation.enemy[currentRound + 1].mapType)
+                            Invoke("Fade", 3f);
+                        else
+                            Invoke("NextRound", 3f);
+                    }
+                    else if(currentRound == stageInformation.enemy.Count - 1)
+                    {
+                        resultPopup.ActiveResultPopup(false);
+                        SoundManager.instance.Play("UI/Eff_Round_Lose", SoundManager.Sound.Effect);
+                    }
+
+                    roundState.UpdateStageIcon(currentRound, 2, stageInformation.enemy[currentRound].roundType);
+                }
+            }
+        }
+    }
+    public Result battleResult;
+
     public EnemyInformationData stageInformation;
     public int currentStage;
 
-    [Header("상점")] public PieceShop pieceShop;
-    void Update()
+    public Camera uiCamera;
+
+    private void Awake()
     {
-        if (Input.GetKeyDown(KeyCode.S))
+        if (instance == null)
         {
-            Debug.Log("GreatMountain시너지 = " + mythActiveCount[PieceData.Myth.GreatMountain] +
-                      System.Environment.NewLine +
-                      "FrostyWind시너지 = " + mythActiveCount[PieceData.Myth.FrostyWind] +
-                      System.Environment.NewLine +
-                      "SandKingdom 시너지 = " + mythActiveCount[PieceData.Myth.SandKingdom] +
-                      System.Environment.NewLine +
-                      "HeavenGround 시너지 = " + mythActiveCount[PieceData.Myth.HeavenGround] +
-                      System.Environment.NewLine +
-                      "BurningGround 시너지 = " + mythActiveCount[PieceData.Myth.BurningGround]);
+            instance = this;
+            //DontDestroyOnLoad(this.gameObject);
         }
+
+        StartCoroutine(StartGame());
+        //StartCoroutine(CalRoundTime(3));
     }
 
+    [Header("상점")] public PieceShop pieceShop;
     public void AddDPList(Piece target)
     {
         PieceDPList pieceDP = new PieceDPList(target, target.targetTile);
@@ -235,7 +305,7 @@ public class FieldManager : MonoBehaviour
             dp.piece.transform.position = new Vector3(dp.dpTile.transform.position.x, groundHeight, dp.dpTile.transform.position.z);
 
             dp.piece.gameObject.SetActive(true);
-            dp.piece.pieceData.InitialzePiece(dp.piece); 
+            dp.piece.pieceData.InitialzePiece(dp.piece);
             dp.piece.mana = dp.piece.mana = dp.piece.pieceData.currentMana;
             dp.piece.PieceState = Piece.State.IDLE;
         }
@@ -244,13 +314,40 @@ public class FieldManager : MonoBehaviour
             Destroy(piece.gameObject);
         enemyFilePieceList = new List<Piece>();
 
+        foreach (GameObject obstacle in obstacleList)
+            Destroy(obstacle);
+        obstacleList = new List<GameObject>();
+
         bool fusion = false;
-        for(int i = 0; i < myFilePieceList.Count; i++)
+        for (int i = 0; i < myFilePieceList.Count; i++)
         {
             if (fusion)
                 i = 0;
 
             fusion = FusionCheck(myFilePieceList[i]);
+        }
+    }
+
+    public void SpawnObstacle(int stage)
+    {
+        if (stageInformation.enemy[stage].obstacleInformation.Count <= 0)
+            return;
+        for (int i = 0; i < stageInformation.enemy[stage].obstacleInformation.Count; i++)
+        {
+            int tileX = ((int)stageInformation.enemy[stage].obstacleInformation[i].spawnTile.x);
+            int tileY = ((int)stageInformation.enemy[stage].obstacleInformation[i].spawnTile.y);
+
+            GameObject obstacleGameObject = Instantiate(stageInformation.enemy[stage].obstacleInformation[i].Obstacle, Vector3.zero, Quaternion.identity);
+            obstacleGameObject.transform.parent = enemyParent;
+
+            Tile obstacleTile = pathFinding.grid[tileY].tile[tileX];
+
+            obstacleTile.IsFull = true;
+            obstacleTile.walkable = false;
+
+            obstacleGameObject.transform.position = new Vector3(obstacleTile.transform.position.x, -0.5f, obstacleTile.transform.position.z);
+
+            obstacleList.Add(obstacleGameObject);
         }
     }
 
@@ -265,12 +362,13 @@ public class FieldManager : MonoBehaviour
             enemyGameObject.transform.parent = enemyParent;
 
             Piece enemyPiece = enemyGameObject.GetComponent<Piece>();
-            Tile targetTile = pathFinding.grid[tileX].tile[tileY];
+            Tile targetTile = pathFinding.grid[tileY].tile[tileX];
 
             targetTile.piece = enemyPiece;
             targetTile.IsFull = true;
             targetTile.walkable = false;
 
+            enemyPiece.star = stageInformation.enemy[stage].enemyInformation[i].star;
             enemyPiece.currentTile = targetTile;
             enemyPiece.targetTile = targetTile;
             enemyPiece.pieceData.InitialzePiece(enemyPiece); enemyPiece.mana = enemyPiece.pieceData.currentMana;
@@ -289,18 +387,129 @@ public class FieldManager : MonoBehaviour
             pieceStatus.SetStatus(pieceDpList[i].piece, i);
         pieceStatus.ClearPieceStatusList();
 
-        Instance.roundType = RoundType.Deployment;
+        foreach (var coins in catcoin) coins.MoveCoin();
+
+        roundType = RoundType.Deployment;
         foreach (var effect in sBattleStartEffect) effect(false);
         StopAllCoroutines();
 
         currentStage++;
+        AugmentManager.Instance.CheckAugmentRound(currentStage);
         SpawnEnemy(currentStage);
+        SpawnObstacle(currentStage);
         ChangeMap(currentStage);
 
         playerState.UpdateLevel(owerPlayer.level);
         playerState.UpdateMoney(owerPlayer.gold);
         pieceShop.InitSlot();
     }
+
+    #region 라운드(버튼식)
+    public void BattleEndCheck(List<Piece> pieceList)
+    {
+        for (int i = 0; i < pieceList.Count; i++)
+        {
+            if (!pieceList[i].dead)
+                return;
+
+            if (i == pieceList.Count - 1 && pieceList[i].dead)
+            {
+                if (pieceList[i].isOwned)
+                {
+                    SoundManager.instance.Play("UI/Eff_Round_Lose", SoundManager.Sound.Effect);
+                    if (BattleResult == Result.NONE) BattleResult = Result.DEFEAT;
+                }
+                else
+                {
+                    SoundManager.instance.Play("UI/Eff_Round_Win", SoundManager.Sound.Effect);
+                    if (BattleResult == Result.NONE) BattleResult = Result.VICTORY;
+                }
+            }
+        }
+    }
+
+    public void Fade()
+    {
+        mapChanger.animator.SetTrigger("MapChange");
+    }
+
+    public void NextRound()
+    {
+        if (currentRound == 5)
+        {
+            //SoundManager.instance.Play("BGM/Bgm_Battle_Boss", SoundManager.Sound.Effect);
+        }
+        roundType = RoundType.Ready;
+
+        Reward(currentRound, BattleResult);
+
+        BattleResult = Result.NONE;
+        NextStage();
+        currentRound++;
+        ChangeStage(currentRound);
+        roundState.UpdateStageIcon(currentRound, 3, stageInformation.enemy[currentRound].roundType);
+
+    }
+
+    public void StartBattle()
+    {
+        if (roundType == RoundType.Battle)
+            return;
+
+        roundType = RoundType.Battle;
+        SoundManager.instance.Play("UI/Eff_Button_Positive", SoundManager.Sound.Effect);
+
+        foreach (var list in pieceDpList)
+            pieceStatus.AddPieceStatus(list.piece);
+
+        ActiveSynerge();
+
+        if (myFilePieceList.Count == 0)
+        {
+            if (enemyFilePieceList.Count == 0)
+            {
+                SoundManager.instance.Play("UI/Eff_Round_Win", SoundManager.Sound.Effect);
+                BattleResult = Result.VICTORY;
+            }
+            else
+            {
+                SoundManager.instance.Play("UI/Eff_Round_Lose", SoundManager.Sound.Effect);
+                BattleResult = Result.DEFEAT;
+            }
+        }
+
+        foreach (var piece in myFilePieceList)
+            piece.StartNextBehavior();
+        foreach (var piece in enemyFilePieceList)
+            piece.StartNextBehavior();
+    }
+
+    private void ChangeStage(int round)
+    {
+        roundState.NextRound(round);
+        roundState.OnRoundPopup(1, round);
+    }
+
+    private IEnumerator StartGame()
+    {
+        if (stageInformation == null)
+            stageInformation = GameManager.Instance.selectedStage;
+        ChangeMap(currentRound);
+        ChangeGold(owerPlayer.gold);
+        ChangeHP(owerPlayer.lifePoint);
+        ChangeLevel(owerPlayer.level);
+
+        roundState.SetStage(currentRound);
+        yield return new WaitForSeconds(1f);
+        ChangeStage(currentRound);
+        SpawnEnemy(currentRound);
+        SpawnObstacle(currentRound);
+        roundState.InitRoundIcon();
+        roundState.UpdateStageIcon(currentRound, 3, stageInformation.enemy[currentRound].roundType);
+
+        fieldPieceStatus.UpdateFieldStatus(myFilePieceList.Count, owerPlayer.maxPieceCount[owerPlayer.level]);
+    }
+    #endregion
 
     int d = 0;
 
@@ -316,7 +525,7 @@ public class FieldManager : MonoBehaviour
 
     public void ActiveHexaIndicators(bool isactive)
     {
-        if (Instance.roundType == RoundType.Deployment)
+        if (roundType == RoundType.Deployment)
         {
             for (int i = 0; i < readyZoneHexaIndicators.Length; i++)
             {
@@ -327,7 +536,7 @@ public class FieldManager : MonoBehaviour
                 battleFieldHexaIndicators[i].SetActive(isactive);
             }
         }
-        if (Instance.roundType == RoundType.Battle)
+        if (roundType == RoundType.Battle)
         {
             for (int i = 0; i < readyZoneHexaIndicators.Length; i++)
             {
@@ -336,10 +545,6 @@ public class FieldManager : MonoBehaviour
         }
     }
 
-    void LifeAttack(Messenger defeatedPlayer)
-    {
-
-    }
     #region Calculate Synerge
     public void SynergeIncrease(Piece piece)
     {
@@ -500,7 +705,7 @@ public class FieldManager : MonoBehaviour
                                     break;
                             }
                         }
-                        if (i > 0 && DualPlayers[0].buffDatas.Contains(buffList[i - 1])) DualPlayers[0].buffDatas.Remove(buffList[i - 1]);
+                        if (i > 0 && owerPlayer.buffDatas.Contains(buffList[i - 1])) owerPlayer.buffDatas.Remove(buffList[i - 1]);
 
                         if (!piece.buffList.Contains(buffList[i]))
                         {
@@ -528,7 +733,7 @@ public class FieldManager : MonoBehaviour
                                     break;
                             }
                         }
-                        if (!DualPlayers[0].buffDatas.Contains(buffList[i])) DualPlayers[0].buffDatas.Add(buffList[i]);
+                        if (!owerPlayer.buffDatas.Contains(buffList[i])) owerPlayer.buffDatas.Add(buffList[i]);
                     }
                 }
             }
@@ -562,7 +767,7 @@ public class FieldManager : MonoBehaviour
                                 break;
                         }
                     }
-                    if (DualPlayers[0].buffDatas.Contains(buffList[i])) DualPlayers[0].buffDatas.Remove(buffList[i]);
+                    if (owerPlayer.buffDatas.Contains(buffList[i])) owerPlayer.buffDatas.Remove(buffList[i]);
                 }
             }
         }
@@ -603,7 +808,7 @@ public class FieldManager : MonoBehaviour
                                     break;
                             }
                         }
-                        if (i > 0 && DualPlayers[0].buffDatas.Contains(buffList[i - 1])) DualPlayers[0].buffDatas.Remove(buffList[i - 1]);
+                        if (i > 0 && owerPlayer.buffDatas.Contains(buffList[i - 1])) owerPlayer.buffDatas.Remove(buffList[i - 1]);
                         //Add
                         if (!piece.buffList.Contains(buffList[i]))
                         {
@@ -630,7 +835,7 @@ public class FieldManager : MonoBehaviour
                                     break;
                             }
                         }
-                        if (!DualPlayers[0].buffDatas.Contains(buffList[i])) DualPlayers[0].buffDatas.Add(buffList[i]);
+                        if (!owerPlayer.buffDatas.Contains(buffList[i])) owerPlayer.buffDatas.Add(buffList[i]);
                     }
                 }
             }
@@ -663,7 +868,7 @@ public class FieldManager : MonoBehaviour
                                 break;
                         }
                     }
-                    if (DualPlayers[0].buffDatas.Contains(buffList[i])) DualPlayers[0].buffDatas.Remove(buffList[i]);
+                    if (owerPlayer.buffDatas.Contains(buffList[i])) owerPlayer.buffDatas.Remove(buffList[i]);
                 }
             }
         }
@@ -757,18 +962,18 @@ public class FieldManager : MonoBehaviour
         foreach (var effect in sBattleStartEffect) effect(true);
         foreach (var effect in sCoroutineEffect) effect();
 
-        Debug.Log("즉시 발동 시너지 효과 : " + sBattleStartEffect.Count);
-        Debug.Log("지연 발동 시너지 효과 : " + sCoroutineEffect.Count);
+        //Debug.Log("즉시 발동 시너지 효과 : " + sBattleStartEffect.Count);
+        //Debug.Log("지연 발동 시너지 효과 : " + sCoroutineEffect.Count);
         InitializingRound();
     }
     #endregion
 
     public void InitializingRound()
     {
-        if (DualPlayers[0].isGrab)
+        if (owerPlayer.isGrab)
         {
-            DualPlayers[0].isDrag = true;
-            object _controlObject = (DualPlayers[0].ControlPiece != null) ? DualPlayers[0].ControlPiece : DualPlayers[0].ControlEquipment;
+            owerPlayer.isDrag = true;
+            object _controlObject = (owerPlayer.ControlPiece != null) ? owerPlayer.ControlPiece : owerPlayer.ControlEquipment;
 
             Piece _pieceControl = _controlObject as Piece;
             if (_pieceControl != null)
@@ -882,7 +1087,7 @@ public class FieldManager : MonoBehaviour
 
     void FusionPiece(Piece piece)
     {
-        if (Instance.roundType == RoundType.Battle)
+        if (roundType == RoundType.Battle)
             return;
 
         int kind = CheckPieceKind(piece.pieceData);
@@ -939,10 +1144,10 @@ public class FieldManager : MonoBehaviour
 
 
         //set firstChild
-        firstChild = GetChildPiece(kind, star); 
+        firstChild = GetChildPiece(kind, star);
 
         //set secondChild
-        secondChild = GetChildPiece(kind, star); 
+        secondChild = GetChildPiece(kind, star);
 
         Piece originPiece = OriginPiece(firstChild, secondChild, parentPiece);
 
@@ -959,35 +1164,41 @@ public class FieldManager : MonoBehaviour
         if (!targetTile.isReadyTile)
         {
             Piece resultPiece = SpawnPiece(piece.pieceData, star + 1, targetTile);
-            resultPiece.maxHealth = resultPiece.pieceData.health[resultPiece.star];
-            //아이템으로 인한 MAX_HP의 상승분을 여기에 구현
-            resultPiece.name += " " + star + 1 + "Star";
-            resultPiece.healthbar.FusionStarAnim(star);
-            SoundManager.instance.Play("UI/Eff_Upgrade", SoundManager.Sound.Effect);
-            resultPiece.buffList = originPiece.buffList;
-            resultPiece.pieceData.InitialzePiece(resultPiece); resultPiece.mana = resultPiece.pieceData.currentMana;
-            string framePath = string.Format("UI_Resources/Unit HpBar_UI/{0}Star Frame", resultPiece.star);
-            resultPiece.healthbar.gameObject.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(framePath);
-            for (int i = 0; i < resultPiece.buffList.Count; i++)
-            {
-                if (resultPiece.buffList[i].haveDirectEffect == true)
-                    resultPiece.pieceData.CalculateBuff(resultPiece, resultPiece.buffList[i]);
-            }
-            resultPiece.currentTile.gameObject.transform.GetChild(3).gameObject.SetActive(true);
-            myFilePieceList.Add(resultPiece);
-            AddDPList(resultPiece);
+            #region 나중에 문제 없으면 지울 예정입니다!
+            //resultPiece.maxHealth = resultPiece.pieceData.health[resultPiece.star];
+            ////아이템으로 인한 MAX_HP의 상승분을 여기에 구현
+            //resultPiece.name += " " + star + 1 + "Star";
+            //resultPiece.healthbar.FusionStarAnim(star);
+            //SoundManager.instance.Play("UI/Eff_Upgrade", SoundManager.Sound.Effect);
+            //resultPiece.buffList = originPiece.buffList;
+            //resultPiece.pieceData.InitialzePiece(resultPiece); resultPiece.mana = resultPiece.pieceData.currentMana;
+            //string framePath = string.Format("Sprites/Unit HpBar_UI/{0}Star Frame", resultPiece.star);
+            //resultPiece.healthbar.gameObject.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(framePath);
+            //for (int i = 0; i < resultPiece.buffList.Count; i++)
+            //{
+            //    if (resultPiece.buffList[i].haveDirectEffect == true)
+            //        resultPiece.pieceData.CalculateBuff(resultPiece, resultPiece.buffList[i]);
+            //}
+            //resultPiece.currentTile.gameObject.transform.GetChild(3).gameObject.SetActive(true);
+            //myFilePieceList.Add(resultPiece);
+            //AddDPList(resultPiece);
+            #endregion
+            FusionPieceInit(resultPiece, originPiece);
         }
         else
         {
             Piece resultPiece = SpawnPiece(piece.pieceData, star + 1, targetTile);
-            resultPiece.maxHealth = resultPiece.pieceData.health[resultPiece.star];
-            resultPiece.name += " " + star + 1 + "Star";
-            resultPiece.healthbar.FusionStarAnim(star);
-            SoundManager.instance.Play("UI/Eff_Upgrade", SoundManager.Sound.Effect);
-            resultPiece.pieceData.InitialzePiece(resultPiece); resultPiece.mana = resultPiece.pieceData.currentMana;
-            string framePath = string.Format("UI_Resources/Unit HpBar_UI/{0}Star Frame", resultPiece.star);
-            resultPiece.healthbar.gameObject.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(framePath);
-            resultPiece.currentTile.gameObject.transform.GetChild(1).gameObject.SetActive(true);
+            #region 나중에 문제 없으면 지울 예정입니다!
+            //resultPiece.maxHealth = resultPiece.pieceData.health[resultPiece.star];
+            //resultPiece.name += " " + star + 1 + "Star";
+            //resultPiece.healthbar.FusionStarAnim(star);
+            //SoundManager.instance.Play("UI/Eff_Upgrade", SoundManager.Sound.Effect);
+            //resultPiece.pieceData.InitialzePiece(resultPiece); resultPiece.mana = resultPiece.pieceData.currentMana;
+            //string framePath = string.Format("Sprites/Unit HpBar_UI/{0}Star Frame", resultPiece.star);
+            //resultPiece.healthbar.gameObject.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(framePath);
+            //resultPiece.currentTile.gameObject.transform.GetChild(1).gameObject.SetActive(true);
+            #endregion
+            FusionPieceInit(resultPiece);
         }
 
         fieldPieceStatus.UpdateFieldStatus(myFilePieceList.Count, owerPlayer.maxPieceCount[owerPlayer.level]);
@@ -1023,6 +1234,31 @@ public class FieldManager : MonoBehaviour
         }
         currentPieceList[kind].count[star].count.Remove(childPiece);
         return childPiece;
+    }
+
+    void FusionPieceInit(Piece resultPiece, Piece originPiece = null)
+    {
+        resultPiece.pieceData.InitialzePiece(resultPiece);
+        AugmentManager.Instance.AugmentCheck(resultPiece);
+        resultPiece.name += " " + resultPiece.star + "Star";
+        resultPiece.maxHealth = resultPiece.pieceData.health[resultPiece.star];
+        resultPiece.mana = resultPiece.pieceData.currentMana;
+        resultPiece.healthbar.FusionStarAnim(resultPiece.star - 1);
+        string framePath = string.Format("Sprites/Unit HpBar_UI/{0}Star Frame", resultPiece.star);
+        resultPiece.healthbar.gameObject.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(framePath);
+        SoundManager.instance.Play("UI/Eff_Upgrade", SoundManager.Sound.Effect);
+        if (originPiece != null)
+        {
+            resultPiece.buffList = originPiece.buffList;
+            for (int i = 0; i < resultPiece.buffList.Count; i++)
+            {
+                if (resultPiece.buffList[i].haveDirectEffect == true)
+                    resultPiece.pieceData.CalculateBuff(resultPiece, resultPiece.buffList[i]);
+            }
+            myFilePieceList.Add(resultPiece);
+            AddDPList(resultPiece);
+        }
+        TileManager.Instance.ActiveFusionEffect(resultPiece.currentTile.gameObject);
     }
 
     public void DestroyPiece(Piece piece, Tile targetTile)
@@ -1117,9 +1353,9 @@ public class FieldManager : MonoBehaviour
         owerPlayer.lifePoint += hp;
         playerState.UpdateCurrentHP(owerPlayer.lifePoint);
 
-        if(owerPlayer.lifePoint <= 0)
+        if (owerPlayer.lifePoint <= 0)
         {
-            Instance.resultPopup.ActiveResultPopup(false);
+            resultPopup.ActiveResultPopup(false);
         }
     }
 
@@ -1129,7 +1365,7 @@ public class FieldManager : MonoBehaviour
 
         if (owerPlayer.lifePoint <= 0)
         {
-            Instance.resultPopup.ActiveResultPopup(false);
+            resultPopup.ActiveResultPopup(false);
         }
     }
 
@@ -1151,4 +1387,6 @@ public class FieldManager : MonoBehaviour
     {
         mapChanger.ChangeMap(stageInformation.enemy[round].mapType);
     }
+
+
 }

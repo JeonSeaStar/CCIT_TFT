@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: Wolf
   m_EditorClassIdentifier: 
   pieceName: "\uC6B8\uD504"
-  piecePortrait: {fileID: 0}
+  pieceFace: {fileID: 0}
+  piecePortrait: {fileID: 21300000, guid: b94d3c460d7b11d458f316ed7a60a19d, type: 3}
   piecePrefab: {fileID: 5359796614626933570, guid: 6c8cdd2a54dd4d14ea270d6a725aa92e,
     type: 3}
   grade: 0
   star: 0
   health:
-  - 800
-  - 800
+  - 300
+  - 700
   - 800
   mana:
   - 100
@@ -32,13 +33,13 @@ MonoBehaviour:
   - 10
   - 10
   attackDamage:
-  - 55
-  - 55
-  - 55
+  - 89
+  - 116
+  - 151
   abilityPower:
   - 500
-  - 500
-  - 500
+  - 600
+  - 700
   abilityPowerCoefficient:
   - 0
   - 0
@@ -52,17 +53,17 @@ MonoBehaviour:
   - 0
   - 0
   attackSpeed:
-  - 0.9
-  - 0.9
-  - 0.9
+  - 0.83
+  - 0.83
+  - 0.83
   criticalChance:
   - 20
   - 20
   - 20
   criticalDamage:
-  - 0
-  - 0
-  - 0
+  - 130
+  - 130
+  - 130
   attackRange: 010000000100000001000000
   bloodBrain:
   - 0
@@ -72,10 +73,10 @@ MonoBehaviour:
   - 1
   - 1
   - 1
-  buff: {fileID: 0}
   skilSprite: {fileID: 0}
-  skillName: 
-  skillExplain: 
+  skillName: "\uD558\uC6B8\uB9C1"
+  skillExplain: "500\uC758 \uD53C\uD574\uB97C \uD761\uC218\uD558\uB294 \uBCF4\uD638\uB9C9\uC744
+    \uC5BB\uC2B5\uB2C8\uB2E4."
   myth: -1
   animal: -1
   united: 0

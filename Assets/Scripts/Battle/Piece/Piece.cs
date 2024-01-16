@@ -67,12 +67,15 @@ public class Piece : MonoBehaviour
     public bool freeze;
     public bool slow;
     public bool airborne;
-    public bool faint;
-    public bool fear;
     public bool invincible;
-    public bool charm; //매혹
     public bool blind;
     public bool stun;
+    public bool tickDamage;
+    float parentTickDamage;
+    float tickTime = 1f;
+    public bool fear;
+    public bool faint;
+    public bool charm;
 
     public List<Piece> enemyPieceList = new List<Piece>();
     public List<Piece> myPieceList = new List<Piece>();
@@ -125,11 +128,12 @@ public class Piece : MonoBehaviour
     public GameObject freezeEffect;
     public GameObject stunEffect;
     public GameObject blindEffect;
+    public GameObject tickDamageEffect;
 
     void Awake()
     {
         pieceData.InitialzePiece(this);
-        fieldManager = ArenaManager.Instance.fieldManagers[0];
+        fieldManager = FieldManager.Instance;
         PieceState = State.IDLE;
 
         maxHealth = health;
@@ -137,12 +141,15 @@ public class Piece : MonoBehaviour
         mana = pieceData.currentMana;
         preAttackDamage = attackDamage;
         SkillUpdateText();
+        AugmentManager.Instance.AugmentCheck(this);
     }
 
     private void Update()
     {
         healthbar.InitHealthbar(maxHealth, health, shield);
         healthbar.InitManabar(maxMana, mana);
+        if (tickDamage)
+            TickDamageTimer();
     }
 
     public void Owned()
@@ -165,7 +172,7 @@ public class Piece : MonoBehaviour
 
     protected bool RangeCheck()
     {
-        if (attackRange >= ArenaManager.Instance.fieldManagers[0].pathFinding.GetDistance(currentTile, target.currentTile))
+        if (attackRange >= FieldManager.Instance.pathFinding.GetDistance(currentTile, target.currentTile))
             return true;
         else
             return false;
@@ -230,10 +237,10 @@ public class Piece : MonoBehaviour
         if (target.health <= 0)
         {
             #region 악마 기물 시너지 확인
-            //var _burningPiece = ArenaManager.Instance.fieldManagers[0].buffManager.mythBuff[0];
+            //var _burningPiece = FieldManager.Instance.buffManager.mythBuff[0];
             //if (buffList.Contains(_burningPiece.burningGroundBuff[0]) || buffList.Contains(_burningPiece.burningGroundBuff[1]))
             //{
-            //    var _buff = (ArenaManager.Instance.fieldManagers[0].mythActiveCount[PieceData.Myth.BurningGround] >= 4) ? _burningPiece.burningGroundBuff[1] : _burningPiece.burningGroundBuff[0];
+            //    var _buff = (FieldManager.Instance.mythActiveCount[PieceData.Myth.BurningGround] >= 4) ? _burningPiece.burningGroundBuff[1] : _burningPiece.burningGroundBuff[0];
             //    _buff.DirectEffect(this, true);
             //    _buff.BattleStartEffect(true);
 
@@ -250,10 +257,18 @@ public class Piece : MonoBehaviour
                 int _r = (fieldManager.animalActiveCount[PieceData.Animal.Cat] >= 4) ? UnityEngine.Random.Range(0, 3) : UnityEngine.Random.Range(0, 2);
                 if (_r == 0)
                 {
-                    int _gold = UnityEngine.Random.Range(2, 6);
-                    fieldManager.DualPlayers[0].gold += _gold;
-                    fieldManager.playerState.UpdateMoney(fieldManager.DualPlayers[0].gold);
-                    Debug.Log(_gold + " 만큼 골드를 획득합니다.");
+                    Vector3 position = target.transform.position;
+                    position.y += 1;
+                    float positionRangeX = UnityEngine.Random.Range(position.x - 1, position.x + 1);
+                    float positionRangeZ = UnityEngine.Random.Range(position.z - 1, position.z + 1);
+                    Vector3 coinDropPosition = new Vector3(positionRangeX, fieldManager.groundHeight + 0.5f, positionRangeZ);
+                    Vector3 hpos = transform.position + ((coinDropPosition - position) / 2);
+                    GameObject _coin = Instantiate(catCoin, position, Quaternion.identity);
+                    Vector3[] Jumppath = { position,
+                                             new Vector3(hpos.x, hpos.y + 5f, hpos.z),
+                                             coinDropPosition };
+                    _coin.transform.DOPath(Jumppath, 2, PathType.CatmullRom, PathMode.Full3D);
+                    Debug.Log("코인 획득");
                 }
             }
             #endregion
@@ -302,16 +317,20 @@ public class Piece : MonoBehaviour
         currentTile.piece = null;
         currentTile.IsFull = false;
         currentTile.walkable = true;
+        if (isOwned == true && AugmentManager.Instance.lifeInsurance_augment)
+        {
+            FieldManager.Instance.ChargeGold(2);
+        }
 
-        ArenaManager.Instance.BattleEndCheck(myPieceList);
+        FieldManager.Instance.BattleEndCheck(myPieceList);
     }
 
     void SpawnRandomBox()
     {
         GameObject box = Instantiate(randomBoxObject, transform.position, Quaternion.identity);
         RandomBox randomBox = box.GetComponent<RandomBox>();
-        ArenaManager.Instance.fieldManagers[0].chest.CurveMove(randomBox.transform, fieldManager.targetPositions);
-        ArenaManager.Instance.fieldManagers[0].chest.SetBoxContents(randomBox, 0);
+        FieldManager.Instance.chest.CurveMove(randomBox.transform, fieldManager.targetPositions);
+        FieldManager.Instance.chest.SetBoxContents(randomBox, 0);
     }
 
     //이동
@@ -355,21 +374,21 @@ public class Piece : MonoBehaviour
     }
     #region 토끼
     [Header("토끼")]
-    [HideInInspector] public bool isRabbitSynergeActiveCheck;
+    public bool isRabbitSynergeActiveCheck;
     [SerializeField] GameObject rabbitSynergeEffect;
     public void RabbitJump()
     {
         List<Tile> _neighbor = new List<Tile>();
-        int _distance = ArenaManager.Instance.fieldManagers[0].pathFinding.GetDistance(currentTile, target.currentTile);
+        int _distance = FieldManager.Instance.pathFinding.GetDistance(currentTile, target.currentTile);
 
         if (_distance <= 4)
         {
-            _neighbor = ArenaManager.Instance.fieldManagers[0].pathFinding.GetNeighbor(target.currentTile);
+            _neighbor = FieldManager.Instance.pathFinding.GetNeighbor(target.currentTile);
             for (int i = 0; i < _neighbor.Count; i++)
             {
                 if (_neighbor[i].IsFull == false)
                 {
-                    //invincible = true;
+                    invincible = true;
                     target = null;
                     IdleState(2f);
                     GameObject effect = Instantiate(rabbitSynergeEffect, transform.position, Quaternion.Euler(-90, 0, 0));
@@ -379,7 +398,7 @@ public class Piece : MonoBehaviour
                     Vector3[] Jumppath = { new Vector3(transform.position.x, transform.position.y, transform.position.z),
                                              new Vector3(hpos.x, hpos.y + 5f, hpos.z),
                                              new Vector3(targetTilePos.x, fieldManager.groundHeight, targetTilePos.z) };
-                    GetComponent<Rigidbody>().DOPath(Jumppath, 2, PathType.CatmullRom, PathMode.Full3D).SetEase(rabbitEase); ; //점프구간
+                    GetComponent<Rigidbody>().DOPath(Jumppath, 2, PathType.CatmullRom, PathMode.Full3D).SetEase(rabbitEase); //점프구간
 
                     if (currentTile != _neighbor[i])
                     {
@@ -399,15 +418,14 @@ public class Piece : MonoBehaviour
             }
         }
     }
-
     IEnumerator RabbitSplashDamage(List<Tile> neighbor, float time)
     {
         yield return new WaitForSeconds(time);
         int splashDamage = 0;
-        var _buff = ArenaManager.Instance.fieldManagers[0].buffManager.animalBuff[0];
-        if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[0])) { splashDamage = 10; pieceData.CalculateBuff(this, _buff.rabbitBuff[0]); }
-        else if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[1])) { splashDamage = 15; pieceData.CalculateBuff(this, _buff.rabbitBuff[1]); }
-        else if (ArenaManager.Instance.fieldManagers[0].DualPlayers[0].buffDatas.Contains(_buff.rabbitBuff[2])) { splashDamage = 20; pieceData.CalculateBuff(this, _buff.rabbitBuff[2]); }
+        var _buff = FieldManager.Instance.buffManager.animalBuff[0];
+        if (FieldManager.Instance.owerPlayer.buffDatas.Contains(_buff.rabbitBuff[0])) { splashDamage = 10; pieceData.CalculateBuff(this, _buff.rabbitBuff[0]); }
+        else if (FieldManager.Instance.owerPlayer.buffDatas.Contains(_buff.rabbitBuff[1])) { splashDamage = 15; pieceData.CalculateBuff(this, _buff.rabbitBuff[1]); }
+        else if (FieldManager.Instance.owerPlayer.buffDatas.Contains(_buff.rabbitBuff[2])) { splashDamage = 20; pieceData.CalculateBuff(this, _buff.rabbitBuff[2]); }
         GameObject effect = Instantiate(rabbitSynergeEffect, transform.position, Quaternion.Euler(-90, 0, 0));
         effect.SetActive(true); effect.transform.SetParent(null);
         Invoke("RsetRabbitStatus", 3);
@@ -416,19 +434,19 @@ public class Piece : MonoBehaviour
             if (tile.IsFull && !tile.piece.isOwned) Damage(tile.piece, splashDamage);
         }
     }
-
     void RsetRabbitStatus()
     {
-        if (ArenaManager.Instance.roundType != ArenaManager.RoundType.Battle) return;
+        if (FieldManager.Instance.roundType != FieldManager.RoundType.Battle) return;
 
-        var _rabbitCount = ArenaManager.Instance.fieldManagers[0].animalActiveCount[PieceData.Animal.Rabbit];
+        var _rabbitCount = FieldManager.Instance.animalActiveCount[PieceData.Animal.Rabbit];
         int _activeCount = _rabbitCount / 3;
         this.attackSpeed -= pieceData.attackSpeed[star] * 0.1f * _activeCount;
         this.moveSpeed -= pieceData.moveSpeed[star] * 0.1f * _activeCount;
     }
     #endregion
     #region 고양이
-    [HideInInspector] public bool isCatSynergeActiveCheck;
+    public bool isCatSynergeActiveCheck;
+    public GameObject catCoin;
     #endregion
 
     void EnemyCheck()
@@ -449,10 +467,10 @@ public class Piece : MonoBehaviour
     {
         yield return new WaitUntil(() => health > 0);
         EnemyCheck();
-        if (CheckEnemySurvival(enemyPieceList) && !dead && ArenaManager.Instance.roundType == ArenaManager.RoundType.Battle)
+        if (CheckEnemySurvival(enemyPieceList) && !dead && FieldManager.Instance.roundType == FieldManager.RoundType.Battle)
         {
-            //ArenaManager.Instance.fieldManagers[0].pathFinding.SetCandidatePath(this, enemyPieceList);
-            ArenaManager.Instance.fieldManagers[0].pathFinding.SetTarget(this, enemyPieceList);
+            //FieldManager.Instance.pathFinding.SetCandidatePath(this, enemyPieceList);
+            FieldManager.Instance.pathFinding.SetTarget(this, enemyPieceList);
 
             if (target != null)
             {
@@ -468,7 +486,7 @@ public class Piece : MonoBehaviour
                     }
                     else
                     {
-                        ArenaManager.Instance.fieldManagers[0].pathFinding.SetCandidatePath(this);
+                        FieldManager.Instance.pathFinding.SetCandidatePath(this);
                         StartMove();
                     }
                 }
@@ -520,8 +538,6 @@ public class Piece : MonoBehaviour
         else if (currentPiece.currentTile.isReadyTile == false && currentPiece.targetTile.isReadyTile == true)
         {
             currentPiece.pieceData.InitialzePiece(currentPiece); currentPiece.mana = currentPiece.pieceData.currentMana;
-            Debug.Log(currentPiece.health);
-            Debug.Log(currentPiece.maxHealth);
             fieldManager.RemoveDPList(currentPiece);
             fieldManager.myFilePieceList.Remove(currentPiece);
             currentPiece.buffList.Clear();
@@ -570,85 +586,6 @@ public class Piece : MonoBehaviour
     }
 
     #region 상태이상
-    public void SetDebuff(string debuff, float time, Piece target = null)
-    {
-        target = (target == null) ? this.target : target;
-        if (target.immune) { Debug.Log("상대가 상태이상 면역입니다."); return; }
-        switch (debuff)
-        {
-            case "Freeze":
-                target.freeze = true;
-                StartCoroutine(DebuffTimer(target, "Freeze", time));
-                break;
-            case "Slow":
-                target.slow = true;
-                StartCoroutine(DebuffTimer(target, "Slow", time));
-                break;
-            case "Airbone":
-                target.airborne = true;
-                StartCoroutine(DebuffTimer(target, "Airbone", time));
-                break;
-            case "Faint":
-                target.faint = true;
-                StartCoroutine(DebuffTimer(target, "Faint", time));
-                break;
-            case "Fear":
-                target.fear = true;
-                StartCoroutine(DebuffTimer(target, "Fear", time));
-                break;
-            case "Invincible":
-                target.invincible = true;
-                StartCoroutine(DebuffTimer(target, "Invincible", time));
-                break;
-            case "Charm":
-                target.charm = true;
-                StartCoroutine(DebuffTimer(target, "Charm", time));
-                break;
-            case "Blind":
-                target.blind = true;
-                StartCoroutine(DebuffTimer(target, "Blind", time));
-                break;
-            case "Stun":
-                target.stun = true;
-                StartCoroutine(DebuffTimer(target, "Stun", time));
-                break;
-        }
-    }
-
-    IEnumerator DebuffTimer(Piece target, string debuff, float time)
-    {
-        yield return new WaitForSeconds(time);
-        switch (debuff)
-        {
-            case "Freeze":
-                target.freeze = false;
-                break;
-            case "Slow":
-                target.slow = false;
-                break;
-            case "Airbone":
-                target.airborne = false;
-                break;
-            case "Faint":
-                target.faint = false;
-                break;
-            case "Fear":
-                target.fear = false;
-                break;
-            case "Invincible":
-                target.invincible = false;
-                break;
-            case "Charm":
-                target.charm = false;
-                break;
-            case "Blind":
-                target.blind = false;
-                break;
-            case "Stun":
-                target.stun = false;
-                break;
-        }
-    }
 
     public void SetImmune()
     {
@@ -660,19 +597,9 @@ public class Piece : MonoBehaviour
         slow = true;
     }
 
-    public void SetFaint()
-    {
-        faint = true;
-    }
-
     public void SetAirborne()
     {
         airborne = true;
-    }
-
-    public void SetFear()
-    {
-        fear = true;
     }
 
     public void SetInvincible()
@@ -680,52 +607,103 @@ public class Piece : MonoBehaviour
         invincible = true;
     }
 
-    public void SetCharm()
+    public void SetTickDamage(float damage, float time)
     {
-        charm = true;
+        if (!gameObject.activeSelf)
+            return;
+        tickDamage = true;
+        if(gameObject.activeSelf)
+        {
+            tickDamageEffect.SetActive(true);
+            parentTickDamage = damage;
+            Invoke("TickDamageClear", time);
+        }
     }
+
+    public void TickDamageTimer() // == 변경 필요 이펙트 어떻게 처리 할지
+    {
+        if (!gameObject.activeSelf)
+            return;
+        tickTime -= Time.deltaTime;
+        if (tickTime <= 0)
+        {
+            health -= parentTickDamage;
+            tickTime = 1;
+        }
+    }
+
+    public void TickDamageClear()
+    {
+        if (!gameObject.activeSelf)
+            return;
+        tickDamage = false;
+        if (gameObject.activeSelf)
+        {
+            tickDamageEffect.SetActive(false);
+        }
+    }
+
     public void SetFreeze(float time)
     {
         freeze = true;
-        freezeEffect.SetActive(true);
-        IdleState(time);
-        Invoke("FreezeClear", time);
+        if (gameObject.activeSelf)
+        {
+            freezeEffect.SetActive(true);
+            IdleState(time);
+            Invoke("FreezeClear", time);
+        }
     }
     public void FreezeClear()
     {
         freeze = false;
-        freezeEffect.SetActive(false);
-        if (gameObject.activeSelf) StartCoroutine(NextBehavior());
+        if (gameObject.activeSelf)
+        {
+            freezeEffect.SetActive(false);
+            StartCoroutine(NextBehavior());
+        }
     }
 
     public void SetBlind(float time)
     {
         blind = true;
-        blindEffect.SetActive(true);
-        attackDamage = 0;
-        Invoke("BlindClear", time);
+        if (gameObject.activeSelf)
+        {
+            blindEffect.SetActive(true);
+            attackDamage = 0;
+            Invoke("BlindClear", time);
+        }
     }
 
     void BlindClear()
     {
         blind = false;
-        blindEffect.SetActive(false);
-        attackDamage = preAttackDamage;
+        if (gameObject.activeSelf)
+        {
+            blindEffect.SetActive(false);
+            attackDamage = preAttackDamage;
+        }
     }
 
     public void SetStun(float time)
     {
         stun = true;
-        stunEffect.SetActive(true);
-        IdleState(time);
-        Invoke("StunClear", time);
+        if (gameObject.activeSelf)
+        {
+            stunEffect.SetActive(true);
+            IdleState(time);
+            Invoke("StunClear", time);
+        }
     }
 
     void StunClear()
     {
         stun = false;
         stunEffect.SetActive(false);
-        if (gameObject.activeSelf) StartCoroutine(NextBehavior());
+        if (gameObject.activeSelf)
+        {
+            stunEffect.SetActive(false);
+            StartCoroutine(NextBehavior());
+        }
     }
 
     //void 
@@ -795,6 +773,17 @@ public class Piece : MonoBehaviour
         }
     }
 
+    public void PandoraDamage()
+    {
+        foreach (var enemy in FieldManager.Instance.enemyFilePieceList)
+        {
+            if (enemy.gameObject.activeSelf == true)
+            {
+                enemy.Damage(enemy, 150);
+            }
+        }
+    }
+
     public virtual void Dead()
     {
         SoundManager.instance.Play("CommonPiece/Piece_Dead", SoundManager.Sound.Effect);
@@ -814,7 +803,7 @@ public class Piece : MonoBehaviour
     #region 애니메이션 이벤트 (공격)
     public void AttackEffect()
     {
-        int _count = ArenaManager.Instance.fieldManagers[0].mythActiveCount[this.pieceData.myth];
+        int _count = FieldManager.Instance.mythActiveCount[this.pieceData.myth];
         int _thresholds = 0;
         switch (pieceData.myth)
         {

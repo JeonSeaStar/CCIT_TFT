@@ -16,7 +16,8 @@ public class Messenger : MonoBehaviour
     public int[] maxXP;
     public int[] levelUpCost;
     public int[] maxPieceCount;
-    [Range(-30, 200)] public int lifePoint = 100;
+    [Range(-30, 200)] public int maxLifePoint = 30;
+    [Range(-30, 200)] public int lifePoint = 30;
     public int gold = 0;
     [SerializeField] LayerMask playerMask; //9 - Player
     [SerializeField] LayerMask groundMask; //8 - Plane
@@ -81,18 +82,17 @@ public class Messenger : MonoBehaviour
 
     private void Awake()
     {
-        fieldManager.DualPlayers[0] = this;
         SoundManager.instance.Clear();
     }
 
     private void Start()
     {
-        SoundManager.instance.Play("BGM/Bgm_Battle_Default", SoundManager.Sound.Bgm);
-    }
+        //SoundManager.instance.Play("BGM/Bgm_Battle_Default", SoundManager.Sound.Bgm);
+    } 
 
     void Update()
     {
-        if (ArenaManager.Instance.roundType == ArenaManager.RoundType.Deployment || ArenaManager.Instance.roundType == ArenaManager.RoundType.Battle)
+        if (FieldManager.Instance.roundType == FieldManager.RoundType.Deployment || FieldManager.Instance.roundType == FieldManager.RoundType.Battle)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -150,6 +150,8 @@ public class Messenger : MonoBehaviour
         }
     }
 
+    public List<AudioClip> kk;
+
     void Targeting(Ray ray, RaycastHit hit)
     {
         #region Piece
@@ -157,13 +159,14 @@ public class Messenger : MonoBehaviour
         if (_isGrapPiece && targetPiece.GetComponent<Piece>().isOwned == true)
         {
             controlPiece = hit.transform.gameObject.GetComponent<Piece>();
-            if (ArenaManager.Instance.roundType == ArenaManager.RoundType.Battle && controlPiece.currentTile.isReadyTile == false) return;
+            if (FieldManager.Instance.roundType == FieldManager.RoundType.Battle && controlPiece.currentTile.isReadyTile == false) return;
             pieceSaleGoldText.text = controlPiece.pieceData.cost[controlPiece.pieceData.grade, controlPiece.star].ToString();
             FreezeRigidbody(controlPiece, _isGrapPiece);
             isGrab = _isGrapPiece;
             fieldManager.ActiveHexaIndicators(_isGrapPiece);
             behindSaleZone.SetActive(false);
             pieceSaleSlot.SetActive(true);
+
             return;
         }
         #endregion
@@ -184,7 +187,9 @@ public class Messenger : MonoBehaviour
         float _distance = Camera.main.WorldToScreenPoint(_controlObject.transform.position).z;
         Vector3 _mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, _distance);
         Vector3 _objPos = Camera.main.ScreenToWorldPoint(_mousePos);
-        _objPos.y = 1.5f; //원래0
+        _objPos.x += 1f;
+        _objPos.y = 1.5f;
+        _objPos.z += 1f;
 
         #region Piece
         if (controlPiece == null) controlPiece = _controlObject.GetComponent<Piece>();
@@ -197,7 +202,7 @@ public class Messenger : MonoBehaviour
                 if (hit.transform.gameObject.GetComponent<Tile>().myTile && ControlTile != hit.transform.GetComponent<Tile>()) ControlTile = hit.transform.GetComponent<Tile>();
             }
             return;
-            //if (ArenaManager.Instance.roundType == ArenaManager.RoundType.Battle && controlPiece.currentTile.isReadyTile)
+            //if (FieldManager.Instance.roundType == FieldManager.RoundType.Battle && controlPiece.currentTile.isReadyTile)
             //{
             //    controlPiece.transform.gameObject.transform.position = _objPos; return;
             //}
@@ -247,8 +252,6 @@ public class Messenger : MonoBehaviour
                     SoundManager.instance.Play("UI/Eff_Gold_Pos", SoundManager.Sound.Effect);
                     //gold += controlPiece.pieceData.cost[controlPiece.pieceData.grade, controlPiece.star];
                     fieldManager.ChargeGold(controlPiece.pieceData.cost[controlPiece.pieceData.grade, controlPiece.star]);
-                    //fieldManager.playerState.UpdateMoney(gold);
-                    //기물이 가지고 있던 아이템 되돌려받기 추가
                     Destroy(controlPiece.gameObject);
                     behindSaleZone.SetActive(true);
                     pieceSaleSlot.SetActive(false);
@@ -260,11 +263,11 @@ public class Messenger : MonoBehaviour
             #region 기물 배치
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, (-1) - (1 << 6)) && hit.transform.gameObject.layer == 7 && hit.transform.gameObject.GetComponent<Tile>().myTile)
             {
-                var _currentRound = ArenaManager.Instance.roundType;
+                var _currentRound = FieldManager.Instance.roundType;
                 Tile _currentTileInformation = controlPiece.currentTile;
                 Tile _targetTileInformation = hit.transform.gameObject.GetComponent<Tile>();
                 controlPiece.targetTile = _targetTileInformation;
-                if (_currentRound == ArenaManager.RoundType.Battle && controlPiece.currentTile.isReadyTile == false) ResetPositionToCurrentTile(controlPiece);
+                if (_currentRound == FieldManager.RoundType.Battle && controlPiece.currentTile.isReadyTile == false) ResetPositionToCurrentTile(controlPiece);
                 else
                 {
                     if (_currentTileInformation != _targetTileInformation)
@@ -277,6 +280,8 @@ public class Messenger : MonoBehaviour
                                 {
                                     fieldManager.fieldPieceStatus.UpdateFieldStatus(fieldManager.myFilePieceList.Count, fieldManager.owerPlayer.maxPieceCount[fieldManager.owerPlayer.level]);
                                     ResetPositionToCurrentTile(controlPiece);
+                                    ResetDragState(false);
+                                    fieldManager.ActiveHexaIndicators(false);
                                     behindSaleZone.SetActive(true);
                                     pieceSaleSlot.SetActive(false);
                                     return;
@@ -309,7 +314,7 @@ public class Messenger : MonoBehaviour
                             _targetPieceInformation.targetTile = controlPiece.currentTile;
                             controlPiece.currentTile = controlPiece.targetTile;
                         }
-                        if (!controlPiece.currentTile.isReadyTile) controlPiece.currentTile.transform.GetChild(1).gameObject.SetActive(true);
+                        if (!controlPiece.currentTile.isReadyTile) TileManager.Instance.ActiveSetEffect(controlPiece.currentTile.gameObject);
                     }
                     else if (_currentTileInformation == _targetTileInformation) ChangeTileTransform(controlPiece, controlPiece.targetTile);
                     ResetDragState(false);
@@ -343,7 +348,7 @@ public class Messenger : MonoBehaviour
                     //
                     if (controlEquipment.targetPiece != null)
                     {
-                        ArenaManager.Instance.fieldManagers[0].chest.AddEquipment(controlEquipment.targetPiece, controlEquipment);
+                        FieldManager.Instance.chest.AddEquipment(controlEquipment.targetPiece, controlEquipment);
                         print(111);
                     }
                 }
@@ -415,7 +420,7 @@ public class Messenger : MonoBehaviour
 
     void spawnChargingParticle()
     {
-        foreach (var piece in ArenaManager.Instance.fieldManagers[0].myFilePieceList)
+        foreach (var piece in FieldManager.Instance.myFilePieceList)
         {
             if (!piece.dead)
             {

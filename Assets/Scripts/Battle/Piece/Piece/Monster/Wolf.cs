@@ -30,9 +30,7 @@ public class Wolf : Piece
         {
             invincible = false;
             SoundManager.instance.Play("Wolf_Series/S_Attack_Wolf", SoundManager.Sound.Effect);
-            //print(name + "(이)가" + target.name + "에게 일반 공격을 합니다.");
             Damage(attackDamage);
-            //mana += 100;
             mana += manaRecovery;
             StartNextBehavior();
         }
@@ -44,7 +42,7 @@ public class Wolf : Piece
 
     public override IEnumerator Skill()
     {
-        ShieldSkill(500f);
+        ShieldSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
@@ -61,7 +59,7 @@ public class Wolf : Piece
 
     public override void SkillUpdateText()
     {
-        pieceData.skillExplain = string.Format("{0}의 피해를 흡수하는 보호막을 얻습니다.", 500);
+        pieceData.skillExplain = string.Format("{0}의 피해를 흡수하는 보호막을 얻습니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)));
     }
 
     public override void Dead()

@@ -32,21 +32,20 @@ public class ApollonPiece : Piece
         if (dead)
             return;
         SkillState();
-        SoundManager.instance.Play("GreatMountain/S_Apollon", SoundManager.Sound.Effect);
-        pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
+        pathFinding = FieldManager.Instance.pathFinding;
         List<Tile> _getNeigbor = pathFinding.GetNeighbor(currentTile);
         foreach (var _Neigbor in _getNeigbor)
         {
             Piece _targets = _Neigbor.piece;
             if (_targets == null)
             {
-                //Debug.Log("대상 없음");
+                Debug.Log("대상 없음");
             }
             else if (!_targets.isOwned)
             {
+                SoundManager.instance.Play("GreatMountain/S_Apollon", SoundManager.Sound.Effect);
                 Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
                 target.SetStun(time);
-                SetDebuff("Stun", time, _targets);
             }
         }
     }

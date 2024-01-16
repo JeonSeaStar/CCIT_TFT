@@ -36,13 +36,11 @@ public class ZeusPiece : Piece
         {
             SkillState();
             SoundManager.instance.Play("GreatMountain/S_Zeus", SoundManager.Sound.Effect);
-            Quaternion rot = transform.rotation;
-            //dInstantiate(skillEffects, transform.position, rot);
-            GameObject centaBullet = Instantiate(zeusBullet, transform.position, Quaternion.identity);
-            Bullet b = centaBullet.GetComponent<ZeusBullet>();
-            b.parentPiece = this;
-            b.damage = damage;
-            b.Shot(target.transform.position - transform.position);
+            GameObject _bullet = Instantiate(zeusBullet, transform.position, Quaternion.identity);
+            Bullet bullet = _bullet.GetComponent<ZeusBullet>();
+            bullet.parentPiece = this;
+            bullet.damage = damage;
+            bullet.Shot(target.transform.position - transform.position);
         }
     }
     public override void SkillUpdateText()

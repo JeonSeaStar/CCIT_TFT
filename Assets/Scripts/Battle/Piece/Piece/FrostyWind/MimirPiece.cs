@@ -23,27 +23,32 @@ public class MimirPiece : Piece
 
     public override IEnumerator Skill()
     {
-        FindLeastHealthPiece(abilityPower * (1 + (abilityPowerCoefficient / 100)));
+        LeastHealthPieceHeal(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
 
-    public void FindLeastHealthPiece(float heal)
+    public void LeastHealthPieceHeal(float heal)
     {
         if (dead)
             return;
         if (fieldManager.myFilePieceList != null)
         {
             SkillState();
-            SoundManager.instance.Play("FrostyWind/S_Mimir", SoundManager.Sound.Effect);
+            float value = 10000f;
             for (int i = 0; i < fieldManager.myFilePieceList.Count; i++)
             {
-                if (pieceHealth > fieldManager.myFilePieceList[i].health)
+                if (value > fieldManager.myFilePieceList[i].health)
                 {
-                    pieceHealth = fieldManager.myFilePieceList[i].health;
+                    value = fieldManager.myFilePieceList[i].health;
+                    target = fieldManager.myFilePieceList[i];
                 }
-                Instantiate(skillEffects, fieldManager.myFilePieceList[i].transform.position, Quaternion.identity);
-                fieldManager.myFilePieceList[i].health += heal;
+            }
+            if (target != null)
+            {
+                SoundManager.instance.Play("FrostyWind/S_Mimir", SoundManager.Sound.Effect);
+                Instantiate(skillEffects, target.transform.position, Quaternion.identity);
+                target.health += heal;
             }
         }
     }

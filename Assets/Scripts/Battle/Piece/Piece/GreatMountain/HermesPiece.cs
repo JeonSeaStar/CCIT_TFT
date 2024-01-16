@@ -23,17 +23,14 @@ public class HermesPiece : Piece
     {
         if (star == 0)
         {
-            SkillState();
             BlindSkill(1.5f);
         }
         else if (star == 1)
         {
-            SkillState();
             BlindSkill(2f);
         }
         else if (star == 2)
         {
-            SkillState();
             BlindSkill(2.5f);
         }
         yield return new WaitForSeconds(attackSpeed);
@@ -50,7 +47,6 @@ public class HermesPiece : Piece
             SoundManager.instance.Play("GreatMountain/S_Hermes", SoundManager.Sound.Effect);
             Instantiate(skillEffects, target.transform.position, Quaternion.identity);
             target.SetBlind(time);
-            SetDebuff("Blind", time);
         }
     }
     public override void SkillUpdateText()

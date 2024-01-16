@@ -13,15 +13,16 @@ MonoBehaviour:
   m_Name: "\uD5EC"
   m_EditorClassIdentifier: 
   pieceName: "\uD5EC"
-  piecePortrait: {fileID: 21300000, guid: aaf39b54cc41d3147952e481eaaef5d3, type: 3}
+  pieceFace: {fileID: 21300000, guid: 3b985fadb24bb494a937353cc777a745, type: 3}
+  piecePortrait: {fileID: 21300000, guid: 09f69ba40f6645d4f8f7dc26e6adf53f, type: 3}
   piecePrefab: {fileID: 8305533892268152385, guid: 4569b8b5298596c4896f801e966a1f86,
     type: 3}
   grade: 2
   star: 0
   health:
-  - 950
-  - 1900
-  - 3800
+  - 911
+  - 1184
+  - 1539
   mana:
   - 90
   - 90
@@ -32,9 +33,9 @@ MonoBehaviour:
   - 10
   - 10
   attackDamage:
-  - 75
-  - 150
-  - 300
+  - 98
+  - 127
+  - 165
   abilityPower:
   - 300
   - 500
@@ -52,9 +53,9 @@ MonoBehaviour:
   - 0
   - 0
   attackSpeed:
-  - 0.6
-  - 0.6
-  - 0.6
+  - 0.73
+  - 0.73
+  - 0.73
   criticalChance:
   - 20
   - 20
@@ -72,11 +73,10 @@ MonoBehaviour:
   - 1
   - 1
   - 1
-  buff: {fileID: 0}
-  skilSprite: {fileID: 21300000, guid: 956d0ffe353e1ad48825af7d5a296804, type: 3}
+  skilSprite: {fileID: 21300000, guid: 17b259a675a4d5246820ce64cafbfed2, type: 3}
   skillName: "\uAFF0\uB6AB\uB294 \uCC3D"
   skillExplain: "\uD604\uC7AC \uB300\uC0C1\uC744 \uAD00\uD1B5\uD558\uBA70, \uC801\uC911\uD55C
-    \uC801\uC5D0\uAC8C 00\uC758 \uD53C\uD574\uB97C \uC785\uD788\uB294 \uAC15\uB825\uD55C
+    \uC801\uC5D0\uAC8C 300\uC758 \uD53C\uD574\uB97C \uC785\uD788\uB294  \uAC15\uB825\uD55C
     \uCC3D\uC744 \uB358\uC9D1\uB2C8\uB2E4."
   myth: 1
   animal: 1

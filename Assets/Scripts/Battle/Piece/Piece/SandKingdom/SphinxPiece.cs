@@ -22,16 +22,16 @@ public class SphinxPiece : Piece
     public override IEnumerator Skill()
     {
         if (star == 0)
-            SphinxSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 0.7f);
+            StunAndDamageSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 0.7f);
         else if (star == 1)
-            SphinxSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 1.2f);
+            StunAndDamageSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 1.2f);
         else if (star == 2)
-            SphinxSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 1.8f);
+            StunAndDamageSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)), 1.8f);
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
 
-    void SphinxSkill(float damage, float time)
+    void StunAndDamageSkill(float damage, float time)
     {
         if(target != null)
         {
@@ -41,7 +41,6 @@ public class SphinxPiece : Piece
             SoundManager.instance.Play("SandKingdom/S_Spinx", SoundManager.Sound.Effect);
             Instantiate(skillEffects, new Vector3(target.transform.position.x, target.transform.position.y + 0.8f, target.transform.position.z), Quaternion.identity);
             target.SetStun(time);
-            SetDebuff("Stun", time);
             Damage(damage);
         }
     }

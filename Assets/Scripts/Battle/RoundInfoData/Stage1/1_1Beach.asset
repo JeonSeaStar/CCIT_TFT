@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cac4b5dc65858d4787e4086277ca960, type: 3}
+  m_Name: 1_1Beach
+  m_EditorClassIdentifier: 
+  enemyImage: 150000001600000017000000
+  enemy:
+  - mapType: 2
+    roundType: Dummy
+    enemyInformation: []
+    obstacleInformation: []
+    gold: 30
+    defeatGold: 30
+    defeatDamage: 0
+  - mapType: 2
+    roundType: Dummy
+    enemyInformation:
+    - piece: {fileID: 623071305461372251, guid: 0b402f43899c3024a9937e4d4ce5fb32,
+        type: 3}
+      star: 0
+      spawnTile: {x: 1, y: 7}
+    - piece: {fileID: 623071305461372251, guid: 0b402f43899c3024a9937e4d4ce5fb32,
+        type: 3}
+      star: 0
+      spawnTile: {x: 3, y: 6}
+    - piece: {fileID: 623071305461372251, guid: 0b402f43899c3024a9937e4d4ce5fb32,
+        type: 3}
+      star: 0
+      spawnTile: {x: 6, y: 7}
+    obstacleInformation: []
+    gold: 30
+    defeatGold: 30
+    defeatDamage: 1
+  - mapType: 2
+    roundType: Dummy
+    enemyInformation:
+    - piece: {fileID: 3213610984394454839, guid: aab12d4cf5007dd43a7ea0d53c56804d,
+        type: 3}
+      star: 0
+      spawnTile: {x: 0, y: 6}
+    - piece: {fileID: 3213610984394454839, guid: aab12d4cf5007dd43a7ea0d53c56804d,
+        type: 3}
+      star: 0
+      spawnTile: {x: 2, y: 7}
+    - piece: {fileID: 3213610984394454839, guid: aab12d4cf5007dd43a7ea0d53c56804d,
+        type: 3}
+      star: 0
+      spawnTile: {x: 5, y: 7}
+    - piece: {fileID: 3213610984394454839, guid: aab12d4cf5007dd43a7ea0d53c56804d,
+        type: 3}
+      star: 0
+      spawnTile: {x: 6, y: 6}
+    obstacleInformation: []
+    gold: 40
+    defeatGold: 40
+    defeatDamage: 2
+  - mapType: 2
+    roundType: Dummy
+    enemyInformation:
+    - piece: {fileID: 4814082581124881852, guid: e7864b4bc89fcf64cb3106e92c681b25,
+        type: 3}
+      star: 0
+      spawnTile: {x: 1, y: 6}
+    - piece: {fileID: 4814082581124881852, guid: e7864b4bc89fcf64cb3106e92c681b25,
+        type: 3}
+      star: 0
+      spawnTile: {x: 4, y: 8}
+    obstacleInformation: []
+    gold: 0
+    defeatGold: 0
+    defeatDamage: 10

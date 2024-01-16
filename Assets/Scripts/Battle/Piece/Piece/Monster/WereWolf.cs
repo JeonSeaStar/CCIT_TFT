@@ -34,9 +34,7 @@ public class WereWolf : Piece
         {
             invincible = false;
             SoundManager.instance.Play("Wolf_Series/S_Attack_Were_Wolf", SoundManager.Sound.Effect);
-            //print(name + "(이)가" + target.name + "에게 일반 공격을 합니다.");
             Damage(attackDamage);
-            //mana += 100;
             mana += manaRecovery;
             StartNextBehavior();
         }
@@ -48,20 +46,33 @@ public class WereWolf : Piece
 
     public override IEnumerator Skill()
     {
-        GetLocationMultiRangeSkill(700f);
-        Instantiate(skillEffects, target.transform.position, Quaternion.identity);
-        Damage(1500f);
+        if (star == 0)
+        {
+            GetMultiSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
+            Damage(1000f);
+        }
+        else if(star == 1)
+        {
+            GetMultiSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
+            Damage(1200f);
+        }
+        else if(star == 2)
+        {
+            GetMultiSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
+            Damage(1500f);
+        }
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
 
-    void GetLocationMultiRangeSkill(float damage)
+    void GetMultiSkill(float damage)
     {
         if (dead)
             return;
         SoundManager.instance.Play("Wolf_Series/S_Skill_Were_Wolf", SoundManager.Sound.Effect);
         SkillState();
-        pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
+        pathFinding = FieldManager.Instance.pathFinding;
+        Instantiate(skillEffects, target.transform.position, Quaternion.identity);
         List<Tile> _getNeigbor = pathFinding.GetNeighbor(currentTile);
         foreach (var _Neigbor in _getNeigbor)
         {
@@ -80,7 +91,12 @@ public class WereWolf : Piece
 
     public override void SkillUpdateText()
     {
-        pieceData.skillExplain = string.Format("가운데 적에게 {0}의 피해를 입히고, 주변 적들에게 {1}의 피해를 입힙니다.", 1500, 700);
+        if (star == 0)
+            pieceData.skillExplain = string.Format("가운데 적에게 {0}의 피해를 입히고, 주변 적들에게 {1}의 피해를 입힙니다.", 1000, abilityPower * (1 + (abilityPowerCoefficient / 100)));
+        else if (star == 1)
+            pieceData.skillExplain = string.Format("가운데 적에게 {0}의 피해를 입히고, 주변 적들에게 {1}의 피해를 입힙니다.", 1200, abilityPower * (1 + (abilityPowerCoefficient / 100)));
+        else if (star == 2)
+            pieceData.skillExplain = string.Format("가운데 적에게 {0}의 피해를 입히고, 주변 적들에게 {1}의 피해를 입힙니다.", 1500, abilityPower * (1 + (abilityPowerCoefficient / 100)));
     }
 
     public override void Dead()

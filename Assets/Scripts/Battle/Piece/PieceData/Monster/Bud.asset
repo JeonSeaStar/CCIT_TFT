@@ -13,15 +13,16 @@ MonoBehaviour:
   m_Name: Bud
   m_EditorClassIdentifier: 
   pieceName: "\uC77C\uD39C\uB370\uC2A4"
-  piecePortrait: {fileID: 0}
+  pieceFace: {fileID: 0}
+  piecePortrait: {fileID: 21300000, guid: c9f5fe5c4369a8f42bea3dfb09ec6bb8, type: 3}
   piecePrefab: {fileID: 8995718604172022285, guid: 740a91c480336b74387762edd492cb3d,
     type: 3}
   grade: 0
   star: 0
   health:
-  - 500
-  - 500
-  - 500
+  - 300
+  - 700
+  - 800
   mana:
   - 70
   - 70
@@ -32,13 +33,13 @@ MonoBehaviour:
   - 10
   - 10
   attackDamage:
-  - 45
-  - 45
-  - 45
+  - 55
+  - 72
+  - 93
   abilityPower:
-  - 200
-  - 200
-  - 200
+  - 400
+  - 520
+  - 670
   abilityPowerCoefficient:
   - 0
   - 0
@@ -52,17 +53,17 @@ MonoBehaviour:
   - 0
   - 0
   attackSpeed:
-  - 0.5
-  - 0.5
-  - 0.5
+  - 0.62
+  - 0.62
+  - 0.62
   criticalChance:
   - 20
   - 20
   - 20
   criticalDamage:
-  - 0
-  - 0
-  - 0
+  - 130
+  - 130
+  - 130
   attackRange: 030000000300000003000000
   bloodBrain:
   - 0
@@ -72,10 +73,10 @@ MonoBehaviour:
   - 1
   - 1
   - 1
-  buff: {fileID: 0}
   skilSprite: {fileID: 0}
-  skillName: 
-  skillExplain: 
+  skillName: "\uCE58\uC720\uC758 \uAF43\uAC00\uB8E8"
+  skillExplain: "\uAF43\uAC00\uB8E8\uB97C \uBFCC\uB824 \uC790\uC2E0\uC758 \uCCB4\uB825\uC744
+    400\uB9CC\uD07C \uD68C\uBCF5\uC2DC\uD0B5\uB2C8\uB2E4."
   myth: -1
   animal: -1
   united: 0

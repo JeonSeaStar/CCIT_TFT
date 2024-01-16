@@ -29,10 +29,8 @@ public class Bud : Piece
         if (target != null)
         {
             invincible = false;
-            SoundManager.instance.Play("Nepenthes_Seris/S_Attack_Bud", SoundManager.Sound.Effect);
-            //print(name + "(이)가" + target.name + "에게 일반 공격을 합니다.");
+            SoundManager.instance.Play("Nepenthes_Series/S_Attack_Bud", SoundManager.Sound.Effect);
             Damage(attackDamage);
-            //mana += 100;
             mana += manaRecovery;
             StartNextBehavior();
         }
@@ -44,7 +42,7 @@ public class Bud : Piece
 
     public override IEnumerator Skill()
     {
-        HealSkill(200f);
+        HealSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
@@ -53,7 +51,7 @@ public class Bud : Piece
     {
         if (dead)
             return;
-        SoundManager.instance.Play("Nepenthes_Seris/S_Skill_Bud", SoundManager.Sound.Effect);
+        SoundManager.instance.Play("Nepenthes_Series/S_Skill_Bud", SoundManager.Sound.Effect);
         SkillState();
         Instantiate(skillEffects, transform.position, Quaternion.identity);
         health += heal;
@@ -61,12 +59,12 @@ public class Bud : Piece
 
     public override void SkillUpdateText()
     {
-        pieceData.skillExplain = string.Format("꽃가루를 뿌려 자신의 체력을 {0}만큼 회복시킵니다.", 200);
+        pieceData.skillExplain = string.Format("꽃가루를 뿌려 자신의 체력을 {0}만큼 회복시킵니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)));
     }
 
     public override void Dead()
     {
-        SoundManager.instance.Play("Nepenthes_Seris/S_Death_Bud", SoundManager.Sound.Effect);
+        SoundManager.instance.Play("Nepenthes_Series/S_Death_Bud", SoundManager.Sound.Effect);
         StopAllCoroutines();
         currentTile.InitTile();
         gameObject.SetActive(false);

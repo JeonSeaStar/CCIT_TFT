@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47dbc1b9740874d4aa64202f2ad67066, type: 3}
+  m_Name: HermitKing
+  m_EditorClassIdentifier: 
+  pieceName: "\uC655\uC9D1\uAC8C"
+  pieceFace: {fileID: 0}
+  piecePortrait: {fileID: 21300000, guid: 0ac0bca7c959aa442acf2dc217bdd384, type: 3}
+  piecePrefab: {fileID: 2449104810693068845, guid: edf8b4c9775dc0348be0032879fa754f,
+    type: 3}
+  grade: 0
+  star: 0
+  health:
+  - 300
+  - 700
+  - 800
+  mana:
+  - 270
+  - 270
+  - 270
+  currentMana: 240
+  manaRecovery:
+  - 10
+  - 10
+  - 10
+  attackDamage:
+  - 90
+  - 129
+  - 180
+  abilityPower:
+  - 5
+  - 5
+  - 6
+  abilityPowerCoefficient:
+  - 0
+  - 0
+  - 0
+  armor:
+  - 0
+  - 0
+  - 0
+  magicResist:
+  - 0
+  - 0
+  - 0
+  attackSpeed:
+  - 1
+  - 1
+  - 1
+  criticalChance:
+  - 20
+  - 20
+  - 20
+  criticalDamage:
+  - 130
+  - 130
+  - 130
+  attackRange: 010000000100000001000000
+  bloodBrain:
+  - 0
+  - 0
+  - 0
+  moveSpeed:
+  - 1
+  - 1
+  - 1
+  skilSprite: {fileID: 0}
+  skillName: "\uD3ED\uC8FC"
+  skillExplain: 
+  myth: -1
+  animal: -1
+  united: 0

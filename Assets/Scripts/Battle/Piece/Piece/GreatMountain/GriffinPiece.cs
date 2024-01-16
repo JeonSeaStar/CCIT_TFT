@@ -22,12 +22,12 @@ public class GriffinPiece : Piece
 
     public override IEnumerator Skill()
     {
-        GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
+        TwoTileRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
 
-    void GetLocationMultiRangeSkill(float damage)
+    void TwoTileRangeSkill(float damage)
     {
         if (dead)
             return;

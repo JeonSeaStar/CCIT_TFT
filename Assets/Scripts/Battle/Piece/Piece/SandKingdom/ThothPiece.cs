@@ -22,12 +22,12 @@ public class ThothPiece : Piece
 
     public override IEnumerator Skill()
     {
-        ProjectionSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
+        GetSideDamageSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
 
-    void ProjectionSkill(float damage)
+    void GetSideDamageSkill(float damage)
     {
         if (target != null)
         {
@@ -36,7 +36,7 @@ public class ThothPiece : Piece
             SkillState();
             SoundManager.instance.Play("SandKingdom/S_Thoth", SoundManager.Sound.Effect);
             Instantiate(skillEffects, new Vector3(target.transform.position.x, target.transform.position.y + 0.8f, target.transform.position.z), Quaternion.identity);
-            pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
+            pathFinding = FieldManager.Instance.pathFinding;
             List<Tile> _getNeigbor = pathFinding.GetSide(currentTile);
             foreach (var _Neigbor in _getNeigbor)
             {
@@ -52,6 +52,7 @@ public class ThothPiece : Piece
             }
         }
     }
+
     public override void SkillUpdateText()
     {
         pieceData.skillExplain = string.Format("현재 대상과 좌우 1칸 범위의 적에게 사막의 주술로 {0}의 피해를 입힙니다.", abilityPower * (1 + (abilityPowerCoefficient / 100)));

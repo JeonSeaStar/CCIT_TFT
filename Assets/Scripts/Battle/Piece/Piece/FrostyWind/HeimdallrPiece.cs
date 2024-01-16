@@ -22,18 +22,18 @@ public class HeimdallrPiece : Piece
 
     public override IEnumerator Skill()
     {
-        GetLocationMultiRangeSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
+        GetMultiHealSkill(abilityPower * (1 + (abilityPowerCoefficient / 100)));
         yield return new WaitForSeconds(attackSpeed);
         StartNextBehavior();
     }
 
-    void GetLocationMultiRangeSkill(float heal)
+    void GetMultiHealSkill(float heal)
     {
         if (dead)
             return;
         SkillState();
         SoundManager.instance.Play("FrostyWind/S_Heimdallr", SoundManager.Sound.Effect);
-        pathFinding = ArenaManager.Instance.fieldManagers[0].pathFinding;
+        pathFinding = FieldManager.Instance.pathFinding;
         List<Tile> _getNeigbor = pathFinding.GetNeighbor(currentTile);
         foreach (var _Neigbor in _getNeigbor)
         {
@@ -47,7 +47,6 @@ public class HeimdallrPiece : Piece
                 Instantiate(skillEffects, _targets.transform.position, Quaternion.identity);
                 _targets.health += heal;
             }
-
         }
     }
     public override void SkillUpdateText()

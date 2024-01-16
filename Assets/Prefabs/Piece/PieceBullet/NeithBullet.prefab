@@ -18,7 +18,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &7231940477312316507
 Transform:
@@ -179,10 +179,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2296385613965153649, guid: 7c96ba7697e74ba4691701750c63b970,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6216550534756335551, guid: 7c96ba7697e74ba4691701750c63b970,
         type: 3}
       propertyPath: m_Name
       value: Skill_For_Neith
+      objectReference: {fileID: 0}
+    - target: {fileID: 6216550534756335551, guid: 7c96ba7697e74ba4691701750c63b970,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c96ba7697e74ba4691701750c63b970, type: 3}

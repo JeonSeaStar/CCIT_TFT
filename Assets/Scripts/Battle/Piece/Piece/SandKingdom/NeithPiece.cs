@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NeithPiece : Piece
 {
-    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject neithBullet;
     public override IEnumerator Attack()
     {
         if (mana >= maxMana && target != null)
@@ -35,13 +35,14 @@ public class NeithPiece : Piece
         {
             SkillState();
             SoundManager.instance.Play("SandKingdom/S_Neith", SoundManager.Sound.Effect);
-            GameObject centaBullet = Instantiate(bullet, transform.position, Quaternion.identity);
-            Bullet b = centaBullet.GetComponent<NeithBullet>();
-            b.parentPiece = this;
-            b.damage = damage;
-            b.Shot(target.transform.position - transform.position);
+            GameObject _bullet = Instantiate(neithBullet, transform.position, Quaternion.identity);
+            Bullet bullet = _bullet.GetComponent<NeithBullet>();
+            bullet.parentPiece = this;
+            bullet.damage = damage;
+            bullet.Shot(target.transform.position - transform.position);
         }
     }
+
     public override void SkillUpdateText()
     {
         pieceData.skillExplain = string.Format("현재 대상에게 강력한 화살을 쏘아 {0}의 피해를 입힙니다. ", (abilityPower * (1 + (abilityPowerCoefficient / 100))));

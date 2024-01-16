@@ -25,7 +25,7 @@ public class RandomBox : MonoBehaviour
 
         Transform spaceTransform = null;
 
-        foreach (var space in ArenaManager.Instance.fieldManagers[0].chest.itemChest)
+        foreach (var space in FieldManager.Instance.chest.itemChest)
         {
             if (!space.full)
             {
@@ -36,7 +36,7 @@ public class RandomBox : MonoBehaviour
                 spaceTransform = space.equipmentSpace;
 
                 //equipment.equipmentData.InputChest(spaceTransform);
-                ArenaManager.Instance.fieldManagers[0].chest.CurveMove(equipmentGameObject.transform, spaceTransform);
+                FieldManager.Instance.chest.CurveMove(equipmentGameObject.transform, spaceTransform);
 
                 Destroy(gameObject);
                 break;
