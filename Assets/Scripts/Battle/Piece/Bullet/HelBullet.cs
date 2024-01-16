@@ -7,7 +7,7 @@ public class HelBullet : Bullet
     private void Start()
     {
         SetDamage(damage);
-        Invoke("DestroyBullet", 2f);
+        Invoke("DestroyBullet", 1f);
     }
 
     protected override void SetDamage(float damage)
